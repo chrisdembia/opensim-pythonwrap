@@ -646,10 +646,13 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
            }
            numColumns= ((DefaultMutableTreeNode)treeModel.getRoot()).getChildCount();
            int remainingItemsCount = filterPanel.getSelected().length-numExcitationColumns*MAX_EXCITATIONS_PER_COLUMN;
-           currentColNames = new String[remainingItemsCount];
-           System.arraycopy(filterPanel.getSelected(), numExcitationColumns*MAX_EXCITATIONS_PER_COLUMN, 
-                            currentColNames, 0, remainingItemsCount);
-           createExcitationColumnPanel(numColumns, currentColNames);
+           if (remainingItemsCount!=0){
+               currentColNames = new String[remainingItemsCount];
+               System.arraycopy(filterPanel.getSelected(), numExcitationColumns*MAX_EXCITATIONS_PER_COLUMN, 
+                                currentColNames, 0, remainingItemsCount);
+               createExcitationColumnPanel(numColumns, currentColNames);
+           }
+           
        }
        else
            return;

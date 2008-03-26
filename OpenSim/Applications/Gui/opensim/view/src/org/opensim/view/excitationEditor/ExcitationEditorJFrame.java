@@ -87,7 +87,6 @@ public class ExcitationEditorJFrame extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setAlwaysOnTop(true);
         jFileMenu.setText("File");
         jLoadMenuItem.setText("Load...");
         jLoadMenuItem.setToolTipText("Load Excitations from an XML file");
@@ -158,8 +157,8 @@ public class ExcitationEditorJFrame extends javax.swing.JFrame {
 
 	for(int i=0;i<nx;i++) {
 		ControlLinear control = new ControlLinear();
-                control.setControlValue(0.0, 0.0);
-                control.setControlValue(1.0, 0.0);
+                control.setControlValue(0.0, 0.1);
+                control.setControlValue(1.0, 0.1);
                 control.setControlValueMin(0.0, 0.0);
                 control.setControlValueMin(1.0, 0.0);
                 control.setControlValueMax(0.0, 1.0);

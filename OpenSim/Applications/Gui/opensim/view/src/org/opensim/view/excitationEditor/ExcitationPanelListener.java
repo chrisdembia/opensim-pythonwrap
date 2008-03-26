@@ -55,6 +55,7 @@ public class ExcitationPanelListener implements FunctionPanelListener{
     FunctionPanel functionPanel;
     ControlLinear control;
     Vector<Function> functions=new  Vector<Function>(3);
+    //ControlLinearNode newControlNode;
     /**
      * Creates a new instance of ExcitationPanelListener
      */
@@ -143,22 +144,27 @@ public class ExcitationPanelListener implements FunctionPanelListener{
       if (control != null && node >= 0 && node < getControlNodeCountForSeries(series)) {
          // Make a new point that is offset slightly in the X direction from
          // the point to be duplicated.
-         ControlLinearNode controlNode;
-         if (series==0)
-            controlNode = control.getControlValues().get(node);
-         else if (series==1)
-            controlNode = control.getControlMinValues().get(node);
-         else
-            controlNode = control.getControlMaxValues().get(node);
-          
+         ControlLinearNode controlNode=getControlNodeForSeries(series, node);
+         
          double newX = controlNode.getTime() + 0.00001;
          double newY = controlNode.getValue();
          // function, control, series
          functions.get(series).addPoint(newX, newY);
-         getSelectedControlNodes(series).insert(node, controlNode);
+         ControlLinearNode newControlNode = new ControlLinearNode(); // Early garbage collection suspect!
+         newControlNode.setTime(newX);
+         newControlNode.setValue(newY);
+         //getSelectedControlNodes(series).insert(node+1, newControlNode);
+         if (series==0)
+            control.insertNewValueNode(node+1, newControlNode);
+         else if (series==1)
+            control.insertNewMinNode(node+1, newControlNode);
+         else
+            control.insertNewMaxNode(node+1, newControlNode);
+             
          XYSeriesCollection seriesCollection = (XYSeriesCollection) functionPanel.getChart().getXYPlot().getDataset();
          XYSeries dSeries=seriesCollection.getSeries(series);
          dSeries.add(newX, newY);
+         
       }
    }
 
@@ -170,13 +176,8 @@ public class ExcitationPanelListener implements FunctionPanelListener{
          XYSeriesCollection seriesCollection = (XYSeriesCollection) functionPanel.getChart().getXYPlot().getDataset();
          XYSeries dSeries=seriesCollection.getSeries(series);
          dSeries.delete(node, node);
-         if (series==0)
-            control.getControlValues().remove(node);
-         else if (series==1)
-            control.getControlMinValues().remove(node);
-         else
-            control.getControlMaxValues().remove(node);
-      }
+         getSelectedControlNodes(series).remove(node);
+       }
    }
 
    public void addNode(int series, double x, double y) {
@@ -221,26 +222,12 @@ public class ExcitationPanelListener implements FunctionPanelListener{
         functions.remove(aFunction);
     }
     private ControlLinearNode getControlNodeForSeries(int series, int index)
-    {
-        ControlLinearNode controlNode;
-         if (series==0)
-             controlNode = control.getControlValues().get(index);
-         else if (series==1)
-            controlNode = control.getControlMinValues().get(index);
-         else
-            controlNode = control.getControlMaxValues().get(index);
- 
-         return controlNode;
+    { 
+         return getSelectedControlNodes(series).get(index);
     }
 
     private int getControlNodeCountForSeries(int series) {
-         if (series==0)
-             return control.getControlValues().getSize();
-         else if (series==1)
-            return control.getControlMinValues().getSize();
-         else
-            return control.getControlMaxValues().getSize();
-
+        return getSelectedControlNodes(series).getSize();
     }
     private SetControlNodes getSelectedControlNodes(int series)
     {

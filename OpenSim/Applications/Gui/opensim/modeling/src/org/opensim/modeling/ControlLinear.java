@@ -162,6 +162,18 @@ public class ControlLinear extends Control {
     return new SetControlNodes(opensimModelJNI.ControlLinear_getControlMaxValues(swigCPtr, this), false);
   }
 
+  public void insertNewValueNode(int index, ControlLinearNode newNode) {
+    opensimModelJNI.ControlLinear_insertNewValueNode(swigCPtr, this, index, ControlLinearNode.getCPtr(newNode), newNode);
+  }
+
+  public void insertNewMinNode(int index, ControlLinearNode newNode) {
+    opensimModelJNI.ControlLinear_insertNewMinNode(swigCPtr, this, index, ControlLinearNode.getCPtr(newNode), newNode);
+  }
+
+  public void insertNewMaxNode(int index, ControlLinearNode newNode) {
+    opensimModelJNI.ControlLinear_insertNewMaxNode(swigCPtr, this, index, ControlLinearNode.getCPtr(newNode), newNode);
+  }
+
   public double getFirstTime() {
     return opensimModelJNI.ControlLinear_getFirstTime(swigCPtr, this);
   }

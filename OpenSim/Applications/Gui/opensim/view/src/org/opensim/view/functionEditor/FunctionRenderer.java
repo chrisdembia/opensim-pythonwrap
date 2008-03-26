@@ -79,11 +79,11 @@ public class FunctionRenderer extends XYLineAndShapeRendererWithHighlight
     **/
    private ArrayList<PaintList> shapeFillPaintList = new  ArrayList<PaintList>(0);
    /** For each function, the color of the function lines and shape outlines. */
-   private ArrayList<PaintList> functionPaintList = new  ArrayList<PaintList>(0);
+   private PaintList functionPaintList = new  PaintList();
    /** For each function, the shape fill color for unselected control points. */
-   private ArrayList<PaintList> functionDefaultFillPaintList = new  ArrayList<PaintList>(0);
+   private PaintList functionDefaultFillPaintList = new  PaintList();
    /** For each function, the shape fill color for selected control points. */
-   private ArrayList<PaintList> functionHighlightFillPaintList = new  ArrayList<PaintList>(0);
+   private PaintList functionHighlightFillPaintList = new  PaintList();
    
    private Units XUnits;         // units of array of X values
    private Units XDisplayUnits;  // units for displaying X values to user
@@ -110,17 +110,15 @@ public class FunctionRenderer extends XYLineAndShapeRendererWithHighlight
       functionList.add(theFunction);
       int index = functionList.size()-1;
       shapeFillPaintList.add(new PaintList());
-      functionPaintList.add(new PaintList());
-      functionDefaultFillPaintList.add(new PaintList());
-      functionHighlightFillPaintList.add(new PaintList());
+      //functionDefaultFillPaintList.set(new PaintList());
+      //functionHighlightFillPaintList.add(new PaintList());
       setFunctionPaint(index, Color.GREEN);
-      functionDefaultFillPaintList.get(index).setPaint(index, Color.GREEN);
-      functionHighlightFillPaintList.get(index).setPaint(index, Color.BLACK);
+      functionDefaultFillPaintList.setPaint(index, Color.GREEN);
+      functionHighlightFillPaintList.setPaint(index, Color.BLACK);
       for (int i=0; i<theFunction.getNumberOfPoints(); i++)
          shapeFillPaintList.get(index).setPaint(i, Color.GREEN);
    }
-   
-   
+
    /**
     * Draws the visual representation of a single data item.
     *
@@ -306,12 +304,12 @@ public class FunctionRenderer extends XYLineAndShapeRendererWithHighlight
     */
    public void highlightNode(int function, int point) {
       if (function < functionList.size())
-         shapeFillPaintList.get(function).setPaint(point, functionHighlightFillPaintList.get(function).getPaint(function));
+         shapeFillPaintList.get(function).setPaint(point, functionHighlightFillPaintList.getPaint(function));
    }
    
    public void unhighlightNode(int function, int point) {
       if (function < functionList.size())
-         shapeFillPaintList.get(function).setPaint(point, functionDefaultFillPaintList.get(function).getPaint(function));
+         shapeFillPaintList.get(function).setPaint(point, functionDefaultFillPaintList.getPaint(function));
    }
    
    public Paint getNodePaint(int function, int point) {
@@ -324,7 +322,7 @@ public class FunctionRenderer extends XYLineAndShapeRendererWithHighlight
    // The item paint is used for the outlines of the control
    // point shapes.
    public Paint getItemPaint(int series, int item) {
-      return functionPaintList.get(series).getPaint(series);
+      return functionPaintList.getPaint(series);
    }
    
    public Paint getItemFillPaint(int series, int item) {
@@ -333,8 +331,8 @@ public class FunctionRenderer extends XYLineAndShapeRendererWithHighlight
    
    public void setFunctionDefaultFillPaint(int function, Paint paint) {
       if (function < functionList.size()) {
-         Paint oldPaint = functionDefaultFillPaintList.get(function).getPaint(function);
-         functionDefaultFillPaintList.get(function).setPaint(function, paint);
+         Paint oldPaint = functionDefaultFillPaintList.getPaint(function);
+         functionDefaultFillPaintList.setPaint(function, paint);
          // Update the individual point's fill colors if they were equal to the old default color
          for (int i=0; i<functionList.get(function).getNumberOfPoints(); i++) {
             if (getNodePaint(function, i) == oldPaint)
@@ -345,15 +343,15 @@ public class FunctionRenderer extends XYLineAndShapeRendererWithHighlight
    
    public Paint getFunctionDefaultFillPaint(int function) {
       if (function < functionList.size())
-         return functionDefaultFillPaintList.get(function).getPaint(function);
+         return functionDefaultFillPaintList.getPaint(function);
       else
          return Color.BLACK;
    }
    
    public void setFunctionHighlightFillPaint(int function, Paint paint) {
       if (function < functionList.size()) {
-         Paint oldPaint = functionHighlightFillPaintList.get(function).getPaint(function);
-         functionHighlightFillPaintList.get(function).setPaint(function, paint);
+         Paint oldPaint = functionHighlightFillPaintList.getPaint(function);
+         functionHighlightFillPaintList.setPaint(function, paint);
          // Update the individual point's fill colors if they were equal to the old highlight color
          for (int i=0; i<functionList.get(function).getNumberOfPoints(); i++) {
             if (getNodePaint(function, i) == oldPaint)
@@ -364,18 +362,18 @@ public class FunctionRenderer extends XYLineAndShapeRendererWithHighlight
    
    public Paint getFunctionHighlightFillPaint(int function) {
       if (function < functionList.size())
-         return functionHighlightFillPaintList.get(function).getPaint(function);
+         return functionHighlightFillPaintList.getPaint(function);
       else
          return Color.BLACK;
    }
    
    public void setFunctionPaint(int function, Paint paint) {
-      functionPaintList.get(function).setPaint(function, paint);
+      functionPaintList.setPaint(function, paint);
    }
    
    public Paint getFunctionPaint(int function) {
       if (function < functionList.size())
-         return functionPaintList.get(function).getPaint(function);
+         return functionPaintList.getPaint(function);
       else
          return Color.BLACK;
    }

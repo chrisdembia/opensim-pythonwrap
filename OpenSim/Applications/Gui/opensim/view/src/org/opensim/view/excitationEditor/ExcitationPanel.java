@@ -146,6 +146,7 @@ public class ExcitationPanel extends FunctionPanel{
                         SetControlNodes cnodes = renderer.getControl().getControlValues();
                         XYSeries ser=seriesCollection.getSeries(selectedSeries);
                         ser.clear();
+                        int left = ser.getItemCount();
                         Function ctrlFunction = 
                                 ExcitationEditorJPanel.createFunctionFromControlLinear((FunctionXYSeries) ser, cnodes, renderer.getControl(), !renderer.getControl().getUseSteps());
                         renderer.getFunctionList().set(selectedSeries, ctrlFunction);

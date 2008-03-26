@@ -106,16 +106,30 @@ public class ExcitationColumnJPanel extends javax.swing.JPanel {
         ExcitationPanel fp = cache.get(row);
         int index = cache.indexOf(fp);
         remove(fp);
-        //listeners.removeElementAt(index); // wouldn'r hurt to remove listener from panel as well'
         validate();
     }
     
     void removePanel(ExcitationPanel aPanel) {
-         remove(aPanel);
-        //listeners.removeElementAt(index); // wouldn'r hurt to remove listener from panel as well'
+        System.out.println("Removing panel "+aPanel.toString()+" from column "+jColumnNameLabel.getText());
+        remove(aPanel);
+        int idx=cache.indexOf(aPanel);
+        cache.remove(aPanel);
         validate();
     }
     
+    void appendPanel(ExcitationPanel excitationPanel) {
+        System.out.println("Appending panel "+excitationPanel.toString()+" to column "+jColumnNameLabel.getText());
+        add(excitationPanel);
+        cache.add(excitationPanel);
+        validate();
+    }
+    
+    void addPanel(ExcitationPanel excitationPanel, int i) {
+        add(excitationPanel, i+1);
+        cache.insertElementAt(excitationPanel, i);
+        validate();
+    }
+
     public ExcitationPanel getPanel(int row)
     {
         return (ExcitationPanel) getComponents()[row+1];
@@ -200,4 +214,6 @@ public class ExcitationColumnJPanel extends javax.swing.JPanel {
         invalidate();
         doLayout();
     }
+
+
 }

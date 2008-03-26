@@ -70,85 +70,6 @@ public abstract class NodeMoveTransferHandler extends TransferHandler {
         }
         return t;
     }
-//    @Override 
-    protected void exportDone(JComponent source, Transferable data, int action) {
-        if(source instanceof JTree) {
-            JTree tree = (JTree) source;
-            DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
-            TreePath currentPath = tree.getSelectionPath();
-            ///System.out.println("Destination node="+currentPath.getLastPathComponent().toString());
-            if(currentPath != null) {
-                //System.out.println("addNodes");
-                addNodes(currentPath, model, data);
-                handlePathMove(currentPath, model, data);
-            } else {
-                //System.out.println("insertNodes");
-                insertNodes(tree, model, data);
-                Point location = ((TreeDropTarget) tree.getDropTarget()).getMostRecentDragLocation();
-                TreePath path = tree.getClosestPathForLocation(location.x, location.y);
-                handlePathRearrange(path, model, data);
-           }
-        }
-        dragPath = null;
-        super.exportDone(source, data, action);
-    }
-    /**
-     * Move nodes out from their parent to the currentPath
-     */
-    private void addNodes(TreePath currentPath, DefaultTreeModel model, Transferable data) {
-        MutableTreeNode targetNode = (MutableTreeNode) currentPath.getLastPathComponent();
-        try {
-            TreePath[] movedPaths = (TreePath[]) data.getTransferData(DataFlavor.stringFlavor);
-            for(int i = 0; i < movedPaths.length; i++) {
-                MutableTreeNode moveNode = (MutableTreeNode) movedPaths[i].getLastPathComponent();
-                if(!moveNode.equals(targetNode)) {
-                    MutableTreeNode oldParent = (MutableTreeNode) moveNode.getParent();
-                    int oldIndex = model.getIndexOfChild(oldParent, moveNode);
-                    if(oldParent == null) return ;
-                    model.removeNodeFromParent(moveNode);
-                    try{
-                        model.insertNodeInto(moveNode, targetNode, targetNode.getChildCount());
-                    }catch(IllegalArgumentException ex){
-                        model.insertNodeInto(moveNode, oldParent, oldIndex);
-                    }
-                }
-            }
-        } catch (UnsupportedFlavorException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    /**
-     * Change the order of children in same parent
-     */
-    private void insertNodes(JTree tree, DefaultTreeModel model, Transferable data) {
-        Point location = ((TreeDropTarget) tree.getDropTarget()).getMostRecentDragLocation();
-        TreePath path = tree.getClosestPathForLocation(location.x, location.y);
-        MutableTreeNode targetNode = (MutableTreeNode) path.getLastPathComponent();
-        MutableTreeNode parent = (MutableTreeNode) targetNode.getParent();
-        try {
-            TreePath[] movedPaths = (TreePath[]) data.getTransferData(DataFlavor.stringFlavor);
-            for(int i = 0; i < movedPaths.length; i++) {
-                MutableTreeNode moveNode = (MutableTreeNode) movedPaths[i].getLastPathComponent();
-                if(!moveNode.equals(targetNode)) {
-                    MutableTreeNode oldParent = (MutableTreeNode) moveNode.getParent();
-                    int oldIndex = model.getIndexOfChild(oldParent, moveNode);
-                    if(oldParent == null) return ;
-                    model.removeNodeFromParent(moveNode);
-                    try{
-                        model.insertNodeInto(moveNode, parent, model.getIndexOfChild(parent, targetNode));
-                    }catch(IllegalArgumentException ex){
-                        model.insertNodeInto(moveNode, oldParent, oldIndex);
-                    }
-                }
-            }
-        } catch (UnsupportedFlavorException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 //    @Override
     public int getSourceActions(JComponent c) {
         return TransferHandler.MOVE;
@@ -182,8 +103,13 @@ public abstract class NodeMoveTransferHandler extends TransferHandler {
         }
     }
 
-    abstract public void handlePathMove(TreePath currentPath, DefaultTreeModel model, Transferable data) ;
-    abstract public void handlePathRearrange(TreePath currentPath, DefaultTreeModel model, Transferable data) ;
+    protected void exportDone(JComponent source, Transferable data, int action) {
+        dragPath = null;
+        super.exportDone(source, data, action);
+    }
+
+    //abstract public void handlePathMove(TreePath currentPath, DefaultTreeModel model, Transferable data) ;
+    //abstract public void handlePathRearrange(TreePath currentPath, DefaultTreeModel model, Transferable data) ;
     
     private TreePath[] dragPath;
     private BufferedImage[] image;
