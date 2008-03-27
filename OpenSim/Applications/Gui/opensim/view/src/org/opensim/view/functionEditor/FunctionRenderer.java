@@ -57,6 +57,7 @@ import org.jfree.ui.RectangleEdge;
 import org.jfree.ui.TextAnchor;
 import org.jfree.util.PaintList;
 import org.jfree.util.PublicCloneable;
+import org.jfree.util.ShapeUtilities;
 import org.opensim.modeling.ArrayXYPoint;
 import org.opensim.modeling.Function;
 import org.opensim.modeling.Units;
@@ -85,10 +86,10 @@ public class FunctionRenderer extends XYLineAndShapeRendererWithHighlight
    /** For each function, the shape fill color for selected control points. */
    private PaintList functionHighlightFillPaintList = new  PaintList();
    
-   private Units XUnits;         // units of array of X values
-   private Units XDisplayUnits;  // units for displaying X values to user
-   private Units YUnits;         // units of array of Y values
-   private Units YDisplayUnits;  // units for displaying Y values to user
+   protected Units XUnits;         // units of array of X values
+   protected Units XDisplayUnits;  // units for displaying X values to user
+   protected Units YUnits;         // units of array of Y values
+   protected Units YDisplayUnits;  // units for displaying Y values to user
    
    /** the string to display in the lower left corner of the plot area */
    private String interiorTitle = null;
@@ -119,169 +120,79 @@ public class FunctionRenderer extends XYLineAndShapeRendererWithHighlight
          shapeFillPaintList.get(index).setPaint(i, Color.GREEN);
    }
 
-   /**
-    * Draws the visual representation of a single data item.
-    *
-    * @param g2  the graphics device.
-    * @param state  the renderer state.
-    * @param dataArea  the area within which the data is being drawn.
-    * @param info  collects information about the drawing.
-    * @param plot  the plot (can be used to obtain standard color
-    *              information etc).
-    * @param domainAxis  the domain axis.
-    * @param rangeAxis  the range axis.
-    * @param dataset  the dataset.
-    * @param series  the series index (zero-based).
-    * @param item  the item index (zero-based).
-    * @param crosshairState  crosshair information for the plot
-    *                        (<code>null</code> permitted).
-    * @param pass  the pass index.
-    */
-   public void drawItem(Graphics2D g2,
+   public void drawFunctions(Graphics2D g2,
            XYItemRendererState state,
            Rectangle2D dataArea,
-           PlotRenderingInfo info,
            XYPlot plot,
            ValueAxis domainAxis,
            ValueAxis rangeAxis,
            XYDataset dataset,
-           int series,
-           int item,
-           CrosshairState crosshairState,
-           int pass) {
-      
-      // do nothing if item is not visible
-      if (!getItemVisible(series, item)) {
-         return;
-      }
-      
-      // TODO:
-      // get rid of getDrawSeriesLineAsPath() -- always draw as path
-      double f1 = rangeAxis.getLowerBound();
-      double f2 = rangeAxis.getLowerMargin();
-      // first pass draws the background (lines, for instance)
-      if (isLinePass(pass)) {
-         if (item == 0) {
-            if (getDrawSeriesLineAsPath()) {
-               State s = (State) state;
-               s.seriesPath.reset();
+           CrosshairState crosshairState) {
+
+      RectangleEdge xAxisLocation = plot.getDomainAxisEdge();
+      RectangleEdge yAxisLocation = plot.getRangeAxisEdge();
+
+      // Draw the lines (series are drawn in reverse order)
+      int seriesCount = dataset.getSeriesCount();
+      for (int series = seriesCount - 1; series >= 0; series--) {
+         int itemCount = dataset.getItemCount(series);
+         State s = (State) state;
+         s.seriesPath.reset();
+         s.setLastPointGood(false);
+         for (int item = 0; item < itemCount; item++) {
+            ArrayXYPoint xyPts = functionList.get(series).renderAsLineSegments(item);
+            if (xyPts != null) {
+               for (int i = 0; i < xyPts.getSize(); i++) {
+                  double datax = xyPts.get(i).get_x() * XUnits.convertTo(XDisplayUnits);
+                  double datay = xyPts.get(i).get_y() * YUnits.convertTo(YDisplayUnits);
+                  double screenx = domainAxis.valueToJava2D(datax, dataArea, xAxisLocation);
+                  double screeny = rangeAxis.valueToJava2D(datay, dataArea, yAxisLocation);
+                  if (!Double.isNaN(screenx) && !Double.isNaN(screeny)) {
+                     if (s.isLastPointGood() == false) {
+                        s.seriesPath.moveTo((float)screenx, (float)screeny);
+                        s.setLastPointGood(true);
+                     } else {
+                        s.seriesPath.lineTo((float)screenx, (float)screeny);
+                     }
+                  }
+               }
+               functionList.get(series).deleteXYPointArray(xyPts);
+            } else {
                s.setLastPointGood(false);
             }
          }
-         
-         if (getItemLineVisible(series, item)) {
-            if (getDrawSeriesLineAsPath()) {
-               drawPrimaryLineAsPath(state, g2, plot, dataset, pass,
-                       series, item, domainAxis, rangeAxis, dataArea);
-            } else {
-               drawPrimaryLine(state, g2, plot, dataset, pass, series,
-                       item, domainAxis, rangeAxis, dataArea);
-            }
-         }
+         g2.setStroke(getItemStroke(series, 0));
+         g2.setPaint(getFunctionPaint(series));
+         g2.draw(s.seriesPath);
       }
-      // second pass adds shapes where the items are ..
-      else if (isItemPass(pass)) {
-         
-         // setup for collecting optional entity info...
-         EntityCollection entities = null;
-         if (info != null) {
-            entities = info.getOwner().getEntityCollection();
-         }
-         
-         drawSecondaryPass(g2, plot, dataset, pass, series, item,
-                 domainAxis, dataArea, rangeAxis, crosshairState, entities);
-         
-         if (item == dataset.getItemCount(series) - 1)
-            drawInteriorTitle(g2, plot, series, item, domainAxis, rangeAxis, dataArea, (State) state);
-      }
-   }
-   
-   /**
-    * Draws the item (first pass). This method draws the lines
-    * connecting the items. Instead of drawing separate lines,
-    * a GeneralPath is constructed and drawn at the end of
-    * the series painting.
-    *
-    * @param g2  the graphics device.
-    * @param state  the renderer state.
-    * @param plot  the plot (can be used to obtain standard color information
-    *              etc).
-    * @param dataset  the dataset.
-    * @param pass  the pass.
-    * @param series  the series index (zero-based).
-    * @param item  the item index (zero-based).
-    * @param domainAxis  the domain axis.
-    * @param rangeAxis  the range axis.
-    * @param dataArea  the area within which the data is being drawn.
-    */
-   protected void drawPrimaryLineAsPath(XYItemRendererState state,
-           Graphics2D g2, XYPlot plot,
-           XYDataset dataset,
-           int pass,
-           int series,
-           int item,
-           ValueAxis domainAxis,
-           ValueAxis rangeAxis,
-           Rectangle2D dataArea) {
-      
-      if (series >= functionList.size())
-         return;
-      
-      RectangleEdge xAxisLocation = plot.getDomainAxisEdge();
-      RectangleEdge yAxisLocation = plot.getRangeAxisEdge();
-      
-      State s = (State) state;
-      ArrayXYPoint xyPts = functionList.get(series).renderAsLineSegments(item);
-      if (xyPts != null) {
-         for (int i = 0; i < xyPts.getSize(); i++) {
-            double datax = (xyPts.get(i).get_x() * XUnits.convertTo(XDisplayUnits));
-            double datay = (xyPts.get(i).get_y() * YUnits.convertTo(YDisplayUnits));
+
+      // Draw the circles for the control points
+      for (int series = seriesCount - 1; series >= 0; series--) {
+         int itemCount = dataset.getItemCount(series);
+         for (int item = 0; item < itemCount; item++) {
+            double datax = dataset.getXValue(series, item) * XUnits.convertTo(XDisplayUnits);
+            double datay = dataset.getYValue(series, item) * YUnits.convertTo(YDisplayUnits);
             double screenx = domainAxis.valueToJava2D(datax, dataArea, xAxisLocation);
             double screeny = rangeAxis.valueToJava2D(datay, dataArea, yAxisLocation);
-            if (!Double.isNaN(screenx) && !Double.isNaN(screeny)) {
-               PlotOrientation orientation = plot.getOrientation();
-               if (orientation == PlotOrientation.HORIZONTAL) {
-                  double tmp = screenx;
-                  screenx = screeny;
-                  screeny = tmp;
-               }
-               if (i == 0 && (item == 0 || s.isLastPointGood() == false)) {
-                  s.seriesPath.moveTo((float)screenx, (float)screeny);
-               } else {
-                  s.seriesPath.lineTo((float)screenx, (float)screeny);
-               }
-               s.setLastPointGood(true);
+            Shape shape = getItemShape(series, item);
+            shape = ShapeUtilities.createTranslatedShape(shape, screenx, screeny);
+            //entityArea = shape;
+            if (shape.intersects(dataArea)) {
+               g2.setPaint(getItemFillPaint(series, item));
+               g2.fill(shape);
+               g2.setPaint(getItemPaint(series, item));
+               g2.setStroke(getItemOutlineStroke(series, item));
+               g2.draw(shape);
             }
          }
-         functionList.get(series).deleteXYPointArray(xyPts);
-      } else {
-         s.setLastPointGood(false);
       }
-      
-      // if this is the last item, draw the path ...
-      if (item == dataset.getItemCount(series) - 1) {
-         drawFirstPassShape(g2, pass, series, item, s.seriesPath);
-      }
+
+      // Draw the interior title
+      drawInteriorTitle(g2, plot, domainAxis, rangeAxis, dataArea);
    }
-   
-   /**
-    * Draws the first pass shape.
-    *
-    * @param g2  the graphics device.
-    * @param pass  the pass.
-    * @param series  the series index.
-    * @param item  the item index.
-    * @param shape  the shape.
-    */
-   protected void drawFirstPassShape(Graphics2D g2, int pass, int series,
-           int item, Shape shape) {
-      g2.setStroke(getItemStroke(series, item));
-      g2.setPaint(getFunctionPaint(series));
-      g2.draw(shape);
-   }
-   
-   private void drawInteriorTitle(Graphics2D g2, XYPlot plot, int series, int item, ValueAxis domainAxis,
-           ValueAxis rangeAxis, Rectangle2D dataArea, State state) {
+
+   private void drawInteriorTitle(Graphics2D g2, XYPlot plot, ValueAxis domainAxis,
+           ValueAxis rangeAxis, Rectangle2D dataArea) {
       RectangleEdge xAxisLocation = plot.getDomainAxisEdge();
       RectangleEdge yAxisLocation = plot.getRangeAxisEdge();
       
@@ -293,7 +204,7 @@ public class FunctionRenderer extends XYLineAndShapeRendererWithHighlight
          TextUtilities.drawAlignedString(this.interiorTitle, g2, (float)textX, (float)textY, TextAnchor.TOP_RIGHT);
       }
    }
-   
+
    /**
     * Function colors
     * Each function (series) has its own color, which is used for the
@@ -306,19 +217,19 @@ public class FunctionRenderer extends XYLineAndShapeRendererWithHighlight
       if (function < functionList.size())
          shapeFillPaintList.get(function).setPaint(point, functionHighlightFillPaintList.getPaint(function));
    }
-   
+
    public void unhighlightNode(int function, int point) {
       if (function < functionList.size())
          shapeFillPaintList.get(function).setPaint(point, functionDefaultFillPaintList.getPaint(function));
    }
-   
+
    public Paint getNodePaint(int function, int point) {
       if (function < functionList.size())
          return shapeFillPaintList.get(function).getPaint(point);
       else
          return Color.BLACK;
    }
-   
+
    // The item paint is used for the outlines of the control
    // point shapes.
    public Paint getItemPaint(int series, int item) {

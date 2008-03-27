@@ -33,7 +33,6 @@ package org.opensim.view.excitationEditor;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Shape;
 
@@ -57,11 +56,9 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
-import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.axis.ValueAxis;
-import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.xy.XYDataItem;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeriesCollection;
@@ -79,6 +76,8 @@ import org.opensim.modeling.StepFunction;
 import org.opensim.modeling.Units;
 import org.opensim.utils.DialogUtils;
 import org.opensim.utils.OpenSimDialog;
+import org.opensim.view.functionEditor.FunctionPanel;
+import org.opensim.view.functionEditor.FunctionPlot;
 import org.opensim.view.functionEditor.FunctionXYSeries;
 
 /**
@@ -727,17 +726,11 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
          Function maxFunction = createFunctionFromControlLinear(xySeriesMax, maxNodes, cl, true);
          functions.add(maxFunction);
          seriesCollection.addSeries(xySeriesMax);
-         
-         JFreeChart chart = ChartFactory.createXYLineChart(
-            "",
-            "",
-            "",
-            seriesCollection,
-            org.jfree.chart.plot.PlotOrientation.VERTICAL,
-            true,
-            true,
-            false);
-         XYPlot xyPlot = chart.getXYPlot();
+
+         JFreeChart chart = FunctionPanel.createFunctionChart(
+                    "", "", "", seriesCollection,
+                    true, true);
+         FunctionPlot xyPlot = (FunctionPlot)chart.getXYPlot();
          XYDataset xyDataset = xyPlot.getDataset();
          ExcitationRenderer renderer = new ExcitationRenderer(excitation, ctrlFunction);
          renderer.addFunction(minFunction);

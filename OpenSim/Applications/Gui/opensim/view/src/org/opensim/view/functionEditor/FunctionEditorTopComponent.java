@@ -16,11 +16,9 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Vector;
 import javax.swing.event.EventListenerList;
-import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.axis.ValueAxis;
-import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.Range;
 import org.jfree.data.xy.XYDataItem;
 import org.jfree.data.xy.XYDataset;
@@ -90,7 +88,7 @@ final public class FunctionEditorTopComponent extends TopComponent implements Ob
    private Vector<OpenSimObject> relatedObjects = null; // usually, parents of 'object'
    private OpenSimObject object = null; // the object (muscle, joint, etc.) this function is from
    private FunctionXYSeries xySeries = null;
-   private XYPlot xyPlot = null;
+   private FunctionPlot xyPlot = null;
    private XYDataset xyDataset = null;
    private NumberFormat coordinatesFormat = new DecimalFormat("0.00000");
    private Paint highlightPaint = Color.YELLOW;
@@ -700,11 +698,10 @@ final public class FunctionEditorTopComponent extends TopComponent implements Ob
                        function.getY(i) * (options.YUnits.convertTo(options.YDisplayUnits))));
             }
             seriesCollection.addSeries(xySeries);
-            chart = ChartFactory.createXYLineChart(
+            chart = FunctionPanel.createFunctionChart(
                     "", options.XLabel, options.YLabel, seriesCollection,
-                    org.jfree.chart.plot.PlotOrientation.VERTICAL,
-                    true, true, false);
-            xyPlot = chart.getXYPlot();
+                    true, true);
+            xyPlot = (FunctionPlot)chart.getXYPlot();
             xyDataset = xyPlot.getDataset();
             renderer = new FunctionRenderer(function);
             Shape circle = new Ellipse2D.Float(-3, -3, 6, 6);

@@ -54,7 +54,12 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.annotations.XYTextAnnotation;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.axis.ValueAxis;
+import org.jfree.chart.labels.StandardXYToolTipGenerator;
+import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.renderer.xy.XYItemRenderer;
+import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
+import org.jfree.chart.urls.StandardXYURLGenerator;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.ui.RectangleEdge;
 import org.jfree.ui.TextAnchor;
@@ -850,4 +855,25 @@ public class FunctionPanel extends ChartPanel
         this.nodePopUpMenu = nodePopUpMenu;
     }
 
+    public static JFreeChart createFunctionChart(String title,
+                                                 String xAxisLabel,
+                                                 String yAxisLabel,
+                                                 XYDataset dataset,
+                                                 boolean legend,
+                                                 boolean tooltips) {
+
+        NumberAxis xAxis = new NumberAxis(xAxisLabel);
+        xAxis.setAutoRangeIncludesZero(false);
+        NumberAxis yAxis = new NumberAxis(yAxisLabel);
+        XYItemRenderer renderer = new XYLineAndShapeRenderer(true, false);
+        FunctionPlot plot = new FunctionPlot(dataset, xAxis, yAxis, renderer);
+        plot.setOrientation(PlotOrientation.VERTICAL);
+        if (tooltips) {
+            renderer.setBaseToolTipGenerator(new StandardXYToolTipGenerator());
+        }
+
+        JFreeChart chart = new JFreeChart(title, JFreeChart.DEFAULT_TITLE_FONT, plot, legend);
+
+        return chart;
+    }
 }
