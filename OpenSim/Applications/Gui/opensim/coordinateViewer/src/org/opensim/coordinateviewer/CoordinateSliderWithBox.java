@@ -224,9 +224,9 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
       jMinimumLabel.setToolTipText("Lower bound");
       jMinimumLabel.setFocusable(false);
       jMinimumLabel.setIconTextGap(0);
-      jMinimumLabel.setMaximumSize(new java.awt.Dimension(25, 25));
-      jMinimumLabel.setMinimumSize(new java.awt.Dimension(25, 25));
-      jMinimumLabel.setPreferredSize(new java.awt.Dimension(25, 25));
+      jMinimumLabel.setMaximumSize(new java.awt.Dimension(30, 25));
+      jMinimumLabel.setMinimumSize(new java.awt.Dimension(30, 25));
+      jMinimumLabel.setPreferredSize(new java.awt.Dimension(30, 25));
 
       jMaximumLabel.setText("123");
       jMaximumLabel.setToolTipText("Upper bound");
@@ -250,9 +250,9 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
             .add(0, 0, 0)
             .add(jClampedCheckBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-            .add(jMinimumLabel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 25, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+            .add(jMinimumLabel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-            .add(jXSlider, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
+            .add(jXSlider, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(jMaximumLabel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 25, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
       );
@@ -261,10 +261,10 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
          .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
             .add(jCoordinateNameLabel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
             .add(jMaximumLabel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-            .add(jMinimumLabel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
             .add(jFormattedTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
             .add(jLockedCheckBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-            .add(jClampedCheckBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+            .add(jClampedCheckBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+            .add(jMinimumLabel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
          .add(jXSlider, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 25, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
       );
    }// </editor-fold>//GEN-END:initComponents

@@ -23,10 +23,10 @@
               <Component id="jLockedCheckBox" min="-2" pref="20" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
               <Component id="jClampedCheckBox" min="-2" pref="20" max="-2" attributes="0"/>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Component id="jMinimumLabel" min="-2" pref="25" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jXSlider" pref="51" max="32767" attributes="0"/>
+              <Component id="jMinimumLabel" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jXSlider" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jMaximumLabel" min="-2" pref="25" max="-2" attributes="0"/>
           </Group>
@@ -37,10 +37,10 @@
           <Group type="103" groupAlignment="3" attributes="0">
               <Component id="jCoordinateNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
               <Component id="jMaximumLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-              <Component id="jMinimumLabel" alignment="3" min="-2" max="-2" attributes="0"/>
               <Component id="jFormattedTextField" alignment="3" min="-2" max="-2" attributes="0"/>
               <Component id="jLockedCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
               <Component id="jClampedCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Component id="jMinimumLabel" alignment="3" min="-2" max="-2" attributes="0"/>
           </Group>
           <Component id="jXSlider" alignment="0" min="-2" pref="25" max="-2" attributes="1"/>
       </Group>
@@ -179,13 +179,13 @@
         <Property name="focusable" type="boolean" value="false"/>
         <Property name="iconTextGap" type="int" value="0"/>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[25, 25]"/>
+          <Dimension value="[30, 25]"/>
         </Property>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[25, 25]"/>
+          <Dimension value="[30, 25]"/>
         </Property>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[25, 25]"/>
+          <Dimension value="[30, 25]"/>
         </Property>
       </Properties>
     </Component>
