@@ -67,6 +67,12 @@ public class ExcitationsGridJPanel extends JPanel {
         validate();
     }
     
+    public void removeColumn(ExcitationColumnJPanel aColumn) {
+        excitationColumns.remove(aColumn);
+        this.remove(aColumn);
+        validate();
+    }
+    
     public ExcitationColumnJPanel getExcitationColumn(int col)
     {
         assert(col <excitationColumns.size());
@@ -132,10 +138,27 @@ public class ExcitationsGridJPanel extends JPanel {
     }
 
     void removePanel(int idx, ExcitationPanel functionPanel) {
-        getExcitationColumn(idx).remove(functionPanel);
+        getExcitationColumn(idx).removePanel(functionPanel);
     }
 
     public String toString() {
         return "Excitation Columns";
     }
+    public int getNumColumns() {
+        return excitationColumns.size();
+    }
+    
+    public ExcitationColumnJPanel getColumn(int index) {
+        return excitationColumns.get(index);
+    }
+    /** Delegate calls to individual panels */
+    void backup() {
+        for (int i=0; i<excitationColumns.size(); i++)
+            getExcitationColumn(i).backup();
+    }
+    void restore() {
+        for (int i=0; i<excitationColumns.size(); i++)
+            getExcitationColumn(i).restore();
+    }
+
 }

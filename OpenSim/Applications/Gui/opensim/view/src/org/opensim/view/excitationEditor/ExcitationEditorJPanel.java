@@ -46,6 +46,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Vector;
 import javax.swing.AbstractAction;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
@@ -59,9 +60,9 @@ import javax.swing.tree.TreePath;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.axis.ValueAxis;
-import org.jfree.data.xy.XYDataItem;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeriesCollection;
+import org.openide.DialogDescriptor;
 import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
 import org.opensim.modeling.ArrayStr;
@@ -71,10 +72,13 @@ import org.opensim.modeling.ControlLinearNode;
 import org.opensim.modeling.ControlSet;
 import org.opensim.modeling.Function;
 import org.opensim.modeling.LinearFunction;
+import org.opensim.modeling.PropertyDbl;
+import org.opensim.modeling.PropertySet;
 import org.opensim.modeling.SetControlNodes;
 import org.opensim.modeling.StepFunction;
 import org.opensim.modeling.Units;
 import org.opensim.utils.DialogUtils;
+import org.opensim.utils.FileUtils;
 import org.opensim.utils.OpenSimDialog;
 import org.opensim.view.functionEditor.FunctionPanel;
 import org.opensim.view.functionEditor.FunctionPlot;
@@ -87,14 +91,14 @@ import org.opensim.view.functionEditor.FunctionXYSeries;
 public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSelectionListener {
     
     private ControlSet controlSet;
-    ControlSet backupControlSet;
+    //ControlSet backupControlSet;
     JFrame frame;
     ExcitationTreeModel treeModel;
     Vector<TreePath> selectedPathsVector = new Vector<TreePath>(4);   // Cache used to accumulate user selection of the tree
     boolean somethingSelected=false;
-    ExcitationsGridJPanel excitationGridPanel = new ExcitationsGridJPanel();
-    static int MAX_EXCITATIONS_PER_COLUMN=10;
-    static Color[] defaultColors = new Color[]{Color.BLUE, Color.RED, Color.BLACK};
+    private ExcitationsGridJPanel excitationGridPanel = new ExcitationsGridJPanel();
+    static int MAX_EXCITATIONS_PER_COLUMN=8;
+    static Color[] defaultColors = new Color[]{Color.BLUE, Color.BLACK, Color.RED};
     /** Creates new form ExcitationEditorJPanel */
     
     public ExcitationEditorJPanel(JFrame owner, ControlSet controls) {
@@ -102,7 +106,7 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
         DefaultMutableTreeNode root=new DefaultMutableTreeNode("Excitation columns");
         treeModel = new ExcitationTreeModel(root);
         initComponents();
-        root.setUserObject(excitationGridPanel);
+        root.setUserObject(getExcitationGridPanel());
         jExcitationsTree.addTreeSelectionListener(this);
         jMoveUpButton.setEnabled(false);
         jMoveDownButton.setEnabled(false);
@@ -113,7 +117,7 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
         jValueToFormattedTextField.getActionMap().put("check", new handleReturnAction());   
         // Drag and Drop support
         jExcitationsTree.setDragEnabled(true);
-        MoveExcitationHandler th = new MoveExcitationHandler(excitationGridPanel);
+        MoveExcitationHandler th = new MoveExcitationHandler(getExcitationGridPanel());
         jExcitationsTree.setTransferHandler(th);
         jExcitationsTree.setDropTarget(new TreeDropTarget(th));
 
@@ -161,8 +165,8 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
         jRemoveNodesButton = new javax.swing.JButton();
         jValueToFormattedTextField = new javax.swing.JFormattedTextField();
         jPanel4 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        SimplfyExcitationsButton = new javax.swing.JButton();
+        ExportExcitationsButton = new javax.swing.JButton();
 
         jButton5.setText("Apply");
         jLabel1.setText("Set to");
@@ -272,8 +276,18 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
         jRightPanel.add(jExScrollPane, java.awt.BorderLayout.CENTER);
 
         jBackupAllButton.setText("Backup");
+        jBackupAllButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBackupAllButtonActionPerformed(evt);
+            }
+        });
 
         jRestoreAllButton.setText("Restore");
+        jRestoreAllButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRestoreAllButtonActionPerformed(evt);
+            }
+        });
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "With Selected Points"));
         jLabel2.setText("Set to");
@@ -307,9 +321,20 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
         );
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "With Selected Excitations"));
-        jButton1.setText("Simplify");
+        SimplfyExcitationsButton.setText("Simplify...");
+        SimplfyExcitationsButton.setEnabled(false);
+        SimplfyExcitationsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SimplfyExcitationsButtonActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Export");
+        ExportExcitationsButton.setText("Export...");
+        ExportExcitationsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ExportExcitationsButtonActionPerformed(evt);
+            }
+        });
 
         org.jdesktop.layout.GroupLayout jPanel4Layout = new org.jdesktop.layout.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -317,17 +342,17 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
             jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jButton2)
+                .add(ExportExcitationsButton)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jButton1)
+                .add(SimplfyExcitationsButton)
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel4Layout.createSequentialGroup()
                 .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jButton2)
-                    .add(jButton1))
+                    .add(ExportExcitationsButton)
+                    .add(SimplfyExcitationsButton))
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -338,10 +363,10 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
             .add(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jBackupAllButton)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 202, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 212, Short.MAX_VALUE)
                 .add(jRestoreAllButton)
                 .addContainerGap())
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, jSeparator2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, jSeparator2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 370, Short.MAX_VALUE)
             .add(jPanel1Layout.createSequentialGroup()
                 .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
@@ -370,7 +395,7 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jSplitPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE)
+            .add(jSplitPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 482, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -378,9 +403,80 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jRestoreAllButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRestoreAllButtonActionPerformed
+// TODO add your handling code here:
+        excitationGridPanel.restore();
+    }//GEN-LAST:event_jRestoreAllButtonActionPerformed
+
+    private void jBackupAllButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBackupAllButtonActionPerformed
+// TODO add your handling code here:
+        // Delegate the call to individual Panels
+        excitationGridPanel.backup();
+    }//GEN-LAST:event_jBackupAllButtonActionPerformed
+
+    private void ExportExcitationsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExportExcitationsButtonActionPerformed
+// TODO add your handling code here:
+        if (somethingSelected){
+            // make a new controlSet and add selected excitations to it.
+            String fileName = FileUtils.getInstance().browseForFilenameToSave(FileUtils.getFileFilter(".xml", "Save excitations to file"), true, "controls_1.xml");
+            if(fileName != null){
+                ControlSet newControlSet = new ControlSet();
+                for(int i=0; i< selectedPathsVector.size(); i++){
+                    TreePath nextPath=selectedPathsVector.get(i);
+                    TreeNode lastNode=(TreeNode)nextPath.getLastPathComponent();
+                    Object userObject =  ((DefaultMutableTreeNode)lastNode).getUserObject();
+                    if (userObject instanceof ExcitationObject){
+                        ExcitationObject eo = (ExcitationObject)userObject;
+                        ExcitationRenderer renderer = (ExcitationRenderer) eo.getPlotPanel().getChart().getXYPlot().getRenderer(0);
+                        newControlSet.append(renderer.getControl());
+                    }
+                }
+                newControlSet.print(fileName);
+            }
+        }
+    }//GEN-LAST:event_ExportExcitationsButtonActionPerformed
+
+    private void SimplfyExcitationsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SimplfyExcitationsButtonActionPerformed
+// TODO add your handling code here:
+        // Should be disabled if no excitations were selected
+        if (somethingSelected){
+            SimplifyControlsPanel simplifyPanel = new SimplifyControlsPanel();
+            JDialog myDlg = new JDialog(frame, true);
+            myDlg.getContentPane().add(simplifyPanel);
+            myDlg.setSize(245, 74);
+            // Center and add ok, cancel buttons
+            myDlg.setVisible(true);
+       //dd.setOptions(new Object[]{new JButton("Close")});
+            /*
+            DialogDescriptor dd = new DialogDescriptor(simplifyPanel, "Simplify Options");
+            dd.setModal(true);
+            Dialog dlg = DialogDisplayer.getDefault().createDialog(dd);
+            Object userInput = dd.getValue();
+            if (((Integer)userInput).compareTo((Integer)DialogDescriptor.OK_OPTION)!=0)
+                return; */
+            // make a new controlSet and add selected excitations to it.
+            PropertySet simplifyPropertySet = new PropertySet();
+            simplifyPropertySet.append(new PropertyDbl("cutoff_frequency", simplifyPanel.getFrequency()));
+            simplifyPropertySet.append(new PropertyDbl("distance", simplifyPanel.getTolerance()));
+            for(int i=0; i< selectedPathsVector.size(); i++){
+                TreePath nextPath=selectedPathsVector.get(i);
+                TreeNode lastNode=(TreeNode)nextPath.getLastPathComponent();
+                Object userObject =  ((DefaultMutableTreeNode)lastNode).getUserObject();
+                if (userObject instanceof ExcitationObject){
+                    ExcitationObject eo = (ExcitationObject)userObject;
+                    ExcitationRenderer renderer = (ExcitationRenderer) eo.getPlotPanel().getChart().getXYPlot().getRenderer(0);
+                    ControlLinear cl = renderer.getControl();
+                    cl.simplify(simplifyPropertySet);
+                    eo.getPlotPanel().update();
+                }
+            }
+        }
+        
+    }//GEN-LAST:event_SimplfyExcitationsButtonActionPerformed
+
     private void jRemoveNodesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRemoveNodesButtonActionPerformed
 // TODO add your handling code here:
-        excitationGridPanel.removeSelectedNodes();
+        getExcitationGridPanel().removeSelectedNodes();
     }//GEN-LAST:event_jRemoveNodesButtonActionPerformed
 
     private void jExcitationsTreeMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jExcitationsTreeMouseReleased
@@ -405,7 +501,7 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
         // Cycle thru all excitation panels and apply operation
         String valueString=jValueToFormattedTextField.getText();
         double valueDouble = Double.valueOf(valueString);
-        excitationGridPanel.applyValueToSelectedNodes(valueDouble);
+        getExcitationGridPanel().applyValueToSelectedNodes(valueDouble);
     }//GEN-LAST:event_jApplyValueToSelectedButtonActionPerformed
 
     private void jDeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jDeleteButtonActionPerformed
@@ -430,11 +526,11 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
                 assert(parentIndex!=-1);
                 ExcitationObject eo = (ExcitationObject) ((DefaultMutableTreeNode)lastNode).getUserObject();
                 if (eo != null){
-                   excitationGridPanel.removePanel(parentIndex, eo.getPlotPanel());
+                   getExcitationGridPanel().removePanel(parentIndex, eo.getPlotPanel());
                 }
                 treeModel.removeNodeFromParent((MutableTreeNode) lastNode);
             }
-            excitationGridPanel.validate();
+            getExcitationGridPanel().validate();
          }       
     }//GEN-LAST:event_jDeleteButtonActionPerformed
 
@@ -478,7 +574,7 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
                     treeModel.removeNodeFromParent((MutableTreeNode)nodeToMove);
                     treeModel.insertNodeInto((MutableTreeNode) nodeToMove, (MutableTreeNode) columnNode, currentPosition);
                     int idx = treeModel.getIndexOfChild(columnNode.getParent(),columnNode);
-                    excitationGridPanel.exchangePlots(currentPosition, currentPosition+1, idx);
+                    getExcitationGridPanel().exchangePlots(currentPosition, currentPosition+1, idx);
                }
             }
              for(int i=0; i<selectedPathsVector.size(); i++){
@@ -529,7 +625,7 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
                     TreeNode nodeToMove =  columnNode.getChildAt(currentPosition-1);
                     treeModel.removeNodeFromParent((MutableTreeNode)nodeToMove);
                     treeModel.insertNodeInto((MutableTreeNode) nodeToMove, (MutableTreeNode) columnNode, currentPosition);
-                    excitationGridPanel.exchangePlots(currentPosition, currentPosition-1, root.getIndex(columnNode));
+                    getExcitationGridPanel().exchangePlots(currentPosition, currentPosition-1, root.getIndex(columnNode));
                }
             }
 
@@ -544,10 +640,10 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ExportExcitationsButton;
+    private javax.swing.JButton SimplfyExcitationsButton;
     private javax.swing.JButton jApplyValueToSelectedButton;
     private javax.swing.JButton jBackupAllButton;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jDeleteButton;
@@ -585,8 +681,8 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
         // create plot ...
         DefaultMutableTreeNode columnNode = new DefaultMutableTreeNode("Column "+String.valueOf(colIndex));
         treeModel.insertNodeInto(columnNode, (DefaultMutableTreeNode) treeModel.getRoot(), colIndex);
-        excitationGridPanel.addColumn("Column "+String.valueOf(colIndex));
-        columnNode.setUserObject(excitationGridPanel.getExcitationColumn(colIndex));
+        getExcitationGridPanel().addColumn("Column "+String.valueOf(colIndex));
+        columnNode.setUserObject(getExcitationGridPanel().getExcitationColumn(colIndex));
         for(int i=0; i<names.length; i++){
             Control nextControl = getControlSet().get(names[i]);
             if (nextControl==null)
@@ -607,17 +703,16 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
         excitationNode.setUserObject(excitationNode);
         treeModel.appendChild(excitationNode, columnNode);
         // Handle addition to the panel of excitations
-        excitationGridPanel.addExcitationPanel(colIndex, nextExcitationPanel, control, functions);
+        getExcitationGridPanel().addExcitationPanel(colIndex, nextExcitationPanel, control, functions);
     }
 
 
 
     void populate(ControlSet obj) {
-       backupControlSet = new ControlSet(obj);
        setControlSet(obj);
       
-       excitationGridPanel.setControlSet(obj);
-       jExScrollPane.setViewportView(excitationGridPanel);
+       getExcitationGridPanel().setControlSet(obj);
+       jExScrollPane.setViewportView(getExcitationGridPanel());
        
        int numColumns= ((DefaultMutableTreeNode)treeModel.getRoot()).getChildCount();
         ArrayStr names = new ArrayStr();
@@ -706,8 +801,8 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
    
    static ExcitationPanel createPanel(ControlLinear excitation, Vector<Function> functions)
    {
-         XYSeriesCollection seriesCollection = new XYSeriesCollection();
          ControlLinear cl = ControlLinear.safeDownCast(excitation);
+         XYSeriesCollection seriesCollection = new XYSeriesCollection();
          
          FunctionXYSeries xySeries = new FunctionXYSeries("excitation");
          SetControlNodes cnodes = cl.getControlValues();
@@ -726,7 +821,7 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
          Function maxFunction = createFunctionFromControlLinear(xySeriesMax, maxNodes, cl, true);
          functions.add(maxFunction);
          seriesCollection.addSeries(xySeriesMax);
-
+         
          JFreeChart chart = FunctionPanel.createFunctionChart(
                     "", "", "", seriesCollection,
                     true, true);
@@ -777,7 +872,7 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
             for (int i=0; i<cnodes.getSize(); i++) {
                ControlLinearNode clnode = cnodes.get(i);
                ctrlFunction.addPoint(clnode.getTime(), clnode.getValue());
-               xySeries.add(new XYDataItem(clnode.getTime(), clnode.getValue()));
+               xySeries.add(clnode.getTime(), clnode.getValue());
             }
         }
         else { // Linear function
@@ -785,7 +880,7 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
             for (int i=0; i<cnodes.getSize(); i++) {
                ControlLinearNode clnode = cnodes.get(i);
                ctrlFunction.addPoint(clnode.getTime(), clnode.getValue());
-               xySeries.add(new XYDataItem(clnode.getTime(), clnode.getValue()));
+               xySeries.add(clnode.getTime(), clnode.getValue());
             }
             
         }
@@ -904,7 +999,7 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
         // Cycle thru all excitation panels and apply operation
         String valueString=jValueToFormattedTextField.getText();
         double valueDouble = Double.valueOf(valueString);
-        excitationGridPanel.applyValueToSelectedNodes(valueDouble);
+        getExcitationGridPanel().applyValueToSelectedNodes(valueDouble);
 
        }
    }
@@ -954,6 +1049,10 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
           ExcitationPanel dPanel = ((ExcitationObject) clickedObject).getPlotPanel();
           parentPanel.toggle(dPanel);
       }
+    }
+
+    public ExcitationsGridJPanel getExcitationGridPanel() {
+        return excitationGridPanel;
     }
 
 }

@@ -31,6 +31,11 @@
 
 package org.opensim.view.excitationEditor;
 import java.awt.BorderLayout;
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
@@ -78,13 +83,34 @@ public class ExcitationEditorJFrame extends javax.swing.JFrame {
      */
     // <editor-fold defaultstate="collapsed" desc=" Generated Code ">//GEN-BEGIN:initComponents
     private void initComponents() {
+        jLoadDataMenuItem = new javax.swing.JMenuItem();
+        jToolsMenu = new javax.swing.JMenu();
+        jSaveTemplateMenuItem = new javax.swing.JMenuItem();
+        jLoadTemplateMenuItem = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JSeparator();
         jMenuBar1 = new javax.swing.JMenuBar();
         jFileMenu = new javax.swing.JMenu();
         jLoadMenuItem = new javax.swing.JMenuItem();
         jSaveMenuItem = new javax.swing.JMenuItem();
+        jSaveAsMenuItem = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JSeparator();
         jCreateDefaultMenuItem = new javax.swing.JMenuItem();
-        jMenu1 = new javax.swing.JMenu();
+
+        jLoadDataMenuItem.setText("Load Data...");
+        jToolsMenu.setText("Tools");
+        jSaveTemplateMenuItem.setText("Save Layout...");
+        jSaveTemplateMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jSaveTemplateMenuItemActionPerformed(evt);
+            }
+        });
+
+        jToolsMenu.add(jSaveTemplateMenuItem);
+
+        jLoadTemplateMenuItem.setText("Load Layout...");
+        jToolsMenu.add(jLoadTemplateMenuItem);
+
+        jToolsMenu.add(jSeparator2);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         jFileMenu.setText("File");
@@ -109,6 +135,15 @@ public class ExcitationEditorJFrame extends javax.swing.JFrame {
 
         jFileMenu.add(jSaveMenuItem);
 
+        jSaveAsMenuItem.setText("Save As...");
+        jSaveAsMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jSaveAsMenuItemActionPerformed(evt);
+            }
+        });
+
+        jFileMenu.add(jSaveAsMenuItem);
+
         jFileMenu.add(jSeparator1);
 
         jCreateDefaultMenuItem.setText("New (current model)");
@@ -121,9 +156,6 @@ public class ExcitationEditorJFrame extends javax.swing.JFrame {
         jFileMenu.add(jCreateDefaultMenuItem);
 
         jMenuBar1.add(jFileMenu);
-
-        jMenu1.setText("Template");
-        jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
 
@@ -140,6 +172,37 @@ public class ExcitationEditorJFrame extends javax.swing.JFrame {
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         setBounds((screenSize.width-400)/2, (screenSize.height-300)/2, 400, 300);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jSaveTemplateMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSaveTemplateMenuItemActionPerformed
+        String fileName = FileUtils.getInstance().browseForFilenameToSave(
+                FileUtils.getFileFilter(".txt", "Save layout to file"), true, "excitation_layout.txt", this);
+        if(fileName!=null) {
+            try {
+                OutputStream ostream = new FileOutputStream(fileName);
+                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(ostream));
+                ExcitationsGridJPanel gridPanel = dPanel.getExcitationGridPanel();
+                writer.write(gridPanel.getNumColumns()+"\n");
+                for(int i=0; i<gridPanel.getNumColumns(); i++) 
+                    gridPanel.getColumn(i).write(writer);
+                writer.flush();
+                writer.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+
+ 
+// TODO add your handling code here:
+    }//GEN-LAST:event_jSaveTemplateMenuItemActionPerformed
+
+    private void jSaveAsMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSaveAsMenuItemActionPerformed
+        String fileName = FileUtils.getInstance().browseForFilenameToSave(
+                FileUtils.getFileFilter(".xml", "Save excitations to file"), true, "controls.xml", this);
+         if(fileName!=null) {
+            dPanel.getControlSet().copy().print(fileName);  // We should also switch current set to use the saveAs file
+         }
+// TODO add your handling code here:
+    }//GEN-LAST:event_jSaveAsMenuItemActionPerformed
 
     private void jCreateDefaultMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCreateDefaultMenuItemActionPerformed
 // TODO add your handling code here:
@@ -183,7 +246,7 @@ public class ExcitationEditorJFrame extends javax.swing.JFrame {
     private void jLoadMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLoadMenuItemActionPerformed
 // TODO add your handling code here:
         //Browse for existing xml file
-         String fileName = FileUtils.getInstance().browseForFilename(".osim,.xml", "OpenSim model or XML file", this);
+         String fileName = FileUtils.getInstance().browseForFilename(".xml", "Controls XML file", this);
          if(fileName!=null) {
          ControlSet obj = new ControlSet(fileName);
          if (obj != null){
@@ -210,11 +273,16 @@ public class ExcitationEditorJFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem jCreateDefaultMenuItem;
     private javax.swing.JMenu jFileMenu;
+    private javax.swing.JMenuItem jLoadDataMenuItem;
     private javax.swing.JMenuItem jLoadMenuItem;
-    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuItem jLoadTemplateMenuItem;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jSaveAsMenuItem;
     private javax.swing.JMenuItem jSaveMenuItem;
+    private javax.swing.JMenuItem jSaveTemplateMenuItem;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JMenu jToolsMenu;
     // End of variables declaration//GEN-END:variables
     
 }

@@ -2,6 +2,33 @@
 
 <Form version="1.3" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
+    <MenuItem class="javax.swing.JMenuItem" name="jLoadDataMenuItem">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Load Data..."/>
+      </Properties>
+    </MenuItem>
+    <Menu class="javax.swing.JMenu" name="jToolsMenu">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Tools"/>
+      </Properties>
+      <SubComponents>
+        <MenuItem class="javax.swing.JMenuItem" name="jSaveTemplateMenuItem">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Save Layout..."/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jSaveTemplateMenuItemActionPerformed"/>
+          </Events>
+        </MenuItem>
+        <MenuItem class="javax.swing.JMenuItem" name="jLoadTemplateMenuItem">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Load Layout..."/>
+          </Properties>
+        </MenuItem>
+        <MenuItem class="javax.swing.JSeparator" name="jSeparator2">
+        </MenuItem>
+      </SubComponents>
+    </Menu>
     <Menu class="javax.swing.JMenuBar" name="jMenuBar1">
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="jFileMenu">
@@ -30,6 +57,14 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jSaveMenuItemActionPerformed"/>
               </Events>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jSaveAsMenuItem">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Save As..."/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jSaveAsMenuItemActionPerformed"/>
+              </Events>
+            </MenuItem>
             <MenuItem class="javax.swing.JSeparator" name="jSeparator1">
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jCreateDefaultMenuItem">
@@ -41,11 +76,6 @@
               </Events>
             </MenuItem>
           </SubComponents>
-        </Menu>
-        <Menu class="javax.swing.JMenu" name="jMenu1">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Template"/>
-          </Properties>
         </Menu>
       </SubComponents>
     </Menu>

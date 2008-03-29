@@ -34,7 +34,6 @@
 
 package org.opensim.view.excitationEditor;
 
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -42,7 +41,9 @@ import java.util.Collections;
 import java.util.Vector;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
+import org.jfree.chart.ChartRenderingInfo;
 import org.jfree.chart.JFreeChart;
+import org.jfree.data.general.SeriesChangeEvent;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import org.opensim.modeling.ControlLinear;
@@ -59,11 +60,15 @@ import org.opensim.view.functionEditor.FunctionXYSeries;
 public class ExcitationPanel extends FunctionPanel{
     JPopupMenu nodePopup;
     boolean addedExcitationOptionsToPopup=false;
-    private boolean hidden=false;
+    private boolean collapsed=false;
+    ControlLinear backup;
+    private boolean changed = false;    // Whenever something is changed we need to turn this flag on so that revert works while Backup clears it. 
     
     /** Creates a new instance of ExcitationPanel */
    public ExcitationPanel(JFreeChart chart) {
       super(chart);
+      ExcitationRenderer renderer = (ExcitationRenderer)chart.getXYPlot().getRenderer(0);
+      backup = new ControlLinear(renderer.getControl());
     }
     
    public void deleteSelectedNodes()
@@ -97,7 +102,7 @@ public class ExcitationPanel extends FunctionPanel{
                renderer.getFunctionList().get(series).deletePoint(index);
                seriesCollection.getSeries(series).remove(index);
                seriesCollection.getSeries(series).fireSeriesChanged();
-               
+               setChanged(true);
            }
        }
        clearSelectedNodes();      
@@ -119,6 +124,7 @@ public class ExcitationPanel extends FunctionPanel{
          seriesCollection.getSeries(series).getDataItem(index).setY(newY);
          seriesCollection.getSeries(series).fireSeriesChanged();
       }
+      setChanged(true);
        
    }
    /**
@@ -126,6 +132,7 @@ public class ExcitationPanel extends FunctionPanel{
     */
    public void mousePressed(MouseEvent e) {
         super.mousePressed(e);
+        
         if (rightClickNode!=null){
             // get series from selected node and show options for it
             final int selectedSeries = rightClickNode.series;
@@ -136,34 +143,79 @@ public class ExcitationPanel extends FunctionPanel{
                 useStepsMenuItem.addActionListener(new ActionListener(){
                     public void actionPerformed(ActionEvent e) {
                         // Get the function # selectedSeries, toggle the use_steps flag, update function display
-                        XYSeriesCollection seriesCollection = (XYSeriesCollection) getChart().getXYPlot().getDataset();
-
-                        ExcitationRenderer renderer = (ExcitationRenderer) getChart().getXYPlot().getRenderer(selectedSeries);
-                        // Current value of use_steps
-                        boolean useStepsFlag = renderer.getControl().getUseSteps();
-                        renderer.getControl().setUseSteps(!useStepsFlag);
-                        // update he functions
-                        SetControlNodes cnodes = renderer.getControl().getControlValues();
-                        XYSeries ser=seriesCollection.getSeries(selectedSeries);
-                        ser.clear();
-                        int left = ser.getItemCount();
-                        Function ctrlFunction = 
-                                ExcitationEditorJPanel.createFunctionFromControlLinear((FunctionXYSeries) ser, cnodes, renderer.getControl(), !renderer.getControl().getUseSteps());
-                        renderer.getFunctionList().set(selectedSeries, ctrlFunction);
+                        update(selectedSeries);
                     }
                 });
                 nodePopup.add(useStepsMenuItem);
                 addedExcitationOptionsToPopup=true;
             }
-        }
+        } 
+   }
+   
+   public void update()
+   {
+        update(0);
+   }
+   /**
+    * Update a series displayed in the excitationPanel corresponding to passed in index
+    */
+   public void update(int series)
+   {
+        XYSeriesCollection seriesCollection = (XYSeriesCollection) getChart().getXYPlot().getDataset();
+
+        ExcitationRenderer renderer = (ExcitationRenderer) getChart().getXYPlot().getRenderer(series);
+        // Current value of use_steps
+        boolean useStepsFlag = renderer.getControl().getUseSteps();
+        renderer.getControl().setUseSteps(!useStepsFlag);
+        // update he functions
+        SetControlNodes cnodes = renderer.getControl().getControlValues();
+        XYSeries ser=seriesCollection.getSeries(series);
+        ser.clear();
+        // RenderingInfo keeps stale refs need to be removed from the Chart
+        ChartRenderingInfo info = getChartRenderingInfo();
+        Function ctrlFunction = 
+                ExcitationEditorJPanel.createFunctionFromControlLinear((FunctionXYSeries) ser, cnodes, renderer.getControl(), !renderer.getControl().getUseSteps());
+        renderer.getFunctionList().set(series, ctrlFunction);
+        seriesCollection.seriesChanged(new SeriesChangeEvent(this));
+        setChanged(true);
+       
    }
 
     public boolean isCollapsed() {
-        return hidden;
+        return collapsed;
     }
 
-    public void setCollapsed(boolean hidden) {
-        this.hidden = hidden;
+    public void setCollapsed(boolean coll) {
+        this.collapsed = coll;
+    }
+
+    public boolean isChanged() {
+        return changed;
+    }
+
+    public void setChanged(boolean changed) {
+        this.changed = changed;
     }
     
+    public String getControlName()
+    {
+        ExcitationRenderer renderer = (ExcitationRenderer) getChart().getXYPlot().getRenderer(0);
+        return (renderer.getControl().getName());
+    }
+    // Check that a point is under a function, to be used by min/max/value error-checking
+    public void backup()
+    {
+        if (isChanged()){
+            backup = new ControlLinear(backup);
+            update(0);
+        }
+    }
+    public void restore()
+    {
+        if (isChanged()){
+            ExcitationRenderer renderer = (ExcitationRenderer) getChart().getXYPlot().getRenderer(0);
+            renderer.setControl(backup);
+            update(0);
+        }
+    }
 }

@@ -153,4 +153,8 @@ public class ExcitationRenderer extends FunctionRenderer
       g2.setPaint(Color.PINK);
       g2.fill(s.seriesPath);
    }
+
+    void setControl(ControlLinear backup) {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
 }

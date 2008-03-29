@@ -31,11 +31,13 @@
 
 package org.opensim.view.excitationEditor;
 
+import java.awt.Component;
 import java.awt.Dimension;
+import java.io.BufferedWriter;
+import java.io.IOException;
 import java.util.Vector;
 import org.opensim.modeling.ControlLinear;
 import org.opensim.modeling.Function;
-import org.opensim.view.functionEditor.FunctionPanel;
 
 /**
  *
@@ -114,6 +116,11 @@ public class ExcitationColumnJPanel extends javax.swing.JPanel {
         remove(aPanel);
         int idx=cache.indexOf(aPanel);
         cache.remove(aPanel);
+        Component component[] = getComponents();
+        for (int i=0; i<component.length; i++){
+            Component c=component[i];
+            int unused = 1;
+        }
         validate();
     }
     
@@ -213,6 +220,37 @@ public class ExcitationColumnJPanel extends javax.swing.JPanel {
         }
         invalidate();
         doLayout();
+    }
+
+    public String getColumnNameLabelText() {
+        return jColumnNameLabel.getText();
+    }
+
+    public void setColumnNameLabelText(String newColumnNameLabel) {
+        this.jColumnNameLabel.setText(newColumnNameLabel);
+    }
+
+    void write(BufferedWriter writer) throws IOException {
+        writer.write(getColumnNameLabelText()+"\n");
+         for(int i=0; i<cache.size(); i++) {
+            ExcitationPanel p1 = getPanel(i);
+            writer.write(p1.getControlName()+"\n");
+            writer.write(p1.isCollapsed()+"\n");
+        }
+    }
+
+    void backup() {
+         for(int i=0; i<cache.size(); i++) {
+            ExcitationPanel p1 = getPanel(i);
+            p1.backup();
+         }
+    }
+
+    void restore() {
+         for(int i=0; i<cache.size(); i++) {
+            ExcitationPanel p1 = getPanel(i);
+            p1.restore();
+         }
     }
 
 

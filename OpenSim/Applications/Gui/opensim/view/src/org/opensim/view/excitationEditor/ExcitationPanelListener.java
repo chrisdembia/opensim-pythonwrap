@@ -186,6 +186,11 @@ public class ExcitationPanelListener implements FunctionPanelListener{
          XYSeriesCollection seriesCollection = (XYSeriesCollection) functionPanel.getChart().getXYPlot().getDataset();
          seriesCollection.getSeries(series).add(x, y);
          // Now the control 
+         int idx=seriesCollection.getSeries(series).indexOf(x);
+         ControlLinearNode node = new ControlLinearNode();
+         node.setTime(x);
+         node.setValue(y);
+         control.insertNewValueNode(idx, node);
       }
    }
 
@@ -220,6 +225,11 @@ public class ExcitationPanelListener implements FunctionPanelListener{
     public void removeFunction(Function aFunction)
     {
         functions.remove(aFunction);
+    }
+    
+    public void replaceFunction(Function aFunction, int index)
+    {
+        functions.setElementAt(aFunction, index);
     }
     private ControlLinearNode getControlNodeForSeries(int series, int index)
     { 
