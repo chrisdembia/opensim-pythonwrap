@@ -167,4 +167,9 @@ public class ExcitationsGridJPanel extends JPanel {
             getExcitationColumn(i).showBaseShape(series, b);
     }
 
+    void toggleMinMaxShading(boolean b) {
+        // Delegate the call
+        for (int i=0; i<excitationColumns.size(); i++)
+            getExcitationColumn(i).toggleMinMaxShading(b);
+    }
 }

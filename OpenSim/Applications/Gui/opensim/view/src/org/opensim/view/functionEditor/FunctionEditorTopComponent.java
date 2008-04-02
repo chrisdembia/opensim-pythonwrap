@@ -40,12 +40,6 @@ import org.opensim.view.ObjectsDeletedEvent;
 import org.opensim.view.pub.OpenSimDB;
 import org.opensim.view.pub.ViewDB;
 
-//TODO:
-// 1. Split up the Function Title text so the model and object names
-// are separate. That way, when NameChangedEvents come in, you can
-// update the model and object names shown in the title.
-// 2. Deal with the case of a muscle being restored while one of
-// its functions is being edited.
 /**
  * Top component which displays something.
  */
@@ -918,19 +912,23 @@ final public class FunctionEditorTopComponent extends TopComponent implements Ob
       }
    }
    
-   public void deleteNode(int series, int node) {
+   public boolean deleteNode(int series, int node) {
       if (function != null && node >= 0 && node < function.getNumberOfPoints()) {
          if (function.deletePoint(node)) {
-            xySeries.delete(node, node);
             setPendingChanges(true, true);
             notifyListeners(new FunctionModifiedEvent(model, object, function));
+            return true;
          }
       }
+      return false;
    }
-   
+
+   public boolean deleteNodes(int series, int node) {
+      return false;
+   }
+
    public void addNode(int series, double x, double y) {
       if (function != null) {
-         xySeries.add(x, y);
          x *= options.XDisplayUnits.convertTo(options.XUnits);
          y *= options.YDisplayUnits.convertTo(options.YUnits);
          function.addPoint(x, y);

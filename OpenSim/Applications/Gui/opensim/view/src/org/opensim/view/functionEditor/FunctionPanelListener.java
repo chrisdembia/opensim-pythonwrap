@@ -52,7 +52,8 @@ public interface FunctionPanelListener extends EventListener {
    public void toggleSelectedNode(int series, int node);
    public void replaceSelectedNode(int series, int node);
    public void addNode(int series, double x, double y);
-   public void deleteNode(int series, int node);
+   public boolean deleteNode(int series, int node);
+   public boolean deleteNodes(int series, int node);
    public void duplicateNode(int series, int node);
    public void dragSelectedNodes(int series, int node, double dragVector[]);
 

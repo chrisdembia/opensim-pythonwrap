@@ -124,23 +124,21 @@ public class ExcitationPanelListener implements FunctionPanelListener{
       // Now move all the control points by dragVector.
       ArrayList<FunctionNode> selectedNodes = functionPanel.getSelectedNodes();
       for (int i=0; i<selectedNodes.size(); i++) {
-         int index = selectedNodes.get(i).node;
-         ControlLinearNode controlNode=getControlNodeForSeries(series, index);
+         int selIndex = selectedNodes.get(i).node;
+         int selSeries = selectedNodes.get(i).series;
+         ControlLinearNode controlNode=getControlNodeForSeries(selSeries, selIndex);
          double newX = controlNode.getTime() + dragVector[0];
          double newY = controlNode.getValue() + dragVector[1];
          controlNode.setTime(newX);
          controlNode.setValue(newY);
          XYSeriesCollection seriesCollection = (XYSeriesCollection) functionPanel.getChart().getXYPlot().getDataset();
-         ((FunctionXYSeries)seriesCollection.getSeries(series)).updateByIndex(index, newX, newY);
+         ((FunctionXYSeries)seriesCollection.getSeries(selSeries)).updateByIndex(selIndex, newX, newY);
          // Update the function so that when render as line segment is called it's uptodate'
-         functions.get(series).setX(index, newX);
-         functions.get(series).setY(index, newY);
-         seriesCollection.getSeries(series).fireSeriesChanged();
+         functions.get(selSeries).setX(selIndex, newX);
+         functions.get(selSeries).setY(selIndex, newY);
+         seriesCollection.getSeries(selSeries).fireSeriesChanged();
       }
-      //updateXYTextFields();
       ((ExcitationPanel)functionPanel).setChanged(true);
-      //setPendingChanges(true, true);
-      //notifyListeners(new FunctionModifiedEvent(model, object, control));
    }
 
    public void duplicateNode(int series, int node) {
@@ -172,27 +170,28 @@ public class ExcitationPanelListener implements FunctionPanelListener{
       }
    }
 
-   public void deleteNode(int series, int node) {
+   public boolean deleteNode(int series, int node) {
       if (control != null && node >= 0 && node < control.getControlValues().getSize()) {
          // node is to be removed from:
          // function, control, series
-         functions.get(series).deletePoint(node);
-         XYSeriesCollection seriesCollection = (XYSeriesCollection) functionPanel.getChart().getXYPlot().getDataset();
-         XYSeries dSeries=seriesCollection.getSeries(series);
-         dSeries.delete(node, node);
-         getSelectedControlNodes(series).remove(node);
-         
-         ((ExcitationPanel)functionPanel).setChanged(true);
+         if (functions.get(series).deletePoint(node)) {
+            getControlNodes(series).remove(node);
+            ((ExcitationPanel)functionPanel).setChanged(true);
+            return true;
+         }
+      }
+      return false;
+   }
 
-       }
+   public boolean deleteNodes(int series, int node) {
+      return false;
    }
 
    public void addNode(int series, double x, double y) {
       if (control != null) {
          functions.get(series).addPoint(x, y);
+         // Now the control
          XYSeriesCollection seriesCollection = (XYSeriesCollection) functionPanel.getChart().getXYPlot().getDataset();
-         seriesCollection.getSeries(series).add(x, y);
-         // Now the control 
          int idx=seriesCollection.getSeries(series).indexOf(x);
          ControlLinearNode node = new ControlLinearNode();
          node.setTime(x);
@@ -244,13 +243,13 @@ public class ExcitationPanelListener implements FunctionPanelListener{
     }
     private ControlLinearNode getControlNodeForSeries(int series, int index)
     { 
-         return getSelectedControlNodes(series).get(index);
+         return getControlNodes(series).get(index);
     }
 
     private int getControlNodeCountForSeries(int series) {
-        return getSelectedControlNodes(series).getSize();
+        return getControlNodes(series).getSize();
     }
-    private SetControlNodes getSelectedControlNodes(int series)
+    private SetControlNodes getControlNodes(int series)
     {
          if (series==0)
              return control.getControlValues();

@@ -59,8 +59,9 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
-import org.jfree.chart.urls.StandardXYURLGenerator;
 import org.jfree.data.xy.XYDataset;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
 import org.jfree.ui.RectangleEdge;
 import org.jfree.ui.TextAnchor;
 
@@ -402,11 +403,13 @@ public class FunctionPanel extends ChartPanel
       double dataYMax = xyPlot.getRangeAxis().java2DToValue(box.getMinY(), dataArea, yAxisLocation);
       Rectangle2D dataBox = new Rectangle2D.Double(dataXMin, dataYMin, dataXMax - dataXMin, dataYMax - dataYMin);
       for (int i=0; i<xyDataset.getSeriesCount(); i++) {
-         for (int j=0; j<xyDataset.getItemCount(i); j++) {
-            double x = xyDataset.getXValue(i, j);
-            double y = xyDataset.getYValue(i, j);
-            if (dataBox.contains(x, y) == true)
-               nodes.add(new FunctionNode(i, j));
+         if (renderer.getSeriesShapesVisible(i)) {
+            for (int j=0; j<xyDataset.getItemCount(i); j++) {
+               double x = xyDataset.getXValue(i, j);
+               double y = xyDataset.getYValue(i, j);
+               if (dataBox.contains(x, y) == true)
+                  nodes.add(new FunctionNode(i, j));
+            }
          }
       }
       return nodes;
@@ -520,6 +523,8 @@ public class FunctionPanel extends ChartPanel
       } else if (e.getKeyCode() == KeyEvent.VK_L || e.getKeyCode() == KeyEvent.VK_R ||
                  e.getKeyCode() == KeyEvent.VK_U || e.getKeyCode() == KeyEvent.VK_D) {
          panPlot(e.getKeyCode());
+      } else if (e.getKeyCode() == KeyEvent.VK_DELETE) {
+         deleteSelectedNodes();
       }
    }
 
@@ -603,12 +608,14 @@ public class FunctionPanel extends ChartPanel
       // Loop through the nodes from last to first, so if the circles
       // for two or more nodes overlap, you get the one drawn on top.
       for (int i=xyDataset.getSeriesCount()-1; i>=0; i--) {
-         for (int j=xyDataset.getItemCount(i)-1; j>=0; j--) {
-            double sx = xyPlot.getDomainAxis().valueToJava2D(xyDataset.getXValue(i, j), dataArea, xAxisLocation);
-            double sy = xyPlot.getRangeAxis().valueToJava2D(xyDataset.getYValue(i, j), dataArea, yAxisLocation);
-            double distance = Math.sqrt((sx-x)*(sx-x) + (sy-y)*(sy-y));
-            if (distance < 6.0) {
-               return new FunctionNode(i, j);
+         if (renderer.getSeriesShapesVisible(i)) {
+            for (int j=xyDataset.getItemCount(i)-1; j>=0; j--) {
+               double sx = xyPlot.getDomainAxis().valueToJava2D(xyDataset.getXValue(i, j), dataArea, xAxisLocation);
+               double sy = xyPlot.getRangeAxis().valueToJava2D(xyDataset.getYValue(i, j), dataArea, yAxisLocation);
+               double distance = Math.sqrt((sx-x)*(sx-x) + (sy-y)*(sy-y));
+               if (distance < 6.0) {
+                  return new FunctionNode(i, j);
+               }
             }
          }
       }
@@ -741,14 +748,6 @@ public class FunctionPanel extends ChartPanel
    }
 
    private void addNode(int series, int screenX, int screenY) {
-      // TODO: it would be really slick to figure out the index
-      // of the new node and adjust the indices of all the selected
-      // nodes accordingly, but you don't know if the addNode
-      // will be successful (e.g., the FunctionPanel owner may
-      // not allow nodes to be added). So instead just clear
-      // the list of selected nodes.
-      clearSelectedNodes();
-
       XYPlot xyPlot = getChart().getXYPlot();
       RectangleEdge xAxisLocation = xyPlot.getDomainAxisEdge();
       RectangleEdge yAxisLocation = xyPlot.getRangeAxisEdge();
@@ -756,7 +755,7 @@ public class FunctionPanel extends ChartPanel
       double newNodeX = xyPlot.getDomainAxis().java2DToValue(screenX, dataArea, xAxisLocation);
       double newNodeY = xyPlot.getRangeAxis().java2DToValue(screenY, dataArea, yAxisLocation);
 
-      // Now notify all listeners about the change.
+      // Notify all listeners about the change.
       Object[] listeners = this.functionPanelListeners.getListenerList();
       for (int i = listeners.length - 2; i >= 0; i -= 2) {
          if (listeners[i] == FunctionPanelListener.class) {
@@ -764,28 +763,112 @@ public class FunctionPanel extends ChartPanel
          }
       }
 
-      // Set the color for the new node.
-      // You don't know the index of the new node, but it doesn't matter since
-      // all nodes have been deselected anyway. So just set the paint of the
-      // last node to the default series paint, since that index was not previously
-      // mapped to a paint.
-      renderer.unhighlightNode(series, xyPlot.getDataset().getItemCount(series)-1);
+      // Now add the point to the series, first figuring out what its index will be.
+      XYSeriesCollection seriesCollection = (XYSeriesCollection)xyPlot.getDataset();
+      XYSeries dSeries = seriesCollection.getSeries(series);
+      int index = dSeries.getItemCount();
+      for (int i=0; i<dSeries.getItemCount(); i++) {
+         if (dSeries.getDataItem(i).getX().doubleValue() > newNodeX) {
+            index = i;
+            break;
+         }
+      }
+      dSeries.add(newNodeX, newNodeY);
+
+      updateSelectedNodesAfterAddition(series, index);
    }
  
-
    public void deleteNode(int series, int node) {
-      // TODO: it would be really slick to adjust the list of
-      // selected nodes to account for the deletion, but you
-      // don't know if the deleteNode will be successful
-      // (e.g., some functions must contain at least 2 points).
-      // So instead just clear the list of selected nodes.
-      clearSelectedNodes();
-
-      // Now notify all listeners about the change.
+      // Notify all listeners about the change. There should be only
+      // one listener, so when one returns success, adjust the list of
+      // selected nodes and return.
       Object[] listeners = this.functionPanelListeners.getListenerList();
       for (int i = listeners.length - 2; i >= 0; i -= 2) {
          if (listeners[i] == FunctionPanelListener.class) {
-            ((FunctionPanelListener) listeners[i + 1]).deleteNode(series, node);
+            boolean success = ((FunctionPanelListener) listeners[i + 1]).deleteNode(series, node);
+            if (success == true) {
+               XYSeriesCollection seriesCollection = (XYSeriesCollection)getChart().getXYPlot().getDataset();
+               XYSeries dSeries = seriesCollection.getSeries(series);
+               dSeries.delete(node, node);
+               updateSelectedNodesAfterDeletion(series, node);
+               return;
+            }
+         }
+      }
+   }
+
+   public void deleteSelectedNodes() {
+      for (int i = 0; i < selectedNodes.size(); i++)
+      {
+         int series = selectedNodes.get(i).series;
+         int node = selectedNodes.get(i).node;
+
+         Object[] listeners = this.functionPanelListeners.getListenerList();
+         for (int j = listeners.length - 2; j >= 0; j -= 2) {
+            if (listeners[j] == FunctionPanelListener.class) {
+               ((FunctionPanelListener) listeners[j + 1]).deleteNodes(series, node);
+            }
+         }
+      }
+
+      for (int i = 0; i < selectedNodes.size(); i++)
+         renderer.unhighlightNode(selectedNodes.get(i).series, selectedNodes.get(i).node);
+
+      // Clear the selected nodes.
+      selectedNodes.clear();
+
+      this.repaint();
+   }
+
+   public void updateSelectedNodesAfterDeletion(int series, int node) {
+      XYSeriesCollection seriesCollection = (XYSeriesCollection)getChart().getXYPlot().getDataset();
+      XYSeries dSeries = seriesCollection.getSeries(series);
+
+      // Unhighlight all nodes in the series that are after the deleted one.
+      for (int i=node; i<dSeries.getItemCount(); i++) {
+         renderer.unhighlightNode(series, i);
+      }
+
+      // If the deleted node was selected, remove it from selectedNodes.
+      // For all nodes in the series after the deleted one, decrement the node number.
+      for (int i=selectedNodes.size()-1; i>=0; i--) {
+         if (selectedNodes.get(i).series == series && selectedNodes.get(i).node >= node) {
+            if (selectedNodes.get(i).node == node) {
+               selectedNodes.remove(i);
+            } else {
+               selectedNodes.get(i).node--;
+            }
+         }
+      }
+
+      // For each selected node in the series after the deleted one, highlight it.
+      for (int i=0; i<selectedNodes.size(); i++) {
+         if (selectedNodes.get(i).series == series && selectedNodes.get(i).node >= node) {
+            renderer.highlightNode(series, selectedNodes.get(i).node);
+         }
+      }
+   }
+
+   public void updateSelectedNodesAfterAddition(int series, int node) {
+      XYSeriesCollection seriesCollection = (XYSeriesCollection)getChart().getXYPlot().getDataset();
+      XYSeries dSeries = seriesCollection.getSeries(series);
+
+      // Unhighlight all nodes in the series that are after the added one.
+      for (int i=node; i<dSeries.getItemCount(); i++) {
+         renderer.unhighlightNode(series, i);
+      }
+
+      // For all nodes in the series after the added one, increment the node number.
+      for (int i=0; i<selectedNodes.size(); i++) {
+         if (selectedNodes.get(i).series == series && selectedNodes.get(i).node >= node) {
+            selectedNodes.get(i).node++;
+         }
+      }
+
+      // For each selected node in the series after the added one, highlight it.
+      for (int i=0; i<selectedNodes.size(); i++) {
+         if (selectedNodes.get(i).series == series && selectedNodes.get(i).node > node) {
+            renderer.highlightNode(series, selectedNodes.get(i).node);
          }
       }
    }

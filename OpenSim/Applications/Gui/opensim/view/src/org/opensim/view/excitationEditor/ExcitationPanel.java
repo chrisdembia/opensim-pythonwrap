@@ -255,4 +255,14 @@ public class ExcitationPanel extends FunctionPanel{
           return;
       renderer.setSeriesShapesVisible(series, b);
     }
+
+    void toggleMinMaxShading(boolean b) {
+      ExcitationRenderer renderer = (ExcitationRenderer) getChart().getXYPlot().getRenderer();
+      if (renderer==null)
+          return;
+      if (b)
+         renderer.setFillMode(ExcitationRenderer.ExcitationFillMode.MIN_MAX);
+      else
+         renderer.setFillMode(ExcitationRenderer.ExcitationFillMode.NONE);
+    }
 }

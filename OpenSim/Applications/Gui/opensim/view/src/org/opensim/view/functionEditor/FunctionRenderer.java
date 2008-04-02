@@ -119,6 +119,7 @@ public class FunctionRenderer extends XYLineAndShapeRendererWithHighlight
          shapeFillPaintList.get(index).setPaint(i, Color.GREEN);
      Shape circle = new Ellipse2D.Float(-3, -3, 6, 6);
      setSeriesShape(index, circle);// all series
+     setSeriesShapesVisible(index, true);
      setSeriesStroke(index, new BasicStroke(1.5f));
      setSeriesOutlineStroke(index, new BasicStroke(1.0f));
      setFunctionDefaultFillPaint(index, Color.WHITE);
@@ -173,23 +174,22 @@ public class FunctionRenderer extends XYLineAndShapeRendererWithHighlight
 
       // Draw the circles for the control points
       for (int series = seriesCount - 1; series >= 0; series--) {
-         int itemCount = dataset.getItemCount(series);
-         for (int item = 0; item < itemCount; item++) {
-            double datax = dataset.getXValue(series, item) * XUnits.convertTo(XDisplayUnits);
-            double datay = dataset.getYValue(series, item) * YUnits.convertTo(YDisplayUnits);
-            double screenx = domainAxis.valueToJava2D(datax, dataArea, xAxisLocation);
-            double screeny = rangeAxis.valueToJava2D(datay, dataArea, yAxisLocation);
-            if (!getItemShapeVisible(series, item))
-                continue;
-            Shape shape = getItemShape(series, item);
-            shape = ShapeUtilities.createTranslatedShape(shape, screenx, screeny);
-            //entityArea = shape;
-            if (shape.intersects(dataArea)) {
-               g2.setPaint(getItemFillPaint(series, item));
-               g2.fill(shape);
-               g2.setPaint(getItemPaint(series, item));
-               g2.setStroke(getItemOutlineStroke(series, item));
-               g2.draw(shape);
+         if (this.getSeriesShapesVisible(series)) {
+            int itemCount = dataset.getItemCount(series);
+            for (int item = 0; item < itemCount; item++) {
+               double datax = dataset.getXValue(series, item) * XUnits.convertTo(XDisplayUnits);
+               double datay = dataset.getYValue(series, item) * YUnits.convertTo(YDisplayUnits);
+               double screenx = domainAxis.valueToJava2D(datax, dataArea, xAxisLocation);
+               double screeny = rangeAxis.valueToJava2D(datay, dataArea, yAxisLocation);
+               Shape shape = getItemShape(series, item);
+               shape = ShapeUtilities.createTranslatedShape(shape, screenx, screeny);
+               if (shape.intersects(dataArea)) {
+                  g2.setPaint(getItemFillPaint(series, item));
+                  g2.fill(shape);
+                  g2.setPaint(getItemPaint(series, item));
+                  g2.setStroke(getItemOutlineStroke(series, item));
+                  g2.draw(shape);
+               }
             }
          }
       }
@@ -206,8 +206,8 @@ public class FunctionRenderer extends XYLineAndShapeRendererWithHighlight
       if (this.interiorTitle != null) {
          g2.setFont(this.interiorTitleFont);
          g2.setPaint(this.interiorTitlePaint);
-         double textX = domainAxis.valueToJava2D(domainAxis.getUpperBound(), dataArea, xAxisLocation) - 5;
-         double textY = rangeAxis.valueToJava2D(rangeAxis.getUpperBound(), dataArea, yAxisLocation) + 5;
+         double textX = domainAxis.valueToJava2D(domainAxis.getUpperBound(), dataArea, xAxisLocation) - 2;
+         double textY = rangeAxis.valueToJava2D(rangeAxis.getUpperBound(), dataArea, yAxisLocation) + 2;
          TextUtilities.drawAlignedString(this.interiorTitle, g2, (float)textX, (float)textY, TextAnchor.TOP_RIGHT);
       }
    }
