@@ -112,17 +112,20 @@ public class ExcitationPanel extends FunctionPanel{
    public void setSelectedNodesToValue(int series, double newValue) {
       ExcitationRenderer renderer = (ExcitationRenderer) getChart().getXYPlot().getRenderer(series);
       for (int i=0; i<selectedNodes.size(); i++) {
-         int index = selectedNodes.get(i).node;
-         ControlLinearNode controlNode = renderer.getControl().getControlValues().get(index);
-         double newX = controlNode.getTime();
-         double newY = newValue;
-         controlNode.setTime(newX);
-         controlNode.setValue(newY);
-         // Update underlying function
-         renderer.setSeriesPointXY(series, index, newX, newY);
-         XYSeriesCollection seriesCollection = (XYSeriesCollection) getChart().getXYPlot().getDataset();
-         seriesCollection.getSeries(series).getDataItem(index).setY(newY);
-         seriesCollection.getSeries(series).fireSeriesChanged();
+         int selIndex = selectedNodes.get(i).node;
+         int selSeries = selectedNodes.get(i).series;
+         if (selSeries == series) {
+            ControlLinearNode controlNode = renderer.getControl().getControlValues().get(selIndex);
+            double newX = controlNode.getTime();
+            double newY = newValue;
+            controlNode.setTime(newX);
+            controlNode.setValue(newY);
+            // Update underlying function
+            renderer.setSeriesPointXY(selSeries, selIndex, newX, newY);
+            XYSeriesCollection seriesCollection = (XYSeriesCollection) getChart().getXYPlot().getDataset();
+            seriesCollection.getSeries(selSeries).getDataItem(selIndex).setY(newY);
+            seriesCollection.getSeries(selSeries).fireSeriesChanged();
+         }
       }
       setChanged(true);
        
