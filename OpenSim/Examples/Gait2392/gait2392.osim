@@ -3497,7 +3497,7 @@
 							</Value>
 						</SimmTranslationDof>
 						<SimmRotationDof name="r1">
-							<axis>0.105013547622 -0.174022450344 0.979126315443</axis>
+							<axis>0.105013547622 0.174022450344 0.979126315443</axis>
 							<coordinate>ankle_angle_l</coordinate>
 							<Value>
 								<natCubicSpline>
