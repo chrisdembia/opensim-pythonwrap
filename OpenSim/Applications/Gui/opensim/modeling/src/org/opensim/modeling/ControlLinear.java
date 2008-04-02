@@ -183,7 +183,11 @@ public class ControlLinear extends Control {
   }
 
   public void simplify(PropertySet aProperties) {
-    opensimModelJNI.ControlLinear_simplify(swigCPtr, this, PropertySet.getCPtr(aProperties), aProperties);
+    opensimModelJNI.ControlLinear_simplify__SWIG_0(swigCPtr, this, PropertySet.getCPtr(aProperties), aProperties);
+  }
+
+  public boolean simplify(double cutoffFrequency, double distance) {
+    return opensimModelJNI.ControlLinear_simplify__SWIG_1(swigCPtr, this, cutoffFrequency, distance);
   }
 
   public void filter(double aT) {

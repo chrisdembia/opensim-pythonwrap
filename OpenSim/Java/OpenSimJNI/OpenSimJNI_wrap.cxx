@@ -379,7 +379,6 @@ namespace Swig {
 #include <OpenSim/Common/Array.h>
 #include <OpenSim/Common/ArrayPtrs.h>
 #include <OpenSim/Common/Property.h>
-#include <OpenSim/Common/PropertyDbl.h>
 #include <OpenSim/Common/PropertyStr.h>
 #include <OpenSim/Common/PropertyGroup.h>
 #include <OpenSim/Common/PropertySet.h>
@@ -2763,151 +2762,6 @@ SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_Property_1getA
   arg1 = *(OpenSim::Property **)&jarg1; 
   result = (int)((OpenSim::Property const *)arg1)->getArraySize();
   jresult = (jint)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1PropertyDbl_1_1SWIG_10(JNIEnv *jenv, jclass jcls) {
-  jlong jresult = 0 ;
-  OpenSim::PropertyDbl *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  result = (OpenSim::PropertyDbl *)new OpenSim::PropertyDbl();
-  *(OpenSim::PropertyDbl **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1PropertyDbl_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jstring jarg1, jdouble jarg2) {
-  jlong jresult = 0 ;
-  std::string *arg1 = 0 ;
-  double arg2 ;
-  OpenSim::PropertyDbl *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  if(!jarg1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
-    return 0;
-  }
-  const char *arg1_pstr = (const char *)jenv->GetStringUTFChars(jarg1, 0); 
-  if (!arg1_pstr) return 0;
-  std::string arg1_str(arg1_pstr);
-  arg1 = &arg1_str;
-  jenv->ReleaseStringUTFChars(jarg1, arg1_pstr); 
-  arg2 = (double)jarg2; 
-  result = (OpenSim::PropertyDbl *)new OpenSim::PropertyDbl((std::string const &)*arg1,arg2);
-  *(OpenSim::PropertyDbl **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1PropertyDbl_1_1SWIG_12(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  OpenSim::PropertyDbl *arg1 = 0 ;
-  OpenSim::PropertyDbl *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(OpenSim::PropertyDbl **)&jarg1;
-  if(!arg1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::PropertyDbl const & reference is null");
-    return 0;
-  } 
-  result = (OpenSim::PropertyDbl *)new OpenSim::PropertyDbl((OpenSim::PropertyDbl const &)*arg1);
-  *(OpenSim::PropertyDbl **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_PropertyDbl_1copy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  OpenSim::PropertyDbl *arg1 = (OpenSim::PropertyDbl *) 0 ;
-  OpenSim::Property *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(OpenSim::PropertyDbl **)&jarg1; 
-  result = (OpenSim::Property *)((OpenSim::PropertyDbl const *)arg1)->copy();
-  *(OpenSim::Property **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_delete_1PropertyDbl(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  OpenSim::PropertyDbl *arg1 = (OpenSim::PropertyDbl *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(OpenSim::PropertyDbl **)&jarg1; 
-  delete arg1;
-  
-}
-
-
-SWIGEXPORT jstring JNICALL Java_org_opensim_modeling_opensimModelJNI_PropertyDbl_1getTypeAsString(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jstring jresult = 0 ;
-  OpenSim::PropertyDbl *arg1 = (OpenSim::PropertyDbl *) 0 ;
-  char *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(OpenSim::PropertyDbl **)&jarg1; 
-  result = (char *)((OpenSim::PropertyDbl const *)arg1)->getTypeAsString();
-  if(result) jresult = jenv->NewStringUTF((const char *)result);
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_PropertyDbl_1setValue(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdouble jarg2) {
-  OpenSim::PropertyDbl *arg1 = (OpenSim::PropertyDbl *) 0 ;
-  double arg2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(OpenSim::PropertyDbl **)&jarg1; 
-  arg2 = (double)jarg2; 
-  (arg1)->setValue(arg2);
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_PropertyDbl_1getValueDbl_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  OpenSim::PropertyDbl *arg1 = (OpenSim::PropertyDbl *) 0 ;
-  double *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(OpenSim::PropertyDbl **)&jarg1; 
-  {
-    double &_result_ref = (arg1)->getValueDbl();
-    result = (double *) &_result_ref;
-  }
-  *(double **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jstring JNICALL Java_org_opensim_modeling_opensimModelJNI_PropertyDbl_1toString(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jstring jresult = 0 ;
-  OpenSim::PropertyDbl *arg1 = (OpenSim::PropertyDbl *) 0 ;
-  std::string *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(OpenSim::PropertyDbl **)&jarg1; 
-  {
-    std::string const &_result_ref = (arg1)->toString();
-    result = (std::string *) &_result_ref;
-  }
-  jresult = jenv->NewStringUTF(result->c_str()); 
   return jresult;
 }
 
@@ -30217,7 +30071,7 @@ SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_ControlLine
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ControlLinear_1simplify(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ControlLinear_1simplify_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
   OpenSim::ControlLinear *arg1 = (OpenSim::ControlLinear *) 0 ;
   OpenSim::PropertySet *arg2 = 0 ;
   
@@ -30232,6 +30086,29 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ControlLinear_
     return ;
   } 
   (arg1)->simplify((OpenSim::PropertySet const &)*arg2);
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_ControlLinear_1simplify_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdouble jarg2, jdouble jarg3) {
+  jboolean jresult = 0 ;
+  OpenSim::ControlLinear *arg1 = (OpenSim::ControlLinear *) 0 ;
+  double *arg2 = 0 ;
+  double *arg3 = 0 ;
+  bool result;
+  double temp2 ;
+  double temp3 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ControlLinear **)&jarg1; 
+  temp2 = (double)jarg2; 
+  arg2 = &temp2; 
+  temp3 = (double)jarg3; 
+  arg3 = &temp3; 
+  result = (bool)(arg1)->simplify((double const &)*arg2,(double const &)*arg3);
+  jresult = (jboolean)result; 
+  return jresult;
 }
 
 
@@ -76288,14 +76165,6 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AnalyzeTool_1r
   OpenSim::AnalyzeTool::run(*arg1,arg2,arg3,(OpenSim::Storage const &)*arg4,arg5,arg6,arg7);
 }
 
-
-SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_SWIGPropertyDblUpcast(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-    jlong baseptr = 0;
-    (void)jenv;
-    (void)jcls;
-    *(OpenSim::Property **)&baseptr = *(OpenSim::PropertyDbl **)&jarg1;
-    return baseptr;
-}
 
 SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_SWIGPropertyStrUpcast(JNIEnv *jenv, jclass jcls, jlong jarg1) {
     jlong baseptr = 0;

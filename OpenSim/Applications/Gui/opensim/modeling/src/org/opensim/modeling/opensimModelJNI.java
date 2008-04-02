@@ -76,15 +76,6 @@ public class opensimModelJNI {
   public final static native void Property_setUseDefault(long jarg1, Property jarg1_, boolean jarg2);
   public final static native boolean Property_getUseDefault(long jarg1, Property jarg1_);
   public final static native int Property_getArraySize(long jarg1, Property jarg1_);
-  public final static native long new_PropertyDbl__SWIG_0();
-  public final static native long new_PropertyDbl__SWIG_1(String jarg1, double jarg2);
-  public final static native long new_PropertyDbl__SWIG_2(long jarg1, PropertyDbl jarg1_);
-  public final static native long PropertyDbl_copy(long jarg1, PropertyDbl jarg1_);
-  public final static native void delete_PropertyDbl(long jarg1);
-  public final static native String PropertyDbl_getTypeAsString(long jarg1, PropertyDbl jarg1_);
-  public final static native void PropertyDbl_setValue(long jarg1, PropertyDbl jarg1_, double jarg2);
-  public final static native long PropertyDbl_getValueDbl__SWIG_0(long jarg1, PropertyDbl jarg1_);
-  public final static native String PropertyDbl_toString(long jarg1, PropertyDbl jarg1_);
   public final static native long new_PropertyStr__SWIG_0();
   public final static native long new_PropertyStr__SWIG_1(String jarg1, String jarg2);
   public final static native long new_PropertyStr__SWIG_2(long jarg1, PropertyStr jarg1_);
@@ -1618,7 +1609,8 @@ public class opensimModelJNI {
   public final static native void ControlLinear_insertNewMaxNode(long jarg1, ControlLinear jarg1_, int jarg2, long jarg3, ControlLinearNode jarg3_);
   public final static native double ControlLinear_getFirstTime(long jarg1, ControlLinear jarg1_);
   public final static native double ControlLinear_getLastTime(long jarg1, ControlLinear jarg1_);
-  public final static native void ControlLinear_simplify(long jarg1, ControlLinear jarg1_, long jarg2, PropertySet jarg2_);
+  public final static native void ControlLinear_simplify__SWIG_0(long jarg1, ControlLinear jarg1_, long jarg2, PropertySet jarg2_);
+  public final static native boolean ControlLinear_simplify__SWIG_1(long jarg1, ControlLinear jarg1_, double jarg2, double jarg3);
   public final static native void ControlLinear_filter(long jarg1, ControlLinear jarg1_, double jarg2);
   public final static native boolean ControlLinear_isKindOf(String jarg1);
   public final static native boolean ControlLinear_isA(long jarg1, ControlLinear jarg1_, String jarg2);
@@ -4108,7 +4100,6 @@ public class opensimModelJNI {
   public final static native void AnalyzeTool_setPrintResultFiles(long jarg1, AnalyzeTool jarg1_, boolean jarg2);
   public final static native boolean AnalyzeTool_run__SWIG_0(long jarg1, AnalyzeTool jarg1_) throws java.io.IOException;
   public final static native void AnalyzeTool_run__SWIG_1(long jarg1, Model jarg1_, int jarg2, int jarg3, long jarg4, Storage jarg4_, long jarg5, Storage jarg5_, long jarg6, ControlSet jarg6_, boolean jarg7);
-  public final static native long SWIGPropertyDblUpcast(long jarg1);
   public final static native long SWIGPropertyStrUpcast(long jarg1);
   public final static native long SWIGObjectGroupUpcast(long jarg1);
   public final static native long SWIGVisiblePropertiesUpcast(long jarg1);

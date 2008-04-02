@@ -72,8 +72,6 @@ import org.opensim.modeling.ControlLinearNode;
 import org.opensim.modeling.ControlSet;
 import org.opensim.modeling.Function;
 import org.opensim.modeling.LinearFunction;
-import org.opensim.modeling.PropertyDbl;
-import org.opensim.modeling.PropertySet;
 import org.opensim.modeling.SetControlNodes;
 import org.opensim.modeling.StepFunction;
 import org.opensim.modeling.Units;
@@ -454,9 +452,6 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
             if (((Integer)userInput).compareTo((Integer)DialogDescriptor.OK_OPTION)!=0)
                 return; */
             // make a new controlSet and add selected excitations to it.
-            PropertySet simplifyPropertySet = new PropertySet();
-            simplifyPropertySet.append(new PropertyDbl("cutoff_frequency", simplifyPanel.getFrequency()));
-            simplifyPropertySet.append(new PropertyDbl("distance", simplifyPanel.getTolerance()));
             for(int i=0; i< selectedPathsVector.size(); i++){
                 TreePath nextPath=selectedPathsVector.get(i);
                 TreeNode lastNode=(TreeNode)nextPath.getLastPathComponent();
@@ -465,7 +460,7 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
                     ExcitationObject eo = (ExcitationObject)userObject;
                     ExcitationRenderer renderer = (ExcitationRenderer) eo.getPlotPanel().getChart().getXYPlot().getRenderer(0);
                     ControlLinear cl = renderer.getControl();
-                    cl.simplify(simplifyPropertySet);
+                    cl.simplify(simplifyPanel.getFrequency(), simplifyPanel.getTolerance());
                     eo.getPlotPanel().update();
                 }
             }
