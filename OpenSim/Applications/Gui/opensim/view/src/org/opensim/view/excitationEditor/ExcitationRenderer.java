@@ -24,7 +24,7 @@
  *  WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 /*
- * ExcitationRenderer.java
+ * Excitationjava
  *
  * Created on October 25, 2007, 10:52 AM
  *
@@ -37,16 +37,17 @@ package org.opensim.view.excitationEditor;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
+import java.util.Vector;
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.plot.CrosshairState;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYItemRendererState;
-import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer.State;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.ui.RectangleEdge;
 import org.opensim.modeling.ArrayXYPoint;
 import org.opensim.modeling.ControlLinear;
 import org.opensim.modeling.Function;
+import org.opensim.modeling.Units;
 import org.opensim.view.functionEditor.FunctionRenderer;
 
 /**
@@ -61,9 +62,21 @@ public class ExcitationRenderer extends FunctionRenderer
    /**
      * Creates a ExcitationRenderer for a single function.
      */
-   public ExcitationRenderer(ControlLinear theControl, Function dFunction) {
-      super(dFunction);
-      control=theControl;
+   public ExcitationRenderer(ControlLinear theControl, Vector<Function> dFunctions) {
+       super(dFunctions.get(0));
+       control=theControl;
+       setXUnits(new Units(Units.UnitType.simmSeconds));
+       setXDisplayUnits(new Units(Units.UnitType.simmSeconds));
+       setYUnits(new Units(Units.UnitType.simmSeconds));
+       setYDisplayUnits(new Units(Units.UnitType.simmSeconds));
+       setBaseShapesVisible(true);
+       setBaseShapesFilled(true);
+       setBaseSeriesVisibleInLegend(false);
+       setDrawOutlines(true);
+       setUseFillPaint(true);
+       setInteriorTitle(control.getName().replace(".excitation",""));
+       for (int i=1; i<dFunctions.size(); i++)
+           addFunction(dFunctions.get(i));
    }
 
    public ControlLinear getControl() {
@@ -155,6 +168,21 @@ public class ExcitationRenderer extends FunctionRenderer
    }
 
     void setControl(ControlLinear backup) {
-        throw new UnsupportedOperationException("Not yet implemented");
+        control=backup;       
     }
+
+    void deleteSeriesPoint(int series, int index) {
+        functionList.get(series).deletePoint(index);
+    }
+
+    void setSeriesPointXY(int series, int index, double newX, double newY) {
+        functionList.get(series).setX(index, newX);
+        functionList.get(series).setY(index, newY);
+    }
+
+    void replaceFunction(int series, Function aFunction) {
+        functionList.set(series, aFunction);
+        // Replace the function in listener as well
+    }
+    
 }

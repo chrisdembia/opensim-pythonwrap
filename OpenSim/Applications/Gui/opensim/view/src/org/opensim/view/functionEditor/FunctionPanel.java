@@ -101,7 +101,7 @@ public class FunctionPanel extends ChartPanel
    public static final String DUPLICATE_NODE_COMMAND = "DUPLICATE_NODE";
    public static final String DELETE_NODE_COMMAND = "DELETE_NODE";
    public static final String ADD_NODE_COMMAND = "ADD_NODE";
-   private EventListenerList functionPanelListeners;
+   protected EventListenerList functionPanelListeners;
 
    /** Creates a new instance of FunctionPanel */
    public FunctionPanel(JFreeChart chart) {

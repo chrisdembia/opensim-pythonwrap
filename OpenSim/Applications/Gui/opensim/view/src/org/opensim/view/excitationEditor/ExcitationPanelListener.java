@@ -54,7 +54,9 @@ import org.opensim.view.functionEditor.FunctionXYSeries;
 public class ExcitationPanelListener implements FunctionPanelListener{
     FunctionPanel functionPanel;
     ControlLinear control;
-    Vector<Function> functions=new  Vector<Function>(3);
+    // THE LIST OF DISPLAYED FUNCTIONS IS CACHED SO THAT INSERTION AND DELETION IS POSSIBLE
+    // THE LIST NEEDS UPDATING WHENEVER ORIGINAL FUNCTION IS RECREATED.
+    Vector<Function> functions;//=new  Vector<Function>(3);    
     //ControlLinearNode newControlNode;
     /**
      * Creates a new instance of ExcitationPanelListener
@@ -136,6 +138,7 @@ public class ExcitationPanelListener implements FunctionPanelListener{
          seriesCollection.getSeries(series).fireSeriesChanged();
       }
       //updateXYTextFields();
+      ((ExcitationPanel)functionPanel).setChanged(true);
       //setPendingChanges(true, true);
       //notifyListeners(new FunctionModifiedEvent(model, object, control));
    }
@@ -165,6 +168,7 @@ public class ExcitationPanelListener implements FunctionPanelListener{
          XYSeries dSeries=seriesCollection.getSeries(series);
          dSeries.add(newX, newY);
          
+        ((ExcitationPanel)functionPanel).setChanged(true);
       }
    }
 
@@ -177,6 +181,9 @@ public class ExcitationPanelListener implements FunctionPanelListener{
          XYSeries dSeries=seriesCollection.getSeries(series);
          dSeries.delete(node, node);
          getSelectedControlNodes(series).remove(node);
+         
+         ((ExcitationPanel)functionPanel).setChanged(true);
+
        }
    }
 
@@ -191,6 +198,8 @@ public class ExcitationPanelListener implements FunctionPanelListener{
          node.setTime(x);
          node.setValue(y);
          control.insertNewValueNode(idx, node);
+         
+        ((ExcitationPanel)functionPanel).setChanged(true);
       }
    }
 
@@ -209,6 +218,8 @@ public class ExcitationPanelListener implements FunctionPanelListener{
          XYSeriesCollection seriesCollection = (XYSeriesCollection) functionPanel.getChart().getXYPlot().getDataset();
          seriesCollection.getSeries(series).getDataItem(index).setY(newY);
          seriesCollection.getSeries(series).fireSeriesChanged();
+         
+         ((ExcitationPanel)functionPanel).setChanged(true);
       }
        
    }
@@ -248,5 +259,9 @@ public class ExcitationPanelListener implements FunctionPanelListener{
          else
             return control.getControlMaxValues();
         
+    }
+
+    void setControl(ControlLinear backup) {
+        control=backup;
     }
 }

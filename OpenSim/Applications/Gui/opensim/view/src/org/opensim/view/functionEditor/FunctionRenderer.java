@@ -34,19 +34,18 @@
 
 package org.opensim.view.functionEditor;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Paint;
 import java.awt.Shape;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 import java.util.ArrayList;
 import org.jfree.chart.axis.ValueAxis;
-import org.jfree.chart.entity.EntityCollection;
 import org.jfree.chart.plot.CrosshairState;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.chart.plot.PlotRenderingInfo;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
 import org.jfree.chart.renderer.xy.XYItemRendererState;
@@ -73,8 +72,9 @@ public class FunctionRenderer extends XYLineAndShapeRendererWithHighlight
         Serializable {
    
    protected ArrayList<Function> functionList = new ArrayList<Function>(0);
-   
-   /** For each control point in each function, the shape fill color,
+   static Color[] defaultColors = new Color[]{Color.BLACK, Color.BLUE, Color.RED};
+   /** 
+    * For each control point in each function, the shape fill color,
     * which is either the highlight color (yellow) or the default fill
     * color.
     **/
@@ -111,13 +111,18 @@ public class FunctionRenderer extends XYLineAndShapeRendererWithHighlight
       functionList.add(theFunction);
       int index = functionList.size()-1;
       shapeFillPaintList.add(new PaintList());
-      //functionDefaultFillPaintList.set(new PaintList());
-      //functionHighlightFillPaintList.add(new PaintList());
-      setFunctionPaint(index, Color.GREEN);
+      Color seriesColor = (index < 3)? defaultColors[index]:Color.BLUE;
+      setFunctionPaint(index, seriesColor);
       functionDefaultFillPaintList.setPaint(index, Color.GREEN);
       functionHighlightFillPaintList.setPaint(index, Color.BLACK);
       for (int i=0; i<theFunction.getNumberOfPoints(); i++)
          shapeFillPaintList.get(index).setPaint(i, Color.GREEN);
+     Shape circle = new Ellipse2D.Float(-3, -3, 6, 6);
+     setSeriesShape(index, circle);// all series
+     setSeriesStroke(index, new BasicStroke(1.5f));
+     setSeriesOutlineStroke(index, new BasicStroke(1.0f));
+     setFunctionDefaultFillPaint(index, Color.WHITE);
+     setFunctionHighlightFillPaint(index, Color.YELLOW);
    }
 
    public void drawFunctions(Graphics2D g2,
@@ -321,7 +326,4 @@ public class FunctionRenderer extends XYLineAndShapeRendererWithHighlight
       this.interiorTitleFont = font;
    }
    
-   public ArrayList<Function> getFunctionList() {
-      return functionList;
-   }
 }

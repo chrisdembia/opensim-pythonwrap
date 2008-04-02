@@ -98,7 +98,6 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
     boolean somethingSelected=false;
     private ExcitationsGridJPanel excitationGridPanel = new ExcitationsGridJPanel();
     static int MAX_EXCITATIONS_PER_COLUMN=8;
-    static Color[] defaultColors = new Color[]{Color.BLUE, Color.BLACK, Color.RED};
     /** Creates new form ExcitationEditorJPanel */
     
     public ExcitationEditorJPanel(JFrame owner, ControlSet controls) {
@@ -750,11 +749,6 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
        }
        else
            return;
-       //Rectangle r=panel.getBounds();
-       //jRightPanel.add(excitationGridPanel,java.awt.BorderLayout.CENTER);
-       //Dimension d = new Dimension(300,600);
-       //excitationGridPanel.setPreferredSize(d);
-       //jRightPanel.invalidate();
 
        frame.setExtendedState(Frame.MAXIMIZED_VERT);
        //frame.doLayout();
@@ -806,19 +800,19 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
          
          FunctionXYSeries xySeries = new FunctionXYSeries("excitation");
          SetControlNodes cnodes = cl.getControlValues();
-         Function ctrlFunction = createFunctionFromControlLinear(xySeries, cnodes, cl, !cl.getUseSteps());
+         Function ctrlFunction = createFunctionFromControlLinear(xySeries, cnodes, !cl.getUseSteps());
          functions.add(ctrlFunction);
          seriesCollection.addSeries(xySeries);
          
          FunctionXYSeries xySeriesMin = new FunctionXYSeries("min");
          SetControlNodes minNodes = cl.getControlMinValues();
-         Function minFunction = createFunctionFromControlLinear(xySeriesMin, minNodes, cl, true);
+         Function minFunction = createFunctionFromControlLinear(xySeriesMin, minNodes, true);
          functions.add(minFunction);
          seriesCollection.addSeries(xySeriesMin);
         
          FunctionXYSeries xySeriesMax = new FunctionXYSeries("max");
          SetControlNodes maxNodes = cl.getControlMaxValues();
-         Function maxFunction = createFunctionFromControlLinear(xySeriesMax, maxNodes, cl, true);
+         Function maxFunction = createFunctionFromControlLinear(xySeriesMax, maxNodes, true);
          functions.add(maxFunction);
          seriesCollection.addSeries(xySeriesMax);
          
@@ -827,29 +821,10 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
                     true, true);
          FunctionPlot xyPlot = (FunctionPlot)chart.getXYPlot();
          XYDataset xyDataset = xyPlot.getDataset();
-         ExcitationRenderer renderer = new ExcitationRenderer(excitation, ctrlFunction);
-         renderer.addFunction(minFunction);
-         renderer.addFunction(maxFunction);
-         renderer.setXUnits(new Units(Units.UnitType.simmSeconds));
-         renderer.setXDisplayUnits(new Units(Units.UnitType.simmSeconds));
-         renderer.setYUnits(new Units(Units.UnitType.simmSeconds));
-         renderer.setYDisplayUnits(new Units(Units.UnitType.simmSeconds));
-
-         Shape circle = new Ellipse2D.Float(-3, -3, 6, 6);
-         renderer.setBaseShapesVisible(true);
-         renderer.setBaseShapesFilled(true);
-         for(int i=0; i<3; i++){
-             renderer.setSeriesShape(i, circle);// all series
-             renderer.setSeriesStroke(i, new BasicStroke(1.5f));
-             renderer.setSeriesOutlineStroke(i, new BasicStroke(1.0f));
-             renderer.setFunctionPaint(i, defaultColors[i]);
-             renderer.setFunctionDefaultFillPaint(i, Color.WHITE);
-             renderer.setFunctionHighlightFillPaint(i, Color.YELLOW);
-         }
-         renderer.setBaseSeriesVisibleInLegend(false);
-         renderer.setDrawOutlines(true);
-         renderer.setUseFillPaint(true);
-         renderer.setInteriorTitle(excitation.getName().replace(".excitation",""));
+         ExcitationRenderer renderer = new ExcitationRenderer(excitation, functions);
+         //renderer.addFunction(minFunction);
+         //renderer.addFunction(maxFunction);
+        
          ValueAxis va = xyPlot.getRangeAxis();
          if (va instanceof NumberAxis) {
             NumberAxis na = (NumberAxis) va;
@@ -865,7 +840,7 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
    }
 
 
-    public static Function createFunctionFromControlLinear(final FunctionXYSeries xySeries, final SetControlNodes cnodes, final ControlLinear cl, boolean useLinear) {
+    public static Function createFunctionFromControlLinear(final FunctionXYSeries xySeries, final SetControlNodes cnodes, boolean useLinear) {
         Function ctrlFunction;
         if (!useLinear){ // Step function
             ctrlFunction = new StepFunction();
@@ -968,8 +943,23 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
                      }
                 }
             });
+          JMenuItem removeMenuItem = new JMenuItem("Remove");
+            removeMenuItem.addActionListener(new ActionListener(){
+                public void actionPerformed(ActionEvent e) {
+                    int numColumns= ((DefaultMutableTreeNode)treeModel.getRoot()).getChildCount();
+                    DefaultMutableTreeNode clickedNode = (DefaultMutableTreeNode)clickedElement.getLastPathComponent();
+                    ExcitationColumnJPanel columnPanel = (ExcitationColumnJPanel)clickedNode.getUserObject();
+                    int indexToRemove = treeModel.getIndexOfChild(clickedNode.getParent(),clickedNode);
+                    treeModel.removeNodeFromParent(clickedNode);
+                    excitationGridPanel.removeColumn(columnPanel);
+                    excitationGridPanel.repaint();  // Sounds wrong but have no other way to force refresh of display
+                    frame.validate();
+                }
+            });
+           
            contextMenu.add(renameMenuItem);
            contextMenu.add(appendMenuItem);
+           contextMenu.add(removeMenuItem);
       }
       contextMenu.show(jExcitationsTree, evtX, evtY);
    }

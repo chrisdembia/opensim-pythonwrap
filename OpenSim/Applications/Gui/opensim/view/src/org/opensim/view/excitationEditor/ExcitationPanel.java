@@ -51,6 +51,7 @@ import org.opensim.modeling.ControlLinearNode;
 import org.opensim.modeling.Function;
 import org.opensim.modeling.SetControlNodes;
 import org.opensim.view.functionEditor.FunctionPanel;
+import org.opensim.view.functionEditor.FunctionPanelListener;
 import org.opensim.view.functionEditor.FunctionXYSeries;
 
 /**
@@ -99,7 +100,7 @@ public class ExcitationPanel extends FunctionPanel{
                else
                    renderer.getControl().getControlMaxValues().remove(index);
                // Update underlying function
-               renderer.getFunctionList().get(series).deletePoint(index);
+               renderer.deleteSeriesPoint(series, index);
                seriesCollection.getSeries(series).remove(index);
                seriesCollection.getSeries(series).fireSeriesChanged();
                setChanged(true);
@@ -118,8 +119,7 @@ public class ExcitationPanel extends FunctionPanel{
          controlNode.setTime(newX);
          controlNode.setValue(newY);
          // Update underlying function
-         renderer.getFunctionList().get(series).setX(index, newX);
-         renderer.getFunctionList().get(series).setY(index, newY);
+         renderer.setSeriesPointXY(series, index, newX, newY);
          XYSeriesCollection seriesCollection = (XYSeriesCollection) getChart().getXYPlot().getDataset();
          seriesCollection.getSeries(series).getDataItem(index).setY(newY);
          seriesCollection.getSeries(series).fireSeriesChanged();
@@ -143,7 +143,12 @@ public class ExcitationPanel extends FunctionPanel{
                 useStepsMenuItem.addActionListener(new ActionListener(){
                     public void actionPerformed(ActionEvent e) {
                         // Get the function # selectedSeries, toggle the use_steps flag, update function display
+                        ExcitationRenderer renderer = (ExcitationRenderer) getChart().getXYPlot().getRenderer();
+                        // Current value of use_steps
+                        boolean useStepsFlag = renderer.getControl().getUseSteps();
+                        renderer.getControl().setUseSteps(!useStepsFlag);
                         update(selectedSeries);
+                        setChanged(true);
                     }
                 });
                 nodePopup.add(useStepsMenuItem);
@@ -165,17 +170,36 @@ public class ExcitationPanel extends FunctionPanel{
 
         ExcitationRenderer renderer = (ExcitationRenderer) getChart().getXYPlot().getRenderer(series);
         // Current value of use_steps
-        boolean useStepsFlag = renderer.getControl().getUseSteps();
-        renderer.getControl().setUseSteps(!useStepsFlag);
+        //boolean useStepsFlag = renderer.getControl().getUseSteps();
+        //renderer.getControl().setUseSteps(!useStepsFlag);
         // update he functions
-        SetControlNodes cnodes = renderer.getControl().getControlValues();
+        SetControlNodes cnodes;
+        if (series==0)
+            cnodes = renderer.getControl().getControlValues();
+        else if (series==1)
+            cnodes=renderer.getControl().getControlMinValues();
+        else
+            cnodes=renderer.getControl().getControlMaxValues();
+        
         XYSeries ser=seriesCollection.getSeries(series);
         ser.clear();
         // RenderingInfo keeps stale refs need to be removed from the Chart
-        ChartRenderingInfo info = getChartRenderingInfo();
-        Function ctrlFunction = 
-                ExcitationEditorJPanel.createFunctionFromControlLinear((FunctionXYSeries) ser, cnodes, renderer.getControl(), !renderer.getControl().getUseSteps());
-        renderer.getFunctionList().set(series, ctrlFunction);
+        Function ctrlFunction = null;
+        if (series==0)
+             ctrlFunction=ExcitationEditorJPanel.createFunctionFromControlLinear((FunctionXYSeries) ser, 
+                     cnodes, !renderer.getControl().getUseSteps());
+        else
+             ctrlFunction=ExcitationEditorJPanel.createFunctionFromControlLinear((FunctionXYSeries) ser, 
+                     cnodes, false);
+        renderer.replaceFunction(series, ctrlFunction);
+        
+        // The following is a hack adopted from the FunctionPanel to nvoke methods on listeners directly instead of using events!!
+        Object[] listeners = functionPanelListeners.getListenerList();
+        for (int i = listeners.length - 2; i >= 0; i -= 2) {
+            if (listeners[i] == FunctionPanelListener.class) {
+                ((ExcitationPanelListener) listeners[i + 1]).replaceFunction(ctrlFunction, series);
+            }
+        }
         seriesCollection.seriesChanged(new SeriesChangeEvent(this));
         setChanged(true);
        
@@ -213,8 +237,14 @@ public class ExcitationPanel extends FunctionPanel{
     public void restore()
     {
         if (isChanged()){
-            ExcitationRenderer renderer = (ExcitationRenderer) getChart().getXYPlot().getRenderer(0);
+            ExcitationRenderer renderer = (ExcitationRenderer) getChart().getXYPlot().getRenderer();
             renderer.setControl(backup);
+            Object[] listeners = functionPanelListeners.getListenerList();
+            for (int i = listeners.length - 2; i >= 0; i -= 2) {
+                if (listeners[i] == FunctionPanelListener.class) {
+                    ((ExcitationPanelListener) listeners[i + 1]).setControl(backup);
+                }
+            }
             update(0);
         }
     }
