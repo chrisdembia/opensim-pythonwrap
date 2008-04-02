@@ -161,4 +161,10 @@ public class ExcitationsGridJPanel extends JPanel {
             getExcitationColumn(i).restore();
     }
 
+    void showBaseShape(int series, boolean b) {
+        // Delegate the call
+        for (int i=0; i<excitationColumns.size(); i++)
+            getExcitationColumn(i).showBaseShape(series, b);
+    }
+
 }

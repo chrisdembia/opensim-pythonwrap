@@ -253,5 +253,12 @@ public class ExcitationColumnJPanel extends javax.swing.JPanel {
          }
     }
 
+    void showBaseShape(int series, boolean b) {
+         for(int i=0; i<cache.size(); i++) {
+            ExcitationPanel p1 = getPanel(i);
+            p1.showBaseShape(series, b);
+         }        
+    }
+
 
 }

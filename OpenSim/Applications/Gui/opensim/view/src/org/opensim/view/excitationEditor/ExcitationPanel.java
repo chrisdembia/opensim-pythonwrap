@@ -248,4 +248,11 @@ public class ExcitationPanel extends FunctionPanel{
             update(0);
         }
     }
+
+    void showBaseShape(int series, boolean b) {
+      ExcitationRenderer renderer = (ExcitationRenderer) getChart().getXYPlot().getRenderer();
+      if (renderer==null)
+          return;
+      renderer.setSeriesShapesVisible(series, b);
+    }
 }

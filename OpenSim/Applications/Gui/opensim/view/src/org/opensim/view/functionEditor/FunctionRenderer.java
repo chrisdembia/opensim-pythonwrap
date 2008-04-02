@@ -179,6 +179,8 @@ public class FunctionRenderer extends XYLineAndShapeRendererWithHighlight
             double datay = dataset.getYValue(series, item) * YUnits.convertTo(YDisplayUnits);
             double screenx = domainAxis.valueToJava2D(datax, dataArea, xAxisLocation);
             double screeny = rangeAxis.valueToJava2D(datay, dataArea, yAxisLocation);
+            if (!getItemShapeVisible(series, item))
+                continue;
             Shape shape = getItemShape(series, item);
             shape = ShapeUtilities.createTranslatedShape(shape, screenx, screeny);
             //entityArea = shape;
