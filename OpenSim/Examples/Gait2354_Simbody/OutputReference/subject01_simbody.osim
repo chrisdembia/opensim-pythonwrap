@@ -1,6 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Model name="subject01">
 	<defaults>
+		<Force name="default">
+			<body_A>  </body_A>
+			<point_A>       0.00000000       0.00000000       0.00000000 </point_A>
+			<direction_A>       1.00000000       0.00000000       0.00000000 </direction_A>
+			<body_B>  </body_B>
+			<point_B>       0.00000000       0.00000000       0.00000000 </point_B>
+			<optimal_force>    1000.00000000 </optimal_force>
+		</Force>
+		<GeneralizedForce name="default">
+			<coordinate> Unassigned </coordinate>
+			<optimal_force>     300.00000000 </optimal_force>
+		</GeneralizedForce>
+		<ControlLinear name="default">
+			<is_model_control> true </is_model_control>
+			<extrapolate> true </extrapolate>
+			<default_min>      -1.00000000 </default_min>
+			<default_max>       1.00000000 </default_max>
+			<filter_on> false </filter_on>
+			<use_steps> false </use_steps>
+			<x_nodes/>
+			<min_nodes/>
+			<max_nodes/>
+			<kp>     100.00000000 </kp>
+			<kv>      20.00000000 </kv>
+		</ControlLinear>
 		<Thelen2003Muscle name="default">
 			<MusclePointSet name="">
 				<objects/>
@@ -115,6 +140,55 @@
 				</natCubicSpline>
 			</force_velocity_curve>
 		</Schutte1993Muscle>
+		<Torque name="default">
+			<body_A> Unassigned </body_A>
+			<direction_A>       1.00000000       0.00000000       0.00000000 </direction_A>
+			<body_B> Unassigned </body_B>
+			<optimal_force>       1.00000000 </optimal_force>
+		</Torque>
+		<rdCMC_Joint name="default">
+			<!--Flag (true or false) indicating whether or not a task is on.-->
+			<on> false </on>
+			<!--Body frame with respect to which a tracking objective is specified.
+			    This property is not used for tracking joint angles.-->
+			<wrt_body> -1 </wrt_body>
+			<!--Specifies the body frame in which the tracking objectives are
+			    expressed.  This property is not used for tracking joint angles.-->
+			<express_body> -1 </express_body>
+			<!--Array of 3 flags (each true or false) specifying whether a component
+			    of a task is active.  For example, tracking the trajectory of a point
+			    in space could have three components (x,y,z).  This allows each of
+			    those to be made active (true) or inactive (false).  A task for
+			    tracking a joint coordinate only has one component.-->
+			<active> false false false </active>
+			<!--Weight with which a task is tracked relative to other tasks. To track
+			    a task more tightly, make the weight larger.-->
+			<weight>       1.00000000       1.00000000       1.00000000 </weight>
+			<!--Position error feedback gain (stiffness). To achieve critical damping
+			    of errors, choose kv = 2*sqrt(kp).-->
+			<kp>       1.00000000       1.00000000       1.00000000 </kp>
+			<!--Velocity error feedback gain (damping). To achieve critical damping of
+			    errors, choose kv = 2*sqrt(kp).-->
+			<kv>       1.00000000       1.00000000       1.00000000 </kv>
+			<!--Feedforward acceleration gain.  This is normally set to 1.0, so no
+			    gain.-->
+			<ka>       1.00000000       1.00000000       1.00000000 </ka>
+			<!--Direction vector[3] for component 0 of a task. Joint tasks do not use
+			    this propery.-->
+			<r0>       0.00000000       0.00000000       0.00000000 </r0>
+			<!--Direction vector[3] for component 1 of a task. Joint tasks do not use
+			    this property.-->
+			<r1>       0.00000000       0.00000000       0.00000000 </r1>
+			<!--Direction vector[3] for component 2 of a task. Joint tasks do not use
+			    this property.-->
+			<r2>       0.00000000       0.00000000       0.00000000 </r2>
+			<!--Name of the coordinate to be tracked.-->
+			<coordinate>  </coordinate>
+			<!--Error limit on the tracking accuracy for this coordinate. If the
+			    tracking errors approach this limit, the weighting for this coordinate
+			    is increased.-->
+			<limit>       0.00000000 </limit>
+		</rdCMC_Joint>
 	</defaults>
 	<credits> Delp S.L., Loan J.P., Hoy M.G., Zajac F.E., Topp E.L., Rosen J.M., Thelen D.G., Anderson F.C., Seth A. </credits>
 	<publications> Notes:  3D, 23 DOF gait model created by D.G. Thelen, Univ. of Wisconsin-Madison, and Ajay Seth, Frank C. Anderson, and Scott L. Delp, Stanford University.  Lower extremity joint defintions based on Delp et al. (1990).  Low back joint and anthropometry based on Anderson and Pandy (1999, 2001). Planar knee model of Yamaguchi and Zajac (1989).  Seth removed the patella to avoid kinematic constraints; insertions of the quadrucepts are handled with moving points in the tibia frame.  Number of muscles was reduced by Anderson to improve simulation speed for demonstrations and is not intended to be used in research.
@@ -1247,7 +1321,7 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 										</natCubicSpline>
 									</Value>
 									<coordinate> ankle_angle_l </coordinate>
-									<axis>       0.10501355      0.17402245       0.97912632 </axis>
+									<axis>       0.10501355       0.17402245       0.97912632 </axis>
 								</SimbodyRotationDof>
 								<SimbodyRotationDof name="r2">
 									<Value>
@@ -2044,7 +2118,7 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 						<!--Body segment in the model on which the marker resides.-->
 						<body> torso </body>
 						<!--Location of a marker on the body segment.-->
-						<location>       0.12051001       0.30726367      -0.00324928 </location>
+						<location>       0.12048792       0.30716102      -0.00325415 </location>
 						<!--Flag (true or false) specifying whether or not a marker should be kept
 						    fixed in the marker placement step.  i.e. If false, the marker is
 						    allowed to move.-->
@@ -2065,7 +2139,7 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 						<!--Body segment in the model on which the marker resides.-->
 						<body> torso </body>
 						<!--Location of a marker on the body segment.-->
-						<location>      -0.00063326       0.42921810       0.16587682 </location>
+						<location>      -0.00065162       0.42910763       0.16588025 </location>
 						<!--Flag (true or false) specifying whether or not a marker should be kept
 						    fixed in the marker placement step.  i.e. If false, the marker is
 						    allowed to move.-->
@@ -2086,7 +2160,7 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 						<!--Body segment in the model on which the marker resides.-->
 						<body> torso </body>
 						<!--Location of a marker on the body segment.-->
-						<location>      -0.00099270       0.44039870      -0.17515253 </location>
+						<location>      -0.00100760       0.44031443      -0.17514824 </location>
 						<!--Flag (true or false) specifying whether or not a marker should be kept
 						    fixed in the marker placement step.  i.e. If false, the marker is
 						    allowed to move.-->
@@ -2107,7 +2181,7 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 						<!--Body segment in the model on which the marker resides.-->
 						<body> torso </body>
 						<!--Location of a marker on the body segment.-->
-						<location>       0.09619129       0.69561358       0.00375354 </location>
+						<location>       0.09618572       0.69551143       0.00377827 </location>
 						<!--Flag (true or false) specifying whether or not a marker should be kept
 						    fixed in the marker placement step.  i.e. If false, the marker is
 						    allowed to move.-->
@@ -2128,7 +2202,7 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 						<!--Body segment in the model on which the marker resides.-->
 						<body> pelvis </body>
 						<!--Location of a marker on the body segment.-->
-						<location>       0.02343129       0.03623238       0.13084214 </location>
+						<location>       0.02342148       0.03628304       0.13084011 </location>
 						<!--Flag (true or false) specifying whether or not a marker should be kept
 						    fixed in the marker placement step.  i.e. If false, the marker is
 						    allowed to move.-->
@@ -2149,7 +2223,7 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 						<!--Body segment in the model on which the marker resides.-->
 						<body> pelvis </body>
 						<!--Location of a marker on the body segment.-->
-						<location>       0.02837734       0.02754359      -0.13125884 </location>
+						<location>       0.02831302       0.02728760      -0.13125155 </location>
 						<!--Flag (true or false) specifying whether or not a marker should be kept
 						    fixed in the marker placement step.  i.e. If false, the marker is
 						    allowed to move.-->
@@ -2170,7 +2244,7 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 						<!--Body segment in the model on which the marker resides.-->
 						<body> pelvis </body>
 						<!--Location of a marker on the body segment.-->
-						<location>      -0.17252390       0.04036845       0.00702088 </location>
+						<location>      -0.17255913       0.04028205       0.00705460 </location>
 						<!--Flag (true or false) specifying whether or not a marker should be kept
 						    fixed in the marker placement step.  i.e. If false, the marker is
 						    allowed to move.-->
@@ -2191,7 +2265,7 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 						<!--Body segment in the model on which the marker resides.-->
 						<body> femur_r </body>
 						<!--Location of a marker on the body segment.-->
-						<location>       0.04636128      -0.21984626       0.09178766 </location>
+						<location>       0.04634099      -0.21987049       0.09188879 </location>
 						<!--Flag (true or false) specifying whether or not a marker should be kept
 						    fixed in the marker placement step.  i.e. If false, the marker is
 						    allowed to move.-->
@@ -2212,7 +2286,7 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 						<!--Body segment in the model on which the marker resides.-->
 						<body> femur_r </body>
 						<!--Location of a marker on the body segment.-->
-						<location>       0.10849506      -0.28141560      -0.00077922 </location>
+						<location>       0.10848243      -0.28141977      -0.00068630 </location>
 						<!--Flag (true or false) specifying whether or not a marker should be kept
 						    fixed in the marker placement step.  i.e. If false, the marker is
 						    allowed to move.-->
@@ -2233,7 +2307,7 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 						<!--Body segment in the model on which the marker resides.-->
 						<body> femur_r </body>
 						<!--Location of a marker on the body segment.-->
-						<location>       0.03562866      -0.34049254       0.08184381 </location>
+						<location>       0.03561661      -0.34051575       0.08192362 </location>
 						<!--Flag (true or false) specifying whether or not a marker should be kept
 						    fixed in the marker placement step.  i.e. If false, the marker is
 						    allowed to move.-->
@@ -2254,7 +2328,7 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 						<!--Body segment in the model on which the marker resides.-->
 						<body> femur_r </body>
 						<!--Location of a marker on the body segment.-->
-						<location>      -0.00323895      -0.42593286       0.06136987 </location>
+						<location>      -0.00324464      -0.42595505       0.06143334 </location>
 						<!--Flag (true or false) specifying whether or not a marker should be kept
 						    fixed in the marker placement step.  i.e. If false, the marker is
 						    allowed to move.-->
@@ -2275,7 +2349,7 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 						<!--Body segment in the model on which the marker resides.-->
 						<body> femur_r </body>
 						<!--Location of a marker on the body segment.-->
-						<location>       0.00053917      -0.44282926      -0.05971795 </location>
+						<location>       0.00053937      -0.44283022      -0.05965725 </location>
 						<!--Flag (true or false) specifying whether or not a marker should be kept
 						    fixed in the marker placement step.  i.e. If false, the marker is
 						    allowed to move.-->
@@ -2296,7 +2370,7 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 						<!--Body segment in the model on which the marker resides.-->
 						<body> tibia_r </body>
 						<!--Location of a marker on the body segment.-->
-						<location>      -0.02734640      -0.05970644       0.07017878 </location>
+						<location>      -0.02735051      -0.05973056       0.07022584 </location>
 						<!--Flag (true or false) specifying whether or not a marker should be kept
 						    fixed in the marker placement step.  i.e. If false, the marker is
 						    allowed to move.-->
@@ -2317,7 +2391,7 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 						<!--Body segment in the model on which the marker resides.-->
 						<body> tibia_r </body>
 						<!--Location of a marker on the body segment.-->
-						<location>       0.05100677      -0.09521399       0.01971335 </location>
+						<location>       0.05100489      -0.09522922       0.01975761 </location>
 						<!--Flag (true or false) specifying whether or not a marker should be kept
 						    fixed in the marker placement step.  i.e. If false, the marker is
 						    allowed to move.-->
@@ -2338,7 +2412,7 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 						<!--Body segment in the model on which the marker resides.-->
 						<body> tibia_r </body>
 						<!--Location of a marker on the body segment.-->
-						<location>      -0.01135499      -0.14516537       0.08028305 </location>
+						<location>      -0.01135933      -0.14519120       0.08031604 </location>
 						<!--Flag (true or false) specifying whether or not a marker should be kept
 						    fixed in the marker placement step.  i.e. If false, the marker is
 						    allowed to move.-->
@@ -2359,7 +2433,7 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 						<!--Body segment in the model on which the marker resides.-->
 						<body> tibia_r </body>
 						<!--Location of a marker on the body segment.-->
-						<location>      -0.00755545      -0.43047218       0.05550385 </location>
+						<location>      -0.00755805      -0.43049372       0.05548778 </location>
 						<!--Flag (true or false) specifying whether or not a marker should be kept
 						    fixed in the marker placement step.  i.e. If false, the marker is
 						    allowed to move.-->
@@ -2380,7 +2454,7 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 						<!--Body segment in the model on which the marker resides.-->
 						<body> tibia_r </body>
 						<!--Location of a marker on the body segment.-->
-						<location>       0.00455199      -0.41605304      -0.03334374 </location>
+						<location>       0.00455313      -0.41605922      -0.03335680 </location>
 						<!--Flag (true or false) specifying whether or not a marker should be kept
 						    fixed in the marker placement step.  i.e. If false, the marker is
 						    allowed to move.-->
@@ -2401,7 +2475,7 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 						<!--Body segment in the model on which the marker resides.-->
 						<body> calcn_r </body>
 						<!--Location of a marker on the body segment.-->
-						<location>      -0.02034263       0.01726610      -0.00555735 </location>
+						<location>      -0.02034258       0.01725088      -0.00558136 </location>
 						<!--Flag (true or false) specifying whether or not a marker should be kept
 						    fixed in the marker placement step.  i.e. If false, the marker is
 						    allowed to move.-->
@@ -2422,7 +2496,7 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 						<!--Body segment in the model on which the marker resides.-->
 						<body> calcn_r </body>
 						<!--Location of a marker on the body segment.-->
-						<location>       0.12266391       0.03357368      -0.04041107 </location>
+						<location>       0.12266533       0.03356966      -0.04042422 </location>
 						<!--Flag (true or false) specifying whether or not a marker should be kept
 						    fixed in the marker placement step.  i.e. If false, the marker is
 						    allowed to move.-->
@@ -2443,7 +2517,7 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 						<!--Body segment in the model on which the marker resides.-->
 						<body> calcn_r </body>
 						<!--Location of a marker on the body segment.-->
-						<location>       0.11819035       0.00667636       0.06541194 </location>
+						<location>       0.11818675       0.00665462       0.06539408 </location>
 						<!--Flag (true or false) specifying whether or not a marker should be kept
 						    fixed in the marker placement step.  i.e. If false, the marker is
 						    allowed to move.-->
@@ -2464,7 +2538,7 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 						<!--Body segment in the model on which the marker resides.-->
 						<body> calcn_r </body>
 						<!--Location of a marker on the body segment.-->
-						<location>       0.20884981      -0.01620070       0.07286776 </location>
+						<location>       0.20884665      -0.01622024       0.07285127 </location>
 						<!--Flag (true or false) specifying whether or not a marker should be kept
 						    fixed in the marker placement step.  i.e. If false, the marker is
 						    allowed to move.-->
@@ -2485,7 +2559,7 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 						<!--Body segment in the model on which the marker resides.-->
 						<body> calcn_r </body>
 						<!--Location of a marker on the body segment.-->
-						<location>       0.20974158       0.00356257      -0.03451786 </location>
+						<location>       0.20974380       0.00356087      -0.03453102 </location>
 						<!--Flag (true or false) specifying whether or not a marker should be kept
 						    fixed in the marker placement step.  i.e. If false, the marker is
 						    allowed to move.-->
@@ -2506,7 +2580,7 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 						<!--Body segment in the model on which the marker resides.-->
 						<body> calcn_r </body>
 						<!--Location of a marker on the body segment.-->
-						<location>       0.27090350       0.00360799      -0.00312674 </location>
+						<location>       0.27090393       0.00360340      -0.00313640 </location>
 						<!--Flag (true or false) specifying whether or not a marker should be kept
 						    fixed in the marker placement step.  i.e. If false, the marker is
 						    allowed to move.-->
@@ -2527,7 +2601,7 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 						<!--Body segment in the model on which the marker resides.-->
 						<body> femur_l </body>
 						<!--Location of a marker on the body segment.-->
-						<location>       0.02345909      -0.20664442      -0.09696868 </location>
+						<location>       0.02244783      -0.20674150      -0.09723255 </location>
 						<!--Flag (true or false) specifying whether or not a marker should be kept
 						    fixed in the marker placement step.  i.e. If false, the marker is
 						    allowed to move.-->
@@ -2548,7 +2622,7 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 						<!--Body segment in the model on which the marker resides.-->
 						<body> femur_l </body>
 						<!--Location of a marker on the body segment.-->
-						<location>       0.11073553      -0.24883156      -0.03264434 </location>
+						<location>       0.11061235      -0.24883522      -0.03406858 </location>
 						<!--Flag (true or false) specifying whether or not a marker should be kept
 						    fixed in the marker placement step.  i.e. If false, the marker is
 						    allowed to move.-->
@@ -2569,7 +2643,7 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 						<!--Body segment in the model on which the marker resides.-->
 						<body> femur_l </body>
 						<!--Location of a marker on the body segment.-->
-						<location>       0.01577357      -0.31532415      -0.08215720 </location>
+						<location>       0.01511583      -0.31544097      -0.08238680 </location>
 						<!--Flag (true or false) specifying whether or not a marker should be kept
 						    fixed in the marker placement step.  i.e. If false, the marker is
 						    allowed to move.-->
@@ -2590,7 +2664,7 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 						<!--Body segment in the model on which the marker resides.-->
 						<body> femur_l </body>
 						<!--Location of a marker on the body segment.-->
-						<location>      -0.00841542      -0.44560448      -0.06417589 </location>
+						<location>      -0.00864517      -0.44576742      -0.06417050 </location>
 						<!--Flag (true or false) specifying whether or not a marker should be kept
 						    fixed in the marker placement step.  i.e. If false, the marker is
 						    allowed to move.-->
@@ -2611,7 +2685,7 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 						<!--Body segment in the model on which the marker resides.-->
 						<body> femur_l </body>
 						<!--Location of a marker on the body segment.-->
-						<location>       0.00757345      -0.44575133       0.05101545 </location>
+						<location>       0.00883426      -0.44595608       0.05080404 </location>
 						<!--Flag (true or false) specifying whether or not a marker should be kept
 						    fixed in the marker placement step.  i.e. If false, the marker is
 						    allowed to move.-->
@@ -2632,7 +2706,7 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 						<!--Body segment in the model on which the marker resides.-->
 						<body> tibia_l </body>
 						<!--Location of a marker on the body segment.-->
-						<location>      -0.00578187      -0.07136457      -0.07944649 </location>
+						<location>      -0.00634331      -0.07153320      -0.07941727 </location>
 						<!--Flag (true or false) specifying whether or not a marker should be kept
 						    fixed in the marker placement step.  i.e. If false, the marker is
 						    allowed to move.-->
@@ -2653,7 +2727,7 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 						<!--Body segment in the model on which the marker resides.-->
 						<body> tibia_l </body>
 						<!--Location of a marker on the body segment.-->
-						<location>       0.04526205      -0.12130185      -0.03021959 </location>
+						<location>       0.04520438      -0.12160541      -0.03085689 </location>
 						<!--Flag (true or false) specifying whether or not a marker should be kept
 						    fixed in the marker placement step.  i.e. If false, the marker is
 						    allowed to move.-->
@@ -2674,7 +2748,7 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 						<!--Body segment in the model on which the marker resides.-->
 						<body> tibia_l </body>
 						<!--Location of a marker on the body segment.-->
-						<location>      -0.02384682      -0.11439934      -0.08820140 </location>
+						<location>      -0.02463207      -0.11452043      -0.08793793 </location>
 						<!--Flag (true or false) specifying whether or not a marker should be kept
 						    fixed in the marker placement step.  i.e. If false, the marker is
 						    allowed to move.-->
@@ -2695,7 +2769,7 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 						<!--Body segment in the model on which the marker resides.-->
 						<body> tibia_l </body>
 						<!--Location of a marker on the body segment.-->
-						<location>      -0.00254096      -0.42824514      -0.05713247 </location>
+						<location>      -0.00374142      -0.42842207      -0.05715249 </location>
 						<!--Flag (true or false) specifying whether or not a marker should be kept
 						    fixed in the marker placement step.  i.e. If false, the marker is
 						    allowed to move.-->
@@ -2716,7 +2790,7 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 						<!--Body segment in the model on which the marker resides.-->
 						<body> tibia_l </body>
 						<!--Location of a marker on the body segment.-->
-						<location>       0.01299683      -0.40520831       0.03300278 </location>
+						<location>       0.01302325      -0.40543011       0.03277413 </location>
 						<!--Flag (true or false) specifying whether or not a marker should be kept
 						    fixed in the marker placement step.  i.e. If false, the marker is
 						    allowed to move.-->
@@ -2737,7 +2811,7 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 						<!--Body segment in the model on which the marker resides.-->
 						<body> calcn_l </body>
 						<!--Location of a marker on the body segment.-->
-						<location>      -0.02224898       0.02734423       0.00668519 </location>
+						<location>      -0.02250338       0.02641887       0.00634089 </location>
 						<!--Flag (true or false) specifying whether or not a marker should be kept
 						    fixed in the marker placement step.  i.e. If false, the marker is
 						    allowed to move.-->
@@ -2758,7 +2832,7 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 						<!--Body segment in the model on which the marker resides.-->
 						<body> calcn_l </body>
 						<!--Location of a marker on the body segment.-->
-						<location>       0.14982961       0.03562774       0.03435694 </location>
+						<location>       0.14939240       0.03636676       0.03459445 </location>
 						<!--Flag (true or false) specifying whether or not a marker should be kept
 						    fixed in the marker placement step.  i.e. If false, the marker is
 						    allowed to move.-->
@@ -2779,7 +2853,7 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 						<!--Body segment in the model on which the marker resides.-->
 						<body> calcn_l </body>
 						<!--Location of a marker on the body segment.-->
-						<location>       0.13332537       0.01702626      -0.06235072 </location>
+						<location>       0.13339204       0.01776218      -0.06219725 </location>
 						<!--Flag (true or false) specifying whether or not a marker should be kept
 						    fixed in the marker placement step.  i.e. If false, the marker is
 						    allowed to move.-->
@@ -2800,7 +2874,7 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 						<!--Body segment in the model on which the marker resides.-->
 						<body> calcn_l </body>
 						<!--Location of a marker on the body segment.-->
-						<location>       0.19596589      -0.00802376      -0.06773361 </location>
+						<location>       0.19629596      -0.00665497      -0.06741377 </location>
 						<!--Flag (true or false) specifying whether or not a marker should be kept
 						    fixed in the marker placement step.  i.e. If false, the marker is
 						    allowed to move.-->
@@ -2821,7 +2895,7 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 						<!--Body segment in the model on which the marker resides.-->
 						<body> calcn_l </body>
 						<!--Location of a marker on the body segment.-->
-						<location>       0.21178306       0.01165179       0.03257167 </location>
+						<location>       0.21158679       0.01301084       0.03297501 </location>
 						<!--Flag (true or false) specifying whether or not a marker should be kept
 						    fixed in the marker placement step.  i.e. If false, the marker is
 						    allowed to move.-->
@@ -2842,7 +2916,7 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 						<!--Body segment in the model on which the marker resides.-->
 						<body> calcn_l </body>
 						<!--Location of a marker on the body segment.-->
-						<location>       0.26150313       0.00800711       0.00843437 </location>
+						<location>       0.26141974       0.00990054       0.00899624 </location>
 						<!--Flag (true or false) specifying whether or not a marker should be kept
 						    fixed in the marker placement step.  i.e. If false, the marker is
 						    allowed to move.-->
@@ -4384,7 +4458,7 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 							<coordinate> knee_angle_r </coordinate>
 						</MuscleViaPoint>
 						<MovingMusclePoint name="rect_fem_r-P3">
-							<location>       0.06198665       0.02047078       0.00138393 </location>
+							<location>       0.06199012       0.02046973       0.00138393 </location>
 							<VisibleObject name="">
 								<geometry_files> </geometry_files>
 								<VisibleProperties name="">
@@ -4518,7 +4592,7 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 							<coordinate> knee_angle_r </coordinate>
 						</MuscleViaPoint>
 						<MovingMusclePoint name="vas_int_r-P4">
-							<location>       0.05585887       0.02486414       0.00177934 </location>
+							<location>       0.05586270       0.02486359       0.00177934 </location>
 							<VisibleObject name="">
 								<geometry_files> </geometry_files>
 								<VisibleProperties name="">
@@ -6440,7 +6514,7 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 							<coordinate> knee_angle_l </coordinate>
 						</MuscleViaPoint>
 						<MovingMusclePoint name="rect_fem_l-P3">
-							<location>       0.05874538       0.02133741      -0.00138393 </location>
+							<location>       0.05895416       0.02128722      -0.00138393 </location>
 							<VisibleObject name="">
 								<geometry_files> </geometry_files>
 								<VisibleProperties name="">
@@ -6574,7 +6648,7 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 							<coordinate> knee_angle_l </coordinate>
 						</MuscleViaPoint>
 						<MovingMusclePoint name="vas_int_l-P4">
-							<location>       0.05231597       0.02527766      -0.00177934 </location>
+							<location>       0.05254201       0.02525533      -0.00177934 </location>
 							<VisibleObject name="">
 								<geometry_files> </geometry_files>
 								<VisibleProperties name="">
