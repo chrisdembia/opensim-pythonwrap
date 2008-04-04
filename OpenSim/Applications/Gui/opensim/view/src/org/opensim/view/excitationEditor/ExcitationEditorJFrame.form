@@ -25,8 +25,6 @@
             <Property name="text" type="java.lang.String" value="Load Layout..."/>
           </Properties>
         </MenuItem>
-        <MenuItem class="javax.swing.JSeparator" name="jSeparator2">
-        </MenuItem>
       </SubComponents>
     </Menu>
     <Menu class="javax.swing.JMenuBar" name="jMenuBar1">
@@ -59,7 +57,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jSaveAsMenuItem">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Save As..."/>
+                <Property name="text" type="java.lang.String" value="Save A Copy..."/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jSaveAsMenuItemActionPerformed"/>

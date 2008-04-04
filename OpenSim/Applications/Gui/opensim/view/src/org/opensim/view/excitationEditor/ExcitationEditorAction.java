@@ -37,11 +37,6 @@ public final class ExcitationEditorAction extends CallableSystemAction {
     
     public void performAction() {
         // TODO implement action body
-       //DialogDescriptor dd = new DialogDescriptor(new ExcitationEditorJPanel(), "Excitation Editor");
-       //dd.setOptions(new Object[]{new JButton("Close")});
-       //dd.setModal(false);
-       //Dialog dlg = DialogDisplayer.getDefault().createDialog(dd);
-       //dlg.setVisible(true);
         new ExcitationEditorJFrame().setVisible(true);
     }
     

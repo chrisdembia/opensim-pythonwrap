@@ -29503,6 +29503,24 @@ SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_ControlLinear
 }
 
 
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ControlLinear_1copyData(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  OpenSim::ControlLinear *arg1 = (OpenSim::ControlLinear *) 0 ;
+  OpenSim::ControlLinear *arg2 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(OpenSim::ControlLinear **)&jarg1; 
+  arg2 = *(OpenSim::ControlLinear **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::ControlLinear const & reference is null");
+    return ;
+  } 
+  (arg1)->copyData((OpenSim::ControlLinear const &)*arg2);
+}
+
+
 SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ControlLinear_1setUseSteps(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2) {
   OpenSim::ControlLinear *arg1 = (OpenSim::ControlLinear *) 0 ;
   bool arg2 ;

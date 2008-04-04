@@ -46,6 +46,10 @@ public class ControlLinear extends Control {
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
+  public void copyData(ControlLinear aControl) {
+    opensimModelJNI.ControlLinear_copyData(swigCPtr, this, ControlLinear.getCPtr(aControl), aControl);
+  }
+
   public void setUseSteps(boolean aTrueFalse) {
     opensimModelJNI.ControlLinear_setUseSteps(swigCPtr, this, aTrueFalse);
   }

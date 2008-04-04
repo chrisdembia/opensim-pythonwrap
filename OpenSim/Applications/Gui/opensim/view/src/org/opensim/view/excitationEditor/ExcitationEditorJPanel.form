@@ -250,11 +250,11 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jBackupAllButton" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="252" max="32767" attributes="0"/>
+                              <EmptySpace pref="273" max="32767" attributes="0"/>
                               <Component id="jRestoreAllButton" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
-                          <Component id="jSeparator2" alignment="1" pref="426" max="32767" attributes="0"/>
+                          <Component id="jSeparator2" alignment="1" pref="431" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
@@ -268,7 +268,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="jPanel4" min="0" pref="53" max="32767" attributes="1"/>
+                                  <Component id="jPanel4" min="0" pref="57" max="32767" attributes="1"/>
                                   <Component id="jPanel2" alignment="1" min="-2" max="-2" attributes="1"/>
                               </Group>
                               <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -346,6 +346,7 @@
                         <Component class="javax.swing.JButton" name="jRemoveNodesButton">
                           <Properties>
                             <Property name="text" type="java.lang.String" value="Remove"/>
+                            <Property name="toolTipText" type="java.lang.String" value="Remove selected control points from their respective curves"/>
                             <Property name="actionCommand" type="java.lang.String" value="Remove Selected Nodes"/>
                           </Properties>
                           <Events>
@@ -353,6 +354,9 @@
                           </Events>
                         </Component>
                         <Component class="javax.swing.JFormattedTextField" name="jValueToFormattedTextField">
+                          <Properties>
+                            <Property name="toolTipText" type="java.lang.String" value="Specify fixed value to set Y value for selected control points"/>
+                          </Properties>
                         </Component>
                       </SubComponents>
                     </Container>
@@ -373,7 +377,7 @@
                         <DimensionLayout dim="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
-                                  <EmptySpace pref="22" max="32767" attributes="0"/>
+                                  <EmptySpace pref="60" max="32767" attributes="0"/>
                                   <Component id="ExportExcitationsButton" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="SimplfyExcitationsButton" min="-2" max="-2" attributes="0"/>
@@ -396,7 +400,7 @@
                         <Component class="javax.swing.JButton" name="SimplfyExcitationsButton">
                           <Properties>
                             <Property name="text" type="java.lang.String" value="Simplify..."/>
-                            <Property name="enabled" type="boolean" value="false"/>
+                            <Property name="toolTipText" type="java.lang.String" value="Approximate control curve to use smaller number of control points"/>
                           </Properties>
                           <Events>
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SimplfyExcitationsButtonActionPerformed"/>
@@ -405,6 +409,7 @@
                         <Component class="javax.swing.JButton" name="ExportExcitationsButton">
                           <Properties>
                             <Property name="text" type="java.lang.String" value="Export..."/>
+                            <Property name="toolTipText" type="java.lang.String" value="Save selected controls to a separate file"/>
                           </Properties>
                           <Events>
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ExportExcitationsButtonActionPerformed"/>
@@ -431,7 +436,7 @@
                               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="166" max="32767" attributes="0"/>
+                              <EmptySpace pref="204" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -499,6 +504,9 @@
                           <Events>
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ShowExcBaseShapeCheckBoxActionPerformed"/>
                           </Events>
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JCheckBox(&quot;Control&quot;, true);"/>
+                          </AuxValues>
                         </Component>
                         <Component class="javax.swing.JCheckBox" name="ShowMinBaseShapeCheckBox">
                           <Properties>
@@ -515,6 +523,9 @@
                           <Events>
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ShowMinBaseShapeCheckBoxActionPerformed"/>
                           </Events>
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JCheckBox(&quot;Minimum&quot;, true);"/>
+                          </AuxValues>
                         </Component>
                         <Component class="javax.swing.JCheckBox" name="ShowMaxBaseShapeCheckBox">
                           <Properties>
@@ -531,6 +542,9 @@
                           <Events>
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ShowMaxBaseShapeCheckBoxActionPerformed"/>
                           </Events>
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JCheckBox(&quot;Maximum&quot;, true);"/>
+                          </AuxValues>
                         </Component>
                       </SubComponents>
                     </Container>
@@ -557,7 +571,7 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="MinMaxShadingCheckBox" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace pref="60" max="32767" attributes="0"/>
+                                  <EmptySpace pref="64" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>

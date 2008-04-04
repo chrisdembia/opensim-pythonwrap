@@ -25,6 +25,7 @@
  */
 package org.opensim.view;
 
+import java.awt.event.ActionListener;
 import java.io.File;
 import javax.swing.JButton;
 import org.openide.DialogDisplayer;
@@ -38,21 +39,29 @@ public class FileTextFieldAndChooserWithEdit extends FileTextFieldAndChooser {
    JButton editButton = new JButton();
 
    public FileTextFieldAndChooserWithEdit() {
+      this(null);
+   }
+
+   public FileTextFieldAndChooserWithEdit(ActionListener al) {
       editButton = new javax.swing.JButton();
       editButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/swingui/editor.gif")));
       editButton.setToolTipText("Edit file contents");
       editButton.setMaximumSize(new java.awt.Dimension(30, 19));
       editButton.setMinimumSize(new java.awt.Dimension(30, 19));
       editButton.setPreferredSize(new java.awt.Dimension(30, 19));
-      editButton.addActionListener(new java.awt.event.ActionListener() {
-         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            editButtonActionPerformed(evt);
-         }
-      });
+      if (al==null){
+          editButton.addActionListener(new java.awt.event.ActionListener() {
+             public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editButtonActionPerformed(evt);
+             }
+          });          
+      }
+      else
+        editButton.addActionListener(al);
 
       add(editButton);
    }
-
+   
    public void setFileName(String name, boolean triggerEvent) {
       super.setFileName(name, triggerEvent);
       boolean exists = (new File(name)).exists();

@@ -67,13 +67,8 @@ public class ExcitationEditorJFrame extends javax.swing.JFrame {
      * Constructor that takes a control set
      */
     public ExcitationEditorJFrame(ControlSet controls) {
-        initComponents();
-        getContentPane().setLayout(new BorderLayout());
-        dPanel=new ExcitationEditorJPanel(this, controls);
-        getContentPane().add(dPanel, BorderLayout.CENTER);
-        setIconImage(TheApp.getAppImage());
-        setTitle("Excitation Editor");
-        pack();
+        // implicit call to the noarg constructor
+        dPanel.populate(controls, false);
     }
     
     /** This method is called from within the constructor to
@@ -87,7 +82,6 @@ public class ExcitationEditorJFrame extends javax.swing.JFrame {
         jToolsMenu = new javax.swing.JMenu();
         jSaveTemplateMenuItem = new javax.swing.JMenuItem();
         jLoadTemplateMenuItem = new javax.swing.JMenuItem();
-        jSeparator2 = new javax.swing.JSeparator();
         jMenuBar1 = new javax.swing.JMenuBar();
         jFileMenu = new javax.swing.JMenu();
         jLoadMenuItem = new javax.swing.JMenuItem();
@@ -109,8 +103,6 @@ public class ExcitationEditorJFrame extends javax.swing.JFrame {
 
         jLoadTemplateMenuItem.setText("Load Layout...");
         jToolsMenu.add(jLoadTemplateMenuItem);
-
-        jToolsMenu.add(jSeparator2);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         jFileMenu.setText("File");
@@ -135,7 +127,7 @@ public class ExcitationEditorJFrame extends javax.swing.JFrame {
 
         jFileMenu.add(jSaveMenuItem);
 
-        jSaveAsMenuItem.setText("Save As...");
+        jSaveAsMenuItem.setText("Save A Copy...");
         jSaveAsMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jSaveAsMenuItemActionPerformed(evt);
@@ -232,7 +224,7 @@ public class ExcitationEditorJFrame extends javax.swing.JFrame {
                 controlsRefs.add(control);
 	}
         controlSet.print("defaultControls.xml");
-        dPanel.populate(controlSet);
+        dPanel.populate(controlSet, true);
 
     }//GEN-LAST:event_jCreateDefaultMenuItemActionPerformed
 
@@ -250,7 +242,7 @@ public class ExcitationEditorJFrame extends javax.swing.JFrame {
          if(fileName!=null) {
          ControlSet obj = new ControlSet(fileName);
          if (obj != null){
-             dPanel.populate(obj);
+             dPanel.populate(obj, true);
           } else {
             DialogDisplayer.getDefault().notify(
                new NotifyDescriptor.Message("Could not construct excitations from the specified file."));
@@ -281,7 +273,6 @@ public class ExcitationEditorJFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jSaveMenuItem;
     private javax.swing.JMenuItem jSaveTemplateMenuItem;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JMenu jToolsMenu;
     // End of variables declaration//GEN-END:variables
     

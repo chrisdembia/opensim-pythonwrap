@@ -286,8 +286,8 @@ public class ExcitationPanelListener implements FunctionPanelListener{
             return control.getControlMaxValues();
         
     }
-
+    
     void setControl(ControlLinear backup) {
         control=backup;
-    }
+    } 
 }
