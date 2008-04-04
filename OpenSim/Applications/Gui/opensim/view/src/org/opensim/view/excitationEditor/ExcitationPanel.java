@@ -63,12 +63,13 @@ public class ExcitationPanel extends FunctionPanel{
     boolean addedExcitationOptionsToPopup=false;
     private boolean collapsed=false;
     ControlLinear backup;
-    private boolean changed = false;    // Whenever something is changed we need to turn this flag on so that revert works while Backup clears it. 
+    private boolean changed = false;    // Whenever something is changed we need to turn this flag on so that revert works while Backup clears it.
+    private ExcitationRenderer renderer = null;
     
     /** Creates a new instance of ExcitationPanel */
    public ExcitationPanel(JFreeChart chart) {
       super(chart);
-      ExcitationRenderer renderer = (ExcitationRenderer)chart.getXYPlot().getRenderer(0);
+      renderer = (ExcitationRenderer)chart.getXYPlot().getRenderer(0);
       backup = new ControlLinear(renderer.getControl());
     }
     
@@ -85,7 +86,6 @@ public class ExcitationPanel extends FunctionPanel{
                     sortedIndices.add(new Integer(index));
            }
            Collections.sort(sortedIndices);
-           ExcitationRenderer renderer = (ExcitationRenderer) getChart().getXYPlot().getRenderer(series);
            if (renderer==null) continue;    //Missing ctrl, min, or max
            ControlLinear cl = renderer.getControl();
            SetControlNodes scn = cl.getControlMaxValues();
@@ -110,7 +110,6 @@ public class ExcitationPanel extends FunctionPanel{
    }
    
    public void setSelectedNodesToValue(int series, double newValue) {
-      ExcitationRenderer renderer = (ExcitationRenderer) getChart().getXYPlot().getRenderer(series);
       for (int i=0; i<selectedNodes.size(); i++) {
          int selIndex = selectedNodes.get(i).node;
          int selSeries = selectedNodes.get(i).series;
@@ -146,7 +145,6 @@ public class ExcitationPanel extends FunctionPanel{
                 useStepsMenuItem.addActionListener(new ActionListener(){
                     public void actionPerformed(ActionEvent e) {
                         // Get the function # selectedSeries, toggle the use_steps flag, update function display
-                        ExcitationRenderer renderer = (ExcitationRenderer) getChart().getXYPlot().getRenderer();
                         // Current value of use_steps
                         boolean useStepsFlag = renderer.getControl().getUseSteps();
                         renderer.getControl().setUseSteps(!useStepsFlag);
@@ -171,7 +169,6 @@ public class ExcitationPanel extends FunctionPanel{
    {
         XYSeriesCollection seriesCollection = (XYSeriesCollection) getChart().getXYPlot().getDataset();
 
-        ExcitationRenderer renderer = (ExcitationRenderer) getChart().getXYPlot().getRenderer(series);
         // Current value of use_steps
         //boolean useStepsFlag = renderer.getControl().getUseSteps();
         //renderer.getControl().setUseSteps(!useStepsFlag);
@@ -226,7 +223,6 @@ public class ExcitationPanel extends FunctionPanel{
     
     public String getControlName()
     {
-        ExcitationRenderer renderer = (ExcitationRenderer) getChart().getXYPlot().getRenderer(0);
         return (renderer.getControl().getName());
     }
     // Check that a point is under a function, to be used by min/max/value error-checking
@@ -240,7 +236,6 @@ public class ExcitationPanel extends FunctionPanel{
     public void restore()
     {
         if (isChanged()){
-            ExcitationRenderer renderer = (ExcitationRenderer) getChart().getXYPlot().getRenderer();
             renderer.setControl(backup);
             Object[] listeners = functionPanelListeners.getListenerList();
             for (int i = listeners.length - 2; i >= 0; i -= 2) {
@@ -253,14 +248,12 @@ public class ExcitationPanel extends FunctionPanel{
     }
 
     void showBaseShape(int series, boolean b) {
-      ExcitationRenderer renderer = (ExcitationRenderer) getChart().getXYPlot().getRenderer();
       if (renderer==null)
           return;
       renderer.setSeriesShapesVisible(series, b);
     }
 
     void toggleMinMaxShading(boolean b) {
-      ExcitationRenderer renderer = (ExcitationRenderer) getChart().getXYPlot().getRenderer();
       if (renderer==null)
           return;
       if (b)

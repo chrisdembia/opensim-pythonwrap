@@ -299,11 +299,19 @@ public class FunctionRenderer extends XYLineAndShapeRendererWithHighlight
    public void setXUnits(Units XUnits) {
       this.XUnits = XUnits;
    }
-   
+
+   public Units getXUnits() {
+      return this.XUnits;
+   }
+
    public void setXDisplayUnits(Units XDisplayUnits) {
       this.XDisplayUnits = XDisplayUnits;
    }
    
+   public Units getXDisplayUnits() {
+      return this.XDisplayUnits;
+   }
+
    public void setYUnits(Units YUnits) {
       this.YUnits = YUnits;
    }

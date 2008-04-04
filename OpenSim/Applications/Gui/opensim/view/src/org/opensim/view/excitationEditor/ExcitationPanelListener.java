@@ -45,6 +45,7 @@ import org.opensim.modeling.SetControlNodes;
 import org.opensim.view.functionEditor.FunctionNode;
 import org.opensim.view.functionEditor.FunctionPanel;
 import org.opensim.view.functionEditor.FunctionPanelListener;
+import org.opensim.view.functionEditor.FunctionRenderer;
 import org.opensim.view.functionEditor.FunctionXYSeries;
 
 /**
@@ -80,18 +81,30 @@ public class ExcitationPanelListener implements FunctionPanelListener{
    }
 
    private void cropDragVector(double dragVector[]) {
+      ExcitationRenderer renderer = (ExcitationRenderer) functionPanel.getRenderer();
+      if (renderer == null)
+         return;
       // Don't allow any dragged node to go past either of its neighbors in the X dimension.
-      
       double minGap = 99999999.9;
+      double gap = minGap;
       ArrayList<FunctionNode> selectedNodes = functionPanel.getSelectedNodes();
       if (dragVector[0] < 0.0) {
          for (int i=0; i<selectedNodes.size(); i++) {
             int index = selectedNodes.get(i).node;
-            if (index == 0 || functionPanel.isNodeSelected(0, index-1))
+            int series = selectedNodes.get(i).series;
+            if (!renderer.getSeriesShapesVisible(series))   // series shapes are off, so this node can't move
                continue;
-            ControlLinearNode cn= getControlNodeForSeries(selectedNodes.get(i).series, index);
-            ControlLinearNode cnMinus1= getControlNodeForSeries(selectedNodes.get(i).series, index-1);
-            double gap = cn.getTime() - cnMinus1.getTime();
+            if (index == 0) { // there is no left-side node, so the plot's left edge is the boundary
+               ControlLinearNode cn= getControlNodeForSeries(series, index);
+               gap = cn.getTime() - functionPanel.getChart().getXYPlot().getDomainAxis().getLowerBound() *
+                  renderer.getXDisplayUnits().convertTo(renderer.getXUnits());
+            } else if (!functionPanel.isNodeSelected(0, index-1)) {  // left-side node is not selected, so it is the boundary
+               ControlLinearNode cn= getControlNodeForSeries(series, index);
+               ControlLinearNode cnMinus1= getControlNodeForSeries(series, index-1);
+               gap = cn.getTime() - cnMinus1.getTime();
+            } else {  // left-side node is selected, so there is no boundary for this node
+               continue;
+            }
             if (gap < minGap)
                minGap = gap;
          }
@@ -103,11 +116,20 @@ public class ExcitationPanelListener implements FunctionPanelListener{
       } else if (dragVector[0] > 0.0) {
          for (int i=0; i<selectedNodes.size(); i++) {
             int index = selectedNodes.get(i).node;
-            if (index == getControlNodeCountForSeries(selectedNodes.get(i).series)-1 || functionPanel.isNodeSelected(selectedNodes.get(i).series, index+1))
+            int series = selectedNodes.get(i).series;
+            if (!renderer.getSeriesShapesVisible(series))   // series shapes are off, so this node can't move
                continue;
-            ControlLinearNode cn= getControlNodeForSeries(selectedNodes.get(i).series, index);
-            ControlLinearNode cnPlus1= getControlNodeForSeries(selectedNodes.get(i).series, index+1);
-            double gap = cnPlus1.getTime() - cn.getTime();
+            if (index == getControlNodeCountForSeries(selectedNodes.get(i).series)-1) { // there is no right-side node, so the plot's right edge is the boundary
+               ControlLinearNode cn= getControlNodeForSeries(series, index);
+               gap = functionPanel.getChart().getXYPlot().getDomainAxis().getUpperBound() *
+                  renderer.getXDisplayUnits().convertTo(renderer.getXUnits()) - cn.getTime();
+            } else if (!functionPanel.isNodeSelected(selectedNodes.get(i).series, index+1)) {  // left-side node is not selected, so it is the boundary
+               ControlLinearNode cn= getControlNodeForSeries(selectedNodes.get(i).series, index);
+               ControlLinearNode cnPlus1= getControlNodeForSeries(selectedNodes.get(i).series, index+1);
+               gap = cnPlus1.getTime() - cn.getTime();
+            } else {  // right-side node is selected, so there is no boundary for this node
+               continue;
+            }
             if (gap < minGap)
                minGap = gap;
          }
@@ -120,23 +142,28 @@ public class ExcitationPanelListener implements FunctionPanelListener{
    }
 
    public void dragSelectedNodes(int series, int node, double dragVector[]) {
+      ExcitationRenderer renderer = (ExcitationRenderer) functionPanel.getRenderer();
+      if (renderer == null)
+         return;
       cropDragVector(dragVector);
       // Now move all the control points by dragVector.
       ArrayList<FunctionNode> selectedNodes = functionPanel.getSelectedNodes();
       for (int i=0; i<selectedNodes.size(); i++) {
          int selIndex = selectedNodes.get(i).node;
          int selSeries = selectedNodes.get(i).series;
-         ControlLinearNode controlNode=getControlNodeForSeries(selSeries, selIndex);
-         double newX = controlNode.getTime() + dragVector[0];
-         double newY = controlNode.getValue() + dragVector[1];
-         controlNode.setTime(newX);
-         controlNode.setValue(newY);
-         XYSeriesCollection seriesCollection = (XYSeriesCollection) functionPanel.getChart().getXYPlot().getDataset();
-         ((FunctionXYSeries)seriesCollection.getSeries(selSeries)).updateByIndex(selIndex, newX, newY);
-         // Update the function so that when render as line segment is called it's uptodate'
-         functions.get(selSeries).setX(selIndex, newX);
-         functions.get(selSeries).setY(selIndex, newY);
-         seriesCollection.getSeries(selSeries).fireSeriesChanged();
+         if (renderer.getSeriesShapesVisible(selSeries)) {
+            ControlLinearNode controlNode=getControlNodeForSeries(selSeries, selIndex);
+            double newX = controlNode.getTime() + dragVector[0];
+            double newY = controlNode.getValue() + dragVector[1];
+            controlNode.setTime(newX);
+            controlNode.setValue(newY);
+            XYSeriesCollection seriesCollection = (XYSeriesCollection) functionPanel.getChart().getXYPlot().getDataset();
+            ((FunctionXYSeries)seriesCollection.getSeries(selSeries)).updateByIndex(selIndex, newX, newY);
+            // Update the function so that when render as line segment is called it's uptodate'
+            functions.get(selSeries).setX(selIndex, newX);
+            functions.get(selSeries).setY(selIndex, newY);
+            seriesCollection.getSeries(selSeries).fireSeriesChanged();
+         }
       }
       ((ExcitationPanel)functionPanel).setChanged(true);
    }

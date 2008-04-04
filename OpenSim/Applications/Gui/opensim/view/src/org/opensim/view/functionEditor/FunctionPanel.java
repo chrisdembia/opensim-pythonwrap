@@ -129,6 +129,10 @@ public class FunctionPanel extends ChartPanel
       lastMouseY = e.getY();
    }
 
+   public XYLineAndShapeRendererWithHighlight getRenderer() {
+      return this.renderer;
+   }
+
    public void mouseEntered(MouseEvent e) {
       e.getComponent().requestFocusInWindow();
       updateCursorLocation(e);
