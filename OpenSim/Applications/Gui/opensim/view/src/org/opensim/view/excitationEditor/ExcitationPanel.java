@@ -37,19 +37,26 @@ package org.opensim.view.excitationEditor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.Vector;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
-import org.jfree.chart.ChartRenderingInfo;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.general.SeriesChangeEvent;
+import org.jfree.data.xy.XYDataItem;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
+import org.opensim.modeling.ArrayDouble;
 import org.opensim.modeling.ControlLinear;
 import org.opensim.modeling.ControlLinearNode;
 import org.opensim.modeling.Function;
+import org.opensim.modeling.LinearFunction;
 import org.opensim.modeling.SetControlNodes;
+import org.opensim.modeling.Storage;
+import org.opensim.utils.DialogUtils;
+import org.opensim.utils.FileUtils;
+import org.opensim.utils.OpenSimDialog;
 import org.opensim.view.functionEditor.FunctionPanel;
 import org.opensim.view.functionEditor.FunctionPanelListener;
 import org.opensim.view.functionEditor.FunctionXYSeries;
@@ -61,16 +68,17 @@ import org.opensim.view.functionEditor.FunctionXYSeries;
 public class ExcitationPanel extends FunctionPanel{
     JPopupMenu nodePopup;
     boolean addedExcitationOptionsToPopup=false;
+    boolean addedImportOptionsToPopup=false;
     private boolean collapsed=false;
     ControlLinear backup;
-    private boolean changed = false;    // Whenever something is changed we need to turn this flag on so that revert works while Backup clears it.
+    private boolean changed = false;    // Whenever something is changed we need to turn this flag on so that revert works while Backup clears it. 
     private ExcitationRenderer renderer = null;
     
     /** Creates a new instance of ExcitationPanel */
    public ExcitationPanel(JFreeChart chart) {
       super(chart);
       renderer = (ExcitationRenderer)chart.getXYPlot().getRenderer(0);
-      backup = new ControlLinear(renderer.getControl());
+      backup = new ControlLinear(renderer.getControl());    // Keep copy of contents incase user restores
     }
     
    public void deleteSelectedNodes()
@@ -86,6 +94,7 @@ public class ExcitationPanel extends FunctionPanel{
                     sortedIndices.add(new Integer(index));
            }
            Collections.sort(sortedIndices);
+           ExcitationRenderer renderer = (ExcitationRenderer) getChart().getXYPlot().getRenderer(0);
            if (renderer==null) continue;    //Missing ctrl, min, or max
            ControlLinear cl = renderer.getControl();
            SetControlNodes scn = cl.getControlMaxValues();
@@ -156,11 +165,61 @@ public class ExcitationPanel extends FunctionPanel{
                 addedExcitationOptionsToPopup=true;
             }
         } 
+        else {
+            if (!addedImportOptionsToPopup){
+                JMenuItem overlayMenuItem = new JMenuItem("Import data from a file");
+                overlayMenuItem.addActionListener(new ActionListener(){
+                    public void actionPerformed(ActionEvent e) {
+                        // Browse for a file, then show curve selection filter
+                        String fileName = FileUtils.getInstance().browseForFilename(".sto, .mot", "Data file", ExcitationPanel.this);
+                        Storage s=null;
+                        try {
+                            s = new Storage(fileName);
+                        } catch (IOException ex) {
+                            ex.printStackTrace();
+   }
+                        // Open file and show filter to select columns. Return names
+                        FilterableStringArray namesSource = new FilterableStringArray(s.getColumnLabels());
+                        NameFilterJPanel filterPanel = new NameFilterJPanel(namesSource, false);
+                        OpenSimDialog selectionDlg=DialogUtils.createDialogForPanelWithParent(null, filterPanel, "Select Columns");
+                        DialogUtils.addStandardButtons(selectionDlg);
+                        selectionDlg.setModal(true);
+                        selectionDlg.setVisible(true);
+                        if (selectionDlg.getDialogReturnValue()==selectionDlg.OK_OPTION) {
+                            String[] selNames = new String[filterPanel.getNumSelected()];
+                            System.arraycopy(filterPanel.getSelected(), 0, selNames, 0, filterPanel.getNumSelected());
+                            // create a curve against time for each selected column and add it to tthe chart
+                            ArrayDouble times = new ArrayDouble();
+                            s.getTimeColumn(times);
+                            Function f = new LinearFunction();
+                            for(int i=0; i<selNames.length;i++ ){
+                                XYSeries nextCurve=new XYSeries(selNames[i]);
+                                ArrayDouble data = new ArrayDouble();
+                                int index = s.getStateIndex(selNames[i]);
+                                s.getDataColumn(index, data);
+                                for(int j=0; j<data.getSize(); j++){
+                                    nextCurve.add(times.getitem(j), data.getitem(j), false);
+                                    f.addPoint(times.getitem(j), data.getitem(j));
+                                    System.out.println("index="+j+" data="+data.getitem(j)+ " at time="+times.getitem(j));
+                                }
+                                ((XYSeriesCollection)getChart().getXYPlot().getDataset()).addSeries(nextCurve);
+                                ExcitationRenderer renderer = (ExcitationRenderer)getChart().getXYPlot().getRenderer(0);
+                                renderer.addFunction(f);
+                            }
+                        }
+                    }
+                });
+                addNodePopUpMenu.add(overlayMenuItem);
+                addedImportOptionsToPopup=true;
+            }
+        }
    }
    
    public void update()
    {
-        update(0);
+       XYSeriesCollection seriesCollection = (XYSeriesCollection) getChart().getXYPlot().getDataset();
+       for (int i=0; i<seriesCollection.getSeriesCount(); i++)
+            update(i);
    }
    /**
     * Update a series displayed in the excitationPanel corresponding to passed in index
@@ -169,11 +228,14 @@ public class ExcitationPanel extends FunctionPanel{
    {
         XYSeriesCollection seriesCollection = (XYSeriesCollection) getChart().getXYPlot().getDataset();
 
+        ExcitationRenderer renderer = (ExcitationRenderer) getChart().getXYPlot().getRenderer();
         // Current value of use_steps
         //boolean useStepsFlag = renderer.getControl().getUseSteps();
         //renderer.getControl().setUseSteps(!useStepsFlag);
         // update he functions
-        SetControlNodes cnodes;
+        if (renderer==null)
+            return;
+        SetControlNodes cnodes=null;
         if (series==0)
             cnodes = renderer.getControl().getControlValues();
         else if (series==1)
@@ -190,7 +252,7 @@ public class ExcitationPanel extends FunctionPanel{
                      cnodes, !renderer.getControl().getUseSteps());
         else
              ctrlFunction=ExcitationEditorJPanel.createFunctionFromControlLinear((FunctionXYSeries) ser, 
-                     cnodes, false);
+                     cnodes, true);
         renderer.replaceFunction(series, ctrlFunction);
         
         // The following is a hack adopted from the FunctionPanel to nvoke methods on listeners directly instead of using events!!
@@ -229,21 +291,25 @@ public class ExcitationPanel extends FunctionPanel{
     public void backup()
     {
         if (isChanged()){
-            backup = new ControlLinear(backup);
-            update(0);
+            ExcitationRenderer renderer = (ExcitationRenderer) getChart().getXYPlot().getRenderer();
+            backup = new ControlLinear(renderer.getControl());
+            update();
         }
     }
     public void restore()
     {
         if (isChanged()){
-            renderer.setControl(backup);
+            //ControlLinear restored = new ControlLinear(backup);
+            renderer.getControl().copyData(backup);
+            
             Object[] listeners = functionPanelListeners.getListenerList();
             for (int i = listeners.length - 2; i >= 0; i -= 2) {
                 if (listeners[i] == FunctionPanelListener.class) {
-                    ((ExcitationPanelListener) listeners[i + 1]).setControl(backup);
+                    ((ExcitationPanelListener) listeners[i + 1]).setControl(renderer.getControl());
                 }
             }
-            update(0);
+            update();
+            setChanged(false);
         }
     }
 
