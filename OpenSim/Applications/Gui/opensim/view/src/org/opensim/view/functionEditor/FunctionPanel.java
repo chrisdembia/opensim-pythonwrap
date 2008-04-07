@@ -46,6 +46,8 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Vector;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.event.EventListenerList;
@@ -64,6 +66,7 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import org.jfree.ui.RectangleEdge;
 import org.jfree.ui.TextAnchor;
+import org.opensim.modeling.ArrayInt;
 
 /**
  *
@@ -784,16 +787,16 @@ public class FunctionPanel extends ChartPanel
  
    public void deleteNode(int series, int node) {
       // Notify all listeners about the change. There should be only
-      // one listener, so when one returns success, adjust the list of
-      // selected nodes and return.
+      // one listener, so when one returns success, remove the node from
+      // the series, adjust the list of selected nodes, and return.
       Object[] listeners = this.functionPanelListeners.getListenerList();
       for (int i = listeners.length - 2; i >= 0; i -= 2) {
          if (listeners[i] == FunctionPanelListener.class) {
             boolean success = ((FunctionPanelListener) listeners[i + 1]).deleteNode(series, node);
-            if (success == true) {
+            if (success) {
                XYSeriesCollection seriesCollection = (XYSeriesCollection)getChart().getXYPlot().getDataset();
-               XYSeries dSeries = seriesCollection.getSeries(series);
-               dSeries.delete(node, node);
+               seriesCollection.getSeries(series).remove(node);
+               seriesCollection.getSeries(series).fireSeriesChanged();
                updateSelectedNodesAfterDeletion(series, node);
                return;
             }
@@ -802,26 +805,44 @@ public class FunctionPanel extends ChartPanel
    }
 
    public void deleteSelectedNodes() {
-      for (int i = 0; i < selectedNodes.size(); i++)
-      {
-         int series = selectedNodes.get(i).series;
-         int node = selectedNodes.get(i).node;
+      XYSeriesCollection seriesCollection = (XYSeriesCollection)getChart().getXYPlot().getDataset();
+      for (int series=0; series < seriesCollection.getSeriesCount(); series++) {
+         // If the series' shapes (circles) are turned off, don't allow deletion.
+         if (!renderer.getSeriesShapesVisible(series))
+            continue;
+         Vector<Integer> sortedIndices = new Vector<Integer>(selectedNodes.size());
+         for (int i=0; i<selectedNodes.size(); i++) {
+            int index = selectedNodes.get(i).node;
+            if (selectedNodes.get(i).series == series)
+               sortedIndices.add(new Integer(index));
+         }
+         Collections.sort(sortedIndices);
+         // Make an array of ints holding the indices sorted from highest to lowest
+         ArrayInt sortedNodes  = new ArrayInt(0, 0, sortedIndices.size());
+         for (int i=sortedIndices.size()-1; i>=0; i--)
+            sortedNodes.append(sortedIndices.get(i));
 
+         // Notify all listeners about the change. There should be only
+         // one listener, so when one returns success, remove the nodes from
+         // the series, clear the selected node list, and go on to the next series.
          Object[] listeners = this.functionPanelListeners.getListenerList();
-         for (int j = listeners.length - 2; j >= 0; j -= 2) {
-            if (listeners[j] == FunctionPanelListener.class) {
-               ((FunctionPanelListener) listeners[j + 1]).deleteNodes(series, node);
+         for (int i = listeners.length - 2; i >= 0; i -= 2) {
+            if (listeners[i] == FunctionPanelListener.class) {
+               boolean success = ((FunctionPanelListener) listeners[i + 1]).deleteNodes(series, sortedNodes);
+               if (success) {
+                  for (int j = 0; j < sortedNodes.getSize(); j++) {
+                     int index = sortedNodes.getitem(j);
+                     renderer.unhighlightNode(series, index);
+                     seriesCollection.getSeries(series).remove(index);
+                     seriesCollection.getSeries(series).fireSeriesChanged();
+                     updateSelectedNodesAfterDeletion(series, index);
+                  }
+                  break;
+               }
             }
          }
       }
-
-      for (int i = 0; i < selectedNodes.size(); i++)
-         renderer.unhighlightNode(selectedNodes.get(i).series, selectedNodes.get(i).node);
-
-      // Clear the selected nodes.
-      selectedNodes.clear();
-
-      this.repaint();
+      //this.repaint();
    }
 
    public void updateSelectedNodesAfterDeletion(int series, int node) {

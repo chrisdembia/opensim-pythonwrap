@@ -120,6 +120,10 @@ public class NatCubicSpline extends Function {
     return opensimModelJNI.NatCubicSpline_deletePoint(swigCPtr, this, aIndex);
   }
 
+  public boolean deletePoints(ArrayInt indices) {
+    return opensimModelJNI.NatCubicSpline_deletePoints(swigCPtr, this, ArrayInt.getCPtr(indices), indices);
+  }
+
   public void addPoint(double aX, double aY) {
     opensimModelJNI.NatCubicSpline_addPoint(swigCPtr, this, aX, aY);
   }

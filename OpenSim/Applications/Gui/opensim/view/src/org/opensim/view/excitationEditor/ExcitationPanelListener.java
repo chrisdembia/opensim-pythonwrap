@@ -38,6 +38,7 @@ import java.util.ArrayList;
 import java.util.Vector;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
+import org.opensim.modeling.ArrayInt;
 import org.opensim.modeling.ControlLinear;
 import org.opensim.modeling.ControlLinearNode;
 import org.opensim.modeling.Function;
@@ -45,7 +46,6 @@ import org.opensim.modeling.SetControlNodes;
 import org.opensim.view.functionEditor.FunctionNode;
 import org.opensim.view.functionEditor.FunctionPanel;
 import org.opensim.view.functionEditor.FunctionPanelListener;
-import org.opensim.view.functionEditor.FunctionRenderer;
 import org.opensim.view.functionEditor.FunctionXYSeries;
 
 /**
@@ -199,8 +199,8 @@ public class ExcitationPanelListener implements FunctionPanelListener{
 
    public boolean deleteNode(int series, int node) {
       if (control != null && node >= 0 && node < control.getControlValues().getSize()) {
-         // node is to be removed from:
-         // function, control, series
+         // Remove the node from the function and the control.
+         // Return 'true' so the ExcitationPanel will remove it from the series.
          if (functions.get(series).deletePoint(node)) {
             getControlNodes(series).remove(node);
             ((ExcitationPanel)functionPanel).setChanged(true);
@@ -210,8 +210,25 @@ public class ExcitationPanelListener implements FunctionPanelListener{
       return false;
    }
 
-   public boolean deleteNodes(int series, int node) {
-      return false;
+   public boolean deleteNodes(int series, ArrayInt nodes) {
+      ExcitationRenderer renderer = (ExcitationRenderer) functionPanel.getRenderer();
+      if (renderer == null)
+         return false;
+      ControlLinear cl = renderer.getControl();
+      int sz = cl.getControlMaxValues().getSize();
+      for (int i=0; i<nodes.getSize(); i++) {
+         int index = nodes.getitem(i);
+         //control.deleteControlNode(index);
+         if (series==0)
+            renderer.getControl().getControlValues().remove(index);
+         else if (series==1)
+            renderer.getControl().getControlMinValues().remove(index);
+         else
+            renderer.getControl().getControlMaxValues().remove(index);
+         // Update underlying function
+         renderer.deleteSeriesPoint(series, index);
+      }
+      return true;
    }
 
    public void addNode(int series, double x, double y) {
@@ -229,31 +246,6 @@ public class ExcitationPanelListener implements FunctionPanelListener{
       }
    }
 
-   public void setSelectedNodesToValue(int series, double newValue) {
-      ArrayList<FunctionNode> selectedNodes = functionPanel.getSelectedNodes();
-      for (int i=0; i<selectedNodes.size(); i++) {
-         int index = selectedNodes.get(i).node;
-         ControlLinearNode controlNode = getControlNodeForSeries(series, index);
-         double newX = controlNode.getTime();
-         double newY = newValue;
-         controlNode.setTime(newX);
-         controlNode.setValue(newY);
-         // Update underlying function
-         functions.get(series).setX(index, newX);
-         functions.get(series).setY(index, newY);
-         XYSeriesCollection seriesCollection = (XYSeriesCollection) functionPanel.getChart().getXYPlot().getDataset();
-         seriesCollection.getSeries(series).getDataItem(index).setY(newY);
-         seriesCollection.getSeries(series).fireSeriesChanged();
-         
-         ((ExcitationPanel)functionPanel).setChanged(true);
-      }
-       
-   }
-
-   public void deleteSelectedNodes() {
- 
-   }
- 
     public void addFunction(Function aFunction)
     {
         functions.add(aFunction);

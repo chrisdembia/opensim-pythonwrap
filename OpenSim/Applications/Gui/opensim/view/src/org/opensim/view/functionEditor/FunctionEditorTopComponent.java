@@ -12,6 +12,7 @@ import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Vector;
@@ -27,6 +28,7 @@ import org.openide.ErrorManager;
 import org.openide.util.NbBundle;
 import org.openide.windows.TopComponent;
 import org.openide.windows.WindowManager;
+import org.opensim.modeling.ArrayInt;
 import org.opensim.modeling.Constant;
 import org.opensim.modeling.Function;
 import org.opensim.modeling.Model;
@@ -923,7 +925,15 @@ final public class FunctionEditorTopComponent extends TopComponent implements Ob
       return false;
    }
 
-   public boolean deleteNodes(int series, int node) {
+   public boolean deleteNodes(int series, ArrayInt nodes) {
+      if (function == null || series != 0 || nodes.getSize() == 0)
+         return false;
+
+      if (function.deletePoints(nodes)) {
+         setPendingChanges(true, true);
+         notifyListeners(new FunctionModifiedEvent(model, object, function));
+         return true;
+      }
       return false;
    }
 

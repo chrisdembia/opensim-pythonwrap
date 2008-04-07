@@ -132,6 +132,10 @@ public class Function extends OpenSimObject {
     return opensimModelJNI.Function_deletePoint(swigCPtr, this, aIndex);
   }
 
+  public boolean deletePoints(ArrayInt indices) {
+    return opensimModelJNI.Function_deletePoints(swigCPtr, this, ArrayInt.getCPtr(indices), indices);
+  }
+
   public void addPoint(double aX, double aY) {
     opensimModelJNI.Function_addPoint(swigCPtr, this, aX, aY);
   }

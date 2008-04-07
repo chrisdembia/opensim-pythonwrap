@@ -35,6 +35,7 @@
 package org.opensim.view.functionEditor;
 
 import java.util.EventListener;
+import org.opensim.modeling.ArrayInt;
 
 /**
  * The interface that must be supported by classes that wish to receive 
@@ -53,7 +54,7 @@ public interface FunctionPanelListener extends EventListener {
    public void replaceSelectedNode(int series, int node);
    public void addNode(int series, double x, double y);
    public boolean deleteNode(int series, int node);
-   public boolean deleteNodes(int series, int node);
+   public boolean deleteNodes(int series, ArrayInt nodes);
    public void duplicateNode(int series, int node);
    public void dragSelectedNodes(int series, int node, double dragVector[]);
 

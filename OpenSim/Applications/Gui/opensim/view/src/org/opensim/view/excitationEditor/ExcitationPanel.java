@@ -83,42 +83,17 @@ public class ExcitationPanel extends FunctionPanel{
     
    public void deleteSelectedNodes()
    {
-       XYSeriesCollection seriesCollection = (XYSeriesCollection) getChart().getXYPlot().getDataset();
-       
-        // Need to sort indices so that nodes are deleted from last to first thus respecting indices
-       for (int series=0; series < seriesCollection.getSeriesCount(); series++){
-           Vector<Integer> sortedIndices = new Vector<Integer>(selectedNodes.size());
-           for (int i=0; i<selectedNodes.size(); i++) {
-               int index = selectedNodes.get(i).node;
-               if (selectedNodes.get(i).series==series)
-                    sortedIndices.add(new Integer(index));
-           }
-           Collections.sort(sortedIndices);
-           ExcitationRenderer renderer = (ExcitationRenderer) getChart().getXYPlot().getRenderer(0);
-           if (renderer==null) continue;    //Missing ctrl, min, or max
-           ControlLinear cl = renderer.getControl();
-           SetControlNodes scn = cl.getControlMaxValues();
-           int sz = scn.getSize();
-           for (int i=sortedIndices.size()-1; i>=0; i--) {
-               int index = sortedIndices.get(i);
-               //control.deleteControlNode(index);
-               if (series==0)
-                    renderer.getControl().getControlValues().remove(index);
-               else if (series==1)
-                    renderer.getControl().getControlMinValues().remove(index);
-               else
-                   renderer.getControl().getControlMaxValues().remove(index);
-               // Update underlying function
-               renderer.deleteSeriesPoint(series, index);
-               seriesCollection.getSeries(series).remove(index);
-               seriesCollection.getSeries(series).fireSeriesChanged();
-               setChanged(true);
-           }
-       }
-       clearSelectedNodes();      
+      // Deleting nodes is handled by FunctionPanel, but ExcitationPanel
+      // needs to know if any nodes were deleted, so it can set its 'changed' flag.
+      int num = selectedNodes.size();
+      super.deleteSelectedNodes();
+      if (selectedNodes.size() < num)
+         setChanged(true);
    }
    
    public void setSelectedNodesToValue(int series, double newValue) {
+      if (renderer == null || !renderer.getSeriesShapesVisible(series))
+         return;
       for (int i=0; i<selectedNodes.size(); i++) {
          int selIndex = selectedNodes.get(i).node;
          int selSeries = selectedNodes.get(i).series;
