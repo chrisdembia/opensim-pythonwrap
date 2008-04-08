@@ -121,10 +121,8 @@ public class FunctionPanel extends ChartPanel
       this.crosshairAnnotation = new XYTextAnnotation("", 0, 0);
       this.crosshairAnnotation.setTextAnchor(TextAnchor.BOTTOM_LEFT);
       // Make sure the X and Y ranges are not zero, which messes up the display
-      ValueAxis rangeAxis = chart.getXYPlot().getRangeAxis();
-      ValueAxis domainAxis = chart.getXYPlot().getDomainAxis();
-      if (rangeAxis.getUpperBound() - rangeAxis.getLowerBound() < 0.000001)
-         rangeAxis.setAutoRangeMinimumSize(0.000001);
+      chart.getXYPlot().getDomainAxis().setAutoRangeMinimumSize(0.000001);
+      chart.getXYPlot().getRangeAxis().setAutoRangeMinimumSize(0.000001);
    }
 
    public void updateCursorLocation(MouseEvent e) {

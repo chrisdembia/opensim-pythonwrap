@@ -834,10 +834,22 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
         ControlLinear control = ControlLinear.safeDownCast(nextControl);
         // Create a panel to hold the control/min/max and return the array of underlying OpenSim::Functions
         ExcitationPanel nextExcitationPanel = createPanel(control, functions); 
+        // Set some parameters of the renderer
         //.showBaseShape(0, ((JCheckBox)evt.getSource()).isSelected());
         nextExcitationPanel.showBaseShape(0, ShowExcBaseShapeCheckBox.isSelected());
         nextExcitationPanel.showBaseShape(1, ShowMinBaseShapeCheckBox.isSelected());
         nextExcitationPanel.showBaseShape(2, ShowMaxBaseShapeCheckBox.isSelected());
+        // commented out: sample usage of MIN_MAX_EXC shading mode
+        //renderer.setFillMode(ExcitationFillMode.MIN_MAX_EXC);
+        //renderer.setMaxFillPaint(new Color(150, 150, 250));
+        //renderer.setExcFillPaint(new Color(150, 150, 150));
+        //renderer.setMinFillPaint(new Color(250, 150, 150));
+        ExcitationRenderer renderer = (ExcitationRenderer)nextExcitationPanel.getRenderer();
+        if (MinMaxShadingCheckBox.isSelected())
+           renderer.setFillMode(ExcitationFillMode.MIN_MAX);
+        else
+           renderer.setFillMode(ExcitationFillMode.NONE);
+        renderer.setMinMaxFillPaint(new Color(220, 220, 220));
         // Handle addition to the tree
         ExcitationObject excitationNode= new ExcitationObject(nextExcitationPanel, nextControl.getName());
         excitationNode.setUserObject(excitationNode);
@@ -967,14 +979,7 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
          FunctionPlot xyPlot = (FunctionPlot)chart.getXYPlot();
          XYDataset xyDataset = xyPlot.getDataset();
 
-         ExcitationRenderer renderer = new ExcitationRenderer(excitation, functions);
-         //renderer.setFillMode(ExcitationFillMode.MIN_MAX_EXC);
-         //renderer.setMaxFillPaint(new Color(150, 150, 250));
-         //renderer.setExcFillPaint(new Color(150, 150, 150));
-         //renderer.setMinFillPaint(new Color(250, 150, 150));
-         renderer.setFillMode(ExcitationFillMode.MIN_MAX);
-         renderer.setMinMaxFillPaint(new Color(220, 220, 220));
-        
+         ExcitationRenderer renderer = new ExcitationRenderer(excitation, functions);        
          ValueAxis va = xyPlot.getRangeAxis();
          if (va instanceof NumberAxis) {
             NumberAxis na = (NumberAxis) va;

@@ -124,8 +124,8 @@ public class NatCubicSpline extends Function {
     return opensimModelJNI.NatCubicSpline_deletePoints(swigCPtr, this, ArrayInt.getCPtr(indices), indices);
   }
 
-  public void addPoint(double aX, double aY) {
-    opensimModelJNI.NatCubicSpline_addPoint(swigCPtr, this, aX, aY);
+  public int addPoint(double aX, double aY) {
+    return opensimModelJNI.NatCubicSpline_addPoint(swigCPtr, this, aX, aY);
   }
 
   public ArrayXYPoint renderAsLineSegments(int aIndex) {

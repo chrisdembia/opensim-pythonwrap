@@ -77,6 +77,8 @@ public class ExcitationPanel extends FunctionPanel{
     /** Creates a new instance of ExcitationPanel */
    public ExcitationPanel(JFreeChart chart) {
       super(chart);
+      chart.getXYPlot().getDomainAxis().setAutoRangeMinimumSize(0.0001);
+      chart.getXYPlot().getRangeAxis().setAutoRangeMinimumSize(0.0001);
       renderer = (ExcitationRenderer)chart.getXYPlot().getRenderer(0);
       backup = new ControlLinear(renderer.getControl());    // Keep copy of contents incase user restores
     }

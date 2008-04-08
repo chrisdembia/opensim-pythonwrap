@@ -120,8 +120,12 @@ public class LinearFunction extends Function {
     return opensimModelJNI.LinearFunction_deletePoint(swigCPtr, this, aIndex);
   }
 
-  public void addPoint(double aX, double aY) {
-    opensimModelJNI.LinearFunction_addPoint(swigCPtr, this, aX, aY);
+  public boolean deletePoints(ArrayInt indices) {
+    return opensimModelJNI.LinearFunction_deletePoints(swigCPtr, this, ArrayInt.getCPtr(indices), indices);
+  }
+
+  public int addPoint(double aX, double aY) {
+    return opensimModelJNI.LinearFunction_addPoint(swigCPtr, this, aX, aY);
   }
 
   public ArrayXYPoint renderAsLineSegments(double aStart, double aEnd) {

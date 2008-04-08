@@ -78,8 +78,8 @@ public class Constant extends Function {
     return opensimModelJNI.Constant_deletePoint(swigCPtr, this, aIndex);
   }
 
-  public void addPoint(double aX, double aY) {
-    opensimModelJNI.Constant_addPoint(swigCPtr, this, aX, aY);
+  public int addPoint(double aX, double aY) {
+    return opensimModelJNI.Constant_addPoint(swigCPtr, this, aX, aY);
   }
 
   public void setValue(double aValue) {

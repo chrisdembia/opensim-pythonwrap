@@ -211,32 +211,25 @@ public class ExcitationPanelListener implements FunctionPanelListener{
    }
 
    public boolean deleteNodes(int series, ArrayInt nodes) {
-      ExcitationRenderer renderer = (ExcitationRenderer) functionPanel.getRenderer();
-      if (renderer == null)
-         return false;
-      ControlLinear cl = renderer.getControl();
-      int sz = cl.getControlMaxValues().getSize();
-      for (int i=0; i<nodes.getSize(); i++) {
-         int index = nodes.getitem(i);
-         //control.deleteControlNode(index);
-         if (series==0)
-            renderer.getControl().getControlValues().remove(index);
-         else if (series==1)
-            renderer.getControl().getControlMinValues().remove(index);
-         else
-            renderer.getControl().getControlMaxValues().remove(index);
-         // Update underlying function
-         renderer.deleteSeriesPoint(series, index);
+      if (control != null) {
+         // Remove the nodes from the function and the control.
+         // Return 'true' so the ExcitationPanel will remove them from the series.
+         if (functions.get(series).deletePoints(nodes)) {
+            for (int i=0; i<nodes.getSize(); i++) {
+               int index = nodes.getitem(i);
+               getControlNodes(series).remove(index);
+            }
+            ((ExcitationPanel)functionPanel).setChanged(true);
+            return true;
+         }
       }
-      return true;
+      return false;
    }
 
    public void addNode(int series, double x, double y) {
       if (control != null) {
-         functions.get(series).addPoint(x, y);
+         int idx = functions.get(series).addPoint(x, y);
          // Now the control
-         XYSeriesCollection seriesCollection = (XYSeriesCollection) functionPanel.getChart().getXYPlot().getDataset();
-         int idx=seriesCollection.getSeries(series).indexOf(x);
          ControlLinearNode node = new ControlLinearNode();
          node.setTime(x);
          node.setValue(y);
@@ -261,8 +254,10 @@ public class ExcitationPanelListener implements FunctionPanelListener{
         functions.setElementAt(aFunction, index);
     }
     private ControlLinearNode getControlNodeForSeries(int series, int index)
-    { 
-         return getControlNodes(series).get(index);
+    {
+       SetControlNodes foo = this.getControlNodes(0);
+       int num = foo.getSize();
+       return getControlNodes(series).get(index);
     }
 
     private int getControlNodeCountForSeries(int series) {

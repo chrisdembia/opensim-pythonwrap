@@ -682,7 +682,8 @@ public class opensimModelJNI {
   public final static native void Function_setY(long jarg1, Function jarg1_, int jarg2, double jarg3);
   public final static native void Function_setZ(long jarg1, Function jarg1_, int jarg2, double jarg3);
   public final static native boolean Function_deletePoint(long jarg1, Function jarg1_, int jarg2);
-  public final static native void Function_addPoint(long jarg1, Function jarg1_, double jarg2, double jarg3);
+  public final static native boolean Function_deletePoints(long jarg1, Function jarg1_, long jarg2, ArrayInt jarg2_);
+  public final static native int Function_addPoint(long jarg1, Function jarg1_, double jarg2, double jarg3);
   public final static native long Function_renderAsLineSegments__SWIG_0(long jarg1, Function jarg1_, double jarg2, double jarg3);
   public final static native long Function_renderAsLineSegments__SWIG_1(long jarg1, Function jarg1_, int jarg2);
   public final static native void Function_deleteXYPointArray(long jarg1, ArrayXYPoint jarg1_);
@@ -744,7 +745,7 @@ public class opensimModelJNI {
   public final static native double Constant_getY(long jarg1, Constant jarg1_, int jarg2);
   public final static native double Constant_getZ(long jarg1, Constant jarg1_, int jarg2);
   public final static native boolean Constant_deletePoint(long jarg1, Constant jarg1_, int jarg2);
-  public final static native void Constant_addPoint(long jarg1, Constant jarg1_, double jarg2, double jarg3);
+  public final static native int Constant_addPoint(long jarg1, Constant jarg1_, double jarg2, double jarg3);
   public final static native void Constant_setValue(long jarg1, Constant jarg1_, double jarg2);
   public final static native void Constant_updateBoundingBox(long jarg1, Constant jarg1_);
   public final static native double Constant_evaluate__SWIG_0(long jarg1, Constant jarg1_, int jarg2, double jarg3, double jarg4, double jarg5);
@@ -779,7 +780,8 @@ public class opensimModelJNI {
   public final static native void NatCubicSpline_setY(long jarg1, NatCubicSpline jarg1_, int jarg2, double jarg3);
   public final static native void NatCubicSpline_scaleY(long jarg1, NatCubicSpline jarg1_, double jarg2);
   public final static native boolean NatCubicSpline_deletePoint(long jarg1, NatCubicSpline jarg1_, int jarg2);
-  public final static native void NatCubicSpline_addPoint(long jarg1, NatCubicSpline jarg1_, double jarg2, double jarg3);
+  public final static native boolean NatCubicSpline_deletePoints(long jarg1, NatCubicSpline jarg1_, long jarg2, ArrayInt jarg2_);
+  public final static native int NatCubicSpline_addPoint(long jarg1, NatCubicSpline jarg1_, double jarg2, double jarg3);
   public final static native long NatCubicSpline_renderAsLineSegments(long jarg1, NatCubicSpline jarg1_, int jarg2);
   public final static native void NatCubicSpline_updateBoundingBox(long jarg1, NatCubicSpline jarg1_);
   public final static native double NatCubicSpline_evaluate__SWIG_0(long jarg1, NatCubicSpline jarg1_, int jarg2, double jarg3, double jarg4, double jarg5);
@@ -815,7 +817,8 @@ public class opensimModelJNI {
   public final static native void StepFunction_setY(long jarg1, StepFunction jarg1_, int jarg2, double jarg3);
   public final static native void StepFunction_scaleY(long jarg1, StepFunction jarg1_, double jarg2);
   public final static native boolean StepFunction_deletePoint(long jarg1, StepFunction jarg1_, int jarg2);
-  public final static native void StepFunction_addPoint(long jarg1, StepFunction jarg1_, double jarg2, double jarg3);
+  public final static native boolean StepFunction_deletePoints(long jarg1, StepFunction jarg1_, long jarg2, ArrayInt jarg2_);
+  public final static native int StepFunction_addPoint(long jarg1, StepFunction jarg1_, double jarg2, double jarg3);
   public final static native long StepFunction_renderAsLineSegments__SWIG_0(long jarg1, StepFunction jarg1_, double jarg2, double jarg3);
   public final static native long StepFunction_renderAsLineSegments__SWIG_1(long jarg1, StepFunction jarg1_, int jarg2);
   public final static native void StepFunction_updateBoundingBox(long jarg1, StepFunction jarg1_);
@@ -852,7 +855,8 @@ public class opensimModelJNI {
   public final static native void LinearFunction_setY(long jarg1, LinearFunction jarg1_, int jarg2, double jarg3);
   public final static native void LinearFunction_scaleY(long jarg1, LinearFunction jarg1_, double jarg2);
   public final static native boolean LinearFunction_deletePoint(long jarg1, LinearFunction jarg1_, int jarg2);
-  public final static native void LinearFunction_addPoint(long jarg1, LinearFunction jarg1_, double jarg2, double jarg3);
+  public final static native boolean LinearFunction_deletePoints(long jarg1, LinearFunction jarg1_, long jarg2, ArrayInt jarg2_);
+  public final static native int LinearFunction_addPoint(long jarg1, LinearFunction jarg1_, double jarg2, double jarg3);
   public final static native long LinearFunction_renderAsLineSegments__SWIG_0(long jarg1, LinearFunction jarg1_, double jarg2, double jarg3);
   public final static native long LinearFunction_renderAsLineSegments__SWIG_1(long jarg1, LinearFunction jarg1_, int jarg2);
   public final static native void LinearFunction_updateBoundingBox(long jarg1, LinearFunction jarg1_);

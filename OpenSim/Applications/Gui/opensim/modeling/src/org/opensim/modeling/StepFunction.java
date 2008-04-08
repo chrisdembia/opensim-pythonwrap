@@ -120,8 +120,12 @@ public class StepFunction extends Function {
     return opensimModelJNI.StepFunction_deletePoint(swigCPtr, this, aIndex);
   }
 
-  public void addPoint(double aX, double aY) {
-    opensimModelJNI.StepFunction_addPoint(swigCPtr, this, aX, aY);
+  public boolean deletePoints(ArrayInt indices) {
+    return opensimModelJNI.StepFunction_deletePoints(swigCPtr, this, ArrayInt.getCPtr(indices), indices);
+  }
+
+  public int addPoint(double aX, double aY) {
+    return opensimModelJNI.StepFunction_addPoint(swigCPtr, this, aX, aY);
   }
 
   public ArrayXYPoint renderAsLineSegments(double aStart, double aEnd) {

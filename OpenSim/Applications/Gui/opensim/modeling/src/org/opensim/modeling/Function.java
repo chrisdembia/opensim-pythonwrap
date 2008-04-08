@@ -136,8 +136,8 @@ public class Function extends OpenSimObject {
     return opensimModelJNI.Function_deletePoints(swigCPtr, this, ArrayInt.getCPtr(indices), indices);
   }
 
-  public void addPoint(double aX, double aY) {
-    opensimModelJNI.Function_addPoint(swigCPtr, this, aX, aY);
+  public int addPoint(double aX, double aY) {
+    return opensimModelJNI.Function_addPoint(swigCPtr, this, aX, aY);
   }
 
   public ArrayXYPoint renderAsLineSegments(double aStart, double aEnd) {

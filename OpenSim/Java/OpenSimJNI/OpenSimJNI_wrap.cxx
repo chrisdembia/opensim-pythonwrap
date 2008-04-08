@@ -13281,10 +13281,34 @@ SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_Function_1
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Function_1addPoint(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdouble jarg2, jdouble jarg3) {
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_Function_1deletePoints(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  jboolean jresult = 0 ;
+  OpenSim::Function *arg1 = (OpenSim::Function *) 0 ;
+  OpenSim::Array<int > *arg2 = 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(OpenSim::Function **)&jarg1; 
+  arg2 = *(OpenSim::Array<int > **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<int > const & reference is null");
+    return 0;
+  } 
+  result = (bool)(arg1)->deletePoints((OpenSim::Array<int > const &)*arg2);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_Function_1addPoint(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdouble jarg2, jdouble jarg3) {
+  jint jresult = 0 ;
   OpenSim::Function *arg1 = (OpenSim::Function *) 0 ;
   double arg2 ;
   double arg3 ;
+  int result;
   
   (void)jenv;
   (void)jcls;
@@ -13292,7 +13316,9 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Function_1addP
   arg1 = *(OpenSim::Function **)&jarg1; 
   arg2 = (double)jarg2; 
   arg3 = (double)jarg3; 
-  (arg1)->addPoint(arg2,arg3);
+  result = (int)(arg1)->addPoint(arg2,arg3);
+  jresult = (jint)result; 
+  return jresult;
 }
 
 
@@ -14443,10 +14469,12 @@ SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_Constant_1
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Constant_1addPoint(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdouble jarg2, jdouble jarg3) {
+SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_Constant_1addPoint(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdouble jarg2, jdouble jarg3) {
+  jint jresult = 0 ;
   OpenSim::Constant *arg1 = (OpenSim::Constant *) 0 ;
   double arg2 ;
   double arg3 ;
+  int result;
   
   (void)jenv;
   (void)jcls;
@@ -14454,7 +14482,9 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Constant_1addP
   arg1 = *(OpenSim::Constant **)&jarg1; 
   arg2 = (double)jarg2; 
   arg3 = (double)jarg3; 
-  (arg1)->addPoint(arg2,arg3);
+  result = (int)(arg1)->addPoint(arg2,arg3);
+  jresult = (jint)result; 
+  return jresult;
 }
 
 
@@ -15018,10 +15048,34 @@ SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_NatCubicSp
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_NatCubicSpline_1addPoint(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdouble jarg2, jdouble jarg3) {
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_NatCubicSpline_1deletePoints(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  jboolean jresult = 0 ;
+  OpenSim::NatCubicSpline *arg1 = (OpenSim::NatCubicSpline *) 0 ;
+  OpenSim::Array<int > *arg2 = 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(OpenSim::NatCubicSpline **)&jarg1; 
+  arg2 = *(OpenSim::Array<int > **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<int > const & reference is null");
+    return 0;
+  } 
+  result = (bool)(arg1)->deletePoints((OpenSim::Array<int > const &)*arg2);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_NatCubicSpline_1addPoint(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdouble jarg2, jdouble jarg3) {
+  jint jresult = 0 ;
   OpenSim::NatCubicSpline *arg1 = (OpenSim::NatCubicSpline *) 0 ;
   double arg2 ;
   double arg3 ;
+  int result;
   
   (void)jenv;
   (void)jcls;
@@ -15029,7 +15083,9 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_NatCubicSpline
   arg1 = *(OpenSim::NatCubicSpline **)&jarg1; 
   arg2 = (double)jarg2; 
   arg3 = (double)jarg3; 
-  (arg1)->addPoint(arg2,arg3);
+  result = (int)(arg1)->addPoint(arg2,arg3);
+  jresult = (jint)result; 
+  return jresult;
 }
 
 
@@ -15620,10 +15676,34 @@ SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_StepFuncti
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_StepFunction_1addPoint(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdouble jarg2, jdouble jarg3) {
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_StepFunction_1deletePoints(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  jboolean jresult = 0 ;
+  OpenSim::StepFunction *arg1 = (OpenSim::StepFunction *) 0 ;
+  OpenSim::Array<int > *arg2 = 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(OpenSim::StepFunction **)&jarg1; 
+  arg2 = *(OpenSim::Array<int > **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<int > const & reference is null");
+    return 0;
+  } 
+  result = (bool)(arg1)->deletePoints((OpenSim::Array<int > const &)*arg2);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_StepFunction_1addPoint(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdouble jarg2, jdouble jarg3) {
+  jint jresult = 0 ;
   OpenSim::StepFunction *arg1 = (OpenSim::StepFunction *) 0 ;
   double arg2 ;
   double arg3 ;
+  int result;
   
   (void)jenv;
   (void)jcls;
@@ -15631,7 +15711,9 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_StepFunction_1
   arg1 = *(OpenSim::StepFunction **)&jarg1; 
   arg2 = (double)jarg2; 
   arg3 = (double)jarg3; 
-  (arg1)->addPoint(arg2,arg3);
+  result = (int)(arg1)->addPoint(arg2,arg3);
+  jresult = (jint)result; 
+  return jresult;
 }
 
 
@@ -16241,10 +16323,34 @@ SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_LinearFunc
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_LinearFunction_1addPoint(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdouble jarg2, jdouble jarg3) {
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_LinearFunction_1deletePoints(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  jboolean jresult = 0 ;
+  OpenSim::LinearFunction *arg1 = (OpenSim::LinearFunction *) 0 ;
+  OpenSim::Array<int > *arg2 = 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(OpenSim::LinearFunction **)&jarg1; 
+  arg2 = *(OpenSim::Array<int > **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<int > const & reference is null");
+    return 0;
+  } 
+  result = (bool)(arg1)->deletePoints((OpenSim::Array<int > const &)*arg2);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_LinearFunction_1addPoint(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdouble jarg2, jdouble jarg3) {
+  jint jresult = 0 ;
   OpenSim::LinearFunction *arg1 = (OpenSim::LinearFunction *) 0 ;
   double arg2 ;
   double arg3 ;
+  int result;
   
   (void)jenv;
   (void)jcls;
@@ -16252,7 +16358,9 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_LinearFunction
   arg1 = *(OpenSim::LinearFunction **)&jarg1; 
   arg2 = (double)jarg2; 
   arg3 = (double)jarg3; 
-  (arg1)->addPoint(arg2,arg3);
+  result = (int)(arg1)->addPoint(arg2,arg3);
+  jresult = (jint)result; 
+  return jresult;
 }
 
 
