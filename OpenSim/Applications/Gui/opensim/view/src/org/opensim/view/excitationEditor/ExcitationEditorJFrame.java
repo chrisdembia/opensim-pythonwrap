@@ -68,6 +68,13 @@ public class ExcitationEditorJFrame extends javax.swing.JFrame {
      */
     public ExcitationEditorJFrame(ControlSet controls) {
         // implicit call to the noarg constructor
+        initComponents();
+        getContentPane().setLayout(new BorderLayout());
+        dPanel=new ExcitationEditorJPanel(this, null);
+        getContentPane().add(dPanel, BorderLayout.CENTER);
+        setIconImage(TheApp.getAppImage());
+        setTitle("Excitation Editor");
+        pack();
         dPanel.populate(controls, false);
     }
     
