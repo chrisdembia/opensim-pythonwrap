@@ -1018,10 +1018,15 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
     }
    
    private void invokeTreePopupIfNeeded(int evtX, int evtY) {
-      final TreePath clickedElement = jExcitationsTree.getPathForLocation(evtX, evtY);
+      TreePath useClickedElement = jExcitationsTree.getPathForLocation(evtX, evtY);
       JPopupMenu contextMenu = new JPopupMenu();
       DefaultMutableTreeNode clickedNode=null;
       Object  clickedObject = null;
+      if (useClickedElement==null){    // treat as root
+          clickedNode=(DefaultMutableTreeNode)treeModel.getRoot();
+          useClickedElement = new TreePath(clickedNode.getPath());
+      }
+      final TreePath clickedElement=useClickedElement;
       if (clickedElement.getLastPathComponent() instanceof DefaultMutableTreeNode){
           clickedNode = (DefaultMutableTreeNode)clickedElement.getLastPathComponent();
           clickedObject = clickedNode.getUserObject();
