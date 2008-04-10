@@ -31414,7 +31414,18 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractTool_1
   jenv->ReleaseStringUTFChars(jarg3, arg3_pstr); 
   arg4 = *(OpenSim::ActuatorSet **)&jarg4; 
   arg5 = *(OpenSim::ContactForceSet **)&jarg5; 
-  (arg1)->updateModelActuatorsAndContactForces(arg2,(std::string const &)*arg3,arg4,arg5);
+  try {
+    (arg1)->updateModelActuatorsAndContactForces(arg2,(std::string const &)*arg3,arg4,arg5);
+  }
+  catch(OpenSim::Exception &_e) {
+    {
+      jclass excep = jenv->FindClass("java/io/IOException");
+      if (excep)
+      jenv->ThrowNew(excep, (_e).getMessage());
+      return ;
+    }
+  }
+  
 }
 
 
@@ -31441,7 +31452,18 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractTool_1
   arg3 = &arg3_str;
   jenv->ReleaseStringUTFChars(jarg3, arg3_pstr); 
   arg4 = *(OpenSim::ActuatorSet **)&jarg4; 
-  (arg1)->updateModelActuatorsAndContactForces(arg2,(std::string const &)*arg3,arg4);
+  try {
+    (arg1)->updateModelActuatorsAndContactForces(arg2,(std::string const &)*arg3,arg4);
+  }
+  catch(OpenSim::Exception &_e) {
+    {
+      jclass excep = jenv->FindClass("java/io/IOException");
+      if (excep)
+      jenv->ThrowNew(excep, (_e).getMessage());
+      return ;
+    }
+  }
+  
 }
 
 
@@ -31465,7 +31487,18 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractTool_1
   std::string arg3_str(arg3_pstr);
   arg3 = &arg3_str;
   jenv->ReleaseStringUTFChars(jarg3, arg3_pstr); 
-  (arg1)->updateModelActuatorsAndContactForces(arg2,(std::string const &)*arg3);
+  try {
+    (arg1)->updateModelActuatorsAndContactForces(arg2,(std::string const &)*arg3);
+  }
+  catch(OpenSim::Exception &_e) {
+    {
+      jclass excep = jenv->FindClass("java/io/IOException");
+      if (excep)
+      jenv->ThrowNew(excep, (_e).getMessage());
+      return ;
+    }
+  }
+  
 }
 
 

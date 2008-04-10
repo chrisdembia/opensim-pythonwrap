@@ -162,15 +162,15 @@ public class AbstractTool extends OpenSimObject {
     opensimModelJNI.AbstractTool_loadModel__SWIG_2(swigCPtr, this, aToolSetupFileName);
   }
 
-  public void updateModelActuatorsAndContactForces(Model model, String aToolSetupFileName, ActuatorSet rOriginalActuatorSet, ContactForceSet rOriginalContactForceSet) {
+  public void updateModelActuatorsAndContactForces(Model model, String aToolSetupFileName, ActuatorSet rOriginalActuatorSet, ContactForceSet rOriginalContactForceSet) throws java.io.IOException {
     opensimModelJNI.AbstractTool_updateModelActuatorsAndContactForces__SWIG_0(swigCPtr, this, Model.getCPtr(model), model, aToolSetupFileName, ActuatorSet.getCPtr(rOriginalActuatorSet), rOriginalActuatorSet, ContactForceSet.getCPtr(rOriginalContactForceSet), rOriginalContactForceSet);
   }
 
-  public void updateModelActuatorsAndContactForces(Model model, String aToolSetupFileName, ActuatorSet rOriginalActuatorSet) {
+  public void updateModelActuatorsAndContactForces(Model model, String aToolSetupFileName, ActuatorSet rOriginalActuatorSet) throws java.io.IOException {
     opensimModelJNI.AbstractTool_updateModelActuatorsAndContactForces__SWIG_1(swigCPtr, this, Model.getCPtr(model), model, aToolSetupFileName, ActuatorSet.getCPtr(rOriginalActuatorSet), rOriginalActuatorSet);
   }
 
-  public void updateModelActuatorsAndContactForces(Model model, String aToolSetupFileName) {
+  public void updateModelActuatorsAndContactForces(Model model, String aToolSetupFileName) throws java.io.IOException {
     opensimModelJNI.AbstractTool_updateModelActuatorsAndContactForces__SWIG_2(swigCPtr, this, Model.getCPtr(model), model, aToolSetupFileName);
   }
 

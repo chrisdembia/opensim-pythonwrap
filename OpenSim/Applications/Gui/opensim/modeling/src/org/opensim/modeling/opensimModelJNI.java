@@ -1689,9 +1689,9 @@ public class opensimModelJNI {
   public final static native void AbstractTool_loadModel__SWIG_0(long jarg1, AbstractTool jarg1_, String jarg2, long jarg3, ActuatorSet jarg3_, long jarg4, ContactForceSet jarg4_);
   public final static native void AbstractTool_loadModel__SWIG_1(long jarg1, AbstractTool jarg1_, String jarg2, long jarg3, ActuatorSet jarg3_);
   public final static native void AbstractTool_loadModel__SWIG_2(long jarg1, AbstractTool jarg1_, String jarg2);
-  public final static native void AbstractTool_updateModelActuatorsAndContactForces__SWIG_0(long jarg1, AbstractTool jarg1_, long jarg2, Model jarg2_, String jarg3, long jarg4, ActuatorSet jarg4_, long jarg5, ContactForceSet jarg5_);
-  public final static native void AbstractTool_updateModelActuatorsAndContactForces__SWIG_1(long jarg1, AbstractTool jarg1_, long jarg2, Model jarg2_, String jarg3, long jarg4, ActuatorSet jarg4_);
-  public final static native void AbstractTool_updateModelActuatorsAndContactForces__SWIG_2(long jarg1, AbstractTool jarg1_, long jarg2, Model jarg2_, String jarg3);
+  public final static native void AbstractTool_updateModelActuatorsAndContactForces__SWIG_0(long jarg1, AbstractTool jarg1_, long jarg2, Model jarg2_, String jarg3, long jarg4, ActuatorSet jarg4_, long jarg5, ContactForceSet jarg5_) throws java.io.IOException;
+  public final static native void AbstractTool_updateModelActuatorsAndContactForces__SWIG_1(long jarg1, AbstractTool jarg1_, long jarg2, Model jarg2_, String jarg3, long jarg4, ActuatorSet jarg4_) throws java.io.IOException;
+  public final static native void AbstractTool_updateModelActuatorsAndContactForces__SWIG_2(long jarg1, AbstractTool jarg1_, long jarg2, Model jarg2_, String jarg3) throws java.io.IOException;
   public final static native void AbstractTool_addAnalysisSetToModel(long jarg1, AbstractTool jarg1_);
   public final static native void AbstractTool_removeAnalysisSetFromModel(long jarg1, AbstractTool jarg1_);
   public final static native void AbstractTool_setToolOwnsModel(long jarg1, AbstractTool jarg1_, boolean jarg2);
