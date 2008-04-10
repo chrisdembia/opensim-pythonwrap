@@ -38,13 +38,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Vector;
 import javax.swing.AbstractAction;
 import javax.swing.JCheckBox;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
@@ -326,10 +330,12 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                .add(jLabel2)
-                .add(jValueToFormattedTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(jRemoveNodesButton))
+            .add(jPanel2Layout.createSequentialGroup()
+                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel2)
+                    .add(jValueToFormattedTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jRemoveNodesButton))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "With Selected Excitations"));
@@ -390,8 +396,8 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
             .add(ControlPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .add(ControlPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(jPanel4, 0, 57, Short.MAX_VALUE)
-                    .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(jPanel4, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jSeparator2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 17, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
@@ -474,7 +480,7 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
             jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel5Layout.createSequentialGroup()
                 .add(MinMaxShadingCheckBox)
-                .addContainerGap(64, Short.MAX_VALUE))
+                .addContainerGap(67, Short.MAX_VALUE))
         );
 
         org.jdesktop.layout.GroupLayout DisplayPanelLayout = new org.jdesktop.layout.GroupLayout(DisplayPanel);
@@ -492,7 +498,7 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
             DisplayPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(DisplayPanelLayout.createSequentialGroup()
                 .add(DisplayPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
+                    .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
                     .add(jPanel5, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -820,6 +826,8 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
             Control nextControl = getControlSet().get(names[i]);
             if (nextControl==null)
                 nextControl = getControlSet().get(getLongName(names[i]));
+             if (nextControl==null)
+                 continue;
             addExcitation(columnNode, nextControl, colIndex);
         } 
         validate();
@@ -1205,6 +1213,45 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
 
     public ExcitationsGridJPanel getExcitationGridPanel() {
         return excitationGridPanel;
+    }
+
+    void clear() {
+        DefaultMutableTreeNode root = ((DefaultMutableTreeNode)treeModel.getRoot());
+        if (root==null) return;
+        
+        int numColumns= root.getChildCount();
+        for (int i=numColumns-1; i>= 0; i--){
+            DefaultMutableTreeNode columnNode = (DefaultMutableTreeNode)root.getChildAt(i);
+            // Remove node
+            treeModel.removeNodeFromParent(columnNode);
+            // Remove Panel
+             getExcitationGridPanel().removeColumn((ExcitationColumnJPanel)columnNode.getUserObject());
+        }
+    }
+
+    void applyLayoutFromFile(String fileName) {
+      try {
+         InputStream inputStream = new FileInputStream(fileName);
+         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+         int numColumns = Integer.parseInt(reader.readLine());
+         ExcitationsGridJPanel gridPanel = getExcitationGridPanel();
+         // Remove existing columns if any
+         clear();
+         for(int i=0; i<numColumns; i++){
+             // Parse column name and entry names
+             String columnName = reader.readLine();
+             int numEntries = Integer.parseInt(reader.readLine());
+             String[] names = new String[numEntries];
+             for(int j=0; j< numEntries; j++){
+                 String nextName = reader.readLine();
+                 names[j]=nextName;
+             }
+             createExcitationColumnPanel(i, names);
+             getExcitationGridPanel().getColumn(i).setColumnNameLabelText(columnName);
+         }
+      } catch (IOException ex) {
+          ex.printStackTrace();
+      }
     }
 
 }

@@ -49,6 +49,7 @@ public class ExcitationColumnJPanel extends javax.swing.JPanel {
     // When adding panels, the only way to specify location is adding them as JComponents at index. 
     // this number accounts for components other than ExcitationPanels in 
     int componentOffset=1;  
+    int ratioUncollapsedToCollapsedSize=16;
     //Vector<ExcitationPanelListener> listeners = new Vector<ExcitationPanelListener>(4);
     /** Creates new form ExcitationColumnJPanel */
     public ExcitationColumnJPanel() {
@@ -112,7 +113,7 @@ public class ExcitationColumnJPanel extends javax.swing.JPanel {
     }
     
     void removePanel(ExcitationPanel aPanel) {
-        System.out.println("Removing panel "+aPanel.toString()+" from column "+jColumnNameLabel.getText());
+        //System.out.println("Removing panel "+aPanel.toString()+" from column "+jColumnNameLabel.getText());
         remove(aPanel);
         int idx=cache.indexOf(aPanel);
         cache.remove(aPanel);
@@ -125,7 +126,7 @@ public class ExcitationColumnJPanel extends javax.swing.JPanel {
     }
     
     void appendPanel(ExcitationPanel excitationPanel) {
-        System.out.println("Appending panel "+excitationPanel.toString()+" to column "+jColumnNameLabel.getText());
+        //System.out.println("Appending panel "+excitationPanel.toString()+" to column "+jColumnNameLabel.getText());
         add(excitationPanel);
         cache.add(excitationPanel);
         validate();
@@ -186,12 +187,8 @@ public class ExcitationColumnJPanel extends javax.swing.JPanel {
         validate();
     }
 
-    void appendExcitations(String[] selNames) {
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
-
     void toggle(ExcitationPanel dPanel) {
-        // Compute size of panel. Expanded panels are 8 times as big as collapsed ones
+        // Compute size of panel. Expanded panels are ratioUncollapsedToCollapsedSize times as big as collapsed ones
         int totalheight = this.getHeight();
         int width = this.getWidth();
         int numCollapsed = 0;
@@ -203,7 +200,7 @@ public class ExcitationColumnJPanel extends javax.swing.JPanel {
             }
             numCollapsed += (cache.get(i).isCollapsed()?1:0);
         }
-        int collapsedHeight = (int)((double) totalheight)/(numCollapsed + (numTotal-numCollapsed)*8);
+        int collapsedHeight = (int)((double) totalheight)/(numCollapsed + (numTotal-numCollapsed)*ratioUncollapsedToCollapsedSize);
         //System.out.println("collapsedHeight="+collapsedHeight);
         for (int i=0; i<cache.size(); i++){
             ExcitationPanel p1 = getPanel(i);
@@ -213,9 +210,9 @@ public class ExcitationColumnJPanel extends javax.swing.JPanel {
                 p1.setMaximumDrawHeight(collapsedHeight);
             }
             else{
-                p1.setPreferredSize(new Dimension(width, 8*collapsedHeight));
-                p1.setSize(new Dimension(width, 8*collapsedHeight));
-                p1.setMaximumDrawHeight(8*collapsedHeight);
+                p1.setPreferredSize(new Dimension(width, ratioUncollapsedToCollapsedSize*collapsedHeight));
+                p1.setSize(new Dimension(width, ratioUncollapsedToCollapsedSize*collapsedHeight));
+                p1.setMaximumDrawHeight(ratioUncollapsedToCollapsedSize*collapsedHeight);
            }
         }
         invalidate();
@@ -232,10 +229,10 @@ public class ExcitationColumnJPanel extends javax.swing.JPanel {
 
     void write(BufferedWriter writer) throws IOException {
         writer.write(getColumnNameLabelText()+"\n");
+        writer.write(cache.size()+"\n");
          for(int i=0; i<cache.size(); i++) {
             ExcitationPanel p1 = getPanel(i);
             writer.write(p1.getControlName()+"\n");
-            writer.write(p1.isCollapsed()+"\n");
         }
     }
 

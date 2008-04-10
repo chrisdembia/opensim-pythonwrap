@@ -31,9 +31,13 @@
 
 package org.opensim.view.excitationEditor;
 import java.awt.BorderLayout;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
@@ -42,8 +46,10 @@ import org.openide.NotifyDescriptor;
 import org.opensim.modeling.ControlLinear;
 import org.opensim.modeling.ControlSet;
 import org.opensim.modeling.Model;
+import org.opensim.modeling.OpenSimObject;
 import org.opensim.utils.FileUtils;
 import org.opensim.utils.TheApp;
+import org.opensim.view.Camera;
 import org.opensim.view.pub.OpenSimDB;
 
 /**
@@ -56,7 +62,7 @@ public class ExcitationEditorJFrame extends javax.swing.JFrame {
     /** Creates new form ExcitationEditorJFrame */
     public ExcitationEditorJFrame() {
         initComponents();
-        getContentPane().setLayout(new BorderLayout());
+        //getContentPane().setLayout(new BorderLayout());
         dPanel=new ExcitationEditorJPanel(this, null);
         getContentPane().add(dPanel, BorderLayout.CENTER);
         setIconImage(TheApp.getAppImage());
@@ -69,7 +75,7 @@ public class ExcitationEditorJFrame extends javax.swing.JFrame {
     public ExcitationEditorJFrame(ControlSet controls) {
         // implicit call to the noarg constructor
         initComponents();
-        getContentPane().setLayout(new BorderLayout());
+        //getContentPane().setLayout(new BorderLayout());
         dPanel=new ExcitationEditorJPanel(this, null);
         getContentPane().add(dPanel, BorderLayout.CENTER);
         setIconImage(TheApp.getAppImage());
@@ -85,10 +91,6 @@ public class ExcitationEditorJFrame extends javax.swing.JFrame {
      */
     // <editor-fold defaultstate="collapsed" desc=" Generated Code ">//GEN-BEGIN:initComponents
     private void initComponents() {
-        jLoadDataMenuItem = new javax.swing.JMenuItem();
-        jToolsMenu = new javax.swing.JMenu();
-        jSaveTemplateMenuItem = new javax.swing.JMenuItem();
-        jLoadTemplateMenuItem = new javax.swing.JMenuItem();
         jMenuBar1 = new javax.swing.JMenuBar();
         jFileMenu = new javax.swing.JMenu();
         jLoadMenuItem = new javax.swing.JMenuItem();
@@ -96,22 +98,16 @@ public class ExcitationEditorJFrame extends javax.swing.JFrame {
         jSaveAsMenuItem = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JSeparator();
         jCreateDefaultMenuItem = new javax.swing.JMenuItem();
+        jToolsMenu = new javax.swing.JMenu();
+        jSaveTemplateMenuItem = new javax.swing.JMenuItem();
+        jLoadTemplateMenuItem = new javax.swing.JMenuItem();
+        jControlPanel = new javax.swing.JPanel();
+        LoadButton = new javax.swing.JButton();
+        SaveButton = new javax.swing.JButton();
+        CreateNewButton = new javax.swing.JButton();
+        SaveLayoutButton = new javax.swing.JButton();
+        LoadLayoutButton = new javax.swing.JButton();
 
-        jLoadDataMenuItem.setText("Load Data...");
-        jToolsMenu.setText("Tools");
-        jSaveTemplateMenuItem.setText("Save Layout...");
-        jSaveTemplateMenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jSaveTemplateMenuItemActionPerformed(evt);
-            }
-        });
-
-        jToolsMenu.add(jSaveTemplateMenuItem);
-
-        jLoadTemplateMenuItem.setText("Load Layout...");
-        jToolsMenu.add(jLoadTemplateMenuItem);
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         jFileMenu.setText("File");
         jLoadMenuItem.setText("Load...");
         jLoadMenuItem.setToolTipText("Load Excitations from an XML file");
@@ -156,21 +152,112 @@ public class ExcitationEditorJFrame extends javax.swing.JFrame {
 
         jMenuBar1.add(jFileMenu);
 
-        setJMenuBar(jMenuBar1);
+        jToolsMenu.setText("Tools");
+        jSaveTemplateMenuItem.setText("Save Layout...");
+        jSaveTemplateMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jSaveTemplateMenuItemActionPerformed(evt);
+            }
+        });
 
-        org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 392, Short.MAX_VALUE)
+        jToolsMenu.add(jSaveTemplateMenuItem);
+
+        jLoadTemplateMenuItem.setText("Load Layout...");
+        jToolsMenu.add(jLoadTemplateMenuItem);
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        LoadButton.setText("Load...");
+        LoadButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LoadButtonActionPerformed(evt);
+            }
+        });
+
+        SaveButton.setText("Save");
+        SaveButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SaveButtonActionPerformed(evt);
+            }
+        });
+
+        CreateNewButton.setText("New (Current Model)");
+        CreateNewButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CreateNewButtonActionPerformed(evt);
+            }
+        });
+
+        SaveLayoutButton.setText("Save Layout...");
+        SaveLayoutButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SaveLayoutButtonActionPerformed(evt);
+            }
+        });
+
+        LoadLayoutButton.setText("Load Layout...");
+        LoadLayoutButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LoadLayoutButtonActionPerformed(evt);
+            }
+        });
+
+        org.jdesktop.layout.GroupLayout jControlPanelLayout = new org.jdesktop.layout.GroupLayout(jControlPanel);
+        jControlPanel.setLayout(jControlPanelLayout);
+        jControlPanelLayout.setHorizontalGroup(
+            jControlPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jControlPanelLayout.createSequentialGroup()
+                .add(LoadButton)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(SaveButton)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(CreateNewButton)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(SaveLayoutButton)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(LoadLayoutButton))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 245, Short.MAX_VALUE)
+        jControlPanelLayout.setVerticalGroup(
+            jControlPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(0, 23, Short.MAX_VALUE)
+            .add(jControlPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                .add(LoadButton)
+                .add(SaveButton)
+                .add(CreateNewButton)
+                .add(SaveLayoutButton)
+                .add(LoadLayoutButton))
         );
+        getContentPane().add(jControlPanel, java.awt.BorderLayout.NORTH);
+
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         setBounds((screenSize.width-400)/2, (screenSize.height-300)/2, 400, 300);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void LoadLayoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoadLayoutButtonActionPerformed
+// TODO add your handling code here:
+      String fileName = FileUtils.getInstance().browseForFilename(FileUtils.getFileFilter(".txt", "Load template file"));
+      if (fileName==null) return;
+      dPanel.applyLayoutFromFile(fileName);
+    }//GEN-LAST:event_LoadLayoutButtonActionPerformed
+
+    private void SaveLayoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveLayoutButtonActionPerformed
+// TODO add your handling code here:
+        jSaveTemplateMenuItemActionPerformed(null);
+    }//GEN-LAST:event_SaveLayoutButtonActionPerformed
+
+    private void CreateNewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateNewButtonActionPerformed
+// TODO add your handling code here:
+        jCreateDefaultMenuItemActionPerformed(null);
+    }//GEN-LAST:event_CreateNewButtonActionPerformed
+
+    private void SaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveButtonActionPerformed
+// TODO add your handling code here:
+        jSaveMenuItemActionPerformed(null);
+    }//GEN-LAST:event_SaveButtonActionPerformed
+
+    private void LoadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoadButtonActionPerformed
+// TODO add your handling code here:
+        jLoadMenuItemActionPerformed(null);
+    }//GEN-LAST:event_LoadButtonActionPerformed
 
     private void jSaveTemplateMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSaveTemplateMenuItemActionPerformed
         String fileName = FileUtils.getInstance().browseForFilenameToSave(
@@ -247,6 +334,12 @@ public class ExcitationEditorJFrame extends javax.swing.JFrame {
         //Browse for existing xml file
          String fileName = FileUtils.getInstance().browseForFilename(".xml", "Controls XML file", this);
          if(fileName!=null) {
+         OpenSimObject objGeneric = OpenSimObject.makeObjectFromFile(fileName);
+         if (objGeneric==null || !objGeneric.getType().equalsIgnoreCase("ControlSet")){
+            DialogDisplayer.getDefault().notify(
+               new NotifyDescriptor.Message("Could not construct excitations from the specified file.")); 
+            return;
+         }
          ControlSet obj = new ControlSet(fileName);
          if (obj != null){
              dPanel.populate(obj, true);
@@ -270,9 +363,14 @@ public class ExcitationEditorJFrame extends javax.swing.JFrame {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton CreateNewButton;
+    private javax.swing.JButton LoadButton;
+    private javax.swing.JButton LoadLayoutButton;
+    private javax.swing.JButton SaveButton;
+    private javax.swing.JButton SaveLayoutButton;
+    private javax.swing.JPanel jControlPanel;
     private javax.swing.JMenuItem jCreateDefaultMenuItem;
     private javax.swing.JMenu jFileMenu;
-    private javax.swing.JMenuItem jLoadDataMenuItem;
     private javax.swing.JMenuItem jLoadMenuItem;
     private javax.swing.JMenuItem jLoadTemplateMenuItem;
     private javax.swing.JMenuBar jMenuBar1;
