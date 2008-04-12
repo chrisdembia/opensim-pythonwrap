@@ -87,19 +87,30 @@ public class MoveExcitationHandler extends NodeMoveTransferHandler{
         try {
             TreePath[] movedPaths = (TreePath[]) data.getTransferData(DataFlavor.stringFlavor);
             for(int i = 0; i < movedPaths.length; i++) {
-                MutableTreeNode moveNode = (MutableTreeNode) movedPaths[i].getLastPathComponent();
+                DefaultMutableTreeNode moveNode = (DefaultMutableTreeNode) movedPaths[i].getLastPathComponent();
                 if(!moveNode.equals(targetNode)) {
-                    MutableTreeNode oldParent = (MutableTreeNode) moveNode.getParent();
+                    DefaultMutableTreeNode oldParent = (DefaultMutableTreeNode) moveNode.getParent();
                     int oldIndex = model.getIndexOfChild(oldParent, moveNode);
                     if(oldParent == null) return ;
-                    
-                    model.removeNodeFromParent(moveNode);
-                    
+                    Object test = (((DefaultMutableTreeNode) moveNode.getParent()).getUserObject());
+                    if (! (test instanceof ExcitationColumnJPanel))
+                        continue;
+                    ExcitationColumnJPanel sourcePanel = (ExcitationColumnJPanel) test;
+                    test =(((DefaultMutableTreeNode) targetNode).getUserObject());
+                    if (! (test instanceof ExcitationColumnJPanel))
+                        continue;
+                    ExcitationColumnJPanel targetPanel = (ExcitationColumnJPanel)test;
+                    ExcitationPanel panel2Move = ((ExcitationObject)moveNode.getUserObject()).getPlotPanel();
+                    sourcePanel.removePanel(panel2Move);
+                    model.removeNodeFromParent(moveNode);                   
                     try{
+                        targetPanel.appendPanel(panel2Move);
                         model.insertNodeInto(moveNode, targetNode, targetNode.getChildCount());
+                        
                     }catch(IllegalArgumentException ex){
                         model.insertNodeInto(moveNode, oldParent, oldIndex);
                     }
+                    topPanel.validate();
                 }
             }
         } catch (UnsupportedFlavorException e) {
@@ -174,9 +185,9 @@ public class MoveExcitationHandler extends NodeMoveTransferHandler{
         System.out.println("INSERT NODES");
         Point location = ((TreeDropTarget) tree.getDropTarget()).getMostRecentDragLocation();
         TreePath path = tree.getClosestPathForLocation(location.x, location.y);
-        MutableTreeNode targetNode = (MutableTreeNode) path.getLastPathComponent();
+        DefaultMutableTreeNode targetNode = (DefaultMutableTreeNode) path.getLastPathComponent();
         
-        MutableTreeNode parent = (MutableTreeNode) targetNode.getParent();
+        DefaultMutableTreeNode parent = (DefaultMutableTreeNode) targetNode.getParent();
         ExcitationColumnJPanel targetPanel=(ExcitationColumnJPanel)(((DefaultMutableTreeNode) parent).getUserObject());
         try {
             TreePath[] movedPaths = (TreePath[]) data.getTransferData(DataFlavor.stringFlavor);
@@ -203,6 +214,8 @@ public class MoveExcitationHandler extends NodeMoveTransferHandler{
                     }
                 }
             }
+            topPanel.validate();
+
         } catch (UnsupportedFlavorException e) {
             e.printStackTrace();
         } catch (IOException e) {
