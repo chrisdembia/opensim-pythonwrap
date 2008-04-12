@@ -44,6 +44,7 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 import java.util.ArrayList;
+import org.jfree.chart.ChartColor;
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.plot.CrosshairState;
 import org.jfree.chart.plot.XYPlot;
@@ -72,7 +73,8 @@ public class FunctionRenderer extends XYLineAndShapeRendererWithHighlight
         Serializable {
    
    protected ArrayList<Function> functionList = new ArrayList<Function>(0);
-   static Color[] defaultColors = new Color[]{Color.BLACK, Color.BLUE, Color.RED};
+   static Paint[] defaultColors = ChartColor.createDefaultPaintArray();
+   static Paint[] reservedColors = new Paint[]{Color.BLACK, Color.BLUE, Color.RED};
    /** 
     * For each control point in each function, the shape fill color,
     * which is either the highlight color (yellow) or the default fill
@@ -111,7 +113,7 @@ public class FunctionRenderer extends XYLineAndShapeRendererWithHighlight
       functionList.add(theFunction);
       int index = functionList.size()-1;
       shapeFillPaintList.add(new PaintList());
-      Color seriesColor = (index < 3)? defaultColors[index]:Color.BLUE;
+      Paint seriesColor = (index >= 3)? defaultColors[index]:reservedColors[index];
       setFunctionPaint(index, seriesColor);
       functionDefaultFillPaintList.setPaint(index, Color.GREEN);
       functionHighlightFillPaintList.setPaint(index, Color.BLACK);
