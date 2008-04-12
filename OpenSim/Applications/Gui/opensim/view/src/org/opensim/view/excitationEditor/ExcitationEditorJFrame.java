@@ -332,6 +332,8 @@ public class ExcitationEditorJFrame extends javax.swing.JFrame {
     private void jLoadMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLoadMenuItemActionPerformed
 // TODO add your handling code here:
         //Browse for existing xml file
+        if (dPanel.getControlSet()!=null)
+            dPanel.clear();
          String fileName = FileUtils.getInstance().browseForFilename(".xml", "Controls XML file", this);
          if(fileName!=null) {
          OpenSimObject objGeneric = OpenSimObject.makeObjectFromFile(fileName);
