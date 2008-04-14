@@ -110,6 +110,9 @@ public class FunctionRenderer extends XYLineAndShapeRendererWithHighlight
     * Separate function for potentially adding more than one function by the Excitation editor e.g. min/max
     */
    public void addFunction(final Function theFunction) {
+       addFunction(theFunction, true);
+   }
+   public void addFunction(final Function theFunction, boolean baseShapeVisible) {
       functionList.add(theFunction);
       int index = functionList.size()-1;
       shapeFillPaintList.add(new PaintList());
@@ -121,7 +124,7 @@ public class FunctionRenderer extends XYLineAndShapeRendererWithHighlight
          shapeFillPaintList.get(index).setPaint(i, Color.GREEN);
      Shape circle = new Ellipse2D.Float(-3, -3, 6, 6);
      setSeriesShape(index, circle);// all series
-     setSeriesShapesVisible(index, true);
+     setSeriesShapesVisible(index, baseShapeVisible);
      setSeriesStroke(index, new BasicStroke(1.5f));
      setSeriesOutlineStroke(index, new BasicStroke(1.0f));
      setFunctionDefaultFillPaint(index, Color.WHITE);
