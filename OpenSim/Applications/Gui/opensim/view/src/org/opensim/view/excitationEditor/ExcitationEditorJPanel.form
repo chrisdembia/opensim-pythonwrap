@@ -404,6 +404,7 @@
                           <Properties>
                             <Property name="text" type="java.lang.String" value="Simplify..."/>
                             <Property name="toolTipText" type="java.lang.String" value="Approximate control curve to use smaller number of control points"/>
+                            <Property name="enabled" type="boolean" value="false"/>
                           </Properties>
                           <Events>
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SimplfyExcitationsButtonActionPerformed"/>

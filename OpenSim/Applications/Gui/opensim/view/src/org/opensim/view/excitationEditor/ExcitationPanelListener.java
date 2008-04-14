@@ -233,7 +233,12 @@ public class ExcitationPanelListener implements FunctionPanelListener{
          ControlLinearNode node = new ControlLinearNode();
          node.setTime(x);
          node.setValue(y);
-         control.insertNewValueNode(idx, node);
+         if (series==0)
+            control.insertNewValueNode(idx, node);
+         else if (series==1)
+             control.insertNewMinNode(idx, node);
+         else if (series==2)
+             control.insertNewMaxNode(idx, node);
          
         ((ExcitationPanel)functionPanel).setChanged(true);
       }

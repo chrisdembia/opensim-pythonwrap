@@ -91,8 +91,8 @@ public class FunctionPanel extends ChartPanel
    int lastLeftButtonClickCount = 0;
    FunctionNode lastLeftButtonClickNode = null;
    protected FunctionNode rightClickNode = null;
-   int rightClickX = -1;
-   int rightClickY = -1;
+   private int rightClickX = -1;
+   private int rightClickY = -1;
    private Point boxSelectPoint = null;
    private transient Rectangle2D boxSelectRectangle = null;
    protected ArrayList<FunctionNode> selectedNodes = new ArrayList<FunctionNode>(0);
@@ -752,7 +752,7 @@ public class FunctionPanel extends ChartPanel
       }
    }
 
-   private void addNode(int series, int screenX, int screenY) {
+   protected int addNode(int series, int screenX, int screenY) {
       XYPlot xyPlot = getChart().getXYPlot();
       RectangleEdge xAxisLocation = xyPlot.getDomainAxisEdge();
       RectangleEdge yAxisLocation = xyPlot.getRangeAxisEdge();
@@ -781,6 +781,7 @@ public class FunctionPanel extends ChartPanel
       dSeries.add(newNodeX, newNodeY);
 
       updateSelectedNodesAfterAddition(series, index);
+      return index;
    }
  
    public void deleteNode(int series, int node) {
@@ -981,5 +982,13 @@ public class FunctionPanel extends ChartPanel
         JFreeChart chart = new JFreeChart(title, JFreeChart.DEFAULT_TITLE_FONT, plot, legend);
 
         return chart;
+    }
+
+    public int getRightClickX() {
+        return rightClickX;
+    }
+
+    public int getRightClickY() {
+        return rightClickY;
     }
 }

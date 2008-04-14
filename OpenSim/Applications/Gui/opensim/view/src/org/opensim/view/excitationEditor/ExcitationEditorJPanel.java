@@ -341,6 +341,7 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "With Selected Excitations"));
         SimplfyExcitationsButton.setText("Simplify...");
         SimplfyExcitationsButton.setToolTipText("Approximate control curve to use smaller number of control points");
+        SimplfyExcitationsButton.setEnabled(false);
         SimplfyExcitationsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SimplfyExcitationsButtonActionPerformed(evt);
@@ -581,7 +582,15 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
             DialogUtils.addStandardButtons(simplifyDlg);
             simplifyDlg.setModal(true);
             simplifyDlg.setVisible(true);
-            if (simplifyDlg.getDialogReturnValue()==simplifyDlg.OK_OPTION){                
+            if (simplifyDlg.getDialogReturnValue()==simplifyDlg.OK_OPTION){  
+                // MAke sure we have numbers
+                try {
+                    double d1 = Double.valueOf(simplifyPanel.getFrequency());
+                    d1 = Double.valueOf(simplifyPanel.getTolerance());
+                }
+                catch(NumberFormatException e){
+                    return; // Bad format
+                }
                // make a new controlSet and add selected excitations to it.
                 for(int i=0; i< selectedPathsVector.size(); i++){
                     TreePath nextPath=selectedPathsVector.get(i);

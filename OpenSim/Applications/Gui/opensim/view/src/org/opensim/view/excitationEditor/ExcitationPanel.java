@@ -81,6 +81,7 @@ public class ExcitationPanel extends FunctionPanel{
       chart.getXYPlot().getRangeAxis().setAutoRangeMinimumSize(0.0001);
       renderer = (ExcitationRenderer)chart.getXYPlot().getRenderer(0);
       backup = new ControlLinear(renderer.getControl());    // Keep copy of contents incase user restores
+      updateAddNodePopUpMenu();
     }
     
    public void deleteSelectedNodes()
@@ -177,11 +178,11 @@ public class ExcitationPanel extends FunctionPanel{
                                 for(int j=0; j<data.getSize(); j++){
                                     nextCurve.add(times.getitem(j), data.getitem(j), false);
                                     f.addPoint(times.getitem(j), data.getitem(j));
-                                    System.out.println("index="+j+" data="+data.getitem(j)+ " at time="+times.getitem(j));
+                                    //System.out.println("index="+j+" data="+data.getitem(j)+ " at time="+times.getitem(j));
                                 }
                                 ((XYSeriesCollection)getChart().getXYPlot().getDataset()).addSeries(nextCurve);
                                 ExcitationRenderer renderer = (ExcitationRenderer)getChart().getXYPlot().getRenderer(0);
-                                renderer.addFunction(f);
+                                renderer.addFunction(f, false);
                             }
                         }
                     }
@@ -303,5 +304,28 @@ public class ExcitationPanel extends FunctionPanel{
          renderer.setFillMode(ExcitationRenderer.ExcitationFillMode.MIN_MAX);
       else
          renderer.setFillMode(ExcitationRenderer.ExcitationFillMode.NONE);
+    }
+
+    public void mouseReleased(MouseEvent e) {
+        super.mouseReleased(e);
+    }
+
+    private void updateAddNodePopUpMenu() {
+        addNodePopUpMenu.removeAll();
+        String[] seriesNames = new String[]{"Excitation", "Min", "Max"};
+        for(int i=0; i<3; i++){
+            JMenuItem nextAddMenuItem = new JMenuItem("Add Control Point to "+seriesNames[i]);
+            final int idx=i;
+            nextAddMenuItem.addActionListener(new ActionListener() {
+
+                public void actionPerformed(ActionEvent e) {
+                    int locX = getRightClickX();
+                    int locY = getRightClickY();
+                    // This handles the series and function
+                    int newNodeIndex = addNode(idx, locX, locY);                    
+                }
+            });
+            addNodePopUpMenu.add(nextAddMenuItem);
+        }
     }
 }
