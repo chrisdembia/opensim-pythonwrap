@@ -95,6 +95,7 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
     JFrame frame;
     DefaultTreeModel treeModel;
     Vector<TreePath> selectedPathsVector = new Vector<TreePath>(4);   // Cache used to accumulate user selection of the tree
+    Vector<TreePath> selectedColumnsVector = new Vector<TreePath>(4);   // Cache used to accumulate user selection of the tree
     boolean somethingSelected=false;
     private ExcitationsGridJPanel excitationGridPanel = new ExcitationsGridJPanel();
     static int MAX_EXCITATIONS_PER_COLUMN=8;
@@ -670,8 +671,24 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
                 }
                 treeModel.removeNodeFromParent((MutableTreeNode) lastNode);
             }
-            getExcitationGridPanel().validate();
-         }       
+         }
+         // Now the columns
+         // Keep a copy since first deletion destroys selection
+         Vector<TreeNode> pendingColumnsVector=new Vector<TreeNode>(4);
+         for(int i=0; i< selectedColumnsVector.size(); i++){
+            pendingColumnsVector.add((TreeNode)selectedColumnsVector.get(i).getLastPathComponent());
+         }
+         for(int i=0; i< pendingColumnsVector.size(); i++){
+                DefaultMutableTreeNode lastNode=(DefaultMutableTreeNode)pendingColumnsVector.get(i);
+                ExcitationColumnJPanel eCol = (ExcitationColumnJPanel) ((DefaultMutableTreeNode)lastNode).getUserObject();
+                if (eCol != null){
+                    treeModel.removeNodeFromParent(lastNode);
+                    excitationGridPanel.removeColumn(eCol);
+                    excitationGridPanel.repaint();  // Sounds wrong but have no other way to force refresh of display
+                }
+         }
+         excitationGridPanel.validate();
+         
     }//GEN-LAST:event_jDeleteButtonActionPerformed
 
     private void jMoveDownButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMoveDownButtonActionPerformed
@@ -931,9 +948,13 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
       somethingSelected=false;
       for(int i=0;i<selectedPaths.length;i++){
          ExcitationObject eo = null;
+         ExcitationColumnJPanel eCol = null;
          TreeNode lastNode=(TreeNode)selectedPaths[i].getLastPathComponent();
          if (((DefaultMutableTreeNode)lastNode).getUserObject() instanceof ExcitationObject){
             eo = (ExcitationObject) ((DefaultMutableTreeNode)lastNode).getUserObject();
+         }
+         else if (((DefaultMutableTreeNode)lastNode).getUserObject() instanceof ExcitationColumnJPanel){
+            eCol = (ExcitationColumnJPanel) ((DefaultMutableTreeNode)lastNode).getUserObject();
          }
          if (e.isAddedPath(i)){
              if (eo != null){
@@ -941,10 +962,16 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
                 eo.markSelected(true);
                 somethingSelected=true;
              }
+             else if (eCol != null) {
+                selectedColumnsVector.add(selectedPaths[i]);                 
+             }
          } else {   //Removed
              if (eo != null){
                 selectedPathsVector.remove(selectedPaths[i]);
                 eo.markSelected(false);
+             }
+             else if (eCol != null) {
+                selectedColumnsVector.remove(selectedPaths[i]);                 
              }
          }
       }
@@ -1120,6 +1147,7 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
                      }
                 }
             });
+            /* Removed explicit "Remove" since delete button will do.
           JMenuItem removeMenuItem = new JMenuItem("Remove");
             removeMenuItem.addActionListener(new ActionListener(){
                 public void actionPerformed(ActionEvent e) {
@@ -1133,10 +1161,10 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
                     frame.validate();
                 }
             });
-           
+           */
            contextMenu.add(renameMenuItem);
            contextMenu.add(appendMenuItem);
-           contextMenu.add(removeMenuItem);
+           //contextMenu.add(removeMenuItem);
       }
       contextMenu.show(jExcitationsTree, evtX, evtY);
    }
