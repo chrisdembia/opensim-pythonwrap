@@ -229,7 +229,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jTabbedPane1" alignment="0" max="32767" attributes="0"/>
+          <Component id="jTabbedPane1" alignment="0" pref="469" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -320,45 +320,43 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" attributes="0">
+                                      <Component id="statesRadioButton" linkSize="6" alignment="0" min="-2" max="-2" attributes="1"/>
+                                      <Component id="motionRadioButton" linkSize="6" alignment="0" max="32767" attributes="1"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="statesFileName" pref="333" max="32767" attributes="2"/>
+                                      <Group type="102" alignment="0" attributes="0">
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="statesRadioButton" linkSize="6" alignment="0" min="-2" max="-2" attributes="1"/>
-                                              <Component id="motionRadioButton" linkSize="6" alignment="0" max="32767" attributes="1"/>
+                                              <Component id="filterCoordinatesCheckBox" linkSize="7" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="loadedMotionRadioButton" linkSize="7" pref="101" max="32767" attributes="1"/>
+                                              <Component id="fromFileMotionRadioButton" linkSize="7" min="-2" max="-2" attributes="1"/>
                                           </Group>
-                                          <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="statesFileName" pref="316" max="32767" attributes="2"/>
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="filterCoordinatesCheckBox" linkSize="7" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="loadedMotionRadioButton" linkSize="7" pref="101" max="32767" attributes="1"/>
-                                                      <Component id="fromFileMotionRadioButton" linkSize="7" min="-2" max="-2" attributes="1"/>
-                                                  </Group>
+                                              <Component id="motionsComboBox" pref="226" max="32767" attributes="2"/>
+                                              <Group type="102" attributes="0">
                                                   <EmptySpace max="-2" attributes="0"/>
-                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="motionsComboBox" pref="209" max="32767" attributes="2"/>
-                                                      <Group type="102" attributes="0">
-                                                          <EmptySpace max="-2" attributes="0"/>
-                                                          <Component id="coordinatesFileName" pref="209" max="32767" attributes="2"/>
-                                                      </Group>
-                                                      <Component id="cutoffFrequency" alignment="0" pref="209" max="32767" attributes="0"/>
-                                                  </Group>
+                                                  <Component id="coordinatesFileName" pref="226" max="32767" attributes="2"/>
                                               </Group>
+                                              <Component id="cutoffFrequency" alignment="0" pref="226" max="32767" attributes="0"/>
                                           </Group>
-                                          <EmptySpace min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <Component id="analyzeSolveForEquilibriumCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                               </Group>
+                              <Component id="analyzeSolveForEquilibriumCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="analyzeControlsCheckBox" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="analyzeControlsFileName" pref="316" max="32767" attributes="2"/>
-                                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
+                                  <Component id="editAnalyzeExcitationsButton" min="-2" pref="33" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
                               </Group>
                           </Group>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -367,7 +365,10 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="analyzeControlsCheckBox" min="-2" max="-2" attributes="0"/>
-                              <Component id="analyzeControlsFileName" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                                  <Component id="editAnalyzeExcitationsButton" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="analyzeControlsFileName" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                           <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
@@ -573,6 +574,19 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="analyzeSolveForEquilibriumCheckBoxActionPerformed"/>
                   </Events>
                 </Component>
+                <Component class="javax.swing.JButton" name="editAnalyzeExcitationsButton">
+                  <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/org/opensim/swingui/editor.gif"/>
+                    </Property>
+                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                      <Dimension value="[49, 20]"/>
+                    </Property>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="editAnalyzeExcitationsButtonActionPerformed"/>
+                  </Events>
+                </Component>
               </SubComponents>
             </Container>
             <Container class="javax.swing.JPanel" name="outputPanel">
@@ -603,8 +617,8 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="outputPrecision" alignment="0" min="-2" pref="64" max="-2" attributes="1"/>
-                              <Component id="outputName" alignment="0" pref="347" max="32767" attributes="1"/>
-                              <Component id="outputDirectory" alignment="0" pref="347" max="32767" attributes="3"/>
+                              <Component id="outputName" alignment="0" pref="364" max="32767" attributes="1"/>
+                              <Component id="outputDirectory" alignment="0" pref="364" max="32767" attributes="3"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -716,7 +730,7 @@
                                   <Component id="finalTime" linkSize="5" min="-2" pref="64" max="-2" attributes="2"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="81" max="32767" attributes="0"/>
+                          <EmptySpace pref="98" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -818,7 +832,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="modelName" pref="364" max="32767" attributes="1"/>
+                          <Component id="modelName" pref="381" max="32767" attributes="1"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -870,7 +884,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="activeAnalyses" pref="269" max="32767" attributes="3"/>
+                          <Component id="activeAnalyses" pref="286" max="32767" attributes="3"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="editAnalysesButton" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -938,11 +952,11 @@
                                   </Group>
                                   <EmptySpace min="-2" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="initialStatesFileName" pref="293" max="32767" attributes="3"/>
-                                      <Component id="controlsFileName" alignment="0" pref="293" max="32767" attributes="3"/>
+                                      <Component id="initialStatesFileName" pref="316" max="32767" attributes="3"/>
+                                      <Component id="controlsFileName" alignment="0" pref="316" max="32767" attributes="3"/>
                                   </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="editExcitationsButton" min="-2" pref="33" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
+                                  <Component id="editForwardExcitationsButton" min="-2" pref="33" max="-2" attributes="0"/>
                               </Group>
                               <Component id="solveForEquilibriumCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -956,10 +970,8 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
-                              <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                                  <Component id="controlsFileName" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="editExcitationsButton" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="controlsFileName" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="editForwardExcitationsButton" alignment="1" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
@@ -1010,12 +1022,17 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="solveForEquilibriumCheckBoxActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JButton" name="editExcitationsButton">
+                <Component class="javax.swing.JButton" name="editForwardExcitationsButton">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="..."/>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/org/opensim/swingui/editor.gif"/>
+                    </Property>
+                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                      <Dimension value="[49, 20]"/>
+                    </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="editExcitationsButtonActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="editForwardExcitationsButtonActionPerformed"/>
                   </Events>
                 </Component>
               </SubComponents>
@@ -1044,15 +1061,15 @@
                               <Component id="jLabel19" min="-2" max="-2" attributes="1"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Group type="102" alignment="1" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
                                   <Component id="cmcFilterKinematicsCheckBox" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="cmcCutoffFrequency" pref="159" max="32767" attributes="0"/>
+                                  <Component id="cmcCutoffFrequency" pref="176" max="32767" attributes="0"/>
                               </Group>
-                              <Component id="cmcDesiredKinematicsFileName" alignment="1" pref="258" max="32767" attributes="2"/>
-                              <Component id="cmcTaskSetFileName" alignment="1" pref="258" max="32767" attributes="2"/>
-                              <Component id="cmcConstraintsFileName" alignment="1" pref="258" max="32767" attributes="2"/>
+                              <Component id="cmcDesiredKinematicsFileName" alignment="1" pref="275" max="32767" attributes="2"/>
+                              <Component id="cmcTaskSetFileName" alignment="0" pref="275" max="32767" attributes="3"/>
+                              <Component id="cmcConstraintsFileName" alignment="0" pref="275" max="32767" attributes="3"/>
                           </Group>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel22" min="-2" max="-2" attributes="0"/>
@@ -1062,28 +1079,33 @@
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="cmcDesiredKinematicsFileName" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jLabel22" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="cmcCutoffFrequency" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="cmcFilterKinematicsCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Component id="cmcDesiredKinematicsFileName" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="cmcTaskSetFileName" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <Group type="103" groupAlignment="3" attributes="0">
+                                              <Component id="jLabel22" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="cmcFilterKinematicsCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="cmcCutoffFrequency" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="cmcTaskSetFileName" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Component id="jLabel20" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
+                                  <Component id="cmcConstraintsFileName" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="jLabel20" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="cmcConstraintsCheckBox" min="-2" max="-2" attributes="0"/>
-                              <Component id="cmcConstraintsFileName" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="79" pref="79" max="79" attributes="0"/>
+                                  <Component id="cmcConstraintsCheckBox" min="-2" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
@@ -1147,7 +1169,7 @@
                     <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="cmcConstraintsFileNameStateChanged"/>
                   </Events>
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new FileTextFieldAndChooserWithEdit();"/>
+                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new FileTextFieldAndChooserWithEdit(new java.awt.event.ActionListener(){&#xa;    public void actionPerformed(java.awt.event.ActionEvent evt){&#xa;        editExcitationsFile(cmcConstraintsFileName);&#xa;    }});"/>
                   </AuxValues>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel22">
@@ -1196,7 +1218,7 @@
                                   <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                                   <Component id="jLabel23" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="rraOutputModelFileName" pref="295" max="32767" attributes="0"/>
+                                  <Component id="rraOutputModelFileName" pref="312" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel21" min="-2" max="-2" attributes="0"/>
@@ -1292,12 +1314,12 @@
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="motionsComboBox1" alignment="1" pref="204" max="32767" attributes="2"/>
-                                      <Component id="coordinatesFileName1" alignment="1" pref="204" max="32767" attributes="2"/>
-                                      <Component id="cutoffFrequency1" alignment="1" pref="204" max="32767" attributes="0"/>
+                                      <Component id="motionsComboBox1" alignment="1" pref="221" max="32767" attributes="2"/>
+                                      <Component id="coordinatesFileName1" alignment="1" pref="221" max="32767" attributes="2"/>
+                                      <Component id="cutoffFrequency1" alignment="1" pref="221" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
-                              <Component id="statesFileName1" pref="311" max="32767" attributes="2"/>
+                              <Component id="statesFileName1" pref="328" max="32767" attributes="2"/>
                           </Group>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Component id="HzJLabel" min="-2" max="-2" attributes="0"/>

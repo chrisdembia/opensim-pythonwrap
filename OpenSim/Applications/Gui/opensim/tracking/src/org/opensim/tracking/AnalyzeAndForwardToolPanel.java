@@ -34,6 +34,7 @@ package org.opensim.tracking;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Observable;
@@ -46,10 +47,10 @@ import org.jdesktop.layout.GroupLayout;
 import org.opensim.modeling.BodySet;
 import org.opensim.modeling.ControlSet;
 import org.opensim.modeling.Model;
-import org.opensim.modeling.OpenSimObject;
 import org.opensim.modeling.Storage;
 import org.opensim.motionviewer.MotionsDB;
 import org.opensim.swingui.ComponentTitledBorder;
+import org.opensim.swingui.FileTextFieldAndChooser;
 import org.opensim.view.FileTextFieldAndChooserWithEdit;
 import org.opensim.view.excitationEditor.ExcitationEditorJFrame;
 
@@ -119,6 +120,7 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
          statesFileName.setExtensionsAndDescription(".sto", "States data for "+modeName);
          coordinatesFileName.setExtensionsAndDescription(".mot,.sto", "Motion data for "+modeName);
          analyzeControlsFileName.setExtensionsAndDescription(".xml", "Controls input data for "+modeName);
+         analyzeControlsFileName.setTreatEmptyStringAsValid(false);
          //speedsFileName.setExtensionsAndDescription(".mot,.sto", "Speeds data for "+modeName);
       } else if(mode==Mode.InverseDynamics) {
          // Set file filters for inverse dynamics tool inputs
@@ -127,12 +129,14 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
       } else if(mode==Mode.ForwardDynamics) {
          // Set file filters for forward tool inputs
          controlsFileName.setExtensionsAndDescription(".xml", "Controls input data for "+modeName);
+         controlsFileName.setTreatEmptyStringAsValid(false);
          initialStatesFileName.setExtensionsAndDescription(".sto", "Initial states data for "+modeName);
       } else if(mode==Mode.CMC) {
          cmcDesiredKinematicsFileName.setExtensionsAndDescription(".mot,.sto", "Desired kinematics for "+modeName);
          cmcTaskSetFileName.setExtensionsAndDescription(".xml", "CMC Task Set");
          //cmcTaskSetFileName.setIncludeEditButton(true);
          cmcConstraintsFileName.setExtensionsAndDescription(".xml", "CMC constraints");
+         cmcConstraintsFileName.setTreatEmptyStringAsValid(false);
          //cmcConstraintsFileName.setIncludeEditButton(true);
          rraOutputModelFileName.setExtensionsAndDescription(".osim", "Adjusted OpenSim model");
          rraOutputModelFileName.setSaveMode(true);
@@ -515,6 +519,7 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
         fromFileMotionRadioButton = new javax.swing.JRadioButton();
         loadedMotionRadioButton = new javax.swing.JRadioButton();
         analyzeSolveForEquilibriumCheckBox = new javax.swing.JCheckBox();
+        editAnalyzeExcitationsButton = new javax.swing.JButton();
         outputPanel = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         outputPrecision = new javax.swing.JTextField();
@@ -544,7 +549,7 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
         jLabel12 = new javax.swing.JLabel();
         initialStatesFileName = new org.opensim.swingui.FileTextFieldAndChooser();
         solveForEquilibriumCheckBox = new javax.swing.JCheckBox();
-        editExcitationsButton = new javax.swing.JButton();
+        editForwardExcitationsButton = new javax.swing.JButton();
         cmcInputPanel = new javax.swing.JPanel();
         jLabel19 = new javax.swing.JLabel();
         cmcDesiredKinematicsFileName = new org.opensim.swingui.FileTextFieldAndChooser();
@@ -552,1009 +557,1034 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
         cmcCutoffFrequency = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
         cmcTaskSetFileName = new FileTextFieldAndChooserWithEdit();
-        cmcConstraintsFileName = new FileTextFieldAndChooserWithEdit();
-        jLabel22 = new javax.swing.JLabel();
-        cmcConstraintsCheckBox = new javax.swing.JCheckBox();
-        rraPanel = new javax.swing.JPanel();
-        jLabel21 = new javax.swing.JLabel();
-        rraAdjustedBodyComboBox = new javax.swing.JComboBox();
-        jLabel23 = new javax.swing.JLabel();
-        rraOutputModelFileName = new org.opensim.swingui.FileTextFieldAndChooser();
-        inverseInputPanel = new javax.swing.JPanel();
-        motionsComboBox1 = new javax.swing.JComboBox();
-        statesRadioButton1 = new javax.swing.JRadioButton();
-        motionRadioButton1 = new javax.swing.JRadioButton();
-        statesFileName1 = new org.opensim.swingui.FileTextFieldAndChooser();
-        coordinatesFileName1 = new org.opensim.swingui.FileTextFieldAndChooser();
-        filterCoordinatesCheckBox1 = new javax.swing.JCheckBox();
-        cutoffFrequency1 = new javax.swing.JTextField();
-        HzJLabel = new javax.swing.JLabel();
-        fromFileMotionRadioButton1 = new javax.swing.JRadioButton();
-        loadedMotionRadioButton1 = new javax.swing.JRadioButton();
+        cmcConstraintsFileName = new FileTextFieldAndChooserWithEdit(new java.awt.event.ActionListener(){
+            public void actionPerformed(java.awt.event.ActionEvent evt){
+                editExcitationsFile(cmcConstraintsFileName);
+            }});
+            jLabel22 = new javax.swing.JLabel();
+            cmcConstraintsCheckBox = new javax.swing.JCheckBox();
+            rraPanel = new javax.swing.JPanel();
+            jLabel21 = new javax.swing.JLabel();
+            rraAdjustedBodyComboBox = new javax.swing.JComboBox();
+            jLabel23 = new javax.swing.JLabel();
+            rraOutputModelFileName = new org.opensim.swingui.FileTextFieldAndChooser();
+            inverseInputPanel = new javax.swing.JPanel();
+            motionsComboBox1 = new javax.swing.JComboBox();
+            statesRadioButton1 = new javax.swing.JRadioButton();
+            motionRadioButton1 = new javax.swing.JRadioButton();
+            statesFileName1 = new org.opensim.swingui.FileTextFieldAndChooser();
+            coordinatesFileName1 = new org.opensim.swingui.FileTextFieldAndChooser();
+            filterCoordinatesCheckBox1 = new javax.swing.JCheckBox();
+            cutoffFrequency1 = new javax.swing.JTextField();
+            HzJLabel = new javax.swing.JLabel();
+            fromFileMotionRadioButton1 = new javax.swing.JRadioButton();
+            loadedMotionRadioButton1 = new javax.swing.JRadioButton();
 
-        integratorSettingsPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Integrator Settings"));
-        jLabel13.setText("Integrator steps:");
+            integratorSettingsPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Integrator Settings"));
+            jLabel13.setText("Integrator steps:");
 
-        jLabel14.setText("Integrator tolerances:");
+            jLabel14.setText("Integrator tolerances:");
 
-        jLabel15.setText("Error tolerance");
+            jLabel15.setText("Error tolerance");
 
-        useSpecifiedDt.setText("Use time steps from states file");
-        useSpecifiedDt.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        useSpecifiedDt.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        useSpecifiedDt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                useSpecifiedDtActionPerformed(evt);
-            }
-        });
+            useSpecifiedDt.setText("Use time steps from states file");
+            useSpecifiedDt.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+            useSpecifiedDt.setMargin(new java.awt.Insets(0, 0, 0, 0));
+            useSpecifiedDt.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    useSpecifiedDtActionPerformed(evt);
+                }
+            });
 
-        jLabel16.setText("Maximum number");
+            jLabel16.setText("Maximum number");
 
-        maximumNumberOfSteps.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
-        maximumNumberOfSteps.setText("jTextField5");
-        maximumNumberOfSteps.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                maximumNumberOfStepsActionPerformed(evt);
-            }
-        });
-        maximumNumberOfSteps.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                maximumNumberOfStepsFocusLost(evt);
-            }
-        });
+            maximumNumberOfSteps.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
+            maximumNumberOfSteps.setText("jTextField5");
+            maximumNumberOfSteps.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    maximumNumberOfStepsActionPerformed(evt);
+                }
+            });
+            maximumNumberOfSteps.addFocusListener(new java.awt.event.FocusAdapter() {
+                public void focusLost(java.awt.event.FocusEvent evt) {
+                    maximumNumberOfStepsFocusLost(evt);
+                }
+            });
 
-        jLabel17.setText("Maximum  size");
+            jLabel17.setText("Maximum  size");
 
-        maxDT.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
-        maxDT.setText("jTextField6");
-        maxDT.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                maxDTActionPerformed(evt);
-            }
-        });
-        maxDT.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                maxDTFocusLost(evt);
-            }
-        });
+            maxDT.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
+            maxDT.setText("jTextField6");
+            maxDT.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    maxDTActionPerformed(evt);
+                }
+            });
+            maxDT.addFocusListener(new java.awt.event.FocusAdapter() {
+                public void focusLost(java.awt.event.FocusEvent evt) {
+                    maxDTFocusLost(evt);
+                }
+            });
 
-        errorTolerance.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
-        errorTolerance.setText("jTextField7");
-        errorTolerance.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                errorToleranceActionPerformed(evt);
-            }
-        });
-        errorTolerance.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                errorToleranceFocusLost(evt);
-            }
-        });
+            errorTolerance.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
+            errorTolerance.setText("jTextField7");
+            errorTolerance.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    errorToleranceActionPerformed(evt);
+                }
+            });
+            errorTolerance.addFocusListener(new java.awt.event.FocusAdapter() {
+                public void focusLost(java.awt.event.FocusEvent evt) {
+                    errorToleranceFocusLost(evt);
+                }
+            });
 
-        jLabel18.setText("Fine tolerance");
+            jLabel18.setText("Fine tolerance");
 
-        fineTolerance.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
-        fineTolerance.setText("jTextField8");
-        fineTolerance.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fineToleranceActionPerformed(evt);
-            }
-        });
-        fineTolerance.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                fineToleranceFocusLost(evt);
-            }
-        });
+            fineTolerance.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
+            fineTolerance.setText("jTextField8");
+            fineTolerance.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    fineToleranceActionPerformed(evt);
+                }
+            });
+            fineTolerance.addFocusListener(new java.awt.event.FocusAdapter() {
+                public void focusLost(java.awt.event.FocusEvent evt) {
+                    fineToleranceFocusLost(evt);
+                }
+            });
 
-        org.jdesktop.layout.GroupLayout integratorSettingsPanelLayout = new org.jdesktop.layout.GroupLayout(integratorSettingsPanel);
-        integratorSettingsPanel.setLayout(integratorSettingsPanelLayout);
-        integratorSettingsPanelLayout.setHorizontalGroup(
-            integratorSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(integratorSettingsPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .add(integratorSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            org.jdesktop.layout.GroupLayout integratorSettingsPanelLayout = new org.jdesktop.layout.GroupLayout(integratorSettingsPanel);
+            integratorSettingsPanel.setLayout(integratorSettingsPanelLayout);
+            integratorSettingsPanelLayout.setHorizontalGroup(
+                integratorSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(integratorSettingsPanelLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .add(integratorSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                        .add(useSpecifiedDt)
+                        .add(integratorSettingsPanelLayout.createSequentialGroup()
+                            .add(integratorSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel13)
+                                .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel14))
+                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                            .add(integratorSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel15)
+                                .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel16))
+                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                            .add(integratorSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                                .add(errorTolerance, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
+                                .add(maximumNumberOfSteps, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE))
+                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                            .add(integratorSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel18)
+                                .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel17))
+                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                            .add(integratorSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                .add(maxDT, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
+                                .add(fineTolerance, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE))
+                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)))
+                    .add(0, 0, 0))
+            );
+            integratorSettingsPanelLayout.setVerticalGroup(
+                integratorSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(integratorSettingsPanelLayout.createSequentialGroup()
                     .add(useSpecifiedDt)
-                    .add(integratorSettingsPanelLayout.createSequentialGroup()
-                        .add(integratorSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel13)
-                            .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel14))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(integratorSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel15)
-                            .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel16))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(integratorSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                            .add(errorTolerance, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
-                            .add(maximumNumberOfSteps, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(integratorSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel18)
-                            .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel17))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(integratorSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(maxDT, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
-                            .add(fineTolerance, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)))
-                .add(0, 0, 0))
-        );
-        integratorSettingsPanelLayout.setVerticalGroup(
-            integratorSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(integratorSettingsPanelLayout.createSequentialGroup()
-                .add(useSpecifiedDt)
-                .add(5, 5, 5)
-                .add(integratorSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel13)
-                    .add(jLabel17)
-                    .add(maxDT, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jLabel16)
-                    .add(maximumNumberOfSteps, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(integratorSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel14)
-                    .add(jLabel18)
-                    .add(fineTolerance, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jLabel15)
-                    .add(errorTolerance, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+                    .add(5, 5, 5)
+                    .add(integratorSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                        .add(jLabel13)
+                        .add(jLabel17)
+                        .add(maxDT, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(jLabel16)
+                        .add(maximumNumberOfSteps, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                    .add(integratorSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                        .add(jLabel14)
+                        .add(jLabel18)
+                        .add(fineTolerance, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(jLabel15)
+                        .add(errorTolerance, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            );
 
-        org.jdesktop.layout.GroupLayout advancedSettingsPanelLayout = new org.jdesktop.layout.GroupLayout(advancedSettingsPanel);
-        advancedSettingsPanel.setLayout(advancedSettingsPanelLayout);
-        advancedSettingsPanelLayout.setHorizontalGroup(
-            advancedSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(advancedSettingsPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .add(integratorSettingsPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        advancedSettingsPanelLayout.setVerticalGroup(
-            advancedSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(advancedSettingsPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .add(integratorSettingsPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        buttonGroup1.add(unspecifiedRadioButton);
-        unspecifiedRadioButton.setText("jRadioButton1");
-        unspecifiedRadioButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        unspecifiedRadioButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
+            org.jdesktop.layout.GroupLayout advancedSettingsPanelLayout = new org.jdesktop.layout.GroupLayout(advancedSettingsPanel);
+            advancedSettingsPanel.setLayout(advancedSettingsPanelLayout);
+            advancedSettingsPanelLayout.setHorizontalGroup(
+                advancedSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(advancedSettingsPanelLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .add(integratorSettingsPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap())
+            );
+            advancedSettingsPanelLayout.setVerticalGroup(
+                advancedSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(advancedSettingsPanelLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .add(integratorSettingsPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            );
+            buttonGroup1.add(unspecifiedRadioButton);
+            unspecifiedRadioButton.setText("jRadioButton1");
+            unspecifiedRadioButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+            unspecifiedRadioButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
 
-        analyzeInputPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Input"));
-        motionsComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        motionsComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                motionsComboBoxActionPerformed(evt);
-            }
-        });
+            analyzeInputPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Input"));
+            motionsComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+            motionsComboBox.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    motionsComboBoxActionPerformed(evt);
+                }
+            });
 
-        buttonGroup1.add(statesRadioButton);
-        statesRadioButton.setText("States");
-        statesRadioButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        statesRadioButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        statesRadioButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                inputSourceRadioButtonActionPerformed(evt);
-            }
-        });
+            buttonGroup1.add(statesRadioButton);
+            statesRadioButton.setText("States");
+            statesRadioButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+            statesRadioButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
+            statesRadioButton.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    inputSourceRadioButtonActionPerformed(evt);
+                }
+            });
 
-        buttonGroup1.add(motionRadioButton);
-        motionRadioButton.setText("Motion");
-        motionRadioButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        motionRadioButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        motionRadioButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                inputSourceRadioButtonActionPerformed(evt);
-            }
-        });
+            buttonGroup1.add(motionRadioButton);
+            motionRadioButton.setText("Motion");
+            motionRadioButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+            motionRadioButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
+            motionRadioButton.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    inputSourceRadioButtonActionPerformed(evt);
+                }
+            });
 
-        statesFileName.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                statesFileNameStateChanged(evt);
-            }
-        });
+            statesFileName.addChangeListener(new javax.swing.event.ChangeListener() {
+                public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                    statesFileNameStateChanged(evt);
+                }
+            });
 
-        coordinatesFileName.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                coordinatesFileNameStateChanged(evt);
-            }
-        });
+            coordinatesFileName.addChangeListener(new javax.swing.event.ChangeListener() {
+                public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                    coordinatesFileNameStateChanged(evt);
+                }
+            });
 
-        filterCoordinatesCheckBox.setText("Filter coordinates");
-        filterCoordinatesCheckBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        filterCoordinatesCheckBox.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        filterCoordinatesCheckBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                filterCoordinatesCheckBoxActionPerformed(evt);
-            }
-        });
+            filterCoordinatesCheckBox.setText("Filter coordinates");
+            filterCoordinatesCheckBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+            filterCoordinatesCheckBox.setMargin(new java.awt.Insets(0, 0, 0, 0));
+            filterCoordinatesCheckBox.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    filterCoordinatesCheckBoxActionPerformed(evt);
+                }
+            });
 
-        cutoffFrequency.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
-        cutoffFrequency.setText("jTextField1");
-        cutoffFrequency.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cutoffFrequencyActionPerformed(evt);
-            }
-        });
-        cutoffFrequency.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                cutoffFrequencyFocusLost(evt);
-            }
-        });
+            cutoffFrequency.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
+            cutoffFrequency.setText("jTextField1");
+            cutoffFrequency.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    cutoffFrequencyActionPerformed(evt);
+                }
+            });
+            cutoffFrequency.addFocusListener(new java.awt.event.FocusAdapter() {
+                public void focusLost(java.awt.event.FocusEvent evt) {
+                    cutoffFrequencyFocusLost(evt);
+                }
+            });
 
-        jLabel1.setText("Hz");
+            jLabel1.setText("Hz");
 
-        analyzeControlsCheckBox.setText("Controls");
-        analyzeControlsCheckBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        analyzeControlsCheckBox.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        analyzeControlsCheckBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                analyzeControlsCheckBoxActionPerformed(evt);
-            }
-        });
+            analyzeControlsCheckBox.setText("Controls");
+            analyzeControlsCheckBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+            analyzeControlsCheckBox.setMargin(new java.awt.Insets(0, 0, 0, 0));
+            analyzeControlsCheckBox.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    analyzeControlsCheckBoxActionPerformed(evt);
+                }
+            });
 
-        analyzeControlsFileName.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                analyzeControlsFileNameStateChanged(evt);
-            }
-        });
+            analyzeControlsFileName.addChangeListener(new javax.swing.event.ChangeListener() {
+                public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                    analyzeControlsFileNameStateChanged(evt);
+                }
+            });
 
-        buttonGroup2.add(fromFileMotionRadioButton);
-        fromFileMotionRadioButton.setSelected(true);
-        fromFileMotionRadioButton.setText("From file");
-        fromFileMotionRadioButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        fromFileMotionRadioButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        fromFileMotionRadioButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                inputSourceRadioButtonActionPerformed(evt);
-            }
-        });
+            buttonGroup2.add(fromFileMotionRadioButton);
+            fromFileMotionRadioButton.setSelected(true);
+            fromFileMotionRadioButton.setText("From file");
+            fromFileMotionRadioButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+            fromFileMotionRadioButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
+            fromFileMotionRadioButton.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    inputSourceRadioButtonActionPerformed(evt);
+                }
+            });
 
-        buttonGroup2.add(loadedMotionRadioButton);
-        loadedMotionRadioButton.setText("Loaded motion");
-        loadedMotionRadioButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        loadedMotionRadioButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        loadedMotionRadioButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                inputSourceRadioButtonActionPerformed(evt);
-            }
-        });
+            buttonGroup2.add(loadedMotionRadioButton);
+            loadedMotionRadioButton.setText("Loaded motion");
+            loadedMotionRadioButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+            loadedMotionRadioButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
+            loadedMotionRadioButton.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    inputSourceRadioButtonActionPerformed(evt);
+                }
+            });
 
-        analyzeSolveForEquilibriumCheckBox.setText("Solve for equilibrium for actuator states");
-        analyzeSolveForEquilibriumCheckBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        analyzeSolveForEquilibriumCheckBox.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        analyzeSolveForEquilibriumCheckBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                analyzeSolveForEquilibriumCheckBoxActionPerformed(evt);
-            }
-        });
+            analyzeSolveForEquilibriumCheckBox.setText("Solve for equilibrium for actuator states");
+            analyzeSolveForEquilibriumCheckBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+            analyzeSolveForEquilibriumCheckBox.setMargin(new java.awt.Insets(0, 0, 0, 0));
+            analyzeSolveForEquilibriumCheckBox.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    analyzeSolveForEquilibriumCheckBoxActionPerformed(evt);
+                }
+            });
 
-        org.jdesktop.layout.GroupLayout analyzeInputPanelLayout = new org.jdesktop.layout.GroupLayout(analyzeInputPanel);
-        analyzeInputPanel.setLayout(analyzeInputPanelLayout);
-        analyzeInputPanelLayout.setHorizontalGroup(
-            analyzeInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(analyzeInputPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .add(analyzeInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(analyzeInputPanelLayout.createSequentialGroup()
-                        .add(analyzeInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(analyzeInputPanelLayout.createSequentialGroup()
-                                .add(analyzeInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                    .add(statesRadioButton)
-                                    .add(motionRadioButton, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .add(14, 14, 14)
-                                .add(analyzeInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                    .add(statesFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
-                                    .add(analyzeInputPanelLayout.createSequentialGroup()
-                                        .add(analyzeInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                            .add(filterCoordinatesCheckBox)
-                                            .add(loadedMotionRadioButton, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
-                                            .add(fromFileMotionRadioButton))
-                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                        .add(analyzeInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                            .add(motionsComboBox, 0, 209, Short.MAX_VALUE)
-                                            .add(analyzeInputPanelLayout.createSequentialGroup()
-                                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                                .add(coordinatesFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE))
-                                            .add(cutoffFrequency, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE))))
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(jLabel1))
-                            .add(analyzeSolveForEquilibriumCheckBox))
-                        .addContainerGap())
-                    .add(analyzeInputPanelLayout.createSequentialGroup()
+            editAnalyzeExcitationsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/swingui/editor.gif")));
+            editAnalyzeExcitationsButton.setPreferredSize(new java.awt.Dimension(49, 20));
+            editAnalyzeExcitationsButton.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    editAnalyzeExcitationsButtonActionPerformed(evt);
+                }
+            });
+
+            org.jdesktop.layout.GroupLayout analyzeInputPanelLayout = new org.jdesktop.layout.GroupLayout(analyzeInputPanel);
+            analyzeInputPanel.setLayout(analyzeInputPanelLayout);
+            analyzeInputPanelLayout.setHorizontalGroup(
+                analyzeInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(analyzeInputPanelLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .add(analyzeInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                        .add(analyzeInputPanelLayout.createSequentialGroup()
+                            .add(analyzeInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                .add(statesRadioButton)
+                                .add(motionRadioButton, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .add(14, 14, 14)
+                            .add(analyzeInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                .add(statesFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
+                                .add(analyzeInputPanelLayout.createSequentialGroup()
+                                    .add(analyzeInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                        .add(filterCoordinatesCheckBox)
+                                        .add(loadedMotionRadioButton, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
+                                        .add(fromFileMotionRadioButton))
+                                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                    .add(analyzeInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                        .add(motionsComboBox, 0, 226, Short.MAX_VALUE)
+                                        .add(analyzeInputPanelLayout.createSequentialGroup()
+                                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                            .add(coordinatesFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE))
+                                        .add(cutoffFrequency, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE))))
+                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                            .add(jLabel1))
+                        .add(analyzeSolveForEquilibriumCheckBox)
+                        .add(analyzeInputPanelLayout.createSequentialGroup()
+                            .add(analyzeControlsCheckBox)
+                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                            .add(analyzeControlsFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
+                            .add(0, 0, 0)
+                            .add(editAnalyzeExcitationsButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 33, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)))
+                    .addContainerGap())
+            );
+
+            analyzeInputPanelLayout.linkSize(new java.awt.Component[] {motionRadioButton, statesRadioButton}, org.jdesktop.layout.GroupLayout.HORIZONTAL);
+
+            analyzeInputPanelLayout.linkSize(new java.awt.Component[] {filterCoordinatesCheckBox, fromFileMotionRadioButton, loadedMotionRadioButton}, org.jdesktop.layout.GroupLayout.HORIZONTAL);
+
+            analyzeInputPanelLayout.setVerticalGroup(
+                analyzeInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(analyzeInputPanelLayout.createSequentialGroup()
+                    .add(analyzeInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                         .add(analyzeControlsCheckBox)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(analyzeControlsFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
-                        .add(26, 26, 26))))
-        );
-
-        analyzeInputPanelLayout.linkSize(new java.awt.Component[] {motionRadioButton, statesRadioButton}, org.jdesktop.layout.GroupLayout.HORIZONTAL);
-
-        analyzeInputPanelLayout.linkSize(new java.awt.Component[] {filterCoordinatesCheckBox, fromFileMotionRadioButton, loadedMotionRadioButton}, org.jdesktop.layout.GroupLayout.HORIZONTAL);
-
-        analyzeInputPanelLayout.setVerticalGroup(
-            analyzeInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(analyzeInputPanelLayout.createSequentialGroup()
-                .add(analyzeInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(analyzeControlsCheckBox)
-                    .add(analyzeControlsFileName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .add(22, 22, 22)
-                .add(analyzeInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(statesRadioButton)
-                    .add(statesFileName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(analyzeInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                        .add(analyzeInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(editAnalyzeExcitationsButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(analyzeControlsFileName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                    .add(22, 22, 22)
+                    .add(analyzeInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                        .add(statesRadioButton)
+                        .add(statesFileName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                    .add(analyzeInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                        .add(analyzeInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(fromFileMotionRadioButton)
+                            .add(motionRadioButton))
+                        .add(coordinatesFileName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                     .add(analyzeInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                        .add(fromFileMotionRadioButton)
-                        .add(motionRadioButton))
-                    .add(coordinatesFileName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(analyzeInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(motionsComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(loadedMotionRadioButton))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(analyzeInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(filterCoordinatesCheckBox)
-                    .add(analyzeInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                        .add(cutoffFrequency, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(jLabel1)))
-                .add(18, 18, 18)
-                .add(analyzeSolveForEquilibriumCheckBox)
-                .addContainerGap(37, Short.MAX_VALUE))
-        );
+                        .add(motionsComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(loadedMotionRadioButton))
+                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                    .add(analyzeInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                        .add(filterCoordinatesCheckBox)
+                        .add(analyzeInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(cutoffFrequency, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(jLabel1)))
+                    .add(18, 18, 18)
+                    .add(analyzeSolveForEquilibriumCheckBox)
+                    .addContainerGap(37, Short.MAX_VALUE))
+            );
 
-        outputPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Output"));
-        jLabel10.setText("Precision");
+            outputPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Output"));
+            jLabel10.setText("Precision");
 
-        outputPrecision.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
-        outputPrecision.setText("jTextField1");
-        outputPrecision.setMinimumSize(new java.awt.Dimension(40, 20));
-        outputPrecision.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                outputPrecisionActionPerformed(evt);
-            }
-        });
-        outputPrecision.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                outputPrecisionFocusLost(evt);
-            }
-        });
+            outputPrecision.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
+            outputPrecision.setText("jTextField1");
+            outputPrecision.setMinimumSize(new java.awt.Dimension(40, 20));
+            outputPrecision.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    outputPrecisionActionPerformed(evt);
+                }
+            });
+            outputPrecision.addFocusListener(new java.awt.event.FocusAdapter() {
+                public void focusLost(java.awt.event.FocusEvent evt) {
+                    outputPrecisionFocusLost(evt);
+                }
+            });
 
-        jLabel11.setText("Directory");
+            jLabel11.setText("Directory");
 
-        outputDirectory.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                outputDirectoryStateChanged(evt);
-            }
-        });
+            outputDirectory.addChangeListener(new javax.swing.event.ChangeListener() {
+                public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                    outputDirectoryStateChanged(evt);
+                }
+            });
 
-        jLabel6.setText("Prefix");
+            jLabel6.setText("Prefix");
 
-        outputName.setText("jTextField1");
-        outputName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                outputNameActionPerformed(evt);
-            }
-        });
-        outputName.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                outputNameFocusLost(evt);
-            }
-        });
+            outputName.setText("jTextField1");
+            outputName.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    outputNameActionPerformed(evt);
+                }
+            });
+            outputName.addFocusListener(new java.awt.event.FocusAdapter() {
+                public void focusLost(java.awt.event.FocusEvent evt) {
+                    outputNameFocusLost(evt);
+                }
+            });
 
-        org.jdesktop.layout.GroupLayout outputPanelLayout = new org.jdesktop.layout.GroupLayout(outputPanel);
-        outputPanel.setLayout(outputPanelLayout);
-        outputPanelLayout.setHorizontalGroup(
-            outputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(outputPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .add(outputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(outputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+            org.jdesktop.layout.GroupLayout outputPanelLayout = new org.jdesktop.layout.GroupLayout(outputPanel);
+            outputPanel.setLayout(outputPanelLayout);
+            outputPanelLayout.setHorizontalGroup(
+                outputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(outputPanelLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .add(outputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                        .add(outputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                            .add(jLabel6)
+                            .add(jLabel11))
+                        .add(jLabel10))
+                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                    .add(outputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                        .add(outputPrecision, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 64, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(outputName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE)
+                        .add(outputDirectory, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE))
+                    .addContainerGap())
+            );
+            outputPanelLayout.setVerticalGroup(
+                outputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(outputPanelLayout.createSequentialGroup()
+                    .add(outputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                         .add(jLabel6)
-                        .add(jLabel11))
-                    .add(jLabel10))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(outputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(outputPrecision, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 64, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(outputName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
-                    .add(outputDirectory, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        outputPanelLayout.setVerticalGroup(
-            outputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(outputPanelLayout.createSequentialGroup()
-                .add(outputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel6)
-                    .add(outputName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(outputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(jLabel11)
-                    .add(outputDirectory, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(outputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel10)
-                    .add(outputPrecision, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+                        .add(outputName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                    .add(outputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                        .add(jLabel11)
+                        .add(outputDirectory, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                    .add(outputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                        .add(jLabel10)
+                        .add(outputPrecision, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            );
 
-        timePanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Time"));
-        jLabel4.setText("Time range to process");
+            timePanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Time"));
+            jLabel4.setText("Time range to process");
 
-        initialTime.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
-        initialTime.setText("jTextField2");
-        initialTime.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                initialTimeActionPerformed(evt);
-            }
-        });
-        initialTime.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                initialTimeFocusLost(evt);
-            }
-        });
+            initialTime.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
+            initialTime.setText("jTextField2");
+            initialTime.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    initialTimeActionPerformed(evt);
+                }
+            });
+            initialTime.addFocusListener(new java.awt.event.FocusAdapter() {
+                public void focusLost(java.awt.event.FocusEvent evt) {
+                    initialTimeFocusLost(evt);
+                }
+            });
 
-        jLabel5.setText("to");
+            jLabel5.setText("to");
 
-        finalTime.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
-        finalTime.setText("jTextField1");
-        finalTime.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                finalTimeActionPerformed(evt);
-            }
-        });
-        finalTime.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                finalTimeFocusLost(evt);
-            }
-        });
+            finalTime.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
+            finalTime.setText("jTextField1");
+            finalTime.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    finalTimeActionPerformed(evt);
+                }
+            });
+            finalTime.addFocusListener(new java.awt.event.FocusAdapter() {
+                public void focusLost(java.awt.event.FocusEvent evt) {
+                    finalTimeFocusLost(evt);
+                }
+            });
 
-        jLabel7.setText("Available time range from input data");
+            jLabel7.setText("Available time range from input data");
 
-        availableInitialTime.setEditable(false);
-        availableInitialTime.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
-        availableInitialTime.setText("jTextField1");
+            availableInitialTime.setEditable(false);
+            availableInitialTime.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
+            availableInitialTime.setText("jTextField1");
 
-        availableFinalTime.setEditable(false);
-        availableFinalTime.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
-        availableFinalTime.setText("jTextField2");
+            availableFinalTime.setEditable(false);
+            availableFinalTime.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
+            availableFinalTime.setText("jTextField2");
 
-        jLabel8.setText("to");
+            jLabel8.setText("to");
 
-        org.jdesktop.layout.GroupLayout timePanelLayout = new org.jdesktop.layout.GroupLayout(timePanel);
-        timePanel.setLayout(timePanelLayout);
-        timePanelLayout.setHorizontalGroup(
-            timePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(timePanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .add(timePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel4)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel7))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(timePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(timePanelLayout.createSequentialGroup()
+            org.jdesktop.layout.GroupLayout timePanelLayout = new org.jdesktop.layout.GroupLayout(timePanel);
+            timePanel.setLayout(timePanelLayout);
+            timePanelLayout.setHorizontalGroup(
+                timePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(timePanelLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .add(timePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                        .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel4)
+                        .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel7))
+                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                    .add(timePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                        .add(timePanelLayout.createSequentialGroup()
+                            .add(availableInitialTime, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                            .add(jLabel8)
+                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                            .add(availableFinalTime, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(timePanelLayout.createSequentialGroup()
+                            .add(initialTime, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 64, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                            .add(jLabel5)
+                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                            .add(finalTime, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 64, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                    .addContainerGap(98, Short.MAX_VALUE))
+            );
+
+            timePanelLayout.linkSize(new java.awt.Component[] {availableFinalTime, availableInitialTime, finalTime, initialTime}, org.jdesktop.layout.GroupLayout.HORIZONTAL);
+
+            timePanelLayout.setVerticalGroup(
+                timePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(timePanelLayout.createSequentialGroup()
+                    .add(timePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                        .add(jLabel7)
                         .add(availableInitialTime, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jLabel8)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(availableFinalTime, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(timePanelLayout.createSequentialGroup()
-                        .add(initialTime, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 64, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                    .add(timePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                        .add(jLabel4)
+                        .add(initialTime, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .add(jLabel5)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(finalTime, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 64, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(81, Short.MAX_VALUE))
-        );
+                        .add(finalTime, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            );
 
-        timePanelLayout.linkSize(new java.awt.Component[] {availableFinalTime, availableInitialTime, finalTime, initialTime}, org.jdesktop.layout.GroupLayout.HORIZONTAL);
+            modelInfoPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Current Model"));
+            jLabel2.setText("Name");
 
-        timePanelLayout.setVerticalGroup(
-            timePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(timePanelLayout.createSequentialGroup()
-                .add(timePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel7)
-                    .add(availableInitialTime, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jLabel8)
-                    .add(availableFinalTime, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(timePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel4)
-                    .add(initialTime, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jLabel5)
-                    .add(finalTime, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+            modelName.setEditable(false);
+            modelName.setText("jTextField1");
 
-        modelInfoPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Current Model"));
-        jLabel2.setText("Name");
-
-        modelName.setEditable(false);
-        modelName.setText("jTextField1");
-
-        org.jdesktop.layout.GroupLayout modelInfoPanelLayout = new org.jdesktop.layout.GroupLayout(modelInfoPanel);
-        modelInfoPanel.setLayout(modelInfoPanelLayout);
-        modelInfoPanelLayout.setHorizontalGroup(
-            modelInfoPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(modelInfoPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .add(jLabel2)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(modelName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        modelInfoPanelLayout.setVerticalGroup(
-            modelInfoPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(modelInfoPanelLayout.createSequentialGroup()
-                .add(6, 6, 6)
-                .add(modelInfoPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+            org.jdesktop.layout.GroupLayout modelInfoPanelLayout = new org.jdesktop.layout.GroupLayout(modelInfoPanel);
+            modelInfoPanel.setLayout(modelInfoPanelLayout);
+            modelInfoPanelLayout.setHorizontalGroup(
+                modelInfoPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(modelInfoPanelLayout.createSequentialGroup()
+                    .addContainerGap()
                     .add(jLabel2)
-                    .add(modelName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                    .add(modelName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
+                    .addContainerGap())
+            );
+            modelInfoPanelLayout.setVerticalGroup(
+                modelInfoPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(modelInfoPanelLayout.createSequentialGroup()
+                    .add(6, 6, 6)
+                    .add(modelInfoPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                        .add(jLabel2)
+                        .add(modelName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            );
 
-        activeAnalysesPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Analysis Set"));
-        jLabel3.setText("Active analyses");
+            activeAnalysesPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Analysis Set"));
+            jLabel3.setText("Active analyses");
 
-        activeAnalyses.setEditable(false);
-        activeAnalyses.setText("jTextField2");
+            activeAnalyses.setEditable(false);
+            activeAnalyses.setText("jTextField2");
 
-        editAnalysesButton.setText("Edit");
-        editAnalysesButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editAnalysesButtonActionPerformed(evt);
-            }
-        });
+            editAnalysesButton.setText("Edit");
+            editAnalysesButton.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    editAnalysesButtonActionPerformed(evt);
+                }
+            });
 
-        org.jdesktop.layout.GroupLayout activeAnalysesPanelLayout = new org.jdesktop.layout.GroupLayout(activeAnalysesPanel);
-        activeAnalysesPanel.setLayout(activeAnalysesPanelLayout);
-        activeAnalysesPanelLayout.setHorizontalGroup(
-            activeAnalysesPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(activeAnalysesPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .add(jLabel3)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(activeAnalyses, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(editAnalysesButton))
-        );
-        activeAnalysesPanelLayout.setVerticalGroup(
-            activeAnalysesPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(activeAnalysesPanelLayout.createSequentialGroup()
-                .add(activeAnalysesPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+            org.jdesktop.layout.GroupLayout activeAnalysesPanelLayout = new org.jdesktop.layout.GroupLayout(activeAnalysesPanel);
+            activeAnalysesPanel.setLayout(activeAnalysesPanelLayout);
+            activeAnalysesPanelLayout.setHorizontalGroup(
+                activeAnalysesPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(activeAnalysesPanelLayout.createSequentialGroup()
+                    .addContainerGap()
                     .add(jLabel3)
-                    .add(editAnalysesButton)
-                    .add(activeAnalyses, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                    .add(activeAnalyses, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE)
+                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                    .add(editAnalysesButton))
+            );
+            activeAnalysesPanelLayout.setVerticalGroup(
+                activeAnalysesPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(activeAnalysesPanelLayout.createSequentialGroup()
+                    .add(activeAnalysesPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                        .add(jLabel3)
+                        .add(editAnalysesButton)
+                        .add(activeAnalyses, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            );
 
-        forwardInputPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Input"));
-        jLabel9.setText("Controls");
+            forwardInputPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Input"));
+            jLabel9.setText("Controls");
 
-        controlsFileName.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                controlsFileNameStateChanged(evt);
-            }
-        });
+            controlsFileName.addChangeListener(new javax.swing.event.ChangeListener() {
+                public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                    controlsFileNameStateChanged(evt);
+                }
+            });
 
-        jLabel12.setText("States");
+            jLabel12.setText("States");
 
-        initialStatesFileName.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                initialStatesFileNameStateChanged(evt);
-            }
-        });
+            initialStatesFileName.addChangeListener(new javax.swing.event.ChangeListener() {
+                public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                    initialStatesFileNameStateChanged(evt);
+                }
+            });
 
-        solveForEquilibriumCheckBox.setText("Solve for equilibrium for actuator states");
-        solveForEquilibriumCheckBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        solveForEquilibriumCheckBox.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        solveForEquilibriumCheckBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                solveForEquilibriumCheckBoxActionPerformed(evt);
-            }
-        });
+            solveForEquilibriumCheckBox.setText("Solve for equilibrium for actuator states");
+            solveForEquilibriumCheckBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+            solveForEquilibriumCheckBox.setMargin(new java.awt.Insets(0, 0, 0, 0));
+            solveForEquilibriumCheckBox.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    solveForEquilibriumCheckBoxActionPerformed(evt);
+                }
+            });
 
-        editExcitationsButton.setText("...");
-        editExcitationsButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editExcitationsButtonActionPerformed(evt);
-            }
-        });
+            editForwardExcitationsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/swingui/editor.gif")));
+            editForwardExcitationsButton.setPreferredSize(new java.awt.Dimension(49, 20));
+            editForwardExcitationsButton.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    editForwardExcitationsButtonActionPerformed(evt);
+                }
+            });
 
-        org.jdesktop.layout.GroupLayout forwardInputPanelLayout = new org.jdesktop.layout.GroupLayout(forwardInputPanel);
-        forwardInputPanel.setLayout(forwardInputPanelLayout);
-        forwardInputPanelLayout.setHorizontalGroup(
-            forwardInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(forwardInputPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .add(forwardInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(forwardInputPanelLayout.createSequentialGroup()
-                        .add(19, 19, 19)
-                        .add(forwardInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                            .add(jLabel9)
-                            .add(jLabel12))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(forwardInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(initialStatesFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
-                            .add(controlsFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(editExcitationsButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 33, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(solveForEquilibriumCheckBox))
-                .addContainerGap())
-        );
-        forwardInputPanelLayout.setVerticalGroup(
-            forwardInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(forwardInputPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .add(forwardInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(jLabel9)
+            org.jdesktop.layout.GroupLayout forwardInputPanelLayout = new org.jdesktop.layout.GroupLayout(forwardInputPanel);
+            forwardInputPanel.setLayout(forwardInputPanelLayout);
+            forwardInputPanelLayout.setHorizontalGroup(
+                forwardInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(forwardInputPanelLayout.createSequentialGroup()
+                    .addContainerGap()
                     .add(forwardInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                        .add(forwardInputPanelLayout.createSequentialGroup()
+                            .add(19, 19, 19)
+                            .add(forwardInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                                .add(jLabel9)
+                                .add(jLabel12))
+                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                            .add(forwardInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                .add(initialStatesFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
+                                .add(controlsFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE))
+                            .add(0, 0, 0)
+                            .add(editForwardExcitationsButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 33, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(solveForEquilibriumCheckBox))
+                    .addContainerGap())
+            );
+            forwardInputPanelLayout.setVerticalGroup(
+                forwardInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(forwardInputPanelLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .add(forwardInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                        .add(jLabel9)
                         .add(controlsFileName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(editExcitationsButton)))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(forwardInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(jLabel12)
-                    .add(initialStatesFileName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 24, Short.MAX_VALUE)
-                .add(solveForEquilibriumCheckBox)
-                .addContainerGap())
-        );
+                        .add(editForwardExcitationsButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                    .add(forwardInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                        .add(jLabel12)
+                        .add(initialStatesFileName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 24, Short.MAX_VALUE)
+                    .add(solveForEquilibriumCheckBox)
+                    .addContainerGap())
+            );
 
-        cmcInputPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Input"));
-        jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        jLabel19.setText("Desired kinematics");
+            cmcInputPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Input"));
+            jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+            jLabel19.setText("Desired kinematics");
 
-        cmcDesiredKinematicsFileName.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                cmcDesiredKinematicsFileNameStateChanged(evt);
-            }
-        });
+            cmcDesiredKinematicsFileName.addChangeListener(new javax.swing.event.ChangeListener() {
+                public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                    cmcDesiredKinematicsFileNameStateChanged(evt);
+                }
+            });
 
-        cmcFilterKinematicsCheckBox.setText("Filter kinematics");
-        cmcFilterKinematicsCheckBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        cmcFilterKinematicsCheckBox.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        cmcFilterKinematicsCheckBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmcFilterKinematicsCheckBoxActionPerformed(evt);
-            }
-        });
+            cmcFilterKinematicsCheckBox.setText("Filter kinematics");
+            cmcFilterKinematicsCheckBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+            cmcFilterKinematicsCheckBox.setMargin(new java.awt.Insets(0, 0, 0, 0));
+            cmcFilterKinematicsCheckBox.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    cmcFilterKinematicsCheckBoxActionPerformed(evt);
+                }
+            });
 
-        cmcCutoffFrequency.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
-        cmcCutoffFrequency.setText("jTextField1");
-        cmcCutoffFrequency.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmcCutoffFrequencyActionPerformed(evt);
-            }
-        });
-        cmcCutoffFrequency.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                cmcCutoffFrequencyFocusLost(evt);
-            }
-        });
+            cmcCutoffFrequency.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
+            cmcCutoffFrequency.setText("jTextField1");
+            cmcCutoffFrequency.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    cmcCutoffFrequencyActionPerformed(evt);
+                }
+            });
+            cmcCutoffFrequency.addFocusListener(new java.awt.event.FocusAdapter() {
+                public void focusLost(java.awt.event.FocusEvent evt) {
+                    cmcCutoffFrequencyFocusLost(evt);
+                }
+            });
 
-        jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        jLabel20.setText("Tracking tasks");
+            jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+            jLabel20.setText("Tracking tasks");
 
-        cmcTaskSetFileName.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                cmcTaskSetFileNameStateChanged(evt);
-            }
-        });
+            cmcTaskSetFileName.addChangeListener(new javax.swing.event.ChangeListener() {
+                public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                    cmcTaskSetFileNameStateChanged(evt);
+                }
+            });
 
-        cmcConstraintsFileName.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                cmcConstraintsFileNameStateChanged(evt);
-            }
-        });
+            cmcConstraintsFileName.addChangeListener(new javax.swing.event.ChangeListener() {
+                public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                    cmcConstraintsFileNameStateChanged(evt);
+                }
+            });
 
-        jLabel22.setText("Hz");
+            jLabel22.setText("Hz");
 
-        cmcConstraintsCheckBox.setText("Actuator constraints");
-        cmcConstraintsCheckBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        cmcConstraintsCheckBox.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        cmcConstraintsCheckBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmcConstraintsCheckBoxActionPerformed(evt);
-            }
-        });
+            cmcConstraintsCheckBox.setText("Actuator constraints");
+            cmcConstraintsCheckBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+            cmcConstraintsCheckBox.setMargin(new java.awt.Insets(0, 0, 0, 0));
+            cmcConstraintsCheckBox.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    cmcConstraintsCheckBoxActionPerformed(evt);
+                }
+            });
 
-        org.jdesktop.layout.GroupLayout cmcInputPanelLayout = new org.jdesktop.layout.GroupLayout(cmcInputPanel);
-        cmcInputPanel.setLayout(cmcInputPanelLayout);
-        cmcInputPanelLayout.setHorizontalGroup(
-            cmcInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(cmcInputPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .add(cmcInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(jLabel20)
-                    .add(cmcConstraintsCheckBox)
-                    .add(jLabel19))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(cmcInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(cmcInputPanelLayout.createSequentialGroup()
-                        .add(cmcFilterKinematicsCheckBox)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(cmcCutoffFrequency, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE))
-                    .add(cmcDesiredKinematicsFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE)
-                    .add(cmcTaskSetFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE)
-                    .add(cmcConstraintsFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jLabel22)
-                .addContainerGap())
-        );
-        cmcInputPanelLayout.setVerticalGroup(
-            cmcInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(cmcInputPanelLayout.createSequentialGroup()
-                .add(cmcInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(cmcDesiredKinematicsFileName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jLabel19))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(cmcInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(cmcInputPanelLayout.createSequentialGroup()
-                        .add(cmcInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(jLabel22)
-                            .add(cmcCutoffFrequency, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(cmcFilterKinematicsCheckBox))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(cmcTaskSetFileName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(jLabel20))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(cmcInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(cmcConstraintsCheckBox)
-                    .add(cmcConstraintsFileName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+            org.jdesktop.layout.GroupLayout cmcInputPanelLayout = new org.jdesktop.layout.GroupLayout(cmcInputPanel);
+            cmcInputPanel.setLayout(cmcInputPanelLayout);
+            cmcInputPanelLayout.setHorizontalGroup(
+                cmcInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(cmcInputPanelLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .add(cmcInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                        .add(jLabel20)
+                        .add(cmcConstraintsCheckBox)
+                        .add(jLabel19))
+                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                    .add(cmcInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                        .add(cmcInputPanelLayout.createSequentialGroup()
+                            .add(cmcFilterKinematicsCheckBox)
+                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                            .add(cmcCutoffFrequency, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE))
+                        .add(org.jdesktop.layout.GroupLayout.TRAILING, cmcDesiredKinematicsFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
+                        .add(cmcTaskSetFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
+                        .add(cmcConstraintsFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE))
+                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                    .add(jLabel22)
+                    .addContainerGap())
+            );
+            cmcInputPanelLayout.setVerticalGroup(
+                cmcInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(cmcInputPanelLayout.createSequentialGroup()
+                    .add(cmcInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                        .add(cmcInputPanelLayout.createSequentialGroup()
+                            .add(cmcInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                                .add(cmcDesiredKinematicsFileName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(jLabel19))
+                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                            .add(cmcInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                                .add(cmcInputPanelLayout.createSequentialGroup()
+                                    .add(cmcInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                                        .add(jLabel22)
+                                        .add(cmcFilterKinematicsCheckBox)
+                                        .add(cmcCutoffFrequency, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                    .add(cmcTaskSetFileName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                .add(jLabel20))
+                            .add(7, 7, 7)
+                            .add(cmcConstraintsFileName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(cmcInputPanelLayout.createSequentialGroup()
+                            .add(79, 79, 79)
+                            .add(cmcConstraintsCheckBox)))
+                    .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            );
 
-        rraPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Reduce Residuals"));
-        jLabel21.setText("Body COM to adjust");
+            rraPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Reduce Residuals"));
+            jLabel21.setText("Body COM to adjust");
 
-        rraAdjustedBodyComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        rraAdjustedBodyComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rraAdjustedBodyComboBoxActionPerformed(evt);
-            }
-        });
+            rraAdjustedBodyComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+            rraAdjustedBodyComboBox.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    rraAdjustedBodyComboBoxActionPerformed(evt);
+                }
+            });
 
-        jLabel23.setText("Adjusted model");
+            jLabel23.setText("Adjusted model");
 
-        rraOutputModelFileName.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                rraOutputModelFileNameStateChanged(evt);
-            }
-        });
+            rraOutputModelFileName.addChangeListener(new javax.swing.event.ChangeListener() {
+                public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                    rraOutputModelFileNameStateChanged(evt);
+                }
+            });
 
-        org.jdesktop.layout.GroupLayout rraPanelLayout = new org.jdesktop.layout.GroupLayout(rraPanel);
-        rraPanel.setLayout(rraPanelLayout);
-        rraPanelLayout.setHorizontalGroup(
-            rraPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(rraPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .add(rraPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(rraPanelLayout.createSequentialGroup()
-                        .add(22, 22, 22)
+            org.jdesktop.layout.GroupLayout rraPanelLayout = new org.jdesktop.layout.GroupLayout(rraPanel);
+            rraPanel.setLayout(rraPanelLayout);
+            rraPanelLayout.setHorizontalGroup(
+                rraPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(rraPanelLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .add(rraPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                        .add(rraPanelLayout.createSequentialGroup()
+                            .add(22, 22, 22)
+                            .add(jLabel23)
+                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                            .add(rraOutputModelFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE))
+                        .add(rraPanelLayout.createSequentialGroup()
+                            .add(jLabel21)
+                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                            .add(rraAdjustedBodyComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 154, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                    .addContainerGap())
+            );
+            rraPanelLayout.setVerticalGroup(
+                rraPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(rraPanelLayout.createSequentialGroup()
+                    .add(rraPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                         .add(jLabel23)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(rraOutputModelFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE))
-                    .add(rraPanelLayout.createSequentialGroup()
+                        .add(rraOutputModelFileName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                    .add(rraPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                         .add(jLabel21)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(rraAdjustedBodyComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 154, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-        );
-        rraPanelLayout.setVerticalGroup(
-            rraPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(rraPanelLayout.createSequentialGroup()
-                .add(rraPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(jLabel23)
-                    .add(rraOutputModelFileName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(rraPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel21)
-                    .add(rraAdjustedBodyComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+                        .add(rraAdjustedBodyComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            );
 
-        inverseInputPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Input"));
-        motionsComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        motionsComboBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                motionsComboBox1ActionPerformed(evt);
-            }
-        });
+            inverseInputPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Input"));
+            motionsComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+            motionsComboBox1.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    motionsComboBox1ActionPerformed(evt);
+                }
+            });
 
-        buttonGroup3.add(statesRadioButton1);
-        statesRadioButton1.setText("States");
-        statesRadioButton1.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        statesRadioButton1.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        statesRadioButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                inputSourceRadioButtonActionPerformed1(evt);
-            }
-        });
+            buttonGroup3.add(statesRadioButton1);
+            statesRadioButton1.setText("States");
+            statesRadioButton1.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+            statesRadioButton1.setMargin(new java.awt.Insets(0, 0, 0, 0));
+            statesRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    inputSourceRadioButtonActionPerformed1(evt);
+                }
+            });
 
-        buttonGroup3.add(motionRadioButton1);
-        motionRadioButton1.setText("Motion");
-        motionRadioButton1.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        motionRadioButton1.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        motionRadioButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                inputSourceRadioButtonActionPerformed1(evt);
-            }
-        });
+            buttonGroup3.add(motionRadioButton1);
+            motionRadioButton1.setText("Motion");
+            motionRadioButton1.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+            motionRadioButton1.setMargin(new java.awt.Insets(0, 0, 0, 0));
+            motionRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    inputSourceRadioButtonActionPerformed1(evt);
+                }
+            });
 
-        statesFileName1.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                statesFileName1StateChanged(evt);
-            }
-        });
+            statesFileName1.addChangeListener(new javax.swing.event.ChangeListener() {
+                public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                    statesFileName1StateChanged(evt);
+                }
+            });
 
-        coordinatesFileName1.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                coordinatesFileName1StateChanged(evt);
-            }
-        });
+            coordinatesFileName1.addChangeListener(new javax.swing.event.ChangeListener() {
+                public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                    coordinatesFileName1StateChanged(evt);
+                }
+            });
 
-        filterCoordinatesCheckBox1.setText("Filter coordinates");
-        filterCoordinatesCheckBox1.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        filterCoordinatesCheckBox1.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        filterCoordinatesCheckBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                filterCoordinatesCheckBox1ActionPerformed(evt);
-            }
-        });
+            filterCoordinatesCheckBox1.setText("Filter coordinates");
+            filterCoordinatesCheckBox1.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+            filterCoordinatesCheckBox1.setMargin(new java.awt.Insets(0, 0, 0, 0));
+            filterCoordinatesCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    filterCoordinatesCheckBox1ActionPerformed(evt);
+                }
+            });
 
-        cutoffFrequency1.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
-        cutoffFrequency1.setText("jTextField1");
-        cutoffFrequency1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cutoffFrequency1ActionPerformed(evt);
-            }
-        });
-        cutoffFrequency1.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                cutoffFrequency1FocusLost(evt);
-            }
-        });
+            cutoffFrequency1.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
+            cutoffFrequency1.setText("jTextField1");
+            cutoffFrequency1.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    cutoffFrequency1ActionPerformed(evt);
+                }
+            });
+            cutoffFrequency1.addFocusListener(new java.awt.event.FocusAdapter() {
+                public void focusLost(java.awt.event.FocusEvent evt) {
+                    cutoffFrequency1FocusLost(evt);
+                }
+            });
 
-        HzJLabel.setText("Hz");
+            HzJLabel.setText("Hz");
 
-        buttonGroup4.add(fromFileMotionRadioButton1);
-        fromFileMotionRadioButton1.setSelected(true);
-        fromFileMotionRadioButton1.setText("From file");
-        fromFileMotionRadioButton1.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        fromFileMotionRadioButton1.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        fromFileMotionRadioButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                inputSourceRadioButtonActionPerformed1(evt);
-            }
-        });
+            buttonGroup4.add(fromFileMotionRadioButton1);
+            fromFileMotionRadioButton1.setSelected(true);
+            fromFileMotionRadioButton1.setText("From file");
+            fromFileMotionRadioButton1.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+            fromFileMotionRadioButton1.setMargin(new java.awt.Insets(0, 0, 0, 0));
+            fromFileMotionRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    inputSourceRadioButtonActionPerformed1(evt);
+                }
+            });
 
-        buttonGroup4.add(loadedMotionRadioButton1);
-        loadedMotionRadioButton1.setText("Loaded motion");
-        loadedMotionRadioButton1.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        loadedMotionRadioButton1.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        loadedMotionRadioButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                inputSourceRadioButtonActionPerformed1(evt);
-            }
-        });
+            buttonGroup4.add(loadedMotionRadioButton1);
+            loadedMotionRadioButton1.setText("Loaded motion");
+            loadedMotionRadioButton1.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+            loadedMotionRadioButton1.setMargin(new java.awt.Insets(0, 0, 0, 0));
+            loadedMotionRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    inputSourceRadioButtonActionPerformed1(evt);
+                }
+            });
 
-        org.jdesktop.layout.GroupLayout inverseInputPanelLayout = new org.jdesktop.layout.GroupLayout(inverseInputPanel);
-        inverseInputPanel.setLayout(inverseInputPanelLayout);
-        inverseInputPanelLayout.setHorizontalGroup(
-            inverseInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(inverseInputPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .add(inverseInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                    .add(statesRadioButton1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(motionRadioButton1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(inverseInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(inverseInputPanelLayout.createSequentialGroup()
-                        .add(inverseInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(fromFileMotionRadioButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 82, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(inverseInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                                .add(org.jdesktop.layout.GroupLayout.LEADING, loadedMotionRadioButton1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .add(org.jdesktop.layout.GroupLayout.LEADING, filterCoordinatesCheckBox1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(inverseInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(org.jdesktop.layout.GroupLayout.TRAILING, motionsComboBox1, 0, 204, Short.MAX_VALUE)
-                            .add(org.jdesktop.layout.GroupLayout.TRAILING, coordinatesFileName1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
-                            .add(org.jdesktop.layout.GroupLayout.TRAILING, cutoffFrequency1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)))
-                    .add(statesFileName1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 311, Short.MAX_VALUE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(HzJLabel)
-                .addContainerGap())
-        );
-        inverseInputPanelLayout.setVerticalGroup(
-            inverseInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(inverseInputPanelLayout.createSequentialGroup()
-                .add(0, 0, 0)
-                .add(inverseInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(statesRadioButton1)
-                    .add(statesFileName1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(inverseInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(inverseInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                        .add(motionRadioButton1)
-                        .add(fromFileMotionRadioButton1))
-                    .add(coordinatesFileName1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(inverseInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(motionsComboBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(loadedMotionRadioButton1))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(inverseInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+            org.jdesktop.layout.GroupLayout inverseInputPanelLayout = new org.jdesktop.layout.GroupLayout(inverseInputPanel);
+            inverseInputPanel.setLayout(inverseInputPanelLayout);
+            inverseInputPanelLayout.setHorizontalGroup(
+                inverseInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(inverseInputPanelLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .add(inverseInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                        .add(statesRadioButton1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(motionRadioButton1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE))
+                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                    .add(inverseInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                        .add(inverseInputPanelLayout.createSequentialGroup()
+                            .add(inverseInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                .add(fromFileMotionRadioButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 82, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(inverseInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                                    .add(org.jdesktop.layout.GroupLayout.LEADING, loadedMotionRadioButton1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .add(org.jdesktop.layout.GroupLayout.LEADING, filterCoordinatesCheckBox1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                            .add(inverseInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                .add(org.jdesktop.layout.GroupLayout.TRAILING, motionsComboBox1, 0, 221, Short.MAX_VALUE)
+                                .add(org.jdesktop.layout.GroupLayout.TRAILING, coordinatesFileName1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
+                                .add(org.jdesktop.layout.GroupLayout.TRAILING, cutoffFrequency1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)))
+                        .add(statesFileName1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE))
+                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                     .add(HzJLabel)
-                    .add(filterCoordinatesCheckBox1)
-                    .add(cutoffFrequency1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+                    .addContainerGap())
+            );
+            inverseInputPanelLayout.setVerticalGroup(
+                inverseInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(inverseInputPanelLayout.createSequentialGroup()
+                    .add(0, 0, 0)
+                    .add(inverseInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                        .add(statesRadioButton1)
+                        .add(statesFileName1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                    .add(inverseInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                        .add(inverseInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(motionRadioButton1)
+                            .add(fromFileMotionRadioButton1))
+                        .add(coordinatesFileName1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                    .add(inverseInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                        .add(motionsComboBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(loadedMotionRadioButton1))
+                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                    .add(inverseInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                        .add(HzJLabel)
+                        .add(filterCoordinatesCheckBox1)
+                        .add(cutoffFrequency1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            );
 
-        org.jdesktop.layout.GroupLayout mainSettingsPanelLayout = new org.jdesktop.layout.GroupLayout(mainSettingsPanel);
-        mainSettingsPanel.setLayout(mainSettingsPanelLayout);
-        mainSettingsPanelLayout.setHorizontalGroup(
-            mainSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(mainSettingsPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .add(mainSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(inverseInputPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(modelInfoPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(forwardInputPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(analyzeInputPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(cmcInputPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(rraPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(timePanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(activeAnalysesPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(outputPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        mainSettingsPanelLayout.setVerticalGroup(
-            mainSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(mainSettingsPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .add(modelInfoPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(analyzeInputPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(forwardInputPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(inverseInputPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(cmcInputPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(rraPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(timePanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(activeAnalysesPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(outputPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jTabbedPane1.addTab("Main Settings", mainSettingsPanel);
+            org.jdesktop.layout.GroupLayout mainSettingsPanelLayout = new org.jdesktop.layout.GroupLayout(mainSettingsPanel);
+            mainSettingsPanel.setLayout(mainSettingsPanelLayout);
+            mainSettingsPanelLayout.setHorizontalGroup(
+                mainSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(mainSettingsPanelLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .add(mainSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                        .add(inverseInputPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(modelInfoPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(forwardInputPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(analyzeInputPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(cmcInputPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(rraPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(timePanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(activeAnalysesPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(outputPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addContainerGap())
+            );
+            mainSettingsPanelLayout.setVerticalGroup(
+                mainSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(mainSettingsPanelLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .add(modelInfoPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                    .add(analyzeInputPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                    .add(forwardInputPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                    .add(inverseInputPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                    .add(cmcInputPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                    .add(rraPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                    .add(timePanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                    .add(activeAnalysesPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                    .add(outputPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            );
+            jTabbedPane1.addTab("Main Settings", mainSettingsPanel);
 
-        org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jTabbedPane1)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jTabbedPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-        );
-    }// </editor-fold>//GEN-END:initComponents
+            org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
+            this.setLayout(layout);
+            layout.setHorizontalGroup(
+                layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(jTabbedPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 469, Short.MAX_VALUE)
+            );
+            layout.setVerticalGroup(
+                layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(jTabbedPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+            );
+        }// </editor-fold>//GEN-END:initComponents
 
-    private void editExcitationsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editExcitationsButtonActionPerformed
+    private void editAnalyzeExcitationsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editAnalyzeExcitationsButtonActionPerformed
 // TODO add your handling code here:
-        if (!controlsFileName.getFileIsValid()) return;
-        String controlsFile=controlsFileName.getFileName();
+        editExcitationsFile(analyzeControlsFileName);
+    }//GEN-LAST:event_editAnalyzeExcitationsButtonActionPerformed
+
+    private void editForwardExcitationsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editForwardExcitationsButtonActionPerformed
+// TODO add your handling code here:
+        editExcitationsFile(controlsFileName);
+    }//GEN-LAST:event_editForwardExcitationsButtonActionPerformed
+    
+    private void editExcitationsFile(FileTextFieldAndChooser aControlsFileName){
+        if (!aControlsFileName.getFileIsValid()) return;
+        String controlsFile=aControlsFileName.getFileName();
+        if (controlsFile.length()==0) return;   // Should never happen but!
         // Make sure we have the correct type
         ControlSet cs = new ControlSet(controlsFile);
         if (cs !=null){
             new ExcitationEditorJFrame(cs).setVisible(true);
         }
         
-    }//GEN-LAST:event_editExcitationsButtonActionPerformed
-
+    }
    //------------------------------------------------------------------------
    // Inverse tool input settings
    //------------------------------------------------------------------------
@@ -1871,7 +1901,8 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
     private javax.swing.JTextField cutoffFrequency;
     private javax.swing.JTextField cutoffFrequency1;
     private javax.swing.JButton editAnalysesButton;
-    private javax.swing.JButton editExcitationsButton;
+    private javax.swing.JButton editAnalyzeExcitationsButton;
+    private javax.swing.JButton editForwardExcitationsButton;
     private javax.swing.JTextField errorTolerance;
     private javax.swing.JCheckBox filterCoordinatesCheckBox;
     private javax.swing.JCheckBox filterCoordinatesCheckBox1;
