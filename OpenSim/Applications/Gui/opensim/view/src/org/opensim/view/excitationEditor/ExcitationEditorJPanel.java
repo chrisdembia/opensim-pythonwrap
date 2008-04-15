@@ -826,14 +826,14 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
      */
     private void createExcitationColumnPanel(int colIndex, String[] names) {
 
-        // create plot ...
         DefaultMutableTreeNode columnNode = new DefaultMutableTreeNode("Column "+String.valueOf(colIndex));
         treeModel.insertNodeInto(columnNode, (DefaultMutableTreeNode) treeModel.getRoot(), colIndex);
         getExcitationGridPanel().addColumn("Column "+String.valueOf(colIndex));
         columnNode.setUserObject(getExcitationGridPanel().getExcitationColumn(colIndex));
+        if (getControlSet()==null) return;  // There's no controls to use!'
         for(int i=0; i<names.length; i++){
             Control nextControl = getControlSet().get(names[i]);
-            if (nextControl==null)
+            if (nextControl==null && controlSet!=null)
                 nextControl = getControlSet().get(getLongName(names[i]));
              if (nextControl==null)
                  continue;
@@ -1244,6 +1244,7 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
          BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
          int numColumns = Integer.parseInt(reader.readLine());
          ExcitationsGridJPanel gridPanel = getExcitationGridPanel();
+         if (getControlSet()==null) return; // Probably should warn
          // Remove existing columns if any
          clear();
          for(int i=0; i<numColumns; i++){

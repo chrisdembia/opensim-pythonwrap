@@ -234,7 +234,7 @@ public class ExcitationEditorJFrame extends javax.swing.JFrame {
 
     private void LoadLayoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoadLayoutButtonActionPerformed
 // TODO add your handling code here:
-      String fileName = FileUtils.getInstance().browseForFilename(FileUtils.getFileFilter(".txt", "Load template file"));
+      String fileName = FileUtils.getInstance().browseForFilename(FileUtils.getFileFilter(".txt", "Load template file"), this);
       if (fileName==null) return;
       dPanel.applyLayoutFromFile(fileName);
     }//GEN-LAST:event_LoadLayoutButtonActionPerformed

@@ -68,7 +68,7 @@ import org.opensim.view.functionEditor.FunctionXYSeries;
 public class ExcitationPanel extends FunctionPanel{
     JPopupMenu nodePopup;
     boolean addedExcitationOptionsToPopup=false;
-    boolean addedImportOptionsToPopup=false;
+    //boolean addedImportOptionsToPopup=false;
     private boolean collapsed=false;
     ControlLinear backup;
     private boolean changed = false;    // Whenever something is changed we need to turn this flag on so that revert works while Backup clears it. 
@@ -143,54 +143,6 @@ public class ExcitationPanel extends FunctionPanel{
                 addedExcitationOptionsToPopup=true;
             }
         } 
-        else {
-            if (!addedImportOptionsToPopup){
-                JMenuItem overlayMenuItem = new JMenuItem("Import data from a file");
-                overlayMenuItem.addActionListener(new ActionListener(){
-                    public void actionPerformed(ActionEvent e) {
-                        // Browse for a file, then show curve selection filter
-                        String fileName = FileUtils.getInstance().browseForFilename(".sto, .mot", "Data file", ExcitationPanel.this);
-                        Storage s=null;
-                        try {
-                            s = new Storage(fileName);
-                        } catch (IOException ex) {
-                            ex.printStackTrace();
-   }
-                        // Open file and show filter to select columns. Return names
-                        FilterableStringArray namesSource = new FilterableStringArray(s.getColumnLabels());
-                        NameFilterJPanel filterPanel = new NameFilterJPanel(namesSource, false);
-                        OpenSimDialog selectionDlg=DialogUtils.createDialogForPanelWithParent(null, filterPanel, "Select Columns");
-                        DialogUtils.addStandardButtons(selectionDlg);
-                        selectionDlg.setModal(true);
-                        selectionDlg.setVisible(true);
-                        if (selectionDlg.getDialogReturnValue()==selectionDlg.OK_OPTION) {
-                            String[] selNames = new String[filterPanel.getNumSelected()];
-                            System.arraycopy(filterPanel.getSelected(), 0, selNames, 0, filterPanel.getNumSelected());
-                            // create a curve against time for each selected column and add it to tthe chart
-                            ArrayDouble times = new ArrayDouble();
-                            s.getTimeColumn(times);
-                            Function f = new LinearFunction();
-                            for(int i=0; i<selNames.length;i++ ){
-                                XYSeries nextCurve=new XYSeries(selNames[i]);
-                                ArrayDouble data = new ArrayDouble();
-                                int index = s.getStateIndex(selNames[i]);
-                                s.getDataColumn(index, data);
-                                for(int j=0; j<data.getSize(); j++){
-                                    nextCurve.add(times.getitem(j), data.getitem(j), false);
-                                    f.addPoint(times.getitem(j), data.getitem(j));
-                                    //System.out.println("index="+j+" data="+data.getitem(j)+ " at time="+times.getitem(j));
-                                }
-                                ((XYSeriesCollection)getChart().getXYPlot().getDataset()).addSeries(nextCurve);
-                                ExcitationRenderer renderer = (ExcitationRenderer)getChart().getXYPlot().getRenderer(0);
-                                renderer.addFunction(f, false);
-                            }
-                        }
-                    }
-                });
-                addNodePopUpMenu.add(overlayMenuItem);
-                addedImportOptionsToPopup=true;
-            }
-        }
    }
    
    public void update()
@@ -312,10 +264,11 @@ public class ExcitationPanel extends FunctionPanel{
 
     private void updateAddNodePopUpMenu() {
         addNodePopUpMenu.removeAll();
-        String[] seriesNames = new String[]{"Excitation", "Min", "Max"};
+        String[] seriesNames = new String[]{"Max", "Excitation", "Min"};
+        int[] seriesNumbers = new int[]{2, 0, 1};
         for(int i=0; i<3; i++){
             JMenuItem nextAddMenuItem = new JMenuItem("Add Control Point to "+seriesNames[i]);
-            final int idx=i;
+            final int idx=seriesNumbers[i];
             nextAddMenuItem.addActionListener(new ActionListener() {
 
                 public void actionPerformed(ActionEvent e) {
@@ -327,5 +280,51 @@ public class ExcitationPanel extends FunctionPanel{
             });
             addNodePopUpMenu.add(nextAddMenuItem);
         }
+        addNodePopUpMenu.addSeparator();
+        // Add item for importing data curve into Panel
+        JMenuItem overlayMenuItem = new JMenuItem("Import data from a file");
+        overlayMenuItem.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e) {
+                // Browse for a file, then show curve selection filter
+                String fileName = FileUtils.getInstance().browseForFilename(".sto, .mot", "Data file", ExcitationPanel.this);
+                Storage s=null;
+                try {
+                    s = new Storage(fileName);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+                if (s == null) return;  // Bad file
+                // Open file and show filter to select columns. Return names
+                FilterableStringArray namesSource = new FilterableStringArray(s.getColumnLabels());
+                NameFilterJPanel filterPanel = new NameFilterJPanel(namesSource, false);
+                OpenSimDialog selectionDlg=DialogUtils.createDialogForPanelWithParent(null, filterPanel, "Select Columns");
+                DialogUtils.addStandardButtons(selectionDlg);
+                selectionDlg.setModal(true);
+                selectionDlg.setVisible(true);
+                if (selectionDlg.getDialogReturnValue()==selectionDlg.OK_OPTION) {
+                    String[] selNames = new String[filterPanel.getNumSelected()];
+                    System.arraycopy(filterPanel.getSelected(), 0, selNames, 0, filterPanel.getNumSelected());
+                    // create a curve against time for each selected column and add it to tthe chart
+                    ArrayDouble times = new ArrayDouble();
+                    s.getTimeColumn(times);
+                    Function f = new LinearFunction();
+                    for(int i=0; i<selNames.length;i++ ){
+                        XYSeries nextCurve=new XYSeries(selNames[i]);
+                        ArrayDouble data = new ArrayDouble();
+                        int index = s.getStateIndex(selNames[i]);
+                        s.getDataColumn(index, data);
+                        for(int j=0; j<data.getSize(); j++){
+                            nextCurve.add(times.getitem(j), data.getitem(j), false);
+                            f.addPoint(times.getitem(j), data.getitem(j));
+                            //System.out.println("index="+j+" data="+data.getitem(j)+ " at time="+times.getitem(j));
+                        }
+                        ((XYSeriesCollection)getChart().getXYPlot().getDataset()).addSeries(nextCurve);
+                        ExcitationRenderer renderer = (ExcitationRenderer)getChart().getXYPlot().getRenderer(0);
+                        renderer.addFunction(f, false);
+                    }
+                }
+            }
+        });
+        addNodePopUpMenu.add(overlayMenuItem);
     }
 }
