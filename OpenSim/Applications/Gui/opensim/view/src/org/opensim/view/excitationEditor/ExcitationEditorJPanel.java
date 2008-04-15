@@ -980,7 +980,7 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
       jMoveDownButton.setEnabled(somethingSelected);
       jDeleteButton.setEnabled(somethingSelected);
       // Same for Export and Simpify
-      SimplfyExcitationsButton.setEnabled(somethingSelected);
+      //SimplfyExcitationsButton.setEnabled(somethingSelected);
       ExportExcitationsButton.setEnabled(somethingSelected);
       
    }
