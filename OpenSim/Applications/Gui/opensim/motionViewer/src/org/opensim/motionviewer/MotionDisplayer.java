@@ -39,6 +39,7 @@ import java.util.ArrayList;
 import org.opensim.modeling.AbstractBody;
 import org.opensim.modeling.AbstractCoordinate;
 import org.opensim.modeling.AbstractMarker;
+import org.opensim.modeling.ActuatorSet;
 import org.opensim.modeling.ArrayDouble;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.ArrayStr;
@@ -66,7 +67,7 @@ public class MotionDisplayer {
     
     public enum ObjectTypesInMotionFiles{GenCoord, 
                                          GenCoord_Velocilty, 
-                                         Muscle, 
+                                         State,
                                          Marker, 
                                          Segment, 
                                          Segment_marker_p1, 
@@ -89,7 +90,9 @@ public class MotionDisplayer {
     OpenSimvtkGlyphCloud  markersRep=new OpenSimvtkGlyphCloud(false);
     private Storage simmMotionData;
     private Model model;
+    ArrayStr stateNames;
     private double[] statesBuffer;
+    private boolean renderMuscleActivations=false;
     
     public class ObjectIndexPair {
        public Object object;
@@ -100,6 +103,7 @@ public class MotionDisplayer {
     ArrayList<ObjectIndexPair> genCoordColumns=null;
     ArrayList<ObjectIndexPair> segmentMarkerColumns=null; // state vector index of the first of three (x y z) coordinates for a marker
     ArrayList<ObjectIndexPair> segmentForceColumns=null; // state vector index of the first of six (px py pz vx vy vz) coordinates for a force vector
+    ArrayList<ObjectIndexPair> anyStateColumns=null; // state vector index of muscle excitations and other generic states
 
     ArrayDouble interpolatedStates = null;
 
@@ -119,7 +123,7 @@ public class MotionDisplayer {
         int numColumnsIncludingTime = colNames.getSize();
         interpolatedStates = new ArrayDouble(0.0, numColumnsIncludingTime-1);
 
-        ArrayStr stateNames = new ArrayStr();
+        stateNames = new ArrayStr();
         stateNames.append("time");
         model.getStateNames(stateNames);
 
@@ -128,6 +132,7 @@ public class MotionDisplayer {
            statesFile = true;
            SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(model);
            if(vis!=null) vis.setRenderMuscleActivations(true);
+           setRenderMuscleActivations(true);
         } else  {
            // We should build sorted lists of object names so that we can find them easily
            for(int i=0; i < numColumnsIncludingTime; i++){
@@ -141,15 +146,19 @@ public class MotionDisplayer {
            genCoordColumns = new ArrayList<ObjectIndexPair>(numColumnsIncludingTime);
            segmentMarkerColumns = new ArrayList<ObjectIndexPair>(numColumnsIncludingTime);
            segmentForceColumns = new ArrayList<ObjectIndexPair>(numColumnsIncludingTime);
+           anyStateColumns = new ArrayList<ObjectIndexPair>(numColumnsIncludingTime);
            for (int i = 1; i< numColumnsIncludingTime; i++){
                ObjectTypesInMotionFiles cType = mapIndicesToObjectTypes.get(i);
                Object o=mapIndicesToObjects.get(i);
                if (cType==null)
                   continue;
-               ObjectIndexPair newPair = new ObjectIndexPair(o,i-1);
+               ObjectIndexPair newPair = new ObjectIndexPair(o,i-1);    // -1 to account for time
                switch(cType){
                   case GenCoord: 
                      genCoordColumns.add(newPair);
+                     break;
+                  case State: 
+                     anyStateColumns.add(newPair);
                      break;
                   case Segment_marker_p1:
                      segmentMarkerColumns.add(newPair);
@@ -162,6 +171,8 @@ public class MotionDisplayer {
         }
         // create a buffer to be used for comuptation of constrained states
         statesBuffer = new double[model.getNumStates()];
+        SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(model);
+        if(vis!=null) vis.setRenderMuscleActivations(isRenderMuscleActivations());
     }
 
     private void AddMotionObjectsRep(final Model model) {
@@ -211,6 +222,21 @@ public class MotionDisplayer {
                return 1;
          }         
       }
+      if (columnName.contains(".excitation") || columnName.contains("activation")){
+          setRenderMuscleActivations(true);
+      }
+      ActuatorSet acts = model.getActuatorSet();
+      for (int i=0; i< acts.getSize(); i++)
+          if (columnName.startsWith(acts.get(i).getName())){    // Make sure it's a muscle state'
+          // Any other state
+          int stateIndex=stateNames.findIndex(columnName);  // includes time so 0 is time
+          if (stateIndex>0){
+              int stateIndexMinusTime = stateIndex-1;
+              mapIndicesToObjectTypes.put(columnIndex, ObjectTypesInMotionFiles.State);
+              mapIndicesToObjects.put(columnIndex, new Integer(stateIndexMinusTime));  
+              return 1;
+          }
+     }
      /* ordering from SIMM
       else if ((musc_index = name_is_muscle(ms, motion->columnname[i], NULL, &sType, &cutoffFreq, yes)) >= 0)
          motion->mopt.muscles[musc_index] = motion->motiondata[i];
@@ -335,6 +361,15 @@ public class MotionDisplayer {
          // update states to make sure constraints are valid
          model.getStates(statesBuffer);
          model.getDynamicsEngine().computeConstrainedCoordinates(statesBuffer);
+         // Any other states including muscles
+         for(int i=0; i<anyStateColumns.size(); i++) {
+              int index = anyStateColumns.get(i).stateVectorIndex;
+              double newValue=states.getitem(index);
+              // Set value in statesBuffer
+              Object o=mapIndicesToObjects.get(index+1);
+              int bufferIndex = ((Integer)o).intValue();
+              statesBuffer[bufferIndex]=newValue;
+         }
          model.setStates(statesBuffer);
          
          for(int i=0; i<segmentMarkerColumns.size(); i++) {
@@ -371,7 +406,7 @@ public class MotionDisplayer {
         // associated with it.  It may be because setRenderMuscleActivations ends up updating the actuator
         // geometry, and if the model is closing it may be that it was in the process of being deleted when
         // those actuators were referred to...  So we avoid all that with this if statement.
-        if(OpenSimDB.getInstance().hasModel(model) && statesFile) {
+        if(OpenSimDB.getInstance().hasModel(model) && renderMuscleActivations) {
            SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(model);
            if(vis!=null) vis.setRenderMuscleActivations(false);
         }
@@ -384,5 +419,13 @@ public class MotionDisplayer {
    public Model getModel() {
       return model;
    }
+
+    public boolean isRenderMuscleActivations() {
+        return renderMuscleActivations;
+    }
+
+    public void setRenderMuscleActivations(boolean renderMuscleActivations) {
+        this.renderMuscleActivations = renderMuscleActivations;
+    }
 
 }
