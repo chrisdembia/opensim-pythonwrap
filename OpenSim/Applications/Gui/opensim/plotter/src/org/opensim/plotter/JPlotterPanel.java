@@ -707,14 +707,15 @@ public class JPlotterPanel extends javax.swing.JPanel
     }//GEN-LAST:event_jAdvancedOptionsButtonActionPerformed
 
    private void updateSummary() {
+      NumberFormat numFormat = NumberFormat.getInstance();
       String summary = "Rectify ="+jRectifyCheckBox.isSelected()+
                        ", x:["+
-                       jDomainStartTextField.getValue()+","+
-                       jDomainEndTextField.getValue()+"]";
+                       numFormat.format(jDomainStartTextField.getValue())+", "+
+                       numFormat.format(jDomainEndTextField.getValue())+"]";
       if (isClamp())
               summary=summary+" y:["+
-                      jFormattedTextFieldYmin.getValue()+", "+
-                      jFormattedTextFieldYmax.getValue()+"]";
+                      numFormat.format(jFormattedTextFieldYmin.getValue())+", "+
+                      numFormat.format(jFormattedTextFieldYmax.getValue())+"]";
       
       jSummaryAdvancedTextField.setText(summary);
    }
@@ -1731,9 +1732,10 @@ public class JPlotterPanel extends javax.swing.JPanel
               String text = jFormattedTextField.getText();
               // Try to parse the text into a double as it could be out of range, in this case truncate
               try {
-                  double valueFromTextField = Double.parseDouble(text);
-                  jFormattedTextField.setText(String.valueOf(valueFromTextField)) ;
-                  jFormattedTextField.commitEdit();
+                 NumberFormat numFormat = NumberFormat.getInstance();
+                 double valueFromTextField = numFormat.parse(text).doubleValue();
+                 jFormattedTextField.setText(numFormat.format(valueFromTextField));
+                 jFormattedTextField.commitEdit();
               }
               catch (NumberFormatException ex){
                  // Really invalid text for a double

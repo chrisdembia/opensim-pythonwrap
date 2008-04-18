@@ -31,9 +31,11 @@
 
 package org.opensim.motionviewer;
 
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.util.Hashtable;
 import java.util.Observable;
 import java.util.Observer;
@@ -62,6 +64,7 @@ public class MotionControlJPanel extends javax.swing.JPanel
    MasterMotionModel   masterMotion;
    private int         rangeResolution;
    private int         timerRate = 30;
+   private DecimalFormat timeFormat = new DecimalFormat("0.000");
 
    private boolean internalTrigger=false;
 
@@ -548,17 +551,15 @@ public class MotionControlJPanel extends javax.swing.JPanel
    private void jTimeTextFieldPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jTimeTextFieldPropertyChange
    // Listen to "value" changes
       handleUserTimeChange();
-// TODO add your handling code here:
    }//GEN-LAST:event_jTimeTextFieldPropertyChange
    
    private void jTimeTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTimeTextFieldFocusLost
-// TODO add your handling code here:
-      handleUserTimeChange();
+      if (!evt.isTemporary())
+         handleUserTimeChange();
    }//GEN-LAST:event_jTimeTextFieldFocusLost
    
    private void jTimeTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTimeTextFieldActionPerformed
       handleUserTimeChange();
-// TODO add your handling code here:
    }//GEN-LAST:event_jTimeTextFieldActionPerformed
    
    private void jBackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBackButtonActionPerformed
@@ -653,13 +654,12 @@ public class MotionControlJPanel extends javax.swing.JPanel
     private void handleUserTimeChange() {
        if (isMotionLoaded()){
           //get frame corresponding to enetered time
-          double userTime = 0.0;
           try {
-             userTime = Double.valueOf(jTimeTextField.getText());
-          }catch (NumberFormatException e){
-             userTime = 0.0;
+             masterMotion.setTime(timeFormat.parse(jTimeTextField.getText()).doubleValue());
+          } catch (ParseException e){
+             Toolkit.getDefaultToolkit().beep();
+             jTimeTextField.setText(timeFormat.format(masterMotion.getCurrentTime()));
           }
-          masterMotion.setTime(userTime);
        }
     }
 
@@ -734,20 +734,17 @@ public class MotionControlJPanel extends javax.swing.JPanel
    
    private void setTimeTextField(double time)
    {
-      DecimalFormat df = new DecimalFormat("0.000");
-      jTimeTextField.setText(df.format(time));
+      jTimeTextField.setText(timeFormat.format(time));
    }
    
    private void setStartTimeTextField(double time)
    {
-      DecimalFormat df = new DecimalFormat(" 0.000");
-      jStartTimeTextField.setText(df.format(time));
+      jStartTimeTextField.setText(timeFormat.format(time));
    }
 
    private void setEndTimeTextField(double time)
    {
-      DecimalFormat df = new DecimalFormat("0.000");
-      jEndTimeTextField.setText(df.format(time));
+      jEndTimeTextField.setText(timeFormat.format(time));
    }
       
    private int getSliderValueForTime(double time)

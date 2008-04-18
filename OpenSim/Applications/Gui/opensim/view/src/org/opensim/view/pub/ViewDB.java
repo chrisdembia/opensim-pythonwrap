@@ -31,6 +31,8 @@ package org.opensim.view.pub;
 import java.awt.Dialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
@@ -44,7 +46,6 @@ import org.openide.DialogDescriptor;
 import org.openide.DialogDisplayer;
 import org.openide.awt.StatusDisplayer;
 import org.openide.util.NbBundle;
-import org.openide.util.actions.CallableSystemAction;
 import org.opensim.modeling.AbstractActuator;
 import org.opensim.modeling.AbstractBody;
 import org.opensim.modeling.AbstractMuscle;
@@ -112,6 +113,9 @@ public final class ViewDB extends Observable implements Observer {
    private double nonCurrentModelOpacity = 0.4;
    private double muscleDisplayRadius = 0.005;
    private double markerDisplayRadius = .01;
+
+   private NumberFormat numFormat = NumberFormat.getInstance();
+
    /** Creates a new instance of ViewDB */
    private ViewDB() {
    }
@@ -1223,8 +1227,13 @@ public final class ViewDB extends Observable implements Observer {
     public double getMuscleDisplayRadius() {
          String muscleDisplayRadiusStr = NbBundle.getMessage(ViewDB.class,"CTL_MuscleRadius");
          muscleDisplayRadiusStr =Preferences.userNodeForPackage(TheApp.class).get("Muscle Display Radius", muscleDisplayRadiusStr);
-         if (muscleDisplayRadiusStr != null)
-            muscleDisplayRadius = Double.parseDouble(muscleDisplayRadiusStr);
+         if (muscleDisplayRadiusStr != null) {
+            try {
+               muscleDisplayRadius = numFormat.parse(muscleDisplayRadiusStr).doubleValue();
+            } catch (ParseException ex) {
+               muscleDisplayRadius = 0.01;
+            }
+         }
         return muscleDisplayRadius;
     }
 
@@ -1235,8 +1244,13 @@ public final class ViewDB extends Observable implements Observer {
     public double getMarkerDisplayRadius() {
          String markerDisplayRadiusStr = NbBundle.getMessage(ViewDB.class,"CTL_MarkerRadius");
          markerDisplayRadiusStr =Preferences.userNodeForPackage(TheApp.class).get("Marker Display Radius", markerDisplayRadiusStr);
-         if (markerDisplayRadiusStr != null)
-            markerDisplayRadius = Double.parseDouble(markerDisplayRadiusStr);
+         if (markerDisplayRadiusStr != null) {
+            try {
+               markerDisplayRadius = numFormat.parse(markerDisplayRadiusStr).doubleValue();
+            } catch (ParseException ex) {
+               markerDisplayRadius = 0.01;
+            }
+         }
         return markerDisplayRadius;
     }
 

@@ -36,6 +36,8 @@ import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -75,6 +77,7 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
    AnalysisSetPanel analysisSetPanel = null;
 
    private boolean internalTrigger = false;
+   private NumberFormat numFormat = NumberFormat.getInstance();
 
    /** Creates new form AnalyzeAndForwardToolPanel */
    public AnalyzeAndForwardToolPanel(Model model, Mode mode) throws IOException {
@@ -249,19 +252,19 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
       // Time
       double[] range = toolModel.getAvailableTimeRange();
       if(range!=null) {
-         availableInitialTime.setText(((Double)range[0]).toString());
-         availableFinalTime.setText(((Double)range[1]).toString());
+         availableInitialTime.setText(numFormat.format(range[0]));
+         availableFinalTime.setText(numFormat.format(range[1]));
       } else {
          availableInitialTime.setText("");
          availableFinalTime.setText("");
       }
-      initialTime.setText(((Double)toolModel.getInitialTime()).toString());
-      finalTime.setText(((Double)toolModel.getFinalTime()).toString());
+      initialTime.setText(numFormat.format(toolModel.getInitialTime()));
+      finalTime.setText(numFormat.format(toolModel.getFinalTime()));
 
       // Output
       outputName.setText(toolModel.getOutputPrefix());
       outputDirectory.setFileName(toolModel.getResultsDirectory(),false);
-      outputPrecision.setText(((Integer)toolModel.getOutputPrecision()).toString());
+      outputPrecision.setText(numFormat.format(toolModel.getOutputPrecision()));
 
       // Actuators & external loads
       actuatorsAndExternalLoadsPanel.updatePanel();
@@ -325,7 +328,7 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
          cutoffFrequency.setText("");
          cutoffFrequency.setEnabled(false);
       } else {
-         cutoffFrequency.setText(((Double)toolModel.getLowpassCutoffFrequency()).toString());
+         cutoffFrequency.setText(numFormat.format(toolModel.getLowpassCutoffFrequency()));
       }
 
       // Speeds
@@ -391,7 +394,7 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
          cutoffFrequency1.setEnabled(false);
          HzJLabel.setEnabled(false);
       } else {
-         cutoffFrequency1.setText(((Double)toolModel.getLowpassCutoffFrequency()).toString());
+         cutoffFrequency1.setText(numFormat.format(toolModel.getLowpassCutoffFrequency()));
       }
    }
 
@@ -421,7 +424,7 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
          cmcCutoffFrequency.setText("");
          cmcCutoffFrequency.setEnabled(false);
       } else {
-         cmcCutoffFrequency.setText(((Double)toolModel.getLowpassCutoffFrequency()).toString());
+         cmcCutoffFrequency.setText(numFormat.format(toolModel.getLowpassCutoffFrequency()));
       }
 
       cmcConstraintsCheckBox.setSelected(toolModel.getConstraintsEnabled());
@@ -453,10 +456,10 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
    // Integrator settings fields
    //---------------------------------------------------------------------
    public void updateIntegratorSettings(AbstractToolModel toolModel) {
-      maximumNumberOfSteps.setText(((Integer)toolModel.getMaximumNumberOfSteps()).toString());
-      maxDT.setText(((Double)toolModel.getMaxDT()).toString());
-      errorTolerance.setText(((Double)toolModel.getErrorTolerance()).toString());
-      fineTolerance.setText(((Double)toolModel.getFineTolerance()).toString());
+      maximumNumberOfSteps.setText(numFormat.format(toolModel.getMaximumNumberOfSteps()));
+      maxDT.setText(numFormat.format(toolModel.getMaxDT()));
+      errorTolerance.setText(numFormat.format(toolModel.getErrorTolerance()));
+      fineTolerance.setText(numFormat.format(toolModel.getFineTolerance()));
    }
 
    //------------------------------------------------------------------------
@@ -1603,9 +1606,9 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
 
     private void cutoffFrequency1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cutoffFrequency1ActionPerformed
       try {
-         analyzeToolModel().setLowpassCutoffFrequency(Double.valueOf(cutoffFrequency1.getText()));
-      } catch (NumberFormatException ex) {
-         cutoffFrequency1.setText(((Double)analyzeToolModel().getLowpassCutoffFrequency()).toString());
+         analyzeToolModel().setLowpassCutoffFrequency(numFormat.parse(cutoffFrequency1.getText()).doubleValue());
+      } catch (ParseException ex) {
+         cutoffFrequency1.setText(numFormat.format(analyzeToolModel().getLowpassCutoffFrequency()));
       }
     }//GEN-LAST:event_cutoffFrequency1ActionPerformed
 
@@ -1657,9 +1660,9 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
 
    private void cmcCutoffFrequencyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmcCutoffFrequencyActionPerformed
       try {
-         cmcToolModel().setLowpassCutoffFrequency(Double.valueOf(cmcCutoffFrequency.getText()));
-      } catch (NumberFormatException ex) {
-         cmcCutoffFrequency.setText(((Double)cmcToolModel().getLowpassCutoffFrequency()).toString());
+         cmcToolModel().setLowpassCutoffFrequency(numFormat.parse(cmcCutoffFrequency.getText()).doubleValue());
+      } catch (ParseException ex) {
+         cmcCutoffFrequency.setText(numFormat.format(cmcToolModel().getLowpassCutoffFrequency()));
       }
    }//GEN-LAST:event_cmcCutoffFrequencyActionPerformed
 
@@ -1708,9 +1711,9 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
 
    private void fineToleranceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fineToleranceActionPerformed
       try {
-         toolModel.setFineTolerance(Double.valueOf(fineTolerance.getText()));
-      } catch (NumberFormatException ex) {
-         fineTolerance.setText(((Double)toolModel.getFineTolerance()).toString());
+         toolModel.setFineTolerance(numFormat.parse(fineTolerance.getText()).doubleValue());
+      } catch (ParseException ex) {
+         fineTolerance.setText(numFormat.format(toolModel.getFineTolerance()));
       }
    }//GEN-LAST:event_fineToleranceActionPerformed
 
@@ -1720,9 +1723,9 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
 
    private void maxDTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_maxDTActionPerformed
       try {
-         toolModel.setMaxDT(Double.valueOf(maxDT.getText()));
-      } catch (NumberFormatException ex) {
-         maxDT.setText(((Double)toolModel.getMaxDT()).toString());
+         toolModel.setMaxDT(numFormat.parse(maxDT.getText()).doubleValue());
+      } catch (ParseException ex) {
+         maxDT.setText(numFormat.format(toolModel.getMaxDT()));
       }
    }//GEN-LAST:event_maxDTActionPerformed
 
@@ -1732,9 +1735,9 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
 
    private void errorToleranceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_errorToleranceActionPerformed
       try {
-         toolModel.setErrorTolerance(Double.valueOf(errorTolerance.getText()));
-      } catch (NumberFormatException ex) {
-         errorTolerance.setText(((Double)toolModel.getErrorTolerance()).toString());
+         toolModel.setErrorTolerance(numFormat.parse(errorTolerance.getText()).doubleValue());
+      } catch (ParseException ex) {
+         errorTolerance.setText(numFormat.format(toolModel.getErrorTolerance()));
       }
    }//GEN-LAST:event_errorToleranceActionPerformed
 
@@ -1744,9 +1747,9 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
 
    private void maximumNumberOfStepsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_maximumNumberOfStepsActionPerformed
       try {
-         toolModel.setMaximumNumberOfSteps(Integer.valueOf(maximumNumberOfSteps.getText()));
-      } catch (NumberFormatException ex) {
-         maximumNumberOfSteps.setText(((Integer)toolModel.getMaximumNumberOfSteps()).toString());
+         toolModel.setMaximumNumberOfSteps(numFormat.parse(maximumNumberOfSteps.getText()).intValue());
+      } catch (ParseException ex) {
+         maximumNumberOfSteps.setText(numFormat.format(toolModel.getMaximumNumberOfSteps()));
       }
    }//GEN-LAST:event_maximumNumberOfStepsActionPerformed
 
@@ -1803,9 +1806,9 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
 
    private void cutoffFrequencyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cutoffFrequencyActionPerformed
       try {
-         analyzeToolModel().setLowpassCutoffFrequency(Double.valueOf(cutoffFrequency.getText()));
-      } catch (NumberFormatException ex) {
-         cutoffFrequency.setText(((Double)analyzeToolModel().getLowpassCutoffFrequency()).toString());
+         analyzeToolModel().setLowpassCutoffFrequency(numFormat.parse(cutoffFrequency.getText()).doubleValue());
+      } catch (ParseException ex) {
+         cutoffFrequency.setText(numFormat.format(analyzeToolModel().getLowpassCutoffFrequency()));
       }
    }//GEN-LAST:event_cutoffFrequencyActionPerformed
 
@@ -1827,9 +1830,9 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
 
    private void initialTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_initialTimeActionPerformed
       try {
-         toolModel.setInitialTime(Double.valueOf(initialTime.getText()));
-      } catch (NumberFormatException ex) {
-         initialTime.setText(((Double)toolModel.getInitialTime()).toString());
+         toolModel.setInitialTime(numFormat.parse(initialTime.getText()).doubleValue());
+      } catch (ParseException ex) {
+         initialTime.setText(numFormat.format(toolModel.getInitialTime()));
       }
    }//GEN-LAST:event_initialTimeActionPerformed
 
@@ -1839,9 +1842,9 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
 
    private void finalTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_finalTimeActionPerformed
       try {
-         toolModel.setFinalTime(Double.valueOf(finalTime.getText()));
-      } catch (NumberFormatException ex) {
-         finalTime.setText(((Double)toolModel.getFinalTime()).toString());
+         toolModel.setFinalTime(numFormat.parse(finalTime.getText()).doubleValue());
+      } catch (ParseException ex) {
+         finalTime.setText(numFormat.format(toolModel.getFinalTime()));
       }
    }//GEN-LAST:event_finalTimeActionPerformed
 
@@ -1859,9 +1862,9 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
 
    private void outputPrecisionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_outputPrecisionActionPerformed
       try {
-         toolModel.setOutputPrecision(Integer.valueOf(outputPrecision.getText()));
-      } catch (NumberFormatException ex) {
-         outputPrecision.setText(((Integer)toolModel.getOutputPrecision()).toString());
+         toolModel.setOutputPrecision(numFormat.parse(outputPrecision.getText()).intValue());
+      } catch (ParseException ex) {
+         outputPrecision.setText(numFormat.format(toolModel.getOutputPrecision()));
       }
    }//GEN-LAST:event_outputPrecisionActionPerformed
 

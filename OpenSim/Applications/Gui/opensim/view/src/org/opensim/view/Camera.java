@@ -98,6 +98,9 @@ public class Camera
       }
 
       public void read(BufferedReader reader) throws IOException {
+         // TODO: camera parameters are always serialized in English:UnitedStates
+         // locale, right? So NumberFormat.parse() is not needed to handle
+         // numbers like 0,284
          roll = Double.parseDouble(reader.readLine());
          distance = Double.parseDouble(reader.readLine());
          viewAngle = Double.parseDouble(reader.readLine());

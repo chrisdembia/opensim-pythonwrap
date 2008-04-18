@@ -28,7 +28,10 @@
  */
 package org.opensim.swingui;
 
+import java.awt.Toolkit;
 import java.io.File;
+import java.text.NumberFormat;
+import java.text.ParseException;
 
 /**
  *
@@ -36,7 +39,9 @@ import java.io.File;
  * type mismatch (string in int field) etc.
  */
 public final class ValidateUserInput {
-    
+
+   private static NumberFormat numFormat = NumberFormat.getInstance();
+
     /**
      * Check if a file exists, has correct permissions 
      */
@@ -77,10 +82,11 @@ public final class ValidateUserInput {
             return false;
         
         try {
-            double dval = Double.parseDouble(dString);
+            double dval = numFormat.parse(dString).doubleValue();
         }
-        catch(NumberFormatException e){
-            valid = false;
+        catch(ParseException e){
+           Toolkit.getDefaultToolkit().beep();
+           valid = false;
         }
         return valid;
     }
@@ -96,7 +102,12 @@ public final class ValidateUserInput {
         valid = validateDouble(min, isRequired);
         valid = valid && validateDouble(max, isRequired);
         if (valid && isRequired) { // Validate that min < max
-            valid = (Double.parseDouble(max) > Double.parseDouble(min));
+           try {
+              valid = (numFormat.parse(max).doubleValue() > numFormat.parse(min).doubleValue());
+           } catch (ParseException ex) {
+              Toolkit.getDefaultToolkit().beep();
+              valid = false;
+           }
         }
         return valid;
     }

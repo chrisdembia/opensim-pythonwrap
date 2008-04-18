@@ -33,7 +33,10 @@ package org.opensim.tracking;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.Vector;
 import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
@@ -63,6 +66,7 @@ public class ActuatorsAndExternalLoadsPanel extends javax.swing.JPanel {
    AbstractToolModelWithExternalLoads toolModel;
    Model model;
    boolean internalTrigger = false;
+   private NumberFormat numFormat = NumberFormat.getInstance();
 
    /** Creates new form ActuatorsAndExternalLoadsPanel */
    public ActuatorsAndExternalLoadsPanel(AbstractToolModelWithExternalLoads toolModel, Model model, boolean includeActuatorsPanel) {
@@ -148,7 +152,7 @@ public class ActuatorsAndExternalLoadsPanel extends javax.swing.JPanel {
          cutoffFrequency.setEnabled(false);
       } else {
          filterModelKinematics.setSelected(true);
-         cutoffFrequency.setText(((Double)toolModel.getLowpassCutoffFrequencyForLoadKinematics()).toString());
+         cutoffFrequency.setText(numFormat.format(toolModel.getLowpassCutoffFrequencyForLoadKinematics()));
       }
 
       internalTrigger = false;
@@ -448,9 +452,10 @@ public class ActuatorsAndExternalLoadsPanel extends javax.swing.JPanel {
 
    private void cutoffFrequencyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cutoffFrequencyActionPerformed
       try {
-         toolModel.setLowpassCutoffFrequencyForLoadKinematics(Double.valueOf(cutoffFrequency.getText()));
-      } catch (NumberFormatException ex) {
-         cutoffFrequency.setText(((Double)toolModel.getLowpassCutoffFrequencyForLoadKinematics()).toString());
+         toolModel.setLowpassCutoffFrequencyForLoadKinematics(numFormat.parse(cutoffFrequency.getText()).doubleValue());
+      } catch (ParseException ex) {
+         Toolkit.getDefaultToolkit().beep();
+         cutoffFrequency.setText(numFormat.format(toolModel.getLowpassCutoffFrequencyForLoadKinematics()));
       }
    }//GEN-LAST:event_cutoffFrequencyActionPerformed
 

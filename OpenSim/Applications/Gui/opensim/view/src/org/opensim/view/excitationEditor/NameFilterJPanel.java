@@ -29,6 +29,7 @@
 
 package org.opensim.view.excitationEditor;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Vector;
 import java.util.regex.PatternSyntaxException;
@@ -38,13 +39,10 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
-import javax.swing.SwingUtilities;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
-import org.openide.DialogDisplayer;
-import org.openide.NotifyDescriptor;
 import org.opensim.modeling.ActuatorSet;
 import org.opensim.modeling.ArrayObjPtr;
 import org.opensim.modeling.Model;
@@ -458,7 +456,8 @@ public class NameFilterJPanel extends javax.swing.JPanel
    }
     private void updateSelected() {
         int n = tableModel.getNumSelected();
-        jNumSelectedLabel.setText(String.valueOf(n)+" items selected");
+        NumberFormat numFormat = NumberFormat.getInstance();
+        jNumSelectedLabel.setText(numFormat.format(n)+" items selected");
         int nShownSelected = tableModel.getNumShownAndSelected();
         if (nShownSelected==0){
             // enable select all, disable deselect all

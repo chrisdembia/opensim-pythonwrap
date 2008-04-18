@@ -34,6 +34,7 @@ package org.opensim.tracking;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dialog;
+import java.text.NumberFormat;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JComboBox;
@@ -56,6 +57,7 @@ public class ScaleFactorsPanel extends javax.swing.JPanel implements Observer {
    private boolean internalChange = false;
    private Dialog measurementSetDialog;
    private int[] selectedRows = new int[]{};
+   private NumberFormat numFormat = NumberFormat.getInstance();
 
    /** Creates new form ScaleFactorsPanel */
    public ScaleFactorsPanel(ScaleToolModel scaleToolModel, Dialog measurementSetDialog) {
@@ -159,7 +161,7 @@ public class ScaleFactorsPanel extends javax.swing.JPanel implements Observer {
          for(int i=0; i<3; i++) {
             if(tableModel.isSameManualScale(getSelectedRows(),i)) {
                double manualScale = tableModel.getManualScale(getSelectedRows()[0],i);
-               manualScaleXYZ[i].setText(((Double)manualScale).toString());
+               manualScaleXYZ[i].setText(numFormat.format(manualScale));
             } else manualScaleXYZ[i].setText("");
          }
          boolean uniform = manualScaleXYZ[0].getText().equals(manualScaleXYZ[1].getText()) && 

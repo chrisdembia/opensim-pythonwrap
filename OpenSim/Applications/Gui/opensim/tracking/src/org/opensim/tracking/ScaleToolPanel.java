@@ -34,26 +34,21 @@ package org.opensim.tracking;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dialog;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JMenuItem;
-import javax.swing.JPopupMenu;
-import javax.swing.filechooser.FileFilter;
 import org.openide.DialogDescriptor;
 import org.openide.DialogDisplayer;
 import org.opensim.modeling.MarkerSet;
 import org.opensim.modeling.Model;
 import org.opensim.swingui.ComponentTitledBorder;
-import org.opensim.utils.FileUtils;
 
 public class ScaleToolPanel extends BaseToolPanel implements Observer {
   
@@ -63,6 +58,7 @@ public class ScaleToolPanel extends BaseToolPanel implements Observer {
    private JCheckBox markerPlacerPanelCheckBox = new JCheckBox(new EnableMarkerPlacerAction());
    private MeasurementSetPanel measurementSetPanel;
    private Dialog measurementSetDialog;
+   private NumberFormat numFormat = NumberFormat.getInstance();
 
    class EnableModelScalerAction extends AbstractAction {
       public EnableModelScalerAction() { super("Scale Model"); }
@@ -148,12 +144,12 @@ public class ScaleToolPanel extends BaseToolPanel implements Observer {
       Model unscaledModel = scaleToolModel.getUnscaledModel();
       unscaledModelNameTextField.setText(unscaledModel.getName());
       unscaledModelNameTextField.setCaretPosition(0);
-      unscaledModelMassTextField.setText(((Double)scaleToolModel.getModelMass(unscaledModel)).toString());
+      unscaledModelMassTextField.setText(numFormat.format(scaleToolModel.getModelMass(unscaledModel)));
       unscaledModelMassTextField.setScrollOffset(0);
       // Assumes user has not had a chance to modify the marker set of the unscaled model yet...
       MarkerSet markerSet = unscaledModel.getDynamicsEngine().getMarkerSet();
       int numMarkers = markerSet.getSize();
-      if(numMarkers > 0) unscaledMarkerSetInfoTextField.setText(((Integer)numMarkers).toString()+" markers");
+      if(numMarkers > 0) unscaledMarkerSetInfoTextField.setText(numFormat.format(numMarkers)+" markers");
       else unscaledMarkerSetInfoTextField.setText("No markers");
    }
 
@@ -163,13 +159,13 @@ public class ScaleToolPanel extends BaseToolPanel implements Observer {
       //---------------------------------------------------------------------
       // Model name, mass
       modelNameTextField.setText(scaleToolModel.getName());
-      modelMassTextField.setText(((Double)scaleToolModel.getMass()).toString());
+      modelMassTextField.setText(numFormat.format(scaleToolModel.getMass()));
 
       // Marker set
       Model unscaledModel = scaleToolModel.getUnscaledModel();
       MarkerSet markerSet = unscaledModel.getDynamicsEngine().getMarkerSet();
       int numMarkers = markerSet.getSize();
-      if(numMarkers > 0) markerSetInfoTextField.setText(((Integer)numMarkers).toString()+" markers");
+      if(numMarkers > 0) markerSetInfoTextField.setText(numFormat.format(numMarkers)+" markers");
       else markerSetInfoTextField.setText("No markers!");
       if(scaleToolModel.getUseExtraMarkerSet()) {
          loadMarkerSetCheckBox.setSelected(true);
@@ -201,8 +197,8 @@ public class ScaleToolPanel extends BaseToolPanel implements Observer {
 
       // Time range
       double[] timeRange = scaleToolModel.getMeasurementTrialTimeRange();
-      measurementTrialStartTime.setText(((Double)timeRange[0]).toString());
-      measurementTrialEndTime.setText(((Double)timeRange[1]).toString());
+      measurementTrialStartTime.setText(numFormat.format(timeRange[0]));
+      measurementTrialEndTime.setText(numFormat.format(timeRange[1]));
       if(!scaleToolModel.getMeasurementTrialEnabled() || !scaleToolModel.getMeasurementTrialValid()) {
          measurementTrialStartTime.setEnabled(false);
          measurementTrialEndTime.setEnabled(false);
@@ -228,8 +224,8 @@ public class ScaleToolPanel extends BaseToolPanel implements Observer {
 
       // Time range
       timeRange = scaleToolModel.getIKCommonModel().getTimeRange();
-      staticTrialStartTime.setText(((Double)timeRange[0]).toString());
-      staticTrialEndTime.setText(((Double)timeRange[1]).toString());
+      staticTrialStartTime.setText(numFormat.format(timeRange[0]));
+      staticTrialEndTime.setText(numFormat.format(timeRange[1]));
       if(!scaleToolModel.getIKCommonModel().getMarkerDataValid()) {
          staticTrialStartTime.setEnabled(false);
          staticTrialEndTime.setEnabled(false);
@@ -760,10 +756,11 @@ public class ScaleToolPanel extends BaseToolPanel implements Observer {
 
    private void modelMassTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modelMassTextFieldActionPerformed
       try {
-         double value = Double.valueOf(modelMassTextField.getText());
+         double value = numFormat.parse(modelMassTextField.getText()).doubleValue();
          scaleToolModel.setMass(value);
-      } catch (Exception ex) {
-         modelMassTextField.setText(((Double)scaleToolModel.getMass()).toString());
+      } catch (ParseException ex) {
+         Toolkit.getDefaultToolkit().beep();
+         modelMassTextField.setText(numFormat.format(scaleToolModel.getMass()));
       }
    }//GEN-LAST:event_modelMassTextFieldActionPerformed
 
@@ -797,13 +794,14 @@ public class ScaleToolPanel extends BaseToolPanel implements Observer {
 
    private void measurementSetTimeRangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_measurementSetTimeRangeActionPerformed
       try {
-         double[] range = new double[]{Double.valueOf(measurementTrialStartTime.getText()),
-                                       Double.valueOf(measurementTrialEndTime.getText())};
+         double[] range = new double[]{numFormat.parse(measurementTrialStartTime.getText()).doubleValue(),
+                                       numFormat.parse(measurementTrialEndTime.getText()).doubleValue()};
          scaleToolModel.setMeasurementTrialTimeRange(range);
-      } catch (Exception ex) { // To catch parsing problems (string -> double)
+      } catch (ParseException ex) { // To catch parsing problems (string -> double)
+         Toolkit.getDefaultToolkit().beep();
          double[] timeRange = scaleToolModel.getMeasurementTrialTimeRange();
-         measurementTrialStartTime.setText(((Double)timeRange[0]).toString());
-         measurementTrialEndTime.setText(((Double)timeRange[1]).toString());
+         measurementTrialStartTime.setText(numFormat.format(timeRange[0]));
+         measurementTrialEndTime.setText(numFormat.format(timeRange[1]));
       }
    }//GEN-LAST:event_measurementSetTimeRangeActionPerformed
    
@@ -829,13 +827,14 @@ public class ScaleToolPanel extends BaseToolPanel implements Observer {
 
    private void staticTrialTimeRangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_staticTrialTimeRangeActionPerformed
       try {
-         double[] range = new double[]{Double.valueOf(staticTrialStartTime.getText()), 
-                                       Double.valueOf(staticTrialEndTime.getText())};
+         double[] range = new double[]{numFormat.parse(staticTrialStartTime.getText()).doubleValue(),
+                                       numFormat.parse(staticTrialEndTime.getText()).doubleValue()};
          scaleToolModel.getIKCommonModel().setTimeRange(range);
-      } catch (Exception ex) { // To catch parsing problems (string -> double)
+      } catch (ParseException ex) { // To catch parsing problems (string -> double)
+         Toolkit.getDefaultToolkit().beep();
          double[] timeRange = scaleToolModel.getIKCommonModel().getTimeRange();
-         staticTrialStartTime.setText(((Double)timeRange[0]).toString());
-         staticTrialEndTime.setText(((Double)timeRange[1]).toString());
+         staticTrialStartTime.setText(numFormat.format(timeRange[0]));
+         staticTrialEndTime.setText(numFormat.format(timeRange[1]));
       }
    }//GEN-LAST:event_staticTrialTimeRangeActionPerformed
 

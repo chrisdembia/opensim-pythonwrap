@@ -32,6 +32,7 @@
 package org.opensim.tracking;
 
 import java.awt.Component;
+import java.text.NumberFormat;
 import org.opensim.modeling.MarkerData;
 
 /**
@@ -39,10 +40,14 @@ import org.opensim.modeling.MarkerData;
  * @author  erang
  */
 public class MarkerDataInfoPanel extends javax.swing.JPanel {
-   
+
+   private NumberFormat doubleFormat = NumberFormat.getInstance();
+   private NumberFormat integerFormat = NumberFormat.getInstance();
+
    /** Creates new form TRCFileInfoPanel */
    public MarkerDataInfoPanel() {
       initComponents();
+      doubleFormat.setMinimumFractionDigits(2);
    }
 
    public void setEnabled(boolean enabled) {
@@ -52,11 +57,11 @@ public class MarkerDataInfoPanel extends javax.swing.JPanel {
 
    public void update(MarkerData data) {
       if(data != null) {
-         markersTextField.setText(((Integer)data.getMarkerNames().getSize()).toString());
-         framesTextField.setText(((Integer)data.getNumFrames()).toString());
-         frameRateTextField.setText(((Double)data.getDataRate()).toString()); // TODO: should it be data rate or camera rate??
-         startTimeTextField.setText(String.format("%.2f",data.getStartFrameTime()));
-         endTimeTextField.setText(String.format("%.2f",data.getLastFrameTime()));
+         markersTextField.setText(integerFormat.format(data.getMarkerNames().getSize()));
+         framesTextField.setText(integerFormat.format(data.getNumFrames()));
+         frameRateTextField.setText(integerFormat.format(data.getDataRate())); // TODO: should it be data rate or camera rate??
+         startTimeTextField.setText(doubleFormat.format(data.getStartFrameTime()));
+         endTimeTextField.setText(doubleFormat.format(data.getLastFrameTime()));
       } else {
          markersTextField.setText("");
          framesTextField.setText("");

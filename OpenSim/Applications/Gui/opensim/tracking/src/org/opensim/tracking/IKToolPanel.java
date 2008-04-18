@@ -31,7 +31,10 @@
 
 package org.opensim.tracking;
 
+import java.awt.Toolkit;
 import java.io.IOException;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.Observable;
 import java.util.Observer;
 import org.opensim.modeling.IKTrial;
@@ -40,6 +43,7 @@ import org.opensim.modeling.Model;
 
 public class IKToolPanel extends BaseToolPanel implements Observer {
    private IKToolModel ikToolModel = null;
+   private NumberFormat numFormat = NumberFormat.getInstance();
 
    /** Creates new form IKToolPanel */
    public IKToolPanel(Model model) throws IOException {
@@ -88,7 +92,7 @@ public class IKToolPanel extends BaseToolPanel implements Observer {
       modelNameTextField.setCaretPosition(0);
       MarkerSet markerSet = model.getDynamicsEngine().getMarkerSet();
       int numMarkers = markerSet.getSize();
-      if(numMarkers > 0) markerSetInfoTextField.setText(((Integer)numMarkers).toString()+" markers");
+      if(numMarkers > 0) markerSetInfoTextField.setText(numFormat.format(numMarkers)+" markers");
       else markerSetInfoTextField.setText("No markers");
    }
 
@@ -109,8 +113,8 @@ public class IKToolPanel extends BaseToolPanel implements Observer {
 
       // Time range
       double[] timeRange = ikToolModel.getIKCommonModel().getTimeRange();
-      startTime.setText(((Double)timeRange[0]).toString());
-      endTime.setText(((Double)timeRange[1]).toString());
+      startTime.setText(numFormat.format(timeRange[0]));
+      endTime.setText(numFormat.format(timeRange[1]));
 
       //---------------------------------------------------------------------
       // Dialog buttons
@@ -406,12 +410,13 @@ public class IKToolPanel extends BaseToolPanel implements Observer {
 
    private void timeRangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timeRangeActionPerformed
       try {
-         double[] range = new double[]{Double.valueOf(startTime.getText()), Double.valueOf(endTime.getText())};
+         double[] range = new double[]{numFormat.parse(startTime.getText()).doubleValue(), numFormat.parse(endTime.getText()).doubleValue()};
          ikToolModel.getIKCommonModel().setTimeRange(range);
-      } catch (Exception ex) { // To catch parsing problems (string -> double)
+      } catch (ParseException ex) { // To catch parsing problems (string -> double)
+         Toolkit.getDefaultToolkit().beep();
          double[] timeRange = ikToolModel.getIKCommonModel().getTimeRange();
-         startTime.setText(((Double)timeRange[0]).toString());
-         endTime.setText(((Double)timeRange[1]).toString());
+         startTime.setText(numFormat.format(timeRange[0]));
+         endTime.setText(numFormat.format(timeRange[1]));
       }
    }//GEN-LAST:event_timeRangeActionPerformed
    

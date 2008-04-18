@@ -27,17 +27,18 @@ package org.opensim.view.editors;
 
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.io.Serializable;
-import java.text.DecimalFormat;
 import java.util.Observable;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
@@ -121,9 +122,10 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
    private Hashtable<AbstractActuator, Boolean> pendingChanges = new Hashtable<AbstractActuator, Boolean>();
    private Hashtable<AbstractActuator, AbstractActuator> savedActs = new Hashtable<AbstractActuator, AbstractActuator>();
 
-   private NumberFormat doublePropFormat = new DecimalFormat("0.000000");
-   private NumberFormat positionFormat = new DecimalFormat("0.00000");
-   private NumberFormat angleFormat = new DecimalFormat("0.00");
+   private NumberFormat doublePropFormat = NumberFormat.getInstance();
+   private NumberFormat intPropFormat = NumberFormat.getInstance();
+   private NumberFormat positionFormat = NumberFormat.getInstance();
+   private NumberFormat angleFormat = NumberFormat.getInstance();
    
    /** path to the icon used by the component and its open action */
 //    static final String ICON_PATH = "SET/PATH/TO/ICON/HERE";
@@ -131,6 +133,11 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
    private static final String PREFERRED_ID = "MuscleEditorTopComponent";
    
    private MuscleEditorTopComponent() {
+      doublePropFormat.setMinimumFractionDigits(6);
+      intPropFormat.setMinimumFractionDigits(0);
+      positionFormat.setMinimumFractionDigits(5);
+      angleFormat.setMinimumFractionDigits(2);
+
       initComponents();
       setName(NbBundle.getMessage(MuscleEditorTopComponent.class, "CTL_MuscleEditorTopComponent"));
       setToolTipText(NbBundle.getMessage(MuscleEditorTopComponent.class, "HINT_MuscleEditorTopComponent"));
@@ -708,10 +715,11 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       MusclePointSet musclePoints = asm.getAttachmentSet();
       double newValue, oldValue = musclePoints.get(attachmentNum).getAttachmentCoord(coordNum);
       try {
-         newValue = Double.parseDouble(field.getText());
-      } catch (NumberFormatException ex) {
-         newValue = oldValue;
-         oldValue = Double.MAX_VALUE; // to force the field to update itself with the old value
+         newValue = positionFormat.parse(field.getText()).doubleValue();
+      } catch (ParseException ex) {
+         Toolkit.getDefaultToolkit().beep();
+         field.setText(positionFormat.format(oldValue));
+         return;
       }
       // format the number and write it back into the text field
       field.setText(positionFormat.format(newValue));
@@ -896,8 +904,9 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       double newValue, oldValue = via.getRange().getitem(0)*conversion;
       double biggestAllowed = via.getRange().getitem(1)*conversion;
       try {
-         newValue = Double.parseDouble(field.getText());
-      } catch (NumberFormatException ex) {
+         newValue = nf.parse(field.getText()).doubleValue();
+      } catch (ParseException ex) {
+         Toolkit.getDefaultToolkit().beep();
          newValue = Double.MAX_VALUE; // to force the field to update itself with the old value
       }
 
@@ -939,8 +948,9 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       double newValue, oldValue = via.getRange().getitem(1)*conversion;
       double smallestAllowed = via.getRange().getitem(0)*conversion;
       try {
-         newValue = Double.parseDouble(field.getText());
-      } catch (NumberFormatException ex) {
+         newValue = nf.parse(field.getText()).doubleValue();
+      } catch (ParseException ex) {
+         Toolkit.getDefaultToolkit().beep();
          newValue = -Double.MAX_VALUE; // to force the field to update itself with the old value
       }
 
@@ -1107,10 +1117,11 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       if (prop != null) {
          double newValue, oldValue = prop.getValueDbl();
          try {
-            newValue = Double.parseDouble(field.getText());
-         } catch (NumberFormatException ex) {
-            newValue = oldValue;
-            oldValue = Double.MAX_VALUE; // to force the field to update itself with the old value
+            newValue = doublePropFormat.parse(field.getText()).doubleValue();
+         } catch (ParseException ex) {
+            Toolkit.getDefaultToolkit().beep();
+            field.setText(doublePropFormat.format(oldValue));
+            return;
          }
          // format the number and write it back into the text field
          field.setText(doublePropFormat.format(newValue));
@@ -1133,13 +1144,14 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       if (prop != null) {
          int newValue, oldValue = prop.getValueInt();
          try {
-            newValue = Integer.parseInt(field.getText());
-         } catch (NumberFormatException ex) {
-            newValue = oldValue;
-            oldValue = Integer.MAX_VALUE; // to force the field to update itself with the old value
+            newValue = intPropFormat.parse(field.getText()).intValue();
+         } catch (ParseException ex) {
+            Toolkit.getDefaultToolkit().beep();
+            field.setText(intPropFormat.format(oldValue));
+            return;
          }
          // write the value back into the text field (for consistent formatting)
-         field.setText(Integer.toString(newValue));
+         field.setText(intPropFormat.format(newValue));
 
          if (newValue != oldValue) {
             prop.setValue(newValue);
@@ -1345,7 +1357,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
          zField.setHorizontalAlignment(SwingConstants.TRAILING);
          javax.swing.JLabel bodyLabel = new javax.swing.JLabel();
          javax.swing.JLabel typeLabel = new javax.swing.JLabel();
-         indexLabel.setText(String.valueOf(i+1) + ".");
+         indexLabel.setText(intPropFormat.format(i+1) + ".");
          xField.setText(positionFormat.format(asmp.get(i).getAttachmentCoord(0)));
          yField.setText(positionFormat.format(asmp.get(i).getAttachmentCoord(1)));
          zField.setText(positionFormat.format(asmp.get(i).getAttachmentCoord(2)));
@@ -1465,7 +1477,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
             methodComboBox.setEnabled(false);
          javax.swing.JComboBox startComboBox = new javax.swing.JComboBox();
          javax.swing.JComboBox endComboBox = new javax.swing.JComboBox();
-         indexLabel.setText(String.valueOf(i+1) + ". " + awo.getName());
+         indexLabel.setText(intPropFormat.format(i+1) + ". " + awo.getName());
          if (isEllipsoid == true) {
             methodComboBox.setModel(new javax.swing.DefaultComboBoxModel(wrapMethodNames));
             methodComboBox.setSelectedIndex(findElement(wrapMethodNames, smw.get(i).getMethodName()));
@@ -1615,7 +1627,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       WrapPanel.add(addButton);
       
       javax.swing.JLabel indexLabel = new javax.swing.JLabel();
-      indexLabel.setText(String.valueOf(smw.getSize()+1) + ". existing wrap object");
+      indexLabel.setText(intPropFormat.format(smw.getSize()+1) + ". existing wrap object");
       indexLabel.setEnabled(false);
       indexLabel.setBounds(X - 20, Y + smw.getSize() * 22, 200, 21);
       WrapPanel.add(indexLabel);
@@ -1738,7 +1750,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
          // The number label for the point
          javax.swing.JLabel indexLabel = null;
          indexLabel = new javax.swing.JLabel();
-         indexLabel.setText(String.valueOf(num+1) + ".");
+         indexLabel.setText(intPropFormat.format(num+1) + ".");
          indexLabel.setBounds(X - 20, height, 20, 21);
          AttachmentsPanel.add(indexLabel);
 
@@ -2246,7 +2258,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       propTab[numGroups].setName("Other");
       ParametersTabbedPanel.addTab("Other", null, propTab[numGroups], "other parameters");
       tabPropertyCount[numGroups] = 0;
-      
+
       // Loop through the properties, adding each one to the appropriate panel.
       for (i = 0; i < ps.getSize(); i++) {
          Property p;

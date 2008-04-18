@@ -33,6 +33,7 @@ package org.opensim.tracking;
 
 import java.awt.Component;
 import java.io.File;
+import java.text.NumberFormat;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -53,7 +54,8 @@ public class IKTaskSetPanel extends javax.swing.JPanel implements ListSelectionL
 
    JTable activeTable = null; // the one which was the source of the last selection event (the one whose data is displayed in the panel's fields)
    private int[] selectedRows = new int[]{}; // Selected rows of active table
-   
+   private NumberFormat numFormat = NumberFormat.getInstance();
+
    /** Creates new form IKCoordinateTaskPanel */
    public IKTaskSetPanel(IKCommonModel ikCommonModel) {
       this.ikCommonModel = ikCommonModel;
@@ -156,7 +158,7 @@ public class IKTaskSetPanel extends javax.swing.JPanel implements ListSelectionL
                weightTextField.setText(IKTasksTableModel.LockedStr); // and keep disabled
                weightTextField.setEnabled(false);
             } else {
-               weightTextField.setText(((Double)activeModel().getWeight(getSelectedRows()[0])).toString());
+               weightTextField.setText(numFormat.format(activeModel().getWeight(getSelectedRows()[0])));
                weightTextField.setEnabled(true);
             }
          } else {
@@ -211,9 +213,9 @@ public class IKTaskSetPanel extends javax.swing.JPanel implements ListSelectionL
             defaultValueRadioButton.setEnabled(true);
             manualValueRadioButton.setEnabled(true);
 
-            if(sameDefaultValue) defaultValueTextField.setText(((Double)activeModel().getDefaultValue(getSelectedRows()[0])).toString());
+            if(sameDefaultValue) defaultValueTextField.setText(numFormat.format(activeModel().getDefaultValue(getSelectedRows()[0])));
             else defaultValueTextField.setText("Different");
-            if(sameManualValue) manualValueTextField.setText(((Double)activeModel().getManualValue(getSelectedRows()[0])).toString());
+            if(sameManualValue) manualValueTextField.setText(numFormat.format(activeModel().getManualValue(getSelectedRows()[0])));
             else manualValueTextField.setText("");
          } else {
             fromFileRadioButton.setEnabled(true);

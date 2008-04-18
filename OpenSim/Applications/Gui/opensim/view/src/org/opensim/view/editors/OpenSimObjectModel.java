@@ -28,14 +28,12 @@ package org.opensim.view.editors;
 import java.awt.Insets;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.event.MouseInputAdapter;
-import org.opensim.modeling.ArrayBool;
-import org.opensim.modeling.ArrayDouble;
-import org.opensim.modeling.ArrayInt;
-import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.IO;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.modeling.Property;
@@ -67,6 +65,8 @@ public class OpenSimObjectModel extends AbstractTreeTableModel {
   protected final Icon addRolloverIcon = new ImageIcon(getClass().getResource("/org/opensim/swingui/add_rollover.png"));
   protected final Icon removeIcon = new ImageIcon(getClass().getResource("/org/opensim/swingui/delete.png"));
   protected final Icon removeRolloverIcon = new ImageIcon(getClass().getResource("/org/opensim/swingui/delete_rollover.png"));
+
+  private NumberFormat numFormat = NumberFormat.getInstance();
 
   //-------------------------------------------------------------------------
   // Constructor
@@ -441,11 +441,12 @@ public class OpenSimObjectModel extends AbstractTreeTableModel {
          // NOTE: I wanted the values to come in as Double, Integer, etc. but due to some weirdness the table editor thinks
          // it's editing a string in the cases of Double, Integer, and String... so I check this below (value instanceof String) to be safe
          try {
-            if(propValueType == Property.PropertyType.Dbl) { 
-               double val = (value instanceof String) ? Double.parseDouble((String)value) : ((Double)value).doubleValue();
+            NumberFormat numFormat = NumberFormat.getInstance();
+            if(propValueType == Property.PropertyType.Dbl) {
+               double val = (value instanceof String) ? numFormat.parse((String)value).doubleValue() : ((Double)value).doubleValue();
                if(idx==-1) p.setValue(val); else p.getValueDblArray().set(idx, val);
             } else if(propValueType == Property.PropertyType.Int) {
-               int val = (value instanceof String) ? Integer.parseInt((String)value) : ((Integer)value).intValue();
+               int val = (value instanceof String) ? numFormat.parse((String)value).intValue() : ((Integer)value).intValue();
                if(idx==-1) p.setValue(val); else p.getValueIntArray().set(idx, val);
             } else if(propValueType == Property.PropertyType.Str) {
                String val = (String)value;
@@ -454,7 +455,7 @@ public class OpenSimObjectModel extends AbstractTreeTableModel {
                boolean val = ((Boolean)value).booleanValue();
                if(idx==-1) p.setValue(val); else p.getValueBoolArray().set(idx, val);
             }
-         } catch (NumberFormatException ex) { // might get a parsing exception
+         } catch (ParseException ex) { // might get a parsing exception
          }
 
          if(idx!=-1) reloadChildren(getParent());

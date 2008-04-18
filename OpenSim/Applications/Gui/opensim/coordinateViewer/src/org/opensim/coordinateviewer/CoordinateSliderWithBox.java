@@ -30,16 +30,18 @@
 
 package org.opensim.coordinateviewer;
 
-import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.Vector;
 import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
 import javax.swing.JFormattedTextField;
@@ -68,6 +70,7 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
    private double min, max, step;
    private double conversion=1.0;
    int numTicks=0;
+   NumberFormat numberFormat;
    NumberFormatter formatter;
    private boolean rotational;
    private AbstractCoordinate coord;
@@ -100,8 +103,7 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
 
       step = 0.001; // Make the step one thousandths of a unit
       numTicks = (int)((max - min)/step)+1;
-      java.text.NumberFormat numberFormat =
-              java.text.NumberFormat.getNumberInstance();
+      numberFormat = NumberFormat.getNumberInstance();
       numberFormat.setMinimumFractionDigits(3);
       formatter = new NumberFormatter(numberFormat);
       setTextfieldBounds(true);
@@ -110,7 +112,8 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
       jFormattedTextField.getInputMap().put(KeyStroke.getKeyStroke(
               KeyEvent.VK_ENTER, 0),
               "check");
-      jFormattedTextField.getActionMap().put("check", new handleReturnAction());
+      Action callback = new handleReturnAction();
+      jFormattedTextField.getActionMap().put("check", callback);
       jXSlider.setMinimum(0);
       jXSlider.setMaximum(numTicks-1);
       
@@ -130,6 +133,7 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
 //       jXSlider.setToolTipText("["+Math.round(min)+", "+Math.round(max)+"]");
       jXSlider.addChangeListener(this);
       jFormattedTextField.addPropertyChangeListener("value", this);
+      jFormattedTextField.addFocusListener((FocusListener)callback);
       
       updateValue();
    }
@@ -403,39 +407,65 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
        //jXSlider.setLabelTable(labels);
     }
     
-    class handleReturnAction extends AbstractAction {
+    class handleReturnAction extends AbstractAction implements FocusListener {
        public void actionPerformed(ActionEvent e) {
+          Number oldValue = (Number)jFormattedTextField.getValue();
           if (!jFormattedTextField.isEditValid()) { //The text is invalid.
              Toolkit.getDefaultToolkit().beep();
              String text = jFormattedTextField.getText();
              // Try to parse the text into a double as it could be out of range, in this case truncate
              try {
-                double valueFromTextField = Double.parseDouble(text);
+                double valueFromTextField = numberFormat.parse(text).doubleValue();
                 if (coord.getClamped()){
                    if (valueFromTextField >max){
-                      jFormattedTextField.setText(String.valueOf(max)) ;
+                      jFormattedTextField.setText(numberFormat.format(max));
                       jFormattedTextField.commitEdit();
                    } else {
-                      jFormattedTextField.setText(String.valueOf(min)) ;
+                      jFormattedTextField.setText(numberFormat.format(min));
                       jFormattedTextField.commitEdit();
                    }
                 } else
                    throw new UnsupportedOperationException();
-             } catch (NumberFormatException ex){
-                // Really invalid text for a double
              } catch (ParseException ex){
-                // Really invalid text for a double
+                jFormattedTextField.setText(numberFormat.format(oldValue));
              }
-             
-             jFormattedTextField.selectAll();
           } else try {                    //The text is valid,
              jFormattedTextField.commitEdit();     //so use it.
           } catch (java.text.ParseException exc) {
-             System.out.println("Parsing Exception");
+             jFormattedTextField.setText(numberFormat.format(oldValue));
           }
-          
        }
-       
+
+       public void focusLost(java.awt.event.FocusEvent evt) {
+          // The formatted text field already takes care of handling the
+          // new value when focus is lost, as long as the new value is valid.
+          // So here all we need to do is handle the case of an invalid
+          // value so that the behavior is the same as in actionPerformed().
+          Number oldValue = (Number)jFormattedTextField.getValue();
+          if (!jFormattedTextField.isEditValid()) { //The text is invalid.
+             Toolkit.getDefaultToolkit().beep();
+             String text = jFormattedTextField.getText();
+             // Try to parse the text into a double as it could be out of range, in this case truncate
+             try {
+                double valueFromTextField = numberFormat.parse(text).doubleValue();
+                if (coord.getClamped()){
+                   if (valueFromTextField >max){
+                      jFormattedTextField.setText(numberFormat.format(max));
+                      jFormattedTextField.commitEdit();
+                   } else {
+                      jFormattedTextField.setText(numberFormat.format(min));
+                      jFormattedTextField.commitEdit();
+                   }
+                } else
+                   throw new UnsupportedOperationException();
+             } catch (ParseException ex){
+                jFormattedTextField.setText(numberFormat.format(oldValue));
+             }
+          }
+       }
+
+       public void focusGained(java.awt.event.FocusEvent evt) {
+       }
     }
     
     public boolean isRotational() {

@@ -6,13 +6,14 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Paint;
 import java.awt.Shape;
+import java.awt.Toolkit;
 import java.awt.event.ItemEvent;
 import java.awt.geom.Ellipse2D;
 import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Vector;
@@ -401,7 +402,14 @@ final public class FunctionEditorTopComponent extends TopComponent implements Ob
     private void yValueEntered(javax.swing.JTextField field) {
        // TODO: check old value of each selected point to see if anything really changes
        if (field.getText().length() > 0) {
-          double newValue = Double.parseDouble(field.getText());
+          double newValue;
+          try {
+             newValue = coordinatesFormat.parse(field.getText()).doubleValue();
+          } catch (ParseException ex) {
+             Toolkit.getDefaultToolkit().beep();
+             field.setText("");
+             return;
+          }
           field.setText(coordinatesFormat.format(newValue));
           ArrayList<FunctionNode> selectedNodes = functionPanel.getSelectedNodes();
           for (int i=0; i<selectedNodes.size(); i++) {
@@ -427,7 +435,14 @@ final public class FunctionEditorTopComponent extends TopComponent implements Ob
     private void xValueEntered(javax.swing.JTextField field) {
        // TODO: check old value of each selected point to see if anything really changes
        if (field.getText().length() > 0) {
-          double newValue = Double.parseDouble(field.getText());
+          double newValue;
+          try {
+             newValue = coordinatesFormat.parse(field.getText()).doubleValue();
+          } catch (ParseException ex) {
+             Toolkit.getDefaultToolkit().beep();
+             field.setText("");
+             return;
+          }
           field.setText(coordinatesFormat.format(newValue));
           ArrayList<FunctionNode> selectedNodes = functionPanel.getSelectedNodes();
           for (int i=0; i<selectedNodes.size(); i++) {
@@ -454,12 +469,21 @@ final public class FunctionEditorTopComponent extends TopComponent implements Ob
        Constant constant = Constant.safeDownCast(function);
        if (constant != null) {
           if (field.getText().length() > 0) {
-             double newValue = Double.parseDouble(field.getText());
+             double oldValue = constant.evaluate() * options.YUnits.convertTo(options.YDisplayUnits);
+             double newValue;
+             try {
+                newValue = coordinatesFormat.parse(field.getText()).doubleValue();
+             } catch (ParseException ex) {
+                Toolkit.getDefaultToolkit().beep();
+                newValue = oldValue;
+             }
              field.setText(coordinatesFormat.format(newValue));
-             newValue *= options.YDisplayUnits.convertTo(options.YUnits);
-             constant.setValue(newValue);
-             setPendingChanges(true, true);
-             notifyListeners(new FunctionModifiedEvent(model, object, function));
+             if (newValue != oldValue) {
+                newValue *= options.YDisplayUnits.convertTo(options.YUnits);
+                constant.setValue(newValue);
+                setPendingChanges(true, true);
+                notifyListeners(new FunctionModifiedEvent(model, object, function));
+             }
           }
        }
     }

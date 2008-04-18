@@ -31,6 +31,9 @@
 
 package org.opensim.view;
 
+import java.awt.Toolkit;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import javax.swing.DefaultBoundedRangeModel;
 import javax.swing.JTextField;
 import javax.swing.event.ChangeEvent;
@@ -54,7 +57,8 @@ public class TextSliderJPanel extends javax.swing.JPanel implements ChangeListen
     // A flag indicating if the value is really from Slider
     // if true then sliderModel.getValue() -> transform should be used
     // otherwise accurateValue should be used.
-    private boolean fromSlider=false;   
+    private boolean fromSlider=false;
+    private NumberFormat numFormat = NumberFormat.getInstance();
     
     /** Creates new form TextSliderJPanel */
     public TextSliderJPanel() {
@@ -107,22 +111,25 @@ public class TextSliderJPanel extends javax.swing.JPanel implements ChangeListen
     private void jXTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jXTextFieldFocusLost
         JTextField src = (JTextField) evt.getSource();
         updateValueFromTextField(src);
-// TODO add your handling code here:
     }//GEN-LAST:event_jXTextFieldFocusLost
     /**
      * Common place to update the actual value maintained by the Slider and its Model when 
      * Editing of the text field is finished.
      */
-    private void updateValueFromTextField(final JTextField src) throws NumberFormatException {
+    private void updateValueFromTextField(final JTextField src) {
         setFromSlider(false);
-        accurateValue = Double.parseDouble(src.getText());
+        try {
+           accurateValue = numFormat.parse(src.getText()).doubleValue();
+        } catch (ParseException ex) {
+           Toolkit.getDefaultToolkit().beep();
+           accurateValue = sliderModel.getDValue();
+        }
         getJXSlider().removeChangeListener(this);
         sliderModel.setDValue(accurateValue);
         getJXSlider().addChangeListener(this);
     }
 
     private void jXTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jXTextFieldActionPerformed
-// TODO add your handling code here:
         JTextField src = (JTextField) evt.getSource();
         updateValueFromTextField(src);
         
@@ -223,7 +230,7 @@ public class TextSliderJPanel extends javax.swing.JPanel implements ChangeListen
     }
 
     private void setFormattedText(double d) {
-        String dString=String.valueOf(d);
+        String dString=numFormat.format(d);
         if (dString.length()>textMaxLength)
             jXTextField.setText(dString.substring(0,textMaxLength));
         else

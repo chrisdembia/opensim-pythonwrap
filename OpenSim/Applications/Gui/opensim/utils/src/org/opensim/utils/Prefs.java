@@ -27,9 +27,11 @@
 *  WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package org.opensim.utils;
+import java.awt.Toolkit;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.StringTokenizer;
 import java.util.prefs.Preferences;
-import org.openide.util.NbBundle;
 
 /**
  *
@@ -38,6 +40,8 @@ import org.openide.util.NbBundle;
 public final class Prefs {
    
    private static Prefs instance;
+   private NumberFormat numFormat = NumberFormat.getInstance();
+
     /**
      * Creates a new instance of Prefs
      */
@@ -73,7 +77,12 @@ public final class Prefs {
         StringTokenizer tokenizer = new StringTokenizer(aColor, " \t\n\r\f,");
         while (tokenizer.hasMoreTokens() && i<3){
             String nextToken = tokenizer.nextToken();
-            color[i] = Double.parseDouble(nextToken);
+            try {
+               color[i] = numFormat.parse(nextToken).doubleValue();
+            } catch (ParseException ex) {
+               Toolkit.getDefaultToolkit().beep();
+               color[i] = 0.0;
+            }
             i++;
         }
         return color;
