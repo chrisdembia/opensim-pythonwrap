@@ -202,7 +202,7 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
    private boolean constraintsEnabled = false;
    private Model reducedResidualsModel = null;
    private Storage motion = null;
-
+   
    public CMCToolModel(Model model) throws IOException {
       super(model);
 
@@ -213,7 +213,7 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
 
       // By default, set prefix of output to be subject name
       cmcTool().setName(model.getName());
-
+      setAdjustModelToReduceResidualsEnabled(true);
       setDefaultResultsDirectory(model);
 
       updateFromTool();
@@ -310,6 +310,14 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
       return !getAdjustModelToReduceResidualsEnabled() || (!FileUtils.effectivelyNull(getOutputModelFileName()) && getAdjustedCOMBodyValid());
    }
 
+   public boolean getUseFastTarget() { return cmcTool().getUseFastTarget(); }
+   public void setUseFastTarget(boolean enabled) {
+      if(getUseFastTarget() == enabled) {
+         cmcTool().setUseFastTarget(!enabled);
+         setModified(AbstractToolModel.Operation.InputDataChanged);
+      }
+   } 
+ 
    //------------------------------------------------------------------------
    // External loads get/set (don't need to call setModified since AbstractToolModel does that)
    //------------------------------------------------------------------------
@@ -403,6 +411,19 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
       cmcTool().setExternalLoadsModelKinematicsFileName(FileUtils.makePathAbsolute(cmcTool().getExternalLoadsModelKinematicsFileName(), parentDir));
    }
 
+   protected void AbsoluteToRelativePaths(String parentFileName) {
+      super.AbsoluteToRelativePaths(parentFileName);
+      String parentDir = (new File(parentFileName)).getParent();
+      cmcTool().setDesiredKinematicsFileName(FileUtils.makePathRelative(cmcTool().getDesiredKinematicsFileName(), parentDir));
+      cmcTool().setConstraintsFileName(FileUtils.makePathRelative(cmcTool().getConstraintsFileName(), parentDir));
+      cmcTool().setTaskSetFileName(FileUtils.makePathRelative(cmcTool().getTaskSetFileName(), parentDir));
+      cmcTool().setRRAControlsFileName(FileUtils.makePathRelative(cmcTool().getRRAControlsFileName(), parentDir));
+      cmcTool().setOutputModelFileName(FileUtils.makePathRelative(cmcTool().getOutputModelFileName(), parentDir));
+
+      cmcTool().setExternalLoadsFileName(FileUtils.makePathRelative(cmcTool().getExternalLoadsFileName(), parentDir));
+      cmcTool().setExternalLoadsModelKinematicsFileName(FileUtils.makePathRelative(cmcTool().getExternalLoadsModelKinematicsFileName(), parentDir));       
+   }
+   
    public boolean loadSettings(String fileName) {
       // TODO: set current working directory before trying to read it?
       CMCTool newCMCTool = null;
@@ -423,7 +444,9 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
 
    public boolean saveSettings(String fileName) {
       updateTool();
+      AbsoluteToRelativePaths(fileName);
       cmcTool().print(fileName);
+      relativeToAbsolutePaths(fileName);
       return true;
    }
 }

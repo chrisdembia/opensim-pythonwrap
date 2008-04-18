@@ -224,6 +224,7 @@ public final class FileUtils {
            // TODO: prompt to create directory if it doesn't exist?
            break;
        }
+       dlog.setFileSelectionMode(JFileChooser.FILES_ONLY);
        if(outFilename != null) Preferences.userNodeForPackage(TheApp.class).put("WorkDirectory", dlog.getSelectedFile().getParent());
        return outFilename;
     }
@@ -317,7 +318,12 @@ public final class FileUtils {
      * Both file and baseDir, baseDir is assumed to be a Dir
      *
      */
-    public String makePathRelative(File baseDir, File file)
+    public static String makePathRelative(String filename, String baseDirname)
+    {
+        return makePathRelative(new File(baseDirname), new File(filename));
+    }
+    
+    public static String makePathRelative(File baseDir, File file)
     {
         String relative = null;
         if (baseDir.isDirectory()){

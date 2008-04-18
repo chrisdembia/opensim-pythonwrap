@@ -62,9 +62,9 @@ import org.opensim.view.excitationEditor.ExcitationEditorJFrame;
  */
 public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observer {
 
-   private JCheckBox rraPanelCheckBox = new JCheckBox(new EnableReduceResidualsAction());
+   //private JCheckBox rraPanelCheckBox = new JCheckBox(new EnableReduceResidualsAction());
    class EnableReduceResidualsAction extends AbstractAction {
-      public EnableReduceResidualsAction() { super("Adjust Model to Reduce Residuals"); }
+      public EnableReduceResidualsAction() { super("Reduce Residuals"); }
       public void actionPerformed(ActionEvent evt) { cmcToolModel().setAdjustModelToReduceResidualsEnabled(((JCheckBox)evt.getSource()).isSelected()); }
    }
 
@@ -94,8 +94,8 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
       bindPropertiesToComponents();
 
       // Add checkbox titled borders to RRA panel
-      rraPanelCheckBox.setForeground(new Color(0,70,213));
-      rraPanel.setBorder(new ComponentTitledBorder(rraPanelCheckBox, rraPanel, BorderFactory.createEtchedBorder()));
+      //rraPanelCheckBox.setForeground(new Color(0,70,213));
+      //rraPanel.setBorder(new ComponentTitledBorder(rraPanelCheckBox, rraPanel, BorderFactory.createEtchedBorder()));
 
       // File chooser settings
       outputDirectory.setIncludeOpenButton(true);
@@ -143,6 +143,7 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
          //cmcConstraintsFileName.setIncludeEditButton(true);
          rraOutputModelFileName.setExtensionsAndDescription(".osim", "Adjusted OpenSim model");
          rraOutputModelFileName.setSaveMode(true);
+         rraOutputModelFileName.setAssociatedCheckBox(adjustModelCheckBox);
       }
 
       // Actuators & External Loads tab
@@ -429,13 +430,14 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
 
       cmcConstraintsCheckBox.setSelected(toolModel.getConstraintsEnabled());
       if(!cmcConstraintsCheckBox.isSelected()) cmcConstraintsFileName.setEnabled(false);
-
+      SelectCmcTargetCheckBox.setSelected(toolModel.getUseFastTarget());
       //----------------------------------------------------------------------
       // RRA Panel
       //----------------------------------------------------------------------
-      rraPanelCheckBox.setSelected(toolModel.getAdjustModelToReduceResidualsEnabled());      
-      if(!rraPanelCheckBox.isSelected()) setEnabled(rraPanel, false);
-
+      adjustModelCheckBox.setSelected(toolModel.getAdjustModelToReduceResidualsEnabled());      
+      rraOutputModelFileName.setEnabled(adjustModelCheckBox.isSelected());
+      rraAdjustedBodyComboBox.setEnabled(adjustModelCheckBox.isSelected());
+      
       rraOutputModelFileName.setFileName(toolModel.getOutputModelFileName(),false);
 
       rraAdjustedBodyComboBox.removeAllItems();
@@ -569,8 +571,9 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
             rraPanel = new javax.swing.JPanel();
             jLabel21 = new javax.swing.JLabel();
             rraAdjustedBodyComboBox = new javax.swing.JComboBox();
-            jLabel23 = new javax.swing.JLabel();
             rraOutputModelFileName = new org.opensim.swingui.FileTextFieldAndChooser();
+            SelectCmcTargetCheckBox = new javax.swing.JCheckBox();
+            adjustModelCheckBox =  new JCheckBox(new EnableReduceResidualsAction());
             inverseInputPanel = new javax.swing.JPanel();
             motionsComboBox1 = new javax.swing.JComboBox();
             statesRadioButton1 = new javax.swing.JRadioButton();
@@ -1336,13 +1339,27 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
                 }
             });
 
-            jLabel23.setText("Adjusted model");
-
+            rraOutputModelFileName.setIncludeOpenButton(false);
             rraOutputModelFileName.addChangeListener(new javax.swing.event.ChangeListener() {
                 public void stateChanged(javax.swing.event.ChangeEvent evt) {
                     rraOutputModelFileNameStateChanged(evt);
                 }
             });
+
+            SelectCmcTargetCheckBox.setText("Adjust kinematics");
+            SelectCmcTargetCheckBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+            SelectCmcTargetCheckBox.setMargin(new java.awt.Insets(0, 0, 0, 0));
+            SelectCmcTargetCheckBox.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    SelectCmcTargetCheckBoxActionPerformed(evt);
+                }
+            });
+
+            adjustModelCheckBox.setSelected(true);
+            adjustModelCheckBox.setText("Adjust model");
+            adjustModelCheckBox.setToolTipText("Modify model to reduce residuals");
+            adjustModelCheckBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+            adjustModelCheckBox.setMargin(new java.awt.Insets(0, 0, 0, 0));
 
             org.jdesktop.layout.GroupLayout rraPanelLayout = new org.jdesktop.layout.GroupLayout(rraPanel);
             rraPanel.setLayout(rraPanelLayout);
@@ -1351,28 +1368,31 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
                 .add(rraPanelLayout.createSequentialGroup()
                     .addContainerGap()
                     .add(rraPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                        .add(SelectCmcTargetCheckBox)
                         .add(rraPanelLayout.createSequentialGroup()
-                            .add(22, 22, 22)
-                            .add(jLabel23)
+                            .add(rraPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                .add(jLabel21)
+                                .add(adjustModelCheckBox))
                             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                            .add(rraOutputModelFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE))
-                        .add(rraPanelLayout.createSequentialGroup()
-                            .add(jLabel21)
-                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                            .add(rraAdjustedBodyComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 154, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                            .add(rraPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                .add(rraOutputModelFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)
+                                .add(rraAdjustedBodyComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 154, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
                     .addContainerGap())
             );
             rraPanelLayout.setVerticalGroup(
                 rraPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                 .add(rraPanelLayout.createSequentialGroup()
+                    .addContainerGap()
                     .add(rraPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                        .add(jLabel23)
+                        .add(adjustModelCheckBox)
                         .add(rraOutputModelFileName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                     .add(rraPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                         .add(jLabel21)
                         .add(rraAdjustedBodyComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 16, Short.MAX_VALUE)
+                    .add(SelectCmcTargetCheckBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 15, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap())
             );
 
             inverseInputPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Input"));
@@ -1566,6 +1586,11 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
                 .add(jTabbedPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
             );
         }// </editor-fold>//GEN-END:initComponents
+
+    private void SelectCmcTargetCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SelectCmcTargetCheckBoxActionPerformed
+// TODO add your handling code here:
+        cmcToolModel().setUseFastTarget(!SelectCmcTargetCheckBox.isSelected());
+    }//GEN-LAST:event_SelectCmcTargetCheckBoxActionPerformed
 
     private void editAnalyzeExcitationsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editAnalyzeExcitationsButtonActionPerformed
 // TODO add your handling code here:
@@ -1878,8 +1903,10 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel HzJLabel;
+    private javax.swing.JCheckBox SelectCmcTargetCheckBox;
     private javax.swing.JTextField activeAnalyses;
     private javax.swing.JPanel activeAnalysesPanel;
+    private javax.swing.JCheckBox adjustModelCheckBox;
     private javax.swing.JPanel advancedSettingsPanel;
     private javax.swing.JCheckBox analyzeControlsCheckBox;
     private org.opensim.swingui.FileTextFieldAndChooser analyzeControlsFileName;
@@ -1933,7 +1960,6 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

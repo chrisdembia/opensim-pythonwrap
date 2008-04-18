@@ -4033,6 +4033,8 @@ public class opensimModelJNI {
   public final static native void CMCTool_setExternalLoadsBody2(long jarg1, CMCTool jarg1_, String jarg2);
   public final static native double CMCTool_getLowpassCutoffFrequencyForLoadKinematics(long jarg1, CMCTool jarg1_);
   public final static native void CMCTool_setLowpassCutoffFrequencyForLoadKinematics(long jarg1, CMCTool jarg1_, double jarg2);
+  public final static native boolean CMCTool_getUseFastTarget(long jarg1, CMCTool jarg1_);
+  public final static native void CMCTool_setUseFastTarget(long jarg1, CMCTool jarg1_, boolean jarg2);
   public final static native boolean CMCTool_run(long jarg1, CMCTool jarg1_) throws java.io.IOException;
   public final static native long CMCTool_getForceStorage(long jarg1, CMCTool jarg1_);
   public final static native long CMCTool_getStateStorage(long jarg1, CMCTool jarg1_);

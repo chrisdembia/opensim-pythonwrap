@@ -258,6 +258,16 @@ public abstract class AbstractToolModel extends Observable {
          actuatorSetFiles.set(i, FileUtils.makePathAbsolute(actuatorSetFiles.getitem(i), parentDir));
    }
 
+   protected void AbsoluteToRelativePaths(String parentFileName) {
+      String parentDir = (new File(parentFileName)).getParent();
+      
+      tool.setModelFilename(FileUtils.makePathRelative(tool.getModelFilename(), parentDir));
+      tool.setResultsDir(FileUtils.makePathRelative(tool.getResultsDir(), parentDir));
+
+      ArrayStr actuatorSetFiles = getActuatorSetFiles();
+      for(int i=0; i<actuatorSetFiles.getSize(); i++)
+         actuatorSetFiles.set(i, FileUtils.makePathRelative(actuatorSetFiles.getitem(i), parentDir));
+   }
    protected void updateFromTool() {
 
    }

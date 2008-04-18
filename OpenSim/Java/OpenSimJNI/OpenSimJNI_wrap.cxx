@@ -75012,6 +75012,34 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_CMCTool_1setLo
 }
 
 
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_CMCTool_1getUseFastTarget(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  OpenSim::CMCTool *arg1 = (OpenSim::CMCTool *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::CMCTool **)&jarg1; 
+  result = (bool)((OpenSim::CMCTool const *)arg1)->getUseFastTarget();
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_CMCTool_1setUseFastTarget(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2) {
+  OpenSim::CMCTool *arg1 = (OpenSim::CMCTool *) 0 ;
+  bool arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::CMCTool **)&jarg1; 
+  arg2 = jarg2 ? true : false; 
+  ((OpenSim::CMCTool const *)arg1)->setUseFastTarget(arg2);
+}
+
+
 SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_CMCTool_1run(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jboolean jresult = 0 ;
   OpenSim::CMCTool *arg1 = (OpenSim::CMCTool *) 0 ;

@@ -325,6 +325,19 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
       forwardTool().setExternalLoadsModelKinematicsFileName(FileUtils.makePathAbsolute(forwardTool().getExternalLoadsModelKinematicsFileName(), parentDir));
    }
 
+   protected void AbsoluteToRelativePaths(String parentFileName) {
+      super.AbsoluteToRelativePaths(parentFileName);
+
+      String parentDir = (new File(parentFileName)).getParent();
+
+      forwardTool().setModelFilename(FileUtils.makePathRelative(forwardTool().getModelFilename(), parentDir));
+      forwardTool().setControlsFileName(FileUtils.makePathRelative(forwardTool().getControlsFileName(), parentDir));
+      forwardTool().setStatesFileName(FileUtils.makePathRelative(forwardTool().getStatesFileName(), parentDir));
+
+      forwardTool().setExternalLoadsFileName(FileUtils.makePathRelative(forwardTool().getExternalLoadsFileName(), parentDir));
+      forwardTool().setExternalLoadsModelKinematicsFileName(FileUtils.makePathRelative(forwardTool().getExternalLoadsModelKinematicsFileName(), parentDir));
+   }
+
    public boolean loadSettings(String fileName) {
       // TODO: set current working directory before trying to read it?
       ForwardTool newForwardTool = null;
@@ -345,7 +358,9 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
 
    public boolean saveSettings(String fileName) {
       updateTool();
+      AbsoluteToRelativePaths(fileName);
       forwardTool().print(fileName);
+      relativeToAbsolutePaths(fileName);
       return true;
    }
 }

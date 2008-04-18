@@ -166,6 +166,14 @@ public class CMCTool extends AbstractTool {
     opensimModelJNI.CMCTool_setLowpassCutoffFrequencyForLoadKinematics(swigCPtr, this, aLowpassCutoffFrequency);
   }
 
+  public boolean getUseFastTarget() {
+    return opensimModelJNI.CMCTool_getUseFastTarget(swigCPtr, this);
+  }
+
+  public void setUseFastTarget(boolean useFastTarget) {
+    opensimModelJNI.CMCTool_setUseFastTarget(swigCPtr, this, useFastTarget);
+  }
+
   public boolean run() throws java.io.IOException {
     return opensimModelJNI.CMCTool_run(swigCPtr, this);
   }

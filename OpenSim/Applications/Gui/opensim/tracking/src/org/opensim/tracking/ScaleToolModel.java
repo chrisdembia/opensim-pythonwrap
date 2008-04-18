@@ -907,6 +907,14 @@ public class ScaleToolModel extends Observable implements Observer {
       scaleTool.getMarkerPlacer().setCoordinateFileName(FileUtils.makePathAbsolute(scaleTool.getMarkerPlacer().getCoordinateFileName(),parentDir));
    }
 
+   private void AbsoluteToRelativePaths(String parentFileName) {
+      String parentDir = (new File(parentFileName)).getParent();
+      scaleTool.getGenericModelMaker().setMarkerSetFileName(FileUtils.makePathRelative(scaleTool.getGenericModelMaker().getMarkerSetFileName(),parentDir));
+      scaleTool.getModelScaler().setMarkerFileName(FileUtils.makePathRelative(scaleTool.getModelScaler().getMarkerFileName(),parentDir));
+      scaleTool.getMarkerPlacer().setStaticPoseFileName(FileUtils.makePathRelative(scaleTool.getMarkerPlacer().getStaticPoseFileName(),parentDir));
+      scaleTool.getMarkerPlacer().setCoordinateFileName(FileUtils.makePathRelative(scaleTool.getMarkerPlacer().getCoordinateFileName(),parentDir));
+   }
+
    public boolean loadSettings(String fileName) {
       // TODO: set current working directory before trying to read it?
       ScaleTool newScaleTool = null;
@@ -953,7 +961,9 @@ public class ScaleToolModel extends Observable implements Observer {
       helper.addObject(scaleTool.getMarkerPlacer().getIKTaskSet(), "IK Task Set (for static pose)");
       if(!helper.promptUser()) return false;
       updateScaleTool();
+      AbsoluteToRelativePaths(fileName);
       scaleTool.print(fileName);
+      relativeToAbsolutePaths(fileName);
       return true;
    }
 

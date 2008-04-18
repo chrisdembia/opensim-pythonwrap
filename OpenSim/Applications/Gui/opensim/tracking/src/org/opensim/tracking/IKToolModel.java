@@ -312,6 +312,15 @@ public class IKToolModel extends Observable implements Observer {
       }
    }
 
+   private void AbsoluteToRelativePaths(String parentFileName) {
+      String parentDir = (new File(parentFileName)).getParent();
+      for(int i=0; i<ikTool.getIKTrialSet().getSize(); i++) {
+         IKTrial trial = ikTool.getIKTrialSet().get(i);
+         trial.setMarkerDataFileName(FileUtils.makePathRelative(trial.getMarkerDataFileName(),parentDir));
+         trial.setCoordinateFileName(FileUtils.makePathRelative(trial.getCoordinateFileName(),parentDir));
+      }
+   }
+
    public boolean loadSettings(String fileName) {
       // TODO: set current working directory before trying to read it?
       IKTool newIKTool = null;
@@ -338,7 +347,9 @@ public class IKToolModel extends Observable implements Observer {
       helper.addObject(ikTool.getIKTaskSet(), "IK Task Set");
       if(!helper.promptUser()) return false;
       updateIKTool();
+      AbsoluteToRelativePaths(fileName);
       ikTool.print(fileName);
+      relativeToAbsolutePaths(fileName);
       return true;
    }
    

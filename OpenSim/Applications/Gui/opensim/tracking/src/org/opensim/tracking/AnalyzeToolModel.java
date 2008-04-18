@@ -471,6 +471,21 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
       analyzeTool().setExternalLoadsModelKinematicsFileName(FileUtils.makePathAbsolute(analyzeTool().getExternalLoadsModelKinematicsFileName(), parentDir));
    }
 
+   protected void AbsoluteToRelativePaths(String parentFileName) {
+      super.AbsoluteToRelativePaths(parentFileName);
+
+      String parentDir = (new File(parentFileName)).getParent();
+
+      analyzeTool().setControlsFileName(FileUtils.makePathRelative(analyzeTool().getControlsFileName(), parentDir));
+      analyzeTool().setStatesFileName(FileUtils.makePathRelative(analyzeTool().getStatesFileName(), parentDir));
+      analyzeTool().setPseudoStatesFileName(FileUtils.makePathRelative(analyzeTool().getPseudoStatesFileName(), parentDir));
+      analyzeTool().setCoordinatesFileName(FileUtils.makePathRelative(analyzeTool().getCoordinatesFileName(), parentDir));
+      analyzeTool().setSpeedsFileName(FileUtils.makePathRelative(analyzeTool().getSpeedsFileName(), parentDir));
+
+      analyzeTool().setExternalLoadsFileName(FileUtils.makePathRelative(analyzeTool().getExternalLoadsFileName(), parentDir));
+      analyzeTool().setExternalLoadsModelKinematicsFileName(FileUtils.makePathRelative(analyzeTool().getExternalLoadsModelKinematicsFileName(), parentDir));
+   }
+   
    public boolean loadSettings(String fileName) {
       // TODO: set current working directory before trying to read it?
       AnalyzeTool newAnalyzeTool = null;
@@ -492,7 +507,9 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
 
    public boolean saveSettings(String fileName) {
       updateTool();
+      AbsoluteToRelativePaths(fileName);
       analyzeTool().print(fileName);
+      relativeToAbsolutePaths(fileName);
       return true;
    }
 }
