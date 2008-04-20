@@ -430,7 +430,7 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
 
       cmcConstraintsCheckBox.setSelected(toolModel.getConstraintsEnabled());
       if(!cmcConstraintsCheckBox.isSelected()) cmcConstraintsFileName.setEnabled(false);
-      SelectCmcTargetCheckBox.setSelected(toolModel.getUseFastTarget());
+      SelectCmcTargetCheckBox.setSelected(!toolModel.getUseFastTarget());
       //----------------------------------------------------------------------
       // RRA Panel
       //----------------------------------------------------------------------

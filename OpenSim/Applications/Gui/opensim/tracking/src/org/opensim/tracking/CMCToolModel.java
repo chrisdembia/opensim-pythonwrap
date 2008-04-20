@@ -312,8 +312,8 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
 
    public boolean getUseFastTarget() { return cmcTool().getUseFastTarget(); }
    public void setUseFastTarget(boolean enabled) {
-      if(getUseFastTarget() == enabled) {
-         cmcTool().setUseFastTarget(!enabled);
+      if(getUseFastTarget() != enabled) {
+         cmcTool().setUseFastTarget(enabled);
          setModified(AbstractToolModel.Operation.InputDataChanged);
       }
    } 
