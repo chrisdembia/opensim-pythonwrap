@@ -35,6 +35,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.Vector;
@@ -72,6 +73,10 @@ public class ActuatorsAndExternalLoadsPanel extends javax.swing.JPanel {
    public ActuatorsAndExternalLoadsPanel(AbstractToolModelWithExternalLoads toolModel, Model model, boolean includeActuatorsPanel) {
       this.toolModel = toolModel;
       this.model = model;
+
+      if (numFormat instanceof DecimalFormat) {
+        ((DecimalFormat) numFormat).applyPattern("#,##0.#########");
+      }
 
       initComponents();
       bindPropertiesToComponents();

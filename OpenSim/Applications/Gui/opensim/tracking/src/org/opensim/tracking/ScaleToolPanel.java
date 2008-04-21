@@ -37,6 +37,7 @@ import java.awt.Dialog;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.Observable;
@@ -78,6 +79,10 @@ public class ScaleToolPanel extends BaseToolPanel implements Observer {
 
       scaleToolModel = new ScaleToolModel(model);
       //scaleToolModel.loadSettings("C:\\eran\\dev\\simbios\\opensim\\Trunk\\OpenSim\\Examples\\Gait2354\\subject01_Setup_Scale.xml");
+
+      if (numFormat instanceof DecimalFormat) {
+        ((DecimalFormat) numFormat).applyPattern("#,##0.#########");
+      }
 
       initComponents();
       bindPropertiesToComponents();

@@ -34,6 +34,7 @@ package org.opensim.tracking;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dialog;
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Observable;
 import java.util.Observer;
@@ -63,6 +64,10 @@ public class ScaleFactorsPanel extends javax.swing.JPanel implements Observer {
    public ScaleFactorsPanel(ScaleToolModel scaleToolModel, Dialog measurementSetDialog) {
       this.scaleToolModel = scaleToolModel;
       this.measurementSetDialog = measurementSetDialog;
+
+      if (numFormat instanceof DecimalFormat) {
+        ((DecimalFormat) numFormat).applyPattern("#,##0.#########");
+      }
 
       initComponents();
       

@@ -33,6 +33,7 @@ package org.opensim.tracking;
 
 import java.awt.Toolkit;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.Observable;
@@ -51,6 +52,10 @@ public class IKToolPanel extends BaseToolPanel implements Observer {
 
       ikToolModel = new IKToolModel(model);
       //ikToolModel.loadSettings("C:\\eran\\dev\\simbios\\opensim\\Trunk\\OpenSim\\Examples\\Gait2354\\subject01_Setup_IK.xml");
+
+      if (numFormat instanceof DecimalFormat) {
+        ((DecimalFormat) numFormat).applyPattern("#,##0.#########");
+      }
 
       initComponents();
       bindPropertiesToComponents();

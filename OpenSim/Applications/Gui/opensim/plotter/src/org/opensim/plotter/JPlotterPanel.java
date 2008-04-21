@@ -39,6 +39,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -1733,6 +1734,9 @@ public class JPlotterPanel extends javax.swing.JPanel
               // Try to parse the text into a double as it could be out of range, in this case truncate
               try {
                  NumberFormat numFormat = NumberFormat.getInstance();
+                 if (numFormat instanceof DecimalFormat) {
+                    ((DecimalFormat) numFormat).applyPattern("#,##0.#########");
+                 }
                  double valueFromTextField = numFormat.parse(text).doubleValue();
                  jFormattedTextField.setText(numFormat.format(valueFromTextField));
                  jFormattedTextField.commitEdit();

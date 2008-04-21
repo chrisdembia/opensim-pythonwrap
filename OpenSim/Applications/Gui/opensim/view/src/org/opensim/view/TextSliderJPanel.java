@@ -32,6 +32,7 @@
 package org.opensim.view;
 
 import java.awt.Toolkit;
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import javax.swing.DefaultBoundedRangeModel;
@@ -62,8 +63,12 @@ public class TextSliderJPanel extends javax.swing.JPanel implements ChangeListen
     
     /** Creates new form TextSliderJPanel */
     public TextSliderJPanel() {
-        initComponents();
-        getJXSlider().addChangeListener(this);
+       if (numFormat instanceof DecimalFormat) {
+         ((DecimalFormat) numFormat).applyPattern("#,##0.#########");
+       }
+
+       initComponents();
+       getJXSlider().addChangeListener(this);
     }
     
     /** This method is called from within the constructor to

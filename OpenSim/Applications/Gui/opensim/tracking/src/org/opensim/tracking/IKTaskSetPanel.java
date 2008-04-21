@@ -33,6 +33,7 @@ package org.opensim.tracking;
 
 import java.awt.Component;
 import java.io.File;
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
@@ -62,6 +63,10 @@ public class IKTaskSetPanel extends javax.swing.JPanel implements ListSelectionL
 
       ikMarkerTasksTableModel = new IKTasksTableModel(ikCommonModel.getIKMarkerTasksModel(), "Marker");
       ikCoordinateTasksTableModel = new IKTasksTableModel(ikCommonModel.getIKCoordinateTasksModel(), "Coordinate");
+
+      if (numFormat instanceof DecimalFormat) {
+        ((DecimalFormat) numFormat).applyPattern("#,##0.#########");
+      }
 
       initComponents();
 

@@ -28,6 +28,7 @@ package org.opensim.view.editors;
 import java.awt.Insets;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import javax.swing.Icon;
@@ -76,6 +77,9 @@ public class OpenSimObjectModel extends AbstractTreeTableModel {
     super(obj);
     this.isEditable = isEditable;
     root = new PropertyNode(obj);
+    if (numFormat instanceof DecimalFormat) {
+      ((DecimalFormat) numFormat).applyPattern("#,##0.#########");
+    }
   }
 
   public String getColumnHeaderToolTip(int column) { return toolTipStr[column]; }

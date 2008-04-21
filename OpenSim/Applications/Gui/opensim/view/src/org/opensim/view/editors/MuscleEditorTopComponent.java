@@ -33,6 +33,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.Observable;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
@@ -123,7 +124,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
    private Hashtable<AbstractActuator, AbstractActuator> savedActs = new Hashtable<AbstractActuator, AbstractActuator>();
 
    private NumberFormat doublePropFormat = NumberFormat.getInstance();
-   private NumberFormat intPropFormat = NumberFormat.getInstance();
+   private NumberFormat intPropFormat = NumberFormat.getIntegerInstance();
    private NumberFormat positionFormat = NumberFormat.getInstance();
    private NumberFormat angleFormat = NumberFormat.getInstance();
    
@@ -134,7 +135,9 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
    
    private MuscleEditorTopComponent() {
       doublePropFormat.setMinimumFractionDigits(6);
-      intPropFormat.setMinimumFractionDigits(0);
+      if (doublePropFormat instanceof DecimalFormat) {
+        ((DecimalFormat) doublePropFormat).applyPattern("#,##0.#########");
+      }
       positionFormat.setMinimumFractionDigits(5);
       angleFormat.setMinimumFractionDigits(2);
 

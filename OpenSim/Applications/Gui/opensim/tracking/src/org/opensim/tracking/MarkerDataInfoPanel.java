@@ -32,6 +32,7 @@
 package org.opensim.tracking;
 
 import java.awt.Component;
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import org.opensim.modeling.MarkerData;
 
@@ -42,12 +43,15 @@ import org.opensim.modeling.MarkerData;
 public class MarkerDataInfoPanel extends javax.swing.JPanel {
 
    private NumberFormat doubleFormat = NumberFormat.getInstance();
-   private NumberFormat integerFormat = NumberFormat.getInstance();
+   private NumberFormat integerFormat = NumberFormat.getIntegerInstance();
 
    /** Creates new form TRCFileInfoPanel */
    public MarkerDataInfoPanel() {
+      if (doubleFormat instanceof DecimalFormat) {
+        ((DecimalFormat) doubleFormat).applyPattern("#,##0.#########");
+      }
+
       initComponents();
-      doubleFormat.setMinimumFractionDigits(2);
    }
 
    public void setEnabled(boolean enabled) {

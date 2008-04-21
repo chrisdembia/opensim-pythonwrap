@@ -34,8 +34,8 @@ package org.opensim.tracking;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -88,6 +88,10 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
          case InverseDynamics: modeName = "inverse dynamics tool"; toolModel = new AnalyzeToolModel(model, true); break;
          case CMC: modeName = "CMC tool"; toolModel = new CMCToolModel(model); break;
          case Analyze: modeName = "analyze tool"; toolModel = new AnalyzeToolModel(model, false); break;
+      }
+
+      if (numFormat instanceof DecimalFormat) {
+        ((DecimalFormat) numFormat).applyPattern("#,##0.############");
       }
 
       initComponents();
