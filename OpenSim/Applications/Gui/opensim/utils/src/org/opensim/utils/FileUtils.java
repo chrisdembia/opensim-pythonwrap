@@ -320,11 +320,16 @@ public final class FileUtils {
      */
     public static String makePathRelative(String filename, String baseDirname)
     {
+        if (effectivelyNull(filename)) return filename;
         return makePathRelative(new File(baseDirname), new File(filename));
     }
     
     public static String makePathRelative(File baseDir, File file)
     {
+        if (!file.exists()){
+            //int test=0;
+            return file.getAbsolutePath();
+        }
         String relative = null;
         if (baseDir.isDirectory()){
             if (baseDir.equals(file))
