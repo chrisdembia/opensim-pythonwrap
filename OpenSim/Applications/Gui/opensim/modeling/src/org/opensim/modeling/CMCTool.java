@@ -126,6 +126,14 @@ public class CMCTool extends AbstractTool {
     opensimModelJNI.CMCTool_setLowpassCutoffFrequency(swigCPtr, this, aLowpassCutoffFrequency);
   }
 
+  public double getTimeWindow() {
+    return opensimModelJNI.CMCTool_getTimeWindow(swigCPtr, this);
+  }
+
+  public void setTimeWindow(double aTargetDT) {
+    opensimModelJNI.CMCTool_setTimeWindow(swigCPtr, this, aTargetDT);
+  }
+
   public String getExternalLoadsFileName() {
     return opensimModelJNI.CMCTool_getExternalLoadsFileName(swigCPtr, this);
   }

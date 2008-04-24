@@ -1219,7 +1219,7 @@ SWIGINTERN void OpenSim_Array_Sl_OpenSim_MusclePoint_Sm__Sg__setitem(OpenSim::Ar
  * C++ director class methods
  * --------------------------------------------------- */
 
-#include "OpenSimJNI_wrap.h"
+#include "C:/Projects/OpenSim105/OpenSim/Java/OpenSimJNI/OpenSimJNI_wrap.h"
 
 SwigDirector_SimtkAnimationCallback::SwigDirector_SimtkAnimationCallback(JNIEnv *jenv, OpenSim::Model *aModel, OpenSim::Model *aModelForDisplay) : OpenSim::SimtkAnimationCallback(aModel, aModelForDisplay), Swig::Director(jenv) {
 }
@@ -74828,6 +74828,34 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_CMCTool_1setLo
 }
 
 
+SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_CMCTool_1getTimeWindow(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jdouble jresult = 0 ;
+  OpenSim::CMCTool *arg1 = (OpenSim::CMCTool *) 0 ;
+  double result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::CMCTool **)&jarg1; 
+  result = (double)((OpenSim::CMCTool const *)arg1)->getTimeWindow();
+  jresult = (jdouble)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_CMCTool_1setTimeWindow(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdouble jarg2) {
+  OpenSim::CMCTool *arg1 = (OpenSim::CMCTool *) 0 ;
+  double arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::CMCTool **)&jarg1; 
+  arg2 = (double)jarg2; 
+  (arg1)->setTimeWindow(arg2);
+}
+
+
 SWIGEXPORT jstring JNICALL Java_org_opensim_modeling_opensimModelJNI_CMCTool_1getExternalLoadsFileName(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jstring jresult = 0 ;
   OpenSim::CMCTool *arg1 = (OpenSim::CMCTool *) 0 ;
@@ -75052,11 +75080,11 @@ SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_CMCTool_1r
   try {
     result = (bool)(arg1)->run();
   }
-  catch(OpenSim::Exception &_e) {
+  catch(...) {
     {
       jclass excep = jenv->FindClass("java/io/IOException");
       if (excep)
-      jenv->ThrowNew(excep, (_e).getMessage());
+      jenv->ThrowNew(excep, "CMC Tool execution failed.");
       return 0;
     }
   }

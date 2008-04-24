@@ -119,9 +119,13 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
       // disable for now
       jLabel7.setVisible(false);
       jLabel8.setVisible(false);
+      
       availableInitialTime.setVisible(false);
       availableFinalTime.setVisible(false);
-      
+      if (mode != Mode.CMC){
+        jLabel23.setVisible(false);
+        cmcTimeWindow.setVisible(false);
+      }
       if(mode==Mode.Analyze) {
          // Set file filters for analyze tool inputs
          statesFileName.setExtensionsAndDescription(".sto", "States data for "+modeName);
@@ -189,13 +193,14 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
          ToolCommon.bindProperty(toolModel.getTool(), "controls_file", controlsFileName);
          ToolCommon.bindProperty(toolModel.getTool(), "states_file", initialStatesFileName);
          ToolCommon.bindProperty(toolModel.getTool(), "use_specified_dt", useSpecifiedDt);
-      } else {
+      } else { //CMC
          ToolCommon.bindProperty(toolModel.getTool(), "desired_kinematics_file", cmcDesiredKinematicsFileName);
          ToolCommon.bindProperty(toolModel.getTool(), "lowpass_cutoff_frequency", cmcCutoffFrequency);
          ToolCommon.bindProperty(toolModel.getTool(), "task_set_file", cmcTaskSetFileName);
          ToolCommon.bindProperty(toolModel.getTool(), "constraints_file", cmcConstraintsFileName);
          ToolCommon.bindProperty(toolModel.getTool(), "output_model_file", rraOutputModelFileName);
          ToolCommon.bindProperty(toolModel.getTool(), "adjusted_com_body", rraAdjustedBodyComboBox);
+         ToolCommon.bindProperty(toolModel.getTool(), "cmc_time_window", cmcTimeWindow);
       }
 
       ToolCommon.bindProperty(toolModel.getTool(), "solve_for_equilibrium_for_auxiliary_states", solveForEquilibriumCheckBox);
@@ -456,6 +461,7 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
       }
 
       updateIntegratorSettings(toolModel);
+      cmcTimeWindow.setText(numFormat.format(toolModel.getCmcTimeWindow()));
    }
 
    //---------------------------------------------------------------------
@@ -545,6 +551,8 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
         availableInitialTime = new javax.swing.JTextField();
         availableFinalTime = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        cmcTimeWindow = new javax.swing.JTextField();
         modelInfoPanel = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         modelName = new javax.swing.JTextField();
@@ -1047,6 +1055,21 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
 
             jLabel8.setText("to");
 
+            jLabel23.setText("Lookahead time window");
+
+            cmcTimeWindow.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
+            cmcTimeWindow.setText("jTextField1");
+            cmcTimeWindow.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    cmcTimeWindowActionPerformed(evt);
+                }
+            });
+            cmcTimeWindow.addFocusListener(new java.awt.event.FocusAdapter() {
+                public void focusLost(java.awt.event.FocusEvent evt) {
+                    cmcTimeWindowFocusLost(evt);
+                }
+            });
+
             org.jdesktop.layout.GroupLayout timePanelLayout = new org.jdesktop.layout.GroupLayout(timePanel);
             timePanel.setLayout(timePanelLayout);
             timePanelLayout.setHorizontalGroup(
@@ -1054,8 +1077,10 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
                 .add(timePanelLayout.createSequentialGroup()
                     .addContainerGap()
                     .add(timePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                        .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel4)
-                        .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel7))
+                        .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel7)
+                        .add(org.jdesktop.layout.GroupLayout.TRAILING, timePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jLabel23)
+                            .add(jLabel4)))
                     .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                     .add(timePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                         .add(timePanelLayout.createSequentialGroup()
@@ -1065,7 +1090,9 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
                             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                             .add(availableFinalTime, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                         .add(timePanelLayout.createSequentialGroup()
-                            .add(initialTime, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 64, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(timePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                                .add(org.jdesktop.layout.GroupLayout.LEADING, cmcTimeWindow)
+                                .add(org.jdesktop.layout.GroupLayout.LEADING, initialTime, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE))
                             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                             .add(jLabel5)
                             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
@@ -1089,6 +1116,10 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
                         .add(initialTime, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .add(jLabel5)
                         .add(finalTime, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                    .add(timePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                        .add(jLabel23)
+                        .add(cmcTimeWindow, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             );
 
@@ -1591,6 +1622,20 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
             );
         }// </editor-fold>//GEN-END:initComponents
 
+    private void cmcTimeWindowFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cmcTimeWindowFocusLost
+       if(!evt.isTemporary()) cmcTimeWindowActionPerformed(null);
+// TODO add your handling code here:
+    }//GEN-LAST:event_cmcTimeWindowFocusLost
+
+    private void cmcTimeWindowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmcTimeWindowActionPerformed
+// TODO add your handling code here:
+      try {
+         cmcToolModel().setCmcTimeWindow(numFormat.parse(cmcTimeWindow.getText()).doubleValue());
+      } catch (ParseException ex) {
+         cmcTimeWindow.setText(numFormat.format(cmcToolModel().getCmcTimeWindow()));
+      }  
+    }//GEN-LAST:event_cmcTimeWindowActionPerformed
+
     private void SelectCmcTargetCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SelectCmcTargetCheckBoxActionPerformed
 // TODO add your handling code here:
         cmcToolModel().setUseFastTarget(!SelectCmcTargetCheckBox.isSelected());
@@ -1877,6 +1922,14 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
       }
    }//GEN-LAST:event_finalTimeActionPerformed
 
+   private void setCmcTimeWindow(java.awt.event.ActionEvent evt) {                                            
+      try {
+         ((CMCToolModel)toolModel).setCmcTimeWindow(numFormat.parse(cmcTimeWindow.getText()).doubleValue());
+      } catch (ParseException ex) {
+         cmcTimeWindow.setText(numFormat.format(((CMCToolModel)toolModel).getCmcTimeWindow()));
+      }
+   }                                           
+
    //------------------------------------------------------------------------
    // Output settings
    //------------------------------------------------------------------------
@@ -1929,6 +1982,7 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
     private javax.swing.JCheckBox cmcFilterKinematicsCheckBox;
     private javax.swing.JPanel cmcInputPanel;
     private org.opensim.swingui.FileTextFieldAndChooser cmcTaskSetFileName;
+    private javax.swing.JTextField cmcTimeWindow;
     private org.opensim.swingui.FileTextFieldAndChooser controlsFileName;
     private org.opensim.swingui.FileTextFieldAndChooser coordinatesFileName;
     private org.opensim.swingui.FileTextFieldAndChooser coordinatesFileName1;
@@ -1964,6 +2018,7 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

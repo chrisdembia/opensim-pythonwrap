@@ -213,6 +213,7 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
 
       // By default, set prefix of output to be subject name
       cmcTool().setName(model.getName());
+      cmcTool().setModelFilename(model.getInputFileName());
       setAdjustModelToReduceResidualsEnabled(true);
       setDefaultResultsDirectory(model);
 
@@ -318,6 +319,8 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
       }
    } 
  
+   public double getCmcTimeWindow() { return cmcTool().getTimeWindow(); };
+   public void setCmcTimeWindow(double newTimeWindow) { cmcTool().setTimeWindow(newTimeWindow); };
    //------------------------------------------------------------------------
    // External loads get/set (don't need to call setModified since AbstractToolModel does that)
    //------------------------------------------------------------------------
