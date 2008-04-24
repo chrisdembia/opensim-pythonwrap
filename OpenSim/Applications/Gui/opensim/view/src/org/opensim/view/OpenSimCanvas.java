@@ -38,6 +38,8 @@ import java.awt.Cursor;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import javax.swing.JPopupMenu;
 import org.opensim.modeling.MovingMusclePoint;
 import org.opensim.modeling.OpenSimObject;
@@ -61,7 +63,7 @@ import vtk.vtkWorldPointPicker;
  * A wrapper around vtkPanel that provides common behavior beyond OpenSimBaseCanvas.
  * 
  */
-public class OpenSimCanvas extends OpenSimBaseCanvas {
+public class OpenSimCanvas extends OpenSimBaseCanvas implements MouseWheelListener {
         
     JPopupMenu visibilityMenu = new JPopupMenu();
 
@@ -74,6 +76,7 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
     
     /** Creates a new instance of OpenSimCanvas */
     public OpenSimCanvas() {
+        addMouseWheelListener(this);
     }
     /**
      * Event handler to handle mousePressed
@@ -357,6 +360,13 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
         movieWriter.End();
         movieWriter=null;
         movieWriterReady=false;
+    }
+    
+    public void mouseWheelMoved(MouseWheelEvent e) {
+        String message;
+        int notches = e.getWheelRotation();
+        GetRenderer().GetActiveCamera().Zoom(1.+.02*notches);
+        repaint();
     }
 
 }
