@@ -1055,7 +1055,7 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
 
             jLabel8.setText("to");
 
-            jLabel23.setText("Lookahead time window");
+            jLabel23.setText("CMC look-ahead window");
 
             cmcTimeWindow.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
             cmcTimeWindow.setText("jTextField1");

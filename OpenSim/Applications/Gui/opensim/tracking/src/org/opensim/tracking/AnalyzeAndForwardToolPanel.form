@@ -823,7 +823,7 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel23">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Lookahead time window"/>
+                    <Property name="text" type="java.lang.String" value="CMC look-ahead window"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="cmcTimeWindow">
