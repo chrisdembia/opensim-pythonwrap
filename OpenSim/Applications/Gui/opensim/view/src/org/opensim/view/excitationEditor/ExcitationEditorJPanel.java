@@ -470,7 +470,7 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
         MinMaxShadingCheckBox1.setMargin(new java.awt.Insets(0, 0, 0, 0));
         MinMaxShadingCheckBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MinMaxShadingCheckBox1ActionPerformed(evt);
+                MinMaxShadingCheckBoxActionPerformed(evt);
             }
         });
 
@@ -496,7 +496,7 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
         ShowExcBaseShapeCheckBox1.setMargin(new java.awt.Insets(0, 0, 0, 0));
         ShowExcBaseShapeCheckBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ShowExcBaseShapeCheckBox1ActionPerformed(evt);
+                ShowExcBaseShapeCheckBoxActionPerformed(evt);
             }
         });
 
@@ -505,7 +505,7 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
         ShowMinBaseShapeCheckBox1.setMargin(new java.awt.Insets(0, 0, 0, 0));
         ShowMinBaseShapeCheckBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ShowMinBaseShapeCheckBox1ActionPerformed(evt);
+                ShowMinBaseShapeCheckBoxActionPerformed(evt);
             }
         });
 
@@ -514,7 +514,7 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
         ShowMaxBaseShapeCheckBox1.setMargin(new java.awt.Insets(0, 0, 0, 0));
         ShowMaxBaseShapeCheckBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ShowMaxBaseShapeCheckBox1ActionPerformed(evt);
+                ShowMaxBaseShapeCheckBoxActionPerformed(evt);
             }
         });
 
@@ -613,22 +613,6 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
             .add(jSplitPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void MinMaxShadingCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MinMaxShadingCheckBox1ActionPerformed
-// TODO add your handling code here:
-    }//GEN-LAST:event_MinMaxShadingCheckBox1ActionPerformed
-
-    private void ShowMaxBaseShapeCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ShowMaxBaseShapeCheckBox1ActionPerformed
-// TODO add your handling code here:
-    }//GEN-LAST:event_ShowMaxBaseShapeCheckBox1ActionPerformed
-
-    private void ShowMinBaseShapeCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ShowMinBaseShapeCheckBox1ActionPerformed
-// TODO add your handling code here:
-    }//GEN-LAST:event_ShowMinBaseShapeCheckBox1ActionPerformed
-
-    private void ShowExcBaseShapeCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ShowExcBaseShapeCheckBox1ActionPerformed
-// TODO add your handling code here:
-    }//GEN-LAST:event_ShowExcBaseShapeCheckBox1ActionPerformed
 
    private void MinMaxShadingCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MinMaxShadingCheckBoxActionPerformed
       excitationGridPanel.toggleMinMaxShading(((JCheckBox)evt.getSource()).isSelected());
