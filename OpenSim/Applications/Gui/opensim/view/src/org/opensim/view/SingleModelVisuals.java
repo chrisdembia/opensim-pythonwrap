@@ -39,6 +39,7 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import org.opensim.modeling.AbstractActuator;
 import org.opensim.modeling.AbstractBody;
+import org.opensim.modeling.AbstractDynamicsEngine;
 import org.opensim.modeling.AbstractMarker;
 import org.opensim.modeling.AbstractMuscle;
 import org.opensim.modeling.Model;
@@ -68,11 +69,9 @@ import vtk.vtkSphereSource;
 import vtk.vtkStripper;
 import vtk.vtkTransform;
 import vtk.vtkTransformPolyDataFilter;
-import vtk.vtkVolume;
 import vtk.vtkXMLPolyDataReader;
 import vtk.vtkAppendPolyData;
-import vtk.vtkTextureMapToPlane;
-import vtk.vtkVolumeTextureMapper2D;
+import vtk.vtkLineSource;
 
 /**
  *
@@ -113,7 +112,10 @@ public class SingleModelVisuals {
     private Hashtable<OpenSimObject, LineSegmentMuscleDisplayer> mapActuator2Displayer = new Hashtable<OpenSimObject, LineSegmentMuscleDisplayer>();
 
     private Hashtable<OpenSimObject, Integer> mapMarkers2Glyphs = new Hashtable<OpenSimObject, Integer>(50);
-    
+    private Hashtable<OpenSimObject, vtkLineSource> mapMarkers2Lines = new Hashtable<OpenSimObject, vtkLineSource>(50);
+    private vtkActor markerLineActor = new vtkActor();
+    private vtkAppendPolyData markerLinePolyData = new vtkAppendPolyData();
+
     // Markers and muscle points are represented as Glyphs for performance
     private OpenSimvtkGlyphCloud  markersRep=new OpenSimvtkGlyphCloud(false);
     private OpenSimvtkGlyphCloud  musclePointsRep=new OpenSimvtkGlyphCloud(false);
@@ -188,7 +190,11 @@ public class SingleModelVisuals {
                 OpenSimObject owner = Dependent.getOwner();
                 if (AbstractMarker.safeDownCast(owner)!=null){
                     int index= getMarkersRep().addLocation(owner);
+                    getMarkersRep().setVectorDataAtLocation(index,1,1,1);
                     mapMarkers2Glyphs.put(owner, new Integer(index));
+                    vtkLineSource markerLine = new vtkLineSource();
+                    mapMarkers2Lines.put(owner, markerLine);
+                    markerLinePolyData.AddInput(markerLine.GetOutput());
                     continue;
                 } else if (MusclePoint.safeDownCast(owner)!=null||
                            MuscleViaPoint.safeDownCast(owner)!=null){
@@ -205,6 +211,11 @@ public class SingleModelVisuals {
 
         // Add markers
         modelAssembly.AddPart(getMarkersRep().getVtkActor());
+
+        vtkPolyDataMapper markerLineMapper = new vtkPolyDataMapper();
+        markerLineMapper.SetInput(markerLinePolyData.GetOutput());
+        markerLineActor.SetMapper(markerLineMapper);
+        modelAssembly.AddPart(markerLineActor);
 
         // Now the muscles and other actuators
         addActuatorsGeometry(model, modelAssembly);
@@ -315,10 +326,14 @@ public class SingleModelVisuals {
       // Cycle thru bodies and update their transforms from the kinematics engine
         double[] pos = new double[3];
         double[] gPos = new double[3];
+        double[] origin = {0.0, 0.0, 0.0};
+        double[] gOrigin = new double[3];
         BodySet bodies = model.getDynamicsEngine().getBodySet();
         for(int bodyNum=0; bodyNum<bodies.getSize();  bodyNum++){
 
             AbstractBody body = bodies.get(bodyNum);
+
+            model.getDynamicsEngine().transformPosition(body, origin, gOrigin);
 
             // Fill the maps between objects and display to support picking, highlighting, etc..
             // The reverse map takes an actor to an Object and is filled as actors are created.
@@ -339,6 +354,12 @@ public class SingleModelVisuals {
                     model.getDynamicsEngine().transformPosition(body, pos, gPos);
                     int index = (mapMarkers2Glyphs.get(owner)).intValue();
                     getMarkersRep().setLocation(index, gPos);
+                    vtkLineSource markerLine = mapMarkers2Lines.get(owner);
+                    markerLine.SetPoint1(gOrigin);
+                    if (ViewDB.getInstance().getDisplayStatus(owner) == 0)
+                       markerLine.SetPoint2(gOrigin);
+                    else
+                       markerLine.SetPoint2(gPos);
                 } else if (MusclePoint.safeDownCast(owner)!=null||
                         MuscleViaPoint.safeDownCast(owner)!=null){
                    // Muscle points are handled in updateActuatorsGeometry
@@ -418,6 +439,33 @@ public class SingleModelVisuals {
       while(dispIter.hasNext()) dispIter.next().setRenderActivation(enabled);
       getMuscleSegmentsRep().setModified();
       getMusclePointsRep().setModified();
+   }
+
+   public void setMarkerVisibility(AbstractMarker marker, boolean visible) {
+      int index = (mapMarkers2Glyphs.get(marker)).intValue();
+      vtkLineSource markerLine = mapMarkers2Lines.get(marker);
+      if (visible) {
+         markersRep.show(index);
+         // Set the endpoints of the marker line, because the only other
+         // place this is done is updateModelDisplay(), which is not called
+         // in this case.
+         double[] pos = new double[3];
+         double[] gPos = new double[3];
+         double[] origin = {0.0, 0.0, 0.0};
+         double[] gOrigin = new double[3];
+         AbstractBody body = marker.getBody();
+         AbstractDynamicsEngine de = body.getDynamicsEngine();
+         marker.getOffset(pos);
+         de.transformPosition(body, origin, gOrigin);
+         de.transformPosition(body, pos, gPos);
+         markerLine.SetPoint1(gOrigin);
+         markerLine.SetPoint2(gPos);
+      } else {
+         markersRep.hide(index);
+         markerLine.SetPoint1(0.0, 0.0, 0.0);
+         markerLine.SetPoint2(0.0, 0.0, 0.0);
+      }
+      markersRep.setModified();
    }
 
      /**
@@ -623,7 +671,9 @@ public class SingleModelVisuals {
        vtkStripper strip1 = new vtkStripper();
        strip1.SetInput(marker.GetOutput());
        getMarkersRep().setShape(strip1.GetOutput());
-       
+       getMarkersRep().scaleByVectorComponents();
+       markerLineActor.GetProperty().SetColor(defaultMarkerColor);
+
        // Muscle points
        vtkSphereSource viaPoint=new vtkSphereSource();
        viaPoint.SetRadius(ViewDB.getInstance().getMuscleDisplayRadius());

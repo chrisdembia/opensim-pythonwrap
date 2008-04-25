@@ -2167,6 +2167,7 @@ public class opensimModelJNI {
   public final static native void AbstractMarker_updateFromMarker(long jarg1, AbstractMarker jarg1_, long jarg2, AbstractMarker jarg2_);
   public final static native void AbstractMarker_getOffset__SWIG_0(long jarg1, AbstractMarker jarg1_, long jarg2);
   public final static native long AbstractMarker_getOffset__SWIG_1(long jarg1, AbstractMarker jarg1_);
+  public final static native void AbstractMarker_getOffset__SWIG_2(long jarg1, AbstractMarker jarg1_, double[] jarg2);
   public final static native boolean AbstractMarker_setOffset(long jarg1, AbstractMarker jarg1_, long jarg2);
   public final static native boolean AbstractMarker_getOffsetUseDefault(long jarg1, AbstractMarker jarg1_);
   public final static native boolean AbstractMarker_getFixed(long jarg1, AbstractMarker jarg1_);

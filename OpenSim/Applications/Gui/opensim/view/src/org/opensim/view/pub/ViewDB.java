@@ -48,6 +48,7 @@ import org.openide.awt.StatusDisplayer;
 import org.openide.util.NbBundle;
 import org.opensim.modeling.AbstractActuator;
 import org.opensim.modeling.AbstractBody;
+import org.opensim.modeling.AbstractMarker;
 import org.opensim.modeling.AbstractMuscle;
 import org.opensim.modeling.ArrayObjPtr;
 import org.opensim.modeling.Model;
@@ -984,6 +985,13 @@ public final class ViewDB extends Observable implements Observer {
             vp.setDisplayPreference(DisplayPreference.GouraudShaded); // TODO: assumes gouraud is the default
          else
             vp.setDisplayPreference(DisplayPreference.None);
+      }
+
+      AbstractMarker marker = AbstractMarker.safeDownCast(openSimObject);
+      if (marker != null) {
+         SingleModelVisuals vis = getModelVisuals(marker.getBody().getDynamicsEngine().getModel());
+         vis.setMarkerVisibility(marker, visible);
+         return;
       }
 
       AbstractActuator act = AbstractActuator.safeDownCast(openSimObject);

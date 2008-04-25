@@ -50,6 +50,10 @@ public class AbstractMarker extends OpenSimObject {
     return new SWIGTYPE_p_SimTK__Vec3(opensimModelJNI.AbstractMarker_getOffset__SWIG_1(swigCPtr, this), false);
   }
 
+  public void getOffset(double[] rOffset) {
+    opensimModelJNI.AbstractMarker_getOffset__SWIG_2(swigCPtr, this, rOffset);
+  }
+
   public boolean setOffset(SWIGTYPE_p_SimTK__Vec3 aOffset) {
     return opensimModelJNI.AbstractMarker_setOffset(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(aOffset));
   }
