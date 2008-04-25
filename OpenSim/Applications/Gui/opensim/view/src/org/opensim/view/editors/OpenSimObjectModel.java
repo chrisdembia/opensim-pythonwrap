@@ -249,39 +249,46 @@ public class OpenSimObjectModel extends AbstractTreeTableModel {
       this.idx = index;
       aggregate = false;
 
-      if (property instanceof OpenSimObject) {
+       if (property instanceof OpenSimObject) {
          aggregate = true;
       } else if (property instanceof Property) {
          Property.PropertyType propType = ( (Property) property).getType();
-
-         if(propType==Property.PropertyType.Dbl || (propType==Property.PropertyType.DblArray && idx!=-1)) propValueType = Property.PropertyType.Dbl; 
+         if (propType==Property.PropertyType.DblVec3){
+              int x=0;
+          }
+         if(propType==Property.PropertyType.Dbl || (propType==Property.PropertyType.DblArray && idx!=-1) 
+         || (propType==Property.PropertyType.DblVec3 && idx!=-1)) propValueType = Property.PropertyType.Dbl; 
          else if(propType==Property.PropertyType.Int || (propType==Property.PropertyType.IntArray && idx!=-1)) propValueType = Property.PropertyType.Int; 
          else if(propType==Property.PropertyType.Str || (propType==Property.PropertyType.StrArray && idx!=-1)) propValueType = Property.PropertyType.Str; 
          else if(propType==Property.PropertyType.Bool || (propType==Property.PropertyType.BoolArray && idx!=-1)) propValueType = Property.PropertyType.Bool; 
 
          if(propType == Property.PropertyType.DblArray ||
+            propType == Property.PropertyType.DblVec3 ||
             propType == Property.PropertyType.IntArray ||
             propType == Property.PropertyType.StrArray ||
-            propType == Property.PropertyType.BoolArray)
+            propType == Property.PropertyType.BoolArray )
          {
             if(idx==-1) {
                aggregate = true;
-
-               // Button to add array item
-               controlButton = new JButton(addIcon);
-               //controlButton.setRolloverIcon(addRolloverIcon); // doesn't work right now
-               controlButton.addMouseListener(new MouseInputAdapter() {
-                  public void mousePressed(MouseEvent evt) { addPropertyItem(); }
-               });
-               controlButton.setToolTipText("Add an item to this property array");
+               if (propType != Property.PropertyType.DblVec3){
+                   // Button to add array item
+                   controlButton = new JButton(addIcon);
+                   //controlButton.setRolloverIcon(addRolloverIcon); // doesn't work right now
+                   controlButton.addMouseListener(new MouseInputAdapter() {
+                      public void mousePressed(MouseEvent evt) { addPropertyItem(); }
+                   });
+                   controlButton.setToolTipText("Add an item to this property array");
+               }
             } else {
-               // Button to delete array item
-               controlButton = new JButton(removeIcon);
-               //controlButton.setRolloverIcon(removeRolloverIcon); // doesn't work right now
-               controlButton.addMouseListener(new MouseInputAdapter() {
-                  public void mousePressed(MouseEvent evt) { removePropertyItem(); }
-               });
-               controlButton.setToolTipText("Remove this item from the property array");
+               if (propType != Property.PropertyType.DblVec3){
+                   // Button to delete array item
+                   controlButton = new JButton(removeIcon);
+                   //controlButton.setRolloverIcon(removeRolloverIcon); // doesn't work right now
+                   controlButton.addMouseListener(new MouseInputAdapter() {
+                      public void mousePressed(MouseEvent evt) { removePropertyItem(); }
+                   });
+                   controlButton.setToolTipText("Remove this item from the property array");
+               }
             }
          }
          else if(propType == Property.PropertyType.Obj ||
@@ -364,6 +371,7 @@ public class OpenSimObjectModel extends AbstractTreeTableModel {
             else if(propValueType == Property.PropertyType.Str) return "String: " + getValue().toString();
             else if(propValueType == Property.PropertyType.Bool) return "Boolean: " + getValue().toString();
             else if(p.getType()==Property.PropertyType.DblArray) return "Array of doubles: " + getValue().toString();
+            else if(p.getType()==Property.PropertyType.DblVec3) return "Vector of 3 doubles: " + getValue().toString();            
             else if(p.getType()==Property.PropertyType.IntArray) return "Array of integers: " + getValue().toString();
             else if(p.getType()==Property.PropertyType.StrArray) return "Array of strings: " + getValue().toString();
             else if(p.getType()==Property.PropertyType.BoolArray) return "Array of booleans: " + getValue().toString();
@@ -381,7 +389,15 @@ public class OpenSimObjectModel extends AbstractTreeTableModel {
          Property p = (Property)property;
          if(propValueType == Property.PropertyType.Dbl) { 
             if(idx==-1) return (Double)p.getValueDbl();
-            else return (Double)p.getValueDblArray().getitem(idx); 
+            else {
+                if (p.getType()== Property.PropertyType.DblArray)
+                    return (Double)p.getValueDblArray().getitem(idx);
+                else{   // DblVec3
+                    String string = p.toString();
+                    String[] valueStrings = string.substring(1, string.length()-1).split(" ");
+                    return Double.valueOf(valueStrings[idx]);
+                }
+            } 
          } else if(propValueType == Property.PropertyType.Int) {
             if(idx==-1) return (Integer)p.getValueInt();
             else return (Integer)p.getValueIntArray().getitem(idx); 
@@ -448,7 +464,21 @@ public class OpenSimObjectModel extends AbstractTreeTableModel {
             NumberFormat numFormat = NumberFormat.getInstance();
             if(propValueType == Property.PropertyType.Dbl) {
                double val = (value instanceof String) ? numFormat.parse((String)value).doubleValue() : ((Double)value).doubleValue();
-               if(idx==-1) p.setValue(val); else p.getValueDblArray().set(idx, val);
+               if(idx==-1) p.setValue(val); 
+               else{
+                   if (p.getType()==Property.PropertyType.DblArray)
+                        p.getValueDblArray().set(idx, val);
+                   else {   //DblVec3
+                        String string = p.toString();
+                        String[] valueStrings = string.substring(1, string.length()-1).split(" ");
+                        double[] dValues = new double[3];
+                        for(int i=0; i<3; i++){
+                            dValues[i]=Double.valueOf(valueStrings[i]);
+                        }
+                        dValues[idx]=val;
+                        p.setValue(3, dValues);
+                   }
+               }
             } else if(propValueType == Property.PropertyType.Int) {
                int val = (value instanceof String) ? numFormat.parse((String)value).intValue() : ((Integer)value).intValue();
                if(idx==-1) p.setValue(val); else p.getValueIntArray().set(idx, val);
@@ -516,6 +546,13 @@ public class OpenSimObjectModel extends AbstractTreeTableModel {
             retArray = new PropertyNode[rdprop.getArraySize()];
             for (int i = 0; i < rdprop.getArraySize(); i++) 
                retArray[i] = new PropertyNode(this, property, i); // PropertyNode will figure out our type
+          }
+          else if (propType == Property.PropertyType.DblVec3)
+          {
+            retArray = new PropertyNode[3];
+            for (int i = 0; i < 3; i++) 
+               retArray[i] = new PropertyNode(this, property, i); // PropertyNode will figure out our type
+              
           }
           else if (propType == Property.PropertyType.ObjArray) {
             retArray = new PropertyNode[rdprop.getArraySize()];
