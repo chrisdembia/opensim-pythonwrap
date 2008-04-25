@@ -427,13 +427,16 @@ public class OpenSimObjectModel extends AbstractTreeTableModel {
 
     // This is the name appearing in the tree navigator part of the property editor
     public String toString() { 
+       String[] vec3Names = new String[]{"X", "Y", "Z"};
       if (property instanceof OpenSimObject)
          return ((OpenSimObject)property).getType();
       else if (property instanceof Property && idx==-1)
         return ( (Property) property).getName();
-      else if (idx!=-1)
-       return ( "["+String.valueOf(idx)+"]");
-
+      else if (idx!=-1){
+           if (property instanceof Property && ((Property)property).getType()==Property.PropertyType.DblVec3)
+               return  ( "["+vec3Names[idx]+"]");
+            return ( "["+String.valueOf(idx)+"]");
+      }
       return ("unknown type!");
     }
 
