@@ -10,7 +10,6 @@
             <file name="org-opensim-view-ObjectDisplayOpacityAction.instance"/>
             <file name="org-opensim-view-ObjectDisplayShowOnlyAction.instance"/>
             <file name="org-opensim-view-ModelRenameAction.instance"/>
-            <file name="org-opensim-view-ShowModelsDropdownAction.instance"/>
             <file name="org-opensim-view-ViewEditAction.instance"/>
             <file name="org-opensim-view-FileExportSIMMModelAction.instance"/>
             <file name="org-opensim-view-ViewReplicateAction.instance"/>
@@ -247,15 +246,14 @@
         <folder name="Edit">
             <attr name="org-openide-actions-FindAction.instance/org-opensim-view-CameraAction.shadow" boolvalue="true"/>
             <attr name="org-opensim-view-SelectObjectAction.shadow/org-openide-actions-CutAction.instance" boolvalue="true"/>
-            <attr name="org-openide-actions-FindAction.instance/org-opensim-view-ShowModelsDropdownAction.instance" boolvalue="true"/>
+            <attr name="org-openide-actions-FindAction.instance/org-opensim-view-ShowModelsDropdownAction.instance" boolvalue="false"/>
             <file name="org-openide-actions-CopyAction.instance_hidden"/>
             <file name="org-openide-actions-CutAction.instance_hidden"/>
             <file name="org-openide-actions-FindAction.instance_hidden"/>
             <file name="org-openide-actions-PasteAction.instance_hidden"/>
             <file name="org-openide-actions-RedoAction.instance_hidden"/>
             <file name="org-openide-actions-UndoAction.instance_hidden"/>
-            <file name="org-opensim-view-ShowModelsDropdownAction.instance" url="org-opensim-view-ShowModelsDropdownAction.instance"/>
-            <attr name="org-opensim-view-ShowModelsDropdownAction.instance/org-opensim-motionviewer-ShowMotionSliderAction.instance" boolvalue="true"/>
+            <attr name="org-opensim-view-ShowModelsDropdownAction.instance/org-opensim-motionviewer-ShowMotionSliderAction.instance" boolvalue="false"/>
             <file name="org-opensim-motionviewer-MotionsSynchronizeAction.instance_hidden"/>
         </folder>
         <file name="File_hidden"/>
