@@ -1193,7 +1193,7 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
                         // Add selected names to proper column Panel
                         DefaultMutableTreeNode clickedNode = (DefaultMutableTreeNode)clickedElement.getLastPathComponent();
                         int colIndex = treeModel.getIndexOfChild(clickedNode.getParent(),clickedNode);
-                        treeModel.insertNodeInto(clickedNode, (DefaultMutableTreeNode) treeModel.getRoot(), colIndex);
+                        //treeModel.insertNodeInto(clickedNode, (DefaultMutableTreeNode) treeModel.getRoot(), colIndex);
                         for(int i=0; i<selNames.length; i++){
                             Control nextControl = getControlSet().get(selNames[i]);
                             if (nextControl==null)
