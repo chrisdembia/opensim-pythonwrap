@@ -61,4 +61,14 @@ public class ConcreteModelNode extends OpenSimObjectNode {
       return retValue;
    }
    
+   public Action getPreferredAction() {
+      Action act=null;
+      try {
+         act =(ModelMakeCurrentAction) ModelMakeCurrentAction.findObject(
+                    Class.forName("org.opensim.view.nodes.ModelMakeCurrentAction"), true);
+      } catch(ClassNotFoundException e){
+         
+      }
+      return act;
+   }
 }
