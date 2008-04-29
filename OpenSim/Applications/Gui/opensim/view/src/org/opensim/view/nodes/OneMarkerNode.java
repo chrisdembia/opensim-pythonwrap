@@ -17,7 +17,6 @@ public class OneMarkerNode extends OpenSimObjectNode{
       super(b);
       setShortDescription(bundle.getString("HINT_MarkerNode"));
       setChildren(Children.LEAF);      
-      addDisplayOption(displayOption.Colorable);
       addDisplayOption(displayOption.Isolatable);
       addDisplayOption(displayOption.Showable);
    }

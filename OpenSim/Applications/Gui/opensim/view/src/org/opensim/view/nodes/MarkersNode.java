@@ -37,7 +37,6 @@ public class MarkersNode extends OpenSimObjectSetNode {
         }
       addDisplayOption(displayOption.Isolatable);
       addDisplayOption(displayOption.Showable);
-      addDisplayOption(displayOption.Colorable);
     }
 
       public Image getIcon(int i) {
