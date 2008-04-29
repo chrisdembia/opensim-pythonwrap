@@ -38,13 +38,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
-import java.util.Collections;
-import java.util.Vector;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import org.jfree.chart.JFreeChart;
+import org.jfree.data.Range;
 import org.jfree.data.general.SeriesChangeEvent;
-import org.jfree.data.xy.XYDataItem;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import org.opensim.modeling.ArrayDouble;
@@ -81,6 +79,8 @@ public class ExcitationPanel extends FunctionPanel{
       chart.getXYPlot().getRangeAxis().setAutoRangeMinimumSize(0.0001);
       renderer = (ExcitationRenderer)chart.getXYPlot().getRenderer(0);
       backup = new ControlLinear(renderer.getControl());    // Keep copy of contents incase user restores
+      chart.getXYPlot().getRangeAxis().setRangeWithMargins(new Range(renderer.getControl().getDefaultParameterMin(),
+              renderer.getControl().getDefaultParameterMax()));
       updateAddNodePopUpMenu();
     }
     
