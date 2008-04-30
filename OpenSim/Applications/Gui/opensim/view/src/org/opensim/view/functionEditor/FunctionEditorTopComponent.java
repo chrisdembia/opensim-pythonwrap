@@ -847,19 +847,20 @@ final public class FunctionEditorTopComponent extends TopComponent implements Ob
       // Don't allow any dragged node to go past either of its neighbors in the X dimension.
       double minGap = 99999999.9;
       ArrayList<FunctionNode> selectedNodes = functionPanel.getSelectedNodes();
-      if (dragVector[0] < 0.0) {
+      if (dragVector[0] < 0.0) {  // dragging to the left
          for (int i=0; i<selectedNodes.size(); i++) {
             int index = selectedNodes.get(i).node;
             double gap = minGap;
-            if (index == 0)
+            if (index == 0) {  // there is no left neighbor, so the plot's left edge is the boundary
                gap = function.getX(index) - xyPlot.getDomainAxis().getLowerBound() * options.XDisplayUnits.convertTo(options.XUnits);
-            else if (!functionPanel.isNodeSelected(0, index-1))
+               // If the node is already outside the plot area, don't crop it against the plot edge
+               if (gap < 0.0)
+                  gap = minGap;
+            } else if (!functionPanel.isNodeSelected(0, index-1)) {  // left neighbor is not selected, so it is the boundary
                gap = function.getX(index) - function.getX(index-1);
-            else
+            } else {  // left neighbor is selected, so there is no boundary for this node
                continue;
-            //if (index == 0 || functionPanel.isNodeSelected(0, index-1))
-            //   continue;
-            //double gap = function.getX(index) - function.getX(index-1);
+            }
             if (gap < minGap)
                minGap = gap;
          }
@@ -868,19 +869,20 @@ final public class FunctionEditorTopComponent extends TopComponent implements Ob
          // number than this value.
          if (dragVector[0] < -minGap)
             dragVector[0] = -minGap;
-      } else if (dragVector[0] > 0.0) {
+      } else if (dragVector[0] > 0.0) {  // dragging to the right
          for (int i=0; i<selectedNodes.size(); i++) {
             int index = selectedNodes.get(i).node;
             double gap = minGap;
-            if (index == function.getNumberOfPoints() - 1)
+            if (index == function.getNumberOfPoints() - 1) {  // there is no right neighbor, so the plot's right edge is the boundary
                gap = xyPlot.getDomainAxis().getUpperBound() * options.XDisplayUnits.convertTo(options.XUnits) - function.getX(index);
-            else if (!functionPanel.isNodeSelected(0, index+1))
+               // If the node is already outside the plot area, don't crop it against the plot edge
+               if (gap < 0.0)
+                  gap = minGap;
+            } else if (!functionPanel.isNodeSelected(0, index+1)) {  // right neighbor is not selected, so it is the boundary
                gap = function.getX(index+1) - function.getX(index);
-            else
+            } else {  // right neighbor is selected, so there is no boundary for this node
                continue;
-            //if (index == function.getNumberOfPoints()-1 || functionPanel.isNodeSelected(0, index+1))
-            //   continue;
-            //double gap = function.getX(index+1) - function.getX(index);
+            }
             if (gap < minGap)
                minGap = gap;
          }

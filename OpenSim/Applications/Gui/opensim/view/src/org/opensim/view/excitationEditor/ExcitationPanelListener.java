@@ -88,21 +88,24 @@ public class ExcitationPanelListener implements FunctionPanelListener{
       double minGap = 99999999.9;
       double gap = minGap;
       ArrayList<FunctionNode> selectedNodes = functionPanel.getSelectedNodes();
-      if (dragVector[0] < 0.0) {
+      if (dragVector[0] < 0.0) {  // dragging to the left
          for (int i=0; i<selectedNodes.size(); i++) {
             int index = selectedNodes.get(i).node;
             int series = selectedNodes.get(i).series;
             if (!renderer.getSeriesShapesVisible(series))   // series shapes are off, so this node can't move
                continue;
-            if (index == 0) { // there is no left-side node, so the plot's left edge is the boundary
+            if (index == 0) {  // there is no left neighbor, so the plot's left edge is the boundary
                ControlLinearNode cn= getControlNodeForSeries(series, index);
                gap = cn.getTime() - functionPanel.getChart().getXYPlot().getDomainAxis().getLowerBound() *
                   renderer.getXDisplayUnits().convertTo(renderer.getXUnits());
-            } else if (!functionPanel.isNodeSelected(0, index-1)) {  // left-side node is not selected, so it is the boundary
+               // If the node is already outside the plot area, don't crop it against the plot edge
+               if (gap < 0.0)
+                  gap = minGap;
+            } else if (!functionPanel.isNodeSelected(0, index-1)) {  // left neighbor is not selected, so it is the boundary
                ControlLinearNode cn= getControlNodeForSeries(series, index);
                ControlLinearNode cnMinus1= getControlNodeForSeries(series, index-1);
                gap = cn.getTime() - cnMinus1.getTime();
-            } else {  // left-side node is selected, so there is no boundary for this node
+            } else {  // left neighbor is selected, so there is no boundary for this node
                continue;
             }
             if (gap < minGap)
@@ -113,21 +116,24 @@ public class ExcitationPanelListener implements FunctionPanelListener{
          // number than this value.
          if (dragVector[0] < -minGap)
             dragVector[0] = -minGap;
-      } else if (dragVector[0] > 0.0) {
+      } else if (dragVector[0] > 0.0) {  // dragging to the right
          for (int i=0; i<selectedNodes.size(); i++) {
             int index = selectedNodes.get(i).node;
             int series = selectedNodes.get(i).series;
             if (!renderer.getSeriesShapesVisible(series))   // series shapes are off, so this node can't move
                continue;
-            if (index == getControlNodeCountForSeries(selectedNodes.get(i).series)-1) { // there is no right-side node, so the plot's right edge is the boundary
+            if (index == getControlNodeCountForSeries(selectedNodes.get(i).series)-1) {  // there is no right neighbor, so the plot's right edge is the boundary
                ControlLinearNode cn= getControlNodeForSeries(series, index);
                gap = functionPanel.getChart().getXYPlot().getDomainAxis().getUpperBound() *
                   renderer.getXDisplayUnits().convertTo(renderer.getXUnits()) - cn.getTime();
-            } else if (!functionPanel.isNodeSelected(selectedNodes.get(i).series, index+1)) {  // left-side node is not selected, so it is the boundary
+               // If the node is already outside the plot area, don't crop it against the plot edge
+               if (gap < 0.0)
+                  gap = minGap;
+            } else if (!functionPanel.isNodeSelected(selectedNodes.get(i).series, index+1)) {  // right neighbor is not selected, so it is the boundary
                ControlLinearNode cn= getControlNodeForSeries(selectedNodes.get(i).series, index);
                ControlLinearNode cnPlus1= getControlNodeForSeries(selectedNodes.get(i).series, index+1);
                gap = cnPlus1.getTime() - cn.getTime();
-            } else {  // right-side node is selected, so there is no boundary for this node
+            } else {  // right neighbor is selected, so there is no boundary for this node
                continue;
             }
             if (gap < minGap)
