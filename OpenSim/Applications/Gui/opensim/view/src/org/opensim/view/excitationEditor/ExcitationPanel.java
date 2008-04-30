@@ -41,6 +41,10 @@ import java.io.IOException;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.Axis;
+import org.jfree.chart.axis.ValueAxis;
+import org.jfree.chart.event.AxisChangeEvent;
+import org.jfree.chart.event.AxisChangeListener;
 import org.jfree.data.Range;
 import org.jfree.data.general.SeriesChangeEvent;
 import org.jfree.data.xy.XYSeries;
@@ -81,6 +85,9 @@ public class ExcitationPanel extends FunctionPanel{
       backup = new ControlLinear(renderer.getControl());    // Keep copy of contents incase user restores
       chart.getXYPlot().getRangeAxis().setRangeWithMargins(new Range(renderer.getControl().getDefaultParameterMin(),
               renderer.getControl().getDefaultParameterMax()));
+      chart.getXYPlot().getRangeAxis().setAutoRange(false);
+      chart.getXYPlot().getRangeAxis().addChangeListener(new EnforceExcitationRange());
+
       updateAddNodePopUpMenu();
     }
     
@@ -326,5 +333,18 @@ public class ExcitationPanel extends FunctionPanel{
             }
         });
         addNodePopUpMenu.add(overlayMenuItem);
+    }
+    class EnforceExcitationRange implements AxisChangeListener {
+        public void axisChanged(AxisChangeEvent event) {
+            Axis axis = event.getAxis();
+            if (axis instanceof ValueAxis) {
+                ValueAxis va = (ValueAxis)axis;
+                if (va.isAutoRange()) {
+                    va.setAutoRange(false);
+                    va.setRangeWithMargins(new Range(renderer.getControl().getDefaultParameterMin(),
+              renderer.getControl().getDefaultParameterMax()));;
+                }
+            }
+        }
     }
 }
