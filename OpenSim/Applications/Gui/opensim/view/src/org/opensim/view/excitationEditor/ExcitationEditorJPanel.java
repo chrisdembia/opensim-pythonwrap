@@ -126,10 +126,10 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
         jExcitationsTree.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_BACK_SPACE, 0),
                             "handleDelete");
         jExcitationsTree.getActionMap().put("handleDelete", new handleDelete());
-        ShowExcBaseShapeCheckBox.setSelected(true);
-        ShowMaxBaseShapeCheckBox.setSelected(true);
-        ShowMinBaseShapeCheckBox.setSelected(true);
-        MinMaxShadingCheckBox.setSelected(true);
+        ShowExcBaseShapeCheckBox1.setSelected(true);
+        ShowMaxBaseShapeCheckBox1.setSelected(true);
+        ShowMinBaseShapeCheckBox1.setSelected(true);
+        MinMaxShadingCheckBox1.setSelected(true);
         if (controls!=null){
             populate(controls, true);
         }
@@ -936,7 +936,7 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
         //renderer.setExcFillPaint(new Color(150, 150, 150));
         //renderer.setMinFillPaint(new Color(250, 150, 150));
         ExcitationRenderer renderer = (ExcitationRenderer)nextExcitationPanel.getRenderer();
-        if (MinMaxShadingCheckBox.isSelected())
+        if (MinMaxShadingCheckBox1.isSelected())
            renderer.setFillMode(ExcitationFillMode.MIN_MAX);
         else
            renderer.setFillMode(ExcitationFillMode.NONE);
