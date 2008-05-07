@@ -70,6 +70,10 @@ public class FileOpenOsimModelAction extends CallableSystemAction {
      * setup was invoked already on the model
      */
     public boolean loadModel(final Model aModel) throws IOException {
+        return loadModel(aModel , false);
+    }
+    
+    public boolean loadModel(final Model aModel, boolean loadInForground) throws IOException {
         boolean retValue = false;
         boolean isOk = aModel.builtOK();
         if (!isOk){
@@ -82,7 +86,12 @@ public class FileOpenOsimModelAction extends CallableSystemAction {
            
         }
         // Make the window
-        SwingUtilities.invokeLater(new Runnable(){
+        if (loadInForground){
+            OpenSimDB.getInstance().addModel(aModel);
+            return true;
+        }
+        else 
+            SwingUtilities.invokeLater(new Runnable(){
             public void run() {
                 OpenSimDB.getInstance().addModel(aModel);
             }});
@@ -107,7 +116,7 @@ public class FileOpenOsimModelAction extends CallableSystemAction {
             return retValue;
         }
         aModel.setup();
-        return loadModel(aModel);
+        return loadModel(aModel, loadInForground);
     }
     
     public String getName() {

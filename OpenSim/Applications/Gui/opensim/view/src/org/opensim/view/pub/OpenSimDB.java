@@ -34,23 +34,30 @@
 
 package org.opensim.view.pub;
 
+import java.io.Externalizable;
+import java.io.File;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Vector;
 import java.util.regex.Pattern;
+import org.openide.DialogDisplayer;
+import org.openide.NotifyDescriptor;
 import org.opensim.modeling.ActuatorSet;
 import org.opensim.modeling.CoordinateSet;
 import org.opensim.modeling.Model;
-import org.opensim.modeling.opensimModelJNI;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.view.*;
+import org.opensim.view.pub.OpenSimDBDescriptor;
 import vtk.vtkMatrix4x4;
 
 /**
  *
- * @author adminxp
+ * @author Ayman
  */
-final public class OpenSimDB extends Observable {
+public class OpenSimDB extends Observable implements Externalizable{
     
     static OpenSimDB instance;
     
@@ -59,7 +66,8 @@ final public class OpenSimDB extends Observable {
     ///static UndoManager undoMgr=new UndoManager();
     
     /** Creates a new instance of OpenSimDB */
-    private OpenSimDB() {
+    public OpenSimDB() {
+        instance = this;
     }
     
     // The setChanged() protected method must overridden to make it public
@@ -260,6 +268,7 @@ final public class OpenSimDB extends Observable {
          }
       }
    }
+   
    /**
     * Common place to validate new object names to make sure
     * They start with a an alphanumeric
@@ -276,4 +285,42 @@ final public class OpenSimDB extends Observable {
         return (p.matcher(proposedName).matches());
 
    }
+
+   /**
+    * This method loads actual models specified in the passed in OpenSimDBDescriptor
+    */
+    public void rebuild(OpenSimDBDescriptor descriptor) {
+        ArrayList<String> files = descriptor.getFileNames();
+        Model saveCurrentModel=null;
+        for(int i=0; i<files.size(); i++){
+            String nextFilename = files.get(i);                
+            File nextFile = new File(nextFilename);
+            if (nextFile.exists()){
+               try {
+                    // Display original model
+                    ((FileOpenOsimModelAction) FileOpenOsimModelAction.findObject(
+                            Class.forName("org.opensim.view.FileOpenOsimModelAction"), true)).loadModel(nextFilename, true);
+                } catch (ClassNotFoundException ex) {
+                    ex.printStackTrace();
+                } catch (IOException ex) {
+                    DialogDisplayer.getDefault().notify(
+                            new NotifyDescriptor.Message("Error opening model file "+nextFilename));
+                };
+                if (i==descriptor.getCurrentModelIndex()){
+                    saveCurrentModel=OpenSimDB.getInstance().getCurrentModel();
+                }
+            }
+        }
+        if (saveCurrentModel!=null)
+            setCurrentModel(saveCurrentModel);
+    }
+
+    public void writeExternal(ObjectOutput out) throws IOException {
+        out.writeObject(new OpenSimDBDescriptor(instance));
+    }
+
+    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+        OpenSimDBDescriptor desc = (OpenSimDBDescriptor)in.readObject();
+        rebuild(desc);
+    }
 }

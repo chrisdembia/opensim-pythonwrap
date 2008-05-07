@@ -25,9 +25,12 @@
  */
 package org.opensim.view;
 
-import java.awt.Frame;
+import java.beans.XMLDecoder;
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.prefs.Preferences;
-import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -36,12 +39,14 @@ import org.openide.util.NbBundle;
 import org.opensim.utils.TheApp;
 import org.opensim.view.base.OpenSimBaseCanvas;
 import org.opensim.view.pub.OpenSimDB;
+import org.opensim.view.pub.OpenSimDBDescriptor;
 import org.opensim.view.pub.ViewDB;
 import org.opensim.view.editors.MuscleEditorTopComponent;
 import javax.swing.JPopupMenu;
-import org.opensim.view.functionEditor.FunctionEditorTopComponent;
 import org.opensim.modeling.opensimModelJNI;
+import org.opensim.utils.ApplicationState;
 import org.opensim.view.actions.ApplicationExit;
+import org.opensim.view.pub.ViewDBDescriptor;
 
 /**
  * Manages a module's lifecycle. Remember that an installer is optional and
@@ -94,6 +99,25 @@ public class Installer extends ModuleInstall {
          * @todo open explorer window, Restore default directory and Bones directories, ..
          */
         restorePrefs();
+        /** Restore from file */
+
+        try {
+            XMLDecoder decoder = new XMLDecoder(new BufferedInputStream(
+                new FileInputStream("AppState.xml")));
+            ApplicationState readState= (ApplicationState)decoder.readObject();
+            OpenSimDB.getInstance().rebuild((OpenSimDBDescriptor) readState.getObject("OpenSimDB"));
+            ViewDB.getInstance().rebuild((ViewDBDescriptor) readState.getObject("ViewDB"));
+            decoder.close();
+        } catch (FileNotFoundException ex) {
+            // First time, no file yet
+           ApplicationState as = ApplicationState.getInstance();
+           as.addObject("OpenSimDB", new OpenSimDBDescriptor(OpenSimDB.getInstance()));
+           //as.addObject("OpenSimDB", OpenSimDB.getInstance());
+           as.addObject("ViewDB", new ViewDBDescriptor(ViewDB.getInstance()));
+            //ex.printStackTrace();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
     /**
      * restorePrefs is primarily used for the first time around where there are no pref values

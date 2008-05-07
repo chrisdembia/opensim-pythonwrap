@@ -37,6 +37,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JRadioButtonMenuItem;
+import javax.swing.SwingUtilities;
 import org.openide.DialogDescriptor;
 import org.openide.DialogDisplayer;
 import org.openide.util.NbBundle;
@@ -45,7 +46,9 @@ import org.openide.windows.TopComponent;
 import org.opensim.utils.FileUtils;
 import org.opensim.utils.TheApp;
 import org.opensim.view.pub.ViewDB;
+import vtk.vtkCamera;
 import vtk.vtkFileOutputWindow;
+import vtk.vtkMatrix4x4;
 
 /**
  * Top component which displays something.
@@ -90,11 +93,13 @@ public class ModelWindowVTKTopComponent extends TopComponent
                         "UnsavedModelNameFormat",
                         new Object[] { new Integer(ct++) }
                 ));
-//        SwingUtilities.invokeLater(new Runnable(){
- //           public void run() {
-                 setName(tabDisplayName);
-//            }});
-
+        if (!SwingUtilities.isEventDispatchThread())
+            SwingUtilities.invokeLater(new Runnable(){
+                public void run() {
+                    setName(tabDisplayName);
+                }});
+        else
+            setName(tabDisplayName);
         // Set preferred directory for the TopComponent (to be used for all saving, loading, ...
         prefs = Preferences.userNodeForPackage(TheApp.class);
         
@@ -651,5 +656,45 @@ public class ModelWindowVTKTopComponent extends TopComponent
         jPlusXViewButton.setSelected(false);
         jMinusXViewButton.setSelected(false);
     }
+    /*
+        Camera.SetOrientation(90);
+        Camera.SetViewAngle(30);
+        Camera.SetFocalPoint(0, 0, 0);
+        Camera.SetViewUp(0, 1, 0);
+        */
+    public double[] getCameraAttributes()
+    {
+        double[] attributes = new double[13];
+        vtkCamera dCamera=getCanvas().GetRenderer().GetActiveCamera();
+        double[] temp = dCamera.GetPosition();
+        for(int i=0; i<3; i++)
+            attributes[i]=temp[i];
+        temp = dCamera.GetFocalPoint();
+        for(int i=0; i<3; i++)
+            attributes[3+i]=temp[i];
+        temp = dCamera.GetViewUp();
+        for(int i=0; i<3; i++)
+            attributes[6+i]=temp[i];
+       temp = dCamera.GetViewPlaneNormal();
+       for(int i=0; i<3; i++)
+            attributes[9+i]=temp[i];
+        attributes[12]=dCamera.GetViewAngle();
+        vtkMatrix4x4 orientation = dCamera.GetViewTransformMatrix(); 
+        return attributes;
+    }
 
+    public void applyCameraAttributes(double[] cameraAttributes) {
+        vtkCamera dCamera=getCanvas().GetRenderer().GetActiveCamera();
+        dCamera.SetPosition(cameraAttributes[0], cameraAttributes[1], cameraAttributes[2]);
+        dCamera.SetFocalPoint(cameraAttributes[3], cameraAttributes[4], cameraAttributes[5]);
+        dCamera.SetViewUp(cameraAttributes[6], cameraAttributes[7], cameraAttributes[8]);
+        dCamera.SetViewPlaneNormal(cameraAttributes[9], cameraAttributes[10], cameraAttributes[11]);
+        dCamera.SetViewAngle(cameraAttributes[12]);
+        dCamera.Modified();
+        getCanvas().GetRenderer().ResetCameraClippingRange();
+        //vtkLightCollection lights = getCanvas().GetRenderer().GetLights();
+        //lights.RemoveAllItems();
+        //getCanvas().GetRenderer().CreateLight();
+
+    }
 }

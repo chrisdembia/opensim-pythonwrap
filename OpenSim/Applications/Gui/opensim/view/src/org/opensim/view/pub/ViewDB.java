@@ -253,7 +253,6 @@ public final class ViewDB extends Observable implements Observer {
                SingleModelGuiElements newModelGuiElements = new SingleModelGuiElements(model);
                processSavedSettings(model);
                mapModelsToGuiElements.put(model, newModelGuiElements);
-
                
                createNewViewWindowIfNeeded();
                // Create visuals for the model
@@ -262,7 +261,7 @@ public final class ViewDB extends Observable implements Observer {
                // thru tree picks
                mapModelsToVisuals.put(model, newModelVisual);
                modelOpacities.put(model, 1.0);
-               //From here on we're adding things to display so we better lock'
+               //From here on we're adding things to display so we better lock
                
                if (sceneAssembly==null){
                   createScene();
@@ -406,7 +405,7 @@ public final class ViewDB extends Observable implements Observer {
     */
    public void addViewWindow() {
       // Create the window
-      ModelWindowVTKTopComponent win = new ModelWindowVTKTopComponent();
+      final ModelWindowVTKTopComponent win = new ModelWindowVTKTopComponent();
       // Fix name
       int ct=0;
       while(!ViewDB.getInstance().checkValidViewName(win.getDisplayName(), win)){
@@ -420,13 +419,27 @@ public final class ViewDB extends Observable implements Observer {
           vtkCamera lastCamera=currentModelWindow.getCanvas().GetRenderer().GetActiveCamera();
           win.getCanvas().applyOrientation(lastCamera);
       }
-      win.open();
-      win.requestActive();
-      setCurrentModelWindow(win);
-      // Open it and make it active
-      openWindows.add(win);
-      win.getCanvas().GetRenderer().AddViewProp(sceneAssembly);
-      repaintAll();
+      if (SwingUtilities.isEventDispatchThread()){
+          win.open();
+          win.requestActive();
+          setCurrentModelWindow(win);
+          // Open it and make it active
+          openWindows.add(win);
+          win.getCanvas().GetRenderer().AddViewProp(sceneAssembly);
+          repaintAll();
+      }
+      else {
+          SwingUtilities.invokeLater(new Runnable(){
+                public void run() {
+                  win.open();
+                  win.requestActive();
+                  setCurrentModelWindow(win);
+                  // Open it and make it active
+                  openWindows.add(win);
+                  win.getCanvas().GetRenderer().AddViewProp(sceneAssembly);
+                  repaintAll();
+                }});
+      }
       // If the user manually added a new view, we won't need to automatically create a new one when model is loaded.
       openModelInNewWindow=false;
    }
@@ -453,16 +466,22 @@ public final class ViewDB extends Observable implements Observer {
    private void createNewViewWindowIfNeeded() {
       if (openModelInNewWindow){
          final ModelWindowVTKTopComponent win = new ModelWindowVTKTopComponent();
-         win.requestActive();
+         boolean evt = SwingUtilities.isEventDispatchThread();
          openWindows.add(win);
          openModelInNewWindow=false;
          setCurrentModelWindow(win);
          // open window later rather than now to avoid having a rectangular blank patch appearing over the GUI while
          // the model is loading and the scene is set up
-         SwingUtilities.invokeLater(new Runnable(){
-            public void run(){
-               win.open();
-            }});
+         if (SwingUtilities.isEventDispatchThread()){
+             win.requestActive();
+             win.open();
+         }
+         else 
+            SwingUtilities.invokeLater(new Runnable(){ // Should change to WindowManager.getDefault().invokeWhenUIReady if/when we upgrade NB
+                public void run(){
+                 win.open();
+                 win.requestActive();
+                }});
       }
    }
    /**
@@ -1264,5 +1283,32 @@ public final class ViewDB extends Observable implements Observer {
 
     public void setMarkerDisplayRadius(double markerDisplayRadius) {
         this.markerDisplayRadius = markerDisplayRadius;
+    }
+    
+    public Object[] getOpenWindows() {
+        return openWindows.toArray();
+    }
+
+    public void rebuild(ViewDBDescriptor desc) {
+        // Create a new window per view and give it the specified name
+        int v=getInstance().getModelVisuals().size();
+        Object w=getInstance().getCurrentModelWindow();
+        int restoredNumViews = desc.getViewNames().size();
+        if (restoredNumViews==0){
+            ViewDB.getInstance().removeWindow(getInstance().getCurrentModelWindow());   // Could return here or try to salvage cameras and offsets.
+            return;
+        }
+        for(int viewnum=0; viewnum<restoredNumViews; viewnum++){   // Reuse window we create by default for first model
+            if (viewnum >0)
+                getInstance().addViewWindow();
+            final ModelWindowVTKTopComponent win = getInstance().getCurrentModelWindow();
+            win.applyCameraAttributes(desc.getCameraAttributes().get(viewnum));
+            final String nm = desc.getViewNames().get(viewnum);
+            SwingUtilities.invokeLater(new Runnable(){
+                public void run() {
+                    win.setTabDisplayName(nm);
+                }});
+        }
+        
     }
 }
