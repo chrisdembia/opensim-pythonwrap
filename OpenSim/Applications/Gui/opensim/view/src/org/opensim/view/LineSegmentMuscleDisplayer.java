@@ -263,8 +263,14 @@ public class LineSegmentMuscleDisplayer {
         oldXCrossNewY[0] = 0.0;
         oldXCrossNewY[1] = -normalizedAxis[2];
         oldXCrossNewY[2] = normalizedAxis[1];
-        
-        normalizeAndGetLength(oldXCrossNewY);
+         
+        double newZLength=normalizeAndGetLength(oldXCrossNewY);
+        if (newZLength<1e-5){
+            // use oldZ instead of oldX
+            oldXCrossNewY[0]=normalizedAxis[1];
+            oldXCrossNewY[1]=-normalizedAxis[0];
+            oldXCrossNewY[2]=0.0;
+        }
         for (int i=0; i < 3; i++){
             retTransformVector[i*4+ 2]= oldXCrossNewY[i];
         }
