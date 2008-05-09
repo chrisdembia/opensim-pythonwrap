@@ -156,4 +156,8 @@ public class FileOpenOsimModelAction extends CallableSystemAction {
         
     }
 
+    void openModelFile(String string) throws IOException {
+        loadModel(string);
+    }
+
 }

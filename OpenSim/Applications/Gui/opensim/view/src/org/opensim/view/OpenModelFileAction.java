@@ -27,6 +27,7 @@ package org.opensim.view;
 
 import java.awt.event.ActionEvent;
 import java.io.File;
+import java.io.IOException;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 
@@ -45,11 +46,14 @@ class OpenModelFileAction extends AbstractAction
     public void actionPerformed(ActionEvent e) {
         try {
             FileOpenOsimModelAction act = (FileOpenOsimModelAction) FileOpenOsimModelAction.findObject(
-                            Class.forName("org.opensim.view.FileOpenOsimModelAction"), true);     
+                            Class.forName("org.opensim.view.FileOpenOsimModelAction"), true);
             act.openModelFile(dFile.getAbsolutePath());
         } catch (ClassNotFoundException ex) {
             ex.printStackTrace();
-        }            
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+            
     }
     
 }

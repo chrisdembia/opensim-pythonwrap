@@ -68,7 +68,7 @@ public class ViewDBDescriptor implements Serializable {
         // Save model offsets
         ArrayList<SingleModelVisuals> visuals = viewDB.getModelVisuals();
         vtkMatrix4x4 offset;
-        double[] zeroPoint = new double[]{0., 0., 0.};
+        double[] zeroPoint = new double[]{0., 0., 0., 1.};
         for(int i=0; i<visuals.size(); i++){
             offset= ViewDB.getInstance().getModelVisualsTransform(visuals.get(i));
             double[] xlation=offset.MultiplyPoint(zeroPoint);

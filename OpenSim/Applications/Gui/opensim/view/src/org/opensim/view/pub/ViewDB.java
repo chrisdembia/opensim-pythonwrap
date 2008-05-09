@@ -404,17 +404,26 @@ public final class ViewDB extends Observable implements Observer {
     * This executes in the Swing thread.
     */
    public void addViewWindow() {
+       addViewWindow(null);
+   }
+   
+   public ModelWindowVTKTopComponent addViewWindow(String desiredName) {
       // Create the window
       final ModelWindowVTKTopComponent win = new ModelWindowVTKTopComponent();
       // Fix name
-      int ct=0;
-      while(!ViewDB.getInstance().checkValidViewName(win.getDisplayName(), win)){
-         win.setTabDisplayName(NbBundle.getMessage(
-                 ModelWindowVTKTopComponent.class,
-                 "UnsavedModelNameFormat",
-                 new Object[] { new Integer(ct++) }
-         ));
-      };
+      if (desiredName==null){
+          int ct=0;
+          while(!ViewDB.getInstance().checkValidViewName(win.getDisplayName(), win)){
+             win.setTabDisplayName(NbBundle.getMessage(
+                     ModelWindowVTKTopComponent.class,
+                     "UnsavedModelNameFormat",
+                     new Object[] { new Integer(ct++) }
+             ));
+          };
+      }
+      else
+          win.setTabDisplayName(desiredName);
+      
       if (currentModelWindow!=null){    // Copy camera from 
           vtkCamera lastCamera=currentModelWindow.getCanvas().GetRenderer().GetActiveCamera();
           win.getCanvas().applyOrientation(lastCamera);
@@ -442,6 +451,7 @@ public final class ViewDB extends Observable implements Observer {
       }
       // If the user manually added a new view, we won't need to automatically create a new one when model is loaded.
       openModelInNewWindow=false;
+      return win;
    }
    /**
     * Helper function to implement model hide/show.
@@ -1291,24 +1301,33 @@ public final class ViewDB extends Observable implements Observer {
 
     public void rebuild(ViewDBDescriptor desc) {
         // Create a new window per view and give it the specified name
-        int v=getInstance().getModelVisuals().size();
-        Object w=getInstance().getCurrentModelWindow();
         int restoredNumViews = desc.getViewNames().size();
         if (restoredNumViews==0){
             ViewDB.getInstance().removeWindow(getInstance().getCurrentModelWindow());   // Could return here or try to salvage cameras and offsets.
             return;
         }
         for(int viewnum=0; viewnum<restoredNumViews; viewnum++){   // Reuse window we create by default for first model
-            if (viewnum >0)
-                getInstance().addViewWindow();
-            final ModelWindowVTKTopComponent win = getInstance().getCurrentModelWindow();
-            win.applyCameraAttributes(desc.getCameraAttributes().get(viewnum));
             final String nm = desc.getViewNames().get(viewnum);
-            SwingUtilities.invokeLater(new Runnable(){
+            if (viewnum >0){
+                ModelWindowVTKTopComponent win = getInstance().addViewWindow(nm);
+                win.applyCameraAttributes(desc.getCameraAttributes().get(viewnum));
+            }
+            else {  // We'll justrename existing view'
+                final ModelWindowVTKTopComponent win = getInstance().getCurrentModelWindow();
+                win.applyCameraAttributes(desc.getCameraAttributes().get(viewnum));
+                SwingUtilities.invokeLater(new Runnable(){
                 public void run() {
                     win.setTabDisplayName(nm);
                 }});
+            }           
         }
         
+        for(int i=0; i<desc.getOffsetsList().size();i++){
+            vtkMatrix4x4 m = new vtkMatrix4x4();
+            double[] savedOffset = desc.getOffsetsList().get(i);
+            for(int j=0; j<3; j++)  m.SetElement(j, 3, savedOffset[j]);
+            ViewDB.getInstance().setModelVisualsTransform(modelVisuals.get(i), m);
+        }
+        repaintAll();
     }
 }

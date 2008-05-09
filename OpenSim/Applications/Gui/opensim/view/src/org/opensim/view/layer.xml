@@ -3,6 +3,7 @@
 <filesystem>
     <folder name="Actions">
         <folder name="Edit">
+            <file name="org-opensim-view-FileLoadStandardModelsAction.instance"/>
             <file name="org-opensim-view-ModelDisplayEditAction.instance"/>
             <file name="org-opensim-view-ModelDisplayHideAction.instance"/>
             <file name="org-opensim-view-ModelDisplayShowAction.instance"/>
@@ -114,11 +115,16 @@
             </file>
             <attr name="org-opensim-view-separator2.instance/org-netbeans-core-actions-SystemExit.instance" boolvalue="true"/>
             <attr name="org-opensim-view-editors-EditMusclesAction.shadow/org-opensim-view-editors-separatorAfter.instance" boolvalue="true"/>
-
             <file name="org-opensim-view-editors-separatorAfter.instance">
                 <attr name="instanceClass" stringvalue="javax.swing.JSeparator"/>
             </file>
+
             <attr name="org-opensim-view-editors-separatorAfter.instance/Separator2.instance" boolvalue="true"/>
+            <attr name="org-opensim-view-editors-separatorAfter.instance/org-opensim-view-FileLoadBuiltinModelsAction.shadow" boolvalue="true"/>
+            <file name="org-opensim-view-FileLoadBuiltinModelsAction.shadow">
+                <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-FileLoadStandardModelsAction.instance"/>
+            </file>
+            <attr name="org-opensim-view-FileLoadBuiltinModelsAction.shadow/Separator2.instance" boolvalue="true"/>
             <file name="org-openide-actions-PageSetupAction.instance_hidden"/>
             <file name="org-openide-actions-PrintAction.instance_hidden"/>
             <file name="org-openide-actions-SaveAction.instance_hidden"/>
