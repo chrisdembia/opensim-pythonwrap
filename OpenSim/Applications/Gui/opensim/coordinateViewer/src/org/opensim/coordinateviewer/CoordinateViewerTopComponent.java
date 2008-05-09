@@ -570,4 +570,28 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
       }
    }
 
+    void rebuild(CoordinateViewerDescriptor mDesc) {
+        // Apply poses to all models
+        Object[] models = OpenSimDB.getInstance().getAllModels();
+        for (int i=0; i< models.length; i++){
+            Model mdl = (Model) models[i];
+            ModelPose pose = mDesc.getPoses().get(i);
+            applyPoseToModel(mdl, pose);
+        }
+    }
+
+    private void applyPoseToModel(Model mdl, ModelPose pose) {
+        Vector<String> coordinateNames=pose.getCoordinateNames();
+        Vector coordinateValues=pose.getCoordinateValues();
+        for(int i=0;i<coordinateNames.size();i++){
+            // Values in file
+            String name=coordinateNames.get(i);
+            double storedValue = (Double)coordinateValues.get(i);
+            
+            AbstractCoordinate coord=mdl.getDynamicsEngine().getCoordinateSet().get(name);
+            if (coord !=null){
+                coord.setValue(storedValue);
+            }
+        }
+    }
 }

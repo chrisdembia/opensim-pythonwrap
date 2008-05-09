@@ -30,13 +30,8 @@
 
 package org.opensim.utils;
 
-import java.io.Externalizable;
-import java.io.IOException;
-import java.io.ObjectInput;
-import java.io.ObjectOutput;
+import java.io.Serializable;
 import java.util.Hashtable;
-import java.util.Iterator;
-import java.util.Set;
 
 /**
  *
@@ -51,7 +46,7 @@ import java.util.Set;
  *  If we use Externalizable instead of Serializable we'll have to convert objects to use JavaBeans convention
  * for setters/getters.
  */
-public class ApplicationState implements Externalizable {
+public class ApplicationState implements Serializable {
     
     static ApplicationState instance=null;
     
@@ -76,17 +71,6 @@ public class ApplicationState implements Externalizable {
     
     public Object getObject(String key){
         return getStateObjects().get(key);
-    }
-
-    public void writeExternal(ObjectOutput out) throws IOException {
-        Set<String> keys = getStateObjects().keySet();
-        Iterator<String> keyIterator = keys.iterator();
-        out.writeLong(getSerialVersionUID());
-    }
-    
-    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-        long rv = in.readLong();
-        boolean sameVersion = (rv==getSerialVersionUID());
     }
 
     public Hashtable<String, Object> getStateObjects() {
