@@ -37,6 +37,7 @@
             <file name="org-opensim-view-editors-EditMusclesAction.instance"/>
             <file name="org-opensim-view-editors-ObjectPropertiesEditor.instance"/>
             <file name="org-opensim-view-excitationEditor-ExcitationEditorAction.instance"/>
+            <file name="org-opensim-view-markerEditor-EditMarkersAction.instance"/>
             <file name="org-opensim-view-nodes-EditFromNodeAction.instance"/>
             <file name="org-opensim-view-nodes-IsolateCurrentModelAction.instance"/>
             <file name="org-opensim-view-nodes-ModelCloseSelectedAction.instance"/>
@@ -50,7 +51,8 @@
             <file name="org-netbeans-core-actions-ViewRuntimeTabAction.instance_hidden"/>
             <file name="org-opensim-view-ExplorerAction.instance"/>
             <file name="org-opensim-view-editors-MuscleEditorAction.instance"/>
-            </folder>
+            <file name="org-opensim-view-markerEditor-MarkerEditorAction.instance"/>
+        </folder>
     </folder>
     <file name="HTMLPalette_hidden"/>
     <file name="HTTPServer_DUMMY_hidden"/>
@@ -137,13 +139,18 @@
             <file name="org-opensim-view-editors-EditMusclesAction.shadow" url="org-opensim-view-editors-EditMusclesAction.shadow">
                 <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-editors-EditMusclesAction.instance"/>
             </file>
-            <attr name="org-opensim-view-editors-EditMusclesAction.shadow/org-opensim-view-excitationEditor-ExcitationEditorAction.shadow" boolvalue="true"/>
+            <attr name="org-opensim-view-excitationEditor-ExcitationEditorAction.shadow/org-opensim-view-excitationEditor-ExcitationEditorAction.shadow" boolvalue="true"/>
             <file name="org-opensim-view-excitationEditor-ExcitationEditorAction.shadow">
                 <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-excitationEditor-ExcitationEditorAction.instance"/>
             </file>
             <attr name="org-opensim-view-excitationEditor-ExcitationEditorAction.shadow/Separator2.instance" boolvalue="true"/>
+            <attr name="org-opensim-view-markerEditor-EditMarkersAction.shadow/org-opensim-view-markerEditor-EditMarkersAction.shadow" boolvalue="true"/>
+            <file name="org-opensim-view-markerEditor-EditMarkersAction.shadow">
+                <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-markerEditor-EditMarkersAction.instance"/>
+            </file>
+            <attr name="org-opensim-view-markerEditor-EditMarkersAction.shadow/Separator2.instance" boolvalue="true"/>
             <attr name="org-opensim-view-editors-EditMusclesAction.shadow/Separator2.instance" boolvalue="true"/>
-            <attr name="org-opensim-view-excitationEditor-ExcitationEditorAction.shadow/org-opensim-view-editors-ObjectPropertiesEditor.shadow" boolvalue="true"/>
+            <attr name="org-opensim-view-editors-ObjectPropertiesEditor.shadow/org-opensim-view-editors-ObjectPropertiesEditor.shadow" boolvalue="true"/>
             <attr name="Separator2.instance/org-opensim-view-editors-ObjectPropertiesEditor.shadow" boolvalue="true"/>
             <file name="org-opensim-view-editors-ObjectPropertiesEditor.shadow">
                 <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-editors-ObjectPropertiesEditor.instance"/>
@@ -269,6 +276,7 @@
     <folder name="Windows2">
         <folder name="Components">
             <file name="ExplorerTopComponent.settings" url="ExplorerTopComponentSettings.xml"/>
+            <file name="MarkerEditorTopComponent.settings" url="MarkerEditorTopComponentSettings.xml"/>
             <file name="MuscleEditorTopComponent.settings" url="editors/MuscleEditorTopComponentSettings.xml"/>
         </folder>
         <folder name="Modes">
@@ -279,6 +287,7 @@
                 <file name="ExplorerTopComponent.wstcref" url="ExplorerTopComponentWstcref.xml"/>
             </folder>
             <folder name="osimEditorsMode">
+                <file name="MarkerEditorTopComponent.wstcref" url="MarkerEditorTopComponentWstcref.xml"/>
                 <file name="MuscleEditorTopComponent.wstcref" url="editors/MuscleEditorTopComponentWstcref.xml"/>
             </folder>
             <file name="properties.wsmode_hidden"/>

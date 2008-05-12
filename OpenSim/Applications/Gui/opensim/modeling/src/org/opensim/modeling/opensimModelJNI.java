@@ -2164,11 +2164,13 @@ public class opensimModelJNI {
   public final static native int ArrayPtrsObj_searchBinary__SWIG_3(long jarg1, ArrayPtrsObj jarg1_, long jarg2, OpenSimObject jarg2_);
   public final static native void delete_AbstractMarker(long jarg1);
   public final static native long AbstractMarker_copy__SWIG_0(long jarg1, AbstractMarker jarg1_);
+  public final static native void AbstractMarker_deleteMarker(long jarg1, AbstractMarker jarg1_);
   public final static native void AbstractMarker_updateFromMarker(long jarg1, AbstractMarker jarg1_, long jarg2, AbstractMarker jarg2_);
   public final static native void AbstractMarker_getOffset__SWIG_0(long jarg1, AbstractMarker jarg1_, long jarg2);
   public final static native long AbstractMarker_getOffset__SWIG_1(long jarg1, AbstractMarker jarg1_);
   public final static native void AbstractMarker_getOffset__SWIG_2(long jarg1, AbstractMarker jarg1_, double[] jarg2);
-  public final static native boolean AbstractMarker_setOffset(long jarg1, AbstractMarker jarg1_, long jarg2);
+  public final static native boolean AbstractMarker_setOffset__SWIG_0(long jarg1, AbstractMarker jarg1_, long jarg2);
+  public final static native boolean AbstractMarker_setOffset__SWIG_1(long jarg1, AbstractMarker jarg1_, double[] jarg2);
   public final static native boolean AbstractMarker_getOffsetUseDefault(long jarg1, AbstractMarker jarg1_);
   public final static native boolean AbstractMarker_getFixed(long jarg1, AbstractMarker jarg1_);
   public final static native boolean AbstractMarker_setFixed(long jarg1, AbstractMarker jarg1_, boolean jarg2);
@@ -2178,7 +2180,7 @@ public class opensimModelJNI {
   public final static native boolean AbstractMarker_getBodyNameUseDefault(long jarg1, AbstractMarker jarg1_);
   public final static native boolean AbstractMarker_setBodyNameUseDefault(long jarg1, AbstractMarker jarg1_, boolean jarg2);
   public final static native long AbstractMarker_getBody(long jarg1, AbstractMarker jarg1_);
-  public final static native void AbstractMarker_setBody(long jarg1, AbstractMarker jarg1_, long jarg2, AbstractBody jarg2_);
+  public final static native void AbstractMarker_setBody(long jarg1, AbstractMarker jarg1_, long jarg2, AbstractBody jarg2_, boolean jarg3);
   public final static native void AbstractMarker_scale(long jarg1, AbstractMarker jarg1_, long jarg2);
   public final static native void AbstractMarker_setup(long jarg1, AbstractMarker jarg1_, long jarg2, AbstractDynamicsEngine jarg2_);
   public final static native void AbstractMarker_removeSelfFromDisplay(long jarg1, AbstractMarker jarg1_);

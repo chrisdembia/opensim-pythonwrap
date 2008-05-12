@@ -150,26 +150,6 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       setupComponent(null);
    }
 
-   private void backupAllActuators() {
-      // Delete any existing actuator backups, and clear the savedActs hash table.
-      Iterator<AbstractActuator> actIter = savedActs.values().iterator();
-      while(actIter.hasNext())
-         AbstractActuator.deleteActuator(actIter.next());
-      savedActs.clear();
-
-      pendingChanges.clear();
-
-      // Make a backup of each actuator in the current model and add it to the savedActs hash table.
-      if (currentModel != null) {
-         ActuatorSet actuators = currentModel.getActuatorSet();
-         for (int i=0; i<actuators.getSize(); i++) {
-            AbstractActuator savedAct = AbstractActuator.safeDownCast(actuators.get(i).copy());
-            savedActs.put(actuators.get(i), savedAct);
-            pendingChanges.put(actuators.get(i), false);
-         }
-      }
-   }
-
    private void updateBackupRestoreButtons() {
       if (currentAct != null) {
          boolean state = pendingChanges.get(currentAct);
@@ -477,7 +457,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
    // changed, so only the muscle editor needs to be updated.
    private void updateActuatorName(AbstractActuator act) {
       SingleModelGuiElements guiElem = ViewDB.getInstance().getModelGuiElements(currentModel);
-      String [] actNames = guiElem.getActuatorNames(true);
+      String [] actNames = guiElem.getActuatorNames();
       MuscleComboBox.setModel(new javax.swing.DefaultComboBoxModel(actNames));
       if (currentAct != null) {
          MuscleComboBox.setSelectedIndex(findElement(actNames, currentAct.getName()));
@@ -506,6 +486,10 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       savedActs.put(currentAct, savedAct);
    }
 
+   /* This is called when the user clicks on the "Backup All" button.
+    * It backs up only the actuators that have been modified since they
+    * were last backed up.
+    */
    private void backupActuators() {
       // Should never be null, but just in case...
        if (currentModel == null)
@@ -523,6 +507,30 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       }
 
       setAllPendingChanges(false);
+   }
+
+   /* This is called when the current model is closed or switched. It deletes
+    * all backed up actuators, and then if there is a current model, it makes a
+    * new set of backups for that model.
+    */
+   private void backupAllActuators() {
+      // Delete any existing actuator backups, and clear the savedActs hash table.
+      Iterator<AbstractActuator> actIter = savedActs.values().iterator();
+      while(actIter.hasNext())
+         AbstractActuator.deleteActuator(actIter.next());
+      savedActs.clear();
+
+      pendingChanges.clear();
+
+      // Make a backup of each actuator in the current model and add it to the savedActs hash table.
+      if (currentModel != null) {
+         ActuatorSet actuators = currentModel.getActuatorSet();
+         for (int i=0; i<actuators.getSize(); i++) {
+            AbstractActuator savedAct = AbstractActuator.safeDownCast(actuators.get(i).copy());
+            savedActs.put(actuators.get(i), savedAct);
+            pendingChanges.put(actuators.get(i), false);
+         }
+      }
    }
 
    /** restoreActuator
@@ -2181,7 +2189,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
          ModelNameLabel.setText("Model: " + currentModel.getName());
          if (currentModel.getActuatorSet().getSize() > 0) {
             MuscleComboBox.setEnabled(true);
-            MuscleComboBox.setModel(new javax.swing.DefaultComboBoxModel(guiElem.getActuatorNames(true)));
+            MuscleComboBox.setModel(new javax.swing.DefaultComboBoxModel(guiElem.getActuatorNames()));
          } else {
             MuscleComboBox.setEnabled(false);
          }
@@ -2215,7 +2223,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
          //MuscleTypeComboBox.setEnabled(true);
          BackupButton.setEnabled(true);
          BackupAllButton.setEnabled(true);
-         MuscleComboBox.setSelectedIndex(findElement(guiElem.getActuatorNames(true), currentAct.getName()));
+         MuscleComboBox.setSelectedIndex(findElement(guiElem.getActuatorNames(), currentAct.getName()));
       }
       
       //MuscleTypeComboBox.setModel(new javax.swing.DefaultComboBoxModel(guiElem.getActuatorClassNames()));

@@ -41429,6 +41429,17 @@ SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractMarke
 }
 
 
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractMarker_1deleteMarker(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  OpenSim::AbstractMarker *arg1 = (OpenSim::AbstractMarker *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::AbstractMarker **)&jarg1; 
+  OpenSim::AbstractMarker::deleteMarker(arg1);
+}
+
+
 SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractMarker_1updateFromMarker(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
   OpenSim::AbstractMarker *arg1 = (OpenSim::AbstractMarker *) 0 ;
   OpenSim::AbstractMarker *arg2 = 0 ;
@@ -41498,7 +41509,7 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractMarker
 }
 
 
-SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractMarker_1setOffset(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractMarker_1setOffset_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   jboolean jresult = 0 ;
   OpenSim::AbstractMarker *arg1 = (OpenSim::AbstractMarker *) 0 ;
   SimTK::Vec3 *arg2 = 0 ;
@@ -41515,6 +41526,30 @@ SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractMa
   } 
   result = (bool)(arg1)->setOffset((SimTK::Vec3 const &)*arg2);
   jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractMarker_1setOffset_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdoubleArray jarg2) {
+  jboolean jresult = 0 ;
+  OpenSim::AbstractMarker *arg1 = (OpenSim::AbstractMarker *) 0 ;
+  double *arg2 ;
+  bool result;
+  jdouble *jarr2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::AbstractMarker **)&jarg1; 
+  if (jarg2 && jenv->GetArrayLength(jarg2) != 3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+    return 0;
+  }
+  if (!SWIG_JavaArrayInDouble(jenv, &jarr2, &arg2, jarg2)) return 0; 
+  result = (bool)(arg1)->setOffset((double const (*))arg2);
+  jresult = (jboolean)result; 
+  SWIG_JavaArrayArgoutDouble(jenv, jarr2, arg2, jarg2); 
+  delete [] arg2; 
   return jresult;
 }
 
@@ -41668,17 +41703,23 @@ SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractMarke
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractMarker_1setBody(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractMarker_1setBody(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jboolean jarg3) {
   OpenSim::AbstractMarker *arg1 = (OpenSim::AbstractMarker *) 0 ;
-  OpenSim::AbstractBody *arg2 = (OpenSim::AbstractBody *) 0 ;
+  OpenSim::AbstractBody *arg2 = 0 ;
+  bool arg3 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
   arg1 = *(OpenSim::AbstractMarker **)&jarg1; 
-  arg2 = *(OpenSim::AbstractBody **)&jarg2; 
-  (arg1)->setBody(arg2);
+  arg2 = *(OpenSim::AbstractBody **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::AbstractBody & reference is null");
+    return ;
+  } 
+  arg3 = jarg3 ? true : false; 
+  (arg1)->setBody(*arg2,arg3);
 }
 
 

@@ -54,8 +54,11 @@ import javax.swing.event.EventListenerList;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.annotations.XYTextAnnotation;
+import org.jfree.chart.axis.Axis;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.axis.ValueAxis;
+import org.jfree.chart.event.AxisChangeEvent;
+import org.jfree.chart.event.AxisChangeListener;
 import org.jfree.chart.labels.StandardXYToolTipGenerator;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
@@ -106,7 +109,22 @@ public class FunctionPanel extends ChartPanel
    public static final String DELETE_NODE_COMMAND = "DELETE_NODE";
    public static final String ADD_NODE_COMMAND = "ADD_NODE";
    protected EventListenerList functionPanelListeners;
-
+/*
+   class EnforceExcitationRange implements AxisChangeListener {
+      public void axisChanged(AxisChangeEvent event) {
+         if (zero_to_one_checkbox is checked) {
+            Axis axis = event.getAxis();
+            if (axis instanceof ValueAxis) {
+               ValueAxis va = (ValueAxis)axis;
+               if (va.isAutoRange()) {
+                  va.setAutoRange(false);
+                  va.setRangeWithMargins(0.0, 1.0);
+               }
+            }
+         }
+      }
+   }
+*/
    /** Creates a new instance of FunctionPanel */
    public FunctionPanel(JFreeChart chart) {
       super(chart);
@@ -123,6 +141,9 @@ public class FunctionPanel extends ChartPanel
       // Make sure the X and Y ranges are not zero, which messes up the display
       chart.getXYPlot().getDomainAxis().setAutoRangeMinimumSize(0.000001);
       chart.getXYPlot().getRangeAxis().setAutoRangeMinimumSize(0.000001);
+      //chart.getXYPlot().getRangeAxis().setAutoRange(false);
+      //chart.getXYPlot().getRangeAxis().setRangeWithMargins(0.0, 1.0);
+      //chart.getXYPlot().getRangeAxis().addChangeListener(new EnforceExcitationRange());
    }
 
    public void updateCursorLocation(MouseEvent e) {

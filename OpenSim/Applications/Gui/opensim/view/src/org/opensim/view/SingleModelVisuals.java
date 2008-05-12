@@ -47,6 +47,7 @@ import org.opensim.modeling.ActuatorSet;
 import org.opensim.modeling.AnalyticGeometry;
 import org.opensim.modeling.BodySet;
 import org.opensim.modeling.Geometry;
+import org.opensim.modeling.MarkerSet;
 import org.opensim.modeling.MusclePoint;
 import org.opensim.modeling.MuscleViaPoint;
 import org.opensim.modeling.OpenSimObject;
@@ -324,16 +325,10 @@ public class SingleModelVisuals {
      */
    public void updateModelDisplay(Model model) {
       // Cycle thru bodies and update their transforms from the kinematics engine
-        double[] pos = new double[3];
-        double[] gPos = new double[3];
-        double[] origin = {0.0, 0.0, 0.0};
-        double[] gOrigin = new double[3];
         BodySet bodies = model.getDynamicsEngine().getBodySet();
         for(int bodyNum=0; bodyNum<bodies.getSize();  bodyNum++){
 
             AbstractBody body = bodies.get(bodyNum);
-
-            model.getDynamicsEngine().transformPosition(body, origin, gOrigin);
 
             // Fill the maps between objects and display to support picking, highlighting, etc..
             // The reverse map takes an actor to an Object and is filled as actors are created.
@@ -349,17 +344,7 @@ public class SingleModelVisuals {
                 OpenSimObject owner = dependent.getOwner();
 
                 if (AbstractMarker.safeDownCast(owner)!=null){
-                    // Convert marker pos to global pos, and update the marker's glyph location
-                    dependent.getTransform().getPosition(pos);
-                    model.getDynamicsEngine().transformPosition(body, pos, gPos);
-                    int index = (mapMarkers2Glyphs.get(owner)).intValue();
-                    getMarkersRep().setLocation(index, gPos);
-                    vtkLineSource markerLine = mapMarkers2Lines.get(owner);
-                    markerLine.SetPoint1(gOrigin);
-                    if (ViewDB.getInstance().getDisplayStatus(owner) == 0)
-                       markerLine.SetPoint2(gOrigin);
-                    else
-                       markerLine.SetPoint2(gPos);
+                   // Markers are handled in updateMarkersGeometry
                 } else if (MusclePoint.safeDownCast(owner)!=null||
                         MuscleViaPoint.safeDownCast(owner)!=null){
                    // Muscle points are handled in updateActuatorsGeometry
@@ -372,9 +357,36 @@ public class SingleModelVisuals {
             }
         }
        
-        getMarkersRep().setModified();
+        updateMarkersGeometry(model.getDynamicsEngine().getMarkerSet());
         updateActuatorsGeometry(model);
         updateUserObjects();
+   }
+
+   private void updateMarkersGeometry(MarkerSet markers) {
+      for (int i=0; i<markers.getSize(); i++)
+         updateMarkerGeometry(markers.get(i));
+   }
+
+   public void updateMarkerGeometry(AbstractMarker marker) {
+      // Convert marker offset to global offset, and update the marker's glyph
+      // location and the line to its parent body.
+      double[] offset = new double[3];
+      double[] gOffset = new double[3];
+      double[] origin = {0.0, 0.0, 0.0};
+      double[] gOrigin = new double[3];
+      int index = mapMarkers2Glyphs.get(marker).intValue();
+      AbstractDynamicsEngine de = marker.getBody().getDynamicsEngine();
+      marker.getOffset(offset);
+      de.transformPosition(marker.getBody(), offset, gOffset);
+      de.transformPosition(marker.getBody(), origin, gOrigin);
+      getMarkersRep().setLocation(index, gOffset);
+      vtkLineSource markerLine = mapMarkers2Lines.get(marker);
+      markerLine.SetPoint1(gOrigin);
+      if (ViewDB.getInstance().getDisplayStatus(marker) == 0)
+         markerLine.SetPoint2(gOrigin);
+      else
+         markerLine.SetPoint2(gOffset);
+      getMarkersRep().setModified();
    }
 
    /**

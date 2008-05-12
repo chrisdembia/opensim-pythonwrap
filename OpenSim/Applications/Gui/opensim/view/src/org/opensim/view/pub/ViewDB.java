@@ -339,11 +339,18 @@ public final class ViewDB extends Observable implements Observer {
             }
            
          } else if (arg instanceof NameChangedEvent){
-
             NameChangedEvent ev = (NameChangedEvent)arg;
             // The name change might be for one of the selected objects
             statusDisplaySelectedObjects();
             repaintAll();
+            // if an actuator changed names, update the list of names in the model gui elements
+            if (ev.getObject() instanceof AbstractActuator) {
+               AbstractActuator act = (AbstractActuator)ev.getObject();
+               getModelGuiElements(act.getModel()).updateActuatorNames();
+            } else if (ev.getObject() instanceof AbstractMarker) {
+               AbstractMarker marker = (AbstractMarker)ev.getObject();
+               getModelGuiElements(marker.getBody().getDynamicsEngine().getModel()).updateMarkerNames();
+            }
          }
       }
    }

@@ -44,6 +44,7 @@ import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.BodySet;
 import org.opensim.modeling.CoordinateSet;
+import org.opensim.modeling.MarkerSet;
 import org.opensim.modeling.ObjectGroup;
 
 /**
@@ -58,6 +59,7 @@ public class SingleModelGuiElements {
     private String[] coordinateNames=null;
     private String[] actuatorClassNames=null;
     private String[] actuatorNames=null;
+    private String[] markerNames=null;
 
     private boolean unsavedChanges = false;
     // Not a semaphore, just a flag to disallow the closing (and possibly editing)
@@ -203,6 +205,29 @@ public class SingleModelGuiElements {
        return ret;
     }
 
+    /**
+     * Get a list of names for the model's markers
+     */
+    public String[] getMarkerNames()
+    {
+       if (markerNames == null)
+          updateMarkerNames();
+       return markerNames;
+    }
+
+   public void updateMarkerNames()
+   {
+      ArrayList<String> namesList = new ArrayList<String>(4);
+      MarkerSet markers = model.getDynamicsEngine().getMarkerSet();
+      if (markers != null) {
+         for (int i=0; i<markers.getSize(); i++)
+            namesList.add(markers.get(i).getName());
+      }
+      markerNames = new String[namesList.size()];
+      System.arraycopy(namesList.toArray(), 0, markerNames, 0, namesList.size());
+      java.util.Arrays.sort(markerNames);
+   }
+ 
    /**
     * Get names of actuator classes
     */
@@ -222,23 +247,28 @@ public class SingleModelGuiElements {
    /**
     * Get names of actuators
     */
-   public String[] getActuatorNames(boolean sort)
+   public String[] getActuatorNames()
    {
-        ArrayList<String> namesList=new ArrayList<String>(4);
-        ActuatorSet actuators = model.getActuatorSet();
-        if (actuators !=null){
-            for(int i=0; i<actuators.getSize();i++){
-                AbstractActuator act =actuators.get(i);
-                AbstractMuscle muscle = AbstractMuscle.safeDownCast(act);
-                if (muscle != null) {
-                        namesList.add(muscle.getName());
-                }
+      if (actuatorNames == null)
+         updateActuatorNames();
+      return actuatorNames;
+   }
+
+   public void updateActuatorNames()
+   {
+      ArrayList<String> namesList = new ArrayList<String>(4);
+      ActuatorSet actuators = model.getActuatorSet();
+      if (actuators != null) {
+         for (int i=0; i<actuators.getSize(); i++) {
+            AbstractActuator act =actuators.get(i);
+            AbstractMuscle muscle = AbstractMuscle.safeDownCast(act);
+            if (muscle != null) {
+               namesList.add(muscle.getName());
             }
-        }
-        String[] ret = new String[namesList.size()];
-        System.arraycopy(namesList.toArray(), 0, ret, 0, namesList.size());
-        if (sort)
-           java.util.Arrays.sort(ret);
-        return ret;
+          }
+      }
+      actuatorNames = new String[namesList.size()];
+      System.arraycopy(namesList.toArray(), 0, actuatorNames, 0, namesList.size());
+      java.util.Arrays.sort(actuatorNames);
    }
 }

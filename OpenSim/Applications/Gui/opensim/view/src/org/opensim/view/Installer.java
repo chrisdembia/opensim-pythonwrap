@@ -42,6 +42,7 @@ import org.opensim.view.pub.OpenSimDB;
 import org.opensim.view.pub.OpenSimDBDescriptor;
 import org.opensim.view.pub.ViewDB;
 import org.opensim.view.editors.MuscleEditorTopComponent;
+import org.opensim.view.markerEditor.MarkerEditorTopComponent;
 import javax.swing.JPopupMenu;
 import org.opensim.modeling.opensimModelJNI;
 import org.opensim.utils.ApplicationState;
@@ -78,7 +79,9 @@ public class Installer extends ModuleInstall {
                // This line is important because it forces the muscle editor to initialize at the start
                // which is necessary to allow moving muscle points even if the muscle editor top component is not shown
                // Note that this may cause a warning exception "Cannot find MuscleEditor component" to be shown... just ignore it.
+               // Same goes for the MarkerEditor.
                MuscleEditorTopComponent.findInstance();
+               MarkerEditorTopComponent.findInstance();
             }});
         } catch (ClassNotFoundException ex) {
             ex.printStackTrace();
