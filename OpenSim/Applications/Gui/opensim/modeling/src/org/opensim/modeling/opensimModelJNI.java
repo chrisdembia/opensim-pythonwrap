@@ -2245,6 +2245,7 @@ public class opensimModelJNI {
   public final static native void MarkerSet_getMarkerNames(long jarg1, MarkerSet jarg1_, long jarg2, ArrayStr jarg2_);
   public final static native void MarkerSet_scale(long jarg1, MarkerSet jarg1_, long jarg2, ScaleSet jarg2_);
   public final static native void MarkerSet_addNamePrefix(long jarg1, MarkerSet jarg1_, String jarg2);
+  public final static native long MarkerSet_addMarker(long jarg1, MarkerSet jarg1_, String jarg2, double[] jarg3, long jarg4, AbstractBody jarg4_);
   public final static native long new_Range__SWIG_0();
   public final static native long new_Range__SWIG_1(long jarg1, Range jarg1_);
   public final static native void delete_Range(long jarg1);
@@ -3336,6 +3337,7 @@ public class opensimModelJNI {
   public final static native boolean AbstractMuscle_getMuscleModelIndexUseDefault(long jarg1, AbstractMuscle jarg1_);
   public final static native long AbstractMuscle_getWrapSet(long jarg1, AbstractMuscle jarg1_);
   public final static native long AbstractMuscle_addAttachmentPoint(long jarg1, AbstractMuscle jarg1_, int jarg2, long jarg3, AbstractBody jarg3_);
+  public final static native boolean AbstractMuscle_canDeleteAttachmentPoint(long jarg1, AbstractMuscle jarg1_, int jarg2);
   public final static native boolean AbstractMuscle_deleteAttachmentPoint(long jarg1, AbstractMuscle jarg1_, int jarg2);
   public final static native void AbstractMuscle_addMuscleWrap(long jarg1, AbstractMuscle jarg1_, long jarg2, AbstractWrapObject jarg2_);
   public final static native void AbstractMuscle_moveUpMuscleWrap(long jarg1, AbstractMuscle jarg1_, int jarg2);

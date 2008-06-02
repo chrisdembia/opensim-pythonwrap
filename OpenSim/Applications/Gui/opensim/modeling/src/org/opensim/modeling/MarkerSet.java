@@ -66,4 +66,9 @@ public class MarkerSet extends SetMarkers {
     opensimModelJNI.MarkerSet_addNamePrefix(swigCPtr, this, prefix);
   }
 
+  public AbstractMarker addMarker(String aName, double[] aOffset, AbstractBody aBody) {
+    long cPtr = opensimModelJNI.MarkerSet_addMarker(swigCPtr, this, aName, aOffset, AbstractBody.getCPtr(aBody), aBody);
+    return (cPtr == 0) ? null : new AbstractMarker(cPtr, false);
+  }
+
 }

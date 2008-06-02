@@ -42911,6 +42911,47 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_MarkerSet_1add
 }
 
 
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_MarkerSet_1addMarker(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2, jdoubleArray jarg3, jlong jarg4, jobject jarg4_) {
+  jlong jresult = 0 ;
+  OpenSim::MarkerSet *arg1 = (OpenSim::MarkerSet *) 0 ;
+  std::string *arg2 = 0 ;
+  double *arg3 ;
+  OpenSim::AbstractBody *arg4 = 0 ;
+  OpenSim::AbstractMarker *result = 0 ;
+  jdouble *jarr3 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg4_;
+  arg1 = *(OpenSim::MarkerSet **)&jarg1; 
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return 0;
+  }
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return 0;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  if (jarg3 && jenv->GetArrayLength(jarg3) != 3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+    return 0;
+  }
+  if (!SWIG_JavaArrayInDouble(jenv, &jarr3, &arg3, jarg3)) return 0; 
+  arg4 = *(OpenSim::AbstractBody **)&jarg4;
+  if(!arg4) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::AbstractBody & reference is null");
+    return 0;
+  } 
+  result = (OpenSim::AbstractMarker *)(arg1)->addMarker((std::string const &)*arg2,(double const (*))arg3,*arg4);
+  *(OpenSim::AbstractMarker **)&jresult = result; 
+  SWIG_JavaArrayArgoutDouble(jenv, jarr3, arg3, jarg3); 
+  delete [] arg3; 
+  return jresult;
+}
+
+
 SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1Range_1_1SWIG_10(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
   OpenSim::Range *result = 0 ;
@@ -62982,6 +63023,23 @@ SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractMuscl
   } 
   result = (OpenSim::MusclePoint *)(arg1)->addAttachmentPoint(arg2,*arg3);
   *(OpenSim::MusclePoint **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractMuscle_1canDeleteAttachmentPoint(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  jboolean jresult = 0 ;
+  OpenSim::AbstractMuscle *arg1 = (OpenSim::AbstractMuscle *) 0 ;
+  int arg2 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::AbstractMuscle **)&jarg1; 
+  arg2 = (int)jarg2; 
+  result = (bool)(arg1)->canDeleteAttachmentPoint(arg2);
+  jresult = (jboolean)result; 
   return jresult;
 }
 

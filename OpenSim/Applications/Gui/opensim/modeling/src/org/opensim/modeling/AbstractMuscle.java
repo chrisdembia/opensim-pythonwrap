@@ -75,6 +75,10 @@ public class AbstractMuscle extends AbstractActuator {
     return (cPtr == 0) ? null : new MusclePoint(cPtr, false);
   }
 
+  public boolean canDeleteAttachmentPoint(int aIndex) {
+    return opensimModelJNI.AbstractMuscle_canDeleteAttachmentPoint(swigCPtr, this, aIndex);
+  }
+
   public boolean deleteAttachmentPoint(int aIndex) {
     return opensimModelJNI.AbstractMuscle_deleteAttachmentPoint(swigCPtr, this, aIndex);
   }
