@@ -153,8 +153,8 @@ public final class ViewDB extends Observable implements Observer {
     */
    public void update(Observable o, Object arg) {
       if (o instanceof OpenSimDB){
-         if (arg instanceof ObjectAddedEvent) {
-            ObjectAddedEvent ev = (ObjectAddedEvent)arg;
+         if (arg instanceof ObjectsAddedEvent) {
+            ObjectsAddedEvent ev = (ObjectsAddedEvent)arg;
             Vector<OpenSimObject> objs = ev.getObjects();
             for (int i=0; i<objs.size(); i++) {
                if (objs.get(i) instanceof Model) {
@@ -200,10 +200,13 @@ public final class ViewDB extends Observable implements Observer {
                   // add to list of models
                   getModelVisuals().add(newModelVisual);
                   repaintAll();
+               } else if (objs.get(i) instanceof AbstractMarker) {
+                  SingleModelVisuals vis = mapModelsToVisuals.get(ev.getModel());
+                  vis.addMarkerGeometry((AbstractMarker)objs.get(i));
+                  repaintAll();
                }
             }
          } else if (arg instanceof ObjectSetCurrentEvent) {
-
             // Current model has changed. For view purposes this affects available commands
             // Changes in the Tree view are handled by the Explorer View. Because only
             // objects in the current model can be selected and manipulated, clear all
@@ -231,16 +234,48 @@ public final class ViewDB extends Observable implements Observer {
                   break;
                }
             }
-         } else if (arg instanceof ObjectsDeletedEvent ) {
-
+         } else if (arg instanceof ObjectsDeletedEvent) {
             ObjectsDeletedEvent ev = (ObjectsDeletedEvent)arg;
             Vector<OpenSimObject> objs = ev.getObjects();
+            boolean repaint = false;
+            boolean selectedDeleted = false;
             for (int i=0; i<objs.size(); i++) {
-               //OpenSimObject ob = objs.get(i);
-               if (objs.get(i) instanceof Model) {
+               OpenSimObject obj = objs.get(i);
+               int j = findObjectInSelectedList(obj);
+               if (j >= 0) {
+                  selectedObjects.remove(j);
+                  selectedDeleted = true;
+               }
+               if (obj instanceof Model) {
                   // TODO: do same stuff as ModelEvent.Operation.Close event
-               } else if (objs.get(i) instanceof AbstractMuscle) {
-                  removeObjectsBelongingToMuscleFromSelection((AbstractMuscle)objs.get(i));
+               } else if (obj instanceof AbstractMuscle) {
+                  removeObjectsBelongingToMuscleFromSelection((AbstractMuscle)obj);
+                  getModelVisuals(ev.getModel()).removeActuatorGeometry((AbstractActuator)obj);
+                  repaint = true;
+               } else if (obj instanceof AbstractMarker) {
+                  SingleModelVisuals vis = mapModelsToVisuals.get(ev.getModel());
+                  vis.removeMarkerGeometry((AbstractMarker)obj);
+                  repaint = true;
+               }
+               if (selectedDeleted)
+                  statusDisplaySelectedObjects();
+               if (repaint)
+                  repaintAll();
+            }
+         } else if (arg instanceof ObjectsRenamedEvent){
+            ObjectsRenamedEvent ev = (ObjectsRenamedEvent)arg;
+            // The name change might be for one or more of the selected objects
+            statusDisplaySelectedObjects();
+            repaintAll();
+            Vector<OpenSimObject> objs = ev.getObjects();
+            for (int i=0; i<objs.size(); i++) {
+               // if an actuator changed names, update the list of names in the model gui elements
+               if (objs.get(i) instanceof AbstractActuator) {
+                  //AbstractActuator act = (AbstractActuator)ev.getObject();
+                  //getModelGuiElements(act.getModel()).updateActuatorNames();
+               } else if (objs.get(i) instanceof AbstractMarker) {
+                  //AbstractMarker marker = (AbstractMarker)ev.getObject();
+                  //getModelGuiElements(marker.getBody().getDynamicsEngine().getModel()).updateMarkerNames();
                }
             }
          } else if (arg instanceof ModelEvent ) {
@@ -294,8 +329,7 @@ public final class ViewDB extends Observable implements Observer {
                //rc = newModelVisual.getModelDisplayAssembly().GetReferenceCount();
                repaintAll();
                //rc = newModelVisual.getModelDisplayAssembly().GetReferenceCount();
-            }
-            else if (ev.getOperation()==ModelEvent.Operation.Close){
+            } else if (ev.getOperation()==ModelEvent.Operation.Close){
                Model dModel = ev.getModel();
                mapModelsToGuiElements.remove(dModel);
                mapModelsToSettings.remove(dModel);
@@ -314,10 +348,9 @@ public final class ViewDB extends Observable implements Observer {
                //rc = visModel.getModelDisplayAssembly().GetReferenceCount();
                visModel.cleanup();
                
-            }
-            // Current model has changed. For view purposes this affects available commands
-            // Changes in the Tree view are handled by the Explorer View
-            else if (ev.getOperation()==ModelEvent.Operation.SetCurrent) {
+            } else if (ev.getOperation()==ModelEvent.Operation.SetCurrent) {
+               // Current model has changed. For view purposes this affects available commands
+               // Changes in the Tree view are handled by the Explorer View
 
                // Apply opacity to other models
                Enumeration<Model> models=mapModelsToVisuals.keys();
@@ -332,24 +365,9 @@ public final class ViewDB extends Observable implements Observer {
                        setObjectOpacity(next, getNonCurrentModelOpacity()*nominalOpacity);
                   }
                }
-            }
-            else if (ev.getOperation()==ModelEvent.Operation.Save) {
+            } else if (ev.getOperation()==ModelEvent.Operation.Save) {
                // If a model is saved then its document filename has changed and we should update the settings file accordingly
                updateSettingsSerializer(ev.getModel());
-            }
-           
-         } else if (arg instanceof NameChangedEvent){
-            NameChangedEvent ev = (NameChangedEvent)arg;
-            // The name change might be for one of the selected objects
-            statusDisplaySelectedObjects();
-            repaintAll();
-            // if an actuator changed names, update the list of names in the model gui elements
-            if (ev.getObject() instanceof AbstractActuator) {
-               AbstractActuator act = (AbstractActuator)ev.getObject();
-               getModelGuiElements(act.getModel()).updateActuatorNames();
-            } else if (ev.getObject() instanceof AbstractMarker) {
-               AbstractMarker marker = (AbstractMarker)ev.getObject();
-               getModelGuiElements(marker.getBody().getDynamicsEngine().getModel()).updateMarkerNames();
             }
          }
       }

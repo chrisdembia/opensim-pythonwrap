@@ -83,8 +83,8 @@ import org.opensim.motionviewer.MotionsDB;
 import org.opensim.utils.DialogUtils;
 import org.opensim.utils.OpenSimDialog;
 import org.opensim.view.ModelEvent;
-import org.opensim.view.NameChangedEvent;
 import org.opensim.view.ObjectSetCurrentEvent;
+import org.opensim.view.ObjectsRenamedEvent;
 import org.opensim.view.SingleModelGuiElements;
 import org.opensim.view.pub.OpenSimDB;
 import org.opensim.view.pub.ViewDB;
@@ -1332,8 +1332,16 @@ public class JPlotterPanel extends javax.swing.JPanel
                populateYPopup();
             }
          }
-         else if (arg instanceof NameChangedEvent){
-            plotterModel.renameMotion((Storage)((NameChangedEvent)arg).getObject());
+         else if (arg instanceof ObjectsRenamedEvent){
+            ObjectsRenamedEvent evt = (ObjectsRenamedEvent)arg;
+            Vector<OpenSimObject> objs = evt.getObjects();
+            // If any of the event objects is a motion, update the panel.
+            for (int i=0; i<objs.size(); i++) {
+               if (objs.get(i) instanceof Storage) {
+                  plotterModel.renameMotion((Storage)(objs.get(i)));
+                  break;
+               }
+               }
          }
          
       }

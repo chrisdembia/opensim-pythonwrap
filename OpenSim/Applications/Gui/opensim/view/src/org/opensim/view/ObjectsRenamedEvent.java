@@ -24,9 +24,9 @@
  *  WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 /*
- * NameChangedEvent.java
+ * ObjectsRenamedEvent.java
  *
- * Created on February 14, 2007, 11:50 AM
+ * Created on August 7, 2007, 9:02 AM
  *
  * To change this template, choose Tools | Template Manager
  * and open the template in the editor.
@@ -34,28 +34,19 @@
 
 package org.opensim.view;
 
-import java.util.EventObject;
+import java.util.Vector;
+import org.opensim.modeling.Model;
 import org.opensim.modeling.OpenSimObject;
 
 /**
  *
  * @author Peter Loan
  */
-public class NameChangedEvent extends EventObject {
-
-    /** Creates a new instance of NameChangedEvent */
-    public NameChangedEvent(OpenSimObject source) {
-        super(source);
-    }
-
-    public OpenSimObject getObject()
-    {
-        return (OpenSimObject) source;
-    }
-
-    public String getName()
-    {
-        return ((OpenSimObject) source).getName();
-    }
-
+public class ObjectsRenamedEvent extends OpenSimEvent {
+   
+   /** Creates a new instance of ObjectsRenamedEvent */
+   public ObjectsRenamedEvent(Object source, Model theModel, Vector<OpenSimObject> theObjects) {
+        super(source, theModel, theObjects);
+   }
+   
 }

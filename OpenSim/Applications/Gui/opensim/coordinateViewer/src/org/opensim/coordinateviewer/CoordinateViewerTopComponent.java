@@ -60,8 +60,8 @@ import org.opensim.modeling.OpenSimObject;
 import org.opensim.motionviewer.MotionTimeChangeEvent;
 import org.opensim.motionviewer.MotionsDB;
 import org.opensim.view.ModelEvent;
-import org.opensim.view.NameChangedEvent;
 import org.opensim.view.ObjectSetCurrentEvent;
+import org.opensim.view.ObjectsRenamedEvent;
 import org.opensim.view.pub.ViewDB;
 /**
  * Top component which displays something.
@@ -427,11 +427,14 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
                   }
                }
             }
-         } else if (arg instanceof NameChangedEvent) {
-            NameChangedEvent ev = (NameChangedEvent)arg;
-            if (ev.getObject() instanceof Model) {
-               if (aModel != null && aModel.equals(ev.getObject())) {
-                  jModelNameLabel.setText(ev.getName());
+         } else if (arg instanceof ObjectsRenamedEvent) {
+            ObjectsRenamedEvent ev = (ObjectsRenamedEvent)arg;
+            Vector<OpenSimObject> objs = ev.getObjects();
+            for (int i=0; i<objs.size(); i++) {
+               if (objs.get(i) instanceof Model) {
+                  if (aModel != null && aModel.equals(objs.get(i))) {
+                     jModelNameLabel.setText(objs.get(i).getName());
+                  }
                }
             }
          }

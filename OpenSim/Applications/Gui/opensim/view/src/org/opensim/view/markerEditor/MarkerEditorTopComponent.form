@@ -12,12 +12,15 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="MarkerEditorScrollPane" max="32767" attributes="0"/>
+          <Component id="MarkerEditorScrollPane" alignment="0" pref="431" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="MarkerEditorScrollPane" max="32767" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <Component id="MarkerEditorScrollPane" min="-2" pref="273" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -35,7 +38,6 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="ModelNameLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="OffsetPanel" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Component id="BodySelectLabel" min="-2" max="-2" attributes="0"/>
@@ -51,6 +53,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="MarkerNameTextField" min="-2" pref="140" max="-2" attributes="0"/>
                           </Group>
+                          <Component id="OffsetPanel" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="RestoreButton" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
@@ -59,6 +62,11 @@
                               <Component id="BackupButton" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="BackupAllButton" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="AddMarkerButton" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
+                              <Component id="DeleteMarkerButton" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace pref="20" max="32767" attributes="0"/>
@@ -82,16 +90,21 @@
                           <Component id="BodySelectLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="BodyComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                       <Component id="OffsetPanel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                      <EmptySpace pref="19" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="AddMarkerButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="DeleteMarkerButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="RestoreButton" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="RestoreAllButton" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="BackupButton" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="BackupAllButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="20" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -272,6 +285,22 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BodyComboBoxActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="AddMarkerButton">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Add New"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AddMarkerButtonActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="DeleteMarkerButton">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Delete Current"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="DeleteMarkerButtonActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

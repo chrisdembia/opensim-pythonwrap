@@ -84,11 +84,11 @@ import org.opensim.view.ClearSelectedObjectsEvent;
 import org.opensim.view.DragObjectsEvent;
 import org.opensim.view.ExplorerTopComponent;
 import org.opensim.view.ModelEvent;
-import org.opensim.view.NameChangedEvent;
 import org.opensim.view.ObjectSelectedEvent;
 import org.opensim.view.ObjectSetCurrentEvent;
 import org.opensim.view.ObjectsChangedEvent;
 import org.opensim.view.ObjectsDeletedEvent;
+import org.opensim.view.ObjectsRenamedEvent;
 import org.opensim.view.OpenSimEvent;
 import org.opensim.view.SingleModelGuiElements;
 import org.opensim.view.SingleModelVisuals;
@@ -428,9 +428,12 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       if (validName(MuscleNameTextField.getText()) == false)
          return;
       currentAct.setName(MuscleNameTextField.getText());
-      // Let the event handler update the muscle editor, because muscle names
-      // could also be changed from outside the editor.
-      NameChangedEvent evnt = new NameChangedEvent(currentAct);
+      ViewDB.getInstance().getModelGuiElements(currentModel).updateActuatorNames();
+      // Update the muscle list in the ViewDB and then generate an event
+      // so other tools can update accordingly.
+      Vector<OpenSimObject> objs = new Vector<OpenSimObject>(1);
+      objs.add(currentAct);
+      ObjectsRenamedEvent evnt = new ObjectsRenamedEvent(this, currentModel, objs);
       OpenSimDB.getInstance().setChanged();
       OpenSimDB.getInstance().notifyObservers(evnt);
 
@@ -444,11 +447,13 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
          // Set the name again, this time using AbstractMuscle's custom method
          asm.setName(MuscleNameTextField.getText());
          MusclePointSet musclePoints = asm.getAttachmentSet();
+         Vector<OpenSimObject> mpobjs = new Vector<OpenSimObject>(musclePoints.getSize());
          for (int i=0; i<musclePoints.getSize(); i++) {
-            NameChangedEvent evt = new NameChangedEvent(musclePoints.get(i));
-            OpenSimDB.getInstance().setChanged();
-            OpenSimDB.getInstance().notifyObservers(evt);
+            mpobjs.add(musclePoints.get(i));
          }
+         ObjectsRenamedEvent ev = new ObjectsRenamedEvent(this, currentModel, mpobjs);
+         OpenSimDB.getInstance().setChanged();
+         OpenSimDB.getInstance().notifyObservers(ev);
       }
    }
 
@@ -476,13 +481,8 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
    }//GEN-LAST:event_BackupButtonActionPerformed
    
    private void backupActuator() {
-      //act.setName(MuscleNameTextField.getText());
       setPendingChanges(false, currentAct, true);
-      //OpenSimDB.getInstance().setChanged();
-      //NameChangedEvent evnt = new NameChangedEvent(act);
-      //OpenSimDB.getInstance().notifyObservers(evnt);
       AbstractActuator savedAct = AbstractActuator.safeDownCast(currentAct.copy());
-      //savedAct.setName(currentAct.getName()); // TODO: what about other properties of parent classes?
       savedActs.put(currentAct, savedAct);
    }
 
@@ -549,7 +549,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       // really fire an ObjectsReplacedEvent. And ViewDB should pick up this
       // event and remove the actuator geometry, rather than having the muscle editor
       // do it here.
-      Vector<OpenSimObject> objs = new Vector<OpenSimObject>(2);
+      Vector<OpenSimObject> objs = new Vector<OpenSimObject>(1);
       objs.add(asm);
       ObjectsDeletedEvent evnt = new ObjectsDeletedEvent(this, model, objs);
       OpenSimDB.getInstance().setChanged();
@@ -572,9 +572,12 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       currentAct.getDisplayer().getVisibleProperties().setDisplayPreference(dp);
       vis.addActuatorGeometry(currentAct, true);
 
-      // Once the proper ObjectsReplacedEvent is implemented, this NameChangedEvent
+      // Once the proper ObjectsReplacedEvent is implemented, this ObjectsRenamedEvent
       // should no longer be needed.
-      NameChangedEvent ev = new NameChangedEvent(currentAct);
+      ViewDB.getInstance().getModelGuiElements(currentModel).updateActuatorNames();
+      objs.clear();
+      objs.add(currentAct);
+      ObjectsRenamedEvent ev = new ObjectsRenamedEvent(this, model, objs);
       OpenSimDB.getInstance().setChanged();
       OpenSimDB.getInstance().notifyObservers(ev);
 
@@ -615,9 +618,12 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
 
       // If the name has changed, fire an event.
       if (currentAct.getName().equals(savedAct.getName()) == false) {
-         NameChangedEvent ev = new NameChangedEvent(currentAct);
+         ViewDB.getInstance().getModelGuiElements(currentModel).updateActuatorNames();
+         Vector<OpenSimObject> objs = new Vector<OpenSimObject>(1);
+         objs.add(currentAct);
+         ObjectsRenamedEvent evnt = new ObjectsRenamedEvent(this, currentModel, objs);
          OpenSimDB.getInstance().setChanged();
-         OpenSimDB.getInstance().notifyObservers(ev);
+         OpenSimDB.getInstance().notifyObservers(evnt);
       }
 
       // Copy the elements of the saved actuator into the current actuator.
@@ -647,15 +653,14 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
 
       // Loop through the actuator set, restoring only the ones that have been modified.
       ActuatorSet actSet = currentModel.getActuatorSet();
+      Vector<OpenSimObject> objs = new Vector<OpenSimObject>(actSet.getSize());
       for (int i=0; i<actSet.getSize(); i++) {
           AbstractActuator act = actSet.get(i);
           if (pendingChanges.get(act)) {
               AbstractActuator savedAct = savedActs.get(act);
               // If the name has changed, fire an event.
               if (act.getName().equals(savedAct.getName()) == false) {
-                 NameChangedEvent ev = new NameChangedEvent(act);
-                 OpenSimDB.getInstance().setChanged();
-                 OpenSimDB.getInstance().notifyObservers(ev);
+                 objs.add(act);
               }
               // Make sure the Function Editor isn't still operating on one of this muscle's functions.
               FunctionEditorTopComponent win = FunctionEditorTopComponent.findInstance();
@@ -665,6 +670,12 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
               act.copy(savedAct);
               vis.updateActuatorGeometry(act, true);
           }
+      }
+      if (objs.size() > 0) {
+         ViewDB.getInstance().getModelGuiElements(currentModel).updateActuatorNames();
+         ObjectsRenamedEvent ev = new ObjectsRenamedEvent(this, currentModel, objs);
+         OpenSimDB.getInstance().setChanged();
+         OpenSimDB.getInstance().notifyObservers(ev);
       }
 
       setAllPendingChanges(false);
@@ -1261,14 +1272,9 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       vis.updateActuatorGeometry(asm, true);
       ViewDB.getInstance().repaintAll();
    }
-   
+
    public void deleteAttachmentPerformed(int menuChoice) {
       AbstractMuscle asm = AbstractMuscle.safeDownCast(currentAct);
-      // ideally we'd like to just deselect the point we're deleting but the muscle displayer doesn't
-      // deal well with maintaining the right glyph colors when the attachment set changes.
-      // TODO: send some event that the muscle displayer can listen for and know to deselect the point
-      // and make sure the rest of the points maintain correct selection status
-      ViewDB.getInstance().removeObjectsBelongingToMuscleFromSelection(AbstractMuscle.safeDownCast(currentAct));
       // The point may not be deleted, but save a reference to it so that if it is deleted
       // you can fire an ObjectsDeletedEvent later.
       MusclePoint mp = asm.getAttachmentSet().get(menuChoice);
@@ -1283,7 +1289,13 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
                  null,
                  options,
                  options[0]);
+
       } else {
+         // ideally we'd like to just deselect the point we're deleting but the muscle displayer doesn't
+         // deal well with maintaining the right glyph colors when the attachment set changes.
+         // TODO: send some event that the muscle displayer can listen for and know to deselect the point
+         // and make sure the rest of the points maintain correct selection status
+         ViewDB.getInstance().removeObjectsBelongingToMuscleFromSelection(AbstractMuscle.safeDownCast(currentAct));
          setPendingChanges(true, currentAct, false);
          setupComponent(currentAct);
          Model model = asm.getModel();
@@ -2495,15 +2507,18 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
             if (Model.getCPtr(evt.getModel()) == Model.getCPtr(currentModel))
                return true;
             return false;
-         } else if (arg instanceof NameChangedEvent) {
-            NameChangedEvent evt = (NameChangedEvent)arg;
-            if (evt.getObject() instanceof Model) {
-               if (currentModel != null && currentModel.equals(evt.getObject()))
-                  return true;
-            } else if (evt.getObject() instanceof AbstractActuator) {
-               AbstractActuator act = (AbstractActuator)evt.getObject();
-               if (currentModel != null && currentModel.equals(act.getModel()))
-                  return true;
+         } else if (arg instanceof ObjectsRenamedEvent) {
+            ObjectsRenamedEvent evt = (ObjectsRenamedEvent)arg;
+            Vector<OpenSimObject> objs = evt.getObjects();
+            for (int i=0; i<objs.size(); i++) {
+               if (objs.get(i) instanceof Model) {
+                  if (currentModel != null && currentModel.equals(objs.get(i)))
+                     return true;
+               } else if (objs.get(i) instanceof AbstractActuator) {
+                  AbstractActuator act = (AbstractActuator)objs.get(i);
+                  if (currentModel != null && currentModel.equals(act.getModel()))
+                     return true;
+               }
             }
             return false;
          }
@@ -2576,21 +2591,23 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
                   break;
                }
             }
-         } else if (arg instanceof NameChangedEvent) {
-            NameChangedEvent ev = (NameChangedEvent)arg;
-            if (ev.getObject() instanceof Model) {
-               if (currentModel != null && currentModel.equals(ev.getObject())) {
-                  ModelNameLabel.setText("Model: " + currentModel.getName());
+         } else if (arg instanceof ObjectsRenamedEvent) {
+            ObjectsRenamedEvent evt = (ObjectsRenamedEvent)arg;
+            Vector<OpenSimObject> objs = evt.getObjects();
+            for (int i=0; i<objs.size(); i++) {
+               if (objs.get(i) instanceof Model) {
+                  if (currentModel != null && currentModel.equals(objs.get(i)))
+                     ModelNameLabel.setText("Model: " + currentModel.getName());
+               } else if (objs.get(i) instanceof AbstractActuator) {
+                  AbstractActuator act = (AbstractActuator)objs.get(i);
+                  if (currentModel != null && currentModel.equals(act.getModel()))
+                     updateActuatorName(act);
                }
-            } else if (ev.getObject() instanceof AbstractActuator) {
-               AbstractActuator act = (AbstractActuator)ev.getObject();
-               if (currentModel != null && currentModel.equals(act.getModel()))
-                  updateActuatorName(act);
             }
          }
       }
    }
-   
+
    private void updateAttachmentSelections(SelectedObject selectedObject, boolean state) {
       if (currentAct != null) {
          OpenSimObject obj = selectedObject.getOpenSimObject();

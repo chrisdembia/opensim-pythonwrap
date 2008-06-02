@@ -28,22 +28,15 @@ package org.opensim.view;
 import java.awt.BorderLayout;
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Vector;
-import javax.swing.ActionMap;
 import javax.swing.SwingUtilities;
-import javax.swing.text.DefaultEditorKit;
 import javax.swing.undo.CannotRedoException;
 import javax.swing.undo.CannotUndoException;
 import org.openide.ErrorManager;
 import org.openide.awt.UndoRedo;
-import org.openide.util.Lookup;
-import org.openide.util.LookupEvent;
-import org.openide.util.LookupListener;
 import org.openide.util.NbBundle;
-import org.openide.util.Utilities;
 import org.openide.windows.TopComponent;
 import org.openide.windows.WindowManager;
 import org.openide.explorer.ExplorerManager;
@@ -53,11 +46,11 @@ import org.openide.nodes.Children;
 import org.openide.nodes.Node;
 import org.openide.util.Mutex;
 import org.openide.util.MutexException;
+import org.opensim.modeling.AbstractMarker;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.view.nodes.ConcreteModelNode;
 import org.opensim.view.nodes.OpenSimNode;
-import org.opensim.view.nodes.OpenSimObjectNode;
 import org.opensim.view.pub.OpenSimDB;
 
 /**
@@ -181,8 +174,8 @@ final public class ExplorerTopComponent extends TopComponent
         
         public void update(Observable o, Object arg) {
            // Observable is OpenSimDB
-           if (arg instanceof ObjectAddedEvent) {
-              final ObjectAddedEvent evnt = (ObjectAddedEvent)arg;
+           if (arg instanceof ObjectsAddedEvent) {
+              final ObjectsAddedEvent evnt = (ObjectsAddedEvent)arg;
               final Vector<OpenSimObject> objs = evnt.getObjects();
               for (int i=0; i<objs.size(); i++) {
                  if (objs.get(i) instanceof Model) {
@@ -199,6 +192,16 @@ final public class ExplorerTopComponent extends TopComponent
                        }
                     }
                     );
+                 } else if (objs.get(i) instanceof AbstractMarker) {
+                    ;
+                 }
+              }
+           } else if (arg instanceof ObjectsDeletedEvent) {
+              final ObjectsDeletedEvent evnt = (ObjectsDeletedEvent)arg;
+              final Vector<OpenSimObject> objs = evnt.getObjects();
+              for (int i=0; i<objs.size(); i++) {
+                 if (objs.get(i) instanceof AbstractMarker) {
+                    ;
                  }
               }
            } else if (arg instanceof ObjectSetCurrentEvent) {
@@ -255,15 +258,17 @@ final public class ExplorerTopComponent extends TopComponent
                  }
               }
               );
-           } else if (arg instanceof NameChangedEvent) {
-              final NameChangedEvent ev = (NameChangedEvent)arg;
-              OpenSimObject obj = ev.getObject();
-              ExplorerTopComponent tree = ExplorerTopComponent.findInstance();
-              Node rootNode = tree.getExplorerManager().getRootContext();
-              Node[] nodes = rootNode.getChildren().getNodes();
-              for (int i=0; i<nodes.length; i++) {
-                 if (nodes[i] instanceof OpenSimNode) {
-                    ((OpenSimNode)nodes[i]).renameObjectNode(obj, ev.getName());
+           } else if (arg instanceof ObjectsRenamedEvent) {
+              final ObjectsRenamedEvent ev = (ObjectsRenamedEvent)arg;
+              Vector<OpenSimObject> objs = ev.getObjects();
+              for (int i=0; i<objs.size(); i++) {
+                 ExplorerTopComponent tree = ExplorerTopComponent.findInstance();
+                 Node rootNode = tree.getExplorerManager().getRootContext();
+                 Node[] nodes = rootNode.getChildren().getNodes();
+                 for (int j=0; j<nodes.length; j++) {
+                    if (nodes[j] instanceof OpenSimNode) {
+                       ((OpenSimNode)nodes[j]).renameObjectNode(objs.get(i), objs.get(i).getName());
+                    }
                  }
               }
            }

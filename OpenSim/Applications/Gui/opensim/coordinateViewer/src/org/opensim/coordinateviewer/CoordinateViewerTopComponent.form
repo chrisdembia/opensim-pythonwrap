@@ -80,7 +80,7 @@
               <Component id="jPosesButton" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
-          <Component id="jScrollPane1" alignment="0" pref="295" max="32767" attributes="0"/>
+          <Component id="jScrollPane1" alignment="0" pref="329" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -127,7 +127,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="293" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="327" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">

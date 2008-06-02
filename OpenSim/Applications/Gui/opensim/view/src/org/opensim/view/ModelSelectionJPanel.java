@@ -146,7 +146,7 @@ public class ModelSelectionJPanel extends javax.swing.JPanel implements Observer
                   break;
                }
             }
-         } else if (arg instanceof ObjectAddedEvent) {
+         } else if (arg instanceof ObjectsAddedEvent) {
             //update();
          }
       }

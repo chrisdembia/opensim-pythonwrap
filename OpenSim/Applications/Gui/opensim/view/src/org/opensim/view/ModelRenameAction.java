@@ -25,6 +25,7 @@
  */
 package org.opensim.view;
 
+import java.util.Vector;
 import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
 import org.openide.nodes.Node;
@@ -32,6 +33,7 @@ import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
 import org.opensim.modeling.Model;
+import org.opensim.modeling.OpenSimObject;
 import org.opensim.view.nodes.ConcreteModelNode;
 import org.opensim.view.nodes.OpenSimObjectNode;
 import org.opensim.view.pub.OpenSimDB;
@@ -56,7 +58,9 @@ public final class ModelRenameAction extends CallableSystemAction {
                  objectNode.getOpenSimObject().setName(newName);
                  objectNode.setName(newName);  // Force navigator window update
                  // Create event to tell everyone else
-                 NameChangedEvent evnt = new NameChangedEvent(objectNode.getOpenSimObject());
+                 Vector<OpenSimObject> objs = new Vector<OpenSimObject>(1);
+                 objs.add(objectNode.getOpenSimObject());
+                 ObjectsRenamedEvent evnt = new ObjectsRenamedEvent(this, null, objs);
                  OpenSimDB.getInstance().setChanged();
                  OpenSimDB.getInstance().notifyObservers(evnt);
                  // The following is specific to renaming a model since

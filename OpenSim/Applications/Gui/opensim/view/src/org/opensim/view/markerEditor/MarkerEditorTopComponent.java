@@ -5,6 +5,7 @@ import java.awt.Toolkit;
 import java.io.Serializable;
 import java.text.NumberFormat;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Iterator;
@@ -18,6 +19,7 @@ import org.openide.util.NbBundle;
 import org.openide.windows.TopComponent;
 import org.openide.windows.WindowManager;
 import org.opensim.modeling.AbstractBody;
+import org.opensim.modeling.AbstractDynamicsEngine;
 import org.opensim.modeling.AbstractMarker;
 import org.opensim.modeling.BodySet;
 import org.opensim.modeling.MarkerSet;
@@ -27,10 +29,14 @@ import org.opensim.view.ClearSelectedObjectsEvent;
 import org.opensim.view.DragObjectsEvent;
 import org.opensim.view.ExplorerTopComponent;
 import org.opensim.view.ModelEvent;
-import org.opensim.view.NameChangedEvent;
+import org.opensim.view.ObjectAddedEvent;
 import org.opensim.view.ObjectSelectedEvent;
 import org.opensim.view.ObjectSetCurrentEvent;
+import org.opensim.view.ObjectsAddedEvent;
 import org.opensim.view.ObjectsChangedEvent;
+import org.opensim.view.ObjectsDeletedEvent;
+import org.opensim.view.ObjectsRenamedEvent;
+import org.opensim.view.SelectedObject;
 import org.opensim.view.SingleModelGuiElements;
 import org.opensim.view.SingleModelVisuals;
 import org.opensim.view.nodes.OneMarkerNode;
@@ -46,9 +52,10 @@ final public class MarkerEditorTopComponent extends TopComponent implements Obse
    /** path to the icon used by the component and its open action */
 //    static final String ICON_PATH = "SET/PATH/TO/ICON/HERE";
 
+   private enum MarkerState {UNMODIFIED, MODIFIED, ADDED, DELETED};
    private Model currentModel = null;
    private AbstractMarker currentMarker = null; // the marker that is currently shown in the Marker Editor window
-   private Hashtable<AbstractMarker, Boolean> pendingChanges = new Hashtable<AbstractMarker, Boolean>();
+   private Hashtable<AbstractMarker, MarkerState> pendingChanges = new Hashtable<AbstractMarker, MarkerState>();
    private Hashtable<AbstractMarker, AbstractMarker> savedMarkers = new Hashtable<AbstractMarker, AbstractMarker>();
    private NumberFormat positionFormat = NumberFormat.getInstance();
 
@@ -93,6 +100,8 @@ final public class MarkerEditorTopComponent extends TopComponent implements Obse
       RestoreAllButton = new javax.swing.JButton();
       RestoreButton = new javax.swing.JButton();
       BodyComboBox = new javax.swing.JComboBox();
+      AddMarkerButton = new javax.swing.JButton();
+      DeleteMarkerButton = new javax.swing.JButton();
 
       org.openide.awt.Mnemonics.setLocalizedText(ModelNameLabel, "Model:");
 
@@ -211,6 +220,20 @@ final public class MarkerEditorTopComponent extends TopComponent implements Obse
          }
       });
 
+      org.openide.awt.Mnemonics.setLocalizedText(AddMarkerButton, "Add New");
+      AddMarkerButton.addActionListener(new java.awt.event.ActionListener() {
+         public void actionPerformed(java.awt.event.ActionEvent evt) {
+            AddMarkerButtonActionPerformed(evt);
+         }
+      });
+
+      org.openide.awt.Mnemonics.setLocalizedText(DeleteMarkerButton, "Delete Current");
+      DeleteMarkerButton.addActionListener(new java.awt.event.ActionListener() {
+         public void actionPerformed(java.awt.event.ActionEvent evt) {
+            DeleteMarkerButtonActionPerformed(evt);
+         }
+      });
+
       org.jdesktop.layout.GroupLayout MarkerEditorPanelLayout = new org.jdesktop.layout.GroupLayout(MarkerEditorPanel);
       MarkerEditorPanel.setLayout(MarkerEditorPanelLayout);
       MarkerEditorPanelLayout.setHorizontalGroup(
@@ -219,7 +242,6 @@ final public class MarkerEditorTopComponent extends TopComponent implements Obse
             .addContainerGap()
             .add(MarkerEditorPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                .add(ModelNameLabel)
-               .add(OffsetPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                .add(MarkerEditorPanelLayout.createSequentialGroup()
                   .add(MarkerEditorPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                      .add(BodySelectLabel)
@@ -232,6 +254,7 @@ final public class MarkerEditorTopComponent extends TopComponent implements Obse
                   .add(MarkerNameLabel)
                   .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                   .add(MarkerNameTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 140, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+               .add(OffsetPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                .add(MarkerEditorPanelLayout.createSequentialGroup()
                   .add(RestoreButton)
                   .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
@@ -239,7 +262,11 @@ final public class MarkerEditorTopComponent extends TopComponent implements Obse
                   .add(51, 51, 51)
                   .add(BackupButton)
                   .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                  .add(BackupAllButton)))
+                  .add(BackupAllButton))
+               .add(MarkerEditorPanelLayout.createSequentialGroup()
+                  .add(AddMarkerButton)
+                  .add(44, 44, 44)
+                  .add(DeleteMarkerButton)))
             .addContainerGap(20, Short.MAX_VALUE))
       );
       MarkerEditorPanelLayout.setVerticalGroup(
@@ -257,15 +284,19 @@ final public class MarkerEditorTopComponent extends TopComponent implements Obse
             .add(MarkerEditorPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                .add(BodySelectLabel)
                .add(BodyComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-            .add(23, 23, 23)
+            .add(16, 16, 16)
             .add(OffsetPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-            .add(20, 20, 20)
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 19, Short.MAX_VALUE)
+            .add(MarkerEditorPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+               .add(AddMarkerButton)
+               .add(DeleteMarkerButton))
+            .add(16, 16, 16)
             .add(MarkerEditorPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                .add(RestoreButton)
                .add(RestoreAllButton)
                .add(BackupButton)
                .add(BackupAllButton))
-            .addContainerGap(20, Short.MAX_VALUE))
+            .addContainerGap())
       );
       MarkerEditorScrollPane.setViewportView(MarkerEditorPanel);
 
@@ -273,13 +304,23 @@ final public class MarkerEditorTopComponent extends TopComponent implements Obse
       this.setLayout(layout);
       layout.setHorizontalGroup(
          layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-         .add(MarkerEditorScrollPane)
+         .add(MarkerEditorScrollPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE)
       );
       layout.setVerticalGroup(
          layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-         .add(MarkerEditorScrollPane)
+         .add(layout.createSequentialGroup()
+            .add(MarkerEditorScrollPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 273, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+            .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
       );
    }// </editor-fold>//GEN-END:initComponents
+
+   private void DeleteMarkerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteMarkerButtonActionPerformed
+      deleteMarker(currentMarker, true);
+   }//GEN-LAST:event_DeleteMarkerButtonActionPerformed
+
+   private void AddMarkerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddMarkerButtonActionPerformed
+      addMarker();
+   }//GEN-LAST:event_AddMarkerButtonActionPerformed
 
    private void RestoreAllButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RestoreAllButtonActionPerformed
       restoreAllMarkers();
@@ -290,7 +331,7 @@ final public class MarkerEditorTopComponent extends TopComponent implements Obse
    }//GEN-LAST:event_RestoreButtonActionPerformed
 
    private void BackupAllButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackupAllButtonActionPerformed
-      backupMarkers();
+      backupAllMarkers();
    }//GEN-LAST:event_BackupAllButtonActionPerformed
 
    private void BackupButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackupButtonActionPerformed
@@ -304,9 +345,12 @@ final public class MarkerEditorTopComponent extends TopComponent implements Obse
       if (validName(MarkerNameTextField.getText()) == false)
          return;
       currentMarker.setName(MarkerNameTextField.getText());
-      // Let the event handler update the marker editor, because marker names
-      // could also be changed from outside the editor.
-      NameChangedEvent evnt = new NameChangedEvent(currentMarker);
+      // Update the marker list in the ViewDB and then generate an event
+      // so other tools can update accordingly.
+      ViewDB.getInstance().getModelGuiElements(currentModel).updateMarkerNames();
+      Vector<OpenSimObject> objs = new Vector<OpenSimObject>(1);
+      objs.add(currentMarker);
+      ObjectsRenamedEvent evnt = new ObjectsRenamedEvent(this, currentModel, objs);
       OpenSimDB.getInstance().setChanged();
       OpenSimDB.getInstance().notifyObservers(evnt);
    }//GEN-LAST:event_MarkerNameTextFieldActionPerformed
@@ -319,7 +363,7 @@ final public class MarkerEditorTopComponent extends TopComponent implements Obse
       if (AbstractBody.getCPtr(newBody) != AbstractBody.getCPtr(oldBody)) {
          currentMarker.setBody(newBody, true);
          updateOffsetFields();
-         setPendingChanges(true, currentMarker, true);
+         setPendingChanges(MarkerState.MODIFIED, currentMarker, true);
          // tell the ViewDB to redraw the model
          SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(currentModel);
          vis.updateMarkerGeometry(currentMarker);
@@ -346,7 +390,7 @@ final public class MarkerEditorTopComponent extends TopComponent implements Obse
       if (offset[component] != newValue) {
          offset[component] = newValue;
          currentMarker.setOffset(offset);
-         setPendingChanges(true, currentMarker, true);
+         setPendingChanges(MarkerState.MODIFIED, currentMarker, true);
          // tell the ViewDB to redraw the model
          SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(currentModel);
          vis.updateMarkerGeometry(currentMarker);
@@ -380,10 +424,12 @@ final public class MarkerEditorTopComponent extends TopComponent implements Obse
     
     
    // Variables declaration - do not modify//GEN-BEGIN:variables
+   private javax.swing.JButton AddMarkerButton;
    private javax.swing.JButton BackupAllButton;
    private javax.swing.JButton BackupButton;
    private javax.swing.JComboBox BodyComboBox;
    private javax.swing.JLabel BodySelectLabel;
+   private javax.swing.JButton DeleteMarkerButton;
    private javax.swing.JComboBox MarkerComboBox;
    private javax.swing.JPanel MarkerEditorPanel;
    private javax.swing.JScrollPane MarkerEditorScrollPane;
@@ -425,6 +471,8 @@ final public class MarkerEditorTopComponent extends TopComponent implements Obse
          MarkerComboBox.setEnabled(false);
          BodySelectLabel.setEnabled(false);
          BodyComboBox.setEnabled(false);
+         AddMarkerButton.setEnabled(false);
+         DeleteMarkerButton.setEnabled(false);
          XLabel.setEnabled(false);
          XTextField.setEnabled(false);
          YLabel.setEnabled(false);
@@ -441,6 +489,7 @@ final public class MarkerEditorTopComponent extends TopComponent implements Obse
             MarkerComboBox.setEnabled(false);
          }
          BodyComboBox.setModel(new javax.swing.DefaultComboBoxModel(guiElem.getBodyNames()));
+         AddMarkerButton.setEnabled(true);
       }
       
       if (currentMarker == null) {
@@ -451,6 +500,7 @@ final public class MarkerEditorTopComponent extends TopComponent implements Obse
          MarkerComboBox.setEnabled(false);
          BodySelectLabel.setEnabled(false);
          BodyComboBox.setEnabled(false);
+         DeleteMarkerButton.setEnabled(false);
          XLabel.setEnabled(false);
          XTextField.setEnabled(false);
          YLabel.setEnabled(false);
@@ -465,6 +515,7 @@ final public class MarkerEditorTopComponent extends TopComponent implements Obse
          MarkerComboBox.setSelectedIndex(findElement(guiElem.getMarkerNames(), currentMarker.getName()));
          BodySelectLabel.setEnabled(true);
          BodyComboBox.setEnabled(true);
+         DeleteMarkerButton.setEnabled(true);
          XLabel.setEnabled(true);
          XTextField.setEnabled(true);
          YLabel.setEnabled(true);
@@ -482,7 +533,7 @@ final public class MarkerEditorTopComponent extends TopComponent implements Obse
          updateOffsetFields();
       }
 
-      Dimension d = new Dimension(420, 240);
+      Dimension d = new Dimension(420, 260);
       MarkerEditorPanel.setPreferredSize(d);
       
       this.revalidate();
@@ -499,24 +550,28 @@ final public class MarkerEditorTopComponent extends TopComponent implements Obse
 
    private void updateBackupRestoreButtons() {
       if (currentMarker != null) {
-         boolean state = pendingChanges.get(currentMarker);
-         if (RestoreButton.isEnabled() != state)
-            RestoreButton.setEnabled(state);
-         if (BackupButton.isEnabled() != state)
-            BackupButton.setEnabled(state);
+         MarkerState state = pendingChanges.get(currentMarker);
+         if (RestoreButton.isEnabled() && state == MarkerState.UNMODIFIED)
+            RestoreButton.setEnabled(false);
+         else if (!RestoreButton.isEnabled() &&
+                  (state == MarkerState.MODIFIED || state == MarkerState.DELETED || state == MarkerState.ADDED))
+            RestoreButton.setEnabled(true);
+         if (BackupButton.isEnabled() && state == MarkerState.UNMODIFIED)
+            BackupButton.setEnabled(false);
+         else if (!BackupButton.isEnabled() &&
+                  (state == MarkerState.MODIFIED || state == MarkerState.DELETED || state == MarkerState.ADDED))
+            BackupButton.setEnabled(true);
       } else {
          BackupButton.setEnabled(false);
          RestoreButton.setEnabled(false);
-         BackupAllButton.setEnabled(false);
-         RestoreAllButton.setEnabled(false);
-         return;
       }
 
       boolean anyPendingChanges = false;
       Enumeration<AbstractMarker> markers = pendingChanges.keys();
       while(markers.hasMoreElements()) {
          AbstractMarker next = markers.nextElement();
-         if (pendingChanges.get(next) == true) {
+         MarkerState state = pendingChanges.get(next);
+         if (state != MarkerState.UNMODIFIED) {
             anyPendingChanges = true;
             break;
          }
@@ -527,20 +582,27 @@ final public class MarkerEditorTopComponent extends TopComponent implements Obse
          BackupAllButton.setEnabled(anyPendingChanges);
    }
 
-   private void setPendingChanges(boolean state, AbstractMarker marker, boolean update) {
+   private void setPendingChanges(MarkerState state, AbstractMarker marker, boolean update) {
+      // If the marker's current state is ADDED, then it was added after the last backup.
+      // So do not allow it to be changed to MODIFIED or DELETED. It can be changed
+      // to UNMODIFIED by backing up.
+      MarkerState currentState = pendingChanges.get(marker);
+      if (currentState == MarkerState.ADDED && state != MarkerState.UNMODIFIED)
+         return;
+
       pendingChanges.put(marker, state);
 
       if (update)
          updateBackupRestoreButtons();
 
       // Mark the model as dirty as well.
-      if (state == true && currentModel != null) {
+      if (state != MarkerState.UNMODIFIED && currentModel != null) {
          SingleModelGuiElements guiElem = ViewDB.getInstance().getModelGuiElements(currentModel);
          guiElem.setUnsavedChangesFlag(true);
       }
    }
    
-   private void setAllPendingChanges(boolean state) {
+   private void setAllPendingChanges(MarkerState state) {
       boolean needsRepainting = false;
       Enumeration<AbstractMarker> markers = pendingChanges.keys();
       while(markers.hasMoreElements()) {
@@ -551,14 +613,14 @@ final public class MarkerEditorTopComponent extends TopComponent implements Obse
       updateBackupRestoreButtons();
 
       // Mark the model as dirty as well.
-      if (state == true && currentModel != null) {
+      if (state != MarkerState.UNMODIFIED && currentModel != null) {
          SingleModelGuiElements guiElem = ViewDB.getInstance().getModelGuiElements(currentModel);
          guiElem.setUnsavedChangesFlag(true);
       }
    }
 
    private void backupMarker() {
-      setPendingChanges(false, currentMarker, true);
+      setPendingChanges(MarkerState.UNMODIFIED, currentMarker, true);
       AbstractMarker savedMarker = AbstractMarker.safeDownCast(currentMarker.copy());
       savedMarkers.put(currentMarker, savedMarker);
    }
@@ -567,30 +629,39 @@ final public class MarkerEditorTopComponent extends TopComponent implements Obse
     * It backs up only the markers that have been modified since they
     * were last backed up.
     */
-   private void backupMarkers() {
+   private void backupAllMarkers() {
       // Should never be null, but just in case...
        if (currentModel == null)
           return;
 
-      // Loop through the marker set, backing up only the ones that have been modified.
-      MarkerSet markers = currentModel.getDynamicsEngine().getMarkerSet();
-      for (int i=0; i<markers.getSize(); i++) {
-         AbstractMarker marker = markers.get(i);
-         if (pendingChanges.get(marker)) {
-             AbstractMarker savedMarker = savedMarkers.get(marker);
-             // Copy the elements of the saved marker into the [regular] marker.
-             savedMarker.copy(marker);
+      // Loop through the pendingChanges table:
+      //    1. for MarkerState.DELETED, delete the backup and the pendingChanges entry
+      //    2. for MarkerState.ADDED, make a backup
+      //    3. for MarkerState.MODIFIED, copy the marker to the backup marker
+      Enumeration<AbstractMarker> markers = pendingChanges.keys();
+      while (markers.hasMoreElements()) {
+         AbstractMarker marker = markers.nextElement();
+         MarkerState state = pendingChanges.get(marker);
+         if (state == MarkerState.DELETED) {
+            savedMarkers.remove(marker);
+            pendingChanges.remove(marker);
+         } else if (state == MarkerState.ADDED) {
+            AbstractMarker savedMarker = AbstractMarker.safeDownCast(marker.copy());
+            savedMarkers.put(marker, savedMarker);
+         } else if (state == MarkerState.MODIFIED) {
+            AbstractMarker savedMarker = savedMarkers.get(marker);
+            savedMarker.copy(marker);
          }
       }
 
-      setAllPendingChanges(false);
+      setAllPendingChanges(MarkerState.UNMODIFIED);
    }
 
    /* This is called when the current model is closed or switched. It deletes
     * all backed up markers, and then if there is a current model, it makes a
     * new set of backups for that model.
     */
-   private void backupAllMarkers() {
+   private void backupEveryMarker() {
       // Delete any existing marker backups, and clear the savedMarkers hash table.
       Iterator<AbstractMarker> markerIter = savedMarkers.values().iterator();
       while(markerIter.hasNext())
@@ -605,7 +676,7 @@ final public class MarkerEditorTopComponent extends TopComponent implements Obse
          for (int i=0; i<markers.getSize(); i++) {
             AbstractMarker savedMarker = AbstractMarker.safeDownCast(markers.get(i).copy());
             savedMarkers.put(markers.get(i), savedMarker);
-            pendingChanges.put(markers.get(i), false);
+            pendingChanges.put(markers.get(i), MarkerState.UNMODIFIED);
          }
       }
    }
@@ -615,23 +686,33 @@ final public class MarkerEditorTopComponent extends TopComponent implements Obse
       if (currentMarker == null || currentModel == null)
          return;
       AbstractMarker savedMarker = savedMarkers.get(currentMarker);
-      if (savedMarker == null)
+      // If savedMarker is null, then this marker was added by the user and not backed up yet. So delete it.
+      // The pendingChanges entry for this marker should also be MarkerState.ADDED, but there's no need to check it.
+      if (savedMarker == null) {
+         deleteMarker(currentMarker, true);
+         // If adding this marker was the only change to the marker set, then you need to
+         // disable the backup all and restore all buttons.
+         updateBackupRestoreButtons();
          return;
+      }
 
       SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(currentModel);
 
-      // If the name has changed, fire an event.
+      // If the name has changed, update the marker list in ViewDB and fire an event.
       if (currentMarker.getName().equals(savedMarker.getName()) == false) {
-         NameChangedEvent ev = new NameChangedEvent(currentMarker);
+         ViewDB.getInstance().getModelGuiElements(currentModel).updateMarkerNames();
+         Vector<OpenSimObject> objs = new Vector<OpenSimObject>(1);
+         objs.add(currentMarker);
+         ObjectsRenamedEvent evnt = new ObjectsRenamedEvent(this, currentModel, objs);
          OpenSimDB.getInstance().setChanged();
-         OpenSimDB.getInstance().notifyObservers(ev);
+         OpenSimDB.getInstance().notifyObservers(evnt);
       }
 
       // Copy the elements of the saved marker into the current marker.
       currentMarker.copy(savedMarker);
       vis.updateMarkerGeometry(currentMarker);
 
-      setPendingChanges(false, currentMarker, false);
+      setPendingChanges(MarkerState.UNMODIFIED, currentMarker, false);
       setupComponent(currentMarker);
       ViewDB.getInstance().repaintAll();
    }
@@ -644,34 +725,209 @@ final public class MarkerEditorTopComponent extends TopComponent implements Obse
       boolean updateEditor = false;
       SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(currentModel);
 
-      // Make a note if the current actuator needs to be restored, so you can call
-      // setupComponent() later.
-      if (pendingChanges.get(currentMarker))
-          updateEditor = true;
-
-      // Loop through the marker set, restoring only the ones that have been modified.
-      MarkerSet markers = currentModel.getDynamicsEngine().getMarkerSet();
-      for (int i=0; i<markers.getSize(); i++) {
-         AbstractMarker marker = markers.get(i);
-         if (pendingChanges.get(marker)) {
+      // Loop through the pendingChanges table:
+      //    1. delete all markers that are MarkerState.ADDED
+      //    2. restore all markers that are MarkerState.MODIFIED or MarkerState.DELETED
+      Enumeration<AbstractMarker> markers = pendingChanges.keys();
+      Vector<OpenSimObject> renamedObjects = new Vector<OpenSimObject>(1);
+      Vector<OpenSimObject> deletedObjects = new Vector<OpenSimObject>(1);
+      Vector<OpenSimObject> addedObjects = new Vector<OpenSimObject>(1);
+      while (markers.hasMoreElements()) {
+         AbstractMarker marker = markers.nextElement();
+         MarkerState state = pendingChanges.get(marker);
+         if (state == MarkerState.DELETED) {
+            double[] offset = new double[3];
             AbstractMarker savedMarker = savedMarkers.get(marker);
-            // If the name has changed, fire an event.
+            MarkerSet markerset = currentModel.getDynamicsEngine().getMarkerSet();
+            savedMarker.getOffset(offset);
+            AbstractBody b = savedMarker.getBody();
+            String n = savedMarker.getName();
+            AbstractMarker restoredMarker = markerset.addMarker(savedMarker.getName(), offset, savedMarker.getBody());
+            addedObjects.add(restoredMarker);
+         } else if (state == MarkerState.ADDED) {
+            deleteMarker(marker, false);
+            deletedObjects.add(marker);
+         } else if (state == MarkerState.MODIFIED) {
+            AbstractMarker savedMarker = savedMarkers.get(marker);
             if (marker.getName().equals(savedMarker.getName()) == false) {
-               NameChangedEvent ev = new NameChangedEvent(marker);
-               OpenSimDB.getInstance().setChanged();
-               OpenSimDB.getInstance().notifyObservers(ev);
+              renamedObjects.add(marker);
             }
-
             // Copy the elements of the saved marker into the [regular] marker.
             marker.copy(savedMarker);
             vis.updateMarkerGeometry(marker);
          }
       }
 
-      setAllPendingChanges(false);
-      if (updateEditor)
-         setupComponent(currentMarker);
+      // Update the marker name list in the ViewDB.
+      ViewDB.getInstance().getModelGuiElements(currentModel).updateMarkerNames();
+
+      if (renamedObjects.size() > 0) {
+         ObjectsRenamedEvent evnt = new ObjectsRenamedEvent(this, currentModel, renamedObjects);
+         OpenSimDB.getInstance().setChanged();
+         OpenSimDB.getInstance().notifyObservers(evnt);
+      }
+
+      if (deletedObjects.size() > 0) {
+         ObjectsDeletedEvent evnt = new ObjectsDeletedEvent(this, currentModel, deletedObjects);
+         OpenSimDB.getInstance().setChanged();
+         OpenSimDB.getInstance().notifyObservers(evnt);
+      }
+
+      if (addedObjects.size() > 0) {
+         ObjectsAddedEvent evnt = new ObjectsAddedEvent(this, currentModel, addedObjects);
+         OpenSimDB.getInstance().setChanged();
+         OpenSimDB.getInstance().notifyObservers(evnt);
+      }
+
+      setAllPendingChanges(MarkerState.UNMODIFIED);
+
       ViewDB.getInstance().repaintAll();
+   }
+
+   private void addMarker() {
+      if (currentModel == null)
+         return;
+
+      double[] offset = {0.11, 0.22, 0.33};
+      MarkerSet markerset = currentModel.getDynamicsEngine().getMarkerSet();
+      AbstractBody body = currentModel.getDynamicsEngine().getBodySet().get(0);
+      if (body == null)
+         return;
+      AbstractMarker marker = markerset.addMarker("MarkerName", offset, body);
+      if (marker == null)
+         return;
+
+      // Update the marker name list in the ViewDB.
+      ViewDB.getInstance().getModelGuiElements(currentModel).updateMarkerNames();
+
+      Vector<OpenSimObject> objs = new Vector<OpenSimObject>(1);
+      objs.add(marker);
+      ObjectsAddedEvent evnt = new ObjectsAddedEvent(this, currentModel, objs);
+      OpenSimDB.getInstance().setChanged();
+      OpenSimDB.getInstance().notifyObservers(evnt);
+
+      // update() will handle the ObjectsAddedEvent, but it will not set the
+      // marker editor to be working on the new marker. So do it here.
+      setupComponent(marker);
+   }
+
+   private void deleteMarker(AbstractMarker marker, boolean sendEvent) {
+      if (currentModel == null)
+         return;
+
+      // Remove the marker from the model's marker set.
+      MarkerSet markerset = currentModel.getDynamicsEngine().getMarkerSet();
+      markerset.remove(marker);
+
+      // Update the marker name list in the ViewDB.
+      ViewDB.getInstance().getModelGuiElements(currentModel).updateMarkerNames();
+
+      if (sendEvent) {
+         // Generate an event so everyone can update, including the marker editor.
+         Vector<OpenSimObject> objs = new Vector<OpenSimObject>(1);
+         objs.add(marker);
+         ObjectsDeletedEvent evnt = new ObjectsDeletedEvent(this, currentModel, objs);
+         OpenSimDB.getInstance().setChanged();
+         OpenSimDB.getInstance().notifyObservers(evnt);
+      }
+   }
+
+   private void handleAddEvent(ObjectsAddedEvent evt) {
+      boolean refreshNames = false;
+      Vector<OpenSimObject> objs = evt.getObjects();
+      for (int i=0; i<objs.size(); i++) {
+         if (objs.get(i) instanceof AbstractMarker) {
+            AbstractMarker marker = (AbstractMarker)objs.get(i);
+            // If the marker is already in pendingChanges and is MarkerState.DELETED,
+            // then it was deleted after the last backup and is now being restored.
+            // So set it to MarkerState.UNMODIFIED. Otherwise, the marker is brand
+            // new, so set it to MarkerState.ADDED.
+            if (pendingChanges.get(marker) == MarkerState.DELETED)
+               pendingChanges.put(marker, MarkerState.UNMODIFIED);
+            else
+               pendingChanges.put(marker, MarkerState.ADDED);
+            refreshNames = true;
+         }
+      }
+      if (refreshNames)
+         updateMarkerComboBox(null);
+   }
+
+   private void handleDeleteEvent(ObjectsDeletedEvent evt) {
+      boolean refreshNames = false, setupEditor = false;
+      Vector<OpenSimObject> objs = evt.getObjects();
+      for (int i=0; i<objs.size(); i++) {
+         if (objs.get(i) instanceof AbstractMarker) {
+            AbstractMarker marker = (AbstractMarker)objs.get(i);
+            // If the marker is MarkerState.ADDED, then it was added after the last
+            // backup, so remove all traces of it from the marker editor. If it is not,
+            // then keep it in pendingChanges but set it to MarkerState.DELETED.
+            if (pendingChanges.get(marker) == MarkerState.ADDED)
+               pendingChanges.remove(marker);
+            else
+               pendingChanges.put(marker, MarkerState.DELETED);
+            refreshNames = true;
+            if (currentMarker != null && AbstractMarker.getCPtr(currentMarker) == AbstractMarker.getCPtr(marker))
+                setupEditor = true;
+         }
+      }
+      if (setupEditor)
+         setupComponent(null);
+      else if (refreshNames) {
+         updateMarkerComboBox(null);
+      }
+   }
+
+   private void updateMarkerLineDisplay(SelectedObject selectedObject, boolean state) {
+      OpenSimObject obj = selectedObject.getOpenSimObject();
+      AbstractMarker marker = AbstractMarker.safeDownCast(obj);
+      if (marker != null) {
+         SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(currentModel);
+         vis.setMarkerLineVisible(marker, state);
+      }
+   }
+   
+   private void dragMarkers(DragObjectsEvent ev) {
+      ArrayList<SelectedObject> selectedObjects = ViewDB.getInstance().getSelectedObjects();
+      AbstractMarker m = null;
+      boolean currentMarkerMoved = false;
+      for (int i = 0; i < selectedObjects.size(); i++) {
+         OpenSimObject obj = selectedObjects.get(i).getOpenSimObject();
+         m = AbstractMarker.safeDownCast(obj);
+         if (m != null) {
+            AbstractDynamicsEngine engine = currentModel.getDynamicsEngine();
+            AbstractBody body = m.getBody();
+            AbstractBody ground = engine.getGroundBody();
+            double dragVectorBody[] = new double[3];
+            double offset[] = new double[3];
+            engine.transform(ground, ev.getDragVector(), body, dragVectorBody);
+            //System.out.println("drag: " + ev.getDragVector()[0] + " " + ev.getDragVector()[1] + " " + ev.getDragVector()[2]);
+            m.getOffset(offset);
+            for (int j=0; j<3; j++)
+               offset[j] += dragVectorBody[j];
+            m.setOffset(offset);
+            setPendingChanges(MarkerState.MODIFIED, m, false);
+            // Check to see if the muscle editor's current muscle was moved, so you can update the window later.
+            if (AbstractMarker.getCPtr(m) == AbstractMarker.getCPtr(currentMarker)) {
+               currentMarkerMoved = true;
+            }
+            // Update the marker geometry.
+            SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(currentModel);
+            vis.updateMarkerGeometry(m);
+         }
+      }
+      // If m is not null, then at least one selected object is a marker
+      // (that was just dragged). So redraw the model.
+      if (m != null) {
+         SingleModelGuiElements guiElem = ViewDB.getInstance().getModelGuiElements(currentModel);
+         guiElem.setUnsavedChangesFlag(true);
+         // If the current muscle moved, update the necessary panels.
+         if (currentMarkerMoved) {
+            updateOffsetFields();
+         }
+         updateBackupRestoreButtons();
+         ViewDB.getInstance().renderAll();
+      }
    }
 
    private boolean validName(String markerName)
@@ -703,20 +959,20 @@ final public class MarkerEditorTopComponent extends TopComponent implements Obse
       return false;
    }
 
-   // Called from update(), this function handles name changes to any marker in
-   // the current model. It assumes that the marker's name has already been
-   // changed, so only the marker editor needs to be updated.
-   private void updateMarkerName(AbstractMarker marker) {
+   // Called from update(), this function handles changes to the list of marker names
+   // for the current model. If 'marker' is null, then a marker was added or deleted.
+   // If it is not null, then the name of 'marker' was changed.
+   private void updateMarkerComboBox(AbstractMarker marker) {
       SingleModelGuiElements guiElem = ViewDB.getInstance().getModelGuiElements(currentModel);
       String [] markerNames = guiElem.getMarkerNames();
       MarkerComboBox.setModel(new javax.swing.DefaultComboBoxModel(markerNames));
       if (currentMarker != null) {
-         int foo = findElement(markerNames, currentMarker.getName());
          MarkerComboBox.setSelectedIndex(findElement(markerNames, currentMarker.getName()));
-         if (currentMarker.equals(marker))
+         if (marker != null && currentMarker.equals(marker))
             MarkerNameTextField.setText(currentMarker.getName());
       }
-      setPendingChanges(true, marker, true);
+      if (marker != null)
+         setPendingChanges(MarkerState.MODIFIED, marker, true);
    }
 
    public void open() {
@@ -739,12 +995,12 @@ final public class MarkerEditorTopComponent extends TopComponent implements Obse
                        options[0]);
             } else {
                currentMarker = newMarker;
-               setPendingChanges(false, currentMarker, false);
+               setPendingChanges(MarkerState.UNMODIFIED, currentMarker, false);
                setupComponent(currentMarker);
             }
          }
       } else {
-         setAllPendingChanges(false);
+         setAllPendingChanges(MarkerState.UNMODIFIED);
          setupComponent(null);
       }
       super.open();
@@ -755,12 +1011,16 @@ final public class MarkerEditorTopComponent extends TopComponent implements Obse
       if (o instanceof ViewDB) {
          if (arg instanceof ObjectSelectedEvent) {
             ObjectSelectedEvent ev = (ObjectSelectedEvent)arg;
-            //updateAttachmentSelections(ev.getSelectedObject(), ev.getState());
+            updateMarkerLineDisplay(ev.getSelectedObject(), ev.getState());
          } else if (arg instanceof ClearSelectedObjectsEvent) {
-            if (currentMarker != null) {
+            if (currentModel != null) {
+               MarkerSet markers = currentModel.getDynamicsEngine().getMarkerSet();
+               SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(currentModel);
+               for (int i=0; i<markers.getSize(); i++)
+                  vis.setMarkerLineVisible(markers.get(i), false);
             }
          } else if (arg instanceof DragObjectsEvent) {
-            //dragMusclePoints((DragObjectsEvent)arg);
+            dragMarkers((DragObjectsEvent)arg);
          }
       } else if (o instanceof OpenSimDB) {
          // if current model is being switched due to open/close or change current then
@@ -770,8 +1030,8 @@ final public class MarkerEditorTopComponent extends TopComponent implements Obse
             if (evt.getOperation() == ModelEvent.Operation.Close && OpenSimDB.getInstance().getCurrentModel() == null) {
                currentModel = null;
                currentMarker = null;
-               backupAllMarkers();
-               setAllPendingChanges(false);
+               backupEveryMarker();
+               setAllPendingChanges(MarkerState.UNMODIFIED);
                setupComponent(null);
             }
             // Do we need to handle close separately or should we be called with SetCurrent of null model?
@@ -785,24 +1045,34 @@ final public class MarkerEditorTopComponent extends TopComponent implements Obse
                   if (currentModel == null || !currentModel.equals(objs.get(i))) {
                      currentModel = (Model)objs.get(i);
                      currentMarker = null;
-                     backupAllMarkers();
-                     setAllPendingChanges(false);
+                     backupEveryMarker();
+                     setAllPendingChanges(MarkerState.UNMODIFIED);
                      setupComponent(null);
                      break;
                   }
                }
             }
+         } else if (arg instanceof ObjectsAddedEvent) {
+            if (currentModel != null) {
+               handleAddEvent((ObjectsAddedEvent)arg);
+            }
+         } else if (arg instanceof ObjectsDeletedEvent) {
+            if (currentModel != null) {
+               handleDeleteEvent((ObjectsDeletedEvent)arg);
+            }
          } else if (arg instanceof ObjectsChangedEvent) {
-         } else if (arg instanceof NameChangedEvent) {
-            NameChangedEvent ev = (NameChangedEvent)arg;
-            if (ev.getObject() instanceof Model) {
-               if (currentModel != null && currentModel.equals(ev.getObject())) {
-                  ModelNameLabel.setText("Model: " + currentModel.getName());
+         } else if (arg instanceof ObjectsRenamedEvent) {
+            ObjectsRenamedEvent evt = (ObjectsRenamedEvent)arg;
+            Vector<OpenSimObject> objs = evt.getObjects();
+            for (int i=0; i<objs.size(); i++) {
+               if (objs.get(i) instanceof Model) {
+                  if (currentModel != null && currentModel.equals(objs.get(i)))
+                     ModelNameLabel.setText("Model: " + currentModel.getName());
+               } else if (objs.get(i) instanceof AbstractMarker) {
+                  AbstractMarker marker = (AbstractMarker)objs.get(i);
+                  if (currentModel != null && currentModel.equals(marker.getBody().getDynamicsEngine().getModel()))
+                     updateMarkerComboBox(marker);
                }
-            } else if (ev.getObject() instanceof AbstractMarker) {
-               AbstractMarker marker = (AbstractMarker)ev.getObject();
-               if (currentModel != null && currentModel.equals(marker.getBody().getDynamicsEngine().getModel()))
-                  updateMarkerName(marker);
             }
          }
       }

@@ -114,6 +114,7 @@ public class SingleModelVisuals {
 
     private Hashtable<OpenSimObject, Integer> mapMarkers2Glyphs = new Hashtable<OpenSimObject, Integer>(50);
     private Hashtable<OpenSimObject, vtkLineSource> mapMarkers2Lines = new Hashtable<OpenSimObject, vtkLineSource>(50);
+    private Hashtable<OpenSimObject, Boolean> markerLinesVisible = new Hashtable<OpenSimObject, Boolean>(50);
     private vtkActor markerLineActor = new vtkActor();
     private vtkAppendPolyData markerLinePolyData = new vtkAppendPolyData();
 
@@ -190,11 +191,12 @@ public class SingleModelVisuals {
                 
                 OpenSimObject owner = Dependent.getOwner();
                 if (AbstractMarker.safeDownCast(owner)!=null){
-                    int index= getMarkersRep().addLocation(owner);
+                    int index = getMarkersRep().addLocation(owner);
                     getMarkersRep().setVectorDataAtLocation(index,1,1,1);
                     mapMarkers2Glyphs.put(owner, new Integer(index));
                     vtkLineSource markerLine = new vtkLineSource();
                     mapMarkers2Lines.put(owner, markerLine);
+                    markerLinesVisible.put(owner, false);
                     markerLinePolyData.AddInput(markerLine.GetOutput());
                     continue;
                 } else if (MusclePoint.safeDownCast(owner)!=null||
@@ -382,11 +384,35 @@ public class SingleModelVisuals {
       getMarkersRep().setLocation(index, gOffset);
       vtkLineSource markerLine = mapMarkers2Lines.get(marker);
       markerLine.SetPoint1(gOrigin);
-      if (ViewDB.getInstance().getDisplayStatus(marker) == 0)
+      if (markerLinesVisible.get(marker) == false)
          markerLine.SetPoint2(gOrigin);
       else
          markerLine.SetPoint2(gOffset);
       getMarkersRep().setModified();
+   }
+
+   public void setMarkerLineVisible(AbstractMarker marker, boolean state) {
+      double[] origin = {0.0, 0.0, 0.0};
+      Boolean oldState = markerLinesVisible.get(marker);
+      if (state != oldState) {
+         markerLinesVisible.put(marker, state);
+         vtkLineSource markerLine = mapMarkers2Lines.get(marker);
+         if (state == false) {
+            markerLine.SetPoint1(origin);
+            markerLine.SetPoint2(origin);
+         } else {
+            double[] offset = new double[3];
+            double[] gOffset = new double[3];
+            double[] gOrigin = new double[3];
+            AbstractDynamicsEngine de = marker.getBody().getDynamicsEngine();
+            marker.getOffset(offset);
+            de.transformPosition(marker.getBody(), offset, gOffset);
+            de.transformPosition(marker.getBody(), origin, gOrigin);
+            markerLine.SetPoint1(gOrigin);
+            markerLine.SetPoint2(gOffset);
+         }
+         getMarkersRep().setModified();
+      }
    }
 
    /**
@@ -453,6 +479,33 @@ public class SingleModelVisuals {
       getMusclePointsRep().setModified();
    }
 
+   public void addMarkerGeometry(AbstractMarker marker) {
+      int index = getMarkersRep().addLocation(marker);
+      getMarkersRep().setVectorDataAtLocation(index,1,1,1);
+      getMarkersRep().setSelected(index, false);
+      markersRep.setModified();
+      mapMarkers2Glyphs.put(marker, new Integer(index));
+      vtkLineSource markerLine = new vtkLineSource();
+      mapMarkers2Lines.put(marker, markerLine);
+      markerLinesVisible.put(marker, false);
+      markerLinePolyData.AddInput(markerLine.GetOutput());
+      updateMarkerGeometry(marker);
+   }
+
+   public void removeMarkerGeometry(AbstractMarker marker) {
+      System.out.println("ptr = " + AbstractMarker.getCPtr(marker));
+      int glyphID = mapMarkers2Glyphs.get(marker);
+      markersRep.remove(glyphID);
+      mapMarkers2Glyphs.remove(marker);
+
+      vtkLineSource markerLine = mapMarkers2Lines.get(marker);
+      markerLinePolyData.RemoveInput(markerLine.GetOutput());
+      mapMarkers2Lines.remove(marker);
+
+      markerLinesVisible.remove(marker);
+      markersRep.setModified();
+   }
+
    public void setMarkerVisibility(AbstractMarker marker, boolean visible) {
       int index = (mapMarkers2Glyphs.get(marker)).intValue();
       vtkLineSource markerLine = mapMarkers2Lines.get(marker);
@@ -471,7 +524,8 @@ public class SingleModelVisuals {
          de.transformPosition(body, origin, gOrigin);
          de.transformPosition(body, pos, gPos);
          markerLine.SetPoint1(gOrigin);
-         markerLine.SetPoint2(gPos);
+         markerLine.SetPoint2(gOrigin);
+         //markerLine.SetPoint2(gPos);
       } else {
          markersRep.hide(index);
          markerLine.SetPoint1(0.0, 0.0, 0.0);
@@ -684,7 +738,7 @@ public class SingleModelVisuals {
        strip1.SetInput(marker.GetOutput());
        getMarkersRep().setShape(strip1.GetOutput());
        getMarkersRep().scaleByVectorComponents();
-       markerLineActor.GetProperty().SetColor(defaultMarkerColor);
+       markerLineActor.GetProperty().SetColor(SelectedObject.defaultSelectedColor); // marker lines are displayed only when markers are selected
 
        // Muscle points
        vtkSphereSource viaPoint=new vtkSphereSource();

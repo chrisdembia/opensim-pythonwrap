@@ -36,10 +36,10 @@ import org.opensim.modeling.Model;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.modeling.Units;
 import org.opensim.view.ModelEvent;
-import org.opensim.view.NameChangedEvent;
 import org.opensim.view.ObjectSetCurrentEvent;
 import org.opensim.view.ObjectsChangedEvent;
 import org.opensim.view.ObjectsDeletedEvent;
+import org.opensim.view.ObjectsRenamedEvent;
 import org.opensim.view.pub.OpenSimDB;
 import org.opensim.view.pub.ViewDB;
 
@@ -627,25 +627,26 @@ final public class FunctionEditorTopComponent extends TopComponent implements Ob
                }
             }
          } else if (arg instanceof ObjectsChangedEvent) {
-            /** Probably don't need to do anything here.
-             * If an object changed such that the function
-             * in the Function Editor should be closed,
-             * then closeObject() or closeModel() should
-             * be called.
-             */
-         } else if (arg instanceof NameChangedEvent) {
-            /* Model and object are used to create the title,
-             * so you don't care about relatedObjects here.
-             */
-            NameChangedEvent evt = (NameChangedEvent)arg;
+            // Probably don't need to do anything here.
+            // If an object changed such that the function
+            // in the Function Editor should be closed,
+            // then closeObject() or closeModel() should
+            // be called.
+         } else if (arg instanceof ObjectsRenamedEvent) {
+            // Model and object are used to create the title,
+            // so you don't care about relatedObjects here.
+            ObjectsRenamedEvent evt = (ObjectsRenamedEvent)arg;
             if (model != null && object != null) {
-               if (model.equals(evt.getObject()) || object.equals(evt.getObject()))
-                  updateFunctionTitle();
+               Vector<OpenSimObject> objs = evt.getObjects();
+               for (int i=0; i<objs.size(); i++) {
+                  if (model.equals(objs.get(i)) || object.equals(objs.get(i))) {
+                     updateFunctionTitle();
+                  }
+               }
             }
          } else if (arg instanceof ObjectsDeletedEvent) {
-            /* If object or any of the relatedObjects is deleted,
-             * clear the Function Editor.
-             */
+            // If object or any of the relatedObjects is deleted,
+            // clear the Function Editor.
             ObjectsDeletedEvent evt = (ObjectsDeletedEvent)arg;
             Vector<OpenSimObject> objs = evt.getObjects();
             if (anyObjectIsRelevant(evt.getObjects())) {

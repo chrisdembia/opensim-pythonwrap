@@ -24,7 +24,7 @@
  *  WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 /*
- * ObjectAddedEvent.java
+ * ObjectsAddedEvent.java
  *
  * Created on July 18, 2007, 1:28 PM
  *
@@ -42,12 +42,12 @@ import org.opensim.modeling.OpenSimObject;
  *
  * @author Peter Loan
  */
-public class ObjectAddedEvent extends OpenSimEvent {
+public class ObjectsAddedEvent extends OpenSimEvent {
 
    /**
-    * Creates a new instance of ObjectAddedEvent
+    * Creates a new instance of ObjectsAddedEvent
     */
-   public ObjectAddedEvent(Object source, Model theModel, Vector<OpenSimObject> theObjects) {
+   public ObjectsAddedEvent(Object source, Model theModel, Vector<OpenSimObject> theObjects) {
         super(source, theModel, theObjects);
    }
 }
