@@ -29,7 +29,6 @@ import org.opensim.view.ClearSelectedObjectsEvent;
 import org.opensim.view.DragObjectsEvent;
 import org.opensim.view.ExplorerTopComponent;
 import org.opensim.view.ModelEvent;
-import org.opensim.view.ObjectAddedEvent;
 import org.opensim.view.ObjectSelectedEvent;
 import org.opensim.view.ObjectSetCurrentEvent;
 import org.opensim.view.ObjectsAddedEvent;
