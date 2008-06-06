@@ -50,6 +50,8 @@ import org.opensim.modeling.AbstractMarker;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.view.nodes.ConcreteModelNode;
+import org.opensim.view.nodes.MarkersNode;
+import org.opensim.view.nodes.OneMarkerNode;
 import org.opensim.view.nodes.OpenSimNode;
 import org.opensim.view.pub.OpenSimDB;
 
@@ -193,7 +195,19 @@ final public class ExplorerTopComponent extends TopComponent
                     }
                     );
                  } else if (objs.get(i) instanceof AbstractMarker) {
-                    ;
+                    AbstractMarker marker = (AbstractMarker)objs.get(i);
+                    Model model = evnt.getModel();
+                    ConcreteModelNode modelNode = getModelNode(model);
+                    Children children = modelNode.getChildren();
+                    Node[] nodes = children.getNodes();
+                    String markersNodeName = NbBundle.getMessage(MarkersNode.class, "CTL_Markers");
+                    for (int j=0; j < nodes.length; j++) {
+                       if (nodes[j].getDisplayName().equals(markersNodeName)) {
+                          OneMarkerNode newMarkerNode = new OneMarkerNode(marker);
+                          nodes[j].getChildren().add(new Node[] {newMarkerNode});
+                          break;
+                       }
+                    }
                  }
               }
            } else if (arg instanceof ObjectsDeletedEvent) {
@@ -201,7 +215,33 @@ final public class ExplorerTopComponent extends TopComponent
               final Vector<OpenSimObject> objs = evnt.getObjects();
               for (int i=0; i<objs.size(); i++) {
                  if (objs.get(i) instanceof AbstractMarker) {
-                    ;
+                    AbstractMarker marker = (AbstractMarker)objs.get(i);
+                    Model model = evnt.getModel();
+                    ConcreteModelNode modelNode = getModelNode(model);
+                    Children children = modelNode.getChildren();
+                    Node[] nodes = children.getNodes();
+                    String markersNodeName = NbBundle.getMessage(MarkersNode.class, "CTL_Markers");
+                    for (int j=0; j < nodes.length; j++) {
+                       if (nodes[j].getDisplayName().equals(markersNodeName)) {
+                          children = nodes[j].getChildren();
+                          nodes = children.getNodes();
+                          for (int k=0; k<nodes.length; k++) {
+                             if (nodes[k] instanceof OneMarkerNode) {
+                                OneMarkerNode omn = (OneMarkerNode)nodes[k];
+                                if (AbstractMarker.getCPtr(omn.getOpenSimObject()) == AbstractMarker.getCPtr(marker)) {
+                                   try {
+                                      children.remove(new Node[] {nodes[k]});
+                                      if (nodes[k] != null)
+                                         nodes[k].destroy();
+                                   } catch (IOException ex) {
+                                      ex.printStackTrace();
+                                   }
+                                }
+                             }
+                          }
+                          break;
+                       }
+                    }
                  }
               }
            } else if (arg instanceof ObjectSetCurrentEvent) {

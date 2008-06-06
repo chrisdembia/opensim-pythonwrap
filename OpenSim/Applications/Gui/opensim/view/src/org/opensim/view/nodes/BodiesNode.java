@@ -32,7 +32,7 @@ public class BodiesNode extends OpenSimObjectSetNode {
 
     public BodiesNode(BodySet bodySet) {
         super(bodySet);
-         
+        setDisplayName(NbBundle.getMessage(BodiesNode.class, "CTL_Bodies"));
         //Stack<OneBodyNode> stack = new Stack<OneBodyNode>();
 
         for (int bodyNum=0; bodyNum < bodySet.getSize(); bodyNum++ ){

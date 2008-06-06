@@ -20,6 +20,7 @@ public class MarkersNode extends OpenSimObjectSetNode {
 
     public MarkersNode(MarkerSet markerSet) {
         super(markerSet);
+        setDisplayName(NbBundle.getMessage(MarkersNode.class, "CTL_Markers"));
 
         for (int markerNum=0; markerNum < markerSet.getSize(); markerNum++ ){
 
