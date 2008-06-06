@@ -72,6 +72,7 @@ import vtk.vtkTransform;
 import vtk.vtkTransformPolyDataFilter;
 import vtk.vtkXMLPolyDataReader;
 import vtk.vtkAppendPolyData;
+import vtk.vtkDataObject;
 import vtk.vtkLineSource;
 
 /**
@@ -162,7 +163,7 @@ public class SingleModelVisuals {
         String modelFilePath = model.getFilePath();
                 
         vtkAssembly modelAssembly = new vtkAssembly();
-        
+
         // Keep track of ground body to avoid recomputation
         defaultMarkerColor = ViewDB.getInstance().getDefaultMarkersColor();
         AbstractBody gnd = model.getDynamicsEngine().getGroundBody();
@@ -383,11 +384,11 @@ public class SingleModelVisuals {
       de.transformPosition(marker.getBody(), origin, gOrigin);
       getMarkersRep().setLocation(index, gOffset);
       vtkLineSource markerLine = mapMarkers2Lines.get(marker);
-      markerLine.SetPoint1(gOrigin);
+      markerLine.SetPoint1(gOffset);
       if (markerLinesVisible.get(marker) == false)
-         markerLine.SetPoint2(gOrigin);
-      else
          markerLine.SetPoint2(gOffset);
+      else
+         markerLine.SetPoint2(gOrigin);
       getMarkersRep().setModified();
    }
 
@@ -408,8 +409,8 @@ public class SingleModelVisuals {
             marker.getOffset(offset);
             de.transformPosition(marker.getBody(), offset, gOffset);
             de.transformPosition(marker.getBody(), origin, gOrigin);
-            markerLine.SetPoint1(gOrigin);
-            markerLine.SetPoint2(gOffset);
+            markerLine.SetPoint1(gOffset);
+            markerLine.SetPoint2(gOrigin);
          }
          getMarkersRep().setModified();
       }
@@ -493,13 +494,21 @@ public class SingleModelVisuals {
    }
 
    public void removeMarkerGeometry(AbstractMarker marker) {
-      System.out.println("ptr = " + AbstractMarker.getCPtr(marker));
       int glyphID = mapMarkers2Glyphs.get(marker);
       markersRep.remove(glyphID);
       mapMarkers2Glyphs.remove(marker);
 
+      // There appears to be a bug in removing inputs from
+      // a vtkAppendPolyData object-- the output is never updated
+      // to reflect the removal. So before removing it, set
+      // the marker line to a point, so it is invisible.
       vtkLineSource markerLine = mapMarkers2Lines.get(marker);
+      double[] origin = {0.0, 0.0, 0.0};
+      markerLine.SetPoint1(origin);
+      markerLine.SetPoint2(origin);
+      markerLinePolyData.Update();
       markerLinePolyData.RemoveInput(markerLine.GetOutput());
+      markerLinePolyData.Modified();
       mapMarkers2Lines.remove(marker);
 
       markerLinesVisible.remove(marker);
