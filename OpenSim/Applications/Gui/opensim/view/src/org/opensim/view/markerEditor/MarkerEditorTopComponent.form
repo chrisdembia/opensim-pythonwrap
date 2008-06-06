@@ -177,6 +177,7 @@
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="XTextFieldActionPerformed"/>
+                    <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="XTextFieldFocusLost"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="YLabel">
@@ -190,6 +191,7 @@
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="YTextFieldActionPerformed"/>
+                    <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="YTextFieldFocusLost"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="ZLabel">
@@ -203,6 +205,7 @@
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ZTextFieldActionPerformed"/>
+                    <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="ZTextFieldFocusLost"/>
                   </Events>
                 </Component>
               </SubComponents>
