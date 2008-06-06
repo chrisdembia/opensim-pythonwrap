@@ -182,8 +182,8 @@ public class FunctionRenderer extends XYLineAndShapeRendererWithHighlight
          if (this.getSeriesShapesVisible(series)) {
             int itemCount = dataset.getItemCount(series);
             for (int item = 0; item < itemCount; item++) {
-               double datax = dataset.getXValue(series, item) * XUnits.convertTo(XDisplayUnits);
-               double datay = dataset.getYValue(series, item) * YUnits.convertTo(YDisplayUnits);
+               double datax = dataset.getXValue(series, item);
+               double datay = dataset.getYValue(series, item);
                double screenx = domainAxis.valueToJava2D(datax, dataArea, xAxisLocation);
                double screeny = rangeAxis.valueToJava2D(datay, dataArea, yAxisLocation);
                Shape shape = getItemShape(series, item);
