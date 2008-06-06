@@ -257,11 +257,11 @@ public final class ViewDB extends Observable implements Observer {
                   vis.removeMarkerGeometry((AbstractMarker)obj);
                   repaint = true;
                }
-               if (selectedDeleted)
-                  statusDisplaySelectedObjects();
-               if (repaint)
-                  repaintAll();
             }
+            if (selectedDeleted)
+               statusDisplaySelectedObjects();
+            if (repaint)
+               repaintAll();
          } else if (arg instanceof ObjectsRenamedEvent){
             ObjectsRenamedEvent ev = (ObjectsRenamedEvent)arg;
             // The name change might be for one or more of the selected objects
