@@ -1291,7 +1291,7 @@ public class JPlotterPanel extends javax.swing.JPanel
            String title,
            String curveLegend, String columnName,
            String xLabel, String yLabel) {
-        /*
+        
         sourceX = new PlotterSourceAnalysis(aModel, s, columnName);
         sourceY = sourceX;
         setDomainName("time");
@@ -1301,11 +1301,12 @@ public class JPlotterPanel extends javax.swing.JPanel
         PlotCurve plotCurve=null;
         //settings.setXMin(s.getFirstTime());
         //settings.setXMax(s.getLastTime());
+        settings.setName(rangeNames[0]);
         plotCurve = plotterModel.addCurveSingleRangeName(title, settings,
                 sourceX, getDomainName(),                 sourceY, rangeNames[0]);
         makeCurveCurrent(plotCurve);
-         **/
-      return null;//;
+        
+      return plotCurve;
    }
    /**
     * This will be triggered when motion time changes.

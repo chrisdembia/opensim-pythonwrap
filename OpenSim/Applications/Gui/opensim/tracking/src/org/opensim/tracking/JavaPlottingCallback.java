@@ -30,100 +30,100 @@
 
 package org.opensim.tracking;
 
+import javax.swing.SwingUtilities;
 import org.openide.DialogDescriptor;
 import org.openide.DialogDisplayer;
-import org.opensim.modeling.Analysis;
-import org.opensim.modeling.AnalysisSet;
-import org.opensim.modeling.ArrayStorage;
+import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.CMCTool;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.SWIGTYPE_p_double;
 import org.opensim.modeling.SWIGTYPE_p_void;
+import org.opensim.modeling.SimtkAnimationCallback;
 import org.opensim.modeling.Storage;
 import org.opensim.plotter.JPlotterPanel;
 import org.opensim.plotter.PlotCurve;
-import org.opensim.plotter.PlotterException;
-import org.opensim.view.JavaAnimationCallback;
 
 /**
  *
  * @author Ayman Habib.
  *
- * An animation callback that can be can be invoked while running RRA or CMC
+ * An acallback that can be can be invoked while running RRA or CMC
  * It should figure out the mode from the tool which mode is it in and based on that
  * - In RRA1 should display the residuals
  * - In CMC should probably show pre and post tracking quantities
  */
-public class JavaCMCAnimationCallback extends JavaAnimationCallback{
+public class JavaPlottingCallback extends SimtkAnimationCallback{
     
     CMCTool cmcRraTool;
     JPlotterPanel plotter;
     PlotCurve[] cvs;
     Storage s;
     int timeIndex=-1;
+    int lastIndex;
     int errorsIndexInStorage=-1;
-    String[] qtyNames=new String[]{"FX", "FY", "FZ", "MX", "MY", "MZ"};    
-    int[] qtyIndices=new int[qtyNames.length];   // Keep indices to qtys for quick access in step
+    private String[] qtyNames=null;
+    int[] qtyIndices=null;   // Keep indices to qtys for quick access in step
     boolean plotterInitialized=false;
     
-    /** Creates a new instance of JavaCMCAnimationCallback */
-    public JavaCMCAnimationCallback(Model model) {
+    /** Creates a new instance of JavaPlottingCallback */
+    public JavaPlottingCallback(Model model) {
         super(model);
     }
     
   public int step(SWIGTYPE_p_double aXPrev, SWIGTYPE_p_double aYPrev, SWIGTYPE_p_double aYPPrev, int aStep, double aDT, double aT, SWIGTYPE_p_double aX, SWIGTYPE_p_double aY, SWIGTYPE_p_double aYP, SWIGTYPE_p_double aDYDT, SWIGTYPE_p_void aClientData) {
       int retValue;
-      retValue = super.step(aXPrev, aYPrev, aYPPrev, aStep, aDT, aT, aX, aY, aYP, aDYDT, aClientData);
+      //retValue = super.step(aXPrev, aYPrev, aYPPrev, aStep, aDT, aT, aX, aY, aYP, aDYDT, aClientData);
        processStep(aT);
-      return retValue;
+      return 0;
    }
    
    public int step(SWIGTYPE_p_double aXPrev, SWIGTYPE_p_double aYPrev, SWIGTYPE_p_double aYPPrev, int aStep, double aDT, double aT, SWIGTYPE_p_double aX, SWIGTYPE_p_double aY, SWIGTYPE_p_double aYP, SWIGTYPE_p_double aDYDT) {
       int retValue;
-      retValue = super.step(aXPrev, aYPrev, aYPPrev, aStep, aDT, aT, aX, aY, aYP, aDYDT);
+      //retValue = super.step(aXPrev, aYPrev, aYPPrev, aStep, aDT, aT, aX, aY, aYP, aDYDT);
        processStep(aT);
-      return retValue;
+      return 0;
    }
    
    public int step(SWIGTYPE_p_double aXPrev, SWIGTYPE_p_double aYPrev, SWIGTYPE_p_double aYPPrev, int aStep, double aDT, double aT, SWIGTYPE_p_double aX, SWIGTYPE_p_double aY, SWIGTYPE_p_double aYP) {
       int retValue;
-      retValue = super.step(aXPrev, aYPrev, aYPPrev, aStep, aDT, aT, aX, aY, aYP);
+      //retValue = super.step(aXPrev, aYPrev, aYPPrev, aStep, aDT, aT, aX, aY, aYP);
        processStep(aT);
-      return retValue;
+      return 0;
    }
    
    public int step(SWIGTYPE_p_double aXPrev, SWIGTYPE_p_double aYPrev, SWIGTYPE_p_double aYPPrev, int aStep, double aDT, double aT, SWIGTYPE_p_double aX, SWIGTYPE_p_double aY) {
        int retValue;
        
-       retValue = super.step(aXPrev, aYPrev, aYPPrev, aStep, aDT, aT, aX, aY);
+       //retValue = super.step(aXPrev, aYPrev, aYPPrev, aStep, aDT, aT, aX, aY);
        processStep(aT);
-       return retValue;
+       return 0;
     }
 
    private void processStep(final double aT) {
-      // begin should have been called first but actully it is not!
-      synchronized(this){ // Make sure nothing happens to this object until we're done.
-         if (!plotterInitialized){
-             setupPlotter();
-             plotterInitialized=true;
-         }
-      }
-      // update Plotter if it's up'
-      timeIndex = s.findIndex(aT);
-      if (timeIndex>=0){
-       for(int i=0; i<qtyNames.length; i++){
-          double value = s.getStateVector(timeIndex).getData().getitem(qtyIndices[i]);
-          cvs[i].addDataPoint((double)aT, value);
-          if (i==0)
-              System.out.println("Adding data point "+aT+","+value);
+       // begin should have been called first but actully it is not!
+       synchronized(this){ // Make sure nothing happens to this object until we're done.
+           if (!plotterInitialized){
+               setupPlotter();
+           }
+           if (plotterInitialized){
+               // update Plotter if it's up'
+               timeIndex = s.findIndex(aT);
+               //System.out.println("time="+aT+" index="+timeIndex);
+               if (timeIndex>=0 && lastIndex!=timeIndex){
+                   for(int i=0; i<getQtyNames().length; i++){
+                       double value = s.getStateVector(timeIndex).getData().getitem(qtyIndices[i]);
+                       cvs[i].addDataPoint((double)aT, value);
+                   }
+                   lastIndex=timeIndex;
+               }
+           }
        }
-      }
    }
 
     public int begin(int aStep, double aDT, double aT, SWIGTYPE_p_double aX, SWIGTYPE_p_double aY) {
-        int retValue;
+        int retValue=0;
         
-        retValue = super.begin(aStep, aDT, aT, aX, aY);
+        //retValue = super.begin(aStep, aDT, aT, aX, aY);
         setupPlotter();
 
         return retValue;
@@ -131,20 +131,28 @@ public class JavaCMCAnimationCallback extends JavaAnimationCallback{
 
     private void setupPlotter() {
         // Launch plotter 
-        s = findResidualsStorage(cmcRraTool);
+        s = findForceStorage(cmcRraTool);
+        if (s == null)
+            return;
+        /*
+        System.out.println("=====");
+        ArrayStr residuals = s.getColumnLabels();
+        for(int i=0; i< residuals.getSize(); i++)
+            System.out.println(residuals.getitem(i));
+        System.out.println("=====");*/
         // Create plotter dialog and display s, column for markerError
         plotter = new JPlotterPanel();
         DialogDescriptor dlg = new DialogDescriptor(plotter,"Plotter Dialog");
         dlg.setModal(false);
         DialogDisplayer.getDefault().createDialog(dlg).setVisible(true);
+        dlg.setTitle("Live Plot");
+        cvs = new PlotCurve[getQtyNames().length];
         
-        cvs = new PlotCurve[qtyNames.length];
-        
-        for(int i=0; i<qtyNames.length; i++){
+        for(int i=0; i<getQtyNames().length; i++){
                 cvs[i]=plotter.showAnalysisCurveAgainstTime(getModel(), s, "Residual Forces", 
-                        qtyNames[i], qtyNames[i], "xlabel-to-fill", "y-label-to-fill"
+                        getQtyNames()[i], getQtyNames()[i], "xlabel-to-fill", "y-label-to-fill"
                         );
-            qtyIndices[i]=s.getStateIndex(qtyNames[i]);
+            qtyIndices[i]=s.getStateIndex(getQtyNames()[i]);
         }
         plotterInitialized=true;
        
@@ -159,9 +167,18 @@ public class JavaCMCAnimationCallback extends JavaAnimationCallback{
         cmcRraTool = cMCTool;
     }
 
-    private Storage findResidualsStorage(CMCTool cmcRraTool) {
+    private Storage findForceStorage(CMCTool cmcRraTool) {
         Storage residualsStorage= cmcRraTool.getForceStorage();
         return residualsStorage;
+    }
+
+    public String[] getQtyNames() {
+        return qtyNames;
+    }
+
+    public void setQtyNames(String[] qtyNames) {
+        this.qtyNames = qtyNames;
+        qtyIndices = new int[getQtyNames().length];
     }
     
 }

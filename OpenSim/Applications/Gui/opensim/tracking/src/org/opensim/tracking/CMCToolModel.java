@@ -27,11 +27,14 @@ package org.opensim.tracking;
 
 import java.io.File;
 import java.io.IOException;
+import javax.swing.JFrame;
 import org.netbeans.api.progress.ProgressHandle;
 import org.netbeans.api.progress.ProgressHandleFactory;
 import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
 import org.openide.util.Cancellable;
+import org.openide.windows.WindowManager;
+import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.CMCTool;
 import org.opensim.modeling.InterruptingIntegCallback;
 import org.opensim.modeling.Kinematics;
@@ -40,8 +43,12 @@ import org.opensim.modeling.Storage;
 import org.opensim.motionviewer.JavaMotionDisplayerCallback;
 import org.opensim.motionviewer.MotionsDB;
 import org.opensim.swingui.SwingWorker;
+import org.opensim.utils.DialogUtils;
 import org.opensim.utils.ErrorDialog;
 import org.opensim.utils.FileUtils;
+import org.opensim.utils.OpenSimDialog;
+import org.opensim.view.excitationEditor.FilterableStringArray;
+import org.opensim.view.excitationEditor.NameFilterJPanel;
 import org.opensim.view.pub.OpenSimDB;
 
 public class CMCToolModel extends AbstractToolModelWithExternalLoads {
@@ -52,10 +59,13 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
       private ProgressHandle progressHandle = null;
       private JavaMotionDisplayerCallback animationCallback = null;
       private InterruptingIntegCallback interruptingCallback = null;
+      private JavaPlottingCallback plottingCallback = null;
+      
       private Kinematics kinematicsAnalysis = null; // For creating a storage we'll use as a motion
       boolean result = false;
       boolean promptToKeepPartialResult = true;
-     
+      NameFilterJPanel filterPanel = null;
+      
       CMCToolWorker() throws IOException {
          updateTool();
 
@@ -93,19 +103,56 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
 
          // Animation callback will update the display during forward
          animationCallback = new JavaMotionDisplayerCallback(getModel(), getOriginalModel(), null, progressHandle);
+         
          getModel().addIntegCallback(animationCallback);
          animationCallback.setStepInterval(1);
          animationCallback.setMinRenderTimeInterval(0.1); // to avoid rendering really frequently which can slow down our execution
          animationCallback.setRenderMuscleActivations(true);
          animationCallback.startProgressUsingTime(ti,tf);
 
-         // Do this manouver (there's gotta be a nicer way) to create the object so that C++ owns it and not Java (since 
+         // Do this maneuver (there's gotta be a nicer way) to create the object so that C++ owns it and not Java (since 
          // removeIntegCallback in finished() will cause the C++-side callback to be deleted, and if Java owned this object
          // it would then later try to delete it yet again)
          interruptingCallback = InterruptingIntegCallback.safeDownCast((new InterruptingIntegCallback()).copy());
          getModel().addIntegCallback(interruptingCallback);
 
-         // Kinematics analysis -- so that we can extract the resulting motion
+         if (plotMatrics){
+             if (reuseMetrics && qtys2plot!=null){
+                 plottingCallback = new JavaPlottingCallback(getModel());
+                 plottingCallback.setTool((CMCTool) tool);
+                 plottingCallback.setStepInterval(1);
+                 plottingCallback.setQtyNames(qtys2plot);
+                 getModel().addIntegCallback(plottingCallback);
+                 
+             }
+            else {    
+                 ArrayStr actuatorNames = new ArrayStr();
+                 getModel().getActuatorSet().getNames(actuatorNames);
+                 // We shouldn't be doing GUI stuff here, however, this is the only place
+                 // that we know what Actuators to use for CMC or RRA
+                 FilterableStringArray namesSource = new FilterableStringArray(actuatorNames);
+                 filterPanel = new NameFilterJPanel(namesSource, false);
+                 OpenSimDialog selectionDlg=DialogUtils.createDialogForPanelWithParent((JFrame) WindowManager.getDefault().getMainWindow(), filterPanel, "Forces for Live Plot");
+                 DialogUtils.addStandardButtons(selectionDlg);
+                 selectionDlg.setModal(true);
+                 selectionDlg.setVisible(true);
+                 String[] selected=null;
+                 
+                 if (selectionDlg.getDialogReturnValue()==selectionDlg.OK_OPTION){
+                     selected= filterPanel.getSelected();
+                     if (selected != null && selected.length >=1){   // Create and add callback only if absolutely needed.
+                         plottingCallback = new JavaPlottingCallback(getModel());
+                         plottingCallback.setTool((CMCTool) tool);
+                         plottingCallback.setStepInterval(1);
+                         plottingCallback.setQtyNames(selected);
+                         qtys2plot = new String[selected.length];
+                         System.arraycopy(selected, 0, qtys2plot, 0, selected.length);
+                         getModel().addIntegCallback(plottingCallback);
+                     }
+                 }
+             }
+         }
+        // Kinematics analysis -- so that we can extract the resulting motion
          // NO LONGER NEEDED SINCE WE JUST GET THE STATES FROM THE INTEGRAND
          //kinematicsAnalysis = Kinematics.safeDownCast((new Kinematics()).copy());
          //kinematicsAnalysis.setRecordAccelerations(false);
@@ -202,6 +249,10 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
    private boolean constraintsEnabled = false;
    private Model reducedResidualsModel = null;
    private Storage motion = null;
+   private boolean plotMatrics = false;
+   private int plotUpdateRate = 0;
+   private boolean reuseMetrics = false;
+   private static String[] qtys2plot = null;
    
    public CMCToolModel(Model model) throws IOException {
       super(model);
@@ -389,6 +440,7 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
       super.updateFromTool();
 
       constraintsEnabled = !FileUtils.effectivelyNull(getConstraintsFileName());
+      
    }
 
    protected void updateTool() {
@@ -452,5 +504,13 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
       relativeToAbsolutePaths(fileName);
       return true;
    }
+
+    void setPlotMetrics(boolean b) {
+        plotMatrics=b;
+    }
+
+    void setReuseSelectedMetrics(boolean b) {
+        reuseMetrics=b;
+    }
 }
 

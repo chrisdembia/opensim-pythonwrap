@@ -538,7 +538,7 @@ public class NameFilterJPanel extends javax.swing.JPanel
             return tableModel.getSelectedAsString();
     }
 
-    String[] getSelected() {
+    public String[] getSelected() {
         if (isSumOnly())
            return new String[]{getSelectedAsString()};
         

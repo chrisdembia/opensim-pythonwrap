@@ -1339,6 +1339,7 @@ public final class ViewDB extends Observable implements Observer {
             }
             else {  // We'll justrename existing view'
                 final ModelWindowVTKTopComponent win = getInstance().getCurrentModelWindow();
+                if (win ==null) continue;
                 win.applyCameraAttributes(desc.getCameraAttributes().get(viewnum));
                 SwingUtilities.invokeLater(new Runnable(){
                 public void run() {
@@ -1346,7 +1347,10 @@ public final class ViewDB extends Observable implements Observer {
                 }});
             }           
         }
-        
+        // If no windows were opened just quit this part since loading of VTK symbols
+        // happens only when openning a window
+        if (getInstance().getCurrentModelWindow()==null)
+            return;
         for(int i=0; i<desc.getOffsetsList().size();i++){
             vtkMatrix4x4 m = new vtkMatrix4x4();
             double[] savedOffset = desc.getOffsetsList().get(i);
