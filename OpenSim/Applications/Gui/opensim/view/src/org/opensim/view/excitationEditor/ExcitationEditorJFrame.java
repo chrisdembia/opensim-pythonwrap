@@ -107,6 +107,7 @@ public class ExcitationEditorJFrame extends javax.swing.JFrame {
         CreateNewButton = new javax.swing.JButton();
         SaveLayoutButton = new javax.swing.JButton();
         LoadLayoutButton = new javax.swing.JButton();
+        SaveAsButton = new javax.swing.JButton();
 
         jFileMenu.setText("File");
         jLoadMenuItem.setText("Load...");
@@ -167,6 +168,7 @@ public class ExcitationEditorJFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         LoadButton.setText("Load...");
+        LoadButton.setToolTipText("Load excitations from an xml file");
         LoadButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 LoadButtonActionPerformed(evt);
@@ -174,13 +176,15 @@ public class ExcitationEditorJFrame extends javax.swing.JFrame {
         });
 
         SaveButton.setText("Save");
+        SaveButton.setToolTipText("Save excitations to their original file");
         SaveButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SaveButtonActionPerformed(evt);
             }
         });
 
-        CreateNewButton.setText("New (Current Model)");
+        CreateNewButton.setText("New...");
+        CreateNewButton.setToolTipText("Create new set of excitations for current model");
         CreateNewButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CreateNewButtonActionPerformed(evt);
@@ -188,6 +192,7 @@ public class ExcitationEditorJFrame extends javax.swing.JFrame {
         });
 
         SaveLayoutButton.setText("Save Layout...");
+        SaveLayoutButton.setToolTipText("Save current dialog layout to a file");
         SaveLayoutButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SaveLayoutButtonActionPerformed(evt);
@@ -195,9 +200,18 @@ public class ExcitationEditorJFrame extends javax.swing.JFrame {
         });
 
         LoadLayoutButton.setText("Load Layout...");
+        LoadLayoutButton.setToolTipText("restore layout from existing layout file");
         LoadLayoutButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 LoadLayoutButtonActionPerformed(evt);
+            }
+        });
+
+        SaveAsButton.setText("Save As...");
+        SaveAsButton.setToolTipText("Save excitations to a different file");
+        SaveAsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SaveAsButtonActionPerformed(evt);
             }
         });
 
@@ -210,6 +224,8 @@ public class ExcitationEditorJFrame extends javax.swing.JFrame {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(SaveButton)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(SaveAsButton)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(CreateNewButton)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(SaveLayoutButton)
@@ -218,19 +234,24 @@ public class ExcitationEditorJFrame extends javax.swing.JFrame {
         );
         jControlPanelLayout.setVerticalGroup(
             jControlPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 23, Short.MAX_VALUE)
             .add(jControlPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                 .add(LoadButton)
                 .add(SaveButton)
                 .add(CreateNewButton)
                 .add(SaveLayoutButton)
-                .add(LoadLayoutButton))
+                .add(LoadLayoutButton)
+                .add(SaveAsButton))
         );
         getContentPane().add(jControlPanel, java.awt.BorderLayout.NORTH);
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-400)/2, (screenSize.height-300)/2, 400, 300);
+        setBounds((screenSize.width-525)/2, (screenSize.height-300)/2, 525, 300);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void SaveAsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveAsButtonActionPerformed
+// TODO add your handling code here:
+        jSaveAsMenuItemActionPerformed(null);
+    }//GEN-LAST:event_SaveAsButtonActionPerformed
 
     private void LoadLayoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoadLayoutButtonActionPerformed
 // TODO add your handling code here:
@@ -303,7 +324,7 @@ public class ExcitationEditorJFrame extends javax.swing.JFrame {
         // Cycle thru Actuators and create a Control for it with default min=0, max=1, val=0
         int nx = currentModel.getNumControls();
 	controlSet.setName(currentModel.getName()+"_Default");
-
+        // Prompt user for start, end times
 	for(int i=0;i<nx;i++) {
 		ControlLinear control = new ControlLinear();
                 control.setControlValue(0.0, 0.1);
@@ -317,7 +338,11 @@ public class ExcitationEditorJFrame extends javax.swing.JFrame {
 		controlSet.append(control);
                 controlsRefs.add(control);
 	}
-        controlSet.print("defaultControls.xml");
+        String fileName = FileUtils.getInstance().browseForFilenameToSave(
+                FileUtils.getFileFilter(".xml", "Save excitations to file"), true, "controls.xml", this);
+         if(fileName!=null) {
+            controlSet.print(fileName);
+         }
         dPanel.populate(controlSet, true);
 
     }//GEN-LAST:event_jCreateDefaultMenuItemActionPerformed
@@ -368,6 +393,7 @@ public class ExcitationEditorJFrame extends javax.swing.JFrame {
     private javax.swing.JButton CreateNewButton;
     private javax.swing.JButton LoadButton;
     private javax.swing.JButton LoadLayoutButton;
+    private javax.swing.JButton SaveAsButton;
     private javax.swing.JButton SaveButton;
     private javax.swing.JButton SaveLayoutButton;
     private javax.swing.JPanel jControlPanel;

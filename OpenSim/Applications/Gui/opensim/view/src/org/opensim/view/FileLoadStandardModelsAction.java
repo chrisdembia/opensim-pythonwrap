@@ -42,6 +42,7 @@ public final class FileLoadStandardModelsAction extends CallableSystemAction {
       String modelsRootDirectory=NbBundle.getMessage(FileLoadStandardModelsAction.class, "CTL_BuiltinModels_Root");
       File rootModelsDirectory= new File(modelsRootDirectory);
       String fullPath = rootModelsDirectory.getAbsolutePath();
+      System.out.println("Loading models from directory "+fullPath);
       File[] files = rootModelsDirectory.listFiles(fileFilter);
       if (files == null)  return displayMenu;
       
