@@ -163,10 +163,12 @@ public class Plot {
    }
 
    void setDomainCrosshair(double time) {
+       if (!chartPanel.getChart().getXYPlot().isRangeCrosshairVisible())
+           chartPanel.getChart().getXYPlot().setDomainCrosshairVisible(true);
       chartPanel.getChart().getXYPlot().setDomainCrosshairValue(time);
    }
-   
-    void exportDataToFile(Frame parentFrame) {
+      
+   void exportDataToFile(Frame parentFrame) {
        String filename=FileUtils.getInstance().browseForFilenameToSave(FileUtils.MotionFileFilter, true, "", parentFrame);
        if (filename==null)
           return;

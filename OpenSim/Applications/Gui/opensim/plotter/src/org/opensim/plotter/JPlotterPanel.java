@@ -1305,7 +1305,8 @@ public class JPlotterPanel extends javax.swing.JPanel
         plotCurve = plotterModel.addCurveSingleRangeName(title, settings,
                 sourceX, getDomainName(),                 sourceY, rangeNames[0]);
         makeCurveCurrent(plotCurve);
-        
+        // Observe motionsDB 
+        MotionsDB.getInstance().addObserver(this);
       return plotCurve;
    }
    /**
@@ -1330,6 +1331,8 @@ public class JPlotterPanel extends javax.swing.JPanel
             }
             else if (mev.getOperation()==mev.getOperation().Close){  // Some motion is closed
                plotterModel.removeMotion(mev.getMotion());
+               if (MotionsDB.getInstance().getNumCurrentMotions()==0)
+                   
                populateYPopup();
             }
          }
@@ -1528,7 +1531,10 @@ public class JPlotterPanel extends javax.swing.JPanel
          // Analyses
          ////////////////////////////////////////////////////////////////////////
          AnalysisSet analyses = currentModel.getAnalysisSet();
-         assert(analyses!=null);
+         if (analyses==null){
+             System.out.println("no analyses");
+         }
+         //assert(analyses!=null);
          boolean addedSomething=false;
          /// Builtin
          for (int i=0; i< plotterModel.getBuiltinQuantities().length; i++){

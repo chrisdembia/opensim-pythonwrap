@@ -30,16 +30,19 @@
 
 package org.opensim.tracking;
 
-import javax.swing.SwingUtilities;
+import java.awt.Dialog;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.Vector;
 import org.openide.DialogDescriptor;
 import org.openide.DialogDisplayer;
-import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.CMCTool;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.SWIGTYPE_p_double;
 import org.opensim.modeling.SWIGTYPE_p_void;
 import org.opensim.modeling.SimtkAnimationCallback;
 import org.opensim.modeling.Storage;
+import org.opensim.motionviewer.MotionsDB;
 import org.opensim.plotter.JPlotterPanel;
 import org.opensim.plotter.PlotCurve;
 
@@ -56,6 +59,8 @@ public class JavaPlottingCallback extends SimtkAnimationCallback{
     
     CMCTool cmcRraTool;
     JPlotterPanel plotter;
+    // Keep static list of dialogs so that these are not garbage collected when callback is destroyed
+    static Vector<Dialog> dialogs=new Vector<Dialog>(4);
     PlotCurve[] cvs;
     Storage s;
     int timeIndex=-1;
@@ -144,8 +149,22 @@ public class JavaPlottingCallback extends SimtkAnimationCallback{
         plotter = new JPlotterPanel();
         DialogDescriptor dlg = new DialogDescriptor(plotter,"Plotter Dialog");
         dlg.setModal(false);
-        DialogDisplayer.getDefault().createDialog(dlg).setVisible(true);
+        final Dialog dialog = DialogDisplayer.getDefault().createDialog(dlg);
+        addDialog(dialog);
+        dialog.setVisible(true);
         dlg.setTitle("Live Plot");
+        dialog.addWindowListener(new WindowAdapter(){
+         public void windowClosing(WindowEvent e) {
+            MotionsDB.getInstance().deleteObserver(plotter);
+            removeDialog(dialog);
+         }
+
+         public void windowClosed(WindowEvent e) {
+            MotionsDB.getInstance().deleteObserver(plotter);
+             removeDialog(dialog);
+        }
+
+        });
         cvs = new PlotCurve[getQtyNames().length];
         
         for(int i=0; i<getQtyNames().length; i++){
@@ -180,5 +199,12 @@ public class JavaPlottingCallback extends SimtkAnimationCallback{
         this.qtyNames = qtyNames;
         qtyIndices = new int[getQtyNames().length];
     }
+
+    private void addDialog(Dialog dialog) {
+        dialogs.add(dialog);
+    }
     
+    public void removeDialog(Dialog dialog) {
+        dialogs.remove(dialog);
+    }
 }
