@@ -49,7 +49,7 @@ public class OpenSimSliderUI extends WindowsSliderUI
 {
     // use static class members to avoid reloading/creation of image for every slider in the system. -Ayman
     //
-    static Image  sliderKnobArrowImg = Utilities.loadImage("org/opensim/view/sliderKnobArrow.png");
+    static Image sliderKnobArrowImg = Utilities.loadImage("org/opensim/view/sliderKnobArrow.png");
     static Image sliderKnobImg=Utilities.loadImage("org/opensim/view/sliderKnob.png");
     static Image sliderKnobArrow_disabledImg=Utilities.loadImage("org/opensim/view/sliderKnobArrow_disabled.png");
     static Image sliderKnob_disabledImg=Utilities.loadImage("org/opensim/view/sliderKnob_disabled.png");

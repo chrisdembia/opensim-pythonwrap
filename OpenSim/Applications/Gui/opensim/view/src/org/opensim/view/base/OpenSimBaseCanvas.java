@@ -28,13 +28,19 @@
  */
 package org.opensim.view.base;
 
+import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.util.prefs.Preferences;
 import javax.swing.JPopupMenu;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.EventListenerList;
 import org.opensim.utils.Prefs;
 import org.opensim.utils.TheApp;
 import org.opensim.view.Camera;
@@ -52,7 +58,7 @@ import vtk.vtkPanel;
  * to OpenSim's Top Gui Application.
  */
 public class OpenSimBaseCanvas extends vtkPanel
-        implements KeyListener, MouseListener {
+        implements KeyListener, MouseListener, MouseWheelListener {
    
    String defaultBackgroundColor="0.15, 0.15, 0.15";
    int    numAAFrames=0;
@@ -75,6 +81,7 @@ public class OpenSimBaseCanvas extends vtkPanel
       //createSettingsMenu();
       camerasMenu = new CamerasMenu(this);
       addKeyListener(this);
+      addMouseWheelListener(this);
       // AntiAliasing
       int desiredAAFrames = Preferences.userNodeForPackage(TheApp.class).getInt("AntiAliasingFrames", numAAFrames);
       if (desiredAAFrames >=0 && desiredAAFrames<=10){
@@ -98,6 +105,10 @@ public class OpenSimBaseCanvas extends vtkPanel
    
    public void mouseDragged(MouseEvent e) {
       super.mouseDragged(e);
+//      lastX = e.getX();
+//      lastY = e.getY();
+      //System.out.println("mouseMoved "+lastX+" "+lastY); 
+//      fireStateChanged();
       // Disabled popup for now
       /*
       // do nothing (handled by settingsMenu) if right mouse and Shift, otherwise pass along to super implementation
@@ -108,12 +119,25 @@ public class OpenSimBaseCanvas extends vtkPanel
       */
    }
    
+   public void mouseWheelMoved(MouseWheelEvent e) {
+       if (e.getScrollType() == MouseWheelEvent.WHEEL_UNIT_SCROLL) {
+           int rotation  = e.getUnitsToScroll();
+           if (rotation > 0) {
+               GetRenderer().GetActiveCamera().Zoom(1.05);
+           } else {
+               GetRenderer().GetActiveCamera().Zoom(0.95);
+           }
+           repaint();
+       }
+   }
+   
    /**
     * Handle keys for default cameras, otherwise pass on to super
     * to get default vtkPanel behavior.
     */
    public void keyPressed(KeyEvent e) {
       char keyChar = e.getKeyChar();
+      int keyCode = e.getKeyCode();
       
       if ('x' == keyChar) {
          applyCameraMinusX();
@@ -122,12 +146,25 @@ public class OpenSimBaseCanvas extends vtkPanel
       } else if ('z' == keyChar) {
          applyCameraMinusZ();
       } else if ('i' == keyChar) {
-         GetRenderer().GetActiveCamera().Zoom(1.01);
+         GetRenderer().GetActiveCamera().Zoom(1.05);
          repaint();
       } else if ('o' == keyChar) {
-         GetRenderer().GetActiveCamera().Zoom(0.99);
+         GetRenderer().GetActiveCamera().Zoom(0.95);
+         repaint();
+      } else if (KeyEvent.VK_LEFT == keyCode) {
+         panCamera(-5.0, 0.0);
+         repaint();
+      } else if (KeyEvent.VK_RIGHT == keyCode) {
+         panCamera(5.0, 0.0);
+         repaint();
+      } else if (KeyEvent.VK_UP == keyCode) {
+         panCamera(0.0, -5.0);
+         repaint();
+      } else if (KeyEvent.VK_DOWN == keyCode) {
+         panCamera(0.0, 5.0);
          repaint();
       }
+      fireStateChanged();
       super.keyPressed(e);
    }
    
@@ -237,4 +274,74 @@ public class OpenSimBaseCanvas extends vtkPanel
     public void mouseEntered(MouseEvent e) {
         // super.mouseEntered(e);
     }
+    
+    public void panCamera(double x, double y){
+        ren = GetRenderer();
+        cam = ren.GetActiveCamera();
+        rw = ren.GetRenderWindow();
+        double  FPoint[];
+        double  PPoint[];
+        double  APoint[] = new double[3];
+        double  RPoint[];
+        double focalDepth;
+        
+        // get the current focal point and position
+        FPoint = cam.GetFocalPoint();
+        PPoint = cam.GetPosition();
+        
+        // calculate the focal depth since we'll be using it a lot
+        ren.SetWorldPoint(FPoint[0],FPoint[1],FPoint[2],1.0);
+        ren.WorldToDisplay();
+        focalDepth = ren.GetDisplayPoint()[2];
+        
+        APoint[0] = rw.GetSize()[0]/2.0 + (x);
+        APoint[1] = rw.GetSize()[1]/2.0 - (y);
+        APoint[2] = focalDepth;
+        ren.SetDisplayPoint(APoint);
+        ren.DisplayToWorld();
+        RPoint = ren.GetWorldPoint();
+        if (RPoint[3] != 0.0)
+          {
+            RPoint[0] = RPoint[0]/RPoint[3];
+            RPoint[1] = RPoint[1]/RPoint[3];
+            RPoint[2] = RPoint[2]/RPoint[3];
+          }
+        
+        /*
+         * Compute a translation vector, moving everything 1/2 
+         * the distance to the cursor. (Arbitrary scale factor)
+         */
+        cam.SetFocalPoint(
+                          (FPoint[0]-RPoint[0])/2.0 + FPoint[0],
+                          (FPoint[1]-RPoint[1])/2.0 + FPoint[1],
+                          (FPoint[2]-RPoint[2])/2.0 + FPoint[2]);
+        cam.SetPosition(
+                        (FPoint[0]-RPoint[0])/2.0 + PPoint[0],
+                        (FPoint[1]-RPoint[1])/2.0 + PPoint[1],
+                        (FPoint[2]-RPoint[2])/2.0 + PPoint[2]);
+        resetCameraClippingRange();
+    }
+    
+   // -----------------------------------------------------------------------
+   // Change listener stuff taken from DefaultColorSelectionModel.java
+   // -----------------------------------------------------------------------
+   protected transient ChangeEvent changeEvent = null;
+   protected EventListenerList listenerList = new EventListenerList();
+   public void addChangeListener(ChangeListener l) { listenerList.add(ChangeListener.class, l); }
+   public void removeChangeListener(ChangeListener l) { listenerList.remove(ChangeListener.class, l); }
+   protected void fireStateChanged()
+   {
+      Object[] listeners = listenerList.getListenerList();
+      for (int i = listeners.length - 2; i >= 0; i -=2 ) {
+         //System.out.println(listeners.length);
+         if (listeners[i] == ChangeListener.class) {
+            if (changeEvent == null) {
+               changeEvent = new ChangeEvent(this);
+            }
+            ((ChangeListener)listeners[i+1]).stateChanged(changeEvent);
+         }
+      }
+   }
+   // -----------------------------------------------------------------------
+
 }

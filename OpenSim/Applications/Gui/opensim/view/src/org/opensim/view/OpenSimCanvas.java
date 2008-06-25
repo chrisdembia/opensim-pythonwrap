@@ -78,6 +78,14 @@ public class OpenSimCanvas extends OpenSimBaseCanvas implements MouseWheelListen
     public OpenSimCanvas() {
         addMouseWheelListener(this);
     }
+    
+    public int getLastX() {
+        return lastX;
+    }
+    
+    public int getLastY() {
+        return lastY;
+    }
     /**
      * Event handler to handle mousePressed
      */
@@ -192,6 +200,17 @@ public class OpenSimCanvas extends OpenSimBaseCanvas implements MouseWheelListen
    }
 
    public void mouseDragged(MouseEvent e) {
+       
+//       System.out.println("e.getComponent() = "+e.getComponent());
+//       System.out.println("e.getID() = "+e.getID());
+//       System.out.println("e.getWhen() = "+e.getWhen());
+//       System.out.println("e.getModifiers() = "+e.getModifiers());
+//       System.out.println("e.getX() = "+e.getX());
+//       System.out.println("e.getY() = "+e.getY());
+//       System.out.println("e.getClickCount() = "+e.getClickCount());
+//       System.out.println("e.isPopupTrigger() = "+e.isPopupTrigger());
+//       System.out.println("e.getButton() = "+e.getButton());
+       
       int keyMods = e.getModifiers();
       if (ViewDB.getInstance().isPicking() == true && (keyMods & InputEvent.BUTTON1_MASK) > 0) {
          // do nothing; you're still in picking mode

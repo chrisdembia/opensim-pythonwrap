@@ -198,6 +198,7 @@ public class LineSegmentMuscleDisplayer {
             int idx = muscleSegmentGlyphIds.get(i).intValue(); // we should have enough muscleSegmentGlyphIds allocated at this point sinec we had called updateGlyphIds()
             muscleSegmentsRep.show(idx);
             muscleSegmentsRep.setLocation(idx, center);
+            //muscleSegmentsRep.getVtkActor().GetProperty().SetOpacity(10*activation);
             muscleSegmentsRep.setTensorDataAtLocation(idx, 
                              xform[0], xform[4], xform[8],
                              length*xform[1], length*xform[5], length*xform[9],
@@ -214,6 +215,7 @@ public class LineSegmentMuscleDisplayer {
                   idx = pointIdx.intValue();
                   musclePointsRep.show(idx);
                   musclePointsRep.setLocation(idx, position1);
+                  //musclePointsRep.setOpacity(10.0*activation);
                   if(!musclePointsRep.getSelected(idx)) musclePointsRep.setScalarDataAtLocation(idx, activation);
                }
             }
@@ -226,6 +228,7 @@ public class LineSegmentMuscleDisplayer {
                      idx = pointIdx.intValue();
                      musclePointsRep.show(idx);
                      musclePointsRep.setLocation(idx, position2);
+                     //musclePointsRep.setOpacity(10.0*activation);
                      if(!musclePointsRep.getSelected(idx)) musclePointsRep.setScalarDataAtLocation(idx, activation);
                   }
                }
