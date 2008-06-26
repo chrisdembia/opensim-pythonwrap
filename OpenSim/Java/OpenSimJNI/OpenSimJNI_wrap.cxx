@@ -75152,6 +75152,45 @@ SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_CMCTool_1copy
 }
 
 
+SWIGEXPORT jstring JNICALL Java_org_opensim_modeling_opensimModelJNI_CMCTool_1getDesiredPointsFileName(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jstring jresult = 0 ;
+  OpenSim::CMCTool *arg1 = (OpenSim::CMCTool *) 0 ;
+  std::string *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::CMCTool **)&jarg1; 
+  {
+    std::string const &_result_ref = (arg1)->getDesiredPointsFileName();
+    result = (std::string *) &_result_ref;
+  }
+  jresult = jenv->NewStringUTF(result->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_CMCTool_1setDesiredPointsFileName(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
+  OpenSim::CMCTool *arg1 = (OpenSim::CMCTool *) 0 ;
+  std::string *arg2 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::CMCTool **)&jarg1; 
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return ;
+  }
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return ;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  (arg1)->setDesiredPointsFileName((std::string const &)*arg2);
+}
+
+
 SWIGEXPORT jstring JNICALL Java_org_opensim_modeling_opensimModelJNI_CMCTool_1getDesiredKinematicsFileName(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jstring jresult = 0 ;
   OpenSim::CMCTool *arg1 = (OpenSim::CMCTool *) 0 ;

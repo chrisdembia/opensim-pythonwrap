@@ -54,6 +54,14 @@ public class CMCTool extends AbstractTool {
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
+  public String getDesiredPointsFileName() {
+    return opensimModelJNI.CMCTool_getDesiredPointsFileName(swigCPtr, this);
+  }
+
+  public void setDesiredPointsFileName(String aFileName) {
+    opensimModelJNI.CMCTool_setDesiredPointsFileName(swigCPtr, this, aFileName);
+  }
+
   public String getDesiredKinematicsFileName() {
     return opensimModelJNI.CMCTool_getDesiredKinematicsFileName(swigCPtr, this);
   }
