@@ -715,7 +715,26 @@ public final class ViewDB extends Observable implements Observer {
          repaintAll();
       }
    }
-   
+
+   /**
+    * Remove all markers from selection list.
+    */
+   public void removeMarkersFromSelection(boolean sendEvent)
+   {
+      boolean modified = false;
+      for (int i=selectedObjects.size()-1; i>=0; i--) {
+         if (selectedObjects.get(i).getOpenSimObject() instanceof AbstractMarker) {
+            markSelected(selectedObjects.get(i), false, sendEvent, false);
+            selectedObjects.remove(i);
+            modified = true;
+         }
+      }
+      if (modified) {
+         statusDisplaySelectedObjects();
+         repaintAll();
+      }
+   }
+
    /**
     * Mark an object as selected (on/off).
     *

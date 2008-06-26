@@ -207,6 +207,7 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MarkerNameTextFieldActionPerformed"/>
+                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="MarkerNameTextFieldFocusLost"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="MarkerNameLabel">

@@ -185,6 +185,11 @@ final public class MarkerEditorTopComponent extends TopComponent implements Obse
             MarkerNameTextFieldActionPerformed(evt);
          }
       });
+      MarkerNameTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+         public void focusLost(java.awt.event.FocusEvent evt) {
+            MarkerNameTextFieldFocusLost(evt);
+         }
+      });
 
       org.openide.awt.Mnemonics.setLocalizedText(MarkerNameLabel, "Name");
 
@@ -316,15 +321,20 @@ final public class MarkerEditorTopComponent extends TopComponent implements Obse
       this.setLayout(layout);
       layout.setHorizontalGroup(
          layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-         .add(MarkerEditorScrollPane)
+         .add(MarkerEditorScrollPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 505, Short.MAX_VALUE)
       );
       layout.setVerticalGroup(
          layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
          .add(layout.createSequentialGroup()
-            .add(MarkerEditorScrollPane)
+            .add(MarkerEditorScrollPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
             .addContainerGap())
       );
    }// </editor-fold>//GEN-END:initComponents
+
+   private void MarkerNameTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_MarkerNameTextFieldFocusLost
+      if (!evt.isTemporary() && currentMarker != null)
+         MarkerNameEntered(((javax.swing.JTextField)evt.getSource()).getText());
+   }//GEN-LAST:event_MarkerNameTextFieldFocusLost
 
    private void ZTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_ZTextFieldFocusLost
       if (!evt.isTemporary() && currentMarker != null)
@@ -366,20 +376,7 @@ final public class MarkerEditorTopComponent extends TopComponent implements Obse
    }//GEN-LAST:event_BackupButtonActionPerformed
 
    private void MarkerNameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MarkerNameTextFieldActionPerformed
-      javax.swing.JTextField field = (javax.swing.JTextField)evt.getSource();
-      if (currentMarker == null || currentMarker.getName().equals(MarkerNameTextField.getText()) == true)
-         return;
-      if (validName(MarkerNameTextField.getText()) == false)
-         return;
-      currentMarker.setName(MarkerNameTextField.getText());
-      // Update the marker list in the ViewDB and then generate an event
-      // so other tools can update accordingly.
-      ViewDB.getInstance().getModelGuiElements(currentModel).updateMarkerNames();
-      Vector<OpenSimObject> objs = new Vector<OpenSimObject>(1);
-      objs.add(currentMarker);
-      ObjectsRenamedEvent evnt = new ObjectsRenamedEvent(this, currentModel, objs);
-      OpenSimDB.getInstance().setChanged();
-      OpenSimDB.getInstance().notifyObservers(evnt);
+      MarkerNameEntered(((javax.swing.JTextField)evt.getSource()).getText());
    }//GEN-LAST:event_MarkerNameTextFieldActionPerformed
 
    private void BodyComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BodyComboBoxActionPerformed
@@ -397,6 +394,22 @@ final public class MarkerEditorTopComponent extends TopComponent implements Obse
          ViewDB.getInstance().repaintAll();
       }
    }//GEN-LAST:event_BodyComboBoxActionPerformed
+
+   private void MarkerNameEntered(String newName) {
+      if (currentMarker == null || currentMarker.getName().equals(newName) == true)
+         return;
+      if (validName(newName) == false)
+         return;
+      currentMarker.setName(newName);
+      // Update the marker list in the ViewDB and then generate an event
+      // so other tools can update accordingly.
+      ViewDB.getInstance().getModelGuiElements(currentModel).updateMarkerNames();
+      Vector<OpenSimObject> objs = new Vector<OpenSimObject>(1);
+      objs.add(currentMarker);
+      ObjectsRenamedEvent evnt = new ObjectsRenamedEvent(this, currentModel, objs);
+      OpenSimDB.getInstance().setChanged();
+      OpenSimDB.getInstance().notifyObservers(evnt);
+   }
 
    private void OffsetComponentEntered(javax.swing.JTextField field, int component) {
       double[] offset = new double[3];
@@ -445,8 +458,6 @@ final public class MarkerEditorTopComponent extends TopComponent implements Obse
       String nameOfNewMarker = MarkerComboBox.getSelectedItem().toString();
       AbstractMarker newMarker = currentModel.getDynamicsEngine().getMarkerSet().get(nameOfNewMarker);
       if (newMarker != null && AbstractMarker.getCPtr(newMarker) != AbstractMarker.getCPtr(currentMarker)) {
-         currentMarker = newMarker;
-         updateBackupRestoreButtons();
          setupComponent(currentMarker);
       }
    }//GEN-LAST:event_MarkerComboBoxActionPerformed
@@ -895,9 +906,9 @@ final public class MarkerEditorTopComponent extends TopComponent implements Obse
       OpenSimDB.getInstance().setChanged();
       OpenSimDB.getInstance().notifyObservers(evnt);
 
-      // update() will handle the ObjectsAddedEvent, but it will not set the
-      // marker editor to be working on the new marker. So do it here.
-      //setupComponent(marker);
+      // Deselect all existing markers and select the new one.
+      ViewDB.getInstance().removeMarkersFromSelection(true);
+      ViewDB.getInstance().toggleAddSelectedObject(marker);
    }
 
    public void deleteMarker(AbstractMarker marker, boolean sendEvent) {
@@ -1201,6 +1212,11 @@ final public class MarkerEditorTopComponent extends TopComponent implements Obse
          if (arg instanceof ObjectSelectedEvent) {
             ObjectSelectedEvent ev = (ObjectSelectedEvent)arg;
             updateMarkerLineDisplay(ev.getSelectedObject(), ev.getState());
+            // Set the editor to the marker that was just selected.
+            if (ev.getState() == true) {
+               AbstractMarker marker = AbstractMarker.safeDownCast(ev.getSelectedObject().getOpenSimObject());
+               setupComponent(marker);
+            }
          } else if (arg instanceof ClearSelectedObjectsEvent) {
             if (currentModel != null) {
                MarkerSet markers = currentModel.getDynamicsEngine().getMarkerSet();
