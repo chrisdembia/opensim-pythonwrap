@@ -330,7 +330,13 @@ public class MotionsDB extends Observable // Observed by other entities in motio
         setChanged();
         instance.notifyObservers(evt);
     }
-   
+
+    public void reportModifiedMotion(Storage simmMotionData, Model model) {
+      MotionEvent evt = new MotionEvent(this, model, simmMotionData, MotionEvent.Operation.Modified);
+      setChanged();
+      notifyObservers(evt);
+    }
+
     public ArrayList<Storage> getModelMotions(Model aModel)
     {
        return mapModels2Motions.get(aModel);

@@ -1334,6 +1334,8 @@ public class JPlotterPanel extends javax.swing.JPanel
                if (MotionsDB.getInstance().getNumCurrentMotions()==0)
                    
                populateYPopup();
+            } else if (mev.getOperation() == mev.getOperation().Modified) {
+               populateYPopup();
             }
          }
          else if (arg instanceof ObjectsRenamedEvent){

@@ -38,6 +38,7 @@ import java.util.Hashtable;
 import java.util.ArrayList;
 import org.opensim.modeling.AbstractBody;
 import org.opensim.modeling.AbstractCoordinate;
+import org.opensim.modeling.AbstractDynamicsEngine;
 import org.opensim.modeling.AbstractMarker;
 import org.opensim.modeling.ActuatorSet;
 import org.opensim.modeling.ArrayDouble;
@@ -86,13 +87,16 @@ public class MotionDisplayer {
 
     Hashtable<Integer, ObjectTypesInMotionFiles> mapIndicesToObjectTypes=new Hashtable<Integer, ObjectTypesInMotionFiles>(40);
     Hashtable<Integer, Object> mapIndicesToObjects=new Hashtable<Integer, Object>(40);
-    OpenSimvtkGlyphCloud  forcesRep=new OpenSimvtkGlyphCloud(true);
-    OpenSimvtkGlyphCloud  markersRep=new OpenSimvtkGlyphCloud(false);
+    OpenSimvtkGlyphCloud  forcesRep = null;
+    OpenSimvtkGlyphCloud  markersRep = null;
     private Storage simmMotionData;
     private Model model;
     ArrayStr stateNames;
     private double[] statesBuffer;
     private boolean renderMuscleActivations=false;
+    // For columns that start with a body name, this is the map from column index to body reference.
+    // The map is currently used only for body forces, but could be used for torques, etc.
+    private Hashtable<Integer, AbstractBody> mapIndicesToBodies = new Hashtable<Integer, AbstractBody>(10);
     
     public class ObjectIndexPair {
        public Object object;
@@ -117,11 +121,24 @@ public class MotionDisplayer {
         this.model = model;
         simmMotionData = motionData;
 
+        setupMotionDisplay();
+
+        // create a buffer to be used for comuptation of constrained states
+        statesBuffer = new double[model.getNumStates()];
+        SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(model);
+        if(vis!=null) vis.setRenderMuscleActivations(isRenderMuscleActivations());
+    }
+
+    public void setupMotionDisplay() {
+        if (simmMotionData == null)
+           return;
+
         AddMotionObjectsRep(model);
 
-        ArrayStr colNames = motionData.getColumnLabels();
+        ArrayStr colNames = simmMotionData.getColumnLabels();
         int numColumnsIncludingTime = colNames.getSize();
         interpolatedStates = new ArrayDouble(0.0, numColumnsIncludingTime-1);
+        mapIndicesToBodies.clear();
 
         stateNames = new ArrayStr();
         stateNames.append("time");
@@ -169,13 +186,16 @@ public class MotionDisplayer {
                }
             }
         }
-        // create a buffer to be used for comuptation of constrained states
-        statesBuffer = new double[model.getNumStates()];
-        SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(model);
-        if(vis!=null) vis.setRenderMuscleActivations(isRenderMuscleActivations());
     }
 
     private void AddMotionObjectsRep(final Model model) {
+        if (forcesRep != null)
+           ViewDB.getInstance().removeUserObject(model, forcesRep.getVtkActor());
+        if (markersRep != null)
+           ViewDB.getInstance().removeUserObject(model, markersRep.getVtkActor());
+
+        forcesRep = new OpenSimvtkGlyphCloud(true);
+        markersRep = new OpenSimvtkGlyphCloud(false);
         forcesRep.setShape(MotionObjectsDB.getInstance().getShape("force"));
         forcesRep.setColor(new double[]{0., 1.0, 0.});
         forcesRep.setOpacity(0.7);
@@ -296,9 +316,9 @@ public class MotionDisplayer {
             }
             if (columnName.startsWith(bName+"_force_")){
                if (columnName.equals(bName+"_force_vx")){
-                  if (!bName.equalsIgnoreCase("ground")){ // use body frame and xform data while applying.
-                     throw new UnsupportedOperationException("Not yet implemented");
-                  }
+                  //if (!bName.equalsIgnoreCase("ground")){ // use body frame and xform data while applying.
+                  //   throw new UnsupportedOperationException("Not yet implemented");
+                  //}
                   mapIndicesToObjectTypes.put(columnIndex, ObjectTypesInMotionFiles.Segment_force_p1);
                   mapIndicesToObjectTypes.put(columnIndex+1, ObjectTypesInMotionFiles.Segment_force_p2);
                   mapIndicesToObjectTypes.put(columnIndex+2, ObjectTypesInMotionFiles.Segment_force_p3);
@@ -312,6 +332,7 @@ public class MotionDisplayer {
                   mapIndicesToObjects.put(columnIndex+3, new Integer(index));
                   mapIndicesToObjects.put(columnIndex+4, new Integer(index));
                   mapIndicesToObjects.put(columnIndex+5, new Integer(index));
+                  mapIndicesToBodies.put(columnIndex, bdy);
                   return 6;
                }
                else{
@@ -382,12 +403,19 @@ public class MotionDisplayer {
          for(int i=0; i<segmentForceColumns.size(); i++) {
             int forceIndex = ((Integer)(segmentForceColumns.get(i).object)).intValue();
             int index = segmentForceColumns.get(i).stateVectorIndex;
-            forcesRep.setNormalAtLocation(forceIndex, states.getitem(index), 
-                    states.getitem(index+1),
-                    states.getitem(index+2));
-            forcesRep.setLocation(forceIndex, states.getitem(index+3), 
-                    states.getitem(index+4),
-                    states.getitem(index+5));
+            AbstractDynamicsEngine de = model.getDynamicsEngine();
+            ArrayStr colNames = simmMotionData.getColumnLabels();
+            AbstractBody body = mapIndicesToBodies.get(index+1);
+            double[] offset = new double[3];
+            double[] gOffset = new double[3];
+            for (int j=0; j<3; j++)
+               offset[j] = states.getitem(index+j);
+            de.transform(body, offset, de.getGroundBody(), gOffset);
+            forcesRep.setNormalAtLocation(forceIndex, gOffset[0], gOffset[1], gOffset[2]);
+            for (int j=0; j<3; j++)
+               offset[j] = states.getitem(index+j+3);
+            de.transformPosition(body, offset, gOffset);
+            forcesRep.setLocation(forceIndex, gOffset[0], gOffset[1], gOffset[2]);
          }
          if(segmentForceColumns.size()>0) forcesRep.setModified();
       }

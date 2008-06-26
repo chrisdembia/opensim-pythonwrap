@@ -206,6 +206,12 @@ public class MasterMotionModel {
       return displayers.size();
    }
 
+   MotionDisplayer getDisplayer(int index) {
+      if (index < 0 || index >= displayers.size())
+         return null;
+      return displayers.get(index);
+   }
+
    String getDisplayName() {
       if (getNumMotions()==0)
          return "None";

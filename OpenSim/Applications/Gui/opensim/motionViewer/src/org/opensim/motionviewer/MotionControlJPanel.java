@@ -45,6 +45,8 @@ import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import org.opensim.modeling.Model;
+import org.opensim.modeling.Storage;
 import org.opensim.motionviewer.MotionEvent.Operation;
 import org.opensim.view.ObjectsRenamedEvent;
 
@@ -726,6 +728,16 @@ public class MotionControlJPanel extends javax.swing.JPanel
             for(int i=0; i<mdb.getNumCurrentMotions(); i++)
                masterMotion.add(mdb.getCurrentMotion(i));
             masterMotion.setTime(currentTime);
+         } else if (evt.getOperation() == Operation.Modified) {
+            Storage motion = evt.getMotion();
+            Model model = evt.getModel();
+            for (int i=0; i<masterMotion.getNumMotions(); i++) {
+               Storage mot = masterMotion.getDisplayer(i).getSimmMotionData();
+               Model mod = masterMotion.getDisplayer(i).getModel();
+               if (mod.equals(model) && mot.equals(motion)) {
+                  masterMotion.getDisplayer(i).setupMotionDisplay();
+               }
+            }
          }
          motionLoaded = (masterMotion.getNumMotions() > 0);
          updatePanelDisplay();
