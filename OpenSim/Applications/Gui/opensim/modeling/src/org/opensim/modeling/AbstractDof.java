@@ -63,7 +63,11 @@ public class AbstractDof extends OpenSimObject {
   }
 
   public void getAxis(SWIGTYPE_p_SimTK__Vec3 axis) {
-    opensimModelJNI.AbstractDof_getAxis(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(axis));
+    opensimModelJNI.AbstractDof_getAxis__SWIG_0(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(axis));
+  }
+
+  public void getAxis(double[] rAxis) {
+    opensimModelJNI.AbstractDof_getAxis__SWIG_1(swigCPtr, this, rAxis);
   }
 
   public SWIGTYPE_p_double getAxisPtr() {

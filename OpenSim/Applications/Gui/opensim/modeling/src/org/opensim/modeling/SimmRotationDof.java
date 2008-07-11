@@ -62,6 +62,10 @@ public class SimmRotationDof extends AbstractDof {
     return new SWIGTYPE_p_SimTK__Vec3(opensimModelJNI.SimmRotationDof_getAxis__SWIG_1(swigCPtr, this), false);
   }
 
+  public void getAxis(double[] rAxis) {
+    opensimModelJNI.SimmRotationDof_getAxis__SWIG_2(swigCPtr, this, rAxis);
+  }
+
   public SWIGTYPE_p_double getAxisPtr() {
     long cPtr = opensimModelJNI.SimmRotationDof_getAxisPtr(swigCPtr, this);
     return (cPtr == 0) ? null : new SWIGTYPE_p_double(cPtr, false);

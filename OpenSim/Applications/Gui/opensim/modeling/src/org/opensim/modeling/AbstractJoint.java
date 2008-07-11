@@ -70,6 +70,30 @@ public class AbstractJoint extends OpenSimObject {
     return (cPtr == 0) ? null : new AbstractBody(cPtr, false);
   }
 
+  public void setLocationInParent(SWIGTYPE_p_SimTK__Vec3 aLocation) {
+    opensimModelJNI.AbstractJoint_setLocationInParent(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(aLocation));
+  }
+
+  public void getLocationInParent(SWIGTYPE_p_SimTK__Vec3 rLocation) {
+    opensimModelJNI.AbstractJoint_getLocationInParent__SWIG_0(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(rLocation));
+  }
+
+  public void getLocationInParent(double[] rLocation) {
+    opensimModelJNI.AbstractJoint_getLocationInParent__SWIG_1(swigCPtr, this, rLocation);
+  }
+
+  public void setLocationInChild(SWIGTYPE_p_SimTK__Vec3 aLocation) {
+    opensimModelJNI.AbstractJoint_setLocationInChild(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(aLocation));
+  }
+
+  public void getLocationInChild(SWIGTYPE_p_SimTK__Vec3 rLocation) {
+    opensimModelJNI.AbstractJoint_getLocationInChild__SWIG_0(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(rLocation));
+  }
+
+  public void getLocationInChild(double[] rLocation) {
+    opensimModelJNI.AbstractJoint_getLocationInChild__SWIG_1(swigCPtr, this, rLocation);
+  }
+
   public Transform getForwardTransform() {
     return new Transform(opensimModelJNI.AbstractJoint_getForwardTransform(swigCPtr, this), false);
   }

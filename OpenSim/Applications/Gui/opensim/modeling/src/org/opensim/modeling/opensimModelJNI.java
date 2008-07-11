@@ -2701,7 +2701,8 @@ public class opensimModelJNI {
   public final static native String AbstractDof_getCoordinateName(long jarg1, AbstractDof jarg1_);
   public final static native int AbstractDof_getMotionType(long jarg1, AbstractDof jarg1_);
   public final static native void AbstractDof_setAxis(long jarg1, AbstractDof jarg1_, long jarg2);
-  public final static native void AbstractDof_getAxis(long jarg1, AbstractDof jarg1_, long jarg2);
+  public final static native void AbstractDof_getAxis__SWIG_0(long jarg1, AbstractDof jarg1_, long jarg2);
+  public final static native void AbstractDof_getAxis__SWIG_1(long jarg1, AbstractDof jarg1_, double[] jarg2);
   public final static native long AbstractDof_getAxisPtr(long jarg1, AbstractDof jarg1_);
   public final static native double AbstractDof_getValue(long jarg1, AbstractDof jarg1_);
   public final static native long AbstractDof_getCoordinate(long jarg1, AbstractDof jarg1_);
@@ -2909,6 +2910,12 @@ public class opensimModelJNI {
   public final static native long AbstractJoint_getDofSet(long jarg1, AbstractJoint jarg1_);
   public final static native long AbstractJoint_getChildBody(long jarg1, AbstractJoint jarg1_);
   public final static native long AbstractJoint_getParentBody(long jarg1, AbstractJoint jarg1_);
+  public final static native void AbstractJoint_setLocationInParent(long jarg1, AbstractJoint jarg1_, long jarg2);
+  public final static native void AbstractJoint_getLocationInParent__SWIG_0(long jarg1, AbstractJoint jarg1_, long jarg2);
+  public final static native void AbstractJoint_getLocationInParent__SWIG_1(long jarg1, AbstractJoint jarg1_, double[] jarg2);
+  public final static native void AbstractJoint_setLocationInChild(long jarg1, AbstractJoint jarg1_, long jarg2);
+  public final static native void AbstractJoint_getLocationInChild__SWIG_0(long jarg1, AbstractJoint jarg1_, long jarg2);
+  public final static native void AbstractJoint_getLocationInChild__SWIG_1(long jarg1, AbstractJoint jarg1_, double[] jarg2);
   public final static native long AbstractJoint_getForwardTransform(long jarg1, AbstractJoint jarg1_);
   public final static native long AbstractJoint_getInverseTransform(long jarg1, AbstractJoint jarg1_);
   public final static native boolean AbstractJoint_isCoordinateUsed(long jarg1, AbstractJoint jarg1_, long jarg2, AbstractCoordinate jarg2_);
@@ -2927,6 +2934,12 @@ public class opensimModelJNI {
   public final static native long SimmJoint_getDofSet(long jarg1, SimmJoint jarg1_);
   public final static native long SimmJoint_getChildBody(long jarg1, SimmJoint jarg1_);
   public final static native long SimmJoint_getParentBody(long jarg1, SimmJoint jarg1_);
+  public final static native void SimmJoint_setLocationInParent(long jarg1, SimmJoint jarg1_, long jarg2);
+  public final static native void SimmJoint_getLocationInParent__SWIG_0(long jarg1, SimmJoint jarg1_, long jarg2);
+  public final static native void SimmJoint_getLocationInParent__SWIG_1(long jarg1, SimmJoint jarg1_, double[] jarg2);
+  public final static native void SimmJoint_setLocationInChild(long jarg1, SimmJoint jarg1_, long jarg2);
+  public final static native void SimmJoint_getLocationInChild__SWIG_0(long jarg1, SimmJoint jarg1_, long jarg2);
+  public final static native void SimmJoint_getLocationInChild__SWIG_1(long jarg1, SimmJoint jarg1_, double[] jarg2);
   public final static native long SimmJoint_getForwardTransform(long jarg1, SimmJoint jarg1_);
   public final static native long SimmJoint_getInverseTransform(long jarg1, SimmJoint jarg1_);
   public final static native void SimmJoint_invalidate(long jarg1, SimmJoint jarg1_);
@@ -3600,6 +3613,7 @@ public class opensimModelJNI {
   public final static native void SimmRotationDof_setAxis(long jarg1, SimmRotationDof jarg1_, long jarg2);
   public final static native void SimmRotationDof_getAxis__SWIG_0(long jarg1, SimmRotationDof jarg1_, long jarg2);
   public final static native long SimmRotationDof_getAxis__SWIG_1(long jarg1, SimmRotationDof jarg1_);
+  public final static native void SimmRotationDof_getAxis__SWIG_2(long jarg1, SimmRotationDof jarg1_, double[] jarg2);
   public final static native long SimmRotationDof_getAxisPtr(long jarg1, SimmRotationDof jarg1_);
   public final static native double SimmRotationDof_getValue(long jarg1, SimmRotationDof jarg1_);
   public final static native int SimmRotationDof_getMotionType(long jarg1, SimmRotationDof jarg1_);
@@ -3614,7 +3628,8 @@ public class opensimModelJNI {
   public final static native void SimmTranslationDof_updateFromXMLNode(long jarg1, SimmTranslationDof jarg1_);
   public final static native void SimmTranslationDof_copyData(long jarg1, SimmTranslationDof jarg1_, long jarg2, SimmTranslationDof jarg2_);
   public final static native void SimmTranslationDof_setAxis(long jarg1, SimmTranslationDof jarg1_, long jarg2);
-  public final static native void SimmTranslationDof_getAxis(long jarg1, SimmTranslationDof jarg1_, long jarg2);
+  public final static native void SimmTranslationDof_getAxis__SWIG_0(long jarg1, SimmTranslationDof jarg1_, long jarg2);
+  public final static native void SimmTranslationDof_getAxis__SWIG_1(long jarg1, SimmTranslationDof jarg1_, double[] jarg2);
   public final static native long SimmTranslationDof_getAxisPtr(long jarg1, SimmTranslationDof jarg1_);
   public final static native double SimmTranslationDof_getValue(long jarg1, SimmTranslationDof jarg1_);
   public final static native int SimmTranslationDof_getMotionType(long jarg1, SimmTranslationDof jarg1_);
