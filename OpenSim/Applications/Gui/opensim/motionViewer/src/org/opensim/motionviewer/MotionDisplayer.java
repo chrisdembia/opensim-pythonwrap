@@ -38,7 +38,9 @@ import java.util.Hashtable;
 import java.util.ArrayList;
 import org.opensim.modeling.AbstractBody;
 import org.opensim.modeling.AbstractCoordinate;
+import org.opensim.modeling.AbstractDof;
 import org.opensim.modeling.AbstractDynamicsEngine;
+import org.opensim.modeling.AbstractJoint;
 import org.opensim.modeling.AbstractMarker;
 import org.opensim.modeling.ActuatorSet;
 import org.opensim.modeling.ArrayDouble;
@@ -67,7 +69,8 @@ import org.opensim.view.pub.ViewDB;
 public class MotionDisplayer {
     
     public enum ObjectTypesInMotionFiles{GenCoord, 
-                                         GenCoord_Velocilty, 
+                                         GenCoord_Velocity, 
+                                         GenCoord_Force, 
                                          State,
                                          Marker, 
                                          Segment, 
@@ -87,7 +90,9 @@ public class MotionDisplayer {
 
     Hashtable<Integer, ObjectTypesInMotionFiles> mapIndicesToObjectTypes=new Hashtable<Integer, ObjectTypesInMotionFiles>(40);
     Hashtable<Integer, Object> mapIndicesToObjects=new Hashtable<Integer, Object>(40);
-    OpenSimvtkGlyphCloud  forcesRep = null;
+    OpenSimvtkGlyphCloud  groundForcesRep = null;
+    OpenSimvtkGlyphCloud  bodyForcesRep = null;
+    OpenSimvtkGlyphCloud  generalizedForcesRep = null;
     OpenSimvtkGlyphCloud  markersRep = null;
     private Storage simmMotionData;
     private Model model;
@@ -95,8 +100,10 @@ public class MotionDisplayer {
     private double[] statesBuffer;
     private boolean renderMuscleActivations=false;
     // For columns that start with a body name, this is the map from column index to body reference.
-    // The map is currently used only for body forces, but could be used for torques, etc.
+    // The map is currently used only for body forces and generalized forces.
     private Hashtable<Integer, AbstractBody> mapIndicesToBodies = new Hashtable<Integer, AbstractBody>(10);
+    // For generalized forces, this is the map from column index to DOF reference.
+    private Hashtable<Integer, AbstractDof> mapIndicesToDofs = new Hashtable<Integer, AbstractDof>(10);
     
     public class ObjectIndexPair {
        public Object object;
@@ -105,6 +112,7 @@ public class MotionDisplayer {
     }
     // For faster access to gencoords/markers/forces to update in applyFrameToModel
     ArrayList<ObjectIndexPair> genCoordColumns=null;
+    ArrayList<ObjectIndexPair> genCoordForceColumns=null;
     ArrayList<ObjectIndexPair> segmentMarkerColumns=null; // state vector index of the first of three (x y z) coordinates for a marker
     ArrayList<ObjectIndexPair> segmentForceColumns=null; // state vector index of the first of six (px py pz vx vy vz) coordinates for a force vector
     ArrayList<ObjectIndexPair> anyStateColumns=null; // state vector index of muscle excitations and other generic states
@@ -139,6 +147,7 @@ public class MotionDisplayer {
         int numColumnsIncludingTime = colNames.getSize();
         interpolatedStates = new ArrayDouble(0.0, numColumnsIncludingTime-1);
         mapIndicesToBodies.clear();
+        mapIndicesToDofs.clear();
 
         stateNames = new ArrayStr();
         stateNames.append("time");
@@ -161,6 +170,7 @@ public class MotionDisplayer {
            }
 
            genCoordColumns = new ArrayList<ObjectIndexPair>(numColumnsIncludingTime);
+           genCoordForceColumns = new ArrayList<ObjectIndexPair>(numColumnsIncludingTime);
            segmentMarkerColumns = new ArrayList<ObjectIndexPair>(numColumnsIncludingTime);
            segmentForceColumns = new ArrayList<ObjectIndexPair>(numColumnsIncludingTime);
            anyStateColumns = new ArrayList<ObjectIndexPair>(numColumnsIncludingTime);
@@ -173,6 +183,9 @@ public class MotionDisplayer {
                switch(cType){
                   case GenCoord: 
                      genCoordColumns.add(newPair);
+                     break;
+                  case GenCoord_Force: 
+                     genCoordForceColumns.add(newPair);
                      break;
                   case State: 
                      anyStateColumns.add(newPair);
@@ -189,23 +202,44 @@ public class MotionDisplayer {
     }
 
     private void AddMotionObjectsRep(final Model model) {
-        if (forcesRep != null)
-           ViewDB.getInstance().removeUserObject(model, forcesRep.getVtkActor());
+        if (groundForcesRep != null)
+           ViewDB.getInstance().removeUserObject(model, groundForcesRep.getVtkActor());
+        if (bodyForcesRep != null)
+           ViewDB.getInstance().removeUserObject(model, bodyForcesRep.getVtkActor());
+        if (generalizedForcesRep != null)
+           ViewDB.getInstance().removeUserObject(model, generalizedForcesRep.getVtkActor());
         if (markersRep != null)
            ViewDB.getInstance().removeUserObject(model, markersRep.getVtkActor());
 
-        forcesRep = new OpenSimvtkGlyphCloud(true);
+        groundForcesRep = new OpenSimvtkGlyphCloud(true);
+        bodyForcesRep = new OpenSimvtkGlyphCloud(true);
+        generalizedForcesRep = new OpenSimvtkGlyphCloud(true);
         markersRep = new OpenSimvtkGlyphCloud(false);
-        forcesRep.setShape(MotionObjectsDB.getInstance().getShape("force"));
-        forcesRep.setColor(new double[]{0., 1.0, 0.});
-        forcesRep.setOpacity(0.7);
-        forcesRep.setScaleFactor(0.001);
-        forcesRep.orientByNormalAndScaleByVector();
-        
+
+        groundForcesRep.setShape(MotionObjectsDB.getInstance().getShape("force"));
+        groundForcesRep.setColor(new double[]{0., 1.0, 0.});
+        groundForcesRep.setOpacity(0.7);
+        groundForcesRep.setScaleFactor(0.001);
+        groundForcesRep.orientByNormalAndScaleByVector();
+
+        bodyForcesRep.setShape(MotionObjectsDB.getInstance().getShape("force"));
+        bodyForcesRep.setColor(new double[]{0., 0., 1.0});
+        bodyForcesRep.setOpacity(0.7);
+        bodyForcesRep.setScaleFactor(0.001);
+        bodyForcesRep.orientByNormalAndScaleByVector();
+
+        generalizedForcesRep.setShape(MotionObjectsDB.getInstance().getShape("force"));
+        generalizedForcesRep.setColor(new double[]{0., 1.0, 1.0});
+        generalizedForcesRep.setOpacity(0.7);
+        generalizedForcesRep.setScaleFactor(0.001);
+        generalizedForcesRep.orientByNormalAndScaleByVector();
+
         markersRep.setShape(MotionObjectsDB.getInstance().getShape("marker"));
         markersRep.setColor(new double[]{0.0, 0.0, 1.0}); //Scale , scaleBy
 
-        ViewDB.getInstance().addUserObject(model, forcesRep.getVtkActor());
+        ViewDB.getInstance().addUserObject(model, groundForcesRep.getVtkActor());
+        ViewDB.getInstance().addUserObject(model, bodyForcesRep.getVtkActor());
+        ViewDB.getInstance().addUserObject(model, generalizedForcesRep.getVtkActor());
         ViewDB.getInstance().addUserObject(model, markersRep.getVtkActor());
     }
 
@@ -234,12 +268,27 @@ public class MotionDisplayer {
             mapIndicesToObjects.put(columnIndex, co); //co.setValue();
             return 1;
          }
-         // GenCoord_Velocilty
+         // GenCoord_Velocity
          if (columnName.endsWith("_vel")){
             if (columnName.equals(cName+"_vel"))
-               mapIndicesToObjectTypes.put(columnIndex, ObjectTypesInMotionFiles.GenCoord_Velocilty);
+               mapIndicesToObjectTypes.put(columnIndex, ObjectTypesInMotionFiles.GenCoord_Velocity);
                mapIndicesToObjects.put(columnIndex, co); 
                return 1;
+         }         
+         // GenCoord_Force
+         if (columnName.endsWith("_torque") || columnName.endsWith("_force")){
+            if (columnName.equals(cName+"_torque") || columnName.equals(cName+"_force")) {
+               mapIndicesToObjectTypes.put(columnIndex, ObjectTypesInMotionFiles.GenCoord_Force);
+               //mapIndicesToObjects.put(columnIndex, co);
+               AbstractJoint joint = null;
+               AbstractDof unconstrainedDof = model.getDynamicsEngine().findUnconstrainedDof(co, joint);
+               AbstractBody body = unconstrainedDof.getJoint().getChildBody();
+               mapIndicesToBodies.put(columnIndex, body);
+               mapIndicesToDofs.put(columnIndex, unconstrainedDof);
+               int index = generalizedForcesRep.addLocation(0., 0., 0.);
+               mapIndicesToObjects.put(columnIndex, new Integer(index));
+               return 1;
+            }
          }         
       }
       if (columnName.contains(".excitation") || columnName.contains("activation")){
@@ -316,16 +365,17 @@ public class MotionDisplayer {
             }
             if (columnName.startsWith(bName+"_force_")){
                if (columnName.equals(bName+"_force_vx")){
-                  //if (!bName.equalsIgnoreCase("ground")){ // use body frame and xform data while applying.
-                  //   throw new UnsupportedOperationException("Not yet implemented");
-                  //}
                   mapIndicesToObjectTypes.put(columnIndex, ObjectTypesInMotionFiles.Segment_force_p1);
                   mapIndicesToObjectTypes.put(columnIndex+1, ObjectTypesInMotionFiles.Segment_force_p2);
                   mapIndicesToObjectTypes.put(columnIndex+2, ObjectTypesInMotionFiles.Segment_force_p3);
                   mapIndicesToObjectTypes.put(columnIndex+3, ObjectTypesInMotionFiles.Segment_force_p4);
                   mapIndicesToObjectTypes.put(columnIndex+4, ObjectTypesInMotionFiles.Segment_force_p5);
                   mapIndicesToObjectTypes.put(columnIndex+5, ObjectTypesInMotionFiles.Segment_force_p6);
-                  int index= forcesRep.addLocation(0., 0., 0.);
+                  int index = 0;
+                  if (bName.equalsIgnoreCase("ground"))
+                     index = groundForcesRep.addLocation(0., 0., 0.);
+                  else
+                     index = bodyForcesRep.addLocation(0., 0., 0.);
                   mapIndicesToObjects.put(columnIndex, new Integer(index));
                   mapIndicesToObjects.put(columnIndex+1, new Integer(index));
                   mapIndicesToObjects.put(columnIndex+2, new Integer(index));
@@ -400,24 +450,56 @@ public class MotionDisplayer {
          }
          if(segmentMarkerColumns.size()>0) markersRep.setModified();
 
+         for(int i=0; i<genCoordForceColumns.size(); i++) {
+            int forceIndex = ((Integer)(genCoordForceColumns.get(i).object)).intValue();
+            int index = genCoordForceColumns.get(i).stateVectorIndex;
+            AbstractDynamicsEngine de = model.getDynamicsEngine();
+            AbstractBody body = mapIndicesToBodies.get(index+1);
+            AbstractDof dof = mapIndicesToDofs.get(index+1);
+            double[] offset = new double[3];
+            double[] gOffset = new double[3];
+            dof.getAxis(offset); // in parent frame, right?
+            double magnitude = states.getitem(index);
+            for (int j=0; j<3; j++)
+               offset[j] *= (magnitude * 10.0); // * 10.0 because test data is small
+            de.transform(body, offset, de.getGroundBody(), gOffset);
+            generalizedForcesRep.setNormalAtLocation(forceIndex, gOffset[0], gOffset[1], gOffset[2]);
+            dof.getJoint().getLocationInChild(offset);
+            de.transformPosition(body, offset, gOffset);
+            generalizedForcesRep.setLocation(forceIndex, gOffset[0], gOffset[1], gOffset[2]);
+         }
+         if(genCoordForceColumns.size()>0) {
+            generalizedForcesRep.setModified();
+         }
+
          for(int i=0; i<segmentForceColumns.size(); i++) {
             int forceIndex = ((Integer)(segmentForceColumns.get(i).object)).intValue();
             int index = segmentForceColumns.get(i).stateVectorIndex;
             AbstractDynamicsEngine de = model.getDynamicsEngine();
-            ArrayStr colNames = simmMotionData.getColumnLabels();
             AbstractBody body = mapIndicesToBodies.get(index+1);
             double[] offset = new double[3];
             double[] gOffset = new double[3];
             for (int j=0; j<3; j++)
                offset[j] = states.getitem(index+j);
-            de.transform(body, offset, de.getGroundBody(), gOffset);
-            forcesRep.setNormalAtLocation(forceIndex, gOffset[0], gOffset[1], gOffset[2]);
+            if (body.equals(de.getGroundBody())) {
+               groundForcesRep.setNormalAtLocation(forceIndex, offset[0], offset[1], offset[2]);
+            } else {
+               de.transform(body, offset, de.getGroundBody(), gOffset);
+               bodyForcesRep.setNormalAtLocation(forceIndex, gOffset[0], gOffset[1], gOffset[2]);
+            }
             for (int j=0; j<3; j++)
                offset[j] = states.getitem(index+j+3);
-            de.transformPosition(body, offset, gOffset);
-            forcesRep.setLocation(forceIndex, gOffset[0], gOffset[1], gOffset[2]);
+            if (body.equals(de.getGroundBody())) {
+               groundForcesRep.setLocation(forceIndex, offset[0], offset[1], offset[2]);
+            } else {
+               de.transformPosition(body, offset, gOffset);
+               bodyForcesRep.setLocation(forceIndex, gOffset[0], gOffset[1], gOffset[2]);
+            }
          }
-         if(segmentForceColumns.size()>0) forcesRep.setModified();
+         if(segmentForceColumns.size()>0) {
+            groundForcesRep.setModified();
+            bodyForcesRep.setModified();
+         }
       }
     }
 
@@ -425,7 +507,9 @@ public class MotionDisplayer {
      * cleanupDisplay is called when the motion is mode non-current either explicitly by the user or by selecting
      * another motion for the same model and making it current */
     void cleanupDisplay() {
-        ViewDB.getInstance().removeUserObject(model, forcesRep.getVtkActor());
+        ViewDB.getInstance().removeUserObject(model, groundForcesRep.getVtkActor());
+        ViewDB.getInstance().removeUserObject(model, bodyForcesRep.getVtkActor());
+        ViewDB.getInstance().removeUserObject(model, generalizedForcesRep.getVtkActor());
         ViewDB.getInstance().removeUserObject(model, markersRep.getVtkActor());
 
         // Don't attempt to change muscle activation color if we're here because
