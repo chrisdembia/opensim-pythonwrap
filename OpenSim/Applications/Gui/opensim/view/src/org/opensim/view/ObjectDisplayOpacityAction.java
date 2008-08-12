@@ -32,6 +32,7 @@ import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
 import org.opensim.modeling.OpenSimObject;
+import org.opensim.view.nodes.OneBodyNode;
 import org.opensim.view.nodes.OpenSimObjectNode;
 import org.opensim.view.nodes.OpenSimObjectNode.displayOption;
 
@@ -49,7 +50,7 @@ public final class ObjectDisplayOpacityAction extends CallableSystemAction {
 
    public void addLeafObjects(OpenSimObjectNode node, Vector<OpenSimObject> objects) {
       Children ch = node.getChildren();
-      if(ch.getNodesCount()>0) {
+      if(ch.getNodesCount()>0 && !(node instanceof OneBodyNode)) {
          for(Node childNode : ch.getNodes()) {
             if(childNode instanceof OpenSimObjectNode)
                addLeafObjects((OpenSimObjectNode)childNode, objects);

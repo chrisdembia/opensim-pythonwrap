@@ -7,6 +7,7 @@
             <file name="org-opensim-tracking-tools-CMCToolAction.instance"/>
             <file name="org-opensim-tracking-tools-ForwardToolAction.instance"/>
             <file name="org-opensim-tracking-tools-InverseDynamicsToolAction.instance"/>
+            <file name="org-opensim-tracking-tools-StaticOptimizationAction.instance"/>
             <file name="org-opensim-tracking-tools-ToolsScaleAction.instance"/>                
                                 
         </folder>
@@ -31,20 +32,25 @@
                 <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-tracking-tools-InverseDynamicsToolAction.instance"/>
             </file>
             <attr name="org-opensim-tracking-tools-InverseDynamicsToolAction.shadow/org-opensim-tracking-tools-ForwardToolAction.shadow" boolvalue="true"/>
+            <attr name="org-opensim-tracking-tools-InverseDynamicsToolAction.shadow/org-opensim-tracking-tools-StaticOptimizationAction.shadow" boolvalue="true"/>
+            <file name="org-opensim-tracking-tools-StaticOptimizationAction.shadow">
+                <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-tracking-tools-StaticOptimizationAction.instance"/>
+            </file>
+            <attr name="org-opensim-tracking-tools-StaticOptimizationAction.shadow/org-opensim-tracking-tools-ForwardToolAction.shadow" boolvalue="true"/>
             <file name="org-opensim-tracking-tools-ForwardToolAction.shadow">
                 <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-tracking-tools-ForwardToolAction.instance"/>
             </file>
-            <attr name="org-opensim-tracking-tools-ForwardToolAction.shadow/org-opensim-tracking-tools-separatorAfter.instance" boolvalue="true"/>
-            <attr name="org-opensim-tracking-tools-ForwardToolAction.shadow/org-opensim-tracking-tools-AnalyzeToolAction.shadow" boolvalue="true"/>
             <attr name="org-opensim-tracking-tools-ForwardToolAction.shadow/org-opensim-tracking-tools-CMCToolAction.shadow" boolvalue="true"/>
             <file name="org-opensim-tracking-tools-CMCToolAction.shadow">
                 <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-tracking-tools-CMCToolAction.instance"/>
             </file>
             <attr name="org-opensim-tracking-tools-CMCToolAction.shadow/org-opensim-tracking-tools-AnalyzeToolAction.shadow" boolvalue="true"/>
+            <attr name="org-opensim-tracking-tools-ForwardToolAction.shadow/org-opensim-tracking-tools-AnalyzeToolAction.shadow" boolvalue="true"/>
             <file name="org-opensim-tracking-tools-AnalyzeToolAction.shadow">
                 <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-tracking-tools-AnalyzeToolAction.instance"/>
             </file>
             <attr name="org-opensim-tracking-tools-AnalyzeToolAction.shadow/org-opensim-tracking-tools-separatorAfter.instance" boolvalue="true"/>
+            <attr name="org-opensim-tracking-tools-ForwardToolAction.shadow/org-opensim-tracking-tools-separatorAfter.instance" boolvalue="true"/>
             <file name="org-opensim-tracking-tools-separatorAfter.instance">
                 <attr name="instanceClass" stringvalue="javax.swing.JSeparator"/>
             </file>

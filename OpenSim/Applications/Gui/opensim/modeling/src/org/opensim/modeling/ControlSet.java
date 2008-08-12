@@ -50,6 +50,18 @@ public class ControlSet extends SetControls {
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
+  public ControlSet(Storage aStorage, int nControlsToConvert, int aStartIndex) {
+    this(opensimModelJNI.new_ControlSet__SWIG_3(Storage.getCPtr(aStorage), aStorage, nControlsToConvert, aStartIndex), true);
+  }
+
+  public ControlSet(Storage aStorage, int nControlsToConvert) {
+    this(opensimModelJNI.new_ControlSet__SWIG_4(Storage.getCPtr(aStorage), aStorage, nControlsToConvert), true);
+  }
+
+  public ControlSet(Storage aStorage) {
+    this(opensimModelJNI.new_ControlSet__SWIG_5(Storage.getCPtr(aStorage), aStorage), true);
+  }
+
   public int getSize(boolean aForModelControls) {
     return opensimModelJNI.ControlSet_getSize__SWIG_0(swigCPtr, this, aForModelControls);
   }

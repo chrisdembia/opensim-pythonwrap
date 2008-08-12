@@ -39,6 +39,7 @@ import org.opensim.modeling.InterruptingIntegCallback;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.Storage;
 import org.opensim.modeling.InverseDynamics;
+import org.opensim.modeling.StaticOptimization;
 import org.opensim.motionviewer.JavaMotionDisplayerCallback;
 import org.opensim.motionviewer.MotionsDB;
 import org.opensim.swingui.SwingWorker;
@@ -154,6 +155,7 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
    //========================================================================
    
    private boolean inverseDynamicsMode = false;
+   private boolean staticOptimizationMode = false;
 
    enum InputSource { Motion, States, Coordinates, Unspecified };
    private InputSource inputSource = InputSource.Unspecified;
@@ -161,17 +163,20 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
    private boolean loadSpeeds = false;
    private boolean controlsEnabled = false;
    private String toolName;
-
-   public AnalyzeToolModel(Model model, boolean inverseDynamicsMode) throws IOException {
+   private double activationExponent=0.0;
+   
+   public AnalyzeToolModel(Model model, AnalyzeAndForwardToolPanel.Mode dMode) throws IOException {
       super(model);
 
-      this.inverseDynamicsMode = inverseDynamicsMode;
+      this.inverseDynamicsMode = (dMode==AnalyzeAndForwardToolPanel.Mode.InverseDynamics);
+      this.staticOptimizationMode = (dMode==AnalyzeAndForwardToolPanel.Mode.StaticOptimization);
       if(inverseDynamicsMode) toolName = "Inverse Dynamics Tool";
+      else if (staticOptimizationMode) toolName = "Static Optimization Tool";
       else toolName = "Analyze Tool";
 
       // In inverse dynamisc mode, we know for sure we'll need a real dynamics engine, so check this up front
-      if(inverseDynamicsMode && model.getDynamicsEngine().getType().equals("SimmKinematicsEngine"))
-         throw new IOException("Inverse dynamics tool requires a model with SdfastEngine or SimbodyEngine; SimmKinematicsEngine does not support dynamics.");
+      if((inverseDynamicsMode || staticOptimizationMode) && model.getDynamicsEngine().getType().equals("SimmKinematicsEngine"))
+         throw new IOException(toolName+" requires a model with SdfastEngine or SimbodyEngine; SimmKinematicsEngine does not support dynamics.");
 
       setTool(new AnalyzeTool());
 
@@ -180,7 +185,7 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
 
       setDefaultResultsDirectory(model);
 
-      adjustToolForInverseDynamicsMode();
+      adjustToolForMode();
       updateFromTool();
 
       determineDefaultInputSource();
@@ -192,48 +197,79 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
    // Utilities for inverse dynamics specific analyze tool
    //------------------------------------------------------------------------
 
-   protected void adjustToolForInverseDynamicsMode() {
-      if(!inverseDynamicsMode) return;
-      // Since we're not using the model's actuator set, clear the actuator set related fields
-      analyzeTool().setReplaceActuatorSet(true);
-      analyzeTool().getActuatorSetFiles().setSize(0);
+   protected void adjustToolForMode() {
+      if(!inverseDynamicsMode && !staticOptimizationMode) return;
       // Check if have non-inverse dynamics analyses, or multiple inverse dynamics analyses
       boolean foundOtherAnalysis = false;
       boolean advancedSettings = false;
-      int numInverseDynamicsAnalyses = 0;
+      int numFoundAnalyses = 0;
       InverseDynamics inverseDynamicsAnalysis = null;
-      for(int i=analyzeTool().getAnalysisSet().getSize()-1; i>=0; i--) {
-         Analysis analysis = analyzeTool().getAnalysisSet().get(i);
-         //System.out.println("PROCESSING ANALYSIS "+analysis.getType()+","+analysis.getName());
-         if(InverseDynamics.safeDownCast(analysis)==null) {
-            foundOtherAnalysis = true;
-            analyzeTool().getAnalysisSet().remove(i);
-         }
-         else { 
-            numInverseDynamicsAnalyses++;
-            if(numInverseDynamicsAnalyses==1) {
-               inverseDynamicsAnalysis = InverseDynamics.safeDownCast(analysis);
-               if(inverseDynamicsAnalysis.getUseModelActuatorSet() || !inverseDynamicsAnalysis.getOn()) 
-                  advancedSettings = true;
-            } else {
-               analyzeTool().getAnalysisSet().remove(i);
-            }
-         }
+      int numStaticOptimizationAnalyses = 0;
+      StaticOptimization staticOptimizationAnalysis = null;
+      if (inverseDynamicsMode){
+        // Since we're not using the model's actuator set, clear the actuator set related fields
+        analyzeTool().setReplaceActuatorSet(true);
+        analyzeTool().getActuatorSetFiles().setSize(0);
+        // Mode is either InverseDynamics or StaticOptimization
+          for(int i=analyzeTool().getAnalysisSet().getSize()-1; i>=0; i--) {
+              Analysis analysis = analyzeTool().getAnalysisSet().get(i);
+              //System.out.println(" PROCESSING ANALYSIS "+analysis.getType()+","+analysis.getName());
+              if(InverseDynamics.safeDownCast(analysis)==null) {
+                  foundOtherAnalysis = true;
+                  analyzeTool().getAnalysisSet().remove(i);
+              } else{
+                  numFoundAnalyses++;
+                  if(numFoundAnalyses==1) {
+                      inverseDynamicsAnalysis = InverseDynamics.safeDownCast(analysis);
+                      if(inverseDynamicsAnalysis.getUseModelActuatorSet() || !inverseDynamicsAnalysis.getOn())
+                          advancedSettings = true;
+                  } else {
+                      analyzeTool().getAnalysisSet().remove(i);
+                  }
+              }
+          }
+          if(inverseDynamicsAnalysis==null) {
+              inverseDynamicsAnalysis = InverseDynamics.safeDownCast(new InverseDynamics().copy()); // C++-side copy
+              analyzeTool().getAnalysisSet().append(inverseDynamicsAnalysis);
+          }
+          inverseDynamicsAnalysis.setOn(true);
+          inverseDynamicsAnalysis.setUseModelActuatorSet(false);
+          
       }
-      if(inverseDynamicsAnalysis==null) {
-         inverseDynamicsAnalysis = InverseDynamics.safeDownCast(new InverseDynamics().copy()); // C++-side copy
-         analyzeTool().getAnalysisSet().append(inverseDynamicsAnalysis);
+      else {    // StaticOptimization assumed
+          // Mode is StaticOptimization
+          for(int i=analyzeTool().getAnalysisSet().getSize()-1; i>=0; i--) {
+              Analysis analysis = analyzeTool().getAnalysisSet().get(i);
+              //System.out.println(" PROCESSING ANALYSIS "+analysis.getType()+","+analysis.getName());
+              if(StaticOptimization.safeDownCast(analysis)==null) {
+                  foundOtherAnalysis = true;
+                  analyzeTool().getAnalysisSet().remove(i);
+              } else{
+                  numFoundAnalyses++;
+                  if(numFoundAnalyses==1) {
+                      staticOptimizationAnalysis = StaticOptimization.safeDownCast(analysis);
+                      //if(staticOptimizationAnalysis.getUseModelActuatorSet() || !staticOptimizationAnalysis.getOn())
+                       //   advancedSettings = true;
+                  } else {
+                      analyzeTool().getAnalysisSet().remove(i);
+                  }
+              }
+          }
+          if(staticOptimizationAnalysis==null) {
+              staticOptimizationAnalysis = StaticOptimization.safeDownCast(new StaticOptimization().copy()); // C++-side copy
+              analyzeTool().getAnalysisSet().append(staticOptimizationAnalysis);
+          }
+          staticOptimizationAnalysis.setOn(true);
+          staticOptimizationAnalysis.setUseModelActuatorSet(true);
+          analyzeTool().setReplaceActuatorSet(false);
       }
-      inverseDynamicsAnalysis.setOn(true);
-      inverseDynamicsAnalysis.setUseModelActuatorSet(false);
-
-      if(foundOtherAnalysis || advancedSettings || numInverseDynamicsAnalyses>1) {
-         String message = "";
-         if(foundOtherAnalysis) message = "Settings file contained analyses other than inverse dynamics.  The inverse dynamics tool will ignore these.\n";
-         if(numInverseDynamicsAnalyses>1) message += "More than one inverse dynamics analysis found.  Extras will be ignored.\n";
-         if(advancedSettings) message += "Settings file contained an inverse dynamics analysis with advanced settings which will be ignored by the inverse dynamics tool.\n";
-         message += "Please use the analyze tool if you wish to handle different analysis types and advanced analysis settings.\n";
-         DialogDisplayer.getDefault().notify(new NotifyDescriptor.Message(message, NotifyDescriptor.WARNING_MESSAGE));
+      if(foundOtherAnalysis || advancedSettings || numFoundAnalyses>1) {
+          String message = "";
+          if(foundOtherAnalysis) message = "Settings file contained analyses other than requested.  The tool will ignore these.\n";
+          if(numFoundAnalyses>1) message += "More than one analysis was found.  Extras will be ignored.\n";
+          if(advancedSettings) message += "Settings file contained an analysis with advanced settings which will be ignored by the tool.\n";
+          message += "Please use the analyze tool if you wish to handle different analysis types and advanced analysis settings.\n";
+          DialogDisplayer.getDefault().notify(new NotifyDescriptor.Message(message, NotifyDescriptor.WARNING_MESSAGE));
       }
    }
 
@@ -256,6 +292,9 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
          // If not, then pick the first of this model's motions
          inputMotion = motions.get(0);
          inputSource = InputSource.Motion;
+      }
+      if (staticOptimizationMode){  // Surgically change inputSource based on fields
+          inputSource = InputSource.Coordinates;
       }
    }
 
@@ -356,6 +395,32 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
       }
    }
 
+   public double getActivationExponent() { 
+      Analysis an= analyzeTool().getAnalysisSet().get("StaticOptimization");
+      return  StaticOptimization.safeDownCast(an).getActivationExponent();
+   }
+   void setActivationExponent(double p) {
+      if(!(getActivationExponent()==p)) {
+         Analysis an= analyzeTool().getAnalysisSet().get("StaticOptimization");
+         StaticOptimization.safeDownCast(an).setActivationExponent(p);
+         setModified(AbstractToolModel.Operation.InputDataChanged);
+      }
+   }
+   
+   public boolean getUseMusclePhysiology() {
+      Analysis an= analyzeTool().getAnalysisSet().get("StaticOptimization");
+      return  StaticOptimization.safeDownCast(an).getUseMusclePhysiology();
+   }
+   public void setUseMusclePhysiology(boolean useIt) {
+      Analysis an= analyzeTool().getAnalysisSet().get("StaticOptimization");
+      boolean oldValue = StaticOptimization.safeDownCast(an).getUseMusclePhysiology();
+      StaticOptimization.safeDownCast(an).setUseMusclePhysiology(useIt);
+      analyzeTool().setSolveForEquilibrium(useIt);
+      if (oldValue != useIt)
+        setModified(AbstractToolModel.Operation.InputDataChanged);
+
+   }
+   
    // TODO: implement
    public double[] getAvailableTimeRange() { 
       double range[] = null;
@@ -437,6 +502,10 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
       loadSpeeds = (inputSource == InputSource.Coordinates && !FileUtils.effectivelyNull(getSpeedsFileName()));
 
       controlsEnabled = !FileUtils.effectivelyNull(getControlsFileName());
+      
+      if (staticOptimizationMode){
+          activationExponent = getActivationExponent();
+      }
    }
 
    protected void updateTool() {
@@ -499,7 +568,7 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
 
       setTool(newAnalyzeTool);
       relativeToAbsolutePaths(fileName);
-      adjustToolForInverseDynamicsMode();
+      adjustToolForMode();
       updateFromTool();
       setModified(AbstractToolModel.Operation.AllDataChanged);
       return true;

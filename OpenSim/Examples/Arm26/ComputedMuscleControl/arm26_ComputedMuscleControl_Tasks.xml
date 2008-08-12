@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdCMC_TaskSet name="arm26">
+	<objects>
+
+		<!-- Shoulder -->
+
+		<rdCMC_Joint name="r_shoulder_elev">
+			<wrt_body> -1 </wrt_body>
+			<express_body> -1 </express_body>
+			<on> true </on>
+			<active> true false false </active>
+			<weight> 1.0e0 </weight>
+			<kp> 100.0 </kp>
+			<kv>  20.0 </kv>
+			<coordinate> r_shoulder_elev </coordinate>
+		</rdCMC_Joint>
+
+    <!-- Elbow -->
+
+    <rdCMC_Joint name="r_elbow_flex">
+      <wrt_body> -1 </wrt_body>
+      <express_body> -1 </express_body>
+      <on> true </on>
+      <active> true false false </active>
+      <weight> 1.0e0 </weight>
+      <kp> 100.0 </kp>
+      <kv>  20.0 </kv>
+      <coordinate> r_elbow_flex </coordinate>
+    </rdCMC_Joint>
+  
+  </objects>
+</rdCMC_TaskSet>
+

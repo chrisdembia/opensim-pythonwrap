@@ -35,6 +35,7 @@ import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
 import org.openide.windows.WindowManager;
 import org.opensim.modeling.OpenSimObject;
+import org.opensim.view.nodes.OneBodyNode;
 import org.opensim.view.nodes.OpenSimObjectNode;
 import org.opensim.view.nodes.OpenSimObjectNode.displayOption;
 import org.opensim.view.pub.ViewDB;
@@ -65,7 +66,7 @@ public final class ObjectDisplayColorAction extends CallableSystemAction {
     private void applyOperationToNode(final OpenSimObjectNode objectNode, double[] newColorComponents) {
         OpenSimObject obj = objectNode.getOpenSimObject();
         Children ch = objectNode.getChildren();
-        if (ch.getNodesCount()>0){
+        if (ch.getNodesCount()>0 && !(objectNode instanceof OneBodyNode)){
             // apply action recursively
             Node[] childNodes=ch.getNodes();
             for(int child=0; child < childNodes.length ; child++){

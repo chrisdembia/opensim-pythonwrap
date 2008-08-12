@@ -1,0 +1,200 @@
+/************************************************************/
+/* arm26.jnt								*/
+/* Jeff Reinbolt 7/22/08				        	*/
+/*										*/
+/* This model is adapted from a model originally created by */
+/* Kate Holzbaur (11/22/04) which is described in Holzbaur, */
+/* Murray, and Delp.  Annals of Biomed Eng 2005.		*/
+/************************************************************/
+
+name arm26
+
+marker_visibility on
+MV_gear 2.000000
+solver_accuracy 0.000100
+background_color 0.0 0.0 0.0
+
+/*********************************************/
+/*               SEGMENTS                    */
+/*********************************************/
+
+beginsegment ground
+marker r_acromion	-0.01256 0.04000 0.17000 1.0
+beginfiles 
+ground_ribs.asc
+ground_spine.asc
+ground_skull.asc
+ground_jaw.asc
+ground_r_clavicle.asc
+ground_r_scapula.asc
+endfiles  
+endsegment
+
+beginsegment r_humerus
+mass 1.864572
+masscenter 0.000000 -0.180496 0.000000
+inertia 0.014810 0.000000 0.000000
+        0.000000 0.004551 0.000000
+        0.000000 0.000000 0.013193
+marker r_humerus_epicondyle	0.00500 -0.290400 0.03000 1.0
+beginfiles
+arm_r_humerus.asc
+endfiles
+endsegment
+
+beginsegment r_ulna_radius_hand
+mass 1.534315
+masscenter 0.000000 -0.181479 0.000000
+inertia 0.019281 0.000000 0.000000
+        0.000000 0.001571 0.000000
+        0.000000 0.000000 0.020062
+marker r_radius_styloid	-0.00110 -0.23559 0.09430 1.0
+beginfiles
+arm_r_ulna.asc
+arm_r_radius.asc
+arm_r_lunate.asc
+arm_r_scaphoid.asc
+arm_r_pisiform.asc
+arm_r_triquetrum.asc
+arm_r_capitate.asc
+arm_r_trapezium.asc
+arm_r_trapezoid.asc
+arm_r_hamate.asc
+arm_r_1mc.asc
+arm_r_2mc.asc
+arm_r_3mc.asc
+arm_r_4mc.asc
+arm_r_5mc.asc
+arm_r_thumbprox.asc
+arm_r_thumbdist.asc
+arm_r_2proxph.asc
+arm_r_2midph.asc
+arm_r_2distph.asc
+arm_r_3proxph.asc
+arm_r_3midph.asc
+arm_r_3distph.asc
+arm_r_4proxph.asc
+arm_r_4midph.asc
+arm_r_4distph.asc
+arm_r_5proxph.asc
+arm_r_5midph.asc
+arm_r_5distph.asc
+endfiles
+endsegment
+
+/*********************************************/
+/*                JOINTS                     */
+/*********************************************/
+
+beginjoint r_shoulder
+segments ground r_humerus
+order t r1 r3 r2
+axis1 0.9973610 -0.042598 -0.058798
+axis2 0.042400 0.999089 -0.004800
+axis3 -0.058898 0.002300 0.998261
+tx  constant -0.017545
+ty  constant -0.007
+tz  constant 0.17
+r1  constant 0.000000
+r2  constant 0.000000
+r3  function f1(r_shoulder_elev)
+endjoint
+
+beginjoint r_elbow
+segments r_humerus r_ulna_radius_hand
+order t r1 r2 r3
+axis1 1.000000 0.000000 0.000000
+axis2 0.000000 1.000000 0.000000
+axis3 0.049400 0.036600 0.998108
+tx  constant 0.006100
+ty  constant -0.290400
+tz  constant -0.012300
+r1  constant 0.000000
+r2  constant 0.000000
+r3  function f2(r_elbow_flex)
+endjoint
+
+/*********************************************/
+/*              GENCOORDS                    */
+/*********************************************/
+
+begingencoord r_shoulder_elev
+range -90.000000 180.000000
+keys s_key leftmouse_button
+default_value 0.000000
+endgencoord
+
+begingencoord r_elbow_flex
+range 0.000000 130.000000
+keys e_key leftmouse_button
+default_value 0.000000
+endgencoord
+
+/*********************************************/
+/*               FUNCTIONS                   */
+/*********************************************/
+
+/**********/
+/* joints */
+/**********/
+
+/* shoulder */
+beginfunction f1
+( -90.000000, -90.000000)
+( 180.000000, 180.000000)
+endfunction
+
+/* elbow */
+beginfunction f2
+(-360.000000,-360.000000)
+( 360.000000, 360.000000)
+endfunction
+
+/*********************************************/
+/*           MUSCLE WRAP OBJECTS             */
+/*********************************************/
+
+/* Shoulder wrap surfaces */
+
+beginwrapobject TRIlonghh
+wraptype ellipsoid
+segment r_humerus
+visible no
+xyz_body_rotation 171.98 -48.90 147.49
+translation -0.0078 -0.0041 -0.0014
+radius 0.0350 0.0200 0.0200
+quadrant z
+endwrapobject
+
+beginwrapobject TRIlongglen
+wraptype cylinder
+segment ground
+visible no
+xyz_body_rotation 78.80 -16.88 139.57
+translation -0.043905 -0.0039 0.1478
+radius 0.0030
+height 0.0300
+quadrant x
+endwrapobject
+
+beginwrapobject BIClonghh
+wraptype ellipsoid
+segment r_humerus
+visible no
+xyz_body_rotation -114.84 -57.39 55.89
+translation 0.0033 0.0073 0.0003
+radius 0.0250 0.0200 0.0200
+quadrant -y
+endwrapobject
+
+/* Elbow wrap surface */
+
+beginwrapobject TRI
+wraptype cylinder
+segment r_humerus
+visible no
+xyz_body_rotation -8.03 -0.36 8.88
+translation 0.0028 -0.2919 -0.0069
+radius 0.0160
+height 0.0500
+endwrapobject

@@ -172,6 +172,13 @@ public abstract class AbstractToolModel extends Observable {
          setModified(Operation.IntegratorSettingsChanged);
       }
    }
+   public double getMinDT() { return tool.getMinDT(); }
+   public void setMinDT(double minDT) {
+      if(getMinDT() != minDT) {
+         tool.setMinDT(minDT);
+         setModified(Operation.IntegratorSettingsChanged);
+      }
+   }
    public double getErrorTolerance() { return tool.getErrorTolerance(); }
    public void setErrorTolerance(double tolerance) {
       if(getErrorTolerance() != tolerance) {

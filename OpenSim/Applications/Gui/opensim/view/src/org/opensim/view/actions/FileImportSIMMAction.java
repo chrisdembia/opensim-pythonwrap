@@ -63,6 +63,7 @@ public final class FileImportSIMMAction extends CallableSystemAction {
                 command += " -m \""+mslfileName+"\"";
             if (engineString.compareToIgnoreCase("Simbody")==0)
                 command += " -e Simbody ";
+            command += " -g Geometry";
             // simmToOpenSim is assumed in the Path, similar to other dlls we depend on.
             File f = new File(jntfileName);
             File jntFileDir = f.getParentFile();

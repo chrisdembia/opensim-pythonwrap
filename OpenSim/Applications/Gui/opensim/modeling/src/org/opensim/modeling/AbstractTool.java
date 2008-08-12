@@ -118,6 +118,14 @@ public class AbstractTool extends OpenSimObject {
     opensimModelJNI.AbstractTool_setMaxDT(swigCPtr, this, aMaxDT);
   }
 
+  public double getMinDT() {
+    return opensimModelJNI.AbstractTool_getMinDT(swigCPtr, this);
+  }
+
+  public void setMinDT(double aMinDT) {
+    opensimModelJNI.AbstractTool_setMinDT(swigCPtr, this, aMinDT);
+  }
+
   public double getErrorTolerance() {
     return opensimModelJNI.AbstractTool_getErrorTolerance(swigCPtr, this);
   }

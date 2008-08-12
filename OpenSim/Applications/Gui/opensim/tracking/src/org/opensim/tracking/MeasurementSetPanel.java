@@ -28,6 +28,7 @@ package org.opensim.tracking;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -377,6 +378,7 @@ class MeasurementSetScrollPane extends JScrollPane implements Observer, ActionLi
                if(markerNames.get(i).equals(name)) item.setSelected(true);
                popup.add(item);
             }
+            popup.setLayout(new GridLayout(25,markerNames.size()/25+1));
             popup.show(evt.getComponent(),evt.getX(),evt.getY());
          }
       });

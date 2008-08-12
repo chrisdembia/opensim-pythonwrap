@@ -1,0 +1,187 @@
+/************************************************************/
+/* arm26.msl								*/
+/* Jeff Reinbolt 7/22/08				        	*/
+/*										*/
+/* This model is adapted from a model originally created by */
+/* Kate Holzbaur (11/22/04) which is described in Holzbaur, */
+/* Murray, and Delp.  Annals of Biomed Eng 2005.		*/
+/************************************************************/
+
+beginmuscle defaultmuscle
+muscle_model 9
+beginactiveforcelengthcurve
+(-35.000000, 0.000000)
+( 0.000000, 0.000000)
+( 0.401000, 0.000000)
+( 0.402000, 0.000000)
+( 0.403500, 0.000000)
+( 0.527250, 0.226667)
+( 0.628750, 0.636667)
+( 0.718750, 0.856667)
+( 0.861250, 0.950000)
+( 1.045000, 0.993333)
+( 1.217500, 0.770000)
+( 1.438750, 0.246667)
+( 1.618750, 0.000000)
+( 1.620000, 0.000000)
+( 1.621000, 0.000000)
+( 2.200000, 0.000000)
+(35.000000, 0.000000)
+endactiveforcelengthcurve
+beginpassiveforcelengthcurve
+(-35.000000, 0.000000)
+( 0.998000, 0.000000)
+( 0.999000, 0.000000)
+( 1.150000, 0.000000)
+( 1.250000, 0.035000)
+( 1.350000, 0.120000)
+( 1.450000, 0.260000)
+( 1.550000, 0.550000)
+( 1.650000, 1.170000)
+( 1.750000, 2.000000)
+( 1.750100, 2.000000)
+( 1.750200, 2.000000)
+(35.000000, 2.000000)
+endpassiveforcelengthcurve
+begintendonforcelengthcurve
+(-10.000000, 0.000000)
+(-0.002000, 0.000000)
+(-0.001000, 0.000000)
+( 0.000000, 0.000000)
+( 0.001310, 0.010800)
+( 0.002810, 0.025700)
+( 0.004310, 0.043500)
+( 0.005810, 0.065200)
+( 0.007310, 0.091500)
+( 0.008810, 0.123000)
+( 0.010300, 0.161000)
+( 0.011800, 0.208000)
+( 0.012300, 0.227000)
+( 9.200000,345.000000)
+( 9.201000,345.000000)
+( 9.202000,345.000000)
+(20.000000,345.000000)
+endtendonforcelengthcurve
+endmuscle
+
+
+/*****************/
+/* elbow muscles */
+/*****************/
+
+beginmuscle TRIlong
+beginpoints
+-0.05365 -0.01373  0.14723 segment ground
+-0.02714 -0.11441 -0.00664 segment r_humerus
+-0.03184 -0.22637 -0.01217 segment r_humerus
+-0.01743 -0.26757 -0.01208 segment r_humerus
+-0.02190  0.01046 -0.00078 segment r_ulna_radius_hand
+endpoints
+max_force   798.520
+optimal_fiber_length 0.13400
+tendon_slack_length 0.14300
+pennation_angle 12.000
+max_thickness 0.00350
+min_material def_min_muscle
+max_material def_max_muscle
+visible yes
+wrapobject TRI
+wrapobject TRIlonghh
+wrapobject TRIlongglen
+endmuscle
+
+beginmuscle TRIlat
+beginpoints
+-0.00599 -0.12646  0.00428 segment r_humerus
+-0.02344 -0.14528  0.00928 segment r_humerus
+-0.03184 -0.22637 -0.01217 segment r_humerus
+-0.01743 -0.26757 -0.01208 segment r_humerus
+-0.02190  0.01046 -0.00078 segment r_ulna_radius_hand
+endpoints
+max_force   624.300
+optimal_fiber_length 0.11380
+tendon_slack_length 0.09800
+pennation_angle  9.000
+max_thickness 0.00350
+min_material def_min_muscle
+max_material def_max_muscle
+visible yes
+wrapobject TRI
+endmuscle
+
+beginmuscle TRImed
+beginpoints
+-0.00838 -0.13695 -0.00906 segment r_humerus
+-0.02601 -0.15139 -0.01080 segment r_humerus
+-0.03184 -0.22637 -0.01217 segment r_humerus
+-0.01743 -0.26757 -0.01208 segment r_humerus
+-0.02190  0.01046 -0.00078 segment r_ulna_radius_hand
+endpoints
+max_force   624.300
+optimal_fiber_length 0.11380
+tendon_slack_length 0.09080
+pennation_angle  9.000
+max_thickness 0.00350
+min_material def_min_muscle
+max_material def_max_muscle
+visible yes
+wrapobject TRI
+endmuscle
+
+beginmuscle BIClong
+beginpoints
+-0.039235 0.00347 0.14795 segment ground
+-0.028945 0.01391  0.15639 segment ground
+ 0.02131  0.01793  0.01028 segment r_humerus
+ 0.02378 -0.00511  0.01201 segment r_humerus
+ 0.01345 -0.02827  0.00136 segment r_humerus
+ 0.01068 -0.07736 -0.00165 segment r_humerus
+ 0.01703 -0.12125  0.00024 segment r_humerus
+ 0.02280 -0.17540 -0.00630 segment r_humerus
+ 0.00751 -0.04839 0.02179 segment r_ulna_radius_hand
+endpoints
+max_force   624.300
+optimal_fiber_length 0.11570
+tendon_slack_length 0.27230
+pennation_angle  0.000
+max_thickness 0.00350
+min_material def_min_muscle
+max_material def_max_muscle
+visible yes
+wrapobject BIClonghh range 2 3
+endmuscle
+
+beginmuscle BICshort
+beginpoints
+ 0.004675 -0.01231 0.13475 segment ground
+-0.007075 -0.04004 0.14507 segment ground
+ 0.01117 -0.07576 -0.01101 segment r_humerus
+ 0.01703 -0.12125 -0.01079 segment r_humerus
+ 0.02280 -0.17540 -0.00630 segment r_humerus
+ 0.00751 -0.04839 0.02179 segment r_ulna_radius_hand
+endpoints
+max_force   435.560
+optimal_fiber_length 0.13210
+tendon_slack_length 0.19230
+pennation_angle  0.000
+max_thickness 0.00350
+min_material def_min_muscle
+max_material def_max_muscle
+visible yes
+endmuscle
+
+beginmuscle BRA
+beginpoints
+ 0.00680 -0.17390 -0.00360 segment r_humerus
+-0.00320 -0.02390  0.00090 segment r_ulna_radius_hand
+endpoints
+max_force   987.260
+optimal_fiber_length 0.08580
+tendon_slack_length 0.05350
+pennation_angle  0.000
+max_thickness 0.00350
+min_material def_min_muscle
+max_material def_max_muscle
+visible yes
+wrapobject TRI
+endmuscle

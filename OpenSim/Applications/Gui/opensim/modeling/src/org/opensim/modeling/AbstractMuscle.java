@@ -151,6 +151,10 @@ public class AbstractMuscle extends AbstractActuator {
     return opensimModelJNI.AbstractMuscle_getPassiveFiberForceAlongTendon(swigCPtr, this);
   }
 
+  public double getMaxIsometricForce() {
+    return opensimModelJNI.AbstractMuscle_getMaxIsometricForce(swigCPtr, this);
+  }
+
   public double getActivation() {
     return opensimModelJNI.AbstractMuscle_getActivation(swigCPtr, this);
   }

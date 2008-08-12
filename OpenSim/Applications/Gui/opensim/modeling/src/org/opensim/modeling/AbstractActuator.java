@@ -201,6 +201,10 @@ public class AbstractActuator extends OpenSimObject {
     return opensimModelJNI.AbstractActuator_getStress(swigCPtr, this);
   }
 
+  public double getOptimalForce() {
+    return opensimModelJNI.AbstractActuator_getOptimalForce(swigCPtr, this);
+  }
+
   public void promoteControlsToStates(double[] aX, double aDT) {
     opensimModelJNI.AbstractActuator_promoteControlsToStates(swigCPtr, this, aX, aDT);
   }
