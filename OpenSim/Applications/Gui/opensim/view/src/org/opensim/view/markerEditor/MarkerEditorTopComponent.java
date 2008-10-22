@@ -458,7 +458,7 @@ final public class MarkerEditorTopComponent extends TopComponent implements Obse
       String nameOfNewMarker = MarkerComboBox.getSelectedItem().toString();
       AbstractMarker newMarker = currentModel.getDynamicsEngine().getMarkerSet().get(nameOfNewMarker);
       if (newMarker != null && AbstractMarker.getCPtr(newMarker) != AbstractMarker.getCPtr(currentMarker)) {
-         setupComponent(currentMarker);
+         setupComponent(newMarker);
       }
    }//GEN-LAST:event_MarkerComboBoxActionPerformed
     

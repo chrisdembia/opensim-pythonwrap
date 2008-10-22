@@ -31,7 +31,6 @@ import org.netbeans.api.progress.ProgressHandle;
 import org.netbeans.api.progress.ProgressHandleFactory;
 import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
-import org.openide.awt.StatusDisplayer;
 import org.openide.util.Cancellable;
 import org.opensim.modeling.ForwardTool;
 import org.opensim.modeling.InterruptingIntegCallback;
@@ -39,6 +38,7 @@ import org.opensim.modeling.Kinematics;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.Storage;
 import org.opensim.motionviewer.JavaMotionDisplayerCallback;
+import org.opensim.motionviewer.MotionControlJPanel;
 import org.opensim.motionviewer.MotionsDB;
 import org.opensim.swingui.SwingWorker;
 import org.opensim.utils.ErrorDialog;
@@ -207,6 +207,7 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
       motion = newMotion;
       if(motion!=null) {
          MotionsDB.getInstance().addMotion(getOriginalModel(), motion);
+         //MotionControlJPanel.getInstance().setUserTime(motion.getLastTime());
       }
    }
 

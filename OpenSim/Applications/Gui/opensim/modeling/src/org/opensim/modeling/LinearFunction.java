@@ -166,6 +166,11 @@ public class LinearFunction extends Function {
     return opensimModelJNI.LinearFunction_evaluateTotalSecondDerivative(swigCPtr, this, aX, aDxdt, aD2xdt2);
   }
 
+  public SWIGTYPE_p_SimTK__FunctionT1_t createSimTKFunction() {
+    long cPtr = opensimModelJNI.LinearFunction_createSimTKFunction(swigCPtr, this);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_SimTK__FunctionT1_t(cPtr, false);
+  }
+
   public void updateFromXMLNode() {
     opensimModelJNI.LinearFunction_updateFromXMLNode(swigCPtr, this);
   }

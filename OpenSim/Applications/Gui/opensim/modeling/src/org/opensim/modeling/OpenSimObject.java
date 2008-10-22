@@ -94,8 +94,8 @@ public class OpenSimObject {
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
-  public void copy(OpenSimObject aObject) {
-    opensimModelJNI.OpenSimObject_copy__SWIG_2(swigCPtr, this, OpenSimObject.getCPtr(aObject), aObject);
+  public void migrateFromPreviousVersion(OpenSimObject aObject) {
+    opensimModelJNI.OpenSimObject_migrateFromPreviousVersion(swigCPtr, this, OpenSimObject.getCPtr(aObject), aObject);
   }
 
   public static OpenSimObject SafeCopy(OpenSimObject aObject) {
@@ -114,6 +114,10 @@ public class OpenSimObject {
 
   public String getType() {
     return opensimModelJNI.OpenSimObject_getType(swigCPtr, this);
+  }
+
+  public String getNewType() {
+    return opensimModelJNI.OpenSimObject_getNewType(swigCPtr, this);
   }
 
   public void setName(String aName) {

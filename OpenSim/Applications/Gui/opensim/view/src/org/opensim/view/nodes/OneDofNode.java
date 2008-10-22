@@ -35,7 +35,7 @@ import javax.swing.ImageIcon;
 import org.openide.nodes.Children;
 import org.openide.nodes.Node;
 import org.openide.util.NbBundle;
-import org.opensim.modeling.AbstractDof;
+import org.opensim.modeling.AbstractTransformAxis;
 import org.opensim.modeling.Constant;
 import org.opensim.modeling.Function;
 import org.opensim.modeling.OpenSimObject;
@@ -52,13 +52,13 @@ public class OneDofNode extends OpenSimObjectNode{
         super(dof);
         setShortDescription(bundle.getString("HINT_DofNode"));
         Children children = getChildren();
-        AbstractDof ad = AbstractDof.safeDownCast(dof);
+        AbstractTransformAxis ad = AbstractTransformAxis.safeDownCast(dof);
         if (ad != null) {
            Function func = ad.getFunction();
            Constant cons = Constant.safeDownCast((OpenSimObject)func);
            if (cons != null) {
               setChildren(Children.LEAF);
-           } else {
+           } else if (func != null ) {
               String displayName = "f(" + ad.getCoordinateName() + ")";
               children.add(new Node[] { new DofFunctionNode(func, displayName, ad) });
            }

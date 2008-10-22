@@ -69,30 +69,8 @@ public class MotionControlJPanel extends javax.swing.JPanel
    private DecimalFormat timeFormat = new DecimalFormat("0.000");
 
    private boolean internalTrigger=false;
-
-   /* Old timer callbacks used for advancing each frame... replaced with real time playback
-   private class PlayActionListener implements ActionListener {
-      public void actionPerformed(ActionEvent evt) {
-         masterMotion.advance();
-         // Kill self if done and wrapMotion is off
-         if (masterMotion.finished(1)){
-            animationTimer.stop();
-            animationTimer=null;
-         }
-      }
-   }
-   private class PlayReverseActionListener implements ActionListener {
-      public void actionPerformed(ActionEvent evt) {
-          masterMotion.back();
-          // Kill self if done and wrapMotion is off
-          if (masterMotion.finished(-1)){
-             animationTimer.stop();
-             animationTimer=null;
-          }
-      }
-   }
-   */
-
+   private static MotionControlJPanel instance=null;
+   
    // ActionListener for the timer which is used to play motion forwards/backwards in such a way that
    // advances the model's time based on the real elapsed time (times the factor specified by the smodel spinner)
    private class RealTimePlayActionListener implements ActionListener {
@@ -159,6 +137,7 @@ public class MotionControlJPanel extends javax.swing.JPanel
       MotionsDB.getInstance().addObserver(this);
 
       updatePanelDisplay();
+      instance = this;
    }
    
    /** This method is called from within the constructor to
@@ -664,7 +643,12 @@ public class MotionControlJPanel extends javax.swing.JPanel
           }
        }
     }
-
+    
+    public void setUserTime(double time) {
+         MotionControlJPanel.getInstance().setTimeTextField(time);
+         MotionControlJPanel.getInstance().handleUserTimeChange();
+    }
+    
    Hashtable makeLabels(int n, double startTime, double endTime) {
       Hashtable<Integer, JLabel> labels = new Hashtable<Integer, JLabel>(5);
       for(int i=0; i<n; i++){
@@ -744,7 +728,7 @@ public class MotionControlJPanel extends javax.swing.JPanel
       }
    }
    
-   private void setTimeTextField(double time)
+   public void setTimeTextField(double time)
    {
       jTimeTextField.setText(timeFormat.format(time));
    }
@@ -826,6 +810,10 @@ public class MotionControlJPanel extends javax.swing.JPanel
        jReverseButton.setSelected(false);
        jStopButton.setSelected(false);
    }
+
+    public static MotionControlJPanel getInstance() {
+        return instance;
+    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jAdvanceButton;

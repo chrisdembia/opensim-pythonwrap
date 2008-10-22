@@ -66,8 +66,8 @@ public class Analysis extends IntegCallback {
     this(opensimModelJNI.new_Analysis__SWIG_3(aFileName), true);
   }
 
-  public Analysis(Analysis aObject) {
-    this(opensimModelJNI.new_Analysis__SWIG_4(Analysis.getCPtr(aObject), aObject), true);
+  public Analysis(Analysis aAnalysis) {
+    this(opensimModelJNI.new_Analysis__SWIG_4(Analysis.getCPtr(aAnalysis), aAnalysis), true);
   }
 
   public OpenSimObject copy() {

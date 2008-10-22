@@ -54,7 +54,7 @@ import org.openide.windows.WindowManager;
 import org.opensim.modeling.AbstractActuator;
 import org.opensim.modeling.AbstractBody;
 import org.opensim.modeling.AbstractCoordinate;
-import org.opensim.modeling.AbstractDof;
+import org.opensim.modeling.AbstractTransformAxis;
 import org.opensim.modeling.AbstractDynamicsEngine;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.AbstractWrapObject;
@@ -375,6 +375,8 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
    private void MuscleComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MuscleComboBoxActionPerformed
       if (currentModel == null)
          return;
+      Object selected = MuscleComboBox.getSelectedItem();
+      if (selected == null) return; // Nothing is selected
       String nameOfNewAct = MuscleComboBox.getSelectedItem().toString();
       AbstractActuator newAct = currentModel.getActuatorSet().get(nameOfNewAct);
       if (newAct != null && AbstractActuator.getCPtr(newAct) != AbstractActuator.getCPtr(currentAct)) {
@@ -918,7 +920,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       double conversion = 180.0/Math.PI;
       NumberFormat nf = angleFormat;
       AbstractCoordinate coordinate = via.getCoordinate();
-      if (coordinate != null && coordinate.getMotionType() == AbstractDof.DofType.Translational) {
+      if (coordinate != null && coordinate.getMotionType() == AbstractTransformAxis.MotionType.Translational) {
          conversion = 1.0;
          nf = positionFormat;
       }
@@ -962,7 +964,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       double conversion = 180.0/Math.PI;
       NumberFormat nf = angleFormat;
       AbstractCoordinate coordinate = via.getCoordinate();
-      if (coordinate != null && coordinate.getMotionType() == AbstractDof.DofType.Translational) {
+      if (coordinate != null && coordinate.getMotionType() == AbstractTransformAxis.MotionType.Translational) {
          conversion = 1.0;
          nf = positionFormat;
       }
@@ -1229,7 +1231,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
                options.title = "Z offset";
             }
             if (coordinate != null) {
-               if (coordinate.getMotionType() == AbstractDof.DofType.Rotational) {
+               if (coordinate.getMotionType() == AbstractTransformAxis.MotionType.Rotational) {
                   options.XUnits = new Units(Units.UnitType.simmRadians);
                   options.XDisplayUnits = new Units(Units.UnitType.simmDegrees);
                } else {
@@ -1278,6 +1280,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       // The point may not be deleted, but save a reference to it so that if it is deleted
       // you can fire an ObjectsDeletedEvent later.
       MusclePoint mp = asm.getAttachmentSet().get(menuChoice);
+      ViewDB.getInstance().removeObjectsBelongingToMuscleFromSelection(AbstractMuscle.safeDownCast(currentAct));
       boolean result = asm.deleteAttachmentPoint(menuChoice);
       if (result == false) {
          Object[] options = {"OK"};
@@ -1289,6 +1292,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
                  null,
                  options,
                  options[0]);
+          ViewDB.getInstance().setSelectedObject(mp);
 
       } else {
          // ideally we'd like to just deselect the point we're deleting but the muscle displayer doesn't
@@ -1988,7 +1992,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
             NumberFormat nf =  angleFormat;
             AbstractCoordinate coordinate = via.getCoordinate();
             if (coordinate != null) {
-               if (coordinate.getMotionType() == AbstractDof.DofType.Rotational) {
+               if (coordinate.getMotionType() == AbstractTransformAxis.MotionType.Rotational) {
                   conversion = 180.0/Math.PI;
                   nf = angleFormat;
                } else {

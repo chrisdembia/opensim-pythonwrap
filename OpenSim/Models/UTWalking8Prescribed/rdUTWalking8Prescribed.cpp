@@ -777,12 +777,12 @@ getControls(double rX[]) const
  * Get the current value of a control by index.
  *
  * @param aIndex Index of the control:  0 <= aIndex < getNX().
- * @return Value of the control.  rdMath::NAN is returned on an error.
+ * @return Value of the control.  rdMath::getNAN() is returned on an error.
  */
 double rdUTWalking8Prescribed::
 getControl(int aIndex) const
 {
-	double value = rdMath::NAN;
+	double value = rdMath::getNAN();
 	int base = ActuatedModel_SDFast::getNX();
 
 	// NEGATIVE INDEX
@@ -916,15 +916,15 @@ getStates(double rY[]) const
  * forces, followed by the muscle activations, followed by other stuff.
  *
  * @param aIndex Index of the state:  0 <= aIndex < getNY().
- * @return Value of the state.  rdMath::NAN is returned on an error.
+ * @return Value of the state.  rdMath::getNAN() is returned on an error.
  * @see getStates(double rY[])
  * @see getState(const char* aName);
  */
 double rdUTWalking8Prescribed::
 getState(int aIndex) const
 {
-	if(aIndex<0) return(rdMath::NAN);
-	if(aIndex>getNY()) return(rdMath::NAN);
+	if(aIndex<0) return(rdMath::getNAN());
+	if(aIndex>getNY()) return(rdMath::getNAN());
 
 	// BASE
 	if(aIndex<ActuatedModel_SDFast::getNY()) {
@@ -1051,15 +1051,15 @@ getPseudoStates(double rYP[]) const
  * Z direction.
  *
  * @param aIndex Index of the pseudo-state:  0 <= aIndex < getNYP().
- * @return Value of the pseudo-state.  rdMath::NAN is returned on an error.
+ * @return Value of the pseudo-state.  rdMath::getNAN() is returned on an error.
  * @see getPseudoStates(double rYP[])
  * @see getPseudoState(const char* aName);
  */
 double rdUTWalking8Prescribed::
 getPseudoState(int aIndex) const
 {
-	if(aIndex<0) return(rdMath::NAN);
-	if(aIndex>getNYP()) return(rdMath::NAN);
+	if(aIndex<0) return(rdMath::getNAN());
+	if(aIndex>getNYP()) return(rdMath::getNAN());
 
 	// BASE CLASS
 	if(aIndex < ActuatedModel_SDFast::getNYP()) {
@@ -1599,8 +1599,8 @@ setActuatorForce(int aID,double aForce)
 double rdUTWalking8Prescribed::
 getActuatorForce(int aID) const
 {
-	if(aID<0) return(rdMath::NAN);
-	if(aID>=getNA()) return(rdMath::NAN);
+	if(aID<0) return(rdMath::getNAN());
+	if(aID>=getNA()) return(rdMath::getNAN());
 
 	// BASE
 	if(aID<ActuatedModel_SDFast::getNA()) {
@@ -1631,8 +1631,8 @@ getActuatorForce(int aID) const
 double rdUTWalking8Prescribed::
 getActuatorStress(int aID) const
 {
-	if(aID<0) return(rdMath::NAN);
-	if(aID>=getNA()) return(rdMath::NAN);
+	if(aID<0) return(rdMath::getNAN());
+	if(aID>=getNA()) return(rdMath::getNAN());
 
 	// BASE
 	if(aID<ActuatedModel_SDFast::getNA()) {
@@ -1664,8 +1664,8 @@ getActuatorStress(int aID) const
 double rdUTWalking8Prescribed::
 getActuatorSpeed(int aID) const
 {
-	if(aID<0) return(rdMath::NAN);
-	if(aID>=getNA()) return(rdMath::NAN);
+	if(aID<0) return(rdMath::getNAN());
+	if(aID>=getNA()) return(rdMath::getNAN());
 
 	// BASE
 	if(aID<ActuatedModel_SDFast::getNA()) {
@@ -1702,8 +1702,8 @@ getActuatorSpeed(int aID) const
 double rdUTWalking8Prescribed::
 getActuatorPower(int aID) const
 {
-	if(aID<0) return(rdMath::NAN);
-	if(aID>=getNA()) return(rdMath::NAN);
+	if(aID<0) return(rdMath::getNAN());
+	if(aID>=getNA()) return(rdMath::getNAN());
 
 	// POWER
 	double power = getActuatorForce(aID)*getActuatorSpeed(aID);

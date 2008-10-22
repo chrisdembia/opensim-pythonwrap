@@ -40,7 +40,7 @@
                   <Group type="102" attributes="0">
                       <Component id="jStartTimeTextField" min="-2" pref="50" max="-2" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="jPlaybackButtonsPanel" pref="293" max="32767" attributes="1"/>
+                      <Component id="jPlaybackButtonsPanel" pref="295" max="32767" attributes="1"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jEndTimeTextField" min="-2" pref="50" max="-2" attributes="0"/>
                   </Group>

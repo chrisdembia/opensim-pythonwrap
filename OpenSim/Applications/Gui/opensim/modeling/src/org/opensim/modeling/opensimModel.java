@@ -8,7 +8,7 @@
 
 package org.opensim.modeling;
 
-public class opensimModel implements opensimModelConstants {
+public class opensimModel {
   public static int getArray_CAPMIN() {
     return opensimModelJNI.Array_CAPMIN_get();
   }
@@ -39,14 +39,6 @@ public class opensimModel implements opensimModelConstants {
 
   public static String GetVersion() {
     return opensimModelJNI.GetVersion();
-  }
-
-  public static int getControllerNAME_LENGTH() {
-    return opensimModelJNI.ControllerNAME_LENGTH_get();
-  }
-
-  public static int getControllerDESCRIP_LENGTH() {
-    return opensimModelJNI.ControllerDESCRIP_LENGTH_get();
   }
 
 }

@@ -20,7 +20,6 @@ import org.openide.util.actions.SystemAction;
 import org.openide.util.datatransfer.NewType;
 import org.opensim.modeling.AbstractBody;
 import org.opensim.modeling.BodySet;
-import org.opensim.modeling.SimmBody;
 import org.opensim.modeling.Model;
 
 /**

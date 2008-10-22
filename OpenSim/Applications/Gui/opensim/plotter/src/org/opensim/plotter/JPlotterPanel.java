@@ -46,8 +46,10 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Vector;
 import javax.swing.AbstractAction;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFormattedTextField;
+import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
@@ -60,11 +62,10 @@ import javax.swing.text.NumberFormatter;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
-import org.openide.DialogDescriptor;
 import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
 import org.opensim.modeling.AbstractCoordinate;
-import org.opensim.modeling.AbstractDof;
+import org.opensim.modeling.AbstractTransformAxis;
 import org.opensim.modeling.Analysis;
 import org.opensim.modeling.AnalysisSet;
 import org.opensim.modeling.AnalyzeTool;
@@ -750,6 +751,14 @@ public class JPlotterPanel extends javax.swing.JPanel
         //DialogDescriptor filterDlg = new DialogDescriptor(filterPanel, "Select Muscles", false, null);
         //filterDlg.setOptions(new Object[]{new JButton("Close")});
         dFilterDlg=DialogUtils.createDialogForPanelWithParent(getFrame(), filterPanel, "Select Muscles");
+        DialogUtils.addCloseButton(dFilterDlg, new ActionListener(){
+            public void actionPerformed(ActionEvent e) {
+                if (dFilterDlg!=null)
+                    dFilterDlg.dispose();
+                dFilterDlg = null;
+                muscleDialogUp=false;                
+            }}
+        );
         dFilterDlg.addWindowListener(new WindowAdapter(){
             private void close() {
                 if (dFilterDlg!=null)
@@ -811,7 +820,7 @@ public class JPlotterPanel extends javax.swing.JPanel
                    jXQtyTextField.setText(coordinateName);
                    CoordinateSet cs = currentModel.getDynamicsEngine().getCoordinateSet();
                    AbstractCoordinate coord = cs.get(coordinateName);
-                   if (coord.getMotionType() == AbstractDof.DofType.Rotational) {
+                   if (coord.getMotionType() == AbstractTransformAxis.MotionType.Rotational) {
                       double conversionToGuiUnits = Math.toDegrees(1.0);
                       domainFormat.setMinimumFractionDigits(0);
                       domainFormat.setMaximumFractionDigits(5);
@@ -1437,7 +1446,7 @@ public class JPlotterPanel extends javax.swing.JPanel
          
          double domStart=(Double)jDomainStartTextField.getValue();
          double domEnd=(Double)jDomainEndTextField.getValue();
-         if (coord.getMotionType() == AbstractDof.DofType.Rotational){
+         if (coord.getMotionType() == AbstractTransformAxis.MotionType.Rotational){
             domStart=Math.toRadians(domStart);
             if (domStart < coord.getRangeMin())
                domStart = coord.getRangeMin();
@@ -1916,9 +1925,10 @@ public class JPlotterPanel extends javax.swing.JPanel
          sourceX = sourceY;
          PlotterQuantityNameFilterJPanel filterpanel = new PlotterQuantityNameFilterJPanel(sourceY);
          
-         DialogDescriptor dlg = new DialogDescriptor(filterpanel, "Select Motion Quantity");
-         dlg.setModal(true);
-         DialogDisplayer.getDefault().createDialog(dlg).setVisible(true);
+         OpenSimDialog selectionDlg=DialogUtils.createDialogForPanelWithParent(getFrame(), filterpanel, "Select Motion Quantity");
+         DialogUtils.addStandardButtons(selectionDlg);
+         selectionDlg.setModal(true);
+         selectionDlg.setVisible(true);
          /*
          JDialog qtySelectionDialog = new JDialog(getOwner(), "Select Motion Quantity", true);
          qtySelectionDialog.getContentPane().setLayout(new BorderLayout());
@@ -1926,7 +1936,7 @@ public class JPlotterPanel extends javax.swing.JPanel
          qtySelectionDialog.doLayout();
          qtySelectionDialog.setVisible(true);
          */
-         if (((Integer) dlg.getValue()).compareTo((Integer) DialogDescriptor.OK_OPTION) == 0) {
+         if (selectionDlg.getDialogReturnValue() == selectionDlg.OK_OPTION) {
             jYQtyTextField.setText( filterpanel.getSelectedAsString());
             rangeNames = new String[filterpanel.getNumSelected()];
             System.arraycopy(filterpanel.getSelected(), 0, rangeNames, 0, filterpanel.getNumSelected());

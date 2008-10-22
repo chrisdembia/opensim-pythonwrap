@@ -110,6 +110,12 @@ public class ExcitationEditorJFrame extends javax.swing.JFrame {
         SaveAsButton = new javax.swing.JButton();
 
         jFileMenu.setText("File");
+        jFileMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jFileMenuActionPerformed(evt);
+            }
+        });
+
         jLoadMenuItem.setText("Load...");
         jLoadMenuItem.setToolTipText("Load Excitations from an XML file");
         jLoadMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -176,7 +182,7 @@ public class ExcitationEditorJFrame extends javax.swing.JFrame {
         });
 
         SaveButton.setText("Save");
-        SaveButton.setToolTipText("Save excitations to their original file");
+        SaveButton.setToolTipText("Save excitations to the file they came from");
         SaveButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SaveButtonActionPerformed(evt);
@@ -184,7 +190,6 @@ public class ExcitationEditorJFrame extends javax.swing.JFrame {
         });
 
         CreateNewButton.setText("New...");
-        CreateNewButton.setToolTipText("Create new set of excitations for current model");
         CreateNewButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CreateNewButtonActionPerformed(evt);
@@ -200,15 +205,14 @@ public class ExcitationEditorJFrame extends javax.swing.JFrame {
         });
 
         LoadLayoutButton.setText("Load Layout...");
-        LoadLayoutButton.setToolTipText("restore layout from existing layout file");
+        LoadLayoutButton.setToolTipText("apply layout from a saved layout file");
         LoadLayoutButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 LoadLayoutButtonActionPerformed(evt);
             }
         });
 
-        SaveAsButton.setText("Save As...");
-        SaveAsButton.setToolTipText("Save excitations to a different file");
+        SaveAsButton.setText("Save As");
         SaveAsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SaveAsButtonActionPerformed(evt);
@@ -245,12 +249,16 @@ public class ExcitationEditorJFrame extends javax.swing.JFrame {
         getContentPane().add(jControlPanel, java.awt.BorderLayout.NORTH);
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-525)/2, (screenSize.height-300)/2, 525, 300);
+        setBounds((screenSize.width-507)/2, (screenSize.height-300)/2, 507, 300);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jFileMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFileMenuActionPerformed
+// TODO add your handling code here:
+    }//GEN-LAST:event_jFileMenuActionPerformed
 
     private void SaveAsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveAsButtonActionPerformed
 // TODO add your handling code here:
-        jSaveAsMenuItemActionPerformed(null);
+         jSaveAsMenuItemActionPerformed(null);
     }//GEN-LAST:event_SaveAsButtonActionPerformed
 
     private void LoadLayoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoadLayoutButtonActionPerformed
@@ -324,7 +332,7 @@ public class ExcitationEditorJFrame extends javax.swing.JFrame {
         // Cycle thru Actuators and create a Control for it with default min=0, max=1, val=0
         int nx = currentModel.getNumControls();
 	controlSet.setName(currentModel.getName()+"_Default");
-        // Prompt user for start, end times
+
 	for(int i=0;i<nx;i++) {
 		ControlLinear control = new ControlLinear();
                 control.setControlValue(0.0, 0.1);
@@ -338,10 +346,10 @@ public class ExcitationEditorJFrame extends javax.swing.JFrame {
 		controlSet.append(control);
                 controlsRefs.add(control);
 	}
-        String fileName = FileUtils.getInstance().browseForFilenameToSave(
-                FileUtils.getFileFilter(".xml", "Save excitations to file"), true, "controls.xml", this);
-         if(fileName!=null) {
-            controlSet.print(fileName);
+        String fileName = FileUtils.getInstance().browseForFilenameToSave( 
+                FileUtils.getFileFilter(".xml", "Save excitations to file"), true, "controls.xml", this); 
+         if(fileName!=null) { 
+            controlSet.print(fileName); 
          }
         dPanel.populate(controlSet, true);
 

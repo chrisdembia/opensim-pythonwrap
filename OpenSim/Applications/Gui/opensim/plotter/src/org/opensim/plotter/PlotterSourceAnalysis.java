@@ -32,7 +32,7 @@ import java.util.Vector;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 import org.opensim.modeling.AbstractCoordinate;
-import org.opensim.modeling.AbstractDof;
+import org.opensim.modeling.AbstractTransformAxis;
 import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.Storage;
@@ -145,7 +145,7 @@ public class PlotterSourceAnalysis implements PlotterSourceInterface {
       if (coord==null)
          return 0.0;
       double min = coord.getRangeMin();
-      if (coord.getMotionType() == AbstractDof.DofType.Rotational){
+      if (coord.getMotionType() == AbstractTransformAxis.MotionType.Rotational){
          min = Math.toDegrees(min);
       }
       return min;
@@ -156,7 +156,7 @@ public class PlotterSourceAnalysis implements PlotterSourceInterface {
       if (coord==null)
          return 1.0;
       double max = coord.getRangeMax();
-      if (coord.getMotionType() == AbstractDof.DofType.Rotational){
+      if (coord.getMotionType() == AbstractTransformAxis.MotionType.Rotational){
          max = Math.toDegrees(max);
       }
       return max;

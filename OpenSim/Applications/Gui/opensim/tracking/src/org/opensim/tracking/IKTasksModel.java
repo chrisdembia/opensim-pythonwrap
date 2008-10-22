@@ -28,7 +28,7 @@ package org.opensim.tracking;
 import java.util.Hashtable;
 import java.util.Observable;
 import java.util.Vector;
-import org.opensim.modeling.AbstractDof;
+import org.opensim.modeling.AbstractTransformAxis;
 import org.opensim.modeling.CoordinateSet;
 import org.opensim.modeling.IKCoordinateTask;
 import org.opensim.modeling.IKMarkerTask;
@@ -230,7 +230,7 @@ class IKCoordinateTasksModel extends IKTasksModel {
          coordinateTask.setWeight(defaultWeight);
          coordinateTask.setValueType(IKCoordinateTask.ValueType.DefaultValue);
          tasks.set(i, coordinateTask);
-         conversion.set(i, (getMotionType(i)==AbstractDof.DofType.Rotational) ? 180.0/Math.PI : 1);
+         conversion.set(i, (getMotionType(i)==AbstractTransformAxis.MotionType.Rotational) ? 180.0/Math.PI : 1);
       }
    }
 
@@ -270,7 +270,7 @@ class IKCoordinateTasksModel extends IKTasksModel {
    }
 
    private IKCoordinateTask get(int i) { return (IKCoordinateTask)tasks.get(i); }
-   private AbstractDof.DofType getMotionType(int i) { return model.getDynamicsEngine().getCoordinateSet().get(i).getMotionType(); }
+   private AbstractTransformAxis.MotionType getMotionType(int i) { return model.getDynamicsEngine().getCoordinateSet().get(i).getMotionType(); }
   
    public ValueType getValueType(int i) {
       IKCoordinateTask.ValueType taskValueType = get(i).getValueType();

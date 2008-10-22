@@ -45,14 +45,6 @@ public class rdMath {
     return opensimModelJNI.rdMath_ZERO_get();
   }
 
-  public static double getNAN() {
-    return opensimModelJNI.rdMath_NAN_get();
-  }
-
-  public static double getINFINITY() {
-    return opensimModelJNI.rdMath_INFINITY_get();
-  }
-
   public static double getMINUS_INFINITY() {
     return opensimModelJNI.rdMath_MINUS_INFINITY_get();
   }
@@ -63,6 +55,10 @@ public class rdMath {
 
   public static boolean isNAN(double val) {
     return opensimModelJNI.rdMath_isNAN(val);
+  }
+
+  public static double getNAN() {
+    return opensimModelJNI.rdMath_getNAN();
   }
 
   public static double CopySign(double aMag, double aSign) {

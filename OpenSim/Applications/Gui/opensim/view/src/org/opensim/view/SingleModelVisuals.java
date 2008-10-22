@@ -53,6 +53,7 @@ import org.opensim.modeling.MuscleViaPoint;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.modeling.Transform;
 import org.opensim.modeling.VisibleObject;
+import org.opensim.modeling.VisibleProperties;
 import org.opensim.utils.GeometryFileLocator;
 import org.opensim.view.pub.ViewDB;
 import vtk.vtkActor;
@@ -66,6 +67,7 @@ import vtk.vtkPolyData;
 import vtk.vtkPolyDataMapper;
 import vtk.vtkProp3D;
 import vtk.vtkProp3DCollection;
+import vtk.vtkSTLReader;
 import vtk.vtkSphereSource;
 import vtk.vtkStripper;
 import vtk.vtkTransform;
@@ -118,7 +120,7 @@ public class SingleModelVisuals {
     private Hashtable<OpenSimObject, Boolean> markerLinesVisible = new Hashtable<OpenSimObject, Boolean>(50);
     private vtkActor markerLineActor = new vtkActor();
     private vtkAppendPolyData markerLinePolyData = new vtkAppendPolyData();
-
+    
     // Markers and muscle points are represented as Glyphs for performance
     private OpenSimvtkGlyphCloud  markersRep=new OpenSimvtkGlyphCloud(false);
     private OpenSimvtkGlyphCloud  musclePointsRep=new OpenSimvtkGlyphCloud(false);
@@ -163,7 +165,6 @@ public class SingleModelVisuals {
         String modelFilePath = model.getFilePath();
                 
         vtkAssembly modelAssembly = new vtkAssembly();
-
         // Keep track of ground body to avoid recomputation
         defaultMarkerColor = ViewDB.getInstance().getDefaultMarkersColor();
         AbstractBody gnd = model.getDynamicsEngine().getGroundBody();
@@ -192,7 +193,7 @@ public class SingleModelVisuals {
                 
                 OpenSimObject owner = Dependent.getOwner();
                 if (AbstractMarker.safeDownCast(owner)!=null){
-                    int index = getMarkersRep().addLocation(owner);
+                    int index= getMarkersRep().addLocation(owner);
                     getMarkersRep().setVectorDataAtLocation(index,1,1,1);
                     mapMarkers2Glyphs.put(owner, new Integer(index));
                     vtkLineSource markerLine = new vtkLineSource();
@@ -246,10 +247,11 @@ public class SingleModelVisuals {
       vtkAppendPolyData bodyPolyData = new vtkAppendPolyData();
       // For each bone in the current body.
       for (int k = 0; k < bodyDisplayer.getNumGeometryFiles(); ++k) {
-          vtkXMLPolyDataReader polyReader = new vtkXMLPolyDataReader();
           String boneFile = GeometryFileLocator.getInstance().getFullname(modelFilePath,bodyDisplayer.getGeometryFileName(k));
           if (boneFile==null)
              continue;
+          if (boneFile.endsWith(".vtp")){
+              vtkXMLPolyDataReader polyReader = new vtkXMLPolyDataReader();
           polyReader.SetFileName(boneFile);
 
           vtkPolyData poly = polyReader.GetOutput();
@@ -257,7 +259,25 @@ public class SingleModelVisuals {
           bodyPolyData.AddInput(poly);
           polyReader.GetOutput().ReleaseDataFlagOn();
       }
+          else if (boneFile.endsWith(".stl")){
+              vtkSTLReader polyReader = new vtkSTLReader();
+              polyReader.SetFileName(boneFile);
 
+              vtkPolyData poly = polyReader.GetOutput();
+              // Create polyData and append it to one common polyData object
+              bodyPolyData.AddInput(poly);
+              polyReader.GetOutput().ReleaseDataFlagOn();             
+          }
+          else
+              System.out.println("Unexpected extension for geometry file"+boneFile+"while processing body "+body.getName());
+      }
+      /*
+     if (bodyDisplayer.getVisibleProperties().getShowAxes()){
+          bodyAxes.SetOrigin(new double[]{0., 0., 0.});
+          vtkPolyData axesGeometry = bodyAxes.GetOutput();
+          bodyAxes.SetScaleFactor(.3);
+          bodyPolyData.AddInput(bodyAxes.GetOutput());
+     }*/
       // Mapper
       vtkPolyDataMapper bodyMapper = new vtkPolyDataMapper();
       bodyMapper.SetInput(bodyPolyData.GetOutput());  bodyPolyData=null;
@@ -273,7 +293,7 @@ public class SingleModelVisuals {
          bodiesCollection.AddItem(bodyRep);
          modelAssembly.AddPart(bodyRep);
       }
-
+      applyDisplayPrefs(bodyDisplayer, bodyRep);
       return bodyRep;
    }
 
@@ -317,7 +337,7 @@ public class SingleModelVisuals {
       }
 
       if(attachmentRep!=null) modelAssembly.AddPart(attachmentRep);
-
+      applyDisplayPrefs(visibleObject,attachmentRep);
       return attachmentRep;
    }
 
@@ -748,7 +768,7 @@ public class SingleModelVisuals {
        getMarkersRep().setShape(strip1.GetOutput());
        getMarkersRep().scaleByVectorComponents();
        markerLineActor.GetProperty().SetColor(SelectedObject.defaultSelectedColor); // marker lines are displayed only when markers are selected
-
+       
        // Muscle points
        vtkSphereSource viaPoint=new vtkSphereSource();
        viaPoint.SetRadius(ViewDB.getInstance().getMuscleDisplayRadius());
@@ -812,4 +832,24 @@ public class SingleModelVisuals {
         muscleSegmentsRep=null;
         
     }
+	/**
+	 * Apply user display preference (None, wireframe, shading)
+	 */
+    private void applyDisplayPrefs(VisibleObject objectDisplayer, vtkActor objectRep) {
+        if (objectRep==null) return;
+        VisibleProperties props = objectDisplayer.getVisibleProperties();
+        int vl = props.getDisplayPreference().swigValue();
+        // Show vs. Hide
+        if (props.getDisplayPreference() == VisibleProperties.DisplayPreference.None){
+            objectRep.SetVisibility(0);
+            return;
 }
+        objectRep.SetVisibility(1);
+        if (props.getDisplayPreference().swigValue()==VisibleProperties.DisplayPreference.WireFrame.swigValue())
+            objectRep.GetProperty().SetRepresentationToWireframe();
+        else
+            objectRep.GetProperty().SetRepresentationToSurface();
+        
+    }
+}
+

@@ -49,6 +49,7 @@
               </Group>
               <EmptySpace max="32767" attributes="0"/>
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -99,19 +100,14 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jSeparateMarkerSetCheckBox" min="-2" max="-2" attributes="1"/>
                               </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
-                                  <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                              </Group>
                           </Group>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jEngineComboBox" alignment="0" pref="163" max="32767" attributes="2"/>
                               <Group type="102" alignment="1" attributes="0">
-                                  <Component id="jOpenSimFilenameTextField" pref="163" max="32767" attributes="1"/>
+                                  <Component id="jOpenSimFilenameTextField" pref="165" max="32767" attributes="1"/>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
-                              <Component id="jMarkerSetFilenameTextField" alignment="1" pref="163" max="32767" attributes="2"/>
+                              <Component id="jMarkerSetFilenameTextField" alignment="1" pref="165" max="32767" attributes="2"/>
                           </Group>
                       </Group>
                   </Group>
@@ -134,11 +130,6 @@
                       <Component id="jMarkerSetFilenameTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jSeparateMarkerSetCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel4" alignment="3" min="-2" pref="18" max="-2" attributes="0"/>
-                      <Component id="jEngineComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -159,22 +150,6 @@
           <Properties>
             <Property name="toolTipText" type="java.lang.String" value="Name of xml file to contain model markers"/>
             <Property name="enabled" type="boolean" value="false"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel4">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Dynamics engine "/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JComboBox" name="jEngineComboBox">
-          <Properties>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="2">
-                <StringItem index="0" value="SIMM kinematics engine"/>
-                <StringItem index="1" value="Simbody engine"/>
-              </StringArray>
-            </Property>
-            <Property name="toolTipText" type="java.lang.String" value="SIMM knematics engine computes kinematics only while Simbody computes accelerations but has some limitations in 1.0."/>
           </Properties>
         </Component>
         <Component class="javax.swing.JCheckBox" name="jSeparateMarkerSetCheckBox">

@@ -49,7 +49,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="ParametersTabbedPanel" alignment="0" pref="570" max="32767" attributes="2"/>
+                                  <Component id="ParametersTabbedPanel" alignment="0" pref="574" max="32767" attributes="2"/>
                                   <Component id="ModelNameLabel" min="-2" max="-2" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="MuscleSelectLabel" min="-2" max="-2" attributes="0"/>
@@ -70,7 +70,7 @@
                               <Component id="RestoreButton" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="RestoreAllButton" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="111" max="32767" attributes="0"/>
+                              <EmptySpace pref="159" max="32767" attributes="0"/>
                               <Component id="BackupButton" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="BackupAllButton" min="-2" max="-2" attributes="0"/>
@@ -94,7 +94,7 @@
                           <Component id="MuscleTypeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="ParametersTabbedPanel" pref="246" max="32767" attributes="0"/>
+                      <Component id="ParametersTabbedPanel" pref="259" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="RestoreButton" alignment="3" min="-2" max="-2" attributes="0"/>

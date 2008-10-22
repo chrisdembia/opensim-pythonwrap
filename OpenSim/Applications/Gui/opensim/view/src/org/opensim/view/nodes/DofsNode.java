@@ -35,7 +35,7 @@ import java.util.ResourceBundle;
 import org.openide.nodes.Children;
 import org.openide.nodes.Node;
 import org.openide.util.NbBundle;
-import org.opensim.modeling.DofSet;
+import org.opensim.modeling.TransformAxisSet;
 
 /**
  *
@@ -49,7 +49,7 @@ public class DofsNode extends OpenSimObjectSetNode {
    /**
     * Creates a new instance of DofsNode
     */
-   public DofsNode(DofSet ds) {
+   public DofsNode(TransformAxisSet ds) {
       super(ds);
       setShortDescription(bundle.getString("HINT_DofsNode"));
       Children children = getChildren();

@@ -50,6 +50,10 @@ public class AbstractDynamicsEngine extends OpenSimObject {
     return opensimModelJNI.AbstractDynamicsEngine_getNumJoints(swigCPtr, this);
   }
 
+  public int getNumConstraints() {
+    return opensimModelJNI.AbstractDynamicsEngine_getNumConstraints(swigCPtr, this);
+  }
+
   public int getNumCoordinates() {
     return opensimModelJNI.AbstractDynamicsEngine_getNumCoordinates(swigCPtr, this);
   }
@@ -63,8 +67,12 @@ public class AbstractDynamicsEngine extends OpenSimObject {
   }
 
   public Model getModel() {
-    long cPtr = opensimModelJNI.AbstractDynamicsEngine_getModel(swigCPtr, this);
+    long cPtr = opensimModelJNI.AbstractDynamicsEngine_getModel__SWIG_0(swigCPtr, this);
     return (cPtr == 0) ? null : new Model(cPtr, false);
+  }
+
+  public void setModel(Model aModel) {
+    opensimModelJNI.AbstractDynamicsEngine_setModel(swigCPtr, this, Model.getCPtr(aModel), aModel);
   }
 
   public void getGravity(SWIGTYPE_p_SimTK__Vec3 rGrav) {
@@ -112,14 +120,19 @@ public class AbstractDynamicsEngine extends OpenSimObject {
     opensimModelJNI.AbstractDynamicsEngine_getUnlockedCoordinates(swigCPtr, this, CoordinateSet.getCPtr(aUnlockedCoordinates), aUnlockedCoordinates);
   }
 
-  public AbstractDof findUnconstrainedDof(AbstractCoordinate aCoordinate, AbstractJoint rJoint) {
+  public AbstractTransformAxis findUnconstrainedDof(AbstractCoordinate aCoordinate, AbstractJoint rJoint) {
     long cPtr = opensimModelJNI.AbstractDynamicsEngine_findUnconstrainedDof(swigCPtr, this, AbstractCoordinate.getCPtr(aCoordinate), aCoordinate, AbstractJoint.getCPtr(rJoint));
-    return (cPtr == 0) ? null : new AbstractDof(cPtr, false);
+    return (cPtr == 0) ? null : new AbstractTransformAxis(cPtr, false);
   }
 
-  public SWIGTYPE_p_OpenSim__SpeedSet getSpeedSet() {
+  public SWIGTYPE_p_OpenSim__ConstraintSet getConstraintSet() {
+    long cPtr = opensimModelJNI.AbstractDynamicsEngine_getConstraintSet(swigCPtr, this);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_OpenSim__ConstraintSet(cPtr, false);
+  }
+
+  public SWIGTYPE_p_SpeedSet getSpeedSet() {
     long cPtr = opensimModelJNI.AbstractDynamicsEngine_getSpeedSet(swigCPtr, this);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_OpenSim__SpeedSet(cPtr, false);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_SpeedSet(cPtr, false);
   }
 
   public MarkerSet getMarkerSet() {
@@ -165,6 +178,14 @@ public class AbstractDynamicsEngine extends OpenSimObject {
 
   public void getSpeeds(double[] rU) {
     opensimModelJNI.AbstractDynamicsEngine_getSpeeds(swigCPtr, this, rU);
+  }
+
+  public boolean projectConfigurationToSatisfyConstraints(double[] uY, double cTol, double[] uYerr) {
+    return opensimModelJNI.AbstractDynamicsEngine_projectConfigurationToSatisfyConstraints__SWIG_0(swigCPtr, this, uY, cTol, uYerr);
+  }
+
+  public boolean projectConfigurationToSatisfyConstraints(double[] uY, double cTol) {
+    return opensimModelJNI.AbstractDynamicsEngine_projectConfigurationToSatisfyConstraints__SWIG_1(swigCPtr, this, uY, cTol);
   }
 
   public void getAccelerations(double[] rDUDT) {
@@ -319,8 +340,8 @@ public class AbstractDynamicsEngine extends OpenSimObject {
     opensimModelJNI.AbstractDynamicsEngine_computeGeneralizedForces(swigCPtr, this, aDUDT, rF);
   }
 
-  public void computeReactions(SWIGTYPE_p_a_3__double rForces, SWIGTYPE_p_a_3__double rTorques) {
-    opensimModelJNI.AbstractDynamicsEngine_computeReactions(swigCPtr, this, SWIGTYPE_p_a_3__double.getCPtr(rForces), SWIGTYPE_p_a_3__double.getCPtr(rTorques));
+  public void computeReactions(SWIGTYPE_p_SimTK__Vector_TSimTK__Vec3_t rForces, SWIGTYPE_p_SimTK__Vector_TSimTK__Vec3_t rTorques) {
+    opensimModelJNI.AbstractDynamicsEngine_computeReactions(swigCPtr, this, SWIGTYPE_p_SimTK__Vector_TSimTK__Vec3_t.getCPtr(rForces), SWIGTYPE_p_SimTK__Vector_TSimTK__Vec3_t.getCPtr(rTorques));
   }
 
   public void computeConstrainedCoordinates(double[] rQ) {
@@ -461,6 +482,10 @@ public class AbstractDynamicsEngine extends OpenSimObject {
 
   public void convertQuaternionsToDirectionCosines(double aQ1, double aQ2, double aQ3, double aQ4, SWIGTYPE_p_double rDirCos) {
     opensimModelJNI.AbstractDynamicsEngine_convertQuaternionsToDirectionCosines__SWIG_1(swigCPtr, this, aQ1, aQ2, aQ3, aQ4, SWIGTYPE_p_double.getCPtr(rDirCos));
+  }
+
+  public boolean writeSIMMJointFile(String aFileName) {
+    return opensimModelJNI.AbstractDynamicsEngine_writeSIMMJointFile(swigCPtr, this, aFileName);
   }
 
 }

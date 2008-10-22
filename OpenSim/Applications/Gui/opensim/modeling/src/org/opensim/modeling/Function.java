@@ -195,6 +195,11 @@ public class Function extends OpenSimObject {
     opensimModelJNI.Function_scaleY(swigCPtr, this, aScaleFactor);
   }
 
+  public SWIGTYPE_p_SimTK__FunctionT1_t createSimTKFunction() {
+    long cPtr = opensimModelJNI.Function_createSimTKFunction(swigCPtr, this);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_SimTK__FunctionT1_t(cPtr, false);
+  }
+
   public static boolean isKindOf(String type) {
     return opensimModelJNI.Function_isKindOf(type);
   }

@@ -119,6 +119,7 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
       activeAnalysesPanel.setVisible(mode==Mode.Analyze);
 
       plotMetricsPanel.setVisible(mode==Mode.CMC || mode==Mode.ForwardDynamics || mode==Mode.InverseDynamics);
+
       // disable for now
       jLabel7.setVisible(false);
       jLabel8.setVisible(false);
@@ -128,8 +129,8 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
       if (mode != Mode.CMC){
         jLabel23.setVisible(false);
         cmcTimeWindow.setVisible(false);
-        plotMetricsPanel.setVisible(false); // Show plots only for RRA, CMC for now as the more time consuming steps
-      }
+	plotMetricsPanel.setVisible(false); // Show plots only for RRA, CMC for now as the more time consuming steps
+        }
       if(mode==Mode.Analyze) {
          // Set file filters for analyze tool inputs
          statesFileName.setExtensionsAndDescription(".sto", "States data for "+modeName);
@@ -190,7 +191,7 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
          ToolCommon.bindProperty(toolModel.getTool(), "states_file", statesFileName);
          ToolCommon.bindProperty(toolModel.getTool(), "coordinates_file", coordinatesFileName);
          ToolCommon.bindProperty(toolModel.getTool(), "lowpass_cutoff_frequency_for_coordinates", cutoffFrequency);
-      } else if(mode==Mode.InverseDynamics || mode==Mode.StaticOptimization) {
+      } else if(mode==Mode.InverseDynamics|| mode==Mode.StaticOptimization) {
          ToolCommon.bindProperty(toolModel.getTool(), "states_file", statesFileName);
          ToolCommon.bindProperty(toolModel.getTool(), "coordinates_file", coordinatesFileName);
          ToolCommon.bindProperty(toolModel.getTool(), "lowpass_cutoff_frequency_for_coordinates", cutoffFrequency);
@@ -219,7 +220,6 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
       ToolCommon.bindProperty(toolModel.getTool(), "minimum_integrator_step_size", minDT);
       ToolCommon.bindProperty(toolModel.getTool(), "integrator_error_tolerance", errorTolerance);
       ToolCommon.bindProperty(toolModel.getTool(), "integrator_fine_tolerance", fineTolerance);
-      ToolCommon.bindProperty(toolModel.getTool(), "solve_for_equilibrium_for_auxiliary_states", solveForEquilibriumCheckBox);
 
       ToolCommon.bindProperty(toolModel.getTool(), "initial_time", initialTime);
       ToolCommon.bindProperty(toolModel.getTool(), "final_time", finalTime);
@@ -376,13 +376,13 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
       } else {
          buttonGroup3.setSelected(unspecifiedRadioButton.getModel(),true);
       }
-
-      // StaticOptimization?
+            // StaticOptimization?
       if (mode==Mode.StaticOptimization){
          double exponent = toolModel.getActivationExponent();
          staticOptActivationExponentTextField.setText(String.valueOf(exponent));
          useForceLengthStaticOptCheckBox.setSelected(toolModel.getUseMusclePhysiology());
       }
+
      // Motion selections
       ArrayList<Storage> motions = MotionsDB.getInstance().getModelMotions(toolModel.getOriginalModel());
       motionsComboBox1.removeAllItems();
@@ -521,8 +521,6 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
     private void initComponents() {
         advancedSettingsPanel = new javax.swing.JPanel();
         integratorSettingsPanel = new javax.swing.JPanel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         useSpecifiedDt = new javax.swing.JCheckBox();
         jLabel16 = new javax.swing.JLabel();
@@ -532,7 +530,7 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
         errorTolerance = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
         fineTolerance = new javax.swing.JTextField();
-        jLabel25 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
         minDT = new javax.swing.JTextField();
         buttonGroup1 = new javax.swing.ButtonGroup();
         unspecifiedRadioButton = new javax.swing.JRadioButton();
@@ -622,16 +620,12 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
             jLabel24 = new javax.swing.JLabel();
             staticOptActivationExponentTextField = new javax.swing.JTextField();
             useForceLengthStaticOptCheckBox = new javax.swing.JCheckBox();
-            plotMetricsPanel = new javax.swing.JPanel();
-            plotMetricsCheckBox = new javax.swing.JCheckBox();
-            reuseSelectedQuantitiesCheckBox = new javax.swing.JCheckBox();
+			plotMetricsPanel = new javax.swing.JPanel();
+			plotMetricsCheckBox = new javax.swing.JCheckBox();
+			reuseSelectedQuantitiesCheckBox = new javax.swing.JCheckBox();
 
             integratorSettingsPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Integrator Settings"));
-            jLabel13.setText("Integrator steps:");
-
-            jLabel14.setText("Integrator tolerances:");
-
-            jLabel15.setText("Error tolerance");
+            jLabel15.setText("Integrator error tolerance");
 
             useSpecifiedDt.setText("Use time steps from states file");
             useSpecifiedDt.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
@@ -642,7 +636,7 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
                 }
             });
 
-            jLabel16.setText("Maximum number");
+            jLabel16.setText("Maximum number of steps");
 
             maximumNumberOfSteps.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
             maximumNumberOfSteps.setText("jTextField5");
@@ -657,7 +651,7 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
                 }
             });
 
-            jLabel17.setText("Maximum  size");
+            jLabel17.setText("Maximum step size");
 
             maxDT.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
             maxDT.setText("jTextField6");
@@ -685,7 +679,7 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
                 }
             });
 
-            jLabel18.setText("Fine tolerance");
+            jLabel18.setText("Integrator fine tolerance");
 
             fineTolerance.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
             fineTolerance.setText("jTextField8");
@@ -700,7 +694,7 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
                 }
             });
 
-            jLabel25.setText("Minimum step size");
+            jLabel13.setText("Minimum step size");
 
             minDT.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
             minDT.setText("jTextField1");
@@ -720,67 +714,51 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
             integratorSettingsPanelLayout.setHorizontalGroup(
                 integratorSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                 .add(integratorSettingsPanelLayout.createSequentialGroup()
+                    .add(10, 10, 10)
+                    .add(useSpecifiedDt)
+                    .addContainerGap(397, Short.MAX_VALUE))
+                .add(org.jdesktop.layout.GroupLayout.TRAILING, integratorSettingsPanelLayout.createSequentialGroup()
                     .addContainerGap()
                     .add(integratorSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                        .add(integratorSettingsPanelLayout.createSequentialGroup()
-                            .add(useSpecifiedDt)
-                            .add(0, 0, 0))
-                        .add(integratorSettingsPanelLayout.createSequentialGroup()
-                            .add(integratorSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                .add(integratorSettingsPanelLayout.createSequentialGroup()
-                                    .add(jLabel14)
-                                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                    .add(jLabel15))
-                                .add(integratorSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                                    .add(integratorSettingsPanelLayout.createSequentialGroup()
-                                        .add(jLabel13)
-                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                        .add(integratorSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                            .add(jLabel17)
-                                            .add(jLabel16))
-                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED))
-                                    .add(jLabel25))
-                                .add(integratorSettingsPanelLayout.createSequentialGroup()
-                                    .add(90, 90, 90)
-                                    .add(jLabel18, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 91, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                            .add(integratorSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                .add(maxDT, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
-                                .add(integratorSettingsPanelLayout.createSequentialGroup()
-                                    .add(maximumNumberOfSteps, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
-                                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED))
-                                .add(org.jdesktop.layout.GroupLayout.TRAILING, minDT, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
-                                .add(errorTolerance, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
-                                .add(fineTolerance, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE))
-                            .addContainerGap())))
+                        .add(jLabel16)
+                        .add(jLabel17)
+                        .add(jLabel15, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
+                        .add(jLabel18)
+                        .add(jLabel13))
+                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                    .add(integratorSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                        .add(org.jdesktop.layout.GroupLayout.TRAILING, fineTolerance, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
+                        .add(org.jdesktop.layout.GroupLayout.TRAILING, minDT, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
+                        .add(org.jdesktop.layout.GroupLayout.TRAILING, errorTolerance, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
+                        .add(org.jdesktop.layout.GroupLayout.TRAILING, maxDT, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
+                        .add(org.jdesktop.layout.GroupLayout.TRAILING, maximumNumberOfSteps, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE))
+                    .add(216, 216, 216))
             );
             integratorSettingsPanelLayout.setVerticalGroup(
                 integratorSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                 .add(integratorSettingsPanelLayout.createSequentialGroup()
                     .add(useSpecifiedDt)
-                    .add(10, 10, 10)
+                    .add(5, 5, 5)
                     .add(integratorSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                        .add(jLabel13)
                         .add(jLabel16)
                         .add(maximumNumberOfSteps, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(integratorSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                        .add(maxDT, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(jLabel17))
                     .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                     .add(integratorSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                        .add(jLabel25)
-                        .add(minDT, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(jLabel17)
+                        .add(maxDT, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                     .add(integratorSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                        .add(jLabel14)
-                        .add(jLabel15)
-                        .add(errorTolerance, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(minDT, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(jLabel13))
+                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                    .add(integratorSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                        .add(errorTolerance, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(jLabel15))
                     .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                     .add(integratorSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                         .add(fineTolerance, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .add(jLabel18))
-                    .add(28, 28, 28))
+                    .add(81, 81, 81))
             );
 
             org.jdesktop.layout.GroupLayout advancedSettingsPanelLayout = new org.jdesktop.layout.GroupLayout(advancedSettingsPanel);
@@ -796,7 +774,7 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
                 advancedSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                 .add(advancedSettingsPanelLayout.createSequentialGroup()
                     .addContainerGap()
-                    .add(integratorSettingsPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(integratorSettingsPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 182, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             );
             buttonGroup1.add(unspecifiedRadioButton);
@@ -934,7 +912,7 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
                                 .add(motionRadioButton, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .add(14, 14, 14)
                             .add(analyzeInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                .add(statesFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 338, Short.MAX_VALUE)
+                                .add(statesFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
                                 .add(analyzeInputPanelLayout.createSequentialGroup()
                                     .add(analyzeInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                         .add(filterCoordinatesCheckBox)
@@ -942,18 +920,18 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
                                         .add(fromFileMotionRadioButton))
                                     .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                     .add(analyzeInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                        .add(motionsComboBox, 0, 231, Short.MAX_VALUE)
+                                        .add(motionsComboBox, 0, 226, Short.MAX_VALUE)
                                         .add(analyzeInputPanelLayout.createSequentialGroup()
                                             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                            .add(coordinatesFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE))
-                                        .add(cutoffFrequency, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE))))
+                                            .add(coordinatesFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE))
+                                        .add(cutoffFrequency, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE))))
                             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                             .add(jLabel1))
                         .add(analyzeSolveForEquilibriumCheckBox)
                         .add(analyzeInputPanelLayout.createSequentialGroup()
                             .add(analyzeControlsCheckBox)
                             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                            .add(analyzeControlsFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE)
+                            .add(analyzeControlsFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
                             .add(0, 0, 0)
                             .add(editAnalyzeExcitationsButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 33, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)))
@@ -993,8 +971,7 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
                             .add(cutoffFrequency, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                             .add(jLabel1)))
                     .add(18, 18, 18)
-                    .add(analyzeSolveForEquilibriumCheckBox)
-                    .addContainerGap(37, Short.MAX_VALUE))
+                    .add(analyzeSolveForEquilibriumCheckBox))
             );
 
             outputPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Output"));
@@ -1050,8 +1027,8 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
                     .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                     .add(outputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                         .add(outputPrecision, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 64, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(outputName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 369, Short.MAX_VALUE)
-                        .add(outputDirectory, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 369, Short.MAX_VALUE))
+                        .add(outputName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE)
+                        .add(outputDirectory, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE))
                     .addContainerGap())
             );
             outputPanelLayout.setVerticalGroup(
@@ -1156,7 +1133,7 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
                             .add(jLabel5)
                             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                             .add(finalTime, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 64, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                    .addContainerGap(103, Short.MAX_VALUE))
+                    .addContainerGap(98, Short.MAX_VALUE))
             );
 
             timePanelLayout.linkSize(new java.awt.Component[] {availableFinalTime, availableInitialTime, finalTime, initialTime}, org.jdesktop.layout.GroupLayout.HORIZONTAL);
@@ -1196,7 +1173,7 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
                     .addContainerGap()
                     .add(jLabel2)
                     .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                    .add(modelName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 386, Short.MAX_VALUE)
+                    .add(modelName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
                     .addContainerGap())
             );
             modelInfoPanelLayout.setVerticalGroup(
@@ -1204,8 +1181,8 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
                 .add(modelInfoPanelLayout.createSequentialGroup()
                     .add(6, 6, 6)
                     .add(modelInfoPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                        .add(jLabel2)
-                        .add(modelName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(modelName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(jLabel2))
                     .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             );
 
@@ -1230,7 +1207,7 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
                     .addContainerGap()
                     .add(jLabel3)
                     .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                    .add(activeAnalyses, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE)
+                    .add(activeAnalyses, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE)
                     .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                     .add(editAnalysesButton))
             );
@@ -1292,8 +1269,8 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
                                 .add(jLabel12))
                             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                             .add(forwardInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                .add(initialStatesFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE)
-                                .add(controlsFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE))
+                                .add(initialStatesFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
+                                .add(controlsFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE))
                             .add(0, 0, 0)
                             .add(editForwardExcitationsButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 33, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                         .add(solveForEquilibriumCheckBox))
@@ -1311,9 +1288,9 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
                     .add(forwardInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                         .add(jLabel12)
                         .add(initialStatesFileName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 24, Short.MAX_VALUE)
+                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(solveForEquilibriumCheckBox)
-                    .addContainerGap())
+                    .add(98, 98, 98))
             );
 
             cmcInputPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Input"));
@@ -1389,10 +1366,10 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
                         .add(cmcInputPanelLayout.createSequentialGroup()
                             .add(cmcFilterKinematicsCheckBox)
                             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                            .add(cmcCutoffFrequency, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE))
-                        .add(org.jdesktop.layout.GroupLayout.TRAILING, cmcDesiredKinematicsFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
-                        .add(cmcTaskSetFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
-                        .add(cmcConstraintsFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE))
+                            .add(cmcCutoffFrequency, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE))
+                        .add(org.jdesktop.layout.GroupLayout.TRAILING, cmcDesiredKinematicsFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
+                        .add(cmcTaskSetFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
+                        .add(cmcConstraintsFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE))
                     .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                     .add(jLabel22)
                     .addContainerGap())
@@ -1474,7 +1451,7 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
                                 .add(adjustModelCheckBox))
                             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                             .add(rraPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                .add(rraOutputModelFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE)
+                                .add(rraOutputModelFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)
                                 .add(rraAdjustedBodyComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 154, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
                     .addContainerGap())
             );
@@ -1598,10 +1575,10 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
                                     .add(org.jdesktop.layout.GroupLayout.LEADING, filterCoordinatesCheckBox1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                             .add(inverseInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                .add(org.jdesktop.layout.GroupLayout.TRAILING, motionsComboBox1, 0, 226, Short.MAX_VALUE)
-                                .add(org.jdesktop.layout.GroupLayout.TRAILING, coordinatesFileName1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
-                                .add(org.jdesktop.layout.GroupLayout.TRAILING, cutoffFrequency1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)))
-                        .add(statesFileName1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE))
+                                .add(org.jdesktop.layout.GroupLayout.TRAILING, motionsComboBox1, 0, 221, Short.MAX_VALUE)
+                                .add(org.jdesktop.layout.GroupLayout.TRAILING, coordinatesFileName1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
+                                .add(org.jdesktop.layout.GroupLayout.TRAILING, cutoffFrequency1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)))
+                        .add(statesFileName1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE))
                     .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                     .add(HzJLabel)
                     .addContainerGap())
@@ -1733,10 +1710,10 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
                     .addContainerGap()
                     .add(mainSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                         .add(plotMetricsPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .add(inverseInputPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .add(modelInfoPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .add(forwardInputPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .add(analyzeInputPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(inverseInputPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(modelInfoPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .add(cmcInputPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .add(rraPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .add(timePanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1748,20 +1725,20 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
             mainSettingsPanelLayout.setVerticalGroup(
                 mainSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                 .add(mainSettingsPanelLayout.createSequentialGroup()
-                    .addContainerGap()
+                    .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(modelInfoPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                     .add(analyzeInputPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                    .add(forwardInputPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(forwardInputPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 107, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                     .add(inverseInputPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                     .add(cmcInputPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                    .add(rraPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                     .add(staticOptimizationPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                    .add(rraPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                     .add(timePanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
@@ -1778,7 +1755,7 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
             this.setLayout(layout);
             layout.setHorizontalGroup(
                 layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                .add(jTabbedPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 474, Short.MAX_VALUE)
+                .add(jTabbedPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 469, Short.MAX_VALUE)
             );
             layout.setVerticalGroup(
                 layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -1786,56 +1763,51 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
             );
         }// </editor-fold>//GEN-END:initComponents
 
-    private void minDTFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_minDTFocusLost
-        if(!evt.isTemporary()) minDTActionPerformed(null);
-// TODO add your handling code here:
-    }//GEN-LAST:event_minDTFocusLost
-
-    private void minDTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_minDTActionPerformed
-        try {
-            toolModel.setMinDT(numFormat.parse(minDT.getText()).doubleValue());
-        } catch (ParseException ex) {
-            minDT.setText(numFormat.format(toolModel.getMinDT()));
-        }
-// TODO add your handling code here:
-    }//GEN-LAST:event_minDTActionPerformed
-
     private void useForceLengthStaticOptCheckBoxFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_useForceLengthStaticOptCheckBoxFocusLost
-        if(!evt.isTemporary()) useForceLengthStaticOptCheckBoxActionPerformed(null);
+       if(!evt.isTemporary()) useForceLengthStaticOptCheckBoxActionPerformed(null);
 // TODO add your handling code here:
     }//GEN-LAST:event_useForceLengthStaticOptCheckBoxFocusLost
 
     private void useForceLengthStaticOptCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_useForceLengthStaticOptCheckBoxActionPerformed
-        ((AnalyzeToolModel)toolModel).setUseMusclePhysiology(useForceLengthStaticOptCheckBox.isSelected());
+          ((AnalyzeToolModel)toolModel).setUseMusclePhysiology(useForceLengthStaticOptCheckBox.isSelected());
     }//GEN-LAST:event_useForceLengthStaticOptCheckBoxActionPerformed
 
     private void staticOptActivationExponentTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_staticOptActivationExponentTextFieldFocusLost
 // TODO add your handling code here:
-        if(!evt.isTemporary()) staticOptActivationExponentTextFieldActionPerformed(null);
+       if(!evt.isTemporary()) staticOptActivationExponentTextFieldActionPerformed(null);
     }//GEN-LAST:event_staticOptActivationExponentTextFieldFocusLost
 
     private void staticOptActivationExponentTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_staticOptActivationExponentTextFieldActionPerformed
-        try {
-            ((AnalyzeToolModel)toolModel).setActivationExponent(numFormat.parse(staticOptActivationExponentTextField.getText()).doubleValue());
-        } catch (ParseException ex) {
-            staticOptActivationExponentTextField.setText(numFormat.format(((AnalyzeToolModel)toolModel).getActivationExponent()));
-        }
+      try {
+         ((AnalyzeToolModel)toolModel).setActivationExponent(numFormat.parse(staticOptActivationExponentTextField.getText()).doubleValue());
+      } catch (ParseException ex) {
+         staticOptActivationExponentTextField.setText(numFormat.format(((AnalyzeToolModel)toolModel).getActivationExponent()));
+      }
 // TODO add your handling code here:
     }//GEN-LAST:event_staticOptActivationExponentTextFieldActionPerformed
 
-    private void adjustModelCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adjustModelCheckBoxActionPerformed
+    private void minDTFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_minDTFocusLost
+      if(!evt.isTemporary()) minDTActionPerformed(null);
 // TODO add your handling code here:
-    }//GEN-LAST:event_adjustModelCheckBoxActionPerformed
+    }//GEN-LAST:event_minDTFocusLost
 
-    private void reuseSelectedQuantitiesCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reuseSelectedQuantitiesCheckBoxActionPerformed
+    private void minDTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_minDTActionPerformed
+      try {
+         toolModel.setMinDT(numFormat.parse(minDT.getText()).doubleValue());
+      } catch (ParseException ex) {
+         minDT.setText(numFormat.format(toolModel.getMinDT()));
+      }
 // TODO add your handling code here:
-        cmcToolModel().setReuseSelectedMetrics(reuseSelectedQuantitiesCheckBox.isSelected());
-    }//GEN-LAST:event_reuseSelectedQuantitiesCheckBoxActionPerformed
+    }//GEN-LAST:event_minDTActionPerformed
 
     private void plotMetricsCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_plotMetricsCheckBoxActionPerformed
 // TODO add your handling code here:
         cmcToolModel().setPlotMetrics(plotMetricsCheckBox.isSelected());
     }//GEN-LAST:event_plotMetricsCheckBoxActionPerformed
+    private void reuseSelectedQuantitiesCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reuseSelectedQuantitiesCheckBoxActionPerformed
+// TODO add your handling code here:
+        cmcToolModel().setReuseSelectedMetrics(reuseSelectedQuantitiesCheckBox.isSelected());
+    }//GEN-LAST:event_reuseSelectedQuantitiesCheckBoxActionPerformed
 
     private void cmcTimeWindowFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cmcTimeWindowFocusLost
        if(!evt.isTemporary()) cmcTimeWindowActionPerformed(null);
@@ -1880,9 +1852,7 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
             if (cs !=null){
                 new ExcitationEditorJFrame(cs).setVisible(true);
             }
-
         }
-        
     }
    //------------------------------------------------------------------------
    // Inverse tool input settings
@@ -1980,6 +1950,10 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
    private void rraOutputModelFileNameStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_rraOutputModelFileNameStateChanged
       cmcToolModel().setOutputModelFileName(rraOutputModelFileName.getFileName());
    }//GEN-LAST:event_rraOutputModelFileNameStateChanged
+    
+   private void adjustModelCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adjustModelCheckBoxActionPerformed
+// TODO add your handling code here:
+    }//GEN-LAST:event_adjustModelCheckBoxActionPerformed
 
    //------------------------------------------------------------------------
    // Forward tool input settings
@@ -2230,7 +2204,6 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
@@ -2242,7 +2215,6 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -2267,10 +2239,10 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
     private javax.swing.JTextField outputName;
     private javax.swing.JPanel outputPanel;
     private javax.swing.JTextField outputPrecision;
-    private javax.swing.JCheckBox plotMetricsCheckBox;
-    private javax.swing.JPanel plotMetricsPanel;
-    private javax.swing.JCheckBox reuseSelectedQuantitiesCheckBox;
-    private javax.swing.JComboBox rraAdjustedBodyComboBox;
+	private javax.swing.JCheckBox plotMetricsCheckBox;
+	private javax.swing.JPanel plotMetricsPanel;
+	private javax.swing.JCheckBox reuseSelectedQuantitiesCheckBox;
+	private javax.swing.JComboBox rraAdjustedBodyComboBox;
     private org.opensim.swingui.FileTextFieldAndChooser rraOutputModelFileName;
     private javax.swing.JPanel rraPanel;
     private javax.swing.JCheckBox solveForEquilibriumCheckBox;

@@ -34,7 +34,7 @@
 
 package org.opensim.view.editors;
 
-import org.opensim.modeling.AbstractDof;
+import org.opensim.modeling.AbstractTransformAxis;
 import org.opensim.modeling.Function;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.OpenSimObject;
@@ -60,7 +60,7 @@ public class DofFunctionEventListener implements FunctionEventListener {
 
    public void handleFunctionEvent(FunctionEvent event) {
       OpenSimObject object = event.getObject();
-      AbstractDof dof = AbstractDof.safeDownCast(object);
+      AbstractTransformAxis dof = AbstractTransformAxis.safeDownCast(object);
 
       if (dof != null) {
          Model model = OpenSimDB.getInstance().getCurrentModel();

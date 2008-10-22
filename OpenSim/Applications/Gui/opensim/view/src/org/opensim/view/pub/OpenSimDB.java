@@ -156,7 +156,7 @@ public class OpenSimDB extends Observable implements Externalizable{
    }
 
     public void saveModel(Model model, String fileName) {
-      model.print(fileName);
+      model.copy().print(fileName);
       model.setInputFileName(fileName); // update the source filename of the model
       SingleModelGuiElements guiElem = ViewDB.getInstance().getModelGuiElements(model);
       if(guiElem!=null) guiElem.setUnsavedChangesFlag(false);

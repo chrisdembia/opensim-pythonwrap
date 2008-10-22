@@ -36,7 +36,7 @@ import org.openide.nodes.Children;
 import org.openide.nodes.Node;
 import org.openide.util.NbBundle;
 import org.opensim.modeling.AbstractJoint;
-import org.opensim.modeling.DofSet;
+import org.opensim.modeling.TransformAxisSet;
 import org.opensim.modeling.OpenSimObject;
 
 /**
@@ -52,9 +52,9 @@ public class OneJointNode extends OpenSimObjectNode{
         setShortDescription(bundle.getString("HINT_JointNode"));
         AbstractJoint joint = AbstractJoint.safeDownCast(j);
         if (joint != null) {
-           DofSet dofs = joint.getDofSet();
+           TransformAxisSet dofs = joint.getTransformAxisSet();
            if (dofs != null)
-              getChildren().add(new Node[] {new DofsNode(joint.getDofSet())});
+              getChildren().add(new Node[] {new DofsNode(joint.getTransformAxisSet())});
            else
               setChildren(Children.LEAF);
         } else {

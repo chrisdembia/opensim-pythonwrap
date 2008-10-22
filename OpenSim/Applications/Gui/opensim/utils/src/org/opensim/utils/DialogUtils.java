@@ -30,6 +30,7 @@
 package org.opensim.utils;
 
 import java.awt.BorderLayout;
+import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
@@ -135,4 +136,19 @@ public final class DialogUtils {
        //frame.doLayout();
        frame.pack();
     }
+
+    public static void addCloseButton(Dialog dDialog, ActionListener actionListener) {
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
+        buttonPanel.add(Box.createRigidArea(new Dimension(50, 50)));
+        buttonPanel.add(Box.createVerticalStrut(50));
+        buttonPanel.add(Box.createGlue());
+        dDialog.add(buttonPanel, BorderLayout.SOUTH);
+        JButton closeButton = new JButton("Close");
+        buttonPanel.add(closeButton);
+        closeButton.addActionListener(actionListener);
+        dDialog.doLayout();
+        dDialog.pack();
+    }
+
 }

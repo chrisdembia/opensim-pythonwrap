@@ -161,6 +161,11 @@ public class NatCubicSpline extends Function {
     return opensimModelJNI.NatCubicSpline_evaluateTotalSecondDerivative(swigCPtr, this, aX, aDxdt, aD2xdt2);
   }
 
+  public SWIGTYPE_p_SimTK__FunctionT1_t createSimTKFunction() {
+    long cPtr = opensimModelJNI.NatCubicSpline_createSimTKFunction(swigCPtr, this);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_SimTK__FunctionT1_t(cPtr, false);
+  }
+
   public void updateFromXMLNode() {
     opensimModelJNI.NatCubicSpline_updateFromXMLNode(swigCPtr, this);
   }

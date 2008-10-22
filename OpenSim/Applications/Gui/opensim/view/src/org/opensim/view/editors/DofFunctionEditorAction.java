@@ -30,7 +30,7 @@ import javax.swing.AbstractAction;
 import javax.swing.JOptionPane;
 import org.openide.nodes.Node;
 import org.openide.util.NbBundle;
-import org.opensim.modeling.AbstractDof;
+import org.opensim.modeling.AbstractTransformAxis;
 import org.opensim.modeling.Function;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.Units;
@@ -45,9 +45,9 @@ import org.opensim.view.pub.OpenSimDB;
  */
 public class DofFunctionEditorAction extends AbstractAction {
 
-    private AbstractDof dof = null;
+    private AbstractTransformAxis dof = null;
 
-    public DofFunctionEditorAction(AbstractDof dof) {
+    public DofFunctionEditorAction(AbstractTransformAxis dof) {
         super(NbBundle.getMessage(DofFunctionEditorAction.class, "CTL_FunctionEditorAction"));
         this.dof = dof;
 //        putValue(SMALL_ICON, new ImageIcon(Utilities.loadImage(FunctionEditorTopComponent.ICON_PATH, true)));
@@ -77,7 +77,7 @@ public class DofFunctionEditorAction extends AbstractAction {
                functionEditor.addChangeListener(new DofFunctionEventListener());
                FunctionEditorOptions options = new FunctionEditorOptions();
                options.title = dof.getJoint().getName();
-               if (dof.getMotionType() == AbstractDof.DofType.Rotational) {
+               if (dof.getMotionType() == AbstractTransformAxis.MotionType.Rotational) {
                   options.YUnits = new Units(Units.UnitType.simmRadians);
                   options.YDisplayUnits = new Units(Units.UnitType.simmDegrees);
                } else {
@@ -86,7 +86,7 @@ public class DofFunctionEditorAction extends AbstractAction {
                }
                options.YLabel = options.YDisplayUnits.getLabel();
                if (dof.getCoordinate() != null) {
-                  if (dof.getCoordinate().getMotionType() == AbstractDof.DofType.Rotational) {
+                  if (dof.getCoordinate().getMotionType() == AbstractTransformAxis.MotionType.Rotational) {
                      options.XUnits = new Units(Units.UnitType.simmRadians);
                      options.XDisplayUnits = new Units(Units.UnitType.simmDegrees);
                   } else {

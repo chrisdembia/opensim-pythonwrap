@@ -130,7 +130,8 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
       public void finished() {
          boolean processResults = result;
          if(!result) { // TODO: prompt to keep partial results?
-            DialogDisplayer.getDefault().notify(new NotifyDescriptor.Message("Tool execution canceled by user.  Output files not written."));
+            DialogDisplayer.getDefault().notify(new NotifyDescriptor.Message(
+                    "Tool execution failed or canceled by user.  Output files were not written."));
          }
 
          progressHandle.finish();
@@ -138,6 +139,13 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
          // Clean up motion displayer (this is necessary!)
          animationCallback.cleanupMotionDisplayer();
 
+         Storage motion = null;
+         if(analyzeTool().getStatesStorage()!=null) {
+               motion = new Storage(analyzeTool().getStatesStorage());
+               motion.resampleLinear(0.001);
+         }
+         updateMotion(motion); // replaces current motion
+            
          getModel().removeIntegCallback(animationCallback);
          getModel().removeIntegCallback(interruptingCallback);
          interruptingCallback = null;
@@ -148,12 +156,25 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
 
          worker = null;
       }
+
+      private void updateMotion(Storage newMotion) {
+          if(motion!=null) {
+              MotionsDB.getInstance().closeMotion(getOriginalModel(), motion, false, false);
+          }
+          motion = newMotion;
+          if(motion!=null) {
+              MotionsDB.getInstance().addMotion(getOriginalModel(), motion);
+              MotionsDB.getInstance().setCurrentTime(motion.getLastTime());
+              
+          }
+      }
    }
    private AnalyzeToolWorker worker = null;
    //========================================================================
    // END AnalyzeToolWorker
    //========================================================================
-   
+   private Storage motion = null;
+
    private boolean inverseDynamicsMode = false;
    private boolean staticOptimizationMode = false;
 

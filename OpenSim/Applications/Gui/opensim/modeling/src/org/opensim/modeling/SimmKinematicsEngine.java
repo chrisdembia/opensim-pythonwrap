@@ -33,18 +33,6 @@ public class SimmKinematicsEngine extends AbstractDynamicsEngine {
     super.delete();
   }
 
-  public SimmKinematicsEngine() {
-    this(opensimModelJNI.new_SimmKinematicsEngine__SWIG_0(), true);
-  }
-
-  public SimmKinematicsEngine(String aFileName) {
-    this(opensimModelJNI.new_SimmKinematicsEngine__SWIG_1(aFileName), true);
-  }
-
-  public SimmKinematicsEngine(SimmKinematicsEngine aEngine) {
-    this(opensimModelJNI.new_SimmKinematicsEngine__SWIG_2(SimmKinematicsEngine.getCPtr(aEngine), aEngine), true);
-  }
-
   public OpenSimObject copy() {
     long cPtr = opensimModelJNI.SimmKinematicsEngine_copy(swigCPtr, this);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
@@ -62,6 +50,24 @@ public class SimmKinematicsEngine extends AbstractDynamicsEngine {
     opensimModelJNI.SimmKinematicsEngine_makePaths(swigCPtr, this);
   }
 
+  public int getNumJoints() {
+    return opensimModelJNI.SimmKinematicsEngine_getNumJoints(swigCPtr, this);
+  }
+
+  public int getNumCoordinates() {
+    return opensimModelJNI.SimmKinematicsEngine_getNumCoordinates(swigCPtr, this);
+  }
+
+  public JointSet getJointSet() {
+    long cPtr = opensimModelJNI.SimmKinematicsEngine_getJointSet(swigCPtr, this);
+    return (cPtr == 0) ? null : new JointSet(cPtr, false);
+  }
+
+  public CoordinateSet getCoordinateSet() {
+    long cPtr = opensimModelJNI.SimmKinematicsEngine_getCoordinateSet(swigCPtr, this);
+    return (cPtr == 0) ? null : new CoordinateSet(cPtr, false);
+  }
+
   public void updateCoordinateSet(CoordinateSet aCoordinateSet) {
     opensimModelJNI.SimmKinematicsEngine_updateCoordinateSet(swigCPtr, this, CoordinateSet.getCPtr(aCoordinateSet), aCoordinateSet);
   }
@@ -70,9 +76,14 @@ public class SimmKinematicsEngine extends AbstractDynamicsEngine {
     opensimModelJNI.SimmKinematicsEngine_getUnlockedCoordinates(swigCPtr, this, CoordinateSet.getCPtr(rUnlockedCoordinates), rUnlockedCoordinates);
   }
 
-  public AbstractDof findUnconstrainedDof(AbstractCoordinate aCoordinate, AbstractJoint rJoint) {
+  public AbstractTransformAxis findUnconstrainedDof(AbstractCoordinate aCoordinate, AbstractJoint rJoint) {
     long cPtr = opensimModelJNI.SimmKinematicsEngine_findUnconstrainedDof(swigCPtr, this, AbstractCoordinate.getCPtr(aCoordinate), aCoordinate, AbstractJoint.getCPtr(rJoint));
-    return (cPtr == 0) ? null : new AbstractDof(cPtr, false);
+    return (cPtr == 0) ? null : new AbstractTransformAxis(cPtr, false);
+  }
+
+  public SWIGTYPE_p_OpenSim__AbstractDof01_05 findUnconstrainedSimmDof(AbstractCoordinate aCoordinate, AbstractJoint rJoint) {
+    long cPtr = opensimModelJNI.SimmKinematicsEngine_findUnconstrainedSimmDof(swigCPtr, this, AbstractCoordinate.getCPtr(aCoordinate), aCoordinate, AbstractJoint.getCPtr(rJoint));
+    return (cPtr == 0) ? null : new SWIGTYPE_p_OpenSim__AbstractDof01_05(cPtr, false);
   }
 
   public void setConfiguration(double[] aY) {
@@ -117,6 +128,10 @@ public class SimmKinematicsEngine extends AbstractDynamicsEngine {
 
   public void applyDefaultConfiguration() {
     opensimModelJNI.SimmKinematicsEngine_applyDefaultConfiguration(swigCPtr, this);
+  }
+
+  public boolean projectConfigurationToSatisfyConstraints(double[] uY, double cTol, double[] uYerr) {
+    return opensimModelJNI.SimmKinematicsEngine_projectConfigurationToSatisfyConstraints(swigCPtr, this, uY, cTol, uYerr);
   }
 
   public int assemble(double aTime, SWIGTYPE_p_double rState, SWIGTYPE_p_int aLock, double aTol, int aMaxevals, SWIGTYPE_p_int rFcnt, SWIGTYPE_p_int rErr) {
@@ -265,7 +280,11 @@ public class SimmKinematicsEngine extends AbstractDynamicsEngine {
   }
 
   public void computeReactions(SWIGTYPE_p_a_3__double rForces, SWIGTYPE_p_a_3__double rTorques) {
-    opensimModelJNI.SimmKinematicsEngine_computeReactions(swigCPtr, this, SWIGTYPE_p_a_3__double.getCPtr(rForces), SWIGTYPE_p_a_3__double.getCPtr(rTorques));
+    opensimModelJNI.SimmKinematicsEngine_computeReactions__SWIG_0(swigCPtr, this, SWIGTYPE_p_a_3__double.getCPtr(rForces), SWIGTYPE_p_a_3__double.getCPtr(rTorques));
+  }
+
+  public void computeReactions(SWIGTYPE_p_SimTK__Vector_TSimTK__Vec3_t rForces, SWIGTYPE_p_SimTK__Vector_TSimTK__Vec3_t rTorques) {
+    opensimModelJNI.SimmKinematicsEngine_computeReactions__SWIG_1(swigCPtr, this, SWIGTYPE_p_SimTK__Vector_TSimTK__Vec3_t.getCPtr(rForces), SWIGTYPE_p_SimTK__Vector_TSimTK__Vec3_t.getCPtr(rTorques));
   }
 
   public void formMassMatrix(SWIGTYPE_p_double rI) {
@@ -386,6 +405,10 @@ public class SimmKinematicsEngine extends AbstractDynamicsEngine {
 
   public void computeConstrainedCoordinates(double[] rQ) {
     opensimModelJNI.SimmKinematicsEngine_computeConstrainedCoordinates(swigCPtr, this, rQ);
+  }
+
+  public boolean writeSIMMJointFile(String aFileName) {
+    return opensimModelJNI.SimmKinematicsEngine_writeSIMMJointFile(swigCPtr, this, aFileName);
   }
 
 }

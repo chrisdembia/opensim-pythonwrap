@@ -69,11 +69,11 @@ public class Installer extends ModuleInstall {
 
     public void restored() {
         super.restored();
+        System.setProperty ("netbeans.buildnumber", "1.7.1"); // Should get that from JNI but sometimes doesn't work'
         try {
              // Put your startup code here.
             UIManager.setLookAndFeel( UIManager.getSystemLookAndFeelClassName() );
             UIManager.put("SliderUI", "org.opensim.view.OpenSimSliderUI");
-            
             SwingUtilities.invokeLater(new Runnable(){
             public void run() {
                // This line is important because it forces the muscle editor to initialize at the start
@@ -92,8 +92,6 @@ public class Installer extends ModuleInstall {
         } catch (UnsupportedLookAndFeelException ex) {
             ex.printStackTrace();
         }
-        // Disable the number in the application title that shows after OpenSim
-        System.setProperty ("netbeans.buildnumber", opensimModelJNI.GetVersion());
         // Force creation of Model-database OpenSimDB 
         // and a View-database ViewDB
         // and register View as Observer of Model

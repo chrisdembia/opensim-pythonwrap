@@ -189,8 +189,8 @@ public class SimmCoordinate extends AbstractCoordinate {
     return (cPtr == 0) ? null : new Function(cPtr, false);
   }
 
-  public AbstractDof.DofType getMotionType() {
-    return AbstractDof.DofType.swigToEnum(opensimModelJNI.SimmCoordinate_getMotionType(swigCPtr, this));
+  public AbstractTransformAxis.MotionType getMotionType() {
+    return AbstractTransformAxis.MotionType.swigToEnum(opensimModelJNI.SimmCoordinate_getMotionType(swigCPtr, this));
   }
 
   public void getKeys(SWIGTYPE_p_std__string rKeys) {

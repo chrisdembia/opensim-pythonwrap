@@ -8,12 +8,11 @@
 
 package org.opensim.modeling;
 
-public class Controller {
+public class Controller extends OpenSimObject {
   private long swigCPtr;
-  protected boolean swigCMemOwn;
 
   public Controller(long cPtr, boolean cMemoryOwn) {
-    swigCMemOwn = cMemoryOwn;
+    super(opensimModelJNI.SWIGStorageUpcast(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
   }
 
@@ -31,18 +30,7 @@ public class Controller {
       opensimModelJNI.delete_Controller(swigCPtr);
     }
     swigCPtr = 0;
-  }
-
-  public static int getNAME_LENGTH() {
-    return opensimModelJNI.Controller_NAME_LENGTH_get();
-  }
-
-  public static int getDESCRIP_LENGTH() {
-    return opensimModelJNI.Controller_DESCRIP_LENGTH_get();
-  }
-
-  public void setNull() {
-    opensimModelJNI.Controller_setNull(swigCPtr, this);
+    super.delete();
   }
 
   public Model getModel() {
@@ -50,28 +38,20 @@ public class Controller {
     return (cPtr == 0) ? null : new Model(cPtr, false);
   }
 
-  public void setOn(boolean aTrueFalse) {
-    opensimModelJNI.Controller_setOn(swigCPtr, this, aTrueFalse);
+  public void setModel(Model aModel) {
+    opensimModelJNI.Controller_setModel(swigCPtr, this, Model.getCPtr(aModel), aModel);
+  }
+
+  public void setDesiredStatesStorage(Storage aYDesStore) {
+    opensimModelJNI.Controller_setDesiredStatesStorage(swigCPtr, this, Storage.getCPtr(aYDesStore), aYDesStore);
   }
 
   public boolean getOn() {
     return opensimModelJNI.Controller_getOn(swigCPtr, this);
   }
 
-  public void setName(String aName) {
-    opensimModelJNI.Controller_setName(swigCPtr, this, aName);
-  }
-
-  public String getName() {
-    return opensimModelJNI.Controller_getName(swigCPtr, this);
-  }
-
-  public void setDescription(String aDescrip) {
-    opensimModelJNI.Controller_setDescription(swigCPtr, this, aDescrip);
-  }
-
-  public String getDescription() {
-    return opensimModelJNI.Controller_getDescription(swigCPtr, this);
+  public void setOn(boolean aTrueFalse) {
+    opensimModelJNI.Controller_setOn(swigCPtr, this, aTrueFalse);
   }
 
   public void computeControls(SWIGTYPE_p_double rDT, double aT, SWIGTYPE_p_double aY, ControlSet rX) {

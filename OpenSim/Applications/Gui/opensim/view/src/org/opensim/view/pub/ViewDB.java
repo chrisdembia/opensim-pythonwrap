@@ -1374,6 +1374,7 @@ public final class ViewDB extends Observable implements Observer {
             vtkMatrix4x4 m = new vtkMatrix4x4();
             double[] savedOffset = desc.getOffsetsList().get(i);
             for(int j=0; j<3; j++)  m.SetElement(j, 3, savedOffset[j]);
+            if (i > modelVisuals.size()-1) break;   // CNo need to throw exception for that. Would happen if a model didn't have a file'
             ViewDB.getInstance().setModelVisualsTransform(modelVisuals.get(i), m);
         }
         repaintAll();

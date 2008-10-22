@@ -474,7 +474,7 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
       for(int i=0; i<coords.getSize(); i++){
          AbstractCoordinate coord = coords.get(i);
          boolean restraint = coord.isRestraintActive();
-         boolean constrained = coord.getConstrained();
+         boolean constrained = coord.isConstrained();
          if (constrained)
             System.out.println("Coordinate "+coord.getName()+" will have no slider");
          if (currentGroup.contains(coord.getName()) && (!constrained)){

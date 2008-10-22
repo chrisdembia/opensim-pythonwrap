@@ -52,7 +52,8 @@ import javax.swing.event.ChangeListener;
 import javax.swing.text.NumberFormatter;
 import org.openide.util.Utilities;
 import org.opensim.modeling.AbstractCoordinate;
-import org.opensim.modeling.AbstractDof;
+import org.opensim.modeling.AbstractDynamicsEngine;
+import org.opensim.modeling.AbstractTransformAxis;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.view.ObjectsChangedEvent;
 import org.opensim.view.pub.OpenSimDB;
@@ -89,7 +90,7 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
    
    public CoordinateSliderWithBox(AbstractCoordinate coord) {
       this.coord = coord;
-      setRotational(coord.getMotionType()==AbstractDof.DofType.Rotational);
+      setRotational(coord.getMotionType()==AbstractTransformAxis.MotionType.Rotational);
       this.min=coord.getRangeMin()*conversion;
       this.max=coord.getRangeMax()*conversion;
       min=roundBoundIfNeeded(min);
@@ -346,7 +347,8 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
              ViewDB.getInstance().renderAll();
              Vector<OpenSimObject> objs = new Vector<OpenSimObject>(1);
              objs.add(coord);
-             ObjectsChangedEvent evnt = new ObjectsChangedEvent(this, coord.getDynamicsEngine().getModel(), objs);
+             AbstractDynamicsEngine eng = coord.getDynamicsEngine();
+             ObjectsChangedEvent evnt = new ObjectsChangedEvent(this, eng.getModel(), objs);
              OpenSimDB.getInstance().setChanged();
              OpenSimDB.getInstance().notifyObservers(evnt);
           }
@@ -488,7 +490,7 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
        double absBound = Math.abs(bound);
        double roundAbsBound= Math.round(absBound);
        if (Math.abs(absBound-roundAbsBound)<ROUNDOFF){
-          return (bound>0)?roundAbsBound:-roundAbsBound;
+          return (bound>=0)?roundAbsBound:-roundAbsBound;
        } else
           return bound;
     }

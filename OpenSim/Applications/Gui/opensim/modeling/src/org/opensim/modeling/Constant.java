@@ -114,6 +114,11 @@ public class Constant extends Function {
     opensimModelJNI.Constant_scaleY(swigCPtr, this, aScaleFactor);
   }
 
+  public SWIGTYPE_p_SimTK__FunctionT1_t createSimTKFunction() {
+    long cPtr = opensimModelJNI.Constant_createSimTKFunction(swigCPtr, this);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_SimTK__FunctionT1_t(cPtr, false);
+  }
+
   public static boolean isKindOf(String type) {
     return opensimModelJNI.Constant_isKindOf(type);
   }

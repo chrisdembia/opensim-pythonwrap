@@ -1379,9 +1379,7 @@ public class ModelWindowVTKTopComponent extends TopComponent
             internalTrigger=false;
         }
     }
-    
-    public double[] getCameraAttributes()
-    {
+    public double[] getCameraAttributes() {
         double[] attributes = new double[13];
         vtkCamera dCamera=getCanvas().GetRenderer().GetActiveCamera();
         double[] temp = dCamera.GetPosition();
@@ -1393,14 +1391,14 @@ public class ModelWindowVTKTopComponent extends TopComponent
         temp = dCamera.GetViewUp();
         for(int i=0; i<3; i++)
             attributes[6+i]=temp[i];
-       temp = dCamera.GetViewPlaneNormal();
-       for(int i=0; i<3; i++)
+        temp = dCamera.GetViewPlaneNormal();
+        for(int i=0; i<3; i++)
             attributes[9+i]=temp[i];
         attributes[12]=dCamera.GetViewAngle();
-        vtkMatrix4x4 orientation = dCamera.GetViewTransformMatrix(); 
+        vtkMatrix4x4 orientation = dCamera.GetViewTransformMatrix();
         return attributes;
     }
-
+    
     public void applyCameraAttributes(double[] cameraAttributes) {
         vtkCamera dCamera=getCanvas().GetRenderer().GetActiveCamera();
         dCamera.SetPosition(cameraAttributes[0], cameraAttributes[1], cameraAttributes[2]);

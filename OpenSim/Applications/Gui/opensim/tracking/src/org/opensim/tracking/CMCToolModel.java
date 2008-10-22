@@ -182,7 +182,8 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
       public void finished() {
          boolean processResults = result;
          if(!result) { // TODO: prompt to keep partial results?
-            DialogDisplayer.getDefault().notify(new NotifyDescriptor.Message("Tool execution canceled by user.  Output files not written."));
+            DialogDisplayer.getDefault().notify(new NotifyDescriptor.Message(
+                    "Tool execution failed or canceled by user.  Output files were not written."));
          }
 
          // Clean up motion displayer (this is necessary!)

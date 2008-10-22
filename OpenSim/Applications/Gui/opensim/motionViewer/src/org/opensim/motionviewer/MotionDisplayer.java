@@ -38,7 +38,7 @@ import java.util.Hashtable;
 import java.util.ArrayList;
 import org.opensim.modeling.AbstractBody;
 import org.opensim.modeling.AbstractCoordinate;
-import org.opensim.modeling.AbstractDof;
+import org.opensim.modeling.AbstractTransformAxis;
 import org.opensim.modeling.AbstractDynamicsEngine;
 import org.opensim.modeling.AbstractJoint;
 import org.opensim.modeling.AbstractMarker;
@@ -103,7 +103,7 @@ public class MotionDisplayer {
     // The map is currently used only for body forces and generalized forces.
     private Hashtable<Integer, AbstractBody> mapIndicesToBodies = new Hashtable<Integer, AbstractBody>(10);
     // For generalized forces, this is the map from column index to DOF reference.
-    private Hashtable<Integer, AbstractDof> mapIndicesToDofs = new Hashtable<Integer, AbstractDof>(10);
+    private Hashtable<Integer, AbstractTransformAxis> mapIndicesToDofs = new Hashtable<Integer, AbstractTransformAxis>(10);
     
     public class ObjectIndexPair {
        public Object object;
@@ -281,8 +281,8 @@ public class MotionDisplayer {
                mapIndicesToObjectTypes.put(columnIndex, ObjectTypesInMotionFiles.GenCoord_Force);
                //mapIndicesToObjects.put(columnIndex, co);
                AbstractJoint joint = null;
-               AbstractDof unconstrainedDof = model.getDynamicsEngine().findUnconstrainedDof(co, joint);
-               AbstractBody body = unconstrainedDof.getJoint().getChildBody();
+               AbstractTransformAxis unconstrainedDof = model.getDynamicsEngine().findUnconstrainedDof(co, joint);
+               AbstractBody body = unconstrainedDof.getJoint().getBody();
                mapIndicesToBodies.put(columnIndex, body);
                mapIndicesToDofs.put(columnIndex, unconstrainedDof);
                int index = generalizedForcesRep.addLocation(0., 0., 0.);
@@ -455,7 +455,7 @@ public class MotionDisplayer {
             int index = genCoordForceColumns.get(i).stateVectorIndex;
             AbstractDynamicsEngine de = model.getDynamicsEngine();
             AbstractBody body = mapIndicesToBodies.get(index+1);
-            AbstractDof dof = mapIndicesToDofs.get(index+1);
+            AbstractTransformAxis dof = mapIndicesToDofs.get(index+1);
             double[] offset = new double[3];
             double[] gOffset = new double[3];
             dof.getAxis(offset); // in parent frame, right?

@@ -55,13 +55,13 @@ public class AbstractJoint extends OpenSimObject {
     opensimModelJNI.AbstractJoint_invalidate(swigCPtr, this);
   }
 
-  public DofSet getDofSet() {
-    long cPtr = opensimModelJNI.AbstractJoint_getDofSet(swigCPtr, this);
-    return (cPtr == 0) ? null : new DofSet(cPtr, false);
+  public TransformAxisSet getTransformAxisSet() {
+    long cPtr = opensimModelJNI.AbstractJoint_getTransformAxisSet(swigCPtr, this);
+    return (cPtr == 0) ? null : new TransformAxisSet(cPtr, false);
   }
 
-  public AbstractBody getChildBody() {
-    long cPtr = opensimModelJNI.AbstractJoint_getChildBody(swigCPtr, this);
+  public AbstractBody getBody() {
+    long cPtr = opensimModelJNI.AbstractJoint_getBody(swigCPtr, this);
     return (cPtr == 0) ? null : new AbstractBody(cPtr, false);
   }
 

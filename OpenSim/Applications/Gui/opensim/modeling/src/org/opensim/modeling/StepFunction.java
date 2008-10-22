@@ -166,6 +166,11 @@ public class StepFunction extends Function {
     return opensimModelJNI.StepFunction_evaluateTotalSecondDerivative(swigCPtr, this, aX, aDxdt, aD2xdt2);
   }
 
+  public SWIGTYPE_p_SimTK__FunctionT1_t createSimTKFunction() {
+    long cPtr = opensimModelJNI.StepFunction_createSimTKFunction(swigCPtr, this);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_SimTK__FunctionT1_t(cPtr, false);
+  }
+
   public void updateFromXMLNode() {
     opensimModelJNI.StepFunction_updateFromXMLNode(swigCPtr, this);
   }

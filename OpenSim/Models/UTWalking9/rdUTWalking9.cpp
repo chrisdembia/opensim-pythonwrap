@@ -269,8 +269,8 @@ setActuatorForce(int aID,double aForce)
 double rdUTWalking9::
 getActuatorForce(int aID) const
 {
-	if(aID<0) return(rdMath::NAN);
-	if(aID>=rdUTWalking9::getNA()) return(rdMath::NAN);
+	if(aID<0) return(rdMath::getNAN());
+	if(aID>=rdUTWalking9::getNA()) return(rdMath::getNAN());
 
 	double force = rdUTWalking8::getActuatorForce(aID);
 
@@ -289,8 +289,8 @@ getActuatorForce(int aID) const
 double rdUTWalking9::
 getActuatorStress(int aID) const
 {
-	if(aID<0) return(rdMath::NAN);
-	if(aID>=rdUTWalking9::getNA()) return(rdMath::NAN);
+	if(aID<0) return(rdMath::getNAN());
+	if(aID>=rdUTWalking9::getNA()) return(rdMath::getNAN());
 
 	double stress = rdUTWalking8::getActuatorStress(aID);
 	return(stress);
@@ -309,8 +309,8 @@ getActuatorStress(int aID) const
 double rdUTWalking9::
 getActuatorSpeed(int aID) const
 {
-	if(aID<0) return(rdMath::NAN);
-	if(aID>=rdUTWalking9::getNA()) return(rdMath::NAN);
+	if(aID<0) return(rdMath::getNAN());
+	if(aID>=rdUTWalking9::getNA()) return(rdMath::getNAN());
 
 	double speed = rdUTWalking8::getActuatorSpeed(aID);
 	return(speed);
