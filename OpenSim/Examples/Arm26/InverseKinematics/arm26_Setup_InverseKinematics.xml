@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <IKTool name="arm26">
 	<!--Name of the .osim file used to construct a model.-->
-  <model_file> S26pre.osim </model_file>
+  <model_file> arm26.osim </model_file>
 	<!--Specify which optimizer to use (ipopt, cfsqp, or jacobian).-->
   <optimizer_algorithm> ipopt </optimizer_algorithm>
 	<!--Task set used to specify IK weights.-->
