@@ -1314,11 +1314,12 @@ public class opensimModelJNI {
   public final static native long new_Model__SWIG_1(String jarg1) throws java.io.IOException;
   public final static native long new_Model__SWIG_2(long jarg1, Model jarg1_);
   public final static native void delete_Model(long jarg1);
-  public final static native long Model_copy(long jarg1, Model jarg1_);
+  public final static native long Model_copy__SWIG_0(long jarg1, Model jarg1_);
   public final static native void Model_copyData(long jarg1, Model jarg1_, long jarg2, Model jarg2_);
   public final static native void Model_setupProperties(long jarg1, Model jarg1_);
   public final static native long Model_clone(long jarg1, Model jarg1_);
   public final static native void Model_setup(long jarg1, Model jarg1_) throws java.io.IOException;
+  public final static native void Model_replaceEngine(long jarg1, Model jarg1_, long jarg2, AbstractDynamicsEngine jarg2_);
   public final static native void Model_cleanup(long jarg1, Model jarg1_);
   public final static native boolean Model_builtOK(long jarg1, Model jarg1_);
   public final static native String Model_getInputFileName(long jarg1, Model jarg1_);
@@ -1388,6 +1389,10 @@ public class opensimModelJNI {
   public final static native void Model_printBasicInfo(long jarg1, Model jarg1_, long jarg2);
   public final static native void Model_printDetailedInfo(long jarg1, Model jarg1_, long jarg2);
   public final static native void Model_kinTest(long jarg1, Model jarg1_);
+  public final static native boolean Model_isKindOf(String jarg1);
+  public final static native boolean Model_isA(long jarg1, Model jarg1_, String jarg2);
+  public final static native long Model_safeDownCast(long jarg1, OpenSimObject jarg1_);
+  public final static native void Model_copy__SWIG_1(long jarg1, Model jarg1_, long jarg2, OpenSimObject jarg2_);
   public final static native void delete_Control(long jarg1);
   public final static native void Control_setIsModelControl(long jarg1, Control jarg1_, boolean jarg2);
   public final static native boolean Control_getIsModelControl(long jarg1, Control jarg1_);
@@ -2640,8 +2645,10 @@ public class opensimModelJNI {
   public final static native void AbstractBody_scaleInertialProperties__SWIG_1(long jarg1, AbstractBody jarg1_, long jarg2);
   public final static native void AbstractBody_scaleMass(long jarg1, AbstractBody jarg1_, double jarg2);
   public final static native long AbstractBody_getDisplayer(long jarg1, AbstractBody jarg1_);
+  public final static native void AbstractBody_setDisplayer(long jarg1, AbstractBody jarg1_, long jarg2, VisibleObject jarg2_);
   public final static native long AbstractBody_getWrapObject(long jarg1, AbstractBody jarg1_, String jarg2);
   public final static native long AbstractBody_getWrapObjectSet(long jarg1, AbstractBody jarg1_);
+  public final static native void AbstractBody_setDynamicsEngine(long jarg1, AbstractBody jarg1_, long jarg2, AbstractDynamicsEngine jarg2_);
   public final static native boolean AbstractBody_isKindOf(String jarg1);
   public final static native boolean AbstractBody_isA(long jarg1, AbstractBody jarg1_, String jarg2);
   public final static native long AbstractBody_safeDownCast(long jarg1, OpenSimObject jarg1_);
@@ -2664,6 +2671,7 @@ public class opensimModelJNI {
   public final static native void SimmBody_scaleInertialProperties__SWIG_1(long jarg1, SimmBody jarg1_, long jarg2);
   public final static native void SimmBody_scaleMass(long jarg1, SimmBody jarg1_, double jarg2);
   public final static native long SimmBody_getDisplayer(long jarg1, SimmBody jarg1_);
+  public final static native void SimmBody_setDisplayer(long jarg1, SimmBody jarg1_, long jarg2, VisibleObject jarg2_);
   public final static native void SimmBody_getScaleFactors(long jarg1, SimmBody jarg1_, long jarg2);
   public final static native void delete_SetBodies(long jarg1);
   public final static native long new_SetBodies__SWIG_0();
@@ -2788,11 +2796,13 @@ public class opensimModelJNI {
   public final static native void AbstractTransformAxis_setAxis(long jarg1, AbstractTransformAxis jarg1_, long jarg2);
   public final static native void AbstractTransformAxis_getAxis__SWIG_0(long jarg1, AbstractTransformAxis jarg1_, long jarg2);
   public final static native void AbstractTransformAxis_getAxis__SWIG_1(long jarg1, AbstractTransformAxis jarg1_, double[] jarg2);
+  public final static native long AbstractTransformAxis_getAxisPtr(long jarg1, AbstractTransformAxis jarg1_);
   public final static native double AbstractTransformAxis_getValue(long jarg1, AbstractTransformAxis jarg1_);
   public final static native long AbstractTransformAxis_getCoordinate(long jarg1, AbstractTransformAxis jarg1_);
   public final static native long AbstractTransformAxis_getFunction(long jarg1, AbstractTransformAxis jarg1_);
   public final static native void AbstractTransformAxis_setFunction(long jarg1, AbstractTransformAxis jarg1_, long jarg2, Function jarg2_);
   public final static native long AbstractTransformAxis_getJoint(long jarg1, AbstractTransformAxis jarg1_);
+  public final static native void AbstractTransformAxis_setIsRotation(long jarg1, AbstractTransformAxis jarg1_, boolean jarg2);
   public final static native boolean AbstractTransformAxis_isKindOf(String jarg1);
   public final static native boolean AbstractTransformAxis_isA(long jarg1, AbstractTransformAxis jarg1_, String jarg2);
   public final static native long AbstractTransformAxis_safeDownCast(long jarg1, OpenSimObject jarg1_);
@@ -2882,6 +2892,7 @@ public class opensimModelJNI {
   public final static native void AbstractCoordinate_addPathToList(long jarg1, AbstractCoordinate jarg1_, long jarg2);
   public final static native boolean AbstractCoordinate_isUsedInModel(long jarg1, AbstractCoordinate jarg1_);
   public final static native boolean AbstractCoordinate_isRestraintActive(long jarg1, AbstractCoordinate jarg1_);
+  public final static native void AbstractCoordinate_setRestraintActive(long jarg1, AbstractCoordinate jarg1_, boolean jarg2);
   public final static native long AbstractCoordinate_getRestraintFunction(long jarg1, AbstractCoordinate jarg1_);
   public final static native long AbstractCoordinate_getMinRestraintFunction(long jarg1, AbstractCoordinate jarg1_);
   public final static native long AbstractCoordinate_getMaxRestraintFunction(long jarg1, AbstractCoordinate jarg1_);
@@ -2892,6 +2903,8 @@ public class opensimModelJNI {
   public final static native boolean AbstractCoordinate_isPrescribed(long jarg1, AbstractCoordinate jarg1_);
   public final static native void AbstractCoordinate_getKeys__SWIG_0(long jarg1, AbstractCoordinate jarg1_, long jarg2);
   public final static native long AbstractCoordinate_getKeys__SWIG_1(long jarg1, AbstractCoordinate jarg1_);
+  public final static native void AbstractCoordinate_setKeys(long jarg1, AbstractCoordinate jarg1_, long jarg2, ArrayStr jarg2_);
+  public final static native void AbstractCoordinate_setDynamicsEngine(long jarg1, AbstractCoordinate jarg1_, long jarg2, AbstractDynamicsEngine jarg2_);
   public final static native boolean AbstractCoordinate_isKindOf(String jarg1);
   public final static native boolean AbstractCoordinate_isA(long jarg1, AbstractCoordinate jarg1_, String jarg2);
   public final static native long AbstractCoordinate_safeDownCast(long jarg1, OpenSimObject jarg1_);
@@ -2932,12 +2945,14 @@ public class opensimModelJNI {
   public final static native void SimmCoordinate_addPathToList(long jarg1, SimmCoordinate jarg1_, long jarg2);
   public final static native boolean SimmCoordinate_isUsedInModel(long jarg1, SimmCoordinate jarg1_);
   public final static native boolean SimmCoordinate_isRestraintActive(long jarg1, SimmCoordinate jarg1_);
+  public final static native void SimmCoordinate_setRestraintActive(long jarg1, SimmCoordinate jarg1_, boolean jarg2);
   public final static native long SimmCoordinate_getRestraintFunction(long jarg1, SimmCoordinate jarg1_);
   public final static native long SimmCoordinate_getMinRestraintFunction(long jarg1, SimmCoordinate jarg1_);
   public final static native long SimmCoordinate_getMaxRestraintFunction(long jarg1, SimmCoordinate jarg1_);
   public final static native int SimmCoordinate_getMotionType(long jarg1, SimmCoordinate jarg1_);
   public final static native void SimmCoordinate_getKeys__SWIG_0(long jarg1, SimmCoordinate jarg1_, long jarg2);
   public final static native long SimmCoordinate_getKeys__SWIG_1(long jarg1, SimmCoordinate jarg1_);
+  public final static native void SimmCoordinate_setKeys(long jarg1, SimmCoordinate jarg1_, long jarg2, ArrayStr jarg2_);
   public final static native long SimmCoordinate_getJointList(long jarg1, SimmCoordinate jarg1_);
   public final static native void SimmCoordinate_clearJointList(long jarg1, SimmCoordinate jarg1_);
   public final static native long SimmCoordinate_getPathList(long jarg1, SimmCoordinate jarg1_);
@@ -3013,6 +3028,7 @@ public class opensimModelJNI {
   public final static native boolean AbstractJoint_isCoordinateUsed(long jarg1, AbstractJoint jarg1_, long jarg2, AbstractCoordinate jarg2_);
   public final static native boolean AbstractJoint_hasXYZAxes(long jarg1, AbstractJoint jarg1_);
   public final static native void AbstractJoint_scale(long jarg1, AbstractJoint jarg1_, long jarg2, ScaleSet jarg2_);
+  public final static native void AbstractJoint_setDynamicsEngine(long jarg1, AbstractJoint jarg1_, long jarg2, AbstractDynamicsEngine jarg2_);
   public final static native boolean AbstractJoint_isKindOf(String jarg1);
   public final static native boolean AbstractJoint_isA(long jarg1, AbstractJoint jarg1_, String jarg2);
   public final static native long AbstractJoint_safeDownCast(long jarg1, OpenSimObject jarg1_);
@@ -3025,7 +3041,9 @@ public class opensimModelJNI {
   public final static native void SimmJoint_copyData(long jarg1, SimmJoint jarg1_, long jarg2, SimmJoint jarg2_);
   public final static native long SimmJoint_getDofSet(long jarg1, SimmJoint jarg1_);
   public final static native long SimmJoint_getBody(long jarg1, SimmJoint jarg1_);
+  public final static native String SimmJoint_getBodyName(long jarg1, SimmJoint jarg1_);
   public final static native long SimmJoint_getParentBody(long jarg1, SimmJoint jarg1_);
+  public final static native String SimmJoint_getParentBodyName(long jarg1, SimmJoint jarg1_);
   public final static native void SimmJoint_setLocationInParent(long jarg1, SimmJoint jarg1_, long jarg2);
   public final static native void SimmJoint_getLocationInParent__SWIG_0(long jarg1, SimmJoint jarg1_, long jarg2);
   public final static native void SimmJoint_getLocationInParent__SWIG_1(long jarg1, SimmJoint jarg1_, double[] jarg2);
@@ -3205,7 +3223,7 @@ public class opensimModelJNI {
   public final static native void AbstractDynamicsEngine_convertQuaternionsToDirectionCosines__SWIG_1(long jarg1, AbstractDynamicsEngine jarg1_, double jarg2, double jarg3, double jarg4, double jarg5, long jarg6);
   public final static native boolean AbstractDynamicsEngine_writeSIMMJointFile(long jarg1, AbstractDynamicsEngine jarg1_, String jarg2);
   public final static native void delete_SimmKinematicsEngine(long jarg1);
-  public final static native long SimmKinematicsEngine_copy(long jarg1, SimmKinematicsEngine jarg1_);
+  public final static native long SimmKinematicsEngine_copy__SWIG_0(long jarg1, SimmKinematicsEngine jarg1_);
   public final static native void SimmKinematicsEngine_registerTypes();
   public final static native void SimmKinematicsEngine_setup(long jarg1, SimmKinematicsEngine jarg1_, long jarg2, Model jarg2_);
   public final static native void SimmKinematicsEngine_makePaths(long jarg1, SimmKinematicsEngine jarg1_);
@@ -3298,6 +3316,10 @@ public class opensimModelJNI {
   public final static native void SimmKinematicsEngine_convertQuaternionsToDirectionCosines__SWIG_1(long jarg1, SimmKinematicsEngine jarg1_, double jarg2, double jarg3, double jarg4, double jarg5, long jarg6);
   public final static native void SimmKinematicsEngine_computeConstrainedCoordinates(long jarg1, SimmKinematicsEngine jarg1_, double[] jarg2);
   public final static native boolean SimmKinematicsEngine_writeSIMMJointFile(long jarg1, SimmKinematicsEngine jarg1_, String jarg2);
+  public final static native boolean SimmKinematicsEngine_isKindOf(String jarg1);
+  public final static native boolean SimmKinematicsEngine_isA(long jarg1, SimmKinematicsEngine jarg1_, String jarg2);
+  public final static native long SimmKinematicsEngine_safeDownCast(long jarg1, OpenSimObject jarg1_);
+  public final static native void SimmKinematicsEngine_copy__SWIG_1(long jarg1, SimmKinematicsEngine jarg1_, long jarg2, OpenSimObject jarg2_);
   public final static native long new_MusclePoint__SWIG_0();
   public final static native long new_MusclePoint__SWIG_1(long jarg1, MusclePoint jarg1_);
   public final static native void delete_MusclePoint(long jarg1);
@@ -4237,6 +4259,7 @@ public class opensimModelJNI {
   public final static native void AnalyzeTool_setPrintResultFiles(long jarg1, AnalyzeTool jarg1_, boolean jarg2);
   public final static native boolean AnalyzeTool_run__SWIG_0(long jarg1, AnalyzeTool jarg1_) throws java.io.IOException;
   public final static native void AnalyzeTool_run__SWIG_1(long jarg1, Model jarg1_, int jarg2, int jarg3, long jarg4, Storage jarg4_, long jarg5, Storage jarg5_, long jarg6, ControlSet jarg6_, boolean jarg7);
+  public final static native long makeSimbodyEngine(long jarg1, Model jarg1_, long jarg2, SimmKinematicsEngine jarg2_);
   public final static native long SWIGPropertyStrUpcast(long jarg1);
   public final static native long SWIGObjectGroupUpcast(long jarg1);
   public final static native long SWIGVisiblePropertiesUpcast(long jarg1);

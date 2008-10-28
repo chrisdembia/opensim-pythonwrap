@@ -41,4 +41,9 @@ public class opensimModel {
     return opensimModelJNI.GetVersion();
   }
 
+  public static AbstractDynamicsEngine makeSimbodyEngine(Model aModel, SimmKinematicsEngine aSimmEngine) {
+    long cPtr = opensimModelJNI.makeSimbodyEngine(Model.getCPtr(aModel), aModel, SimmKinematicsEngine.getCPtr(aSimmEngine), aSimmEngine);
+    return (cPtr == 0) ? null : new AbstractDynamicsEngine(cPtr, false);
+  }
+
 }

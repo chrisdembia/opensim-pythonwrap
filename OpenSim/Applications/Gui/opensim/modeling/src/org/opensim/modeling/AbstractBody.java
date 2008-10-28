@@ -100,6 +100,10 @@ public class AbstractBody extends OpenSimObject {
     return (cPtr == 0) ? null : new VisibleObject(cPtr, false);
   }
 
+  public void setDisplayer(VisibleObject aVisibleObject) {
+    opensimModelJNI.AbstractBody_setDisplayer(swigCPtr, this, VisibleObject.getCPtr(aVisibleObject), aVisibleObject);
+  }
+
   public AbstractWrapObject getWrapObject(String aName) {
     long cPtr = opensimModelJNI.AbstractBody_getWrapObject(swigCPtr, this, aName);
     return (cPtr == 0) ? null : new AbstractWrapObject(cPtr, false);
@@ -107,6 +111,10 @@ public class AbstractBody extends OpenSimObject {
 
   public WrapObjectSet getWrapObjectSet() {
     return new WrapObjectSet(opensimModelJNI.AbstractBody_getWrapObjectSet(swigCPtr, this), false);
+  }
+
+  public void setDynamicsEngine(AbstractDynamicsEngine aEngine) {
+    opensimModelJNI.AbstractBody_setDynamicsEngine(swigCPtr, this, AbstractDynamicsEngine.getCPtr(aEngine), aEngine);
   }
 
   public static boolean isKindOf(String type) {

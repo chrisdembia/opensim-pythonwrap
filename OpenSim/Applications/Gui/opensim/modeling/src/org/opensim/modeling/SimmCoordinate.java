@@ -174,6 +174,10 @@ public class SimmCoordinate extends AbstractCoordinate {
     return opensimModelJNI.SimmCoordinate_isRestraintActive(swigCPtr, this);
   }
 
+  public void setRestraintActive(boolean aActive) {
+    opensimModelJNI.SimmCoordinate_setRestraintActive(swigCPtr, this, aActive);
+  }
+
   public Function getRestraintFunction() {
     long cPtr = opensimModelJNI.SimmCoordinate_getRestraintFunction(swigCPtr, this);
     return (cPtr == 0) ? null : new Function(cPtr, false);
@@ -199,6 +203,10 @@ public class SimmCoordinate extends AbstractCoordinate {
 
   public ArrayStr getKeys() {
     return new ArrayStr(opensimModelJNI.SimmCoordinate_getKeys__SWIG_1(swigCPtr, this), false);
+  }
+
+  public void setKeys(ArrayStr aKeys) {
+    opensimModelJNI.SimmCoordinate_setKeys(swigCPtr, this, ArrayStr.getCPtr(aKeys), aKeys);
   }
 
   public SWIGTYPE_p_OpenSim__ArrayTOpenSim__AbstractJoint_p_t getJointList() {

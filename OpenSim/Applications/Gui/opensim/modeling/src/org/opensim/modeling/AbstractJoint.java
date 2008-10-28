@@ -114,6 +114,10 @@ public class AbstractJoint extends OpenSimObject {
     opensimModelJNI.AbstractJoint_scale(swigCPtr, this, ScaleSet.getCPtr(aScaleSet), aScaleSet);
   }
 
+  public void setDynamicsEngine(AbstractDynamicsEngine aEngine) {
+    opensimModelJNI.AbstractJoint_setDynamicsEngine(swigCPtr, this, AbstractDynamicsEngine.getCPtr(aEngine), aEngine);
+  }
+
   public static boolean isKindOf(String type) {
     return opensimModelJNI.AbstractJoint_isKindOf(type);
   }

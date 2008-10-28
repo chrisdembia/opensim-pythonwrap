@@ -70,6 +70,11 @@ public class AbstractTransformAxis extends OpenSimObject {
     opensimModelJNI.AbstractTransformAxis_getAxis__SWIG_1(swigCPtr, this, rAxis);
   }
 
+  public SWIGTYPE_p_double getAxisPtr() {
+    long cPtr = opensimModelJNI.AbstractTransformAxis_getAxisPtr(swigCPtr, this);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_double(cPtr, false);
+  }
+
   public double getValue() {
     return opensimModelJNI.AbstractTransformAxis_getValue(swigCPtr, this);
   }
@@ -91,6 +96,10 @@ public class AbstractTransformAxis extends OpenSimObject {
   public AbstractJoint getJoint() {
     long cPtr = opensimModelJNI.AbstractTransformAxis_getJoint(swigCPtr, this);
     return (cPtr == 0) ? null : new AbstractJoint(cPtr, false);
+  }
+
+  public void setIsRotation(boolean aIsRotation) {
+    opensimModelJNI.AbstractTransformAxis_setIsRotation(swigCPtr, this, aIsRotation);
   }
 
   public static boolean isKindOf(String type) {

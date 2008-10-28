@@ -175,6 +175,10 @@ public class AbstractCoordinate extends OpenSimObject {
     return opensimModelJNI.AbstractCoordinate_isRestraintActive(swigCPtr, this);
   }
 
+  public void setRestraintActive(boolean aActive) {
+    opensimModelJNI.AbstractCoordinate_setRestraintActive(swigCPtr, this, aActive);
+  }
+
   public Function getRestraintFunction() {
     long cPtr = opensimModelJNI.AbstractCoordinate_getRestraintFunction(swigCPtr, this);
     return (cPtr == 0) ? null : new Function(cPtr, false);
@@ -217,6 +221,14 @@ public class AbstractCoordinate extends OpenSimObject {
 
   public ArrayStr getKeys() {
     return new ArrayStr(opensimModelJNI.AbstractCoordinate_getKeys__SWIG_1(swigCPtr, this), false);
+  }
+
+  public void setKeys(ArrayStr aKeys) {
+    opensimModelJNI.AbstractCoordinate_setKeys(swigCPtr, this, ArrayStr.getCPtr(aKeys), aKeys);
+  }
+
+  public void setDynamicsEngine(AbstractDynamicsEngine aEngine) {
+    opensimModelJNI.AbstractCoordinate_setDynamicsEngine(swigCPtr, this, AbstractDynamicsEngine.getCPtr(aEngine), aEngine);
   }
 
   public static boolean isKindOf(String type) {

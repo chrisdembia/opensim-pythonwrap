@@ -63,7 +63,7 @@ public class Model extends OpenSimObject {
   }
 
   public OpenSimObject copy() {
-    long cPtr = opensimModelJNI.Model_copy(swigCPtr, this);
+    long cPtr = opensimModelJNI.Model_copy__SWIG_0(swigCPtr, this);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
@@ -82,6 +82,10 @@ public class Model extends OpenSimObject {
 
   public void setup() throws java.io.IOException {
     opensimModelJNI.Model_setup(swigCPtr, this);
+  }
+
+  public void replaceEngine(AbstractDynamicsEngine aEngine) {
+    opensimModelJNI.Model_replaceEngine(swigCPtr, this, AbstractDynamicsEngine.getCPtr(aEngine), aEngine);
   }
 
   public void cleanup() {
@@ -363,6 +367,23 @@ public class Model extends OpenSimObject {
 
   public void kinTest() {
     opensimModelJNI.Model_kinTest(swigCPtr, this);
+  }
+
+  public static boolean isKindOf(String type) {
+    return opensimModelJNI.Model_isKindOf(type);
+  }
+
+  public boolean isA(String type) {
+    return opensimModelJNI.Model_isA(swigCPtr, this, type);
+  }
+
+  public static Model safeDownCast(OpenSimObject obj) {
+    long cPtr = opensimModelJNI.Model_safeDownCast(OpenSimObject.getCPtr(obj), obj);
+    return (cPtr == 0) ? null : new Model(cPtr, false);
+  }
+
+  public void copy(OpenSimObject aObject) {
+    opensimModelJNI.Model_copy__SWIG_1(swigCPtr, this, OpenSimObject.getCPtr(aObject), aObject);
   }
 
 }

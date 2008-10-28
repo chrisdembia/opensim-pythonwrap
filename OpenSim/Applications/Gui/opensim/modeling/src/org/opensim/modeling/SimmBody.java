@@ -103,6 +103,10 @@ public class SimmBody extends AbstractBody {
     return (cPtr == 0) ? null : new VisibleObject(cPtr, false);
   }
 
+  public void setDisplayer(VisibleObject aVisibleObject) {
+    opensimModelJNI.SimmBody_setDisplayer(swigCPtr, this, VisibleObject.getCPtr(aVisibleObject), aVisibleObject);
+  }
+
   public void getScaleFactors(SWIGTYPE_p_SimTK__Vec3 aScaleFactors) {
     opensimModelJNI.SimmBody_getScaleFactors(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(aScaleFactors));
   }

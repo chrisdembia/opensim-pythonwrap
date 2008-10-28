@@ -34,7 +34,7 @@ public class SimmKinematicsEngine extends AbstractDynamicsEngine {
   }
 
   public OpenSimObject copy() {
-    long cPtr = opensimModelJNI.SimmKinematicsEngine_copy(swigCPtr, this);
+    long cPtr = opensimModelJNI.SimmKinematicsEngine_copy__SWIG_0(swigCPtr, this);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
@@ -409,6 +409,23 @@ public class SimmKinematicsEngine extends AbstractDynamicsEngine {
 
   public boolean writeSIMMJointFile(String aFileName) {
     return opensimModelJNI.SimmKinematicsEngine_writeSIMMJointFile(swigCPtr, this, aFileName);
+  }
+
+  public static boolean isKindOf(String type) {
+    return opensimModelJNI.SimmKinematicsEngine_isKindOf(type);
+  }
+
+  public boolean isA(String type) {
+    return opensimModelJNI.SimmKinematicsEngine_isA(swigCPtr, this, type);
+  }
+
+  public static SimmKinematicsEngine safeDownCast(OpenSimObject obj) {
+    long cPtr = opensimModelJNI.SimmKinematicsEngine_safeDownCast(OpenSimObject.getCPtr(obj), obj);
+    return (cPtr == 0) ? null : new SimmKinematicsEngine(cPtr, false);
+  }
+
+  public void copy(OpenSimObject aObject) {
+    opensimModelJNI.SimmKinematicsEngine_copy__SWIG_1(swigCPtr, this, OpenSimObject.getCPtr(aObject), aObject);
   }
 
 }

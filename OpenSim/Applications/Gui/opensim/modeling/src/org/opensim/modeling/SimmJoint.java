@@ -64,9 +64,17 @@ public class SimmJoint extends AbstractJoint {
     return (cPtr == 0) ? null : new AbstractBody(cPtr, false);
   }
 
+  public String getBodyName() {
+    return opensimModelJNI.SimmJoint_getBodyName(swigCPtr, this);
+  }
+
   public AbstractBody getParentBody() {
     long cPtr = opensimModelJNI.SimmJoint_getParentBody(swigCPtr, this);
     return (cPtr == 0) ? null : new AbstractBody(cPtr, false);
+  }
+
+  public String getParentBodyName() {
+    return opensimModelJNI.SimmJoint_getParentBodyName(swigCPtr, this);
   }
 
   public void setLocationInParent(SWIGTYPE_p_SimTK__Vec3 aLocation) {
