@@ -484,8 +484,4 @@ public class AbstractDynamicsEngine extends OpenSimObject {
     opensimModelJNI.AbstractDynamicsEngine_convertQuaternionsToDirectionCosines__SWIG_1(swigCPtr, this, aQ1, aQ2, aQ3, aQ4, SWIGTYPE_p_double.getCPtr(rDirCos));
   }
 
-  public boolean writeSIMMJointFile(String aFileName) {
-    return opensimModelJNI.AbstractDynamicsEngine_writeSIMMJointFile(swigCPtr, this, aFileName);
-  }
-
 }

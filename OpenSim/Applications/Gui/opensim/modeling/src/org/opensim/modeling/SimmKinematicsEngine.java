@@ -407,10 +407,6 @@ public class SimmKinematicsEngine extends AbstractDynamicsEngine {
     opensimModelJNI.SimmKinematicsEngine_computeConstrainedCoordinates(swigCPtr, this, rQ);
   }
 
-  public boolean writeSIMMJointFile(String aFileName) {
-    return opensimModelJNI.SimmKinematicsEngine_writeSIMMJointFile(swigCPtr, this, aFileName);
-  }
-
   public static boolean isKindOf(String type) {
     return opensimModelJNI.SimmKinematicsEngine_isKindOf(type);
   }

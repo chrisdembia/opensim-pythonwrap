@@ -3221,7 +3221,6 @@ public class opensimModelJNI {
   public final static native void AbstractDynamicsEngine_convertDirectionCosinesToQuaternions__SWIG_1(long jarg1, AbstractDynamicsEngine jarg1_, long jarg2, long jarg3, long jarg4, long jarg5, long jarg6);
   public final static native void AbstractDynamicsEngine_convertQuaternionsToDirectionCosines__SWIG_0(long jarg1, AbstractDynamicsEngine jarg1_, double jarg2, double jarg3, double jarg4, double jarg5, long jarg6);
   public final static native void AbstractDynamicsEngine_convertQuaternionsToDirectionCosines__SWIG_1(long jarg1, AbstractDynamicsEngine jarg1_, double jarg2, double jarg3, double jarg4, double jarg5, long jarg6);
-  public final static native boolean AbstractDynamicsEngine_writeSIMMJointFile(long jarg1, AbstractDynamicsEngine jarg1_, String jarg2);
   public final static native void delete_SimmKinematicsEngine(long jarg1);
   public final static native long SimmKinematicsEngine_copy__SWIG_0(long jarg1, SimmKinematicsEngine jarg1_);
   public final static native void SimmKinematicsEngine_registerTypes();
@@ -3315,7 +3314,6 @@ public class opensimModelJNI {
   public final static native void SimmKinematicsEngine_convertQuaternionsToDirectionCosines__SWIG_0(long jarg1, SimmKinematicsEngine jarg1_, double jarg2, double jarg3, double jarg4, double jarg5, long jarg6);
   public final static native void SimmKinematicsEngine_convertQuaternionsToDirectionCosines__SWIG_1(long jarg1, SimmKinematicsEngine jarg1_, double jarg2, double jarg3, double jarg4, double jarg5, long jarg6);
   public final static native void SimmKinematicsEngine_computeConstrainedCoordinates(long jarg1, SimmKinematicsEngine jarg1_, double[] jarg2);
-  public final static native boolean SimmKinematicsEngine_writeSIMMJointFile(long jarg1, SimmKinematicsEngine jarg1_, String jarg2);
   public final static native boolean SimmKinematicsEngine_isKindOf(String jarg1);
   public final static native boolean SimmKinematicsEngine_isA(long jarg1, SimmKinematicsEngine jarg1_, String jarg2);
   public final static native long SimmKinematicsEngine_safeDownCast(long jarg1, OpenSimObject jarg1_);
@@ -3813,11 +3811,6 @@ public class opensimModelJNI {
   public final static native long new_IKTrialSet__SWIG_0();
   public final static native long new_IKTrialSet__SWIG_1(long jarg1, IKTrialSet jarg1_);
   public final static native void delete_IKTrialSet(long jarg1);
-  public final static native long new_SimmFileWriter__SWIG_0();
-  public final static native long new_SimmFileWriter__SWIG_1(long jarg1, Model jarg1_);
-  public final static native void delete_SimmFileWriter(long jarg1);
-  public final static native boolean SimmFileWriter_writeJointFile(long jarg1, SimmFileWriter jarg1_, String jarg2);
-  public final static native boolean SimmFileWriter_writeMuscleFile(long jarg1, SimmFileWriter jarg1_, String jarg2);
   public final static native long IKTask_copy(long jarg1, IKTask jarg1_);
   public final static native boolean IKTask_getApply(long jarg1, IKTask jarg1_);
   public final static native void IKTask_setApply(long jarg1, IKTask jarg1_, boolean jarg2);
@@ -4260,6 +4253,13 @@ public class opensimModelJNI {
   public final static native boolean AnalyzeTool_run__SWIG_0(long jarg1, AnalyzeTool jarg1_) throws java.io.IOException;
   public final static native void AnalyzeTool_run__SWIG_1(long jarg1, Model jarg1_, int jarg2, int jarg3, long jarg4, Storage jarg4_, long jarg5, Storage jarg5_, long jarg6, ControlSet jarg6_, boolean jarg7);
   public final static native long makeSimbodyEngine(long jarg1, Model jarg1_, long jarg2, SimmKinematicsEngine jarg2_);
+  public final static native long new_SimmFileWriter__SWIG_0();
+  public final static native long new_SimmFileWriter__SWIG_1(long jarg1, Model jarg1_);
+  public final static native void delete_SimmFileWriter(long jarg1);
+  public final static native boolean SimmFileWriter_writeMuscleFile(long jarg1, SimmFileWriter jarg1_, String jarg2);
+  public final static native boolean SimmFileWriter_writeJointFile__SWIG_0(long jarg1, SimmFileWriter jarg1_, String jarg2);
+  public final static native boolean SimmFileWriter_writeJointFile__SWIG_1(long jarg1, SimmFileWriter jarg1_, long jarg2, String jarg3);
+  public final static native boolean SimmFileWriter_writeJointFile__SWIG_2(long jarg1, SimmFileWriter jarg1_, long jarg2, SimmKinematicsEngine jarg2_, String jarg3);
   public final static native long SWIGPropertyStrUpcast(long jarg1);
   public final static native long SWIGObjectGroupUpcast(long jarg1);
   public final static native long SWIGVisiblePropertiesUpcast(long jarg1);
