@@ -2637,7 +2637,8 @@ public class opensimModelJNI {
   public final static native boolean AbstractBody_setMass(long jarg1, AbstractBody jarg1_, double jarg2);
   public final static native void AbstractBody_getMassCenter(long jarg1, AbstractBody jarg1_, long jarg2);
   public final static native boolean AbstractBody_setMassCenter(long jarg1, AbstractBody jarg1_, long jarg2);
-  public final static native void AbstractBody_getInertia(long jarg1, AbstractBody jarg1_, long jarg2);
+  public final static native void AbstractBody_getInertia__SWIG_0(long jarg1, AbstractBody jarg1_, long jarg2);
+  public final static native void AbstractBody_getInertia__SWIG_1(long jarg1, AbstractBody jarg1_, double[] jarg2);
   public final static native boolean AbstractBody_setInertia(long jarg1, AbstractBody jarg1_, long jarg2);
   public final static native void AbstractBody_scale__SWIG_0(long jarg1, AbstractBody jarg1_, long jarg2, boolean jarg3);
   public final static native void AbstractBody_scale__SWIG_1(long jarg1, AbstractBody jarg1_, long jarg2);
@@ -2663,7 +2664,8 @@ public class opensimModelJNI {
   public final static native boolean SimmBody_setMass(long jarg1, SimmBody jarg1_, double jarg2);
   public final static native void SimmBody_getMassCenter(long jarg1, SimmBody jarg1_, long jarg2);
   public final static native boolean SimmBody_setMassCenter(long jarg1, SimmBody jarg1_, long jarg2);
-  public final static native void SimmBody_getInertia(long jarg1, SimmBody jarg1_, long jarg2);
+  public final static native void SimmBody_getInertia__SWIG_0(long jarg1, SimmBody jarg1_, long jarg2);
+  public final static native void SimmBody_getInertia__SWIG_1(long jarg1, SimmBody jarg1_, double[] jarg2);
   public final static native boolean SimmBody_setInertia(long jarg1, SimmBody jarg1_, long jarg2);
   public final static native void SimmBody_scale__SWIG_0(long jarg1, SimmBody jarg1_, long jarg2, boolean jarg3);
   public final static native void SimmBody_scale__SWIG_1(long jarg1, SimmBody jarg1_, long jarg2);

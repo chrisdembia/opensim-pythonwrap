@@ -68,7 +68,11 @@ public class AbstractBody extends OpenSimObject {
   }
 
   public void getInertia(SWIGTYPE_p_SimTK__Mat33 rInertia) {
-    opensimModelJNI.AbstractBody_getInertia(swigCPtr, this, SWIGTYPE_p_SimTK__Mat33.getCPtr(rInertia));
+    opensimModelJNI.AbstractBody_getInertia__SWIG_0(swigCPtr, this, SWIGTYPE_p_SimTK__Mat33.getCPtr(rInertia));
+  }
+
+  public void getInertia(double[] rInertia) {
+    opensimModelJNI.AbstractBody_getInertia__SWIG_1(swigCPtr, this, rInertia);
   }
 
   public boolean setInertia(SWIGTYPE_p_SimTK__Mat33 aInertia) {

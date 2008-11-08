@@ -130,9 +130,6 @@
                 <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-FileExportSIMMModelAction.instance"/>
             </file>
             <attr name="org-opensim-view-FileExportSIMMModelAction.shadow/org-opensim-view-separator2.instance" boolvalue="true"/>
-            <file name="org-opensim-view-separator2.instance">
-                <attr name="instanceClass" stringvalue="javax.swing.JSeparator"/>
-            </file>
             <attr name="org-opensim-view-separator2.instance/org-opensim-view-actions-separatorBefore.instance" boolvalue="true"/>
             <file name="org-opensim-view-actions-separatorBefore.instance">
                 <attr name="instanceClass" stringvalue="javax.swing.JSeparator"/>
@@ -140,9 +137,6 @@
             <attr name="org-opensim-view-actions-separatorBefore.instance/org-opensim-view-actions-FileImportSimmKEModelAction.shadow" boolvalue="false"/>
             <attr name="org-opensim-view-separator2.instance/org-netbeans-core-actions-SystemExit.instance" boolvalue="true"/>
             <attr name="org-opensim-view-separator2.instance/org-opensim-view-actions-FileImportSimmKEModelAction.shadow" boolvalue="true"/>
-            <file name="org-opensim-view-actions-FileImportSimmKEModelAction.shadow">
-                <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-actions-FileImportSimmKEModelAction.instance"/>
-            </file>
             <attr name="org-opensim-view-actions-FileImportSimmKEModelAction.shadow/org-netbeans-core-actions-SystemExit.instance" boolvalue="true"/>
             <file name="org-openide-actions-PageSetupAction.instance_hidden"/>
             <file name="org-openide-actions-PrintAction.instance_hidden"/>

@@ -50190,7 +50190,7 @@ SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractBo
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractBody_1getInertia(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractBody_1getInertia_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   OpenSim::AbstractBody *arg1 = (OpenSim::AbstractBody *) 0 ;
   SimTK::Mat33 *arg2 = 0 ;
   
@@ -50204,6 +50204,22 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractBody_1
     return ;
   } 
   ((OpenSim::AbstractBody const *)arg1)->getInertia(*arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractBody_1getInertia_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdoubleArray jarg2) {
+  OpenSim::AbstractBody *arg1 = (OpenSim::AbstractBody *) 0 ;
+  double *arg2 ;
+  jdouble *jarr2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::AbstractBody **)&jarg1; 
+  if (!SWIG_JavaArrayInDouble(jenv, &jarr2, &arg2, jarg2)) return ; 
+  ((OpenSim::AbstractBody const *)arg1)->getInertia(arg2);
+  SWIG_JavaArrayArgoutDouble(jenv, jarr2, arg2, jarg2); 
+  delete [] arg2; 
 }
 
 
@@ -50636,7 +50652,7 @@ SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmBody_1
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmBody_1getInertia(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmBody_1getInertia_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   OpenSim::SimmBody *arg1 = (OpenSim::SimmBody *) 0 ;
   SimTK::Mat33 *arg2 = 0 ;
   
@@ -50650,6 +50666,22 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmBody_1getI
     return ;
   } 
   ((OpenSim::SimmBody const *)arg1)->getInertia(*arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmBody_1getInertia_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdoubleArray jarg2) {
+  OpenSim::SimmBody *arg1 = (OpenSim::SimmBody *) 0 ;
+  double *arg2 ;
+  jdouble *jarr2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::SimmBody **)&jarg1; 
+  if (!SWIG_JavaArrayInDouble(jenv, &jarr2, &arg2, jarg2)) return ; 
+  ((OpenSim::SimmBody const *)arg1)->getInertia(arg2);
+  SWIG_JavaArrayArgoutDouble(jenv, jarr2, arg2, jarg2); 
+  delete [] arg2; 
 }
 
 

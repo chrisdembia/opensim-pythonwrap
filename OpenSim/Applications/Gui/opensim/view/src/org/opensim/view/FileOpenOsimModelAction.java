@@ -31,12 +31,18 @@ import java.io.ObjectOutput;
 import javax.swing.SwingUtilities;
 import org.netbeans.api.progress.ProgressHandle;
 import org.netbeans.api.progress.ProgressHandleFactory;
+import org.openide.DialogDisplayer;
+import org.openide.NotifyDescriptor;
 import org.openide.awt.StatusDisplayer;
 import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
 import org.opensim.logger.OpenSimLogger;
+import org.opensim.modeling.AbstractBody;
+import org.opensim.modeling.AbstractDynamicsEngine;
+import org.opensim.modeling.BodySet;
 import org.opensim.modeling.Model;
+import org.opensim.modeling.SimmKinematicsEngine;
 import org.opensim.utils.ErrorDialog;
 import org.opensim.utils.FileUtils;
 import org.opensim.view.pub.OpenSimDB;
@@ -116,9 +122,57 @@ public class FileOpenOsimModelAction extends CallableSystemAction {
             return retValue;
         }
         aModel.setup();
+
+        // Check if the model uses a SimmKinematicsEngine. If it does,
+        // ask the user if he wants to migrate it to a SimbodyEngine.
+        // If yes, also check to see if any inertial properties are zero.
+        AbstractDynamicsEngine oldEngine = aModel.getDynamicsEngine();
+        SimmKinematicsEngine simmKE = SimmKinematicsEngine.safeDownCast(oldEngine);
+        if (simmKE != null) {
+           Object userAnswer = DialogDisplayer.getDefault().notify(
+              new NotifyDescriptor.Confirmation("The model " + aModel.getName() + " uses a SimmKinematicsEngine, which has been deprecated."
+                   + " Also, it cannot be used in dynamic simulations." +
+                   " Do you want to convert it to a SimbodyEngine?",
+                   NotifyDescriptor.YES_NO_CANCEL_OPTION));
+           if (userAnswer == NotifyDescriptor.CANCEL_OPTION)
+              return false;
+           if (userAnswer == NotifyDescriptor.YES_OPTION) {
+              AbstractDynamicsEngine newEngine = org.opensim.modeling.opensimModel.makeSimbodyEngine(aModel, simmKE);
+              aModel.replaceEngine(newEngine);
+              // Now check for zero mass.
+              if (hasZeroMasses(aModel) == true) {
+                 DialogDisplayer.getDefault().notify(
+                    new NotifyDescriptor.Message("The model " + aModel.getName() + " contains one or more bodies with zero mass or inertia." +
+                         " This may prevent dynamic simulations from running properly." +
+                         " Please use the Property Viewer to check the inertial properties of the bodies before running dynamic simulations.",
+                       NotifyDescriptor.WARNING_MESSAGE));
+              }
+           }
+        }
+
         return loadModel(aModel, loadInForground);
     }
-    
+
+    // Check the model to see if any of its bodies have zero mass or inertia.
+    private boolean hasZeroMasses(Model aModel) {
+       AbstractDynamicsEngine engine = aModel.getDynamicsEngine();
+       BodySet bodies = engine.getBodySet();
+       AbstractBody groundBody = engine.getGroundBody();
+       double[] inertia = new double[9];
+       for (int i=0; i<bodies.getSize(); i++) {
+          AbstractBody body = bodies.get(i);
+          if (AbstractBody.getCPtr(body) != AbstractBody.getCPtr(groundBody)) {
+             if (body.getMass() <= 0.0)
+                return true;
+             body.getInertia(inertia);
+             if (inertia[0] <= 0.0 || inertia[4] <= 0.0 || inertia[8] <= 0.0)
+                return true;
+          }
+       }
+ 
+       return false;
+    }
+
     public String getName() {
         return NbBundle.getMessage(FileOpenOsimModelAction.class, "CTL_OpenOsimModel");
     }
