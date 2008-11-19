@@ -60,16 +60,16 @@ public class IKToolModel extends Observable implements Observer {
       private InterruptingIntegCallback interruptingCallback = null;
       boolean result = false;
       boolean promptToKeepPartialResult = true;
-      //private Model modelCopy = null;
+      private Model modelCopy = null;
      
       IKToolWorker() throws Exception {
          updateIKTool();
 
          // Operate on a copy of the model -- this way if users play with parameters in the GUI it won't affect the model we're actually computing on
-         //modelCopy = new Model(getOriginalModel().getInputFileName()); //For now create from 
-         //modelCopy.setInputFileName("");
-         //modelCopy.setup();
-         ikTool.setModel(getOriginalModel());
+         modelCopy = new Model(getOriginalModel()); //For now create from 
+         modelCopy.setInputFileName("");
+         modelCopy.setup();
+         ikTool.setModel(modelCopy);
 
          // We assume we're working with trial 0.  No support for dealing with other trials in the trial set right now.
          if (!ikTool.initializeTrial(0))
@@ -92,9 +92,9 @@ public class IKToolModel extends Observable implements Observer {
                               });
 
          // Animation callback will update the display during IK solve
-         animationCallback = new JavaMotionDisplayerCallback(getOriginalModel(), getOriginalModel(), ikTool.getIKTrialSet().get(0).getOutputStorage(), progressHandle);
+         animationCallback = new JavaMotionDisplayerCallback(modelCopy, getOriginalModel(), ikTool.getIKTrialSet().get(0).getOutputStorage(), progressHandle);
          animationCallback.setModelForDisplaySetConfiguration(false);
-         getOriginalModel().addIntegCallback(animationCallback);
+         modelCopy.addIntegCallback(animationCallback);
          animationCallback.setStepInterval(1);
          animationCallback.startProgressUsingSteps(1, endFrame-startFrame+1);
          animationCallback.setOptimizerAlgorithm(ikTool.getIKTrialSet().get(0).getOptimizerAlgorithm());
@@ -103,7 +103,7 @@ public class IKToolModel extends Observable implements Observer {
          // removeIntegCallback in finished() will cause the C++-side callback to be deleted, and if Java owned this object
          // it would then later try to delete it yet again)
          interruptingCallback = InterruptingIntegCallback.safeDownCast((new InterruptingIntegCallback()).copy());
-         getOriginalModel().addIntegCallback(interruptingCallback);
+         modelCopy.addIntegCallback(interruptingCallback);
 
          setExecuting(true);
       }
@@ -125,8 +125,8 @@ public class IKToolModel extends Observable implements Observer {
          // Clean up motion displayer (this is necessary!)
          animationCallback.cleanupMotionDisplayer();
 
-         getOriginalModel().removeIntegCallback(animationCallback);
-         getOriginalModel().removeIntegCallback(interruptingCallback);
+         modelCopy.removeIntegCallback(animationCallback);
+         modelCopy.removeIntegCallback(interruptingCallback);
          interruptingCallback = null;
 
          if(result) resetModified();
@@ -151,7 +151,7 @@ public class IKToolModel extends Observable implements Observer {
 
          setExecuting(false);
 
-         //modelCopy = null;
+         modelCopy = null;
          worker = null;
       }
    }
