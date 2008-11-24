@@ -69,7 +69,7 @@ public class Installer extends ModuleInstall {
 
     public void restored() {
         super.restored();
-        System.setProperty ("netbeans.buildnumber", "1.7.1"); // Should get that from JNI but sometimes doesn't work'
+        System.setProperty ("netbeans.buildnumber", "1.8"); // Should get that from JNI but sometimes doesn't work'
         try {
              // Put your startup code here.
             UIManager.setLookAndFeel( UIManager.getSystemLookAndFeelClassName() );
