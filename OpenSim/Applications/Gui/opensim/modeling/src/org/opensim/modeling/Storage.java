@@ -444,6 +444,10 @@ public class Storage extends OpenSimObject {
     opensimModelJNI.Storage_lowpassFIR(swigCPtr, this, aOrder, aCutoffFequency);
   }
 
+  public void lowpassIIR(double aCutoffFrequency) {
+    opensimModelJNI.Storage_lowpassIIR(swigCPtr, this, aCutoffFrequency);
+  }
+
   public void addToRdStorage(Storage rStorage, double aStartTime, double aEndTime) {
     opensimModelJNI.Storage_addToRdStorage(swigCPtr, this, Storage.getCPtr(rStorage), rStorage, aStartTime, aEndTime);
   }
