@@ -2,8 +2,8 @@
 <IKTool name="subject01">
 	<!--Name of the .osim file used to construct a model.-->
 	<model_file> subject01_simbody.osim </model_file>
-	<!--Specify which optimizer to use (ipopt or cfsqp).-->
-	<optimizer_algorithm> ipopt </optimizer_algorithm>
+	<!--Specify which optimizer to use (ipopt or cfsqp or jacobian).-->
+	<optimizer_algorithm> jacobian </optimizer_algorithm>
 	<!--Task set used to specify IK weights.-->
 	<IKTaskSet file="gait2354_IK_Tasks.xml"/>
 	<!--Parameters for solving the IK problem for each trial. Each trial
