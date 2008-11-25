@@ -63,7 +63,7 @@ public final class FileImportSIMMAction extends CallableSystemAction {
             //if (engineString.compareToIgnoreCase("Simbody")==0)
             command += " -e Simbody "; //Always Simbody as of 1.6
             command += " -g Geometry";
-            command += " -g Geometry";
+            //command += " -g Geometry";
             // simmToOpenSim is assumed in the Path, similar to other dlls we depend on.
             File f = new File(jntfileName);
             File jntFileDir = f.getParentFile();

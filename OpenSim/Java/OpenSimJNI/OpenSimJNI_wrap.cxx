@@ -5252,7 +5252,24 @@ SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_OpenSimObject
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_OpenSimObject_1RegisterType(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_OpenSimObject_1RegisterType_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2) {
+  OpenSim::Object *arg1 = 0 ;
+  bool arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::Object **)&jarg1;
+  if(!arg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Object const & reference is null");
+    return ;
+  } 
+  arg2 = jarg2 ? true : false; 
+  OpenSim::Object::RegisterType((OpenSim::Object const &)*arg1,arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_OpenSimObject_1RegisterType_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   OpenSim::Object *arg1 = 0 ;
   
   (void)jenv;
@@ -5264,6 +5281,21 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_OpenSimObject_
     return ;
   } 
   OpenSim::Object::RegisterType((OpenSim::Object const &)*arg1);
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_OpenSimObject_1ReplaceType(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  OpenSim::Object *arg1 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::Object **)&jarg1;
+  if(!arg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Object const & reference is null");
+    return ;
+  } 
+  OpenSim::Object::ReplaceType((OpenSim::Object const &)*arg1);
 }
 
 
@@ -10920,6 +10952,19 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Storage_1lowpa
   arg2 = (int)jarg2; 
   arg3 = (double)jarg3; 
   (arg1)->lowpassFIR(arg2,arg3);
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Storage_1lowpassIIR(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdouble jarg2) {
+  OpenSim::Storage *arg1 = (OpenSim::Storage *) 0 ;
+  double arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::Storage **)&jarg1; 
+  arg2 = (double)jarg2; 
+  (arg1)->lowpassIIR(arg2);
 }
 
 
@@ -77944,6 +77989,14 @@ SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_CMCTool_1r
       jclass excep = jenv->FindClass("java/io/IOException");
       if (excep)
       jenv->ThrowNew(excep, (_e).getMessage());
+      return 0;
+    }
+  }
+  catch(...) {
+    {
+      jclass excep = jenv->FindClass("java/io/IOException");
+      if (excep)
+      jenv->ThrowNew(excep, "Non SimTK error has been thrown, please check log window for details.");
       return 0;
     }
   }

@@ -962,7 +962,7 @@ public class ScaleToolModel extends Observable implements Observer {
       if(!helper.promptUser()) return false;
       updateScaleTool();
       AbsoluteToRelativePaths(fileName);
-      scaleTool.print(fileName);
+      scaleTool.copy().print(fileName);
       relativeToAbsolutePaths(fileName);
       return true;
    }

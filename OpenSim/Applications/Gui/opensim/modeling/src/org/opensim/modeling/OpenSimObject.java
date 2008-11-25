@@ -144,8 +144,16 @@ public class OpenSimObject {
     return new PropertySet(opensimModelJNI.OpenSimObject_getPropertySet(swigCPtr, this), false);
   }
 
+  public static void RegisterType(OpenSimObject aObject, boolean allowOverwrite) {
+    opensimModelJNI.OpenSimObject_RegisterType__SWIG_0(OpenSimObject.getCPtr(aObject), aObject, allowOverwrite);
+  }
+
   public static void RegisterType(OpenSimObject aObject) {
-    opensimModelJNI.OpenSimObject_RegisterType(OpenSimObject.getCPtr(aObject), aObject);
+    opensimModelJNI.OpenSimObject_RegisterType__SWIG_1(OpenSimObject.getCPtr(aObject), aObject);
+  }
+
+  public static void ReplaceType(OpenSimObject aObject) {
+    opensimModelJNI.OpenSimObject_ReplaceType(OpenSimObject.getCPtr(aObject), aObject);
   }
 
   public static OpenSimObject makeObjectFromFile(String aFileName) {

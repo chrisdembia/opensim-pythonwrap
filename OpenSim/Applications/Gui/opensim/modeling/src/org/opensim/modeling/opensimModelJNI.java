@@ -210,7 +210,9 @@ public class opensimModelJNI {
   public final static native String OpenSimObject_getDescription(long jarg1, OpenSimObject jarg1_);
   public final static native String OpenSimObject_toString(long jarg1, OpenSimObject jarg1_);
   public final static native long OpenSimObject_getPropertySet(long jarg1, OpenSimObject jarg1_);
-  public final static native void OpenSimObject_RegisterType(long jarg1, OpenSimObject jarg1_);
+  public final static native void OpenSimObject_RegisterType__SWIG_0(long jarg1, OpenSimObject jarg1_, boolean jarg2);
+  public final static native void OpenSimObject_RegisterType__SWIG_1(long jarg1, OpenSimObject jarg1_);
+  public final static native void OpenSimObject_ReplaceType(long jarg1, OpenSimObject jarg1_);
   public final static native long OpenSimObject_makeObjectFromFile(String jarg1);
   public final static native long OpenSimObject_newInstanceOfType(String jarg1);
   public final static native void OpenSimObject_getRegisteredTypenames(long jarg1, ArrayStr jarg1_);
@@ -552,6 +554,7 @@ public class opensimModelJNI {
   public final static native int Storage_computeAverage__SWIG_1(long jarg1, Storage jarg1_, double jarg2, double jarg3, int jarg4, long jarg5);
   public final static native void Storage_pad(long jarg1, Storage jarg1_, int jarg2);
   public final static native void Storage_lowpassFIR(long jarg1, Storage jarg1_, int jarg2, double jarg3);
+  public final static native void Storage_lowpassIIR(long jarg1, Storage jarg1_, double jarg2);
   public final static native void Storage_addToRdStorage(long jarg1, Storage jarg1_, long jarg2, Storage jarg2_, double jarg3, double jarg4);
   public final static native int Storage_findIndex__SWIG_0(long jarg1, Storage jarg1_, double jarg2);
   public final static native int Storage_findIndex__SWIG_1(long jarg1, Storage jarg1_, int jarg2, double jarg3);
