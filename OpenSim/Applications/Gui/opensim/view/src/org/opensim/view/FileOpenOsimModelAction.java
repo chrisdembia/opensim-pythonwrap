@@ -137,6 +137,17 @@ public class FileOpenOsimModelAction extends CallableSystemAction {
            if (userAnswer == NotifyDescriptor.CANCEL_OPTION)
               return false;
            if (userAnswer == NotifyDescriptor.YES_OPTION) {
+               if (aModel.getDynamicsEngine().getBodySet().get("ground")==null){
+                   DialogDisplayer.getDefault().notify(
+              new NotifyDescriptor.Message("The model " + aModel.getName() + " has no segment with name ground."
+                   + " Please rename your base segment to 'ground' and retry."));
+                   return false;
+               }
+              String backupFilename = FileUtils.addSuffix(fileName, "_save");
+              aModel.copy().print(backupFilename); 
+              OpenSimLogger.logMessage("Backing up model to file "+
+                      backupFilename+"\n", OpenSimLogger.INFO);
+
               AbstractDynamicsEngine newEngine = org.opensim.modeling.opensimModel.makeSimbodyEngine(aModel, simmKE);
               aModel.replaceEngine(newEngine);
               // Now check for zero mass.
@@ -147,6 +158,7 @@ public class FileOpenOsimModelAction extends CallableSystemAction {
                          " Please use the Property Viewer to check the inertial properties of the bodies before running dynamic simulations.",
                        NotifyDescriptor.WARNING_MESSAGE));
               }
+              aModel.print(fileName);  //So user is not prompted again
            }
         }
 
