@@ -95,8 +95,4 @@ public class Measurement extends OpenSimObject {
     opensimModelJNI.Measurement_applyScaleFactor(swigCPtr, this, aFactor, ScaleSet.getCPtr(aScaleSet), aScaleSet);
   }
 
-  public static void registerTypes() {
-    opensimModelJNI.Measurement_registerTypes();
-  }
-
 }

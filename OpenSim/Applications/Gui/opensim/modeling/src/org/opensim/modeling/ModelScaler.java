@@ -62,10 +62,6 @@ public class ModelScaler extends OpenSimObject {
     return opensimModelJNI.ModelScaler_processModel__SWIG_2(swigCPtr, this, Model.getCPtr(aModel), aModel);
   }
 
-  public static void registerTypes() {
-    opensimModelJNI.ModelScaler_registerTypes();
-  }
-
   public void addMeasurement(Measurement aMeasurement) {
     opensimModelJNI.ModelScaler_addMeasurement(swigCPtr, this, Measurement.getCPtr(aMeasurement), aMeasurement);
   }

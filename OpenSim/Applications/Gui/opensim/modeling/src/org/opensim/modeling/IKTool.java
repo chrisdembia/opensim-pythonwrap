@@ -54,10 +54,6 @@ public class IKTool extends AbstractTool {
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
-  public static void registerTypes() {
-    opensimModelJNI.IKTool_registerTypes();
-  }
-
   public IKTrialSet getIKTrialSet() {
     return new IKTrialSet(opensimModelJNI.IKTool_getIKTrialSet(swigCPtr, this), false);
   }

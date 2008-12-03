@@ -60,10 +60,6 @@ public class GenericModelMaker extends OpenSimObject {
     return (cPtr == 0) ? null : new Model(cPtr, false);
   }
 
-  public static void registerTypes() {
-    opensimModelJNI.GenericModelMaker_registerTypes();
-  }
-
   public String getModelFileName() {
     return opensimModelJNI.GenericModelMaker_getModelFileName(swigCPtr, this);
   }

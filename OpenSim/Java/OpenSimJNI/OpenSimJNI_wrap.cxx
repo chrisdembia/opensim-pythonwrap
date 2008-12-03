@@ -73244,13 +73244,6 @@ SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_IKTool_1copy(
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_IKTool_1registerTypes(JNIEnv *jenv, jclass jcls) {
-  (void)jenv;
-  (void)jcls;
-  OpenSim::IKTool::registerTypes();
-}
-
-
 SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_IKTool_1getIKTrialSet(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
   OpenSim::IKTool *arg1 = (OpenSim::IKTool *) 0 ;
@@ -74802,13 +74795,6 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Measurement_1a
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Measurement_1registerTypes(JNIEnv *jenv, jclass jcls) {
-  (void)jenv;
-  (void)jcls;
-  OpenSim::Measurement::registerTypes();
-}
-
-
 SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_delete_1SetMeasurements(JNIEnv *jenv, jclass jcls, jlong jarg1) {
   OpenSim::Set<OpenSim::Measurement > *arg1 = (OpenSim::Set<OpenSim::Measurement > *) 0 ;
   
@@ -75851,13 +75837,6 @@ SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_GenericModelM
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_GenericModelMaker_1registerTypes(JNIEnv *jenv, jclass jcls) {
-  (void)jenv;
-  (void)jcls;
-  OpenSim::GenericModelMaker::registerTypes();
-}
-
-
 SWIGEXPORT jstring JNICALL Java_org_opensim_modeling_opensimModelJNI_GenericModelMaker_1getModelFileName(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jstring jresult = 0 ;
   OpenSim::GenericModelMaker *arg1 = (OpenSim::GenericModelMaker *) 0 ;
@@ -76084,13 +76063,6 @@ SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_ModelScale
   result = (bool)(arg1)->processModel(arg2);
   jresult = (jboolean)result; 
   return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ModelScaler_1registerTypes(JNIEnv *jenv, jclass jcls) {
-  (void)jenv;
-  (void)jcls;
-  OpenSim::ModelScaler::registerTypes();
 }
 
 
@@ -78273,13 +78245,6 @@ SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_ScaleTool_
   result = (bool)(arg1)->isDefaultMarkerPlacer();
   jresult = (jboolean)result; 
   return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ScaleTool_1registerTypes(JNIEnv *jenv, jclass jcls) {
-  (void)jenv;
-  (void)jcls;
-  OpenSim::ScaleTool::registerTypes();
 }
 
 

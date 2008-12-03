@@ -3925,7 +3925,6 @@ public class opensimModelJNI {
   public final static native long new_IKTool__SWIG_2(String jarg1) throws java.io.IOException;
   public final static native long new_IKTool__SWIG_3(long jarg1, IKTool jarg1_);
   public final static native long IKTool_copy(long jarg1, IKTool jarg1_);
-  public final static native void IKTool_registerTypes();
   public final static native long IKTool_getIKTrialSet(long jarg1, IKTool jarg1_);
   public final static native long IKTool_getIKTaskSet(long jarg1, IKTool jarg1_);
   public final static native boolean IKTool_initializeTrial(long jarg1, IKTool jarg1_, int jarg2);
@@ -4010,7 +4009,6 @@ public class opensimModelJNI {
   public final static native boolean Measurement_getApply(long jarg1, Measurement jarg1_);
   public final static native void Measurement_setApply(long jarg1, Measurement jarg1_, boolean jarg2);
   public final static native void Measurement_applyScaleFactor(long jarg1, Measurement jarg1_, double jarg2, long jarg3, ScaleSet jarg3_);
-  public final static native void Measurement_registerTypes();
   public final static native void delete_SetMeasurements(long jarg1);
   public final static native long new_SetMeasurements__SWIG_0();
   public final static native long new_SetMeasurements__SWIG_1(String jarg1, boolean jarg2);
@@ -4067,7 +4065,6 @@ public class opensimModelJNI {
   public final static native void GenericModelMaker_copyData(long jarg1, GenericModelMaker jarg1_, long jarg2, GenericModelMaker jarg2_);
   public final static native long GenericModelMaker_processModel__SWIG_0(long jarg1, GenericModelMaker jarg1_, String jarg2);
   public final static native long GenericModelMaker_processModel__SWIG_1(long jarg1, GenericModelMaker jarg1_);
-  public final static native void GenericModelMaker_registerTypes();
   public final static native String GenericModelMaker_getModelFileName(long jarg1, GenericModelMaker jarg1_);
   public final static native void GenericModelMaker_setModelFileName(long jarg1, GenericModelMaker jarg1_, String jarg2);
   public final static native String GenericModelMaker_getMarkerSetFileName(long jarg1, GenericModelMaker jarg1_);
@@ -4080,7 +4077,6 @@ public class opensimModelJNI {
   public final static native boolean ModelScaler_processModel__SWIG_0(long jarg1, ModelScaler jarg1_, long jarg2, Model jarg2_, String jarg3, double jarg4);
   public final static native boolean ModelScaler_processModel__SWIG_1(long jarg1, ModelScaler jarg1_, long jarg2, Model jarg2_, String jarg3);
   public final static native boolean ModelScaler_processModel__SWIG_2(long jarg1, ModelScaler jarg1_, long jarg2, Model jarg2_);
-  public final static native void ModelScaler_registerTypes();
   public final static native void ModelScaler_addMeasurement(long jarg1, ModelScaler jarg1_, long jarg2, Measurement jarg2_);
   public final static native void ModelScaler_addScale(long jarg1, ModelScaler jarg1_, long jarg2, Scale jarg2_);
   public final static native boolean ModelScaler_getApply(long jarg1, ModelScaler jarg1_);
@@ -4202,7 +4198,6 @@ public class opensimModelJNI {
   public final static native boolean ScaleTool_isDefaultGenericModelMaker(long jarg1, ScaleTool jarg1_);
   public final static native boolean ScaleTool_isDefaultModelScaler(long jarg1, ScaleTool jarg1_);
   public final static native boolean ScaleTool_isDefaultMarkerPlacer(long jarg1, ScaleTool jarg1_);
-  public final static native void ScaleTool_registerTypes();
   public final static native double ScaleTool_getSubjectMass(long jarg1, ScaleTool jarg1_);
   public final static native double ScaleTool_getSubjectAge(long jarg1, ScaleTool jarg1_);
   public final static native double ScaleTool_getSubjectHeight(long jarg1, ScaleTool jarg1_);
