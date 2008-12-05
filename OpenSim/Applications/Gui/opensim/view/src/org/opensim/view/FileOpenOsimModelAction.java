@@ -158,7 +158,7 @@ public class FileOpenOsimModelAction extends CallableSystemAction {
                          " Please use the Property Viewer to check the inertial properties of the bodies before running dynamic simulations.",
                        NotifyDescriptor.WARNING_MESSAGE));
               }
-              aModel.print(fileName);  //So user is not prompted again
+              aModel.copy().print(fileName);  //So user is not prompted again
            }
         }
 
