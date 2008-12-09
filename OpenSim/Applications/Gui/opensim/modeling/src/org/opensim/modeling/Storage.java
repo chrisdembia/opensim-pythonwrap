@@ -224,6 +224,10 @@ public class Storage extends OpenSimObject {
     opensimModelJNI.Storage_getDataColumn__SWIG_4(swigCPtr, this, columnName, ArrayDouble.getCPtr(data), data);
   }
 
+  public void interpolateAt(ArrayDouble targetTimes) {
+    opensimModelJNI.Storage_interpolateAt(swigCPtr, this, ArrayDouble.getCPtr(targetTimes), targetTimes);
+  }
+
   public void setStepInterval(int aStepInterval) {
     opensimModelJNI.Storage_setStepInterval(swigCPtr, this, aStepInterval);
   }
@@ -282,6 +286,10 @@ public class Storage extends OpenSimObject {
 
   public int reset(double aTime) {
     return opensimModelJNI.Storage_reset__SWIG_2(swigCPtr, this, aTime);
+  }
+
+  public void crop(double newStartTime, double newFinalTime) {
+    opensimModelJNI.Storage_crop(swigCPtr, this, newStartTime, newFinalTime);
   }
 
   public void purge() {
