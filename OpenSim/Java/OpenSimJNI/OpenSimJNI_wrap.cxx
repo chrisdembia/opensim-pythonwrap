@@ -10028,6 +10028,24 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Storage_1getDa
 }
 
 
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Storage_1interpolateAt(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  OpenSim::Storage *arg1 = (OpenSim::Storage *) 0 ;
+  OpenSim::Array<double > *arg2 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(OpenSim::Storage **)&jarg1; 
+  arg2 = *(OpenSim::Array<double > **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<double > const & reference is null");
+    return ;
+  } 
+  (arg1)->interpolateAt((OpenSim::Array<double > const &)*arg2);
+}
+
+
 SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Storage_1setStepInterval(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
   OpenSim::Storage *arg1 = (OpenSim::Storage *) 0 ;
   int arg2 ;
@@ -10285,6 +10303,21 @@ SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_Storage_1reset
   result = (int)(arg1)->reset(arg2);
   jresult = (jint)result; 
   return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Storage_1crop(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdouble jarg2, jdouble jarg3) {
+  OpenSim::Storage *arg1 = (OpenSim::Storage *) 0 ;
+  double arg2 ;
+  double arg3 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::Storage **)&jarg1; 
+  arg2 = (double)jarg2; 
+  arg3 = (double)jarg3; 
+  (arg1)->crop(arg2,arg3);
 }
 
 

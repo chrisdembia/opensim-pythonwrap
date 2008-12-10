@@ -500,6 +500,7 @@ public class opensimModelJNI {
   public final static native int Storage_getDataColumn__SWIG_2(long jarg1, Storage jarg1_, String jarg2, long jarg3);
   public final static native void Storage_getDataColumn__SWIG_3(long jarg1, Storage jarg1_, String jarg2, long jarg3, ArrayDouble jarg3_, double jarg4);
   public final static native void Storage_getDataColumn__SWIG_4(long jarg1, Storage jarg1_, String jarg2, long jarg3, ArrayDouble jarg3_);
+  public final static native void Storage_interpolateAt(long jarg1, Storage jarg1_, long jarg2, ArrayDouble jarg2_);
   public final static native void Storage_setStepInterval(long jarg1, Storage jarg1_, int jarg2);
   public final static native int Storage_getStepInterval(long jarg1, Storage jarg1_);
   public final static native void Storage_setCapacityIncrement(long jarg1, Storage jarg1_, int jarg2);
@@ -515,6 +516,7 @@ public class opensimModelJNI {
   public final static native int Storage_reset__SWIG_0(long jarg1, Storage jarg1_, int jarg2);
   public final static native int Storage_reset__SWIG_1(long jarg1, Storage jarg1_);
   public final static native int Storage_reset__SWIG_2(long jarg1, Storage jarg1_, double jarg2);
+  public final static native void Storage_crop(long jarg1, Storage jarg1_, double jarg2, double jarg3);
   public final static native void Storage_purge(long jarg1, Storage jarg1_);
   public final static native int Storage_append__SWIG_0(long jarg1, Storage jarg1_, long jarg2, StateVector jarg2_, boolean jarg3);
   public final static native int Storage_append__SWIG_1(long jarg1, Storage jarg1_, long jarg2, StateVector jarg2_);
