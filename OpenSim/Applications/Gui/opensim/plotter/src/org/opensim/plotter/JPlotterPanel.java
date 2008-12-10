@@ -2003,6 +2003,8 @@ public class JPlotterPanel extends javax.swing.JPanel
             if (mapColumns.get(j)!=-2){
                buffer[j]=dataFromMotion.getitem(mapColumns.get(j));
             }
+            else if (activationColumns.get(j))
+               buffer[j]=newActivation;
             else
                buffer[j]=0.0;
             if (activationColumns.get(j) && overrideActivation)
