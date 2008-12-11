@@ -151,6 +151,8 @@ public class JPlotterPanel extends javax.swing.JPanel
    private Storage statesStorage;
    private boolean clamp=false;
    double  yMin, yMax;
+   private boolean activationOverride=false;
+   double activationValue;
    private boolean modelChanged=true;
    /**
     * Creates new form JPlotterPanel
@@ -163,6 +165,7 @@ public class JPlotterPanel extends javax.swing.JPanel
       jDomainEndTextField.setValue(1.0);   jDomainEndTextField.addActionListener(new handleReturnAction(jDomainEndTextField));
       jFormattedTextFieldYmin.setValue(-10000.0);   jFormattedTextFieldYmin.addActionListener(new handleReturnAction(jFormattedTextFieldYmin));
       jFormattedTextFieldYmax.setValue(10000.0);   jFormattedTextFieldYmax.addActionListener(new handleReturnAction(jFormattedTextFieldYmax));
+      jActivationValueFormattedTextField.setValue(1.0);   jActivationValueFormattedTextField.addActionListener(new handleReturnAction(jActivationValueFormattedTextField));
 
       jTopChartingPanel.setLayout(new BorderLayout());
       xSelector = new JPlotterQuantitySelector(jXQtyTextField, this, true);
@@ -207,6 +210,9 @@ public class JPlotterPanel extends javax.swing.JPanel
       jDomainEndTextField = new JFormattedTextField(domainFormatter);
       jFormattedTextFieldYmin = new JFormattedTextField(rangeFormatter);
       jFormattedTextFieldYmax = new JFormattedTextField(rangeFormatter);
+      jActivationOverrideCheckBox = new javax.swing.JCheckBox();
+      jActivationLabel = new javax.swing.JLabel();
+      jActivationValueFormattedTextField = new javax.swing.JFormattedTextField();
       jPlotTitlePanel = new javax.swing.JPanel();
       jPlotLabelJLabel = new javax.swing.JLabel();
       jPlotNameTextField = new javax.swing.JTextField();
@@ -273,11 +279,25 @@ public class JPlotterPanel extends javax.swing.JPanel
 
       jFormattedTextFieldYmin.setEditable(false);
       jFormattedTextFieldYmin.setToolTipText("clamp from value");
+      jFormattedTextFieldYmin.setEnabled(false);
       jFormattedTextFieldYmin.addActionListener(this);
 
       jFormattedTextFieldYmax.setEditable(false);
       jFormattedTextFieldYmax.setToolTipText("clamp to value");
       jFormattedTextFieldYmax.setEnabled(false);
+
+      jActivationOverrideCheckBox.setText("Activation override");
+      jActivationOverrideCheckBox.setToolTipText("use activation specified below for all muscles");
+      jActivationOverrideCheckBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+      jActivationOverrideCheckBox.setMargin(new java.awt.Insets(0, 0, 0, 0));
+      jActivationOverrideCheckBox.addActionListener(this);
+
+      jActivationLabel.setText("Activation");
+
+      jActivationValueFormattedTextField.setEditable(false);
+      jActivationValueFormattedTextField.setText("1.0");
+      jActivationValueFormattedTextField.setToolTipText("activation value for all muscles");
+      jActivationValueFormattedTextField.setEnabled(false);
 
       org.jdesktop.layout.GroupLayout jAdvancedPanelLayout = new org.jdesktop.layout.GroupLayout(jAdvancedPanel);
       jAdvancedPanel.setLayout(jAdvancedPanelLayout);
@@ -287,53 +307,66 @@ public class JPlotterPanel extends javax.swing.JPanel
             .addContainerGap()
             .add(jAdvancedPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                .add(jRectifyCheckBox)
+               .add(jAdvancedPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                  .add(org.jdesktop.layout.GroupLayout.LEADING, jClampCheckBox)
+                  .add(org.jdesktop.layout.GroupLayout.LEADING, jAdvancedPanelLayout.createSequentialGroup()
+                     .add(jLabel9)
+                     .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                     .add(jDomainStartTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 74, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                  .add(org.jdesktop.layout.GroupLayout.LEADING, jAdvancedPanelLayout.createSequentialGroup()
+                     .add(jLabel1)
+                     .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                     .add(jFormattedTextFieldYmin))))
+            .add(jAdvancedPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                .add(jAdvancedPanelLayout.createSequentialGroup()
-                  .add(jAdvancedPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                     .add(jClampCheckBox)
+                  .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 19, Short.MAX_VALUE)
+                  .add(jAdvancedPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                      .add(jAdvancedPanelLayout.createSequentialGroup()
-                        .add(jAdvancedPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                           .add(org.jdesktop.layout.GroupLayout.LEADING, jAdvancedPanelLayout.createSequentialGroup()
-                              .add(jLabel9)
-                              .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                              .add(jDomainStartTextField))
-                           .add(org.jdesktop.layout.GroupLayout.LEADING, jAdvancedPanelLayout.createSequentialGroup()
-                              .add(jLabel1)
-                              .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                              .add(jFormattedTextFieldYmin, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 82, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                  .add(10, 10, 10)
-                  .add(jAdvancedPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                     .add(jLabel10)
-                     .add(jLabel3))
-                  .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                  .add(jAdvancedPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                     .add(jDomainEndTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
-                     .add(jFormattedTextFieldYmax, 0, 0, Short.MAX_VALUE))
-                  .addContainerGap())))
+                        .add(jLabel10)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jDomainEndTextField))
+                     .add(jAdvancedPanelLayout.createSequentialGroup()
+                        .add(jLabel3)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jFormattedTextFieldYmax, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 73, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
+               .add(jAdvancedPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                  .add(org.jdesktop.layout.GroupLayout.LEADING, jAdvancedPanelLayout.createSequentialGroup()
+                     .add(jActivationLabel)
+                     .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                     .add(jActivationValueFormattedTextField, 0, 0, Short.MAX_VALUE))
+                  .add(org.jdesktop.layout.GroupLayout.LEADING, jActivationOverrideCheckBox)))
+            .addContainerGap())
       );
       jAdvancedPanelLayout.setVerticalGroup(
          jAdvancedPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
          .add(jAdvancedPanelLayout.createSequentialGroup()
+            .addContainerGap()
             .add(jAdvancedPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                .add(jAdvancedPanelLayout.createSequentialGroup()
-                  .addContainerGap()
-                  .add(jRectifyCheckBox)
-                  .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                  .add(jClampCheckBox)
-                  .add(8, 8, 8)
                   .add(jAdvancedPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                     .add(jFormattedTextFieldYmin, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                     .add(jRectifyCheckBox)
+                     .add(jActivationOverrideCheckBox))
+                  .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                  .add(jAdvancedPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                     .add(jClampCheckBox)
+                     .add(jActivationLabel)
+                     .add(jActivationValueFormattedTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                  .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 25, Short.MAX_VALUE)
+                  .add(jAdvancedPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                     .add(jLabel1)
+                     .add(jFormattedTextFieldYmin, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                  .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                  .add(jAdvancedPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                     .add(jLabel9)
+                     .add(jDomainStartTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+               .add(org.jdesktop.layout.GroupLayout.TRAILING, jAdvancedPanelLayout.createSequentialGroup()
+                  .add(jAdvancedPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                      .add(jLabel3)
-                     .add(jLabel1)))
-               .add(jAdvancedPanelLayout.createSequentialGroup()
-                  .add(55, 55, 55)
-                  .add(jFormattedTextFieldYmax, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .add(jAdvancedPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-               .add(jLabel9)
-               .add(jDomainStartTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-               .add(jDomainEndTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-               .add(jLabel10))
+                     .add(jFormattedTextFieldYmax, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                  .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                  .add(jAdvancedPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                     .add(jLabel10)
+                     .add(jDomainEndTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
             .addContainerGap())
       );
       jPlotTitlePanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Headers"));
@@ -570,8 +603,14 @@ public class JPlotterPanel extends javax.swing.JPanel
       else if (evt.getSource() == jDomainStartTextField) {
          JPlotterPanel.this.jDomainStartTextFieldActionPerformed(evt);
       }
+      else if (evt.getSource() == jDomainEndTextField) {
+         JPlotterPanel.this.jDomainEndTextFieldActionPerformed(evt);
+      }
       else if (evt.getSource() == jFormattedTextFieldYmin) {
          JPlotterPanel.this.jFormattedTextFieldYminActionPerformed(evt);
+      }
+      else if (evt.getSource() == jActivationOverrideCheckBox) {
+         JPlotterPanel.this.jActivationOverrideCheckBoxActionPerformed(evt);
       }
       else if (evt.getSource() == jPlotterAddPlotButton) {
          JPlotterPanel.this.jPlotterAddCurveButtonActionPerformed(evt);
@@ -590,9 +629,6 @@ public class JPlotterPanel extends javax.swing.JPanel
       }
       else if (evt.getSource() == jXQtyTextField) {
          JPlotterPanel.this.jXQtyTextFieldActionPerformed(evt);
-      }
-      else if (evt.getSource() == jDomainEndTextField) {
-         JPlotterPanel.this.jDomainEndTextFieldActionPerformed(evt);
       }
    }
 
@@ -668,12 +704,17 @@ public class JPlotterPanel extends javax.swing.JPanel
       }
    }// </editor-fold>//GEN-END:initComponents
 
+   private void jActivationOverrideCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jActivationOverrideCheckBoxActionPerformed
+       JCheckBox override = (JCheckBox)evt.getSource();
+       jActivationValueFormattedTextField.setEnabled(override.isSelected());
+       jActivationValueFormattedTextField.setEditable(override.isSelected());
+   }//GEN-LAST:event_jActivationOverrideCheckBoxActionPerformed
+
    private void jDomainEndTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jDomainEndTextFieldActionPerformed
       jDomainEndTextField.setValue(getMaxX()); // to reformat the entered value
    }//GEN-LAST:event_jDomainEndTextFieldActionPerformed
 
    private void jPlotsTreeMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPlotsTreeMouseReleased
-// TODO add your handling code here:
      if (evt.isPopupTrigger())
        invokeTreePopupIfNeeded(evt.getX(), evt.getY());
    }//GEN-LAST:event_jPlotsTreeMouseReleased
@@ -681,11 +722,9 @@ public class JPlotterPanel extends javax.swing.JPanel
    private void jPlotsTreeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPlotsTreeMousePressed
       if (evt.isPopupTrigger())
        invokeTreePopupIfNeeded(evt.getX(), evt.getY());
-// TODO add your handling code here:
    }//GEN-LAST:event_jPlotsTreeMousePressed
 
    private void jFormattedTextFieldYminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextFieldYminActionPerformed
-// TODO add your handling code here:
    }//GEN-LAST:event_jFormattedTextFieldYminActionPerformed
 
    private void jDomainStartTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jDomainStartTextFieldActionPerformed
@@ -693,17 +732,16 @@ public class JPlotterPanel extends javax.swing.JPanel
    }//GEN-LAST:event_jDomainStartTextFieldActionPerformed
 
    private void jRectifyCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRectifyCheckBoxActionPerformed
-// TODO add your handling code here:
    }//GEN-LAST:event_jRectifyCheckBoxActionPerformed
    
     private void jAdvancedOptionsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAdvancedOptionsButtonActionPerformed
-// TODO add your handling code here:
        OpenSimDialog  advDlg=DialogUtils.createDialogForPanelWithParent(getFrame(), jAdvancedPanel, "Advanced Options");
        DialogUtils.addStandardButtons(advDlg);
        advDlg.setModal(true);
        advDlg.setVisible(true);
        if (advDlg.getDialogReturnValue()==OpenSimDialog.OK_OPTION){
            setClamp(jClampCheckBox.isSelected());
+           setActivationOverride(jActivationOverrideCheckBox.isSelected());
            updateSummary();
        }
     }//GEN-LAST:event_jAdvancedOptionsButtonActionPerformed
@@ -718,12 +756,14 @@ public class JPlotterPanel extends javax.swing.JPanel
               summary=summary+" y:["+
                       numFormat.format(jFormattedTextFieldYmin.getValue())+", "+
                       numFormat.format(jFormattedTextFieldYmax.getValue())+"]";
-      
+      Object foo = jActivationValueFormattedTextField.getValue();
+      Object foo2 = jFormattedTextFieldYmin.getValue();
+      if (isActivationOverride())
+         summary=summary+" A=" + numFormat.format(jActivationValueFormattedTextField.getValue());
       jSummaryAdvancedTextField.setText(summary);
    }
     
     private void jClampCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jClampCheckBoxActionPerformed
-// TODO add your handling code here:
        JCheckBox clamped = (JCheckBox)evt.getSource();
        jFormattedTextFieldYmin.setEnabled(clamped.isSelected());
        jFormattedTextFieldYmin.setEditable(clamped.isSelected());
@@ -732,13 +772,11 @@ public class JPlotterPanel extends javax.swing.JPanel
     }//GEN-LAST:event_jClampCheckBoxActionPerformed
     
     private void jMuscleSelectButtonMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMuscleSelectButtonMouseReleased
-// TODO add your handling code here:
        //jMuscleSelectButtonMousePressed(evt);
     }//GEN-LAST:event_jMuscleSelectButtonMouseReleased
     
     private void jMuscleSelectButtonMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMuscleSelectButtonMousePressed
         String preSelected=jSelectedMusclesTextField.getText();
-// TODO add your handling code here:
         // Show muscle selection, multiple
         //XX2
         if (currentModel==null || builtinMuscleCurve==false)
@@ -795,12 +833,10 @@ public class JPlotterPanel extends javax.swing.JPanel
     }//GEN-LAST:event_jMuscleSelectButtonMousePressed
     
     private void xQuantityButtonMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_xQuantityButtonMouseReleased
-// TODO add your handling code here:
        //xQuantityButtonMousePressed(evt);
     }//GEN-LAST:event_xQuantityButtonMouseReleased
     
     private void xQuantityButtonMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_xQuantityButtonMousePressed
-// TODO add your handling code here:
        //XX3
        if (isBuiltinMuscleCurve()){
           // May plot against motion curve or against a GC
@@ -882,29 +918,23 @@ public class JPlotterPanel extends javax.swing.JPanel
     }//GEN-LAST:event_xQuantityButtonMousePressed
     
     private void yQuantityButtonMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_yQuantityButtonMouseReleased
-// TODO add your handling code here:
        //yQuantityButtonMousePressed(evt);
     }//GEN-LAST:event_yQuantityButtonMouseReleased
     
     private void yQuantityButtonMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_yQuantityButtonMousePressed
-// TODO add your handling code here:
        jSourcePopupMenu.show(evt.getComponent(), evt.getX(), evt.getY());
     }//GEN-LAST:event_yQuantityButtonMousePressed
         
    private void jXQtyTextFieldPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jXQtyTextFieldPropertyChange
-// TODO add your handling code here:
    }//GEN-LAST:event_jXQtyTextFieldPropertyChange
    
    private void jXQtyTextFieldCaretPositionChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_jXQtyTextFieldCaretPositionChanged
-// TODO add your handling code here:
    }//GEN-LAST:event_jXQtyTextFieldCaretPositionChanged
    
     private void jDomainEndTextFieldPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jDomainEndTextFieldPropertyChange
-// TODO add your handling code here:
     }//GEN-LAST:event_jDomainEndTextFieldPropertyChange
     
     private void jDomainStartTextFieldPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jDomainStartTextFieldPropertyChange
-// TODO add your handling code here:
     }//GEN-LAST:event_jDomainStartTextFieldPropertyChange
     // AnalysisPick
     private PlotterSourceAnalysis[] initAnalyses() {
@@ -1044,6 +1074,9 @@ public class JPlotterPanel extends javax.swing.JPanel
    }
    
    // Variables declaration - do not modify//GEN-BEGIN:variables
+   private javax.swing.JLabel jActivationLabel;
+   private javax.swing.JCheckBox jActivationOverrideCheckBox;
+   private javax.swing.JFormattedTextField jActivationValueFormattedTextField;
    private javax.swing.JButton jAdvancedOptionsButton;
    private javax.swing.JPanel jAdvancedPanel;
    private javax.swing.JCheckBox jClampCheckBox;
@@ -1430,7 +1463,7 @@ public class JPlotterPanel extends javax.swing.JPanel
        if (motion != null && motion instanceof PlotterSourceMotion){
          tool.setStartTime( motion.getStorage().getFirstTime());
          tool.setFinalTime( motion.getStorage().getLastTime());
-         statesStorage = buildStatesStorageFromMotion(motion.getStorage(), false, 1.0);
+         statesStorage = buildStatesStorageFromMotion(motion.getStorage(), isActivationOverride(), getActivationValue());
          tool.setStatesStorage(statesStorage);
       } else {
          // Recreate stateStorage
@@ -1439,7 +1472,7 @@ public class JPlotterPanel extends javax.swing.JPanel
           // make states for analysis by setting fiberlength and activation and form complete storage
          double[] statesForAnalysis = new double[numStates];
          currentModel.getStates(statesForAnalysis);
-         setNonzeroDefaultValues(stateNames, statesForAnalysis);
+         setNonzeroDefaultValues(stateNames, statesForAnalysis, isActivationOverride(), getActivationValue());
          double NUM_STEPS=100.0;
          int xIndex = statesStorage.getStateIndex(getDomainName());
          AbstractCoordinate coord = currentModel.getDynamicsEngine().getCoordinateSet().get(getDomainName());
@@ -1487,12 +1520,16 @@ public class JPlotterPanel extends javax.swing.JPanel
       currentModel.setStates(saveStates);
    }
 
-    private void setNonzeroDefaultValues(final ArrayStr stateNames, final double[] statesForAnalysis) {
+    private void setNonzeroDefaultValues(final ArrayStr stateNames, final double[] statesForAnalysis, boolean activationOverride, double activationValue) {
         for(int i=0; i<statesForAnalysis.length; i++){
            if (stateNames.getitem(i).endsWith(".fiber_length"))
               statesForAnalysis[i]=0.01;
-           else if (stateNames.getitem(i).endsWith(".activation"))
-              statesForAnalysis[i]=1.0;        // Should be filled from GUI.
+           else if (stateNames.getitem(i).endsWith(".activation")) {
+              if (activationOverride)
+                 statesForAnalysis[i]=activationValue;
+              else
+                 statesForAnalysis[i]=1.0;
+           }
         }
     }
    
@@ -1748,6 +1785,19 @@ public class JPlotterPanel extends javax.swing.JPanel
    double getMaxY() {
       return ((Double)jFormattedTextFieldYmax.getValue()).doubleValue();
    }
+
+   public boolean isActivationOverride() {
+      return activationOverride;
+   }
+
+   public void setActivationOverride(boolean activationOverride) {
+      this.activationOverride = activationOverride;
+   }
+
+   double getActivationValue() {
+      return ((Double)jActivationValueFormattedTextField.getValue()).doubleValue();
+   }
+
    class handleReturnAction extends AbstractAction {
         JFormattedTextField jFormattedTextField;
         public handleReturnAction(JFormattedTextField textfield)

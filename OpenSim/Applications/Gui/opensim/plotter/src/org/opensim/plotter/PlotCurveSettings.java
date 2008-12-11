@@ -45,6 +45,8 @@ public class PlotCurveSettings {
    private boolean clamp=false;
    private double ymin=0.0;
    private double ymax=1.0;
+   private boolean activationOverride=false;
+   private double activationValue=1.0;
    private String xLabel, yLabel;
    private Vector<PlotDataFilter> filters = new Vector<PlotDataFilter>(4);
    private boolean musclePlot=false;
@@ -62,6 +64,10 @@ public class PlotCurveSettings {
          ymin=plotterFrame.getMinY();
          ymax=plotterFrame.getMaxY();
          clamp=true;
+      }
+      if (plotterFrame.isActivationOverride()){
+         activationValue=plotterFrame.getActivationValue();
+         activationOverride=true;
       }
       setMusclePlot(plotterFrame.isBuiltinMuscleCurve());
    }
@@ -154,5 +160,12 @@ public class PlotCurveSettings {
    public double getYmax() {
       return ymax;
    }
-   
+
+   public boolean isActivationOverride() {
+      return activationOverride;
+   }
+
+   public double getActivationValue() {
+      return activationValue;
+   }
 }
