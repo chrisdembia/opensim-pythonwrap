@@ -170,7 +170,7 @@ public final class FileUtils {
         //final JFileChooser dlog = new JFileChooser(defaultDir);
         dlog.setCurrentDirectory(new File(defaultDir));
         dlog.setName("");
-        if(filter!=null) dlog.setFileFilter(filter);
+        if(filter!=null) { dlog.resetChoosableFileFilters(); dlog.setFileFilter(filter); }
         
         String outFilename=null;
         Component topWindow;
@@ -247,7 +247,7 @@ public final class FileUtils {
         String defaultDir = Preferences.userNodeForPackage(TheApp.class).get("WorkDirectory", "");
         //JFileChooser dlog = new JFileChooser(defaultDir);
         dlog.setCurrentDirectory(new File(defaultDir));
-        if(filter!=null) dlog.setFileFilter(filter);
+        if(filter!=null) { dlog.resetChoosableFileFilters(); dlog.setFileFilter(filter); }
         
         String outFilename=null;
         Component topWindow;
@@ -380,6 +380,7 @@ public final class FileUtils {
         // final JFileChooser dlog = new JFileChooser(defaultDir);
         dlog.setCurrentDirectory(new File(defaultDir));
         dlog.setMultiSelectionEnabled(true);
+        dlog.resetChoosableFileFilters(); 
         dlog.setFileFilter(getFileFilter(extensions, desc));
         
         File[] outFiles=null;
