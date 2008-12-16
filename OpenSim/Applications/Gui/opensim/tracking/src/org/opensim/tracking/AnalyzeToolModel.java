@@ -219,7 +219,7 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
    // Utilities for inverse dynamics specific analyze tool
    //------------------------------------------------------------------------
 
-   protected void adjustToolForMode() {
+   protected void adjustToolForMode() { 
       if(!inverseDynamicsMode && !staticOptimizationMode) return;
       // Check if have non-inverse dynamics analyses, or multiple inverse dynamics analyses
       boolean foundOtherAnalysis = false;
@@ -315,7 +315,7 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
          inputMotion = motions.get(0);
          inputSource = InputSource.Motion;
       }
-      if (staticOptimizationMode){  // Surgically change inputSource based on fields
+      if (staticOptimizationMode || inverseDynamicsMode){  // Surgically change inputSource based on fields
           inputSource = InputSource.Coordinates;
       }
    }

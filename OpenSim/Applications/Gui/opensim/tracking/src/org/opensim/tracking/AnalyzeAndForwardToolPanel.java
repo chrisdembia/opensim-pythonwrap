@@ -233,6 +233,9 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
 
    public void update(Observable observable, Object obj) {
       if(observable == toolModel && obj == AbstractToolModel.Operation.ExecutionStateChanged)
+
+      //if(observable == toolModel && (obj == AbstractToolModel.Operation.ExecutionStateChanged ||
+      //        obj == AbstractToolModel.Operation.InputDataChanged))
          updateDialogButtons();
       else
          updateFromModel(); 
