@@ -3718,7 +3718,6 @@ public class opensimModelJNI {
   public final static native long Schutte1993Muscle_getActiveForceLengthCurve(long jarg1, Schutte1993Muscle jarg1_);
   public final static native long Schutte1993Muscle_getPassiveForceLengthCurve(long jarg1, Schutte1993Muscle jarg1_);
   public final static native long Schutte1993Muscle_getTendonForceLengthCurve(long jarg1, Schutte1993Muscle jarg1_);
-  public final static native long Schutte1993Muscle_getForceVelocityCurve(long jarg1, Schutte1993Muscle jarg1_);
   public final static native double Schutte1993Muscle_calcNonzeroPassiveForce(long jarg1, Schutte1993Muscle jarg1_, double jarg2, double jarg3);
   public final static native double Schutte1993Muscle_calcFiberVelocity(long jarg1, Schutte1993Muscle jarg1_, double jarg2, double jarg3, double jarg4);
   public final static native double Schutte1993Muscle_calcTendonForce(long jarg1, Schutte1993Muscle jarg1_, double jarg2);

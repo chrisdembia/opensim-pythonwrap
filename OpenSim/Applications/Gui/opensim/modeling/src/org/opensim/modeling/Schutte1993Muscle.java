@@ -149,11 +149,6 @@ public class Schutte1993Muscle extends AbstractMuscle {
     return (cPtr == 0) ? null : new Function(cPtr, false);
   }
 
-  public Function getForceVelocityCurve() {
-    long cPtr = opensimModelJNI.Schutte1993Muscle_getForceVelocityCurve(swigCPtr, this);
-    return (cPtr == 0) ? null : new Function(cPtr, false);
-  }
-
   public double calcNonzeroPassiveForce(double aNormFiberLength, double aNormFiberVelocity) {
     return opensimModelJNI.Schutte1993Muscle_calcNonzeroPassiveForce(swigCPtr, this, aNormFiberLength, aNormFiberVelocity);
   }

@@ -1224,7 +1224,7 @@ SWIGINTERN void OpenSim_Array_Sl_OpenSim_MusclePoint_Sm__Sg__setitem(OpenSim::Ar
  * C++ director class methods
  * --------------------------------------------------- */
 
-#include "OpenSimJNI_wrap.h"
+#include "C:/SimTK/OpenSim/Java/OpenSimJNI/OpenSimJNI_wrap.h"
 
 SwigDirector_SimtkAnimationCallback::SwigDirector_SimtkAnimationCallback(JNIEnv *jenv, OpenSim::Model *aModel, OpenSim::Model *aModelForDisplay) : OpenSim::SimtkAnimationCallback(aModel, aModelForDisplay), Swig::Director(jenv) {
 }
@@ -69512,21 +69512,6 @@ SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_Schutte1993Mu
 }
 
 
-SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_Schutte1993Muscle_1getForceVelocityCurve(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  OpenSim::Schutte1993Muscle *arg1 = (OpenSim::Schutte1993Muscle *) 0 ;
-  OpenSim::Function *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(OpenSim::Schutte1993Muscle **)&jarg1; 
-  result = (OpenSim::Function *)((OpenSim::Schutte1993Muscle const *)arg1)->getForceVelocityCurve();
-  *(OpenSim::Function **)&jresult = result; 
-  return jresult;
-}
-
-
 SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_Schutte1993Muscle_1calcNonzeroPassiveForce(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdouble jarg2, jdouble jarg3) {
   jdouble jresult = 0 ;
   OpenSim::Schutte1993Muscle *arg1 = (OpenSim::Schutte1993Muscle *) 0 ;
@@ -77994,14 +77979,6 @@ SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_CMCTool_1r
       jclass excep = jenv->FindClass("java/io/IOException");
       if (excep)
       jenv->ThrowNew(excep, (_e).getMessage());
-      return 0;
-    }
-  }
-  catch(...) {
-    {
-      jclass excep = jenv->FindClass("java/io/IOException");
-      if (excep)
-      jenv->ThrowNew(excep, "Non SimTK error has been thrown, please check log window for details.");
       return 0;
     }
   }
