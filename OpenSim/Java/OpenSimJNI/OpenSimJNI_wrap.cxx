@@ -1224,7 +1224,7 @@ SWIGINTERN void OpenSim_Array_Sl_OpenSim_MusclePoint_Sm__Sg__setitem(OpenSim::Ar
  * C++ director class methods
  * --------------------------------------------------- */
 
-#include "C:/SimTK/OpenSim/Java/OpenSimJNI/OpenSimJNI_wrap.h"
+#include "OpenSimJNI_wrap.h"
 
 SwigDirector_SimtkAnimationCallback::SwigDirector_SimtkAnimationCallback(JNIEnv *jenv, OpenSim::Model *aModel, OpenSim::Model *aModelForDisplay) : OpenSim::SimtkAnimationCallback(aModel, aModelForDisplay), Swig::Director(jenv) {
 }
@@ -1655,7 +1655,7 @@ int SwigDirector_SimtkAnimationCallback::step(double *aXPrev, double *aYPrev, do
     *((void **)&jaClientData) = (void *) aClientData; 
     jresult = (jint) jenv->CallStaticIntMethod(Swig::jclass_opensimModelJNI, Swig::director_methids[22], jobj, jaXPrev, jaYPrev, jaYPPrev, jaStep, jaDT, jaT, jaX, jaY, jaYP, jaDYDT, jaClientData);
     if (jenv->ExceptionOccurred()) return c_result;
-    c_result = (int)jresult; 
+    c_result = (int)0; 
   } else {
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null upcall object");
   }
@@ -77979,6 +77979,14 @@ SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_CMCTool_1r
       jclass excep = jenv->FindClass("java/io/IOException");
       if (excep)
       jenv->ThrowNew(excep, (_e).getMessage());
+      return 0;
+    }
+  }
+  catch(...) {
+    {
+      jclass excep = jenv->FindClass("java/io/IOException");
+      if (excep)
+      jenv->ThrowNew(excep, "Non SimTK error has been thrown, please check log window for details.");
       return 0;
     }
   }
