@@ -48,6 +48,7 @@ import org.opensim.utils.ApplicationState;
 import org.opensim.view.pub.OpenSimDB;
 import org.opensim.modeling.Model;
 import org.opensim.view.pub.OpenSimDBDescriptor;
+import org.opensim.view.pub.PluginsDB;
 import org.opensim.view.pub.ViewDB;
 import org.opensim.view.pub.ViewDBDescriptor;
 
@@ -88,7 +89,8 @@ public class ApplicationExit extends WindowAdapter
           state.addObject("OpenSimDB", dbDesc);
           ViewDBDescriptor vudbDesc = new ViewDBDescriptor(ViewDB.getInstance());
           state.addObject("ViewDB", vudbDesc);
-         
+          //release 1.8 remember plugins
+          state.addObject("Plugins", PluginsDB.getInstance());
           XMLEncoder e = new XMLEncoder(new BufferedOutputStream(
 					new FileOutputStream("AppState.xml")));
           

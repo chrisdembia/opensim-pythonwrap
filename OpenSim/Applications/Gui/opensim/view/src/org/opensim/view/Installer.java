@@ -40,6 +40,7 @@ import org.opensim.utils.TheApp;
 import org.opensim.view.base.OpenSimBaseCanvas;
 import org.opensim.view.pub.OpenSimDB;
 import org.opensim.view.pub.OpenSimDBDescriptor;
+import org.opensim.view.pub.PluginsDB;
 import org.opensim.view.pub.ViewDB;
 import org.opensim.view.editors.MuscleEditorTopComponent;
 import org.opensim.view.markerEditor.MarkerEditorTopComponent;
@@ -106,6 +107,7 @@ public class Installer extends ModuleInstall {
             XMLDecoder decoder = new XMLDecoder(new BufferedInputStream(
                 new FileInputStream("AppState.xml")));
             ApplicationState readState= (ApplicationState)decoder.readObject();
+            PluginsDB.getInstance().loadPlugins();
             OpenSimDB.getInstance().rebuild((OpenSimDBDescriptor) readState.getObject("OpenSimDB"));
             ViewDB.getInstance().rebuild((ViewDBDescriptor) readState.getObject("ViewDB"));
             decoder.close();
@@ -116,6 +118,7 @@ public class Installer extends ModuleInstall {
            //as.addObject("OpenSimDB", OpenSimDB.getInstance());
            as.addObject("ViewDB", new ViewDBDescriptor(ViewDB.getInstance()));
             //ex.printStackTrace();
+           as.addObject("PluginsDB", PluginsDB.getInstance());
         } catch (IOException ex) {
             ex.printStackTrace();
         }

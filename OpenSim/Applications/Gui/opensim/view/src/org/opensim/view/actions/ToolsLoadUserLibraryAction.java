@@ -13,6 +13,7 @@ import org.openide.NotifyDescriptor;
 import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
+import org.opensim.view.pub.PluginsDB;
 
 public final class ToolsLoadUserLibraryAction extends CallableSystemAction {
     
@@ -58,9 +59,17 @@ public final class ToolsLoadUserLibraryAction extends CallableSystemAction {
         JMenuItem extItem = new JMenuItem(filename);
         extItem.addActionListener(new ActionListener(){
                 public void actionPerformed(ActionEvent e) {
-                    System.loadLibrary(filename.substring(0, filename.indexOf(".")));
-                    DialogDisplayer.getDefault().notify(new NotifyDescriptor.Message("Library has been loaded successfully."));
-
+                    LoadPluginJPanel loadPluginJPanel= new LoadPluginJPanel();
+                    DialogDescriptor confirmDialog = new DialogDescriptor(loadPluginJPanel, "Load user plugin");
+                    String libName = filename.substring(0, filename.indexOf("."));
+                    System.loadLibrary(libName);
+                    
+                    DialogDisplayer.getDefault().createDialog(confirmDialog).setVisible(true);
+                    // Check if we need to always preload
+                    if(loadPluginJPanel.isPreloadAlways()){
+                        System.out.println("Always preload "+filename);
+                        PluginsDB.getInstance().addLibrary(libName);
+                    }
                 }});
         displayMenu.add(extItem);
       }
