@@ -76,30 +76,30 @@ public final class ObjectDisplayMenuAction extends CallableSystemAction implemen
       try {      
          displayMenu.add(new JMenuItem(
                  (ObjectDisplayShowAction) ObjectDisplayShowAction.findObject(
-                 Class.forName("org.opensim.view.ObjectDisplayShowAction"), true)));
+                 (Class)Class.forName("org.opensim.view.ObjectDisplayShowAction"), true)));
          displayMenu.add(new JMenuItem(
                  (ObjectDisplayShowOnlyAction) ObjectDisplayShowOnlyAction.findObject(
-                 Class.forName("org.opensim.view.ObjectDisplayShowOnlyAction"), true)));
+                 (Class)Class.forName("org.opensim.view.ObjectDisplayShowOnlyAction"), true)));
          displayMenu.add(new JMenuItem(
                  (ObjectDisplayHideAction) ObjectDisplayHideAction.findObject(
-                 Class.forName("org.opensim.view.ObjectDisplayHideAction"), true)));
+                 (Class)Class.forName("org.opensim.view.ObjectDisplayHideAction"), true)));
          if (showShadingOptions){
             displayMenu.addSeparator();
             displayMenu.add(new JMenuItem(
                     (ObjectDisplaySurfaceFlatAction) ObjectDisplaySurfaceFlatAction.findObject(
-                    Class.forName("org.opensim.view.ObjectDisplaySurfaceFlatAction"), true)));
+                    (Class)Class.forName("org.opensim.view.ObjectDisplaySurfaceFlatAction"), true)));
             displayMenu.add(new JMenuItem(
                     (ObjectDisplaySurfaceGouraudAction) ObjectDisplaySurfaceGouraudAction.findObject(
-                    Class.forName("org.opensim.view.ObjectDisplaySurfaceGouraudAction"), true)));
+                    (Class)Class.forName("org.opensim.view.ObjectDisplaySurfaceGouraudAction"), true)));
             displayMenu.add(new JMenuItem(
                     (ObjectDisplayWireframeAction) ObjectDisplayWireframeAction.findObject(
-                    Class.forName("org.opensim.view.ObjectDisplayWireframeAction"), true)));
+                    (Class)Class.forName("org.opensim.view.ObjectDisplayWireframeAction"), true)));
             displayMenu.add(new JMenuItem(
                     (ObjectDisplayColorAction) ObjectDisplayColorAction.findObject(
-                    Class.forName("org.opensim.view.ObjectDisplayColorAction"), true)));
+                    (Class)Class.forName("org.opensim.view.ObjectDisplayColorAction"), true)));
             displayMenu.add(new JMenuItem(
                     (ObjectDisplayOpacityAction) ObjectDisplayOpacityAction.findObject(
-                    Class.forName("org.opensim.view.ObjectDisplayOpacityAction"), true)));
+                    (Class)Class.forName("org.opensim.view.ObjectDisplayOpacityAction"), true)));
          }
        } catch (ClassNotFoundException ex) {
          ex.printStackTrace();

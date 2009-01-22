@@ -73,11 +73,11 @@ public class OpenSimObjectNode extends OpenSimNode {
          try {
             if (currentStatus==0){   // Hidden
                return ((ObjectDisplayShowAction) ObjectDisplayShowAction.findObject(
-                Class.forName("org.opensim.view.ObjectDisplayShowAction"), true));
+                (Class)Class.forName("org.opensim.view.ObjectDisplayShowAction"), true));
             }
             else if (currentStatus==1 || currentStatus==2){ // 2 for mixed, some shown some hidden, pick show
                     return ((ObjectDisplayHideAction) ObjectDisplayHideAction.findObject(
-                    Class.forName("org.opensim.view.ObjectDisplayHideAction"), true));
+                    (Class)Class.forName("org.opensim.view.ObjectDisplayHideAction"), true));
             }
          } catch (ClassNotFoundException ex) {
             ex.printStackTrace();
@@ -98,7 +98,7 @@ public class OpenSimObjectNode extends OpenSimNode {
             objectNodeActions = new Action[]  {getReviewAction(), 
                                           null, 
                                           (ObjectDisplayMenuAction) ObjectDisplayMenuAction.findObject(
-                 Class.forName("org.opensim.view.ObjectDisplayMenuAction"), true)};
+                 (Class)Class.forName("org.opensim.view.ObjectDisplayMenuAction"), true)};
          else
             objectNodeActions = new Action[]  {getReviewAction()};
          
@@ -119,7 +119,7 @@ public class OpenSimObjectNode extends OpenSimNode {
       Action act =null;
       try {
          act = (ObjectGenericReviewAction) ObjectGenericReviewAction.findObject(
-                    Class.forName("org.opensim.view.ObjectGenericReviewAction"), true);
+                    (Class)Class.forName("org.opensim.view.ObjectGenericReviewAction"), true);
       } catch (ClassNotFoundException ex) {
          ex.printStackTrace();
       }

@@ -36,7 +36,6 @@ import org.opensim.view.ObjectDisplayHideAction;
 import org.opensim.view.ObjectDisplayShowAction;
 import org.opensim.view.ObjectGenericReviewAction;
 import org.opensim.view.ObjectSetDisplayMenuAction;
-import org.opensim.view.nodes.OpenSimObjectNode.displayOption;
 import org.opensim.view.pub.ViewDB;
 
 /**
@@ -93,11 +92,11 @@ public class OpenSimObjectSetNode extends OpenSimObjectNode {
          try {
             if (collectiveStatus==0){   // Hidden
                return ((ObjectDisplayShowAction) ObjectDisplayShowAction.findObject(
-                Class.forName("org.opensim.view.ObjectDisplayShowAction"), true));
+                (Class)Class.forName("org.opensim.view.ObjectDisplayShowAction"), true));
             }
             else { // 2 for mixed, some shown some hidden, pick show
                     return ((ObjectDisplayHideAction) ObjectDisplayHideAction.findObject(
-                    Class.forName("org.opensim.view.ObjectDisplayHideAction"), true));
+                    (Class)Class.forName("org.opensim.view.ObjectDisplayHideAction"), true));
             }
          } catch (ClassNotFoundException ex) {
             ex.printStackTrace();
@@ -116,7 +115,7 @@ public class OpenSimObjectSetNode extends OpenSimObjectNode {
          objectNodeActions = new Action[]  {getReviewAction(), 
                                           null, 
                                           (ObjectSetDisplayMenuAction) ObjectSetDisplayMenuAction.findObject(
-                 Class.forName("org.opensim.view.ObjectSetDisplayMenuAction"), true)};
+                 (Class)Class.forName("org.opensim.view.ObjectSetDisplayMenuAction"), true)};
       } catch (ClassNotFoundException ex) {
          ex.printStackTrace();
          objectNodeActions = new Action[] {null};
@@ -134,7 +133,7 @@ public class OpenSimObjectSetNode extends OpenSimObjectNode {
       Action act =null;
       try {
          act = (ObjectGenericReviewAction) ObjectGenericReviewAction.findObject(
-                    Class.forName("org.opensim.view.ObjectGenericReviewAction"), true);
+                    (Class)Class.forName("org.opensim.view.ObjectGenericReviewAction"), true);
       } catch (ClassNotFoundException ex) {
          ex.printStackTrace();
       }

@@ -91,17 +91,17 @@ public class OneMotionNode extends OpenSimObjectNode{
             
             retValue = new Action[]{
                 (MotionsSetCurrentAction) MotionsSetCurrentAction.findObject(
-                     Class.forName("org.opensim.motionviewer.MotionsSetCurrentAction"), true),
+                     (Class)Class.forName("org.opensim.motionviewer.MotionsSetCurrentAction"), true),
                 (MotionRenameAction) MotionRenameAction.findObject(
-                     Class.forName("org.opensim.motionviewer.MotionRenameAction"), true),
+                     (Class)Class.forName("org.opensim.motionviewer.MotionRenameAction"), true),
                 (MotionAppendMotionAction) MotionAppendMotionAction.findObject(
-                     Class.forName("org.opensim.motionviewer.MotionAppendMotionAction"), true),
+                     (Class)Class.forName("org.opensim.motionviewer.MotionAppendMotionAction"), true),
                 (MotionsSynchronizeAction) MotionsSynchronizeAction.findObject(
-                     Class.forName("org.opensim.motionviewer.MotionsSynchronizeAction"), true),
+                     (Class)Class.forName("org.opensim.motionviewer.MotionsSynchronizeAction"), true),
                 (MotionsSaveAsAction) MotionsSaveAsAction.findObject(
-                     Class.forName("org.opensim.motionviewer.MotionsSaveAsAction"), true),
+                     (Class)Class.forName("org.opensim.motionviewer.MotionsSaveAsAction"), true),
                 (MotionsCloseAction) MotionsCloseAction.findObject(
-                     Class.forName("org.opensim.motionviewer.MotionsCloseAction"), true),
+                     (Class)Class.forName("org.opensim.motionviewer.MotionsCloseAction"), true),
             };
         } catch (ClassNotFoundException ex) {
             ex.printStackTrace();

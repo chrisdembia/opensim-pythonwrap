@@ -25,8 +25,6 @@
  */
 package org.opensim.view.actions;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.IOException;
 import org.openide.DialogDescriptor;
@@ -57,7 +55,7 @@ public final class FileImportSIMMAction extends CallableSystemAction {
             }
             String mslfileName = importPanel.getMslFilename();
             String command="simmToOpenSim -j \""+jntfileName+"\"";
-            
+
             if (mslfileName!=null && !mslfileName.equalsIgnoreCase(""))
                 command += " -m \""+mslfileName+"\"";
             //if (engineString.compareToIgnoreCase("Simbody")==0)
@@ -101,7 +99,7 @@ public final class FileImportSIMMAction extends CallableSystemAction {
                 try {
                     // Display original model
                     ((FileOpenOsimModelAction) FileOpenOsimModelAction.findObject(
-                            Class.forName("org.opensim.view.FileOpenOsimModelAction"))).loadModel(fullOsimFilename);
+                            (Class)Class.forName("org.opensim.view.FileOpenOsimModelAction"))).loadModel(fullOsimFilename);
                 } catch (ClassNotFoundException ex) {
                     ex.printStackTrace();
                 } catch (IOException ex) {

@@ -66,16 +66,16 @@ public final class ModelDisplayMenuAction extends CallableSystemAction implement
       
          displayMenu.add(new JMenuItem(
                  (ObjectDisplayShowAction) ObjectDisplayShowAction.findObject(
-                 Class.forName("org.opensim.view.ObjectDisplayShowAction"), true)));
+                 (Class)Class.forName("org.opensim.view.ObjectDisplayShowAction"), true)));
          displayMenu.add(new JMenuItem(
                 (IsolateCurrentModelAction) IsolateCurrentModelAction.findObject(
-                        Class.forName("org.opensim.view.nodes.IsolateCurrentModelAction"), true)));
+                        (Class)Class.forName("org.opensim.view.nodes.IsolateCurrentModelAction"), true)));
          displayMenu.add(new JMenuItem(
                  (ObjectDisplayHideAction) ObjectDisplayHideAction.findObject(
-                 Class.forName("org.opensim.view.ObjectDisplayHideAction"), true)));
+                 (Class)Class.forName("org.opensim.view.ObjectDisplayHideAction"), true)));
          displayMenu.add(new JMenuItem(
                 (ModelDisplayEditAction) ModelDisplayEditAction.findObject(
-                        Class.forName("org.opensim.view.ModelDisplayEditAction"), true)));       
+                        (Class)Class.forName("org.opensim.view.ModelDisplayEditAction"), true)));       
       } catch (ClassNotFoundException ex) {
          ex.printStackTrace();
       }     

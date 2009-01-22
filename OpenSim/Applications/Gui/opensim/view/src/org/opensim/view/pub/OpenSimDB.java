@@ -299,7 +299,7 @@ public class OpenSimDB extends Observable implements Externalizable{
                try {
                     // Display original model
                     ((FileOpenOsimModelAction) FileOpenOsimModelAction.findObject(
-                            Class.forName("org.opensim.view.FileOpenOsimModelAction"), true)).loadModel(nextFilename, true);
+                            (Class)Class.forName("org.opensim.view.FileOpenOsimModelAction"), true)).loadModel(nextFilename, true);
                 } catch (ClassNotFoundException ex) {
                     ex.printStackTrace();
                 } catch (IOException ex) {

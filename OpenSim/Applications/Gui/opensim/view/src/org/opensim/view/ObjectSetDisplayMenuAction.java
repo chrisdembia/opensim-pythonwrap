@@ -31,7 +31,6 @@ import javax.swing.JMenuItem;
 import org.openide.util.HelpCtx;
 import org.openide.util.actions.CallableSystemAction;
 import org.openide.util.actions.Presenter;
-import org.opensim.view.nodes.IsolateCurrentModelAction;
 
 public final class ObjectSetDisplayMenuAction extends CallableSystemAction implements Presenter.Popup {
     
@@ -65,16 +64,16 @@ public final class ObjectSetDisplayMenuAction extends CallableSystemAction imple
       
          displayMenu.add(new JMenuItem(
                  (ObjectDisplayShowAction) ObjectDisplayShowAction.findObject(
-                 Class.forName("org.opensim.view.ObjectDisplayShowAction"), true)));
+                 (Class)Class.forName("org.opensim.view.ObjectDisplayShowAction"), true)));
          displayMenu.add(new JMenuItem(
                  (ObjectDisplayHideAction) ObjectDisplayHideAction.findObject(
-                 Class.forName("org.opensim.view.ObjectDisplayHideAction"), true)));
+                 (Class)Class.forName("org.opensim.view.ObjectDisplayHideAction"), true)));
          displayMenu.add(new JMenuItem(
                  (ObjectDisplayColorAction) ObjectDisplayColorAction.findObject(
-                 Class.forName("org.opensim.view.ObjectDisplayColorAction"), true)));
+                 (Class)Class.forName("org.opensim.view.ObjectDisplayColorAction"), true)));
          displayMenu.add(new JMenuItem(
                  (ObjectDisplayOpacityAction) ObjectDisplayOpacityAction.findObject(
-                 Class.forName("org.opensim.view.ObjectDisplayOpacityAction"), true)));
+                 (Class)Class.forName("org.opensim.view.ObjectDisplayOpacityAction"), true)));
       } catch (ClassNotFoundException ex) {
          ex.printStackTrace();
       }     

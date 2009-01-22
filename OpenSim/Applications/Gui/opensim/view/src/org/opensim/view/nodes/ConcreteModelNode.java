@@ -2,9 +2,9 @@ package org.opensim.view.nodes;
 
 import javax.swing.Action;
 import org.openide.nodes.Node;
-import org.openide.util.NbBundle;
 import org.opensim.modeling.Model;
 import org.opensim.view.*;
+import org.opensim.view.nodes.OpenSimObjectNode.displayOption;
 import org.opensim.view.pub.ViewDB;
 
 /**
@@ -34,15 +34,15 @@ public class ConcreteModelNode extends OpenSimObjectNode {
         try {
             classSpecificActions = new Action[]{
                 (ModelMakeCurrentAction) ModelMakeCurrentAction.findObject(
-                        Class.forName("org.opensim.view.nodes.ModelMakeCurrentAction"), true),
+                        (Class)Class.forName("org.opensim.view.nodes.ModelMakeCurrentAction"), true),
                 (ModelRenameAction) ModelRenameAction.findObject(
-                        Class.forName("org.opensim.view.ModelRenameAction"), true),
+                        (Class)Class.forName("org.opensim.view.ModelRenameAction"), true),
                 (ModelDisplayMenuAction) ModelDisplayMenuAction.findObject(
-                        Class.forName("org.opensim.view.ModelDisplayMenuAction"), true),
+                        (Class)Class.forName("org.opensim.view.ModelDisplayMenuAction"), true),
                 (ModelInfoAction) ModelInfoAction.findObject(
-                        Class.forName("org.opensim.view.nodes.ModelInfoAction"), true),
+                        (Class)Class.forName("org.opensim.view.nodes.ModelInfoAction"), true),
                 (ModelCloseSelectedAction) ModelCloseSelectedAction.findObject(
-                        Class.forName("org.opensim.view.nodes.ModelCloseSelectedAction"), true),
+                        (Class)Class.forName("org.opensim.view.nodes.ModelCloseSelectedAction"), true),
                 
             };
       } catch(ClassNotFoundException e){
@@ -65,7 +65,7 @@ public class ConcreteModelNode extends OpenSimObjectNode {
       Action act=null;
       try {
          act =(ModelMakeCurrentAction) ModelMakeCurrentAction.findObject(
-                    Class.forName("org.opensim.view.nodes.ModelMakeCurrentAction"), true);
+                    (Class)Class.forName("org.opensim.view.nodes.ModelMakeCurrentAction"), true);
       } catch(ClassNotFoundException e){
          
  }
