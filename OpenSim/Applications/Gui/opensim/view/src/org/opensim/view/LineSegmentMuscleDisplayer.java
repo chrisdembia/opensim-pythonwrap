@@ -178,7 +178,7 @@ public class LineSegmentMuscleDisplayer {
          double[] position1 = new double[3];
          double[] position2 = new double[3];
 
-         ArrayMusclePoint path=act.getCurrentPath();
+         ArrayMusclePoint path=act.getCurrentDisplayPath();
 
          // Points are already in inertial frame
          for(int i=0; i<geomSize; i++) {
