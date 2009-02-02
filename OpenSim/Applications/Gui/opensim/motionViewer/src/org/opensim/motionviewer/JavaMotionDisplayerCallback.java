@@ -146,7 +146,7 @@ public class JavaMotionDisplayerCallback extends SimtkAnimationCallback{
           startDisplayTime = getCurrentRealTime(); // Start timing of display update
           updateDisplaySynchronously();
           stopDisplayTime = getCurrentRealTime();  // Stop timing of display update
-          if(optimizerAlgorithm.equals("JACOBIAN")) {
+          if(optimizerAlgorithm != null && optimizerAlgorithm.equals("JACOBIAN")) {
               minSimTime = currentSimTime+(stopDisplayTime-startDisplayTime)+(stopIKTime-startIKTime);  // Set minimum simulation time for next display update 
           }
           //System.out.println("minSimTime = "+currentSimTime+" + "+(stopDisplayTime-startDisplayTime)+" + "+(stopIKTime-startIKTime)+" = "+minSimTime);
