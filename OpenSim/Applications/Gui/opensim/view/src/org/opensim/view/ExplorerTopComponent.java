@@ -54,9 +54,11 @@ import org.openide.util.Mutex;
 import org.openide.util.MutexException;
 import org.opensim.modeling.AbstractMarker;
 import org.opensim.modeling.Model;
+import org.opensim.view.experimentaldata.ModelForExperimentalData;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.view.markerEditor.MarkerEditorTopComponent;
 import org.opensim.view.nodes.ConcreteModelNode;
+import org.opensim.view.experimentaldata.ExperimentalDataTopNode;
 import org.opensim.view.nodes.MarkersNode;
 import org.opensim.view.nodes.OneMarkerNode;
 import org.opensim.view.nodes.OpenSimNode;
@@ -298,7 +300,11 @@ final public class ExplorerTopComponent extends TopComponent
                        case Open :
                        {
                           Model newModel = evnt.getModel();
-                          ConcreteModelNode newModelNode = new ConcreteModelNode(newModel);
+                          ConcreteModelNode newModelNode;
+                          if (newModel instanceof ModelForExperimentalData)
+                              newModelNode = new ExperimentalDataTopNode(newModel);
+                          else
+                            newModelNode = new ConcreteModelNode(newModel);
                           rootNode.getChildren().add(new Node[] { newModelNode});
                           updateCurrentModelNode(newModel);
                           break;

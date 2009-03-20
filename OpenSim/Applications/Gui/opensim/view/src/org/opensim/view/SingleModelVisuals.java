@@ -64,6 +64,7 @@ import vtk.vtkCylinderSource;
 import vtk.vtkLinearTransform;
 import vtk.vtkMatrix4x4;
 import vtk.vtkPolyData;
+import vtk.vtkPolyDataAlgorithm;
 import vtk.vtkPolyDataMapper;
 import vtk.vtkProp3D;
 import vtk.vtkProp3DCollection;
@@ -74,7 +75,7 @@ import vtk.vtkTransform;
 import vtk.vtkTransformPolyDataFilter;
 import vtk.vtkXMLPolyDataReader;
 import vtk.vtkAppendPolyData;
-import vtk.vtkDataObject;
+import vtk.vtkArrowSource;
 import vtk.vtkLineSource;
 
 /**
@@ -92,8 +93,8 @@ import vtk.vtkLineSource;
  */
 public class SingleModelVisuals {
     
-    private vtkAssembly modelDisplayAssembly;   // assembly representing the model
-    private vtkLinearTransform modelDisplayTransform; // extra transform to shift, rotate model
+    protected vtkAssembly modelDisplayAssembly;   // assembly representing the model
+    protected vtkLinearTransform modelDisplayTransform; // extra transform to shift, rotate model
     private double opacity;
     private double[] bounds = new double[6];
     private boolean visible;
@@ -103,6 +104,7 @@ public class SingleModelVisuals {
     private double[] defaultMusclePointColor = new double[]{1.0, 0.0, 0.0};
     private double[] defaultMarkerColor = new double[]{1.0, 0.6, 0.8};
     private double[] defaultWrapObjectColor = new double[]{0.0, 1.0, 1.0};
+    private boolean useCylinderMuscles=true;
     //private double DEFAULT_MUSCLE_RADIUS = .005;
     //private double DEFAULT_MUSCLE_POINT_RADIUS = .005;
     //private double DEFAULT_MARKER_RADIUS = .01;
@@ -110,21 +112,22 @@ public class SingleModelVisuals {
     // Maps between objects and vtkProp3D for going from Actor to Object and vice versa
     // Objects are mapped to vtkProp3D in general, but some are known to be assemblies
     // e.g. Muscles, Models
-    private Hashtable<OpenSimObject, vtkProp3D> mapObject2VtkObjects = new Hashtable<OpenSimObject, vtkProp3D>();
-    private Hashtable<vtkProp3D, OpenSimObject> mapVtkObjects2Objects = new Hashtable<vtkProp3D, OpenSimObject>(50);
+    protected Hashtable<OpenSimObject, vtkProp3D> mapObject2VtkObjects = new Hashtable<OpenSimObject, vtkProp3D>();
+    protected Hashtable<vtkProp3D, OpenSimObject> mapVtkObjects2Objects = new Hashtable<vtkProp3D, OpenSimObject>(50);
    
     private Hashtable<OpenSimObject, LineSegmentMuscleDisplayer> mapActuator2Displayer = new Hashtable<OpenSimObject, LineSegmentMuscleDisplayer>();
 
-    private Hashtable<OpenSimObject, Integer> mapMarkers2Glyphs = new Hashtable<OpenSimObject, Integer>(50);
-    private Hashtable<OpenSimObject, vtkLineSource> mapMarkers2Lines = new Hashtable<OpenSimObject, vtkLineSource>(50);
-    private Hashtable<OpenSimObject, Boolean> markerLinesVisible = new Hashtable<OpenSimObject, Boolean>(50);
-    private vtkActor markerLineActor = new vtkActor();
-    private vtkAppendPolyData markerLinePolyData = new vtkAppendPolyData();
+    protected Hashtable<OpenSimObject, Integer> mapMarkers2Glyphs = new Hashtable<OpenSimObject, Integer>(50);
+    protected Hashtable<OpenSimObject, vtkLineSource> mapMarkers2Lines = new Hashtable<OpenSimObject, vtkLineSource>(50);
+    protected Hashtable<OpenSimObject, Boolean> markerLinesVisible = new Hashtable<OpenSimObject, Boolean>(50);
+    protected vtkActor markerLineActor = new vtkActor();
+    protected vtkAppendPolyData markerLinePolyData = new vtkAppendPolyData();
     
     // Markers and muscle points are represented as Glyphs for performance
     private OpenSimvtkGlyphCloud  markersRep=new OpenSimvtkGlyphCloud(false);
     private OpenSimvtkGlyphCloud  musclePointsRep=new OpenSimvtkGlyphCloud(false);
     private OpenSimvtkOrientedGlyphCloud  muscleSegmentsRep = new OpenSimvtkOrientedGlyphCloud();
+    private OpenSimvtkOrientedGlyphCloud  forcesRep = new OpenSimvtkOrientedGlyphCloud();
 
     private vtkProp3DCollection  userObjects = new vtkProp3DCollection();
     private vtkProp3DCollection  bodiesCollection = new vtkProp3DCollection();
@@ -135,6 +138,16 @@ public class SingleModelVisuals {
     public SingleModelVisuals(Model aModel) {
         initDefaultShapesAndColors();
         modelDisplayAssembly = createModelAssembly(aModel);
+        //modelDisplayAssembly.DebugOn();
+        //int rc = modelDisplayAssembly.GetReferenceCount();
+        setVisible(true);
+    }
+    /**
+     * Creates a new instance of SingleModelVisuals
+     */
+    public SingleModelVisuals() {
+        initDefaultShapesAndColors();
+        modelDisplayAssembly = new vtkAssembly();
         //modelDisplayAssembly.DebugOn();
         //int rc = modelDisplayAssembly.GetReferenceCount();
         setVisible(true);
@@ -441,6 +454,7 @@ public class SingleModelVisuals {
     */
     private void addActuatorsGeometry(Model mdl, vtkAssembly modelAssembly) {
         ActuatorSet acts = mdl.getActuatorSet();
+        if (acts==null) return;
         for(int actNumber=0; actNumber < acts.getSize(); actNumber++){
            addActuatorGeometry(acts.get(actNumber), false);
         }
@@ -448,11 +462,13 @@ public class SingleModelVisuals {
         getMuscleSegmentsRep().setModified();
         modelAssembly.AddPart(getMusclePointsRep().getVtkActor());
         getMusclePointsRep().setModified();
+        modelAssembly.AddPart(getForcesRep().getVtkActor());
+        getForcesRep().setModified();
     }
 
     public void addActuatorGeometry(AbstractActuator act, boolean callSetModified) {
        AbstractMuscle muscle = AbstractMuscle.safeDownCast(act);
-       if(muscle == null) return;
+       if(muscle == null) return;   // Could be just a force, in this case add and mark modified
        LineSegmentMuscleDisplayer disp = new LineSegmentMuscleDisplayer(muscle, getMusclePointsRep(), getMuscleSegmentsRep());
        mapActuator2Displayer.put(act, disp);
        disp.addGeometry();
@@ -504,7 +520,7 @@ public class SingleModelVisuals {
       int index = getMarkersRep().addLocation(marker);
       getMarkersRep().setVectorDataAtLocation(index,1,1,1);
       getMarkersRep().setSelected(index, false);
-      markersRep.setModified();
+      getMarkersRep().setModified();
       mapMarkers2Glyphs.put(marker, new Integer(index));
       vtkLineSource markerLine = new vtkLineSource();
       mapMarkers2Lines.put(marker, markerLine);
@@ -515,7 +531,7 @@ public class SingleModelVisuals {
 
    public void removeMarkerGeometry(AbstractMarker marker) {
       int glyphID = mapMarkers2Glyphs.get(marker);
-      markersRep.remove(glyphID);
+      getMarkersRep().remove(glyphID);
       mapMarkers2Glyphs.remove(marker);
 
       // There appears to be a bug in removing inputs from
@@ -532,14 +548,14 @@ public class SingleModelVisuals {
       mapMarkers2Lines.remove(marker);
 
       markerLinesVisible.remove(marker);
-      markersRep.setModified();
+      getMarkersRep().setModified();
    }
 
    public void setMarkerVisibility(AbstractMarker marker, boolean visible) {
-      int index = (mapMarkers2Glyphs.get(marker)).intValue();
+      int index = (mapMarkers2Glyphs.get(marker)).intValue(); 
       vtkLineSource markerLine = mapMarkers2Lines.get(marker);
       if (visible) {
-         markersRep.show(index);
+         getMarkersRep().show(index);
          // Set the endpoints of the marker line, because the only other
          // place this is done is updateModelDisplay(), which is not called
          // in this case.
@@ -556,11 +572,11 @@ public class SingleModelVisuals {
          markerLine.SetPoint2(gOrigin);
          //markerLine.SetPoint2(gPos);
       } else {
-         markersRep.hide(index);
+         getMarkersRep().hide(index);
          markerLine.SetPoint1(0.0, 0.0, 0.0);
          markerLine.SetPoint2(0.0, 0.0, 0.0);
       }
-      markersRep.setModified();
+      getMarkersRep().setModified();
    }
 
      /**
@@ -604,7 +620,7 @@ public class SingleModelVisuals {
              props.nextElement().SetPickable(0);
           }
        }
-       markersRep.setPickable(pickable);
+       getMarkersRep().setPickable(pickable);
        musclePointsRep.setPickable(pickable);
        muscleSegmentsRep.setPickable(pickable);
     }
@@ -739,14 +755,14 @@ public class SingleModelVisuals {
    }
    
    public void addUserObject(vtkActor userObj){
-      if (userObjects.IsItemPresent(userObj)==0){
-        userObjects.AddItem(userObj);
+      if (getUserObjects().IsItemPresent(userObj)==0){
+        getUserObjects().AddItem(userObj);
         modelDisplayAssembly.AddPart(userObj);
       }
    }
    
    public void removeUserObject(vtkActor userObj){
-      userObjects.RemoveItem(userObj);
+      getUserObjects().RemoveItem(userObj);
       modelDisplayAssembly.RemovePart(userObj);
    }
 
@@ -780,16 +796,40 @@ public class SingleModelVisuals {
        strip2.SetInput(viaPoint.GetOutput());
        getMusclePointsRep().setShape(strip2.GetOutput());
        getMusclePointsRep().scaleByVectorComponents();
-      
+       
        // Muscle segments 
-       vtkCylinderSource muscleSegment=new vtkCylinderSource();
-       muscleSegment.SetRadius(ViewDB.getInstance().getMuscleDisplayRadius());
-       muscleSegment.SetHeight(1.0);
-       muscleSegment.SetCenter(0.0, 0.0, 0.0);
-       muscleSegment.CappingOff();
+       vtkPolyDataAlgorithm muscleSgt;  //Either cylinder or ellipsoid for now
+       if (useCylinderMuscles) {
+           vtkCylinderSource muscleSegment =new vtkCylinderSource();
+           muscleSegment.SetRadius(ViewDB.getInstance().getMuscleDisplayRadius());
+           muscleSegment.SetHeight(1.0);
+           muscleSegment.SetCenter(0.0, 0.0, 0.0);
+           muscleSegment.CappingOff();
+           getMuscleSegmentsRep().setShape(muscleSegment.GetOutput());
+       }
+       else {
+            vtkSphereSource muscleSegment=new vtkSphereSource();
+            muscleSegment.SetRadius(ViewDB.getInstance().getMuscleDisplayRadius());
+            vtkTransformPolyDataFilter stretcher = new vtkTransformPolyDataFilter();
+            vtkTransform stretcherTransform = new vtkTransform();
+            stretcherTransform.Scale(20.0, 0.5/ViewDB.getInstance().getMuscleDisplayRadius(), 20.0);
+            muscleSegment.SetCenter(0.0, 0.0, 0.0);
+            stretcher.SetInput(muscleSegment.GetOutput());
+            stretcher.SetTransform(stretcherTransform);
+            getMuscleSegmentsRep().setShape(stretcher.GetOutput());
+       }
        //getMuscleSegmentsRep().setColor(defaultMuscleColor);
        getMuscleSegmentsRep().setColorRange(inactiveMuscleColor, defaultMuscleColor);
-       getMuscleSegmentsRep().setShape(muscleSegment.GetOutput());
+       
+       // Arbitrary forces
+       vtkArrowSource aForceDisplay=new vtkArrowSource();
+       aForceDisplay.SetShaftRadius(0.02);
+       aForceDisplay.SetTipLength(0.2);
+       getForcesRep().setColorRange(inactiveMuscleColor, defaultMusclePointColor);
+       vtkStripper strip3 = new vtkStripper();
+       strip3.SetInput(aForceDisplay.GetOutput());
+       getForcesRep().setShape(strip3.GetOutput());
+       
     }
 
     public OpenSimvtkGlyphCloud getGlyphObjectForActor(vtkActor act) {
@@ -812,6 +852,10 @@ public class SingleModelVisuals {
     public OpenSimvtkOrientedGlyphCloud getMuscleSegmentsRep() {
         return muscleSegmentsRep;
     }
+
+    public OpenSimvtkOrientedGlyphCloud getForcesRep() {
+        return forcesRep;
+    }
     // Remmove dead references to help garbage collector.
     public void cleanup() {
         int rc = modelDisplayAssembly.GetReferenceCount();
@@ -819,7 +863,7 @@ public class SingleModelVisuals {
         for(int i=parts.GetNumberOfItems()-1; i>=0; i--){
             modelDisplayAssembly.RemovePart(parts.GetLastProp3D());
         }
-        userObjects.RemoveAllItems();
+        getUserObjects().RemoveAllItems();
         userObjects=null;
         bodiesCollection.RemoveAllItems();
         bodiesCollection=null;
@@ -851,5 +895,10 @@ public class SingleModelVisuals {
             objectRep.GetProperty().SetRepresentationToSurface();
         
     }
+
+    public vtkProp3DCollection getUserObjects() {
+        return userObjects;
+    }
+    
 }
 

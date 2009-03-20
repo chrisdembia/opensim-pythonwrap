@@ -51,7 +51,7 @@ import org.opensim.modeling.ControlSet;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.modeling.Storage;
-import org.opensim.motionviewer.MotionsDB;
+import org.opensim.view.motions.MotionsDB;
 import org.opensim.swingui.FileTextFieldAndChooser;
 import org.opensim.view.FileTextFieldAndChooserWithEdit;
 import org.opensim.view.excitationEditor.ExcitationEditorJFrame;

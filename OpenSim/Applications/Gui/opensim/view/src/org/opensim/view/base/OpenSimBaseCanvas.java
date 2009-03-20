@@ -78,6 +78,7 @@ public class OpenSimBaseCanvas extends vtkPanel
       defaultBackgroundColor = Preferences.userNodeForPackage(TheApp.class).get("BackgroundColor", defaultBackgroundColor);
       double[] background = Prefs.getInstance().parseColor(defaultBackgroundColor);
       GetRenderer().SetBackground(background);
+      //GetRenderer().EraseOff();
       //createSettingsMenu();
       camerasMenu = new CamerasMenu(this);
       addKeyListener(this);

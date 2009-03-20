@@ -52,6 +52,7 @@ import org.opensim.modeling.AbstractMarker;
 import org.opensim.modeling.AbstractMuscle;
 import org.opensim.modeling.ArrayObjPtr;
 import org.opensim.modeling.Model;
+import org.opensim.view.experimentaldata.ModelForExperimentalData;
 import org.opensim.modeling.MusclePoint;
 import org.opensim.modeling.ObjectGroup;
 import org.opensim.modeling.OpenSimObject;
@@ -61,15 +62,21 @@ import org.opensim.modeling.VisibleProperties.DisplayPreference;
 import org.opensim.utils.Prefs;
 import org.opensim.utils.TheApp;
 import org.opensim.view.*;
+import org.opensim.view.experimentaldata.ExperimentalDataVisuals;
 import vtk.AxesActor;
 import vtk.vtkActor;
 import vtk.vtkAssembly;
 import vtk.vtkAssemblyPath;
 import vtk.vtkCamera;
+import vtk.vtkFollower;
 import vtk.vtkMatrix4x4;
+import vtk.vtkPolyDataMapper;
 import vtk.vtkProp3D;
 import vtk.vtkProp3DCollection;
 import vtk.vtkProperty;
+import vtk.vtkTextActor;
+import vtk.vtkTextProperty;
+import vtk.vtkVectorText;
 
 /**
  *
@@ -107,6 +114,7 @@ public final class ViewDB extends Observable implements Observer {
    
    private vtkAssembly     axesAssembly=null;
    private boolean axesDisplayed=false;
+   private vtkTextActor textActor=null; 
    
    private boolean picking = false;
    private boolean dragging = false;
@@ -157,50 +165,10 @@ public final class ViewDB extends Observable implements Observer {
             ObjectsAddedEvent ev = (ObjectsAddedEvent)arg;
             Vector<OpenSimObject> objs = ev.getObjects();
             for (int i=0; i<objs.size(); i++) {
-               if (objs.get(i) instanceof Model) {
-                  // Create visuals for the model
-                  Model model = (Model)objs.get(i);
-                  SingleModelGuiElements newModelGuiElements = new SingleModelGuiElements(model);
-                  processSavedSettings(model);                  
-                  mapModelsToGuiElements.put(model, newModelGuiElements);
-                  
-                  createNewViewWindowIfNeeded();
-                  SingleModelVisuals newModelVisual = new SingleModelVisuals(model);
-                  // add to map from models to modelVisuals so that it's accesisble
-                  // thru tree picks
-                  mapModelsToVisuals.put(model, newModelVisual);
-                  //From here on we're adding things to display so we better lock'
-
-                  if (sceneAssembly==null){
-                     createScene();
-                     // Add assembly to all views
-                     Iterator<ModelWindowVTKTopComponent> windowIter = openWindows.iterator();
-                     while(windowIter.hasNext()){
-                        ModelWindowVTKTopComponent nextWindow = windowIter.next();
-                        //nextWindow.getCanvas().GetRenderer().AddViewProp(sceneAssembly);
-                     }
-                  }
-                  // Compute placement so that model does not intersect others
-                  vtkMatrix4x4 m= getInitialTransform(newModelVisual);
-                  newModelVisual.getModelDisplayAssembly().SetUserMatrix(m);
-
-                  sceneAssembly.AddPart(newModelVisual.getModelDisplayAssembly());
-                  // Check if this refits scene into window
-
-                  if(OpenSimDB.getInstance().getNumModels()==1) {
-                     Iterator<ModelWindowVTKTopComponent> windowIter = openWindows.iterator();
-                     while(windowIter.hasNext()){
-                        ModelWindowVTKTopComponent nextWindow = windowIter.next();
-                        // This line may need to be enclosed in a Lock /UnLock pair per vtkPanel
-                       lockDrawingSurfaces(true);
-                       nextWindow.getCanvas().GetRenderer().ResetCamera(sceneAssembly.GetBounds());
-                       lockDrawingSurfaces(false);
-                     }
-                  }
-                  // add to list of models
-                  getModelVisuals().add(newModelVisual);
-                  repaintAll();
-               } else if (objs.get(i) instanceof AbstractMarker) {
+                if (objs.get(i) instanceof Model) {
+                    assert(false);
+                }
+               if (objs.get(i) instanceof AbstractMarker) {
                   SingleModelVisuals vis = mapModelsToVisuals.get(ev.getModel());
                   vis.addMarkerGeometry((AbstractMarker)objs.get(i));
                   repaintAll();
@@ -226,6 +194,7 @@ public final class ViewDB extends Observable implements Observer {
                      if (next == currentModel){
                         setObjectOpacity(next, nominalOpacity);
                         vis.setPickable(true);
+                        //displayText("Model Name:"+next.getName(),16);
                      } else {
                         setObjectOpacity(next, getNonCurrentModelOpacity()*nominalOpacity);
                         vis.setPickable(false);
@@ -291,24 +260,18 @@ public final class ViewDB extends Observable implements Observer {
                
                createNewViewWindowIfNeeded();
                // Create visuals for the model
-               SingleModelVisuals newModelVisual = new SingleModelVisuals(model);
+               SingleModelVisuals newModelVisual = (model instanceof ModelForExperimentalData)?
+                   new ExperimentalDataVisuals(model):
+                   new SingleModelVisuals(model);
                // add to map from models to modelVisuals so that it's accesisble
                // thru tree picks
                mapModelsToVisuals.put(model, newModelVisual);
                modelOpacities.put(model, 1.0);
-               //From here on we're adding things to display so we better lock
-               
-               if (sceneAssembly==null){
-                  createScene();
-                  // Add assembly to all views
-                  Iterator<ModelWindowVTKTopComponent> windowIter = openWindows.iterator();
-                  while(windowIter.hasNext()){
-                     ModelWindowVTKTopComponent nextWindow = windowIter.next();
-                     nextWindow.getCanvas().GetRenderer().AddViewProp(sceneAssembly);
-                  }
-               }
+               addVisObjectToAllViews();
                // Compute placement so that model does not intersect others
-               vtkMatrix4x4 m= getInitialTransform(newModelVisual);
+               vtkMatrix4x4 m= (model instanceof ModelForExperimentalData)?
+                      new vtkMatrix4x4():
+                      getInitialTransform(newModelVisual);
                newModelVisual.getModelDisplayAssembly().SetUserMatrix(m);
                
                sceneAssembly.AddPart(newModelVisual.getModelDisplayAssembly());
@@ -372,6 +335,21 @@ public final class ViewDB extends Observable implements Observer {
          }
       }
    }
+
+    private void addVisObjectToAllViews() {
+        //From here on we're adding things to display so we better lock
+        
+        if (sceneAssembly==null){
+           createScene();
+           // Add assembly to all views
+           Iterator<ModelWindowVTKTopComponent> windowIter = openWindows.iterator();
+           while(windowIter.hasNext()){
+              ModelWindowVTKTopComponent nextWindow = windowIter.next();
+              nextWindow.getCanvas().GetRenderer().AddViewProp(sceneAssembly);
+           }
+           //createXLabel();
+        }
+    }
    
    public static ArrayList<SingleModelVisuals> getModelVisuals() {
       return modelVisuals;
@@ -452,6 +430,7 @@ public final class ViewDB extends Observable implements Observer {
       if (currentModelWindow!=null){    // Copy camera from 
           vtkCamera lastCamera=currentModelWindow.getCanvas().GetRenderer().GetActiveCamera();
           win.getCanvas().applyOrientation(lastCamera);
+          currentModelWindow.getCanvas().GetRenderer().AddActor2D(textActor);
       }
       if (SwingUtilities.isEventDispatchThread()){
           win.open();
@@ -599,6 +578,10 @@ public final class ViewDB extends Observable implements Observer {
          }
          else
             if(asm!=null) applyColor(colorComponents, asm);
+      } 
+      else{
+          vtkProp3D asm = ViewDB.getInstance().getVtkRepForObject(object);
+          int x=1;
       }
    }
 
@@ -946,6 +929,7 @@ public final class ViewDB extends Observable implements Observer {
    private void createScene() {
       sceneAssembly = new vtkAssembly();
       axesAssembly = new AxesActor();
+      textActor= new vtkTextActor();
    }
    
    public void showAxes(boolean trueFalse) {
@@ -1016,33 +1000,7 @@ public final class ViewDB extends Observable implements Observer {
             toggleObjectDisplay(members.get(i), visible);
          }
       } else {
-          /*
-          // If a set
-          if (openSimObject.getType().endsWith("Set")){
-              // use getSize, getItem by reflection
-               Class c = openSimObject.getClass();
-                Object result = null;
-                try {
-                    Method m = c.getMethod("getSize", (Class[]) null);
-                    result = m.invoke(openSimObject, (Object[]) null);
-                    int size = (Integer)result;
-                    Class[] params = new Class[]{int.class};
-                    Object[] paramValues = new Object[1];
-                    Method[] ms = c.getMethods();
-                    for(int i=0; i< size;i++){
-                        m = c.getMethod("get", params);
-                        paramValues[0]=new Integer(i);
-                        result = m.invoke(openSimObject, (Object[]) paramValues);
-                        toggleObjectDisplay((OpenSimObject)result, visible);
-                    }
-                }
-                catch (Exception e) {
-                    e.printStackTrace();  
-                }
-          } 
-          else */
-         toggleObjectDisplay(openSimObject, visible);
-           
+          toggleObjectDisplay(openSimObject, visible);          
       }
    }
 
@@ -1203,17 +1161,24 @@ public final class ViewDB extends Observable implements Observer {
     }
     
     /**
-     * User Objects manipulation. Delegate to proper model
+     * User Objects manipulation. Delegate to proper model.
+     * 
+     * Use carfully as you're responsible for any cleanup. Selection management is not supported.
      */
-    public void addUserObject(Model model, vtkActor vtkActor) {
-        SingleModelVisuals visModel = mapModelsToVisuals.get(model);
-        visModel.addUserObject(vtkActor);
+    public void addUserObjectToModel(Model model, vtkActor vtkActor) {
+         SingleModelVisuals visModel = mapModelsToVisuals.get(model);
+         visModel.addUserObject(vtkActor);
     }
 
-    public void removeUserObject(Model model, vtkActor vtkActor) {
+    public void removeUserObjectFromModel(Model model, vtkActor vtkActor) {
        SingleModelVisuals visModel = mapModelsToVisuals.get(model);
        visModel.removeUserObject(vtkActor);
     }
+    
+    public void addUserObjectToCurrentView(vtkActor vtkActor) {
+         getCurrentModelWindow().getCanvas().GetRenderer().AddActor(vtkActor);
+    }
+
 /*
  * Functions to deal with saved "Settings"
  * processSavedSettings parses the [modelFileWithoutExtension]_settings.xml file
@@ -1227,6 +1192,7 @@ public final class ViewDB extends Observable implements Observer {
       // Read settings file if exist, should have file name =
       // [modelFileWithoutExtension]_settings.xml
       // Should make up a name, use it in emory and change it later per user request if needed.
+      if (model.getFilePath().equalsIgnoreCase("")) return;
       ModelSettingsSerializer serializer = new ModelSettingsSerializer(getDefaultSettingsFileName(model), true);
       mapModelsToSettings.put(model, serializer);
    }
@@ -1379,4 +1345,65 @@ public final class ViewDB extends Observable implements Observer {
         }
         repaintAll();
     }
+
+    // Assume no display transform here
+    public void addModelVisuals(Model model, SingleModelVisuals dataVisuals) {
+        if (!modelVisuals.contains(dataVisuals))
+            modelVisuals.add(dataVisuals);
+        mapModelsToVisuals.put(model, dataVisuals);
+        sceneAssembly.AddPart(dataVisuals.getModelDisplayAssembly());
+    }
+    
+    public void displayText(String text, int forntSize){
+        textActor.SetInput(text);
+        vtkTextProperty tprop = textActor.GetTextProperty();
+        tprop.SetFontFamilyToArial();
+        tprop.SetLineSpacing(1.0);
+        tprop.SetFontSize(forntSize);
+        tprop.SetColor(1.0,0.0,0.0);
+        textActor.SetDisplayPosition( 50, 50 );
+        Iterator<ModelWindowVTKTopComponent> windowIter = openWindows.iterator();
+        while(windowIter.hasNext()){
+            ModelWindowVTKTopComponent nextWindow = windowIter.next();
+            nextWindow.getCanvas().GetRenderer().AddActor2D(textActor);
+        }
+    }
+    
+    public vtkVectorText createText3D(String text, double[] position, double[] color){
+        vtkVectorText XText=new vtkVectorText();
+        XText.SetText(text);
+        vtkPolyDataMapper XTextMapper=new vtkPolyDataMapper();
+        XTextMapper.SetInputConnection(XText.GetOutputPort());
+        vtkFollower XActor=new vtkFollower();
+        XActor.SetMapper(XTextMapper);
+        XActor.SetScale(.05, .05, .05);
+        XActor.SetPosition(position);
+        XActor.GetProperty().SetColor(color);
+        vtkCamera lastCamera=new vtkCamera();
+        if (currentModelWindow!=null)    // need a camera for the follower! 
+          lastCamera=currentModelWindow.getCanvas().GetRenderer().GetActiveCamera();
+        XActor.SetCamera(lastCamera);
+        sceneAssembly.AddPart(XActor);
+        return XText;
+    }
+
+    /*
+    // Test function to show text billboarding
+    private void createXLabel()
+    {
+        vtkVectorText XText=new vtkVectorText();
+        XText.SetText("X");
+        vtkPolyDataMapper XTextMapper=new vtkPolyDataMapper();
+        XTextMapper.SetInputConnection(XText.GetOutputPort());
+        vtkFollower XActor=new vtkFollower();
+        XActor.SetMapper(XTextMapper);
+        XActor.SetScale(.5, .5, .5);
+        XActor.SetPosition(0.1, .2, .3);
+        XActor.GetProperty().SetColor(.1, .2, .3);
+        vtkCamera lastCamera=new vtkCamera();
+        if (currentModelWindow!=null)    // need a camera for the follower! 
+          lastCamera=currentModelWindow.getCanvas().GetRenderer().GetActiveCamera();
+        XActor.SetCamera(lastCamera);
+        sceneAssembly.AddPart(XActor);
+    }*/
 }

@@ -191,6 +191,7 @@ public class OpenSimvtkGlyphCloud {    // Assume same shape
    
    public void setModified() {
       pointPolyData.Modified();
+      pointCloud.Modified();
    }
 
    // Used to enable hide/show behavior
@@ -243,11 +244,15 @@ public class OpenSimvtkGlyphCloud {    // Assume same shape
    /////////////////////////////////////////////////////////////////////////////
    
    public void show(int index) {
+      if (lineNormals!= null) 
+          setNormalAtLocation(index, 1., 1., 1.);
       setVectorDataAtLocation(index, 1., 1., 1.);
    }
 
    public void hide(int index) {
-      setVectorDataAtLocation(index, 0., 0., 0.);
+       if (lineNormals!= null) 
+          setNormalAtLocation(index, 0., 0., 0.);
+        setVectorDataAtLocation(index, 0., 0., 0.);
    }
 
    /////////////////////////////////////////////////////////////////////////////

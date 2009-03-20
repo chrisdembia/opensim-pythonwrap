@@ -14,10 +14,15 @@ public class AxesActor extends vtkAssembly {
 
   public AxesActor() {
     super();
-    createAxes();
+    createAxes(1.0);
   }
 
-  public void createAxes() {
+   public AxesActor(double scale) {
+    super();
+    createAxes(scale);
+  }
+
+  protected void createAxes(double scale) {
 /*
     vtkAxes axes = new vtkAxes();
     axes.SetOrigin(0, 0, 0);
@@ -76,7 +81,7 @@ public class AxesActor extends vtkAssembly {
  */   
   
     int cylRes = 36;
-    double cylRadius = 0.01;
+    double cylRadius = 0.01*scale;
     double cylAmbient = 0.5;
     double cylOpacity = 0.5;
     

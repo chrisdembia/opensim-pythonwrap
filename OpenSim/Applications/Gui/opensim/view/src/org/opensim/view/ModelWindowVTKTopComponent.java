@@ -47,6 +47,7 @@ import org.openide.DialogDisplayer;
 import org.openide.util.NbBundle;
 import org.openide.util.SharedClassObject;
 import org.openide.windows.TopComponent;
+import org.openide.windows.WindowManager;
 import org.opensim.utils.FileUtils;
 import org.opensim.utils.Prefs;
 import org.opensim.utils.TheApp;
@@ -110,11 +111,12 @@ public class ModelWindowVTKTopComponent extends TopComponent
                         "UnsavedModelNameFormat",
                         new Object[] { new Integer(ct++) }
                 ));
-//        SwingUtilities.invokeLater(new Runnable(){
- //           public void run() {
+        /*OpenSim20
+        WindowManager.getDefault().invokeWhenUIReady(new Runnable(){
+            public void run() {
                  setName(tabDisplayName);
-//            }});
-
+            }});
+        */
         // Set preferred directory for the TopComponent (to be used for all saving, loading, ...
         prefs = Preferences.userNodeForPackage(TheApp.class);
         

@@ -23,33 +23,48 @@
  *  OR BUSINESS INTERRUPTION) OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  *  WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-/*
- * ExcitationTreeModel.java
- *
- * Created on February 4, 2008, 2:32 PM
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
- */
+package org.opensim.view.motions;
 
-package org.opensim.view.excitationEditor;
+import org.openide.nodes.Node;
+import org.openide.util.HelpCtx;
+import org.openide.util.NbBundle;
+import org.openide.util.actions.CallableSystemAction;
+import org.opensim.modeling.Storage;
+import org.opensim.view.ExplorerTopComponent;
 
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.MutableTreeNode;
-
-/**
- *
- * @author Ayman
- */
-public class ExcitationTreeModel extends DefaultTreeModel{
-
-    /** Creates a new instance of ExcitationTreeModel */
-    public ExcitationTreeModel(DefaultMutableTreeNode root) {
-        super(root);    // implicit but just in case
-    }
-    public void appendChild(MutableTreeNode newChild,
-                               MutableTreeNode parent) {
-        insertNodeInto(newChild, parent, parent.getChildCount());
-    }
+public final class MotionsCloseAction extends CallableSystemAction {
+   
+   public void performAction() {
+      Node[] selected = ExplorerTopComponent.findInstance().getExplorerManager().getSelectedNodes();
+      for(int i=0; i<selected.length; i++) {
+         if(selected[i] instanceof OneMotionNode) { // Should be the case anyway (otherwise this action would not be enabled), but doesn't hurt to double check
+            OneMotionNode node = (OneMotionNode)selected[i];
+            MotionsDB.getInstance().closeMotion(node.getModel(), (Storage)node.getOpenSimObject(), true);
+         }
+      }
+   }
+   
+   public String getName() {
+      return NbBundle.getMessage(MotionsCloseAction.class, "CTL_MotionsCloseAction");
+   }
+   
+   protected void initialize() {
+      super.initialize();
+      // see org.openide.util.actions.SystemAction.iconResource() javadoc for more details
+      putValue("noIconInMenu", Boolean.TRUE);
+   }
+   
+   public HelpCtx getHelpCtx() {
+      return HelpCtx.DEFAULT_HELP;
+   }
+   
+   protected boolean asynchronous() {
+      return false;
+   }
+   
+   public boolean isEnabled() {
+      Node[] selected = ExplorerTopComponent.findInstance().getExplorerManager().getSelectedNodes();
+      for(int i=0; i<selected.length; i++) if(!(selected[i] instanceof OneMotionNode)) return false; // one of the nodes is not a OneMotionNode
+      return true;
+   }
 }

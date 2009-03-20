@@ -3,6 +3,7 @@ package org.opensim.view.nodes;
 import javax.swing.Action;
 import org.openide.nodes.Node;
 import org.opensim.modeling.Model;
+import org.opensim.view.experimentaldata.ModelForExperimentalData;
 import org.opensim.view.*;
 import org.opensim.view.nodes.OpenSimObjectNode.displayOption;
 import org.opensim.view.pub.ViewDB;
@@ -11,14 +12,17 @@ import org.opensim.view.pub.ViewDB;
  * Node class to wrap Model objects
  */
 public class ConcreteModelNode extends OpenSimObjectNode {
-
+	boolean isDataHolderOnly = false;
     public ConcreteModelNode(Model m) {
         super(m);
-        
+		isDataHolderOnly = (m instanceof ModelForExperimentalData);
+		if (!isDataHolderOnly)
+		{   // Data Import model has no engine or Actuators
             getChildren().add(new Node[] {new BodiesNode(m.getDynamicsEngine().getBodySet())});
             getChildren().add(new Node[] {new ActuatorsNode(m.getActuatorSet())});
             getChildren().add(new Node[] {new JointsNode(m.getDynamicsEngine().getJointSet())});
-      getChildren().add(new Node[] {new MarkersNode(m.getDynamicsEngine().getMarkerSet())});
+            getChildren().add(new Node[] {new MarkersNode(m.getDynamicsEngine().getMarkerSet())});
+        }
       addDisplayOption(displayOption.Isolatable);
       addDisplayOption(displayOption.Showable);
    }
@@ -32,6 +36,18 @@ public class ConcreteModelNode extends OpenSimObjectNode {
     public Action[] getActions(boolean b) {
         Action[] classSpecificActions=null;
         try {
+			if (isDataHolderOnly)
+			{
+				classSpecificActions = new Action[]{
+					(ModelMakeCurrentAction) ModelMakeCurrentAction.findObject(
+							(Class)Class.forName("org.opensim.view.nodes.ModelMakeCurrentAction"), true),
+					(ModelDisplayMenuAction) ModelDisplayMenuAction.findObject(
+							(Class)Class.forName("org.opensim.view.ModelDisplayMenuAction"), true),
+					(ModelCloseSelectedAction) ModelCloseSelectedAction.findObject(
+							(Class)Class.forName("org.opensim.view.nodes.ModelCloseSelectedAction"), true)
+				};
+			}
+			else 
             classSpecificActions = new Action[]{
                 (ModelMakeCurrentAction) ModelMakeCurrentAction.findObject(
                         (Class)Class.forName("org.opensim.view.nodes.ModelMakeCurrentAction"), true),

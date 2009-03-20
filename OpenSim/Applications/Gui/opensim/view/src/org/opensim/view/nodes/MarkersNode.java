@@ -18,7 +18,6 @@ import org.opensim.view.nodes.OpenSimObjectNode.displayOption;
  * Node class to wrap Model's collection of markers
  */
 public class MarkersNode extends OpenSimObjectSetNode {
-    boolean topological=false;
     private static ResourceBundle bundle = NbBundle.getBundle(MarkersNode.class);
 
     public MarkersNode(MarkerSet markerSet) {
@@ -30,14 +29,10 @@ public class MarkersNode extends OpenSimObjectSetNode {
             AbstractMarker marker = markerSet.get(markerNum);
             Children children = getChildren();
 
-            if (topological){
-            }
-            else {
-                OneMarkerNode node = new OneMarkerNode(marker);
-                Node[] arrNodes = new Node[1];
-                arrNodes[0] = node;
-                children.add(arrNodes);
-            }
+            OneMarkerNode node = new OneMarkerNode(marker);
+            Node[] arrNodes = new Node[1];
+            arrNodes[0] = node;
+            children.add(arrNodes);
         }
       addDisplayOption(displayOption.Isolatable);
       addDisplayOption(displayOption.Showable);
@@ -80,7 +75,7 @@ public class MarkersNode extends OpenSimObjectSetNode {
 
     public Action[] getActions(boolean b) {
         // Get actions from parent (generic object menu for review, display)
-        Action[] superActions = (Action[]) super.getActions(b);
+        Action[] superActions = (Action[]) super.getActions(b);        
         // Arrays are fixed size, onvert to a List
         List<Action> actions = java.util.Arrays.asList(superActions);
         // Create new Array of proper size

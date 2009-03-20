@@ -34,6 +34,7 @@ import org.opensim.modeling.Model;
 import org.opensim.view.FileSaveModelAction;
 import org.opensim.view.ModelSettingsSerializer;
 import org.opensim.view.SingleModelGuiElements;
+import org.opensim.view.experimentaldata.ModelForExperimentalData;
 import org.opensim.view.pub.OpenSimDB;
 import org.opensim.view.pub.ViewDB;
 
@@ -63,12 +64,13 @@ public static boolean closeModel(Model model) {
       if (saveAndConfirmClose(model) == false)
          return false;
    }
-   
-   // Write settings to persistent storage
-   ModelSettingsSerializer ser = ViewDB.getInstance().getModelSavedSettings(model);
-   if (ser.confirmAndWrite(model)==NotifyDescriptor.CANCEL_OPTION)
-      return false;
-
+   //Fake models for data import need special treatment, may save data xforms instead
+   if (!(model instanceof ModelForExperimentalData)){
+       // Write settings to persistent storage
+       ModelSettingsSerializer ser = ViewDB.getInstance().getModelSavedSettings(model);
+       if (ser.confirmAndWrite(model)==NotifyDescriptor.CANCEL_OPTION)
+          return false;
+   }
    OpenSimDB.getInstance().removeModel(model);
    
    return true;

@@ -76,6 +76,7 @@ import org.opensim.modeling.SetWrapObject;
 import org.opensim.modeling.AbstractMuscle;
 import org.opensim.modeling.ActuatorSet;
 import org.opensim.modeling.Constant;
+import org.opensim.view.experimentaldata.ModelForExperimentalData;
 import org.opensim.modeling.MovingMusclePoint;
 import org.opensim.modeling.MusclePoint;
 import org.opensim.modeling.Units;
@@ -2497,7 +2498,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
             // If any of the event objects is a model not equal to the current model, this means there is a new
             // current model, so we need to handle the event.
             for (int i=0; i<objs.size(); i++) {
-               if (objs.get(i) instanceof Model) {
+               if (objs.get(i) instanceof Model && !(objs.get(i) instanceof ModelForExperimentalData)) {
                   if (currentModel == null || !currentModel.equals(objs.get(i))) {
                      return true;
                   }
@@ -2570,7 +2571,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
             // If any of the event objects is a model not equal to the current model, this means there is a new
             // current model. So clear out the panel.
             for (int i=0; i<objs.size(); i++) {
-               if (objs.get(i) instanceof Model) {
+               if (objs.get(i) instanceof Model && !(objs.get(i) instanceof ModelForExperimentalData)) {
                   if (currentModel == null || !currentModel.equals(objs.get(i))) {
                      currentModel = (Model)objs.get(i);
                      currentAct = null;

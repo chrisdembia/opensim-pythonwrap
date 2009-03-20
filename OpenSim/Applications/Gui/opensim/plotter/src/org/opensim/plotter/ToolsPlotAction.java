@@ -36,7 +36,7 @@ import org.openide.DialogDisplayer;
 import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
-import org.opensim.motionviewer.MotionsDB;
+import org.opensim.view.motions.MotionsDB;
 import org.opensim.utils.DialogUtils;
 import org.opensim.utils.TheApp;
 import org.opensim.view.pub.OpenSimDB;

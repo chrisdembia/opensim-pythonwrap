@@ -56,7 +56,7 @@ import org.opensim.modeling.ScaleSet;
 import org.opensim.modeling.ScaleTool;
 import org.opensim.modeling.Storage;
 import org.opensim.modeling.rdMath;
-import org.opensim.motionviewer.MotionsDB;
+import org.opensim.view.motions.MotionsDB;
 import org.opensim.swingui.SwingWorker;
 import org.opensim.utils.ErrorDialog;
 import org.opensim.utils.FileUtils;

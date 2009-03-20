@@ -37,12 +37,11 @@ import org.opensim.modeling.InterruptingIntegCallback;
 import org.opensim.modeling.Kinematics;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.Storage;
-import org.opensim.motionviewer.JavaMotionDisplayerCallback;
-import org.opensim.motionviewer.MotionControlJPanel;
-import org.opensim.motionviewer.MotionsDB;
+import org.opensim.view.motions.MotionsDB;
 import org.opensim.swingui.SwingWorker;
 import org.opensim.utils.ErrorDialog;
 import org.opensim.utils.FileUtils;
+import org.opensim.view.motions.JavaMotionDisplayerCallback;
 
 public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
    //========================================================================

@@ -49,8 +49,8 @@ public class SimmFileWriter {
     return opensimModelJNI.SimmFileWriter_writeJointFile__SWIG_0(swigCPtr, this, aFileName);
   }
 
-  public boolean writeJointFile(SWIGTYPE_p_OpenSim__SimbodyEngine aEngine, String aFileName) {
-    return opensimModelJNI.SimmFileWriter_writeJointFile__SWIG_1(swigCPtr, this, SWIGTYPE_p_OpenSim__SimbodyEngine.getCPtr(aEngine), aFileName);
+  public boolean writeJointFile(SimbodyEngine aEngine, String aFileName) {
+    return opensimModelJNI.SimmFileWriter_writeJointFile__SWIG_1(swigCPtr, this, SimbodyEngine.getCPtr(aEngine), aEngine, aFileName);
   }
 
   public boolean writeJointFile(SimmKinematicsEngine aEngine, String aFileName) {

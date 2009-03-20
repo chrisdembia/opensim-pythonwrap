@@ -25,6 +25,7 @@ import org.opensim.modeling.BodySet;
 import org.opensim.modeling.Marker;
 import org.opensim.modeling.MarkerSet;
 import org.opensim.modeling.Model;
+import org.opensim.view.experimentaldata.ModelForExperimentalData;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.view.ClearSelectedObjectsEvent;
 import org.opensim.view.DragObjectsEvent;
@@ -714,7 +715,7 @@ final public class MarkerEditorTopComponent extends TopComponent implements Obse
       pendingChanges.clear();
 
       // Make a backup of each actuator in the current model and add it to the savedMarkers hash table.
-      if (currentModel != null) {
+      if (currentModel != null && currentModel.getDynamicsEngine() != null) {
          MarkerSet markers = currentModel.getDynamicsEngine().getMarkerSet();
          for (int i=0; i<markers.getSize(); i++) {
             AbstractMarker savedMarker = AbstractMarker.safeDownCast(markers.get(i).copy());
@@ -1246,7 +1247,7 @@ final public class MarkerEditorTopComponent extends TopComponent implements Obse
             // If any of the event objects is a model not equal to the current model, this means there is a new
             // current model. So clear out the panel.
             for (int i=0; i<objs.size(); i++) {
-               if (objs.get(i) instanceof Model) {
+               if (objs.get(i) instanceof Model && !(objs.get(i) instanceof ModelForExperimentalData)) {
                   if (currentModel == null || !currentModel.equals(objs.get(i))) {
                      currentModel = (Model)objs.get(i);
                      currentMarker = null;

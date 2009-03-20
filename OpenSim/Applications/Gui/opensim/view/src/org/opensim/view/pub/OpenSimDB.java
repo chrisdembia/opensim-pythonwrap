@@ -259,6 +259,7 @@ public class OpenSimDB extends Observable implements Externalizable{
             //acts.addObjectToGroup("all", acts.get(i).getName());
          //}
       //}
+      if (aModel.getDynamicsEngine()==null || acts==null) return;
       CoordinateSet coords = aModel.getDynamicsEngine().getCoordinateSet();
       //numGroups = coords.getNumGroups();
       if (coords.getGroup("all")==null){
