@@ -27,6 +27,9 @@ package org.opensim.view.experimentaldata;
  *  OR BUSINESS INTERRUPTION) OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  *  WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+import java.awt.Dialog;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import org.openide.DialogDescriptor;
 import org.openide.DialogDisplayer;
 import org.openide.nodes.Node;
@@ -43,14 +46,35 @@ public final class MotionReclassifyAction extends CallableSystemAction {
         // Get experimental data object from selected nodes and invoke ".hide on them"
         Node[] selected = ExplorerTopComponent.findInstance().getExplorerManager().getSelectedNodes();
         if (selected.length!=1 || (! (selected[0] instanceof OneMotionNode))) return;
-        AnnotatedMotion amot = (AnnotatedMotion) ((OneMotionNode)(selected[0])).getMotion();
-        for(int i=0; i < selected.length; i++){
-            ClassifyDataJPanel dataPanel= new ClassifyDataJPanel();
-            dataPanel.setAmotion(amot);
-            DialogDescriptor dlg = new DialogDescriptor(dataPanel, "Inspect Experimental Data");
-            dlg.setModal(false);
-            DialogDisplayer.getDefault().createDialog(dlg).setVisible(true);
-        }
+        final AnnotatedMotion amot = (AnnotatedMotion) ((OneMotionNode)(selected[0])).getMotion();
+        final ClassifyDataJPanel dataPanel= new ClassifyDataJPanel();
+        dataPanel.setAmotion(amot);
+        final DialogDescriptor dlg = new DialogDescriptor(dataPanel, "Inspect Experimental Data");
+        dlg.setModal(false);
+        Dialog wDlg = DialogDisplayer.getDefault().createDialog(dlg);
+        wDlg.setVisible(true);
+        wDlg.addWindowListener(new WindowAdapter(){
+              public void windowClosing(WindowEvent event) {
+                Object userInput = dlg.getValue();
+                if (((Integer)userInput).compareTo((Integer)DialogDescriptor.CANCEL_OPTION)==0){
+                    dataPanel.resetTransforms();
+                }
+                else
+                    amot.setCurrentRotations(dataPanel.getRotations());
+                //amot.applyTransform(dataPanel.getLastTranform());
+                super.windowClosing(event);
+              }
+            public void windowClosed(WindowEvent e) {
+                Object userInput = dlg.getValue();
+                if (((Integer)userInput).compareTo((Integer)DialogDescriptor.CANCEL_OPTION)==0){
+                    dataPanel.resetTransforms();
+                }
+                else
+                    amot.setCurrentRotations(dataPanel.getRotations());
+                //amot.applyTransform(dataPanel.getLastTranform());
+                super.windowClosed(e);
+            }
+        });
     }
         
     public String getName() {

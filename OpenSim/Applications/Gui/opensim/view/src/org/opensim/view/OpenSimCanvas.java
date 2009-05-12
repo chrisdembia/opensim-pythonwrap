@@ -88,6 +88,7 @@ public class OpenSimCanvas extends OpenSimBaseCanvas implements MouseWheelListen
     }
     /**
      * Event handler to handle mousePressed
+     * Should delegate the call to motion displayers as well to enable selection of motion objects
      */
    public void mousePressed(MouseEvent e)
    {
@@ -188,7 +189,13 @@ public class OpenSimCanvas extends OpenSimBaseCanvas implements MouseWheelListen
    }
 
    public void keyReleased(KeyEvent e) {
-      if (e.getKeyCode() == KeyEvent.VK_CONTROL) setPicking(false);
+      if (e.getKeyCode() == KeyEvent.VK_CONTROL){ 
+          setPicking(false);
+          //if (ViewDB.getInstance().isQuery()){
+          //    ViewDB.getInstance().setQuery(false);
+          //    fireStateChanged(); // to toggle off the annotations button
+          //}
+      }
       else super.keyReleased(e);
    }
 
@@ -265,7 +272,7 @@ public class OpenSimCanvas extends OpenSimBaseCanvas implements MouseWheelListen
 
     /**
      *  Utility method to locate an OpenSimObject located atscreen coordinate  x, y.
-     *  Delegates the call to modelVisuals
+     *  Delegates the call to modelVisuals. PRimarily used for the side-effects of picking
      */
     OpenSimObject findObjectAt(int x, int y, double[] worldPosition)
     {
@@ -313,6 +320,21 @@ public class OpenSimCanvas extends OpenSimBaseCanvas implements MouseWheelListen
         // Kluge around Moving Muscle Points!
         if (obj != null && MovingMusclePoint.safeDownCast(obj)!=null)
               return null;
+        if (obj==null){  // Could be user object
+           vtkCellPicker pPicker=new vtkCellPicker();
+           // Important to set tolerance to something small, else it may pick glyphs not directly under cursor
+           pPicker.SetTolerance(0.0001);
+           Lock();
+           pPicker.Pick(x, rw.GetSize()[1] - y, 0, ren);
+           UnLock();
+           vtkAssemblyNode asmNode = (pPicker.GetPath()!=null) ? pPicker.GetPath().GetLastNode() : null;
+           if (asmNode==null)
+              return null;
+           vtkActor candidateActor=(vtkActor) asmNode.GetViewProp();
+           int cellId = pPicker.GetCellId();
+           obj = ViewDB.getInstance().getSelectedGlyphObject(cellId, candidateActor);
+            ViewDB.getInstance().pickUserObject(asmPath, cellId);
+        }
         return obj;
     }
  
@@ -365,6 +387,7 @@ public class OpenSimCanvas extends OpenSimBaseCanvas implements MouseWheelListen
 
     public void Render() {
         //long before=System.nanoTime();
+        //ViewDB.getInstance().setTextCamera(GetRenderer().GetActiveCamera());
         super.Render();
         //long after=System.nanoTime();
         //System.out.println("Render only: "+1e-6*(after-before)+" ms");

@@ -101,7 +101,10 @@ public class ExperimentalDataNode extends OpenSimNode{
                             null,
                             (ExperimentalObjectDisplayShowTrailAction) ExperimentalObjectDisplayShowTrailAction.findObject(
                            (Class)Class.forName("org.opensim.view.experimentaldata.ExperimentalObjectDisplayShowTrailAction"), 
-                                   true)};
+                                   true),
+                };
+                
+                
             } catch (ClassNotFoundException ex) {
                 ex.printStackTrace();
             }

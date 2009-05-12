@@ -36,6 +36,7 @@ import org.opensim.modeling.AbstractMarker;
 import org.opensim.modeling.AbstractMuscle;
 import org.opensim.view.pub.ViewDB;
 import vtk.vtkActor;
+import vtk.vtkCaptionActor2D;
 import vtk.vtkProp3D;
 
 
@@ -44,7 +45,7 @@ import vtk.vtkProp3D;
  * @author Eran Guendelman
  *
  */
-public class SelectedObject {
+public class SelectedObject implements Selectable {
    public static final double defaultSelectedColor[] = {0.8, 0.8, 0.0};
 
    OpenSimObject object;
@@ -116,7 +117,7 @@ public class SelectedObject {
       }
    }
 
-   private static double[] getGlyphPointBounds(OpenSimvtkGlyphCloud cloud, SingleModelVisuals visuals, OpenSimObject object) {
+   public static double[] getGlyphPointBounds(OpenSimvtkGlyphCloud cloud, SingleModelVisuals visuals, OpenSimObject object) {
       double pointSize = 0.05;
       int id = cloud.getPointId(object);
       if(id<0) return null; // just to be safe
@@ -133,13 +134,18 @@ public class SelectedObject {
       double[] bounds = null;
       if (MusclePoint.safeDownCast(object) != null) {
          MusclePoint mp = MusclePoint.safeDownCast(object);
+         if (!(mp.isActive())) return null;
          SingleModelVisuals visuals = ViewDB.getInstance().getModelVisuals(getModel(mp));
          bounds = getGlyphPointBounds(visuals.getMusclePointsRep(), visuals, object);
       } else if (AbstractMarker.safeDownCast(object) != null) {
          AbstractMarker marker = AbstractMarker.safeDownCast(object);
          SingleModelVisuals visuals = ViewDB.getInstance().getModelVisuals(getModel(marker));
          bounds = getGlyphPointBounds(visuals.getMarkersRep(), visuals, object);
+         
       } else if (AbstractBody.safeDownCast(object) != null) {
+          // Check if object is visible 
+         int displayStatus = ViewDB.getInstance().getDisplayStatus(object);
+         if (displayStatus==0) return null;
          vtkProp3D asm = ViewDB.getInstance().getVtkRepForObject(object);
          if(asm!=null) {
             bounds = asm.GetBounds();
@@ -149,4 +155,19 @@ public class SelectedObject {
       }
       return bounds;
    }
+
+    public void updateAnchor(vtkCaptionActor2D caption) {
+             double[] bounds=getBounds();
+             if (bounds == null){   // object currently invisible
+                 caption.SetVisibility(0);
+                 return;
+             }
+             else
+                 caption.SetVisibility(1);
+             caption.SetAttachmentPoint(new double[]{
+                 (bounds[0]+bounds[1])/2.0,
+                 (bounds[2]+bounds[3])/2.0,
+                 (bounds[4]+bounds[5])/2.0,
+             });
+    }
 }

@@ -53,8 +53,9 @@ public class ModelForExperimentalData extends Model{
     /**
      * Creates a new instance of ModelForExperimentalData
      */
-    public ModelForExperimentalData(int i) {
+    public ModelForExperimentalData(int i, AnnotatedMotion motionData) {
         setName("ExperimentalData_"+i);
+        this.motionData=motionData;
         dEngine = new SimbodyEngine();
         markers = new MarkerSet();
         ground = new Body();
@@ -63,6 +64,10 @@ public class ModelForExperimentalData extends Model{
         dEngine.setModel(this);
         dEngine.getBodySet().append(getGround());
         setForces(new ActuatorSet());
+        getGround().getDisplayer().setNumGeometryFiles(1);
+        getGround().getDisplayer().setGeometryFileName(0, "axes.vtp");
+        //getGround().getDisplayer().setGeometryFileName(1, "unitCube.vtp");
+        
     }
 
    public int getNumStates() {
@@ -102,7 +107,7 @@ public class ModelForExperimentalData extends Model{
         return motionData;
     }
 
-    public void setMotionData(AnnotatedMotion motionData) {
+    private void setMotionData(AnnotatedMotion motionData) {
         this.motionData = motionData;
     }
 

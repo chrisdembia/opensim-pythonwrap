@@ -31,7 +31,7 @@ public class ExperimentalMarkerNode extends ExperimentalDataNode {
     String markerName=null;
     /** Creates a new instance of ExperimentalMarkerNode */
     public ExperimentalMarkerNode(ExperimentalDataObject dataObject, AnnotatedMotion dMotion) {
-        markerName=dataObject.getBaseName();
+        markerName=dataObject.getName();
         this.dMotion=dMotion;
         setDataObject(dataObject);
         setName(markerName);

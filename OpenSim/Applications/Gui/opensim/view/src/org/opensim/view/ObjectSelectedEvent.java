@@ -44,14 +44,14 @@ import org.opensim.view.SelectedObject;
  */
 public class ObjectSelectedEvent extends EventObject {
 
-   private SelectedObject selectedObject;
+   private Selectable selectedObject;
    private boolean selected = false;
 
     /** Creates a new instance of ObjectSelectedEvent
      *  state indicates whether the object was selected (true)
      *  or unselected (false).
      */
-    public ObjectSelectedEvent(Object source, SelectedObject object, boolean state) {
+    public ObjectSelectedEvent(Object source, Selectable object, boolean state) {
        super(source);
        selectedObject = object;
        selected = state;

@@ -29,18 +29,15 @@ package org.opensim.view.motions;
  */
 import java.io.File;
 import java.io.IOException;
-import javax.swing.JButton;
-import org.openide.DialogDescriptor;
-import org.openide.DialogDisplayer;
 import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
 import org.opensim.modeling.MarkerData;
 import org.opensim.view.experimentaldata.ModelForExperimentalData;
 import org.opensim.modeling.Storage;
+import org.opensim.modeling.Units;
 import org.opensim.utils.FileUtils;
 import org.opensim.view.experimentaldata.AnnotatedMotion;
-import org.opensim.view.experimentaldata.ClassifyDataJPanel;
 import org.opensim.view.pub.OpenSimDB;
 
 public final class FileLoadDataAction extends CallableSystemAction {
@@ -56,10 +53,10 @@ public final class FileLoadDataAction extends CallableSystemAction {
                     Storage newStorage = new Storage();
                     markerData.makeRdStorage(newStorage);
                     AnnotatedMotion amot = new AnnotatedMotion(newStorage, markerData.getMarkerNames());
+                    amot.setUnitConversion(1.0/(markerData.getUnits().convertTo(Units.UnitType.simmMeters)));
                     amot.setName(new File(fileName).getName());
                     // Add the visuals to support it
-                    ModelForExperimentalData modelForDataImport = new ModelForExperimentalData(nextNumber++);
-                    modelForDataImport.setMotionData(amot);
+                    ModelForExperimentalData modelForDataImport = new ModelForExperimentalData(nextNumber++, amot);
                     OpenSimDB.getInstance().addModel(modelForDataImport);
                     MotionsDB.getInstance().addMotion(modelForDataImport, amot, false);
                 } catch (IOException ex) {
@@ -84,8 +81,7 @@ public final class FileLoadDataAction extends CallableSystemAction {
                      DialogDisplayer.getDefault().createDialog(dlg).setVisible(true);
                      */
                      // Add the visuals to support it
-                     ModelForExperimentalData modelForDataImport = new ModelForExperimentalData(nextNumber++);
-                     modelForDataImport.setMotionData(amot);
+                     ModelForExperimentalData modelForDataImport = new ModelForExperimentalData(nextNumber++, amot);
                      OpenSimDB.getInstance().addModel(modelForDataImport);
                      MotionsDB.getInstance().addMotion(modelForDataImport, amot, false);
             }

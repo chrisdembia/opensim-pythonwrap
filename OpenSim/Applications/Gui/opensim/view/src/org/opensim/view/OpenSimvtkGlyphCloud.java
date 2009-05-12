@@ -70,7 +70,7 @@ public class OpenSimvtkGlyphCloud {    // Assume same shape
     private HashMap<Integer,OpenSimObject> mapPointIdsToObjectIds = new HashMap<Integer,OpenSimObject>(100);
 
     private Stack<Integer> freeList = new Stack<Integer>();
-    
+    private String name;
     /**
     * Creates a new instance of OpenSimvtkGlyphCloud.
     * if createScalars is true then obbjects are colored based on scalarValues
@@ -289,4 +289,12 @@ public class OpenSimvtkGlyphCloud {    // Assume same shape
       if(oldObj!=null && !oldObj.equals(obj)) mapObjectIdsToPointIds.put(oldObj,-1);
       mapPointIdsToObjectIds.put(id,obj);
    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

@@ -76,6 +76,7 @@ import org.opensim.modeling.SetWrapObject;
 import org.opensim.modeling.AbstractMuscle;
 import org.opensim.modeling.ActuatorSet;
 import org.opensim.modeling.Constant;
+import org.opensim.view.Selectable;
 import org.opensim.view.experimentaldata.ModelForExperimentalData;
 import org.opensim.modeling.MovingMusclePoint;
 import org.opensim.modeling.MusclePoint;
@@ -2160,7 +2161,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       AttachmentsPanel.setPreferredSize(d);
       
       // Update the checked/unchecked state of the selected checkboxes
-      ArrayList<SelectedObject> selectedObjects = ViewDB.getInstance().getSelectedObjects();
+      ArrayList<Selectable> selectedObjects = ViewDB.getInstance().getSelectedObjects();
       for (int i = 0; i < selectedObjects.size(); i++)
          updateAttachmentSelections(selectedObjects.get(i), true);
    }
@@ -2613,11 +2614,11 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       }
    }
 
-   private void updateAttachmentSelections(SelectedObject selectedObject, boolean state) {
+   private void updateAttachmentSelections(Selectable selectedObject, boolean state) {
       if (currentAct != null) {
          OpenSimObject obj = selectedObject.getOpenSimObject();
          AbstractMuscle asm = AbstractMuscle.safeDownCast(currentAct);
-         if (asm != null) {
+         if (asm != null && obj!=null) {
             MusclePointSet musclePoints = asm.getAttachmentSet();
             for (int i = 0; i < musclePoints.getSize(); i++) {
                if (OpenSimObject.getCPtr(obj) == MusclePoint.getCPtr(musclePoints.get(i))) {
@@ -2631,7 +2632,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
    }
    
    private void dragMusclePoints(DragObjectsEvent ev) {
-      ArrayList<SelectedObject> selectedObjects = ViewDB.getInstance().getSelectedObjects();
+      ArrayList<Selectable> selectedObjects = ViewDB.getInstance().getSelectedObjects();
       AbstractMuscle m = null;
       AbstractMuscle currentMuscle = AbstractMuscle.safeDownCast(currentAct);
       boolean currentMuscleMoved = false;

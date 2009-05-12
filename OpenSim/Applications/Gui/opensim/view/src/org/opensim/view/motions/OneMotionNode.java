@@ -36,6 +36,7 @@ import javax.swing.Action;
 import org.openide.nodes.Node;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.Storage;
+import org.opensim.view.experimentaldata.AnnotateMotionObjectsAction;
 import org.opensim.view.experimentaldata.AnnotatedMotion;
 import org.opensim.view.experimentaldata.ExperimentalDataItemType;
 import org.opensim.view.experimentaldata.ExperimentalDataObject;
@@ -120,7 +121,11 @@ public class OneMotionNode extends OpenSimObjectNode{
                     (MotionReclassifyAction) MotionReclassifyAction.findObject(
                      (Class)Class.forName("org.opensim.view.experimentaldata.MotionReclassifyAction"), true)
                      :null,
-                
+                /*
+               (AnnotateMotionObjectsAction) AnnotateMotionObjectsAction.findObject(
+                           (Class)Class.forName("org.opensim.view.experimentaldata.AnnotateMotionObjectsAction"), 
+                                   true),
+                 */
             };
         } catch (ClassNotFoundException ex) {
             ex.printStackTrace();

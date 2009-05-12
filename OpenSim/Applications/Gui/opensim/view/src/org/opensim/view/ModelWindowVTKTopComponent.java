@@ -177,6 +177,7 @@ public class ModelWindowVTKTopComponent extends TopComponent
         jTakeSnapshotButton = new javax.swing.JButton();
         jStartStopMovieToggleButton = new javax.swing.JToggleButton();
         cameraEditorButton = new javax.swing.JButton();
+        jAnnotateToggleButton = new javax.swing.JToggleButton();
 
         org.openide.awt.Mnemonics.setLocalizedText(jRefitModelButton, "Refit");
         jRefitModelButton.addActionListener(new java.awt.event.ActionListener() {
@@ -879,19 +880,41 @@ public class ModelWindowVTKTopComponent extends TopComponent
 
         jModelWindowToolBar.add(cameraEditorButton);
 
+        jAnnotateToggleButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/annotateDisarmed.png")));
+        jAnnotateToggleButton.setToolTipText("Annotate selection");
+        jAnnotateToggleButton.setAlignmentX(0.5F);
+        jAnnotateToggleButton.setBorderPainted(false);
+        jAnnotateToggleButton.setContentAreaFilled(false);
+        jAnnotateToggleButton.setFocusPainted(false);
+        jAnnotateToggleButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jAnnotateToggleButton.setMaximumSize(new java.awt.Dimension(20, 20));
+        jAnnotateToggleButton.setMinimumSize(new java.awt.Dimension(20, 20));
+        jAnnotateToggleButton.setPreferredSize(new java.awt.Dimension(20, 20));
+        jAnnotateToggleButton.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/annotateArmed.png")));
+        jAnnotateToggleButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/annotateArmed.png")));
+        jAnnotateToggleButton.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/annotateDisarmed.png")));
+        jAnnotateToggleButton.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/annotateArmed.png")));
+        jAnnotateToggleButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jAnnotateToggleButtonActionPerformed(evt);
+                jAnnotateButtonActionPerformed(evt);
+            }
+        });
+
+        jModelWindowToolBar.add(jAnnotateToggleButton);
+
         org.jdesktop.layout.GroupLayout toolBarPanel1Layout = new org.jdesktop.layout.GroupLayout(toolBarPanel1);
         toolBarPanel1.setLayout(toolBarPanel1Layout);
         toolBarPanel1Layout.setHorizontalGroup(
             toolBarPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(toolBarPanel1Layout.createSequentialGroup()
-                .add(0, 0, 0)
-                .add(jModelWindowToolBar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+            .add(jModelWindowToolBar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
         );
         toolBarPanel1Layout.setVerticalGroup(
             toolBarPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(toolBarPanel1Layout.createSequentialGroup()
                 .add(0, 0, 0)
-                .add(jModelWindowToolBar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 225, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(jModelWindowToolBar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 244, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -901,6 +924,16 @@ public class ModelWindowVTKTopComponent extends TopComponent
         add(toolBarPanel1, gridBagConstraints);
 
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jAnnotateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAnnotateButtonActionPerformed
+// TODO add your handling code here:
+        javax.swing.JToggleButton src = (javax.swing.JToggleButton)evt.getSource();
+        ViewDB.getInstance().setQuery(src.isSelected());
+    }//GEN-LAST:event_jAnnotateButtonActionPerformed
+
+    private void jAnnotateToggleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAnnotateToggleButtonActionPerformed
+// TODO add your handling code here:
+    }//GEN-LAST:event_jAnnotateToggleButtonActionPerformed
 
     private void jJoystickSliderMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jJoystickSliderMouseReleased
 // TODO add your handling code here:
@@ -1212,6 +1245,7 @@ public class ModelWindowVTKTopComponent extends TopComponent
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cameraEditorButton;
+    private javax.swing.JToggleButton jAnnotateToggleButton;
     private javax.swing.JToggleButton jAxesToggleButton;
     private javax.swing.JButton jBackgroundColorButton;
     private javax.swing.JSlider jHorizontalSlider1;
@@ -1353,6 +1387,7 @@ public class ModelWindowVTKTopComponent extends TopComponent
              double rollAngle = cam.GetRoll();
 //             jHorizontalSlider1.setValue((int) rollAngle);
 //             jJoystickSlider.setValue((int) rollAngle);
+             jAnnotateToggleButton.setSelected(ViewDB.getInstance().isQuery());
              internalTrigger=false;
         } else if (e.getSource().equals(jHorizontalSlider1) && !internalTrigger){
             internalTrigger=true;

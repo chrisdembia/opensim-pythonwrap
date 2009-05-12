@@ -32,16 +32,17 @@
 
 package org.opensim.view.experimentaldata;
 
+import org.opensim.modeling.OpenSimObject;
 import org.opensim.view.OpenSimvtkGlyphCloud;
 
 /**
  *
  * @author ayman
  */
-public class ExperimentalDataObject {
+public class ExperimentalDataObject extends OpenSimObject {
     
     private ExperimentalDataItemType objectType=ExperimentalDataItemType.Unknown;
-    private String baseName="";
+    //private String baseName="";
     private int startIndexInFileNotIncludingTime=-1;
     private boolean displayed=true;
     private boolean trailDisplayed=false;
@@ -50,7 +51,7 @@ public class ExperimentalDataObject {
     /** Creates a new instance of ExperimentalDataObject */
     public ExperimentalDataObject(ExperimentalDataItemType objectType, String baseName, int index) {
         this.setObjectType(objectType);
-        this.setBaseName(baseName);
+        this.setName(baseName);
         this.startIndexInFileNotIncludingTime = index;
     }
 
@@ -61,21 +62,21 @@ public class ExperimentalDataObject {
     public void setObjectType(ExperimentalDataItemType objectType) {
         this.objectType = objectType;
     }
-
-    public String getBaseName() {
+/*
+    public String getName() {
         return baseName;
     }
 
-    public void setBaseName(String baseName) {
+    public void setName(String baseName) {
         this.baseName = baseName;
     }
-
+*/
     public int getStartIndexInFileNotIncludingTime() {
         return startIndexInFileNotIncludingTime;
     }
     
     public String toString() {
-        return (baseName+"("+objectType.getNumberOfColumns()+")");
+        return (getName()+"("+objectType.getNumberOfColumns()+")");
     }
 
     public boolean isDisplayed() {

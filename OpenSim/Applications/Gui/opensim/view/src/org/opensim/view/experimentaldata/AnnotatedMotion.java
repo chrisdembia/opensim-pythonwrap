@@ -34,10 +34,11 @@ package org.opensim.view.experimentaldata;
 
 import java.util.Vector;
 import org.opensim.modeling.ArrayStr;
-import org.opensim.modeling.MarkerData;
+import org.opensim.modeling.StateVector;
 import org.opensim.modeling.Storage;
 import org.opensim.view.motions.MotionControlJPanel;
 import org.opensim.view.motions.MotionDisplayer;
+import vtk.vtkTransform;
 
 /**
  *
@@ -50,7 +51,10 @@ public class AnnotatedMotion extends Storage { // MotionDisplayer needs to know 
     private static Vector<String[]> patterns = new Vector<String[]>(6);
     private static Vector<ExperimentalDataItemType> classifications = new Vector<ExperimentalDataItemType>(6);
     private Vector<ExperimentalDataObject> classified=new Vector<ExperimentalDataObject>(10);
-    
+    private double[] boundingBox = new double[]{1000., 10000., 10000., -1., -1., -1.};
+    private double unitConversion = 1.0;
+    private boolean boundingBoxComputed=false;
+    private double[] currentRotations = new double[]{0., 0., 0.};
     /** Creates a new instance of AnnotatedMotion 
      * This constructor is called when a trc file is read (so we know it is 
      * Marker only data already.
@@ -58,13 +62,46 @@ public class AnnotatedMotion extends Storage { // MotionDisplayer needs to know 
     public AnnotatedMotion(Storage storage, ArrayStr markerNames) {
         super(storage);
         setupPatterns();
+        int rowSize = storage.getSmallestNumberOfStates();
+        double[] mins = new double[rowSize];
+        double[] maxs = new double[rowSize];
+        for(int t=0;t<rowSize;t++){
+            mins[t]=100000;
+            maxs[t]=-100000;
+        }
+        getMinMax(mins, maxs);
+        int minXIndex=-1;
+        int maxXIndex=-1;
         for(int i=0; i<markerNames.getSize(); i++){
             String markerName=markerNames.getitem(i);
             ExperimentalDataObject markerObject = new ExperimentalDataObject(
                     ExperimentalDataItemType.MarkerData, markerName, i*3);
             classified.add(markerObject);
+            for(int coord=0; coord<3; coord++){
+                //System.out.println("checking index "+(i*3+coord)+"& "+(i*3+coord+3));
+                if (getBoundingBox()[coord] > mins[i*3+coord]){
+                    getBoundingBox()[coord] = mins[i*3+coord];
+                    if (coord==1) minXIndex=i;
+                }
+                if (getBoundingBox()[coord+3] < maxs[i*3+coord]){
+                    getBoundingBox()[coord+3] = maxs[i*3+coord];
+                    if (coord==1) maxXIndex=i;
+                }
+            }
+            //System.out.println("-------------------------");
+
         }
-        //setMarkerNames(markerNames.toVector());
+        System.out.println("minY, maxY are at markers "+minXIndex+", "+maxXIndex);
+        System.out.println("Bounding box="+
+                getBoundingBox()[0]+", "+
+                getBoundingBox()[1]+", "+
+                getBoundingBox()[2]+", "+
+                getBoundingBox()[3]+", "+
+                getBoundingBox()[4]+", "+
+                getBoundingBox()[5]
+                );
+        for (int i=0; i<6; i++) getBoundingBox()[i]/= getUnitConversion();
+        setBoundingBoxComputed(true);
     }
 
         /** Creates a new instance of AnnotatedMotion */
@@ -119,6 +156,12 @@ public class AnnotatedMotion extends Storage { // MotionDisplayer needs to know 
                 for(int k=0; k<patterns.get(patternIdx).length; k++){
                     String testAgainst=patterns.get(patternIdx)[k];
                     baseName=label.substring(0, label.length()-testAgainst.length()); // Could be moved outside k loop
+                    if((i+k) > (labelsVector.size()-1)){
+                        foundPatternAtIdx=false;
+                        break;               
+                    }
+                    System.out.println("labelsVector.size()"+labelsVector.size());
+                    System.out.println("test index"+i+k);
                     label= labelsVector.get(i+k);
                     if (!(label.endsWith(testAgainst))){
                         foundPatternAtIdx=false;
@@ -155,7 +198,7 @@ public class AnnotatedMotion extends Storage { // MotionDisplayer needs to know 
         if (classified !=null && classified.size()!=0){
             for(ExperimentalDataObject dataObject:classified){
                 if (dataObject.getObjectType()==aDataType)
-                    results.add(dataObject.getBaseName());
+                    results.add(dataObject.getName());
             }     
         }
         return results;
@@ -175,5 +218,91 @@ public class AnnotatedMotion extends Storage { // MotionDisplayer needs to know 
         displayer.toggleTrail(obj);
         obj.setTrailDisplayed(!obj.isTrailDisplayed());
     }
+
+    public double[] getBoundingBox() {
+        return boundingBox;
+    }
+
+    public double getUnitConversion() {
+        return unitConversion;
+    }
+
+    public void setUnitConversion(double unitConversion) {
+        this.unitConversion = unitConversion;
+        for (int i=0; i<6; i++) getBoundingBox()[i]/= unitConversion;
+    }
+
+    public boolean isBoundingBoxComputed() {
+        return boundingBoxComputed;
+    }
+
+    public void setBoundingBoxComputed(boolean boundingBoxComputed) {
+        this.boundingBoxComputed = boundingBoxComputed;
+    }
+    
+    public void applyTransform(vtkTransform vtktransform) {
+        // Should know what data to apply xform to and how
+        // for example mrkers are xformed as is but force vectors would not apply translations etc.
+        // utilize the "clasified" table
+        if (classified !=null && classified.size()!=0){
+            for(ExperimentalDataObject dataObject:classified){
+                if (dataObject.getObjectType()==ExperimentalDataItemType.PointData ||
+                    dataObject.getObjectType()==ExperimentalDataItemType.MarkerData){
+                    int startIndex = dataObject.getStartIndexInFileNotIncludingTime();
+                
+                    Vector<Integer> indices = new Vector<Integer>(3);
+                    for (int i=0; i< dataObject.getObjectType().getNumberOfColumns(); i++){
+                        indices.add(startIndex+i);
+                    }
+                    assert(indices.size()==3);
+                    double[] point3 = new double[]{0., 0., 0. };
+                    for (int rowNumber=0; rowNumber<getSize(); rowNumber++){
+                        StateVector row = getStateVector(rowNumber);
+                        for(int coord=0; coord <3; coord++) {
+                            point3[coord] = row.getData().getitem(startIndex+coord);
+                        }
+                         double[] xformed = vtktransform.TransformDoublePoint(point3); //inplace
+                         for(int coord=0; coord <3; coord++) {
+                            row.getData().setitem(startIndex+coord, xformed[coord]);
+                        }
+                       
+                    }
+                }
+            }
+        }
+    }
+
+    void saveRotations(double[] d) {
+        for(int i=0; i<3; i++)
+            getCurrentRotations()[i]=d[i];
+    }
+
+    public double[] getCurrentRotations() {
+        return currentRotations;
+    }
+
+    public void setCurrentRotations(double[] currentRotations) {
+        this.currentRotations = currentRotations;
+    }
+    
+    
+    public void getMinMax(double[] mins, double[] maxs) {
+      int rowSize = getStateVector(0).getSize();
+      for(int t=0; t<rowSize;t++){
+          mins[t] = getStateVector(0).getData().getitem(t);
+          maxs[t] = getStateVector(0).getData().getitem(t);
+      }
+      for(int i=1; i< getSize(); i++){
+          StateVector vec = getStateVector(i);
+          // Timestamp
+          // Dataitem j
+          for(int j=0; j< rowSize; j++){
+              if (vec.getData().getitem(j) < mins[j]) 
+                  mins[j]=vec.getData().getitem(j);
+              if (vec.getData().getitem(j) > maxs[j]) 
+                  maxs[j]=vec.getData().getitem(j);
+          }
+      }
+  }
 
 }

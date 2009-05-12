@@ -34,9 +34,13 @@
 
 package org.opensim.view.motions;
 
+import java.util.Collection;
 import java.util.Hashtable;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.Vector;
+import org.opensim.view.SelectedGlyphUserObject;
+import org.opensim.view.SelectionListener;
 import org.opensim.view.experimentaldata.AnnotatedMotion;
 import org.opensim.modeling.AbstractBody;
 import org.opensim.modeling.AbstractCoordinate;
@@ -51,20 +55,24 @@ import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.BodySet;
 import org.opensim.modeling.CoordinateSet;
 import org.opensim.modeling.MarkerSet;
+import org.opensim.modeling.OpenSimObject;
 import org.opensim.view.experimentaldata.ExperimentalDataObject;
 import org.opensim.view.experimentaldata.ModelForExperimentalData;
 import org.opensim.modeling.StateVector;
 import org.opensim.modeling.Storage;
 import org.opensim.view.OpenSimvtkGlyphCloud;
+import org.opensim.view.SelectedObject;
 import org.opensim.view.SingleModelVisuals;
 import org.opensim.view.experimentaldata.ExperimentalDataItemType;
 import org.opensim.view.pub.OpenSimDB;
 import org.opensim.view.pub.ViewDB;
 import vtk.vtkActor;
 import vtk.vtkAppendPolyData;
+import vtk.vtkAssemblyNode;
+import vtk.vtkAssemblyPath;
 import vtk.vtkLineSource;
 import vtk.vtkPolyDataMapper;
-import vtk.vtkProp3D;
+import vtk.vtkProp;
 
 /**
  * 
@@ -76,7 +84,7 @@ import vtk.vtkProp3D;
  * 3. This isolates the display code from the specifics of Storage so that OpenSim proper creatures can be used.
  */
 
-public class MotionDisplayer {
+public class MotionDisplayer implements SelectionListener {
     
     public enum ObjectTypesInMotionFiles{GenCoord, 
                                          GenCoord_Velocity, 
@@ -164,10 +172,10 @@ public class MotionDisplayer {
             Vector<ExperimentalDataObject> objects=mot.getClassified();
             for(ExperimentalDataObject nextObject:objects){
                 if (nextObject.getObjectType()==ExperimentalDataItemType.MarkerData){
-                    int glyphIndex=markersRep.addLocation(0., 0., 0.);
+                    int glyphIndex=markersRep.addLocation(nextObject);
                     nextObject.setGlyphInfo(glyphIndex, markersRep);
                 } else if (nextObject.getObjectType()==ExperimentalDataItemType.ForceData){
-                    int glyphIndex=groundForcesRep.addLocation(0., 0., 0.);
+                    int glyphIndex=groundForcesRep.addLocation(nextObject);
                     nextObject.setGlyphInfo(glyphIndex, groundForcesRep);
                 }
             }
@@ -239,10 +247,10 @@ public class MotionDisplayer {
         if (markersRep != null)
            ViewDB.getInstance().removeUserObjectFromModel(model, markersRep.getVtkActor());
         
-        groundForcesRep = new OpenSimvtkGlyphCloud(true);
-        bodyForcesRep = new OpenSimvtkGlyphCloud(true);
-        generalizedForcesRep = new OpenSimvtkGlyphCloud(true);
-        markersRep = new OpenSimvtkGlyphCloud(false);
+        groundForcesRep = new OpenSimvtkGlyphCloud(true);   groundForcesRep.setName("GRF");
+        bodyForcesRep = new OpenSimvtkGlyphCloud(true);     bodyForcesRep.setName("BodyForce");
+        generalizedForcesRep = new OpenSimvtkGlyphCloud(true); bodyForcesRep.setName("JointForce");
+        markersRep = new OpenSimvtkGlyphCloud(false);   bodyForcesRep.setName("Exp. Markers");
 
         groundForcesRep.setShape(MotionObjectsDB.getInstance().getShape("arrow"));
         groundForcesRep.setColor(new double[]{0., 1.0, 0.});
@@ -270,6 +278,7 @@ public class MotionDisplayer {
         ViewDB.getInstance().addUserObjectToModel(model, bodyForcesRep.getVtkActor());
         ViewDB.getInstance().addUserObjectToModel(model, generalizedForcesRep.getVtkActor());
         ViewDB.getInstance().addUserObjectToModel(model, markersRep.getVtkActor());
+        ViewDB.getInstance().addSelectionListener(this);
     }
 
     //interface applyValue
@@ -435,6 +444,7 @@ public class MotionDisplayer {
    {
       StateVector states=simmMotionData.getStateVector(currentFrame);
       applyStatesToModel(states.getData());
+      ViewDB.getInstance().updateAnnotationAnchors();
    }
 
    void applyTimeToModel(double currentTime)
@@ -462,9 +472,9 @@ public class MotionDisplayer {
                 if (nextObject.getObjectType()==ExperimentalDataItemType.MarkerData){
                     int startIndex = nextObject.getStartIndexInFileNotIncludingTime();
                     markersRep.setLocation(nextObject.getGlyphIndex(), 
-                            states.getitem(startIndex)/1000., 
-                            states.getitem(startIndex+1)/1000., 
-                            states.getitem(startIndex+2)/1000.);
+                            states.getitem(startIndex)/mot.getUnitConversion(), 
+                            states.getitem(startIndex+1)/mot.getUnitConversion(), 
+                            states.getitem(startIndex+2)/mot.getUnitConversion());
                     markersModified = true;
                 }
                 else if (nextObject.getObjectType()==ExperimentalDataItemType.ForceData){
@@ -596,6 +606,11 @@ public class MotionDisplayer {
            SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(model);
            if(vis!=null) vis.setRenderMuscleActivations(false);
         }
+        // If trails are shown, hide them too
+        Enumeration<vtkActor> trailActors = objectTrails.elements();
+        while (trailActors.hasMoreElements()){
+            ViewDB.getInstance().removeUserObjectFromModel(model, trailActors.nextElement());
+        }
     }
 
    public Storage getSimmMotionData() {
@@ -666,7 +681,7 @@ public class MotionDisplayer {
             mot.getDataColumn(startIndex, xCoord);
             mot.getDataColumn(startIndex+1, yCoord);
             mot.getDataColumn(startIndex+2, zCoord);
-            scale = 1000.0;
+            scale = mot.getUnitConversion();
         } 
         else if (object.getObjectType()==ExperimentalDataItemType.ForceData){
             int startIndex = object.getStartIndexInFileNotIncludingTime();
@@ -682,9 +697,9 @@ public class MotionDisplayer {
             vtkLineSource nextLine = new vtkLineSource();
             nextLine.SetPoint1(xCoord.getitem(i)/scale, yCoord.getitem(i)/scale, zCoord.getitem(i)/scale);
             nextLine.SetPoint2(xCoord.getitem(i+1)/scale, yCoord.getitem(i+1)/scale, zCoord.getitem(i+1)/scale);
-            System.out.println("Line ("+nextLine.GetPoint1()[0]+", "+
+            /*System.out.println("Line ("+nextLine.GetPoint1()[0]+", "+
                     nextLine.GetPoint1()[1]+", "+nextLine.GetPoint1()[2]+")- to "+nextLine.GetPoint2()[0]+
-                    nextLine.GetPoint2()[1]+", "+nextLine.GetPoint2()[2]);
+                    nextLine.GetPoint2()[1]+", "+nextLine.GetPoint2()[2]);*/
             traceLinePolyData.AddInput(nextLine.GetOutput());
         }
         vtkPolyDataMapper traceLineMapper = new vtkPolyDataMapper();
@@ -706,6 +721,40 @@ public class MotionDisplayer {
            dActors.add(generalizedForcesRep.getVtkActor());
         if (markersRep != null)
            dActors.add(markersRep.getVtkActor());
+        Collection<vtkActor> trails = objectTrails.values();
+        for(vtkActor nextActor:trails)
+            dActors.add(nextActor);
         return dActors;
+    }
+
+    public void pickUserObject(vtkAssemblyPath asmPath, int cellId) {
+        if (asmPath != null) {
+         vtkAssemblyNode pickedAsm = asmPath.GetLastNode();
+         vtkProp dProp = pickedAsm.GetViewProp();
+         int index=getActors().indexOf(dProp);
+         if (index >=0){
+             vtkActor dActor=getActors().get(index);
+             if (dProp==groundForcesRep.getVtkActor())
+                 handleSelection(groundForcesRep, cellId);
+             else if(dProp==bodyForcesRep.getVtkActor())
+                 handleSelection(bodyForcesRep, cellId);
+             else if (dProp==generalizedForcesRep.getVtkActor())
+                 handleSelection(generalizedForcesRep, cellId);
+             else if (dProp==markersRep.getVtkActor()){
+                 handleSelection(markersRep, cellId);
+             }
+             else  
+                 System.out.println("Unknown user object ");
+             
+         }
+         return;
+        }  
+        
+    }
+
+    private void handleSelection(final OpenSimvtkGlyphCloud glyphRep, final int cellId) {
+            final OpenSimObject obj = glyphRep.getPickedObject(cellId);
+            // SelectedGlyphUserObject provies the bbox, name, other attributes needed for selection mgmt
+            ViewDB.getInstance().markSelected(new SelectedGlyphUserObject(obj, model, glyphRep), true, false, true);
     }
 }

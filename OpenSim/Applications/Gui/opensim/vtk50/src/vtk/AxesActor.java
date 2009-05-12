@@ -10,8 +10,8 @@ public class AxesActor extends vtkAssembly {
 
   private double axisLength = 0.5;
   private double axisTextLength = 0.1;
-  //private vtkTextActor xactor, yactor, zactor;
-
+  private vtkTextActor xactor, yactor, zactor;
+  private vtkFollower xtextActor, ytextActor, ztextActor;
   public AxesActor() {
     super();
     createAxes(1.0);
@@ -27,7 +27,7 @@ public class AxesActor extends vtkAssembly {
     vtkAxes axes = new vtkAxes();
     axes.SetOrigin(0, 0, 0);
     axes.SetScaleFactor(axisLength);
-
+*/
     xactor = new vtkTextActor();
     yactor = new vtkTextActor();
     zactor = new vtkTextActor();
@@ -36,9 +36,9 @@ public class AxesActor extends vtkAssembly {
     yactor.SetInput("Y");
     zactor.SetInput("Z");
 
-    xactor.ScaledTextOn();
-    yactor.ScaledTextOn();
-    zactor.ScaledTextOn();
+    //xactor.ScaledTextOn();
+    //yactor.ScaledTextOn();
+    //zactor.ScaledTextOn();
 
     xactor.GetPositionCoordinate().SetCoordinateSystemToWorld();
     yactor.GetPositionCoordinate().SetCoordinateSystemToWorld();
@@ -66,7 +66,7 @@ public class AxesActor extends vtkAssembly {
     xactor.SetMaximumLineHeight(0.25);
     yactor.SetMaximumLineHeight(0.25);
     zactor.SetMaximumLineHeight(0.25);
-
+/*
     vtkTubeFilter tube = new vtkTubeFilter();
     tube.SetInput(axes.GetOutput());
     tube.SetRadius(0.01);
@@ -183,7 +183,7 @@ public class AxesActor extends vtkAssembly {
     xtext.SetText("X");
     vtkPolyDataMapper xtextMapper = new vtkPolyDataMapper();
     xtextMapper.SetInput(xtext.GetOutput());
-    final vtkFollower xtextActor = new vtkFollower();
+    xtextActor = new vtkFollower();
     xtextActor.SetMapper(xtextMapper);
     xtextActor.SetScale(axisTextLength, axisTextLength, axisTextLength);
     xtextActor.GetProperty().SetColor(1, 0, 0);
@@ -194,7 +194,7 @@ public class AxesActor extends vtkAssembly {
     ytext.SetText("Y");
     vtkPolyDataMapper ytextMapper = new vtkPolyDataMapper();
     ytextMapper.SetInput(ytext.GetOutput());
-    final vtkFollower ytextActor = new vtkFollower();
+    ytextActor = new vtkFollower();
     ytextActor.SetMapper(ytextMapper);
     ytextActor.SetScale(axisTextLength, axisTextLength, axisTextLength);
     ytextActor.GetProperty().SetColor(0, 1, 0);
@@ -205,7 +205,7 @@ public class AxesActor extends vtkAssembly {
     ztext.SetText("Z");
     vtkPolyDataMapper ztextMapper = new vtkPolyDataMapper();
     ztextMapper.SetInput(ztext.GetOutput());
-    final vtkFollower ztextActor = new vtkFollower();
+    ztextActor = new vtkFollower();
     ztextActor.SetMapper(ztextMapper);
     ztextActor.SetScale(axisTextLength, axisTextLength, axisTextLength);
     ztextActor.GetProperty().SetColor(0, 0, 1);
@@ -220,18 +220,23 @@ public class AxesActor extends vtkAssembly {
     this.AddPart(yconeActor);
     this.AddPart(zconeActor);
     
-//    this.AddPart(xtextActor);
-//    this.AddPart(ytextActor);
-//    this.AddPart(ztextActor);
+    this.AddPart(xtextActor);
+    this.AddPart(ytextActor);
+    this.AddPart(ztextActor);
 
   }
 
   public void setAxesVisibility(boolean ison) {
     this.SetVisibility(ison ? 1 : 0);
 
-    //xactor.SetVisibility(ison ? 1 : 0);
-    //yactor.SetVisibility(ison ? 1 : 0);
-    //zactor.SetVisibility(ison ? 1 : 0);
+    xactor.SetVisibility(ison ? 1 : 0);
+    yactor.SetVisibility(ison ? 1 : 0);
+    zactor.SetVisibility(ison ? 1 : 0);
   }
 
+  public void setCamera(vtkCamera camera) {
+      xtextActor.SetCamera(camera);
+      ytextActor.SetCamera(camera);
+      ztextActor.SetCamera(camera);
+  }
 }

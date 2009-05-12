@@ -95,7 +95,8 @@ public class MasterMotionModel {
       for(int i=0; i<displayers.size(); i++) {
          displayers.get(i).applyTimeToModel(getCurrentTime());
       }
-
+      ViewDB.getInstance().updateAnnotationAnchors();
+      
       // If in event dispatch thrread then execute synchronously
       if (SwingUtilities.isEventDispatchThread()){
          doUpdateAndRepaint();

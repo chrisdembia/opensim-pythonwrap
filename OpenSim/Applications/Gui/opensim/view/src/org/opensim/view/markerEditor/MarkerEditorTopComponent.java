@@ -25,6 +25,7 @@ import org.opensim.modeling.BodySet;
 import org.opensim.modeling.Marker;
 import org.opensim.modeling.MarkerSet;
 import org.opensim.modeling.Model;
+import org.opensim.view.Selectable;
 import org.opensim.view.experimentaldata.ModelForExperimentalData;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.view.ClearSelectedObjectsEvent;
@@ -1069,12 +1070,13 @@ final public class MarkerEditorTopComponent extends TopComponent implements Obse
    }
    
    private void dragMarkers(DragObjectsEvent ev) {
-      ArrayList<SelectedObject> selectedObjects = ViewDB.getInstance().getSelectedObjects();
+      ArrayList<Selectable> selectedObjects = ViewDB.getInstance().getSelectedObjects();
       AbstractMarker m = null;
       boolean currentMarkerMoved = false;
       for (int i = 0; i < selectedObjects.size(); i++) {
          OpenSimObject obj = selectedObjects.get(i).getOpenSimObject();
-         m = AbstractMarker.safeDownCast(obj);
+         if (obj!=null)
+            m = AbstractMarker.safeDownCast(obj);
          if (m != null) {
             AbstractDynamicsEngine engine = currentModel.getDynamicsEngine();
             AbstractBody body = m.getBody();

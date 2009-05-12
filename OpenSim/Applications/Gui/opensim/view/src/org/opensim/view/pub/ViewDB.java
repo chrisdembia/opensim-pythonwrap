@@ -34,11 +34,13 @@ import java.awt.event.ActionListener;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Set;
 import java.util.Vector;
 import java.util.prefs.Preferences;
 import javax.swing.SwingUtilities;
@@ -52,6 +54,7 @@ import org.opensim.modeling.AbstractMarker;
 import org.opensim.modeling.AbstractMuscle;
 import org.opensim.modeling.ArrayObjPtr;
 import org.opensim.modeling.Model;
+import org.opensim.view.SelectionListener;
 import org.opensim.view.experimentaldata.ModelForExperimentalData;
 import org.opensim.modeling.MusclePoint;
 import org.opensim.modeling.ObjectGroup;
@@ -63,12 +66,16 @@ import org.opensim.utils.Prefs;
 import org.opensim.utils.TheApp;
 import org.opensim.view.*;
 import org.opensim.view.experimentaldata.ExperimentalDataVisuals;
+import org.opensim.view.motions.MotionDisplayer;
 import vtk.AxesActor;
 import vtk.vtkActor;
 import vtk.vtkAssembly;
+import vtk.vtkAssemblyNode;
 import vtk.vtkAssemblyPath;
 import vtk.vtkCamera;
+import vtk.vtkCaptionActor2D;
 import vtk.vtkFollower;
+import vtk.vtkLinearTransform;
 import vtk.vtkMatrix4x4;
 import vtk.vtkPolyDataMapper;
 import vtk.vtkProp3D;
@@ -76,6 +83,7 @@ import vtk.vtkProp3DCollection;
 import vtk.vtkProperty;
 import vtk.vtkTextActor;
 import vtk.vtkTextProperty;
+import vtk.vtkTransform;
 import vtk.vtkVectorText;
 
 /**
@@ -110,13 +118,16 @@ public final class ViewDB extends Observable implements Observer {
    // Flag indicating whether new models are open in a new window or in the same window
    static boolean openModelInNewWindow=true;
    
-   private ArrayList<SelectedObject> selectedObjects = new ArrayList<SelectedObject>(0);
+   private ArrayList<Selectable> selectedObjects = new ArrayList<Selectable>(0);
+   private Hashtable<Selectable, vtkCaptionActor2D> selectedObjectsAnnotations = new Hashtable<Selectable, vtkCaptionActor2D>(0);
+   private ArrayList<SelectionListener> selectionListeners = new ArrayList<SelectionListener>(0);
    
-   private vtkAssembly     axesAssembly=null;
+   private AxesActor     axesAssembly=null;
    private boolean axesDisplayed=false;
    private vtkTextActor textActor=null; 
    
    private boolean picking = false;
+   private boolean query = false;
    private boolean dragging = false;
    private double draggingZ = 0.0;
    private double nonCurrentModelOpacity = 0.4;
@@ -303,6 +314,7 @@ public final class ViewDB extends Observable implements Observer {
                // Remove from display
                //int rc = visModel.getModelDisplayAssembly().GetReferenceCount();
                removeObjectFromScene(visModel.getModelDisplayAssembly());
+               removeAnnotationObjects(dModel);
                //rc = visModel.getModelDisplayAssembly().GetReferenceCount();
                // Remove from lists
                modelVisuals.remove(visModel);
@@ -722,8 +734,34 @@ public final class ViewDB extends Observable implements Observer {
     * Mark an object as selected (on/off).
     *
     */
-   public void markSelected(SelectedObject selectedObject, boolean highlight, boolean sendEvent, boolean updateStatusDisplayAndRepaint) {
+   public void markSelected(Selectable selectedObject, boolean highlight, boolean sendEvent, boolean updateStatusDisplayAndRepaint) {
       selectedObject.markSelected(highlight);
+      if (ViewDB.getInstance().isQuery()){
+          if (highlight){
+           // Add caption
+             vtkCaptionActor2D theCaption = new vtkCaptionActor2D();
+             double[] bounds=selectedObject.getBounds();
+             theCaption.SetAttachmentPoint(new double[]{
+                 (bounds[0]+bounds[1])/2.0,
+                 (bounds[2]+bounds[3])/2.0,
+                 (bounds[4]+bounds[5])/2.0,
+             });
+             theCaption.GetTextActor().ScaledTextOn();
+             theCaption.SetHeight(.02);
+             theCaption.BorderOff();
+             if (selectedObject.getOpenSimObject()!=null){
+                 theCaption.SetCaption(selectedObject.getOpenSimObject().getName());
+                addAnnotationToViews(theCaption);
+                 selectedObjectsAnnotations.put(selectedObject,theCaption);
+             }
+          }
+          else {    // if annotationis on remove 
+              vtkCaptionActor2D annotation = getAnnotation(selectedObject);
+              if (annotation!=null){
+                  removeAnnotationFromViews(annotation);
+              }
+          }
+      }
 
       if(updateStatusDisplayAndRepaint) {
          statusDisplaySelectedObjects();
@@ -736,8 +774,17 @@ public final class ViewDB extends Observable implements Observer {
          notifyObservers(evnt);
       }
    }
+
+    private void addAnnotationToViews(final vtkCaptionActor2D theCaption) {
+        // Add caption to all windows
+        Iterator<ModelWindowVTKTopComponent> windowIter = openWindows.iterator();
+        while(windowIter.hasNext()){
+           ModelWindowVTKTopComponent nextWindow = windowIter.next();
+           nextWindow.getCanvas().GetRenderer().AddActor2D(theCaption);
+                 }
+    }
    
-   public ArrayList<SelectedObject> getSelectedObjects() {
+   public ArrayList<Selectable> getSelectedObjects() {
       return selectedObjects;
    }
 
@@ -882,6 +929,7 @@ public final class ViewDB extends Observable implements Observer {
     */
    public void setModelVisualsTransform(SingleModelVisuals aModelVisual, vtkMatrix4x4 newTransform) {
       aModelVisual.getModelDisplayAssembly().SetUserMatrix(newTransform);
+      updateAnnotationAnchors();
    }
    /**
     * Get a box around the whole scene. Used to fill an intial guess of the bounds for the model display
@@ -938,6 +986,12 @@ public final class ViewDB extends Observable implements Observer {
       else
          removeObjectFromScene(axesAssembly);
       setAxesDisplayed(trueFalse);
+   }
+   
+   public void setTextCamera(vtkCamera camera) {
+       if (isAxesDisplayed()){
+           axesAssembly.setCamera(camera);
+       }
    }
    
    public boolean isAxesDisplayed() {
@@ -1002,6 +1056,7 @@ public final class ViewDB extends Observable implements Observer {
       } else {
           toggleObjectDisplay(openSimObject, visible);          
       }
+      updateAnnotationAnchors(); // in case object had annotations
    }
 
    public void toggleObjectDisplay(OpenSimObject openSimObject, boolean visible) {
@@ -1022,6 +1077,7 @@ public final class ViewDB extends Observable implements Observer {
       if (marker != null) {
          SingleModelVisuals vis = getModelVisuals(marker.getBody().getDynamicsEngine().getModel());
          vis.setMarkerVisibility(marker, visible);
+         updateAnnotationAnchors(); // in case object had annotations
          return;
       }
 
@@ -1029,6 +1085,7 @@ public final class ViewDB extends Observable implements Observer {
       if (act != null) {
          SingleModelVisuals vis = getModelVisuals(act.getModel());
          vis.updateActuatorGeometry(act, visible); // call act.updateGeometry() if actuator is becoming visible
+         updateAnnotationAnchors(); // in case object had annotations
          return;
       }
 
@@ -1101,6 +1158,13 @@ public final class ViewDB extends Observable implements Observer {
     * defined in vtkProperty.h
     */
    public void setObjectRepresentation(OpenSimObject object, final int rep, final int newShading) {
+      // Set new rep in model so that it's persistent.'
+      VisibleProperties.DisplayPreference newPref = VisibleProperties.DisplayPreference.GouraudShaded;
+      if (rep==1)  newPref = VisibleProperties.DisplayPreference.WireFrame;
+      else if (rep==2 && newShading==0 ) newPref = VisibleProperties.DisplayPreference.FlatShaded;
+      if (object.getDisplayer()!=null)
+        object.getDisplayer().getVisibleProperties().setDisplayPreference(newPref);
+      
       vtkProp3D asm = ViewDB.getInstance().getVtkRepForObject(object);
       ApplyFunctionToActors(asm, new ActorFunctionApplier() {
          public void apply(vtkActor actor) {
@@ -1172,7 +1236,8 @@ public final class ViewDB extends Observable implements Observer {
 
     public void removeUserObjectFromModel(Model model, vtkActor vtkActor) {
        SingleModelVisuals visModel = mapModelsToVisuals.get(model);
-       visModel.removeUserObject(vtkActor);
+       if (visModel != null)
+            visModel.removeUserObject(vtkActor);
     }
     
     public void addUserObjectToCurrentView(vtkActor vtkActor) {
@@ -1406,4 +1471,100 @@ public final class ViewDB extends Observable implements Observer {
         XActor.SetCamera(lastCamera);
         sceneAssembly.AddPart(XActor);
     }*/
+
+    public void setQuery(boolean enabled) {
+        query=enabled;
+        System.out.println("Annotation "+(enabled?"On":"Off"));
+        // remove captions if disabling
+        if (!enabled){
+            Iterator<vtkCaptionActor2D> captions=selectedObjectsAnnotations.values().iterator();
+            vtkCaptionActor2D nextCaption;
+            while (captions.hasNext()){
+                nextCaption = captions.next();
+                removeAnnotationFromViews(nextCaption);
+            }
+            selectedObjectsAnnotations.clear();
+            getInstance().repaintAll();
+        }
+    }
+
+    private void removeAnnotationFromViews(final vtkCaptionActor2D nextCaption) {
+        Iterator<ModelWindowVTKTopComponent> windowIter = openWindows.iterator();
+        while(windowIter.hasNext()){
+           ModelWindowVTKTopComponent nextWindow = windowIter.next();
+           nextWindow.getCanvas().GetRenderer().RemoveActor2D(nextCaption);
+        }
+    }
+
+    public boolean isQuery() {
+        return query;
+    }
+    /*
+     * Delegate the call to pick to whoever registered as a SelectionListener
+     */
+    public void pickUserObject(vtkAssemblyPath asmPath, int cellId) {
+        if (asmPath != null) {  // User objects are on their own, use their selectionListeners. 
+         // Registered with the View User objects know how to select/deselect/anotate themselves
+            vtkAssemblyNode pickedAsm = asmPath.GetLastNode();
+            for(SelectionListener nextListener:selectionListeners)
+                nextListener.pickUserObject(asmPath, cellId);
+         }  
+        return;
+    }
+
+    public void addSelectionListener(SelectionListener selectionListener) {
+        if (!selectionListeners.contains(selectionListener))
+            selectionListeners.add(selectionListener);
+    }
+    public void removeSelectionListener(SelectionListener selectionListener) {
+        selectionListeners.remove(selectionListener);
+    }
+
+    public void updateAnnotationAnchors() {
+        // For each Anotated object, update anchor point as needed
+        Set<Selectable> annotated = selectedObjectsAnnotations.keySet();
+        for(Selectable nextSelected:annotated){
+            OpenSimObject dObject = nextSelected.getOpenSimObject();
+            nextSelected.updateAnchor(selectedObjectsAnnotations.get(nextSelected));
+        }
+    }
+
+    public void setOrientation(Model model, double[] d) {
+        SingleModelVisuals visuals = getModelVisuals(model);
+        vtkMatrix4x4 currenTransform=getModelVisualsTransform(visuals);
+        // keep only translation
+        for(int i=0; i<3; i++)
+            for(int j=0; j<3; j++)
+                currenTransform.SetElement(i, j, (i==j)?1.0:0.);
+        vtkTransform newDisplayTransfrom = new vtkTransform(); //Identity
+        newDisplayTransfrom.RotateX(d[0]);
+        newDisplayTransfrom.RotateY(d[1]);
+        newDisplayTransfrom.RotateZ(d[2]);
+        newDisplayTransfrom.Concatenate(currenTransform);
+        getInstance().setModelVisualsTransform(visuals, newDisplayTransfrom.GetMatrix());
+  
+    }
+
+    private void removeAnnotationObjects(Model dModel) {
+        Iterator<Selectable> selectedObjsIter = selectedObjectsAnnotations.keySet().iterator();
+        while(selectedObjsIter.hasNext()){
+            Selectable nextObject=  selectedObjsIter.next();
+            
+            if (nextObject.getOwnerModel().equals(dModel)){
+                vtkCaptionActor2D caption=selectedObjectsAnnotations.get(nextObject);
+                getCurrentModelWindow().getCanvas().GetRenderer().RemoveActor2D(caption);
+                selectedObjsIter.remove();
+            }            
+        }
+    }
+
+    private vtkCaptionActor2D getAnnotation(Selectable selectedObject) {
+        Iterator<Selectable> selectedObjsIter = selectedObjectsAnnotations.keySet().iterator();
+        while(selectedObjsIter.hasNext()){
+            Selectable nextObject=  selectedObjsIter.next();
+            if (nextObject==selectedObject)
+                return selectedObjectsAnnotations.get(selectedObject);
+        }
+        return null;
+    }
 }

@@ -11,6 +11,7 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import org.opensim.modeling.ArrayStr;
+import org.opensim.view.SingleModelVisuals;
 import org.opensim.view.motions.MotionControlJPanel;
 import org.opensim.view.motions.MotionDisplayer;
 import org.opensim.view.pub.ViewDB;
@@ -52,6 +53,8 @@ public class ClassifyDataJPanel extends javax.swing.JPanel {
     RotationSpinnerListModel ySpinnerModel=new RotationSpinnerListModel(0., 0., 270., 90.);
     RotationSpinnerListModel zSpinnerModel=new RotationSpinnerListModel(0., 0., 270., 90.);
     MotionDisplayer displayer;
+    private vtkTransform lastTranform;
+    private double[] rotations = new double[]{0., 0., 0.};
    /** Creates new form ClassifyDataJPanel */
     public ClassifyDataJPanel() {
         initComponents();
@@ -77,6 +80,11 @@ public class ClassifyDataJPanel extends javax.swing.JPanel {
             labelIndex+= classified.get(i).getObjectType().getNumberOfColumns();
         }
         displayer=MotionControlJPanel.getInstance().getMasterMotion().getDisplayer(amotion);
+        // get existing rotations
+        double[] rots = amotion.getCurrentRotations();
+        XSpinner.setValue(rots[0]);
+        YSpinner.setValue(rots[1]);
+        ZSpinner.setValue(rots[2]);
    }
     
     /** This method is called from within the constructor to
@@ -99,10 +107,7 @@ public class ClassifyDataJPanel extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         jDataTree = new javax.swing.JTree();
         jLabel4 = new javax.swing.JLabel();
-        jButton7 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
+        saveTransformedAsButton = new javax.swing.JButton();
 
         jListAvailable.setBorder(javax.swing.BorderFactory.createTitledBorder("Available Quantities"));
         jListAvailable.setModel(new javax.swing.AbstractListModel() {
@@ -187,17 +192,14 @@ public class ClassifyDataJPanel extends javax.swing.JPanel {
 
         jLabel4.setText("Available Quantities");
 
-        jButton7.setText("Save");
-        jButton7.setEnabled(false);
-
-        jButton9.setText("Load");
-        jButton9.setEnabled(false);
-
-        jButton8.setText("Undo");
-        jButton8.setEnabled(false);
-
-        jButton10.setText("Apply");
-        jButton10.setEnabled(false);
+        saveTransformedAsButton.setText("Save As...");
+        saveTransformedAsButton.setToolTipText("Save transformed data into a new file");
+        saveTransformedAsButton.setEnabled(false);
+        saveTransformedAsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveTransformedAsButtonActionPerformed(evt);
+            }
+        });
 
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -206,16 +208,13 @@ public class ClassifyDataJPanel extends javax.swing.JPanel {
             .add(jPanel1Layout.createSequentialGroup()
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .add(jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
+                        .add(jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jButton8)
-                            .add(jTransformDataPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                                .add(org.jdesktop.layout.GroupLayout.LEADING, jButton7, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .add(org.jdesktop.layout.GroupLayout.LEADING, jButton9, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .add(org.jdesktop.layout.GroupLayout.LEADING, jButton10, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .add(jPanel1Layout.createSequentialGroup()
+                                .add(jTransformDataPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .add(saveTransformedAsButton, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)))
                     .add(jPanel1Layout.createSequentialGroup()
                         .add(18, 18, 18)
                         .add(jLabel4)))
@@ -230,14 +229,8 @@ public class ClassifyDataJPanel extends javax.swing.JPanel {
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                     .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel1Layout.createSequentialGroup()
                         .add(jTransformDataPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jButton7)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jButton9)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jButton10)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jButton8))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 99, Short.MAX_VALUE)
+                        .add(saveTransformedAsButton))
                     .add(org.jdesktop.layout.GroupLayout.LEADING, jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -254,9 +247,15 @@ public class ClassifyDataJPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void saveTransformedAsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveTransformedAsButtonActionPerformed
+// TODO add your handling code here:
+    }//GEN-LAST:event_saveTransformedAsButtonActionPerformed
+
     private void ZSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_ZSpinnerStateChanged
         double delta = getRotationAngleChange(evt);
-        updateTransform(0., 0., delta);        
+        updateTransform(xSpinnerModel.getLastValue(), 
+                ySpinnerModel.getLastValue(), 
+                zSpinnerModel.getLastValue());        
     }//GEN-LAST:event_ZSpinnerStateChanged
 
     private double getRotationAngleChange(final javax.swing.event.ChangeEvent evt) {
@@ -270,22 +269,44 @@ public class ClassifyDataJPanel extends javax.swing.JPanel {
 
     private void YSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_YSpinnerStateChanged
         double delta = getRotationAngleChange(evt);
-        updateTransform(0., delta, 0.);        
+        //updateTransform(0., delta, 0.);        
+        updateTransform(xSpinnerModel.getLastValue(), 
+                ySpinnerModel.getLastValue(), 
+                zSpinnerModel.getLastValue());        
 // TODO add your handling code here:
     }//GEN-LAST:event_YSpinnerStateChanged
 
     private void XSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_XSpinnerStateChanged
         double delta = getRotationAngleChange(evt);
-        updateTransform(delta, 0., 0.);        
+        //updateTransform(delta, 0., 0.);   
+        updateTransform(xSpinnerModel.getLastValue(), 
+        ySpinnerModel.getLastValue(), 
+        zSpinnerModel.getLastValue());        
+
 // TODO add your handling code here:
     }//GEN-LAST:event_XSpinnerStateChanged
 
     private void updateTransform(double xRot, double yRot, double zRot) {
-        Vector<vtkActor> dActors = displayer.getActors();
+        /*Vector<vtkActor> dActors = displayer.getActors();
         for(vtkActor actor:dActors){
-            actor.AddOrientation(xRot, yRot, zRot);
-        }
+            actor.SetOrientation(xRot, yRot, zRot);
+        }*/
+        lastTranform = new vtkTransform();
+        getLastTranform().RotateX(xRot);
+        getLastTranform().RotateY(yRot);
+        getLastTranform().RotateZ(zRot);
+        // Remember reptations in case we need to xform again
+        getRotations()[0]=xRot;
+        getRotations()[1]=yRot;
+        getRotations()[2]=zRot;
+        
+        ViewDB.getInstance().setOrientation(displayer.getModel(), getRotations());
+        ViewDB.getInstance().updateAnnotationAnchors();
         ViewDB.getInstance().repaintAll();
+    }
+
+    void resetTransforms() {
+        updateTransform(0., 0., 0.);
     }
     
     
@@ -293,10 +314,6 @@ public class ClassifyDataJPanel extends javax.swing.JPanel {
     private javax.swing.JSpinner XSpinner;
     private javax.swing.JSpinner YSpinner;
     private javax.swing.JSpinner ZSpinner;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private javax.swing.JTree jDataTree;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -307,6 +324,7 @@ public class ClassifyDataJPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel jTransformDataPanel;
+    private javax.swing.JButton saveTransformedAsButton;
     // End of variables declaration//GEN-END:variables
 
     class RotationSpinnerListModel extends SpinnerNumberModel {
@@ -326,4 +344,16 @@ public class ClassifyDataJPanel extends javax.swing.JPanel {
         }
 
     } //RotationSpinnerListModel
+
+    public vtkTransform getLastTranform() {
+        return lastTranform;
+    }
+
+    public double[] getRotations() {
+        return rotations;
+    }
+
+    public void setRotations(double[] rotations) {
+        this.rotations = rotations;
+    }
 }

@@ -34,15 +34,15 @@ package org.opensim.view.experimentaldata;
 
 import java.util.Hashtable;
 import java.util.Vector;
-import org.opensim.modeling.AbstractMarker;
-import org.opensim.modeling.ActuatorSet;
 import org.opensim.modeling.ArrayDouble;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.view.*;
 import vtk.vtkActor;
 import vtk.vtkAppendPolyData;
+import vtk.vtkCubeSource;
 import vtk.vtkLineSource;
+import vtk.vtkPlaneSource;
 import vtk.vtkPolyDataMapper;
 import vtk.vtkProp3D;
 
@@ -54,13 +54,42 @@ import vtk.vtkProp3D;
 public class ExperimentalDataVisuals extends SingleModelVisuals{
     ModelForExperimentalData model;    // Fake model used to visualize the data
     protected Hashtable<OpenSimObject, vtkProp3D> objectTrails = new Hashtable<OpenSimObject, vtkProp3D>();
-
+    vtkCubeSource bbox;
     /**
      * Creates a new instance of ExperimentalDataVisuals
      */
     public ExperimentalDataVisuals(Model mdl) {
-        super();
+        super(mdl);
+        bbox = new vtkCubeSource();
         model = (ModelForExperimentalData) mdl;
+        AnnotatedMotion mot = model.getMotionData();
+        if (mot.isBoundingBoxComputed()){
+            double[] bounds = mot.getBoundingBox();
+
+            bbox.SetBounds(bounds);
+            vtkActor groundRep = (vtkActor) getVtkRepForObject(model.getGround());
+            //groundRep.GetMapper().AddInputConnection(bbox.GetOutputPort());
+            //groundRep.GetMapper().Modified();
+            //System.out.println("Origin at "+bounds[0]+", "+bounds[1]+", "+bounds[2]);
+            //System.out.println("Scale by "+(bounds[3]-bounds[0])+
+            //        ", "+(bounds[4]-bounds[1])+
+            //        ", "+(bounds[5]-bounds[2]));
+            groundRep.SetScale(bounds[3]-bounds[0], bounds[4]-bounds[1], bounds[5]-bounds[2]);
+            groundRep.SetPosition(bounds[0], bounds[1], bounds[2]);
+            groundRep.GetProperty().SetRepresentationToWireframe();
+        }
+         /*
+        // Make a plane for Lab frame.
+        // We really need a cube, with unit length size in X-Z, small number in Y then scale it
+        labFloor.SetNormal(0., 1., 0.);
+        labFloor.SetOrigin(0., 0., 0.);
+        labFloor.SetPoint1(1, 1, 1);
+        labFloor.SetPoint2(2, 2, 2);
+        vtkActor labActor = new vtkActor();
+        vtkPolyDataMapper labMapper = new vtkPolyDataMapper();
+        labMapper.SetInput(labFloor.GetOutput());  
+        labActor.SetMapper(labMapper);
+        modelDisplayAssembly.AddPart(labActor); */
     }
 
     public void toggleTraceDisplay(OpenSimObject openSimObject) {
@@ -81,10 +110,11 @@ public class ExperimentalDataVisuals extends SingleModelVisuals{
         mot.getDataColumn(3*foundPosition+2, zCoord);
         vtkAppendPolyData traceLinePolyData = new vtkAppendPolyData();
         int numPoints = xCoord.getSize();
+        double unitConversion = mot.getUnitConversion();
         for(int i=0;i<numPoints-1;i++){
             vtkLineSource nextLine = new vtkLineSource();
-            nextLine.SetPoint1(xCoord.getitem(i)/1000., yCoord.getitem(i)/1000., zCoord.getitem(i)/1000.);
-            nextLine.SetPoint2(xCoord.getitem(i+1)/1000., yCoord.getitem(i+1)/1000., zCoord.getitem(i+1)/1000.);
+            nextLine.SetPoint1(xCoord.getitem(i)/unitConversion, yCoord.getitem(i)/unitConversion, zCoord.getitem(i)/unitConversion);
+            nextLine.SetPoint2(xCoord.getitem(i+1)/unitConversion, yCoord.getitem(i+1)/unitConversion, zCoord.getitem(i+1)/unitConversion);
             //System.out.println("Line "+nextLine.GetPoint1()+" to "+nextLine.GetPoint2());
             traceLinePolyData.AddInput(nextLine.GetOutput());
         }

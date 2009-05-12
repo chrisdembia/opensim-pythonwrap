@@ -341,7 +341,8 @@ public class SingleModelVisuals {
 
             // Color/shading
             attachmentRep.GetProperty().SetColor(defaultWrapObjectColor);
-            attachmentRep.GetProperty().SetRepresentationToWireframe();
+            applyDisplayPrefs(visibleObject, attachmentRep);
+            //attachmentRep.GetProperty().SetRepresentationToWireframe();
          } else {  // General geometry
             // throw an exception for not implemented though should be identical
             throw new UnsupportedOperationException(
@@ -751,7 +752,8 @@ public class SingleModelVisuals {
     * Method used to update display of motion objects during animation 
     */
    private void updateUserObjects() {
-      
+      //System.out.println("updateUserObjects");
+      ViewDB.getInstance().updateAnnotationAnchors();
    }
    
    public void addUserObject(vtkActor userObj){
@@ -887,13 +889,17 @@ public class SingleModelVisuals {
         if (props.getDisplayPreference() == VisibleProperties.DisplayPreference.None){
             objectRep.SetVisibility(0);
             return;
-}
+        }
         objectRep.SetVisibility(1);
         if (props.getDisplayPreference().swigValue()==VisibleProperties.DisplayPreference.WireFrame.swigValue())
             objectRep.GetProperty().SetRepresentationToWireframe();
-        else
-            objectRep.GetProperty().SetRepresentationToSurface();
-        
+        else {
+
+            if (props.getDisplayPreference() == VisibleProperties.DisplayPreference.FlatShaded)
+                objectRep.GetProperty().SetInterpolationToFlat();
+            else
+                objectRep.GetProperty().SetRepresentationToSurface();
+        }
     }
 
     public vtkProp3DCollection getUserObjects() {

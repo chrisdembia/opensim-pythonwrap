@@ -31,7 +31,7 @@ public class ExperimentalForceNode extends ExperimentalDataNode {
     String forceName=null;
     /** Creates a new instance of ExperimentalForceNode */
     public ExperimentalForceNode(ExperimentalDataObject dataObject, AnnotatedMotion dMotion) {
-        forceName=dataObject.getBaseName();
+        forceName=dataObject.getName();
         this.dMotion=dMotion;
         setDataObject(dataObject);
         setName(forceName);
