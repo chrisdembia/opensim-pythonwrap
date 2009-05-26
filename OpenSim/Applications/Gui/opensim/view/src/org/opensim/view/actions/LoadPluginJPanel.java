@@ -7,16 +7,19 @@
 package org.opensim.view.actions;
 
 import javax.swing.JCheckBox;
+import javax.swing.JLabel;
 
 /**
  *
  * @author  ayman
  */
 public class LoadPluginJPanel extends javax.swing.JPanel {
-    
+    String pluginName;
     /** Creates new form LoadPluginJPanel */
-    public LoadPluginJPanel() {
+    public LoadPluginJPanel(String pluginName) {
+        this.pluginName = pluginName;
         initComponents();
+        jLabel1.setText("Library "+pluginName+" has been loaded successfully.");
     }
     
     /** This method is called from within the constructor to
@@ -28,7 +31,8 @@ public class LoadPluginJPanel extends javax.swing.JPanel {
     private void initComponents() {
         javax.swing.JCheckBox jLoadAlwaysCheckBox;
 
-        jLabel1 = new javax.swing.JLabel();
+        jLabel1 = new JLabel("Library "+pluginName+" has been loaded successfully into OpenSim.");
+
         jLoadAlwaysCheckBox = new javax.swing.JCheckBox();
 
         jLabel1.setText("Library has been loaded successfully into OpenSim.");
@@ -87,4 +91,5 @@ public class LoadPluginJPanel extends javax.swing.JPanel {
     public void setPreloadAlways(boolean preloadAlways) {
         this.preloadAlways = preloadAlways;
     }
+    
 }

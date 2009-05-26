@@ -1253,6 +1253,11 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
        public void actionPerformed(ActionEvent e) {
         // Cycle thru all excitation panels and apply operation
         String valueString=jValueToFormattedTextField.getText();
+        try {
+            Double.parseDouble(valueString);
+        } catch (NumberFormatException nfe) {
+            return;
+        }
         double valueDouble = Double.valueOf(valueString);
         getExcitationGridPanel().applyValueToSelectedNodes(valueDouble);
 

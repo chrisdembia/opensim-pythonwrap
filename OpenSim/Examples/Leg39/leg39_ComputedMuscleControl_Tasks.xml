@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdCMC_TaskSet name="leg39">
+	<objects>
+		<!-- Hip -->
+		<rdCMC_Joint name="hip_angle_r">
+			<wrt_body> -1 </wrt_body>
+			<express_body> -1 </express_body>
+			<on> true </on>
+			<active> true false false </active>
+			<weight> 1.0e0 </weight>
+			<kp> 100.0 </kp>
+			<kv>  20.0 </kv>
+			<coordinate> hip_angle_r </coordinate>
+		</rdCMC_Joint>
+	    <!-- Knee -->
+	    <rdCMC_Joint name="knee_angle_r">
+	      <wrt_body> -1 </wrt_body>
+	      <express_body> -1 </express_body>
+	      <on> true </on>
+	      <active> true false false </active>
+	      <weight> 1.0e0 </weight>
+	      <kp> 100.0 </kp>
+	      <kv>  20.0 </kv>
+	      <coordinate> knee_angle_r </coordinate>
+	    </rdCMC_Joint>
+		<!-- Ankle -->
+	    <rdCMC_Joint name="ankle_angle_r">
+	      <wrt_body> -1 </wrt_body>
+	      <express_body> -1 </express_body>
+	      <on> true </on>
+	      <active> true false false </active>
+	      <weight> 1.0e0 </weight>
+	      <kp> 100.0 </kp>
+	      <kv>  20.0 </kv>
+	      <coordinate> ankle_angle_r </coordinate>
+	    </rdCMC_Joint>
+    </objects>
+</rdCMC_TaskSet>
+

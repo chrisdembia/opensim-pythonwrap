@@ -580,7 +580,10 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
         for (int i=0; i< models.length; i++){
             Model mdl = (Model) models[i];
             ModelPose pose = mDesc.getPoses().get(i);
-            applyPoseToModel(mdl, pose);
+            if (pose.getPoseName().equals(mdl.getName())){
+                applyPoseToModel(mdl, pose);
+                ViewDB.getInstance().updateModelDisplay(mdl);
+            }
         }
     }
 

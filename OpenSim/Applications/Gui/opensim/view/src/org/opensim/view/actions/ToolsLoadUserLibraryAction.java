@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileFilter;
-import javax.swing.AbstractAction;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import org.openide.DialogDescriptor;
@@ -42,10 +41,12 @@ public final class ToolsLoadUserLibraryAction extends CallableSystemAction {
     
     public JMenuItem getMenuPresenter() {
       JMenu displayMenu = new JMenu("User Plugins");
+      final boolean windows = System.getProperty("os.name").toLowerCase().contains("win");
       FileFilter fileFilter = new FileFilter() {
                 public boolean accept(File file) {
                     // For now .dll for windows should generalize to other platforms based on OS property
-                    return (!file.isDirectory()&& file.getName().endsWith(".dll"));
+                    String dynamicLibraryExtension = (windows)?".dll":".so";
+                    return (!file.isDirectory()&& file.getName().endsWith(dynamicLibraryExtension));
                 }
       };
       File rootExtensionsDirectory= new File("plugins");
@@ -58,22 +59,33 @@ public final class ToolsLoadUserLibraryAction extends CallableSystemAction {
         final String filename=files[i].getName();
         JMenuItem extItem = new JMenuItem(filename);
         extItem.addActionListener(new ActionListener(){
-                public void actionPerformed(ActionEvent e) {
-                    LoadPluginJPanel loadPluginJPanel= new LoadPluginJPanel();
-                    DialogDescriptor confirmDialog = new DialogDescriptor(loadPluginJPanel, "Load user plugin");
-                    String libName = filename.substring(0, filename.indexOf("."));
+            public void actionPerformed(ActionEvent e) {
+                String libName = filename.substring(0, filename.indexOf("."));
+                LoadPluginJPanel loadPluginJPanel= new LoadPluginJPanel(libName);
+                DialogDescriptor confirmDialog = 
+                    new DialogDescriptor(loadPluginJPanel, 
+                        "Load user plugin",
+                        true,
+                        new Object[]{DialogDescriptor.OK_OPTION},
+                        DialogDescriptor.OK_OPTION,
+                        1, null, null);
+                try {
                     System.loadLibrary(libName);
                     
                     DialogDisplayer.getDefault().createDialog(confirmDialog).setVisible(true);
                     // Check if we need to always preload
                     if(loadPluginJPanel.isPreloadAlways()){
-                        System.out.println("Always preload "+filename);
+                        //System.out.println("Always preload "+filename);
                         PluginsDB.getInstance().addLibrary(libName);
                     }
-                }});
-        displayMenu.add(extItem);
-      }
-      return displayMenu;
+                } catch(UnsatisfiedLinkError er){
+                    DialogDisplayer.getDefault().notify(
+                            new NotifyDescriptor.Message("Error trying to load library "+libName+". Library not loaded."));
+                }
+            }});
+          displayMenu.add(extItem);
+        }
+        return displayMenu;
     }
     
 }

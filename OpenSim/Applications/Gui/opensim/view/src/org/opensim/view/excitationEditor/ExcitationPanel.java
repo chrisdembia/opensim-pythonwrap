@@ -104,6 +104,12 @@ public class ExcitationPanel extends FunctionPanel{
    public void setSelectedNodesToValue(int series, double newValue) {
       if (renderer == null || !renderer.getSeriesShapesVisible(series))
          return;
+      // Make sure we cant set values outside range using this backdoor
+      if (renderer.getControl().getDefaultParameterMin() > newValue ||
+              renderer.getControl().getDefaultParameterMax() < newValue){
+          // Trying to set value outside range: ignore
+          return;
+      }
       for (int i=0; i<selectedNodes.size(); i++) {
          int selIndex = selectedNodes.get(i).node;
          int selSeries = selectedNodes.get(i).series;
@@ -294,6 +300,7 @@ public class ExcitationPanel extends FunctionPanel{
             public void actionPerformed(ActionEvent e) {
                 // Browse for a file, then show curve selection filter
                 String fileName = FileUtils.getInstance().browseForFilename(".sto, .mot", "Data file", ExcitationPanel.this);
+                if (fileName==null) return; // No file was selected
                 Storage s=null;
                 try {
                     s = new Storage(fileName);

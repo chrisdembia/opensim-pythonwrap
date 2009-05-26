@@ -33,6 +33,7 @@ package org.opensim.view.excitationEditor;
 import java.awt.BorderLayout;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -79,7 +80,7 @@ public class ExcitationEditorJFrame extends javax.swing.JFrame {
         dPanel=new ExcitationEditorJPanel(this, null);
         getContentPane().add(dPanel, BorderLayout.CENTER);
         setIconImage(TheApp.getAppImage());
-        setTitle("Excitation Editor");
+        setTitle("Excitation Editor: Editing file "+new File(controls.getDocumentFileName()).getName());
         pack();
         dPanel.populate(controls, false);
     }
@@ -378,6 +379,7 @@ public class ExcitationEditorJFrame extends javax.swing.JFrame {
          ControlSet obj = new ControlSet(fileName);
          if (obj != null){
              dPanel.populate(obj, true);
+             setTitle("Excitation Editor: Editing file "+new File(fileName).getName());
           } else {
             DialogDisplayer.getDefault().notify(
                new NotifyDescriptor.Message("Could not construct excitations from the specified file."));

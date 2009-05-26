@@ -130,7 +130,7 @@ public class PlotCurve {
    private ArrayDouble getDataArrayFromStorage(final Storage storage, final String colName, boolean isDomain, boolean convertAnglesToDegrees ) {
       ArrayDouble Array = new ArrayDouble(storage.getSize());
       if (colName.equalsIgnoreCase("time")){
-         storage.getTimeColumnWithStartTime(Array, 0.);
+         storage.getTimeColumnWithStartTime(Array, storage.getFirstTime());
       }
       else{
          String[] colNames=colName.trim().split("\\+",-1);

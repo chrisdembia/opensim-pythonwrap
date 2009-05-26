@@ -110,11 +110,16 @@ public:
 	void setBody1WeldLocation(SimTK::Vec3 location, SimTK::Vec3 orientation=SimTK::Vec3(0));
 	void setBody2ByName(std::string aBodyName);
 	void setBody2WeldLocation(SimTK::Vec3 location, SimTK::Vec3 orientation=SimTK::Vec3(0));
+	void setBody1Transform(SimTK::Transform aTransform);
+	void setBody2Transform(SimTK::Transform aTransform);
+
 
 private:
+	SimTK::Transform _body1Transform;
+	SimTK::Transform _body2Transform;
+
 	void setNull();
 	void setupProperties();
-	void updateSimbody();
 	friend class SimbodyEngine;
 
 //=============================================================================

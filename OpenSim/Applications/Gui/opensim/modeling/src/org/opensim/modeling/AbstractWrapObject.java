@@ -34,7 +34,7 @@ public class AbstractWrapObject extends OpenSimObject {
   }
 
   public OpenSimObject copy() {
-    long cPtr = opensimModelJNI.AbstractWrapObject_copy(swigCPtr, this);
+    long cPtr = opensimModelJNI.AbstractWrapObject_copy__SWIG_0(swigCPtr, this);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
@@ -108,6 +108,23 @@ public class AbstractWrapObject extends OpenSimObject {
 
   public void updateGeometry() {
     opensimModelJNI.AbstractWrapObject_updateGeometry(swigCPtr, this);
+  }
+
+  public static boolean isKindOf(String type) {
+    return opensimModelJNI.AbstractWrapObject_isKindOf(type);
+  }
+
+  public boolean isA(String type) {
+    return opensimModelJNI.AbstractWrapObject_isA(swigCPtr, this, type);
+  }
+
+  public static AbstractWrapObject safeDownCast(OpenSimObject obj) {
+    long cPtr = opensimModelJNI.AbstractWrapObject_safeDownCast(OpenSimObject.getCPtr(obj), obj);
+    return (cPtr == 0) ? null : new AbstractWrapObject(cPtr, false);
+  }
+
+  public void copy(OpenSimObject aObject) {
+    opensimModelJNI.AbstractWrapObject_copy__SWIG_1(swigCPtr, this, OpenSimObject.getCPtr(aObject), aObject);
   }
 
   public final static class WrapQuadrant {

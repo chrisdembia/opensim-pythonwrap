@@ -154,6 +154,11 @@ public class ExcitationPanelListener implements FunctionPanelListener{
       cropDragVector(dragVector);
       // Now move all the control points by dragVector.
       ArrayList<FunctionNode> selectedNodes = functionPanel.getSelectedNodes();
+      // Before we commit to move we need to make sure that "ALL" nodes will not go outside range 
+      // NOT-ONLY the node selected to drag
+      double signalMin=renderer.getControl().getDefaultParameterMin();
+      double signalMax=renderer.getControl().getDefaultParameterMax();
+
       for (int i=0; i<selectedNodes.size(); i++) {
          int selIndex = selectedNodes.get(i).node;
          int selSeries = selectedNodes.get(i).series;
@@ -161,6 +166,9 @@ public class ExcitationPanelListener implements FunctionPanelListener{
             ControlLinearNode controlNode=getControlNodeForSeries(selSeries, selIndex);
             double newX = controlNode.getTime() + dragVector[0];
             double newY = controlNode.getValue() + dragVector[1];
+            if (newY>signalMax) newY=signalMax;
+            if (newY<signalMin) newY=signalMin;
+            
             controlNode.setTime(newX);
             controlNode.setValue(newY);
             XYSeriesCollection seriesCollection = (XYSeriesCollection) functionPanel.getChart().getXYPlot().getDataset();

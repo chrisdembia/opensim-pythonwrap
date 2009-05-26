@@ -377,11 +377,14 @@ public class PlotterModel {
         for(int l=0;l<rangeNames.length;l++){
            muscleNames.append(rangeNames[l]);
         }
+        boolean computeMoments= (analysisSource.getDisplayName().toLowerCase().contains("moment"));
+
         for(int i=0; i<qs.length; i++){
              Analysis an = analyses.get(builtinQuantitiesAnalysis[i]);
              MuscleAnalysis man = MuscleAnalysis.safeDownCast(an);
              if (man!=null){
                 man.setMuscles(muscleNames);
+                man.setComputeMoments(computeMoments);
              }
              an.setOn(true);
              break;

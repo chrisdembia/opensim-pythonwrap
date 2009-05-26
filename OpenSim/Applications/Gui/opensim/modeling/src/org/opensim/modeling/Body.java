@@ -158,4 +158,8 @@ public class Body extends AbstractBody {
     return new SWIGTYPE_p_SimTK__MassProperties(opensimModelJNI.Body_getMassProperties(swigCPtr, this), true);
   }
 
+  public SWIGTYPE_p_SimTK__MobilizedBodyIndex getIndex() {
+    return new SWIGTYPE_p_SimTK__MobilizedBodyIndex(opensimModelJNI.Body_getIndex(swigCPtr, this), true);
+  }
+
 }

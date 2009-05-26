@@ -1,0 +1,1977 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSimDocument Version="10600">
+	<Model name="leg39">
+		<defaults>
+			<Thelen2003Muscle name="default">
+				<MusclePointSet name="">
+					<objects/>
+					<groups/>
+				</MusclePointSet>
+				<VisibleObject name="">
+					<geometry_files> </geometry_files>
+					<VisibleProperties name="">
+						<display_preference> 4 </display_preference>
+						<show_normals> false </show_normals>
+						<show_axes> false </show_axes>
+						<material_name> DEFAULT </material_name>
+					</VisibleProperties>
+					<scale_factors>       1.00000000000000000000       1.00000000000000000000       1.00000000000000000000 </scale_factors>
+				</VisibleObject>
+				<MuscleWrapSet name="">
+					<objects/>
+					<groups/>
+				</MuscleWrapSet>
+				<muscle_model> 9 </muscle_model>
+				<!--maximum isometric force of the muscle fibers-->
+				<max_isometric_force>     546.00000000000000000000 </max_isometric_force>
+				<!--optimal length of the muscle fibers-->
+				<optimal_fiber_length>       0.05349999999999999900 </optimal_fiber_length>
+				<!--resting length of the tendon-->
+				<tendon_slack_length>       0.07800000000000000000 </tendon_slack_length>
+				<!--angle between tendon and fibers at optimal fiber length-->
+				<pennation_angle>       0.00000000000000000000 </pennation_angle>
+				<!--time constant for ramping up of muscle activation-->
+				<activation_time_constant>       0.01000000000000000000 </activation_time_constant>
+				<!--time constant for ramping down of muscle activation-->
+				<deactivation_time_constant>       0.04000000000000000100 </deactivation_time_constant>
+				<!--maximum contraction velocity at full activation in fiber lengths per
+				    second-->
+				<Vmax>      10.00000000000000000000 </Vmax>
+				<!--maximum contraction velocity at low activation in fiber lengths per
+				    second-->
+				<Vmax0>       5.00000000000000000000 </Vmax0>
+				<!--tendon strain due to maximum isometric muscle force-->
+				<FmaxTendonStrain>       0.03300000000000000200 </FmaxTendonStrain>
+				<!--passive muscle strain due to maximum isometric muscle force-->
+				<FmaxMuscleStrain>       0.59999999999999998000 </FmaxMuscleStrain>
+				<!--shape factor for Gaussian active muscle force-length relationship-->
+				<KshapeActive>       0.50000000000000000000 </KshapeActive>
+				<!--exponential shape factor for passive force-length relationship-->
+				<KshapePassive>       4.00000000000000000000 </KshapePassive>
+				<!--passive damping in the force-velocity relationship-->
+				<damping>       0.05000000000000000300 </damping>
+				<!--force-velocity shape factor-->
+				<Af>       0.29999999999999999000 </Af>
+				<!--maximum normalized lengthening force-->
+				<Flen>       1.80000000000000000000 </Flen>
+			</Thelen2003Muscle>
+		</defaults>
+		<credits> Delp S.L., Loan J.P., Hoy M.G., Zajac F.E., Topp E.L., Rosen J.M., Thelen D.G., Anderson F.C., Seth A., Reinbolt J.A. </credits>
+		<publications> Notes:  2D, 3 DOF leg model created by D.G. Thelen, Univ. of Wisconsin-Madison, and Jeff Reinbolt, Ajay Seth, Frank C. Anderson, and Scott L. Delp, Stanford University.  Lower extremity joint defintions based on Delp et al. (1990).  Planar knee model of Yamaguchi and Zajac (1989).  Number of muscles was reduced by Reinbolt and Anderson to improve simulation speed for demonstrations and is not intended to be used in research.
+
+Delp, S.L., Loan, J.P., Hoy, M.G., Zajac, F.E., Topp E.L., Rosen, J.M.: An interactive graphics-based model of the lower extremity to study orthopaedic surgical procedures,  IEEE Transactions on Biomedical Engineering, vol. 37, pp. 757-767, 1990.
+
+Yamaguchi G.T., Zajac F.E.: A planar model of the knee joint to characterize the knee extensor mechanism." J . Biomecl7. vol. 21. pp. 1-10. 1989.
+
+Anderson F.C., Pandy M.G.: A dynamic optimization solution for vertical jumping in three dimensions. Computer Methods in Biomechanics and Biomedical Engineering 2:201-231, 1999.
+
+Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Biomechanical Engineering 123:381-390, 2001. </publications>
+		<ContactForceSet name="">
+			<objects/>
+			<groups/>
+		</ContactForceSet>
+		<DynamicsEngine>
+			<SimbodyEngine name="default">
+				<!--Acceleration due to gravity.-->
+				<gravity>       0.00000000000000000000      -9.80664999999999940000       0.00000000000000000000 </gravity>
+				<!--Bodies in the model.-->
+				<BodySet name="">
+					<objects>
+						<Body name="ground">
+							<WrapObjectSet name="">
+								<objects/>
+								<groups/>
+							</WrapObjectSet>
+							<mass>       0.00000000000000000000 </mass>
+							<mass_center>       0.00000000000000000000       0.00000000000000000000       0.00000000000000000000 </mass_center>
+							<inertia_xx>       0.00000000000000000000 </inertia_xx>
+							<inertia_yy>       0.00000000000000000000 </inertia_yy>
+							<inertia_zz>       0.00000000000000000000 </inertia_zz>
+							<inertia_xy>       0.00000000000000000000 </inertia_xy>
+							<inertia_xz>       0.00000000000000000000 </inertia_xz>
+							<inertia_yz>       0.00000000000000000000 </inertia_yz>
+							<!--Joint that connects this body with the parent body.-->
+							<Joint/>
+							<VisibleObject name="">
+								<geometry_files> </geometry_files>
+								<VisibleProperties name="">
+									<display_preference> 4 </display_preference>
+									<show_normals> false </show_normals>
+									<show_axes> false </show_axes>
+									<material_name> DEFAULT </material_name>
+								</VisibleProperties>
+								<scale_factors>       1.00000000000000000000       1.00000000000000000000       1.00000000000000000000 </scale_factors>
+							</VisibleObject>
+						</Body>
+						<Body name="pelvis">
+							<WrapObjectSet name="">
+								<objects/>
+								<groups/>
+							</WrapObjectSet>
+							<mass>      10.75379226896532900000 </mass>
+							<mass_center>      -0.07395120556312377600       0.00000000000000000000       0.00000000000000000000 </mass_center>
+							<inertia_xx>       0.10270030158431372000 </inertia_xx>
+							<inertia_yy>       0.08701553512562033900 </inertia_yy>
+							<inertia_zz>       0.05784385332574106700 </inertia_zz>
+							<inertia_xy>       0.00000000000000000000 </inertia_xy>
+							<inertia_xz>       0.00000000000000000000 </inertia_xz>
+							<inertia_yz>       0.00000000000000000000 </inertia_yz>
+							<!--Joint that connects this body with the parent body.-->
+							<Joint>
+								<CustomJoint name="ground_pelvis">
+									<parent_body> ground </parent_body>
+									<location_in_parent>      -0.02590204000000000100      -0.03189391500000000200       0.00000000000000000000 </location_in_parent>
+									<orientation_in_parent>       0.00000000000000000000       0.00000000000000000000       0.00000000000000000000 </orientation_in_parent>
+									<location>       0.00000000000000000000       0.00000000000000000000       0.00000000000000000000 </location>
+									<orientation>       0.00000000000000000000       0.00000000000000000000       0.00000000000000000000 </orientation>
+									<!--Generalized coordinates parameterizing this joint.-->
+									<CoordinateSet name="">
+										<objects>
+											<Coordinate name="pelvis_tilt">
+												<default_value>       0.00000000 </default_value>
+												<initial_value>       0.00000000 </initial_value>
+												<tolerance>       0.00001000000 </tolerance>
+												<stiffness>       0.00000000 </stiffness>
+												<range>      -1.57079633       1.57079633 </range>
+												<keys> q_key </keys>
+												<clamped> true </clamped>
+												<locked> true </locked>
+												<restraint_function/>
+												<min_restraint_function/>
+												<max_restraint_function/>
+												<restraint_active> false </restraint_active>
+												<prescribed_function/>
+											</Coordinate>
+										</objects>
+										<groups/>
+									</CoordinateSet>
+									<TransformAxisSet name="">
+										<objects>
+											<TransformAxis name="r1">
+												<function/>
+												<coordinate> pelvis_tilt </coordinate>
+												<is_rotation> true </is_rotation>
+												<axis>       0.00000000       0.00000000       1.00000000 </axis>
+											</TransformAxis>
+										</objects>
+										<groups/>
+									</TransformAxisSet>
+								</CustomJoint>
+							</Joint>
+							<VisibleObject name="">
+								<geometry_files> sacrum.vtp pelvis.vtp l_pelvis.vtp </geometry_files>
+								<VisibleProperties name="">
+									<display_preference> 4 </display_preference>
+									<show_normals> false </show_normals>
+									<show_axes> false </show_axes>
+									<material_name> DEFAULT </material_name>
+								</VisibleProperties>
+								<scale_factors>       1.04598588716767100000       1.04598588716767100000       1.04598588716767100000 </scale_factors>
+							</VisibleObject>
+						</Body>
+						<Body name="femur_r">
+							<WrapObjectSet name="">
+								<objects/>
+								<groups/>
+							</WrapObjectSet>
+							<mass>       8.54926632048168500000 </mass>
+							<mass_center>       0.00000000000000000000      -0.19954258466341263000       0.00000000000000000000 </mass_center>
+							<inertia_xx>       0.16956430689997187000 </inertia_xx>
+							<inertia_yy>       0.04444889762762610500 </inertia_yy>
+							<inertia_zz>       0.17880866957795347000 </inertia_zz>
+							<inertia_xy>       0.00000000000000000000 </inertia_xy>
+							<inertia_xz>       0.00000000000000000000 </inertia_xz>
+							<inertia_yz>       0.00000000000000000000 </inertia_yz>
+							<!--Joint that connects this body with the parent body.-->
+							<Joint>
+								<CustomJoint name="hip_r">
+									<parent_body> pelvis </parent_body>
+									<location_in_parent>      -0.07395120556312377600      -0.06913966474880445200       0.08733981867915786800 </location_in_parent>
+									<orientation_in_parent>       0.00000000000000000000       0.00000000000000000000       0.00000000000000000000 </orientation_in_parent>
+									<location>       0.00000000000000000000       0.00000000000000000000       0.00000000000000000000 </location>
+									<orientation>       0.00000000000000000000       0.00000000000000000000       0.00000000000000000000 </orientation>
+									<!--Generalized coordinates parameterizing this joint.-->
+									<CoordinateSet name="">
+										<objects>
+											<Coordinate name="hip_angle_r">
+												<default_value>       0.00000000000000000000 </default_value>
+												<initial_value>       0.00000000000000000000 </initial_value>
+												<tolerance>       0.00001000000 </tolerance>
+												<stiffness>       0.00000000000000000000 </stiffness>
+												<range>      -2.09439510239299990000       2.09439510239299990000 </range>
+												<keys> h_key leftmouse_button </keys>
+												<clamped> true </clamped>
+												<locked> false </locked>
+												<restraint_function/>
+												<min_restraint_function/>
+												<max_restraint_function/>
+												<restraint_active> false </restraint_active>
+												<prescribed_function/>
+											</Coordinate>
+										</objects>
+										<groups/>
+									</CoordinateSet>
+									<TransformAxisSet name="">
+										<objects>
+											<TransformAxis name="r1">
+												<function/>
+												<coordinate> hip_angle_r </coordinate>
+												<is_rotation> true </is_rotation>
+												<axis>       0.00000000000000000000       0.00000000000000000000       1.00000000000000000000 </axis>
+											</TransformAxis>
+										</objects>
+										<groups/>
+									</TransformAxisSet>
+								</CustomJoint>
+							</Joint>
+							<VisibleObject name="">
+								<geometry_files> femur_r.vtp </geometry_files>
+								<VisibleProperties name="">
+									<display_preference> 4 </display_preference>
+									<show_normals> false </show_normals>
+									<show_axes> false </show_axes>
+									<material_name> DEFAULT </material_name>
+								</VisibleProperties>
+								<scale_factors>       1.17377990978478010000       1.17377990978478010000       1.17377990978478010000 </scale_factors>
+							</VisibleObject>
+						</Body>
+						<Body name="tibia_r">
+							<WrapObjectSet name="">
+								<objects/>
+								<groups/>
+							</WrapObjectSet>
+							<mass>       4.67404243497590070000 </mass>
+							<mass_center>       0.00000000000000000000      -0.20980005719559933000       0.00000000000000000000 </mass_center>
+							<inertia_xx>       0.08023513659875550200 </inertia_xx>
+							<inertia_yy>       0.00811903167963597300 </inertia_yy>
+							<inertia_zz>       0.08134951349596043800 </inertia_zz>
+							<inertia_xy>       0.00000000000000000000 </inertia_xy>
+							<inertia_xz>       0.00000000000000000000 </inertia_xz>
+							<inertia_yz>       0.00000000000000000000 </inertia_yz>
+							<!--Joint that connects this body with the parent body.-->
+							<Joint>
+								<CustomJoint name="knee_r">
+									<parent_body> femur_r </parent_body>
+									<location_in_parent>       0.00000000000000000000       0.00000000000000000000       0.00000000000000000000 </location_in_parent>
+									<orientation_in_parent>       0.00000000000000000000       0.00000000000000000000       0.00000000000000000000 </orientation_in_parent>
+									<location>       0.00000000000000000000       0.00000000000000000000       0.00000000000000000000 </location>
+									<orientation>       0.00000000000000000000       0.00000000000000000000       0.00000000000000000000 </orientation>
+									<!--Generalized coordinates parameterizing this joint.-->
+									<CoordinateSet name="">
+										<objects>
+											<Coordinate name="knee_angle_r">
+												<default_value>       0.00000000000000000000 </default_value>
+												<initial_value>       0.00000000000000000000 </initial_value>
+												<tolerance>       0.00001000000 </tolerance>
+												<stiffness>       0.00000000000000000000 </stiffness>
+												<range>      -2.09439510239299990000       0.17453292519899999000 </range>
+												<keys> k_key </keys>
+												<clamped> true </clamped>
+												<locked> false </locked>
+												<restraint_function/>
+												<min_restraint_function/>
+												<max_restraint_function/>
+												<restraint_active> false </restraint_active>
+												<prescribed_function/>
+											</Coordinate>
+											<Coordinate name="tib_tx_r">
+												<default_value>       0.00000000000000000000 </default_value>
+												<initial_value>       0.00000000000000000000 </initial_value>
+												<tolerance>       0.00001000000 </tolerance>
+												<stiffness>       0.00000000000000000000 </stiffness>
+												<range>      -5.00000000000000000000       5.00000000000000000000 </range>
+												<keys> </keys>
+												<clamped> false </clamped>
+												<locked> false </locked>
+												<restraint_function/>
+												<min_restraint_function/>
+												<max_restraint_function/>
+												<restraint_active> false </restraint_active>
+												<prescribed_function/>
+											</Coordinate>
+											<Coordinate name="tib_ty_r">
+												<default_value>       0.00000000000000000000 </default_value>
+												<initial_value>       0.00000000000000000000 </initial_value>
+												<tolerance>       0.00001000000 </tolerance>
+												<stiffness>       0.00000000000000000000 </stiffness>
+												<range>      -1.00000000000000000000       2.00000000000000000000 </range>
+												<keys> </keys>
+												<clamped> false </clamped>
+												<locked> false </locked>
+												<restraint_function/>
+												<min_restraint_function/>
+												<max_restraint_function/>
+												<restraint_active> false </restraint_active>
+												<prescribed_function/>
+											</Coordinate>
+										</objects>
+										<groups/>
+									</CoordinateSet>
+									<TransformAxisSet name="">
+										<objects>
+											<TransformAxis name="r1">
+												<function/>
+												<coordinate> knee_angle_r </coordinate>
+												<is_rotation> true </is_rotation>
+												<axis>       0.00000000000000000000       0.00000000000000000000       1.00000000000000000000 </axis>
+											</TransformAxis>
+											<TransformAxis name="tx">
+												<function/>
+												<coordinate> tib_tx_r </coordinate>
+												<is_rotation> false </is_rotation>
+												<axis>       1.00000000000000000000       0.00000000000000000000       0.00000000000000000000 </axis>
+											</TransformAxis>
+											<TransformAxis name="ty">
+												<function/>
+												<coordinate> tib_ty_r </coordinate>
+												<is_rotation> false </is_rotation>
+												<axis>       0.00000000000000000000       1.00000000000000000000       0.00000000000000000000 </axis>
+											</TransformAxis>
+										</objects>
+										<groups/>
+									</TransformAxisSet>
+								</CustomJoint>
+							</Joint>
+							<VisibleObject name="">
+								<geometry_files> tibia.vtp fibula.vtp </geometry_files>
+								<VisibleProperties name="">
+									<display_preference> 4 </display_preference>
+									<show_normals> false </show_normals>
+									<show_axes> false </show_axes>
+									<material_name> DEFAULT </material_name>
+								</VisibleProperties>
+								<scale_factors>       1.12372821208141050000       1.12372821208141050000       1.12372821208141050000 </scale_factors>
+							</VisibleObject>
+						</Body>
+						<Body name="patella_r">
+							<WrapObjectSet name="">
+								<objects/>
+								<groups/>
+							</WrapObjectSet>
+							<mass>       0.09191375506835537700 </mass>
+							<mass_center>       0.00000000000000000000       0.00000000000000000000       0.00000000000000000000 </mass_center>
+							<inertia_xx>       0.00110296207933306390 </inertia_xx>
+							<inertia_yy>       0.00110296207933306390 </inertia_yy>
+							<inertia_zz>       0.00110296207933306390 </inertia_zz>
+							<inertia_xy>       0.00000000000000000000 </inertia_xy>
+							<inertia_xz>       0.00000000000000000000 </inertia_xz>
+							<inertia_yz>       0.00000000000000000000 </inertia_yz>
+							<!--Joint that connects this body with the parent body.-->
+							<Joint>
+								<CustomJoint name="tib_pat_r">
+									<parent_body> tibia_r </parent_body>
+									<location_in_parent>       0.00000000000000000000       0.00000000000000000000       0.00000000000000000000 </location_in_parent>
+									<orientation_in_parent>       0.00000000000000000000       0.00000000000000000000       0.00000000000000000000 </orientation_in_parent>
+									<location>       0.00000000000000000000       0.00000000000000000000       0.00000000000000000000 </location>
+									<orientation>       0.00000000000000000000       0.00000000000000000000       0.00000000000000000000 </orientation>
+									<!--Generalized coordinates parameterizing this joint.-->
+									<CoordinateSet name="">
+										<objects>
+											<Coordinate name="pat_angle_r">
+												<default_value>      -0.00116917000000000000 </default_value>
+												<initial_value>      -0.00116917000000000000 </initial_value>
+												<tolerance>       0.00001000000 </tolerance>
+												<stiffness>       0.00000000000000000000 </stiffness>
+												<range>      -2.09399999999999990000       0.17499999999999999000 </range>
+												<keys> </keys>
+												<clamped> false </clamped>
+												<locked> false </locked>
+												<restraint_function/>
+												<min_restraint_function/>
+												<max_restraint_function/>
+												<restraint_active> false </restraint_active>
+												<prescribed_function/>
+											</Coordinate>
+											<Coordinate name="pat_tx_r">
+												<default_value>       0.04959999999999999800 </default_value>
+												<initial_value>       0.04959999999999999800 </initial_value>
+												<tolerance>       0.00001000000 </tolerance>
+												<stiffness>       0.00000000000000000000 </stiffness>
+												<range>      -5.00000000000000000000       5.00000000000000000000 </range>
+												<keys> </keys>
+												<clamped> false </clamped>
+												<locked> false </locked>
+												<restraint_function/>
+												<min_restraint_function/>
+												<max_restraint_function/>
+												<restraint_active> false </restraint_active>
+												<prescribed_function/>
+											</Coordinate>
+											<Coordinate name="pat_ty_r">
+												<default_value>      -0.02270000000000000100 </default_value>
+												<initial_value>      -0.02270000000000000100 </initial_value>
+												<tolerance>       0.00001000000 </tolerance>
+												<stiffness>       0.00000000000000000000 </stiffness>
+												<range>      -5.00000000000000000000       5.00000000000000000000 </range>
+												<keys> </keys>
+												<clamped> false </clamped>
+												<locked> false </locked>
+												<restraint_function/>
+												<min_restraint_function/>
+												<max_restraint_function/>
+												<restraint_active> false </restraint_active>
+												<prescribed_function/>
+											</Coordinate>
+										</objects>
+										<groups/>
+									</CoordinateSet>
+									<TransformAxisSet name="">
+										<objects>
+											<TransformAxis name="r1">
+												<function/>
+												<coordinate> pat_angle_r </coordinate>
+												<is_rotation> true </is_rotation>
+												<axis>       0.00000000000000000000       0.00000000000000000000       1.00000000000000000000 </axis>
+											</TransformAxis>
+											<TransformAxis name="tx">
+												<function/>
+												<coordinate> pat_tx_r </coordinate>
+												<is_rotation> false </is_rotation>
+												<axis>       1.00000000000000000000       0.00000000000000000000       0.00000000000000000000 </axis>
+											</TransformAxis>
+											<TransformAxis name="ty">
+												<function/>
+												<coordinate> pat_ty_r </coordinate>
+												<is_rotation> false </is_rotation>
+												<axis>       0.00000000000000000000       1.00000000000000000000       0.00000000000000000000 </axis>
+											</TransformAxis>
+										</objects>
+										<groups/>
+									</TransformAxisSet>
+								</CustomJoint>
+							</Joint>
+							<VisibleObject name="">
+								<geometry_files> pat.vtp </geometry_files>
+								<VisibleProperties name="">
+									<display_preference> 4 </display_preference>
+									<show_normals> false </show_normals>
+									<show_axes> false </show_axes>
+									<material_name> DEFAULT </material_name>
+								</VisibleProperties>
+								<scale_factors>       1.09544299229130760000       1.09544299229130760000       1.09544299229130760000 </scale_factors>
+							</VisibleObject>
+						</Body>
+						<Body name="talus_r">
+							<WrapObjectSet name="">
+								<objects/>
+								<groups/>
+							</WrapObjectSet>
+							<mass>       0.12606857773835850000 </mass>
+							<mass_center>       0.00000000000000000000       0.00000000000000000000       0.00000000000000000000 </mass_center>
+							<inertia_xx>       0.00202165890349660910 </inertia_xx>
+							<inertia_yy>       0.00202165890349660910 </inertia_yy>
+							<inertia_zz>       0.00202165890349660910 </inertia_zz>
+							<inertia_xy>       0.00000000000000000000 </inertia_xy>
+							<inertia_xz>       0.00000000000000000000 </inertia_xz>
+							<inertia_yz>       0.00000000000000000000 </inertia_yz>
+							<!--Joint that connects this body with the parent body.-->
+							<Joint>
+								<CustomJoint name="ankle_r">
+									<parent_body> tibia_r </parent_body>
+									<location_in_parent>       0.00000000000000000000      -0.48320313119500641000       0.00000000000000000000 </location_in_parent>
+									<orientation_in_parent>       0.00000000000000000000       0.00000000000000000000       0.00000000000000000000 </orientation_in_parent>
+									<location>       0.00000000000000000000       0.00000000000000000000       0.00000000000000000000 </location>
+									<orientation>       0.00000000000000000000       0.00000000000000000000       0.00000000000000000000 </orientation>
+									<!--Generalized coordinates parameterizing this joint.-->
+									<CoordinateSet name="">
+										<objects>
+											<Coordinate name="ankle_angle_r">
+												<default_value>       0.00000000000000000000 </default_value>
+												<initial_value>       0.00000000000000000000 </initial_value>
+												<tolerance>       0.00001000000 </tolerance>
+												<stiffness>       0.00000000000000000000 </stiffness>
+												<range>      -1.57100000000000000000       1.57100000000000000000 </range>
+												<keys> a_key </keys>
+												<clamped> false </clamped>
+												<locked> false </locked>
+												<restraint_function/>
+												<min_restraint_function/>
+												<max_restraint_function/>
+												<restraint_active> false </restraint_active>
+												<prescribed_function/>
+											</Coordinate>
+										</objects>
+										<groups/>
+									</CoordinateSet>
+									<TransformAxisSet name="">
+										<objects>
+											<TransformAxis name="r1">
+												<function/>
+												<coordinate> ankle_angle_r </coordinate>
+												<is_rotation> true </is_rotation>
+												<axis>      -0.10500000000000000000      -0.17399999999999999000       0.97899999999999998000 </axis>
+											</TransformAxis>
+										</objects>
+										<groups/>
+									</TransformAxisSet>
+								</CustomJoint>
+							</Joint>
+							<VisibleObject name="">
+								<geometry_files> talus.vtp </geometry_files>
+								<VisibleProperties name="">
+									<display_preference> 4 </display_preference>
+									<show_normals> false </show_normals>
+									<show_axes> false </show_axes>
+									<material_name> DEFAULT </material_name>
+								</VisibleProperties>
+								<scale_factors>       1.26634240795235150000       1.26634240795235150000       1.26634240795235150000 </scale_factors>
+							</VisibleObject>
+						</Body>
+						<Body name="calcn_r">
+							<WrapObjectSet name="">
+								<objects/>
+								<groups/>
+							</WrapObjectSet>
+							<mass>       1.07224815892757470000 </mass>
+							<mass_center>       0.10269286810900669000       0.03080785643331001100       0.00000000000000000000 </mass_center>
+							<inertia_xx>       0.00090461997436142418 </inertia_xx>
+							<inertia_yy>       0.00361847989744569670 </inertia_yy>
+							<inertia_zz>       0.00361847989744569670 </inertia_zz>
+							<inertia_xy>       0.00000000000000000000 </inertia_xy>
+							<inertia_xz>       0.00000000000000000000 </inertia_xz>
+							<inertia_yz>       0.00000000000000000000 </inertia_yz>
+							<!--Joint that connects this body with the parent body.-->
+							<Joint>
+								<CustomJoint name="subtalar_r">
+									<parent_body> talus_r </parent_body>
+									<location_in_parent>      -0.06205078262770712800      -0.05318638186153475100       0.01013073398898291200 </location_in_parent>
+									<orientation_in_parent>       0.00000000000000000000       0.00000000000000000000       0.00000000000000000000 </orientation_in_parent>
+									<location>       0.00000000000000000000       0.00000000000000000000       0.00000000000000000000 </location>
+									<orientation>       0.00000000000000000000       0.00000000000000000000       0.00000000000000000000 </orientation>
+									<!--Generalized coordinates parameterizing this joint.-->
+									<CoordinateSet name="">
+										<objects>
+											<Coordinate name="subtalar_angle_r">
+												<default_value>       0.00000000 </default_value>
+												<initial_value>       0.00000000 </initial_value>
+												<tolerance>       0.00001000000 </tolerance>
+												<stiffness>       0.00000000 </stiffness>
+												<range>      -1.57100000       1.57100000 </range>
+												<keys> a_key </keys>
+												<clamped> true </clamped>
+												<locked> true </locked>
+												<restraint_function/>
+												<min_restraint_function/>
+												<max_restraint_function/>
+												<restraint_active> false </restraint_active>
+												<prescribed_function/>
+											</Coordinate>
+										</objects>
+										<groups/>
+									</CoordinateSet>
+									<TransformAxisSet name="">
+										<objects>
+											<TransformAxis name="r1">
+												<function/>
+												<coordinate> subtalar_angle_r </coordinate>
+												<is_rotation> true </is_rotation>
+												<axis>       0.78700000       0.60500000      -0.12100000 </axis>
+											</TransformAxis>
+										</objects>
+										<groups/>
+									</TransformAxisSet>
+								</CustomJoint>
+							</Joint>
+							<VisibleObject name="">
+								<geometry_files> foot.vtp </geometry_files>
+								<VisibleProperties name="">
+									<display_preference> 4 </display_preference>
+									<show_normals> false </show_normals>
+									<show_axes> false </show_axes>
+									<material_name> DEFAULT </material_name>
+								</VisibleProperties>
+								<scale_factors>       1.02692865109462690000       1.02692865109462690000       1.02692865109462690000 </scale_factors>
+							</VisibleObject>
+						</Body>
+						<Body name="toes_r">
+							<WrapObjectSet name="">
+								<objects/>
+								<groups/>
+							</WrapObjectSet>
+							<mass>       0.18614228384279780000 </mass>
+							<mass_center>       0.03594250583784833900       0.00616157328635799900      -0.01848471985907399300 </mass_center>
+							<inertia_xx>       0.00000000000000000000 </inertia_xx>
+							<inertia_yy>       0.00000000000000000000 </inertia_yy>
+							<inertia_zz>       0.00090461997436142418 </inertia_zz>
+							<inertia_xy>       0.00000000000000000000 </inertia_xy>
+							<inertia_xz>       0.00000000000000000000 </inertia_xz>
+							<inertia_yz>       0.00000000000000000000 </inertia_yz>
+							<!--Joint that connects this body with the parent body.-->
+							<Joint>
+								<CustomJoint name="mtp_r">
+									<parent_body> calcn_r </parent_body>
+									<location_in_parent>       0.18382022471652038000      -0.00205385776211933300       0.00102692388181967640 </location_in_parent>
+									<orientation_in_parent>       0.00000000000000000000       0.00000000000000000000       0.00000000000000000000 </orientation_in_parent>
+									<location>       0.00000000000000000000       0.00000000000000000000       0.00000000000000000000 </location>
+									<orientation>       0.00000000000000000000       0.00000000000000000000       0.00000000000000000000 </orientation>
+									<!--Generalized coordinates parameterizing this joint.-->
+									<CoordinateSet name="">
+										<objects>
+											<Coordinate name="mtp_angle_r">
+												<default_value>       0.00000000 </default_value>
+												<initial_value>       0.00000000 </initial_value>
+												<tolerance>       0.00001000000 </tolerance>
+												<stiffness>       0.00000000 </stiffness>
+												<range>      -1.57100000       1.57100000 </range>
+												<keys> t_key </keys>
+												<clamped> true </clamped>
+												<locked> true </locked>
+												<restraint_function/>
+												<min_restraint_function/>
+												<max_restraint_function/>
+												<restraint_active> false </restraint_active>
+												<prescribed_function/>
+											</Coordinate>
+										</objects>
+										<groups/>
+									</CoordinateSet>
+									<TransformAxisSet name="">
+										<objects>
+											<TransformAxis name="r1">
+												<function/>
+												<coordinate> mtp_angle_r </coordinate>
+												<is_rotation> true </is_rotation>
+												<axis>      -0.58100000       0.00000000       0.81400000 </axis>
+											</TransformAxis>
+										</objects>
+										<groups/>
+									</TransformAxisSet>
+								</CustomJoint>
+							</Joint>
+							<VisibleObject name="">
+								<geometry_files> bofoot.vtp </geometry_files>
+								<VisibleProperties name="">
+									<display_preference> 4 </display_preference>
+									<show_normals> false </show_normals>
+									<show_axes> false </show_axes>
+									<material_name> DEFAULT </material_name>
+								</VisibleProperties>
+								<scale_factors>       1.02692865109462690000       1.02692865109462690000       1.02692865109462690000 </scale_factors>
+							</VisibleObject>
+						</Body>
+					</objects>
+					<groups/>
+				</BodySet>
+				<!--Constraints in the model.-->
+				<ConstraintSet name="">
+					<objects>
+						<CoordinateCouplerConstraint name="knee_tx_r">
+							<isDisabled> false </isDisabled>
+							<coupled_coordinates_function>
+								<natCubicSpline name="">
+									<x>      -2.09439509999999980000      -1.74532924999999990000      -1.39626340000000000000      -1.04719754999999990000      -0.69813170000000002000      -0.34906585000000001000      -0.17453293000000000000       0.19734421999999999000       0.33739496000000002000       0.49017757000000001000       1.52146026999999990000       2.09439509999999980000 </x>
+									<y>      -0.00375609775757870320       0.00210106644776823780       0.00482423911249677850       0.00481249353758278570       0.00248841463650417790      -0.00117377990978478010      -0.00363871362779800540      -0.00613534402793975820      -0.00637949442356050210      -0.00654265355522726590      -0.00637949442356050210      -0.00616234452637009520 </y>
+								</natCubicSpline>
+							</coupled_coordinates_function>
+							<independent_coordinate_names> knee_angle_r </independent_coordinate_names>
+							<dependent_coordinate_name> tib_tx_r </dependent_coordinate_name>
+						</CoordinateCouplerConstraint>
+						<CoordinateCouplerConstraint name="knee_ty_r">
+							<isDisabled> false </isDisabled>
+							<coupled_coordinates_function>
+								<natCubicSpline name="">
+									<x>      -2.09439509999999980000      -1.22173048000000000000      -0.52359878000000004000      -0.34906585000000001000      -0.17453293000000000000       0.15914855999999999000       2.09439509999999980000 </x>
+									<y>      -0.49603938578251328000      -0.47913696122041466000      -0.46833818400412724000      -0.46669488803789377000      -0.46552110812810898000      -0.46395294086970951000      -0.46481684427477293000 </y>
+								</natCubicSpline>
+							</coupled_coordinates_function>
+							<independent_coordinate_names> knee_angle_r </independent_coordinate_names>
+							<dependent_coordinate_name> tib_ty_r </dependent_coordinate_name>
+						</CoordinateCouplerConstraint>
+						<CoordinateCouplerConstraint name="pat_tx_r">
+							<isDisabled> false </isDisabled>
+							<coupled_coordinates_function>
+								<natCubicSpline name="">
+									<x>      -2.09439509999999980000      -1.39626340000000000000      -1.04719754999999990000      -0.69813170000000002000      -0.34906585000000001000      -0.17453293000000000000       0.00000000000000000000       0.00017453000000000000       0.00034906999999999999       0.08726646000000000400       2.09439509999999980000 </x>
+									<y>       0.01944050045623585400       0.03640879952795759300       0.04281404908636915500       0.04832031425627562200       0.05270285462442561600       0.05438844182706033300       0.05573691840981797500       0.05573691840981797500       0.05573691840981797500       0.05573691840981797500       0.05573691840981797500 </y>
+								</natCubicSpline>
+							</coupled_coordinates_function>
+							<independent_coordinate_names> knee_angle_r </independent_coordinate_names>
+							<dependent_coordinate_name> pat_tx_r </dependent_coordinate_name>
+						</CoordinateCouplerConstraint>
+						<CoordinateCouplerConstraint name="pat_ty_r">
+							<isDisabled> false </isDisabled>
+							<coupled_coordinates_function>
+								<natCubicSpline name="">
+									<x>      -2.09439509999999980000      -1.57079633000000010000      -1.39626340000000000000      -1.04719754999999990000      -0.69813170000000002000      -0.34906585000000001000      -0.17453293000000000000       0.00000000000000000000       0.00017453000000000000       0.00034906999999999999       0.08726646000000000400       2.09439509999999980000 </x>
+									<y>      -0.02460964363851546300      -0.02269930465487958800      -0.02247456424162820600      -0.02292405643588075300      -0.02371067061776015500      -0.02460964363851546300      -0.02505913583276801400      -0.02550862802702055800      -0.02550862802702055800      -0.02550862802702055800      -0.02550862802702055800      -0.02550862802702055800 </y>
+								</natCubicSpline>
+							</coupled_coordinates_function>
+							<independent_coordinate_names> knee_angle_r </independent_coordinate_names>
+							<dependent_coordinate_name> pat_ty_r </dependent_coordinate_name>
+						</CoordinateCouplerConstraint>
+						<CoordinateCouplerConstraint name="pat_angle_r">
+							<isDisabled> false </isDisabled>
+							<coupled_coordinates_function>
+								<natCubicSpline name="">
+									<x>      -2.09439509999999980000      -1.99997278999999990000      -1.45752445999999990000      -0.52639130000000001000       0.02792526999999999900       0.17453293000000000000 </x>
+									<y>       0.30805061000000000000       0.30805061000000000000       0.30630528000000001000       0.27017697000000002000      -0.03700098000000000300      -0.27995080999999999000 </y>
+								</natCubicSpline>
+							</coupled_coordinates_function>
+							<independent_coordinate_names> knee_angle_r </independent_coordinate_names>
+							<dependent_coordinate_name> pat_angle_r </dependent_coordinate_name>
+						</CoordinateCouplerConstraint>
+					</objects>
+					<groups/>
+				</ConstraintSet>
+				<!--Markers in the model.-->
+				<MarkerSet name="">
+					<objects>
+						<Marker name="R.ASIS">
+							<!--Body segment in the model on which the marker resides.-->
+							<body> pelvis </body>
+							<!--Location of a marker on the body segment.-->
+							<location>       0.00201363729752065960      -0.00150926715785124760       0.12976407958512404000 </location>
+							<!--Flag (true or false) specifying whether or not a marker should be kept
+							    fixed in the marker placement step.  i.e. If false, the marker is
+							    allowed to move.-->
+							<fixed> false </fixed>
+							<!--Used for displaying a marker in the visuals.-->
+							<VisibleObject name="">
+								<geometry_files> </geometry_files>
+								<VisibleProperties name="">
+									<display_preference> 4 </display_preference>
+									<show_normals> false </show_normals>
+									<show_axes> false </show_axes>
+									<material_name> DEFAULT </material_name>
+								</VisibleProperties>
+								<scale_factors>       1.00000000000000000000       1.00000000000000000000       1.00000000000000000000 </scale_factors>
+							</VisibleObject>
+						</Marker>
+						<Marker name="L.ASIS">
+							<!--Body segment in the model on which the marker resides.-->
+							<body> pelvis </body>
+							<!--Location of a marker on the body segment.-->
+							<location>       0.00201363729752065960      -0.00150926715785124760      -0.13237619017107441000 </location>
+							<!--Flag (true or false) specifying whether or not a marker should be kept
+							    fixed in the marker placement step.  i.e. If false, the marker is
+							    allowed to move.-->
+							<fixed> false </fixed>
+							<!--Used for displaying a marker in the visuals.-->
+							<VisibleObject name="">
+								<geometry_files> </geometry_files>
+								<VisibleProperties name="">
+									<display_preference> 4 </display_preference>
+									<show_normals> false </show_normals>
+									<show_axes> false </show_axes>
+									<material_name> DEFAULT </material_name>
+								</VisibleProperties>
+								<scale_factors>       1.00000000000000000000       1.00000000000000000000       1.00000000000000000000 </scale_factors>
+							</VisibleObject>
+						</Marker>
+						<Marker name="V.Sacral">
+							<!--Body segment in the model on which the marker resides.-->
+							<body> pelvis </body>
+							<!--Location of a marker on the body segment.-->
+							<location>      -0.19627200237024794000      -0.00150987904297524010       0.01021760311322314500 </location>
+							<!--Flag (true or false) specifying whether or not a marker should be kept
+							    fixed in the marker placement step.  i.e. If false, the marker is
+							    allowed to move.-->
+							<fixed> false </fixed>
+							<!--Used for displaying a marker in the visuals.-->
+							<VisibleObject name="">
+								<geometry_files> </geometry_files>
+								<VisibleProperties name="">
+									<display_preference> 4 </display_preference>
+									<show_normals> false </show_normals>
+									<show_axes> false </show_axes>
+									<material_name> DEFAULT </material_name>
+								</VisibleProperties>
+								<scale_factors>       1.00000000000000000000       1.00000000000000000000       1.00000000000000000000 </scale_factors>
+							</VisibleObject>
+						</Marker>
+						<Marker name="R.Thigh.Upper">
+							<!--Body segment in the model on which the marker resides.-->
+							<body> femur_r </body>
+							<!--Location of a marker on the body segment.-->
+							<location>       0.00246193570162277500      -0.27499847294832068000       0.08441349975135065100 </location>
+							<!--Flag (true or false) specifying whether or not a marker should be kept
+							    fixed in the marker placement step.  i.e. If false, the marker is
+							    allowed to move.-->
+							<fixed> false </fixed>
+							<!--Used for displaying a marker in the visuals.-->
+							<VisibleObject name="">
+								<geometry_files> </geometry_files>
+								<VisibleProperties name="">
+									<display_preference> 4 </display_preference>
+									<show_normals> false </show_normals>
+									<show_axes> false </show_axes>
+									<material_name> DEFAULT </material_name>
+								</VisibleProperties>
+								<scale_factors>       1.00000000000000000000       1.00000000000000000000       1.00000000000000000000 </scale_factors>
+							</VisibleObject>
+						</Marker>
+						<Marker name="R.Thigh.Front">
+							<!--Body segment in the model on which the marker resides.-->
+							<body> femur_r </body>
+							<!--Location of a marker on the body segment.-->
+							<location>       0.06113161615449937000      -0.33433352109316981000      -0.01165319547304978700 </location>
+							<!--Flag (true or false) specifying whether or not a marker should be kept
+							    fixed in the marker placement step.  i.e. If false, the marker is
+							    allowed to move.-->
+							<fixed> false </fixed>
+							<!--Used for displaying a marker in the visuals.-->
+							<VisibleObject name="">
+								<geometry_files> </geometry_files>
+								<VisibleProperties name="">
+									<display_preference> 4 </display_preference>
+									<show_normals> false </show_normals>
+									<show_axes> false </show_axes>
+									<material_name> DEFAULT </material_name>
+								</VisibleProperties>
+								<scale_factors>       1.00000000000000000000       1.00000000000000000000       1.00000000000000000000 </scale_factors>
+							</VisibleObject>
+						</Marker>
+						<Marker name="R.Thigh.Rear">
+							<!--Body segment in the model on which the marker resides.-->
+							<body> femur_r </body>
+							<!--Location of a marker on the body segment.-->
+							<location>       0.00830804135540618700      -0.39623054665216188000       0.07645617656063587200 </location>
+							<!--Flag (true or false) specifying whether or not a marker should be kept
+							    fixed in the marker placement step.  i.e. If false, the marker is
+							    allowed to move.-->
+							<fixed> false </fixed>
+							<!--Used for displaying a marker in the visuals.-->
+							<VisibleObject name="">
+								<geometry_files> </geometry_files>
+								<VisibleProperties name="">
+									<display_preference> 4 </display_preference>
+									<show_normals> false </show_normals>
+									<show_axes> false </show_axes>
+									<material_name> DEFAULT </material_name>
+								</VisibleProperties>
+								<scale_factors>       1.00000000000000000000       1.00000000000000000000       1.00000000000000000000 </scale_factors>
+							</VisibleObject>
+						</Marker>
+						<Marker name="R.Shank.Upper">
+							<!--Body segment in the model on which the marker resides.-->
+							<body> tibia_r </body>
+							<!--Location of a marker on the body segment.-->
+							<location>      -0.03283881136024230500      -0.08876997270108373500       0.07178619142183650900 </location>
+							<!--Flag (true or false) specifying whether or not a marker should be kept
+							    fixed in the marker placement step.  i.e. If false, the marker is
+							    allowed to move.-->
+							<fixed> false </fixed>
+							<!--Used for displaying a marker in the visuals.-->
+							<VisibleObject name="">
+								<geometry_files> </geometry_files>
+								<VisibleProperties name="">
+									<display_preference> 4 </display_preference>
+									<show_normals> false </show_normals>
+									<show_axes> false </show_axes>
+									<material_name> DEFAULT </material_name>
+								</VisibleProperties>
+								<scale_factors>       1.00000000000000000000       1.00000000000000000000       1.00000000000000000000 </scale_factors>
+							</VisibleObject>
+						</Marker>
+						<Marker name="R.Shank.Front">
+							<!--Body segment in the model on which the marker resides.-->
+							<body> tibia_r </body>
+							<!--Location of a marker on the body segment.-->
+							<location>       0.04004573031317240300      -0.12722839292274848000       0.01598313784909212400 </location>
+							<!--Flag (true or false) specifying whether or not a marker should be kept
+							    fixed in the marker placement step.  i.e. If false, the marker is
+							    allowed to move.-->
+							<fixed> false </fixed>
+							<!--Used for displaying a marker in the visuals.-->
+							<VisibleObject name="">
+								<geometry_files> </geometry_files>
+								<VisibleProperties name="">
+									<display_preference> 4 </display_preference>
+									<show_normals> false </show_normals>
+									<show_axes> false </show_axes>
+									<material_name> DEFAULT </material_name>
+								</VisibleProperties>
+								<scale_factors>       1.00000000000000000000       1.00000000000000000000       1.00000000000000000000 </scale_factors>
+							</VisibleObject>
+						</Marker>
+						<Marker name="R.Shank.Rear">
+							<!--Body segment in the model on which the marker resides.-->
+							<body> tibia_r </body>
+							<!--Location of a marker on the body segment.-->
+							<location>       -0.01907349381061604621      -0.17465717913662962000       0.08135960458534173500 </location>
+							<!--Flag (true or false) specifying whether or not a marker should be kept
+							    fixed in the marker placement step.  i.e. If false, the marker is
+							    allowed to move.-->
+							<fixed> false </fixed>
+							<!--Used for displaying a marker in the visuals.-->
+							<VisibleObject name="">
+								<geometry_files> </geometry_files>
+								<VisibleProperties name="">
+									<display_preference> 4 </display_preference>
+									<show_normals> false </show_normals>
+									<show_axes> false </show_axes>
+									<material_name> DEFAULT </material_name>
+								</VisibleProperties>
+								<scale_factors>       1.00000000000000000000       1.00000000000000000000       1.00000000000000000000 </scale_factors>
+							</VisibleObject>
+						</Marker>
+						<Marker name="R.Heel">
+							<!--Body segment in the model on which the marker resides.-->
+							<body> calcn_r </body>
+							<!--Location of a marker on the body segment.-->
+							<location>      -0.01538344636195338600       0.05764099216507655900       0.00280049547160274480 </location>
+							<!--Flag (true or false) specifying whether or not a marker should be kept
+							    fixed in the marker placement step.  i.e. If false, the marker is
+							    allowed to move.-->
+							<fixed> false </fixed>
+							<!--Used for displaying a marker in the visuals.-->
+							<VisibleObject name="">
+								<geometry_files> </geometry_files>
+								<VisibleProperties name="">
+									<display_preference> 4 </display_preference>
+									<show_normals> false </show_normals>
+									<show_axes> false </show_axes>
+									<material_name> DEFAULT </material_name>
+								</VisibleProperties>
+								<scale_factors>       1.00000000000000000000       1.00000000000000000000       1.00000000000000000000 </scale_factors>
+							</VisibleObject>
+						</Marker>
+						<Marker name="R.Midfoot.Lat">
+							<!--Body segment in the model on which the marker resides.-->
+							<body> calcn_r </body>
+							<!--Location of a marker on the body segment.-->
+							<location>       0.12735415668275907000       0.03613896136235986200       0.06191928752286943900 </location>
+							<!--Flag (true or false) specifying whether or not a marker should be kept
+							    fixed in the marker placement step.  i.e. If false, the marker is
+							    allowed to move.-->
+							<fixed> false </fixed>
+							<!--Used for displaying a marker in the visuals.-->
+							<VisibleObject name="">
+								<geometry_files> </geometry_files>
+								<VisibleProperties name="">
+									<display_preference> 4 </display_preference>
+									<show_normals> false </show_normals>
+									<show_axes> false </show_axes>
+									<material_name> DEFAULT </material_name>
+								</VisibleProperties>
+								<scale_factors>       1.00000000000000000000       1.00000000000000000000       1.00000000000000000000 </scale_factors>
+							</VisibleObject>
+						</Marker>
+						<Marker name="R.Toe.Tip">
+							<!--Body segment in the model on which the marker resides.-->
+							<body> calcn_r </body>
+							<!--Location of a marker on the body segment.-->
+							<location>       0.27308523678962854000       0.02168915201771398600      -0.01919809337177105800 </location>
+							<!--Flag (true or false) specifying whether or not a marker should be kept
+							    fixed in the marker placement step.  i.e. If false, the marker is
+							    allowed to move.-->
+							<fixed> false </fixed>
+							<!--Used for displaying a marker in the visuals.-->
+							<VisibleObject name="">
+								<geometry_files> </geometry_files>
+								<VisibleProperties name="">
+									<display_preference> 4 </display_preference>
+									<show_normals> false </show_normals>
+									<show_axes> false </show_axes>
+									<material_name> DEFAULT </material_name>
+								</VisibleProperties>
+								<scale_factors>       1.00000000000000000000       1.00000000000000000000       1.00000000000000000000 </scale_factors>
+							</VisibleObject>
+						</Marker>
+					</objects>
+					<groups/>
+				</MarkerSet>
+			</SimbodyEngine>
+		</DynamicsEngine>
+		<ActuatorSet name="">
+			<objects>
+				<Thelen2003Muscle name="bifemlh_r">
+					<MusclePointSet name="">
+						<objects>
+							<MusclePoint name="bifemlh_r-P1">
+								<location>      -0.13175237830652789000      -0.10728677551682436000       0.07263326035447761900 </location>
+								<VisibleObject name="">
+									<geometry_files> </geometry_files>
+									<VisibleProperties name="">
+										<display_preference> 4 </display_preference>
+										<show_normals> false </show_normals>
+										<show_axes> false </show_axes>
+										<material_name> DEFAULT </material_name>
+									</VisibleProperties>
+									<scale_factors>       1.00000000000000000000       1.00000000000000000000       1.00000000000000000000 </scale_factors>
+								</VisibleObject>
+								<body> pelvis </body>
+							</MusclePoint>
+							<MusclePoint name="bifemlh_r-P2">
+								<location>      -0.03382421656906799800      -0.04045421790848072900       0.03307131913305119700 </location>
+								<VisibleObject name="">
+									<geometry_files> </geometry_files>
+									<VisibleProperties name="">
+										<display_preference> 4 </display_preference>
+										<show_normals> false </show_normals>
+										<show_axes> false </show_axes>
+										<material_name> DEFAULT </material_name>
+									</VisibleProperties>
+									<scale_factors>       1.00000000000000000000       1.00000000000000000000       1.00000000000000000000 </scale_factors>
+								</VisibleObject>
+								<body> tibia_r </body>
+							</MusclePoint>
+							<MusclePoint name="bifemlh_r-P3">
+								<location>      -0.02629524220889996300      -0.06326589276998601000       0.03854387892484485000 </location>
+								<VisibleObject name="">
+									<geometry_files> </geometry_files>
+									<VisibleProperties name="">
+										<display_preference> 4 </display_preference>
+										<show_normals> false </show_normals>
+										<show_axes> false </show_axes>
+										<material_name> DEFAULT </material_name>
+									</VisibleProperties>
+									<scale_factors>       1.00000000000000000000       1.00000000000000000000       1.00000000000000000000 </scale_factors>
+								</VisibleObject>
+								<body> tibia_r </body>
+							</MusclePoint>
+						</objects>
+						<groups/>
+					</MusclePointSet>
+					<VisibleObject name="">
+						<geometry_files> </geometry_files>
+						<VisibleProperties name="">
+							<display_preference> 4 </display_preference>
+							<show_normals> false </show_normals>
+							<show_axes> false </show_axes>
+							<material_name> DEFAULT </material_name>
+						</VisibleProperties>
+						<scale_factors>       1.00000000000000000000       1.00000000000000000000       1.00000000000000000000 </scale_factors>
+					</VisibleObject>
+					<MuscleWrapSet name="">
+						<objects/>
+						<groups/>
+					</MuscleWrapSet>
+					<muscle_model> 9 </muscle_model>
+					<!--maximum isometric force of the muscle fibers-->
+					<max_isometric_force>    2594.00000000000000000000 </max_isometric_force>
+					<!--optimal length of the muscle fibers-->
+					<optimal_fiber_length>       0.12823851404844791000 </optimal_fiber_length>
+					<!--resting length of the tendon-->
+					<tendon_slack_length>       0.38353904211162110000 </tendon_slack_length>
+					<!--angle between tendon and fibers at optimal fiber length-->
+					<pennation_angle>       0.00000000000000000000 </pennation_angle>
+					<!--time constant for ramping up of muscle activation-->
+					<activation_time_constant>       0.01000000000000000000 </activation_time_constant>
+					<!--time constant for ramping down of muscle activation-->
+					<deactivation_time_constant>       0.04000000000000000100 </deactivation_time_constant>
+					<!--maximum contraction velocity at full activation in fiber lengths per
+					    second-->
+					<Vmax>      10.00000000000000000000 </Vmax>
+					<!--maximum contraction velocity at low activation in fiber lengths per
+					    second-->
+					<Vmax0>       5.00000000000000000000 </Vmax0>
+					<!--tendon strain due to maximum isometric muscle force-->
+					<FmaxTendonStrain>       0.03300000000000000200 </FmaxTendonStrain>
+					<!--passive muscle strain due to maximum isometric muscle force-->
+					<FmaxMuscleStrain>       0.59999999999999998000 </FmaxMuscleStrain>
+					<!--shape factor for Gaussian active muscle force-length relationship-->
+					<KshapeActive>       0.50000000000000000000 </KshapeActive>
+					<!--exponential shape factor for passive force-length relationship-->
+					<KshapePassive>       4.00000000000000000000 </KshapePassive>
+					<!--passive damping in the force-velocity relationship-->
+					<damping>       0.05000000000000000300 </damping>
+					<!--force-velocity shape factor-->
+					<Af>       0.29999999999999999000 </Af>
+					<!--maximum normalized lengthening force-->
+					<Flen>       1.80000000000000000000 </Flen>
+				</Thelen2003Muscle>
+				<Thelen2003Muscle name="bifemsh_r">
+					<MusclePointSet name="">
+						<objects>
+							<MusclePoint name="bifemsh_r-P1">
+								<location>       0.00586889954892390060      -0.24778493486303230000       0.02746645398149866500 </location>
+								<VisibleObject name="">
+									<geometry_files> </geometry_files>
+									<VisibleProperties name="">
+										<display_preference> 4 </display_preference>
+										<show_normals> false </show_normals>
+										<show_axes> false </show_axes>
+										<material_name> DEFAULT </material_name>
+									</VisibleProperties>
+									<scale_factors>       1.00000000000000000000       1.00000000000000000000       1.00000000000000000000 </scale_factors>
+								</VisibleObject>
+								<body> femur_r </body>
+							</MusclePoint>
+							<MusclePoint name="bifemsh_r-P2">
+								<location>      -0.03382421656906799800      -0.04045421790848072900       0.03307131913305119700 </location>
+								<VisibleObject name="">
+									<geometry_files> </geometry_files>
+									<VisibleProperties name="">
+										<display_preference> 4 </display_preference>
+										<show_normals> false </show_normals>
+										<show_axes> false </show_axes>
+										<material_name> DEFAULT </material_name>
+									</VisibleProperties>
+									<scale_factors>       1.00000000000000000000       1.00000000000000000000       1.00000000000000000000 </scale_factors>
+								</VisibleObject>
+								<body> tibia_r </body>
+							</MusclePoint>
+							<MusclePoint name="bifemsh_r-P3">
+								<location>      -0.02629524220889996300      -0.06326589276998601000       0.03854387892484485000 </location>
+								<VisibleObject name="">
+									<geometry_files> </geometry_files>
+									<VisibleProperties name="">
+										<display_preference> 4 </display_preference>
+										<show_normals> false </show_normals>
+										<show_axes> false </show_axes>
+										<material_name> DEFAULT </material_name>
+									</VisibleProperties>
+									<scale_factors>       1.00000000000000000000       1.00000000000000000000       1.00000000000000000000 </scale_factors>
+								</VisibleObject>
+								<body> tibia_r </body>
+							</MusclePoint>
+						</objects>
+						<groups/>
+					</MusclePointSet>
+					<VisibleObject name="">
+						<geometry_files> </geometry_files>
+						<VisibleProperties name="">
+							<display_preference> 4 </display_preference>
+							<show_normals> false </show_normals>
+							<show_axes> false </show_axes>
+							<material_name> DEFAULT </material_name>
+						</VisibleProperties>
+						<scale_factors>       1.00000000000000000000       1.00000000000000000000       1.00000000000000000000 </scale_factors>
+					</VisibleObject>
+					<MuscleWrapSet name="">
+						<objects/>
+						<groups/>
+					</MuscleWrapSet>
+					<muscle_model> 9 </muscle_model>
+					<!--maximum isometric force of the muscle fibers-->
+					<max_isometric_force>     960.00000000000000000000 </max_isometric_force>
+					<!--optimal length of the muscle fibers-->
+					<optimal_fiber_length>       0.20083732702545487000 </optimal_fiber_length>
+					<!--resting length of the tendon-->
+					<tendon_slack_length>       0.10332093738849207000 </tendon_slack_length>
+					<!--angle between tendon and fibers at optimal fiber length-->
+					<pennation_angle>       0.40142572999999998000 </pennation_angle>
+					<!--time constant for ramping up of muscle activation-->
+					<activation_time_constant>       0.01000000000000000000 </activation_time_constant>
+					<!--time constant for ramping down of muscle activation-->
+					<deactivation_time_constant>       0.04000000000000000100 </deactivation_time_constant>
+					<!--maximum contraction velocity at full activation in fiber lengths per
+					    second-->
+					<Vmax>      10.00000000000000000000 </Vmax>
+					<!--maximum contraction velocity at low activation in fiber lengths per
+					    second-->
+					<Vmax0>       5.00000000000000000000 </Vmax0>
+					<!--tendon strain due to maximum isometric muscle force-->
+					<FmaxTendonStrain>       0.03300000000000000200 </FmaxTendonStrain>
+					<!--passive muscle strain due to maximum isometric muscle force-->
+					<FmaxMuscleStrain>       0.59999999999999998000 </FmaxMuscleStrain>
+					<!--shape factor for Gaussian active muscle force-length relationship-->
+					<KshapeActive>       0.50000000000000000000 </KshapeActive>
+					<!--exponential shape factor for passive force-length relationship-->
+					<KshapePassive>       4.00000000000000000000 </KshapePassive>
+					<!--passive damping in the force-velocity relationship-->
+					<damping>       0.05000000000000000300 </damping>
+					<!--force-velocity shape factor-->
+					<Af>       0.29999999999999999000 </Af>
+					<!--maximum normalized lengthening force-->
+					<Flen>       1.80000000000000000000 </Flen>
+				</Thelen2003Muscle>
+				<Thelen2003Muscle name="glut_max2_r">
+					<MusclePointSet name="">
+						<objects>
+							<MusclePoint name="glut_max2_r-P1">
+								<location>      -0.14110349342658507000       0.01840935579573816900       0.05888900815087063500 </location>
+								<VisibleObject name="">
+									<geometry_files> </geometry_files>
+									<VisibleProperties name="">
+										<display_preference> 4 </display_preference>
+										<show_normals> false </show_normals>
+										<show_axes> false </show_axes>
+										<material_name> DEFAULT </material_name>
+									</VisibleProperties>
+									<scale_factors>       1.00000000000000000000       1.00000000000000000000       1.00000000000000000000 </scale_factors>
+								</VisibleObject>
+								<body> pelvis </body>
+							</MusclePoint>
+							<MusclePoint name="glut_max2_r-P2">
+								<location>      -0.14392765735556121000      -0.05439127013462847400       0.09560310860070156400 </location>
+								<VisibleObject name="">
+									<geometry_files> </geometry_files>
+									<VisibleProperties name="">
+										<display_preference> 4 </display_preference>
+										<show_normals> false </show_normals>
+										<show_axes> false </show_axes>
+										<material_name> DEFAULT </material_name>
+									</VisibleProperties>
+									<scale_factors>       1.00000000000000000000       1.00000000000000000000       1.00000000000000000000 </scale_factors>
+								</VisibleObject>
+								<body> pelvis </body>
+							</MusclePoint>
+							<MusclePoint name="glut_max2_r-P3">
+								<location>      -0.05000302006429682000      -0.06221033521859334300       0.03439174931042664900 </location>
+								<VisibleObject name="">
+									<geometry_files> </geometry_files>
+									<VisibleProperties name="">
+										<display_preference> 4 </display_preference>
+										<show_normals> false </show_normals>
+										<show_axes> false </show_axes>
+										<material_name> DEFAULT </material_name>
+									</VisibleProperties>
+									<scale_factors>       1.00000000000000000000       1.00000000000000000000       1.00000000000000000000 </scale_factors>
+								</VisibleObject>
+								<body> femur_r </body>
+							</MusclePoint>
+							<MusclePoint name="glut_max2_r-P4">
+								<location>      -0.01831096250010775700      -0.11925603474159885000       0.04918138231251709800 </location>
+								<VisibleObject name="">
+									<geometry_files> </geometry_files>
+									<VisibleProperties name="">
+										<display_preference> 4 </display_preference>
+										<show_normals> false </show_normals>
+										<show_axes> false </show_axes>
+										<material_name> DEFAULT </material_name>
+									</VisibleProperties>
+									<scale_factors>       1.00000000000000000000       1.00000000000000000000       1.00000000000000000000 </scale_factors>
+								</VisibleObject>
+								<body> femur_r </body>
+							</MusclePoint>
+						</objects>
+						<groups/>
+					</MusclePointSet>
+					<VisibleObject name="">
+						<geometry_files> </geometry_files>
+						<VisibleProperties name="">
+							<display_preference> 4 </display_preference>
+							<show_normals> false </show_normals>
+							<show_axes> false </show_axes>
+							<material_name> DEFAULT </material_name>
+						</VisibleProperties>
+						<scale_factors>       1.00000000000000000000       1.00000000000000000000       1.00000000000000000000 </scale_factors>
+					</VisibleObject>
+					<MuscleWrapSet name="">
+						<objects/>
+						<groups/>
+					</MuscleWrapSet>
+					<muscle_model> 9 </muscle_model>
+					<!--maximum isometric force of the muscle fibers-->
+					<max_isometric_force>    1944.00000000000000000000 </max_isometric_force>
+					<!--optimal length of the muscle fibers-->
+					<optimal_fiber_length>       0.16291391429353447000 </optimal_fiber_length>
+					<!--resting length of the tendon-->
+					<tendon_slack_length>       0.14074875088015185000 </tendon_slack_length>
+					<!--angle between tendon and fibers at optimal fiber length-->
+					<pennation_angle>       0.00000000000000000000 </pennation_angle>
+					<!--time constant for ramping up of muscle activation-->
+					<activation_time_constant>       0.01000000000000000000 </activation_time_constant>
+					<!--time constant for ramping down of muscle activation-->
+					<deactivation_time_constant>       0.04000000000000000100 </deactivation_time_constant>
+					<!--maximum contraction velocity at full activation in fiber lengths per
+					    second-->
+					<Vmax>      10.00000000000000000000 </Vmax>
+					<!--maximum contraction velocity at low activation in fiber lengths per
+					    second-->
+					<Vmax0>       5.00000000000000000000 </Vmax0>
+					<!--tendon strain due to maximum isometric muscle force-->
+					<FmaxTendonStrain>       0.03300000000000000200 </FmaxTendonStrain>
+					<!--passive muscle strain due to maximum isometric muscle force-->
+					<FmaxMuscleStrain>       0.59999999999999998000 </FmaxMuscleStrain>
+					<!--shape factor for Gaussian active muscle force-length relationship-->
+					<KshapeActive>       0.50000000000000000000 </KshapeActive>
+					<!--exponential shape factor for passive force-length relationship-->
+					<KshapePassive>       4.00000000000000000000 </KshapePassive>
+					<!--passive damping in the force-velocity relationship-->
+					<damping>       0.05000000000000000300 </damping>
+					<!--force-velocity shape factor-->
+					<Af>       0.29999999999999999000 </Af>
+					<!--maximum normalized lengthening force-->
+					<Flen>       1.80000000000000000000 </Flen>
+				</Thelen2003Muscle>
+				<Thelen2003Muscle name="psoas_r">
+					<MusclePointSet name="">
+						<objects>
+							<MusclePoint name="psoas_r-P1">
+								<location>      -0.06767528231797019500       0.09277894467172541300       0.03022899575719864200 </location>
+								<VisibleObject name="">
+									<geometry_files> </geometry_files>
+									<VisibleProperties name="">
+										<display_preference> 4 </display_preference>
+										<show_normals> false </show_normals>
+										<show_axes> false </show_axes>
+										<material_name> DEFAULT </material_name>
+									</VisibleProperties>
+									<scale_factors>       1.00000000000000000000       1.00000000000000000000       1.00000000000000000000 </scale_factors>
+								</VisibleObject>
+								<body> pelvis </body>
+							</MusclePoint>
+							<MusclePoint name="psoas_r-P2">
+								<location>      -0.02489446048837045200      -0.05962119426181125600       0.07939033155569130700 </location>
+								<VisibleObject name="">
+									<geometry_files> </geometry_files>
+									<VisibleProperties name="">
+										<display_preference> 4 </display_preference>
+										<show_normals> false </show_normals>
+										<show_axes> false </show_axes>
+										<material_name> DEFAULT </material_name>
+									</VisibleProperties>
+									<scale_factors>       1.00000000000000000000       1.00000000000000000000       1.00000000000000000000 </scale_factors>
+								</VisibleObject>
+								<body> pelvis </body>
+							</MusclePoint>
+							<MuscleViaPoint name="psoas_r-P3">
+								<location>      -0.03012439482450626100      -0.08420186216105758600       0.08535245200276774000 </location>
+								<VisibleObject name="">
+									<geometry_files> </geometry_files>
+									<VisibleProperties name="">
+										<display_preference> 4 </display_preference>
+										<show_normals> false </show_normals>
+										<show_axes> false </show_axes>
+										<material_name> DEFAULT </material_name>
+									</VisibleProperties>
+									<scale_factors>       1.00000000000000000000       1.00000000000000000000       1.00000000000000000000 </scale_factors>
+								</VisibleObject>
+								<body> pelvis </body>
+								<range>      -1.57079633000000010000       0.78539815999999996000 </range>
+								<coordinate> hip_angle_r </coordinate>
+							</MuscleViaPoint>
+							<MusclePoint name="psoas_r-P4">
+								<location>       0.00187804376312083500      -0.05951064347235576100       0.00446036161091475750 </location>
+								<VisibleObject name="">
+									<geometry_files> </geometry_files>
+									<VisibleProperties name="">
+										<display_preference> 4 </display_preference>
+										<show_normals> false </show_normals>
+										<show_axes> false </show_axes>
+										<material_name> DEFAULT </material_name>
+									</VisibleProperties>
+									<scale_factors>       1.00000000000000000000       1.00000000000000000000       1.00000000000000000000 </scale_factors>
+								</VisibleObject>
+								<body> femur_r </body>
+							</MusclePoint>
+							<MusclePoint name="psoas_r-P5">
+								<location>      -0.02206706025768646200      -0.07007466266041878500       0.01220731515429652700 </location>
+								<VisibleObject name="">
+									<geometry_files> </geometry_files>
+									<VisibleProperties name="">
+										<display_preference> 4 </display_preference>
+										<show_normals> false </show_normals>
+										<show_axes> false </show_axes>
+										<material_name> DEFAULT </material_name>
+									</VisibleProperties>
+									<scale_factors>       1.00000000000000000000       1.00000000000000000000       1.00000000000000000000 </scale_factors>
+								</VisibleObject>
+								<body> femur_r </body>
+							</MusclePoint>
+						</objects>
+						<groups/>
+					</MusclePointSet>
+					<VisibleObject name="">
+						<geometry_files> </geometry_files>
+						<VisibleProperties name="">
+							<display_preference> 4 </display_preference>
+							<show_normals> false </show_normals>
+							<show_axes> false </show_axes>
+							<material_name> DEFAULT </material_name>
+						</VisibleProperties>
+						<scale_factors>       1.00000000000000000000       1.00000000000000000000       1.00000000000000000000 </scale_factors>
+					</VisibleObject>
+					<MuscleWrapSet name="">
+						<objects/>
+						<groups/>
+					</MuscleWrapSet>
+					<muscle_model> 9 </muscle_model>
+					<!--maximum isometric force of the muscle fibers-->
+					<max_isometric_force>    2342.00000000000000000000 </max_isometric_force>
+					<!--optimal length of the muscle fibers-->
+					<optimal_fiber_length>       0.10742815744776990000 </optimal_fiber_length>
+					<!--resting length of the tendon-->
+					<tendon_slack_length>       0.17188504783063482000 </tendon_slack_length>
+					<!--angle between tendon and fibers at optimal fiber length-->
+					<pennation_angle>       0.13962633999999999000 </pennation_angle>
+					<!--time constant for ramping up of muscle activation-->
+					<activation_time_constant>       0.01000000000000000000 </activation_time_constant>
+					<!--time constant for ramping down of muscle activation-->
+					<deactivation_time_constant>       0.04000000000000000100 </deactivation_time_constant>
+					<!--maximum contraction velocity at full activation in fiber lengths per
+					    second-->
+					<Vmax>      10.00000000000000000000 </Vmax>
+					<!--maximum contraction velocity at low activation in fiber lengths per
+					    second-->
+					<Vmax0>       5.00000000000000000000 </Vmax0>
+					<!--tendon strain due to maximum isometric muscle force-->
+					<FmaxTendonStrain>       0.03300000000000000200 </FmaxTendonStrain>
+					<!--passive muscle strain due to maximum isometric muscle force-->
+					<FmaxMuscleStrain>       0.59999999999999998000 </FmaxMuscleStrain>
+					<!--shape factor for Gaussian active muscle force-length relationship-->
+					<KshapeActive>       0.50000000000000000000 </KshapeActive>
+					<!--exponential shape factor for passive force-length relationship-->
+					<KshapePassive>       4.00000000000000000000 </KshapePassive>
+					<!--passive damping in the force-velocity relationship-->
+					<damping>       0.05000000000000000300 </damping>
+					<!--force-velocity shape factor-->
+					<Af>       0.29999999999999999000 </Af>
+					<!--maximum normalized lengthening force-->
+					<Flen>       1.80000000000000000000 </Flen>
+				</Thelen2003Muscle>
+				<Thelen2003Muscle name="rect_fem_r">
+					<MusclePointSet name="">
+						<objects>
+							<MusclePoint name="rect_fem_r-P1">
+								<location>      -0.03085658093544688100      -0.03253016523166591500       0.10125143645865387000 </location>
+								<VisibleObject name="">
+									<geometry_files> </geometry_files>
+									<VisibleProperties name="">
+										<display_preference> 4 </display_preference>
+										<show_normals> false </show_normals>
+										<show_axes> false </show_axes>
+										<material_name> DEFAULT </material_name>
+									</VisibleProperties>
+									<scale_factors>       1.00000000000000000000       1.00000000000000000000       1.00000000000000000000 </scale_factors>
+								</VisibleObject>
+								<body> pelvis </body>
+							</MusclePoint>
+							<MuscleViaPoint name="rect_fem_r-P2">
+								<location>       0.03920425307934647500      -0.47303330364326640000       0.00223018592112589560 </location>
+								<VisibleObject name="">
+									<geometry_files> </geometry_files>
+									<VisibleProperties name="">
+										<display_preference> 4 </display_preference>
+										<show_normals> false </show_normals>
+										<show_axes> false </show_axes>
+										<material_name> DEFAULT </material_name>
+									</VisibleProperties>
+									<scale_factors>       1.00000000000000000000       1.00000000000000000000       1.00000000000000000000 </scale_factors>
+								</VisibleObject>
+								<body> femur_r </body>
+								<range>      -2.61799388000000020000      -1.45996792000000000000 </range>
+								<coordinate> knee_angle_r </coordinate>
+							</MuscleViaPoint>
+							<MovingMusclePoint name="rect_fem_r-P3">
+								<location>       0.06939870283704792400       0.02358033936647401300       0.00157321699600902170 </location>
+								<VisibleObject name="">
+									<geometry_files> </geometry_files>
+									<VisibleProperties name="">
+										<display_preference> 4 </display_preference>
+										<show_normals> false </show_normals>
+										<show_axes> false </show_axes>
+										<material_name> DEFAULT </material_name>
+									</VisibleProperties>
+									<scale_factors>       1.00000000000000000000       1.00000000000000000000       1.00000000000000000000 </scale_factors>
+								</VisibleObject>
+								<body> tibia_r </body>
+								<XAttachment>
+									<natCubicSpline name="">
+										<min_x> -1000000000000000000000000000000.00000000000000000000 </min_x>
+										<max_x> 1000000000000000000000000000000.00000000000000000000 </max_x>
+										<min_y> -1000000000000000000000000000000.00000000000000000000 </min_y>
+										<max_y> 1000000000000000000000000000000.00000000000000000000 </max_y>
+										<min_z> -1000000000000000000000000000000.00000000000000000000 </min_z>
+										<max_z> 1000000000000000000000000000000.00000000000000000000 </max_z>
+										<x>      -2.09439509999999980000      -1.99997278999999990000      -1.57079633000000010000      -1.45752445999999990000      -1.39626340000000000000      -1.04719754999999990000      -0.69813170000000002000      -0.52639130000000001000      -0.34906585000000001000      -0.17453293000000000000       0.00000000000000000000       0.00017453000000000000       0.00034906999999999999       0.02792526999999999900       0.08726646000000000400       0.17453293000000000000       2.09439509999999980000 </x>
+										<y>       0.01750824445101430500       0.02022015757524677600       0.03091162855787920100       0.03332567253449275600       0.03456762193401424800       0.04109421085363194200       0.04742967379611278500       0.05066910734912272200       0.05437833589750137900       0.06004071437520659700       0.06939870283704792400       0.06940917253459999400       0.06941965359990184800       0.07114133340810424600       0.07528300252605781000       0.08237317037677129000       0.06444364848647105000 </y>
+									</natCubicSpline>
+								</XAttachment>
+								<x_coordinate> knee_angle_r </x_coordinate>
+								<YAttachment>
+									<natCubicSpline name="">
+										<min_x> -1000000000000000000000000000000.00000000000000000000 </min_x>
+										<max_x> 1000000000000000000000000000000.00000000000000000000 </max_x>
+										<min_y> -1000000000000000000000000000000.00000000000000000000 </min_y>
+										<max_y> 1000000000000000000000000000000.00000000000000000000 </max_y>
+										<min_z> -1000000000000000000000000000000.00000000000000000000 </min_z>
+										<max_z> 1000000000000000000000000000000.00000000000000000000 </max_z>
+										<x>      -2.09439509999999980000      -1.99997278999999990000      -1.57079633000000010000      -1.45752445999999990000      -1.39626340000000000000      -1.04719754999999990000      -0.69813170000000002000      -0.52639130000000001000      -0.34906585000000001000      -0.17453293000000000000       0.00000000000000000000       0.00017453000000000000       0.00034906999999999999       0.02792526999999999900       0.08726646000000000400       0.17453293000000000000       2.09439509999999980000 </x>
+										<y>       0.02630829238565325600       0.02670125276022451000       0.02822146193898562500       0.02840726780922304600       0.02844675937197647200       0.02800150734839376700       0.02723615085861249800       0.02679499122495242900       0.02631739795323111800       0.02558099512215249200       0.02358033936647401300       0.02357742922252902700       0.02357450771083425800       0.02306167441477914900       0.02154794485339554100       0.01792957872904916600      -0.07571385161066279700 </y>
+									</natCubicSpline>
+								</YAttachment>
+								<y_coordinate> knee_angle_r </y_coordinate>
+								<ZAttachment>
+									<natCubicSpline name="">
+										<min_x> -1000000000000000000000000000000.00000000000000000000 </min_x>
+										<max_x> 1000000000000000000000000000000.00000000000000000000 </max_x>
+										<min_y> -1000000000000000000000000000000.00000000000000000000 </min_y>
+										<max_y> 1000000000000000000000000000000.00000000000000000000 </max_y>
+										<min_z> -1000000000000000000000000000000.00000000000000000000 </min_z>
+										<max_z> 1000000000000000000000000000000.00000000000000000000 </max_z>
+										<x>      -2.09439999999999980000       0.17449999999999999000 </x>
+										<y>       0.00157321699600902170       0.00157321699600902170 </y>
+									</natCubicSpline>
+								</ZAttachment>
+								<z_coordinate> knee_angle_r </z_coordinate>
+							</MovingMusclePoint>
+						</objects>
+						<groups/>
+					</MusclePointSet>
+					<VisibleObject name="">
+						<geometry_files> </geometry_files>
+						<VisibleProperties name="">
+							<display_preference> 4 </display_preference>
+							<show_normals> false </show_normals>
+							<show_axes> false </show_axes>
+							<material_name> DEFAULT </material_name>
+						</VisibleProperties>
+						<scale_factors>       1.00000000000000000000       1.00000000000000000000       1.00000000000000000000 </scale_factors>
+					</VisibleObject>
+					<MuscleWrapSet name="">
+						<objects/>
+						<groups/>
+					</MuscleWrapSet>
+					<muscle_model> 9 </muscle_model>
+					<!--maximum isometric force of the muscle fibers-->
+					<max_isometric_force>    1169.00000000000000000000 </max_isometric_force>
+					<!--optimal length of the muscle fibers-->
+					<optimal_fiber_length>       0.13287390094618742000 </optimal_fiber_length>
+					<!--resting length of the tendon-->
+					<tendon_slack_length>       0.36132376626690510000 </tendon_slack_length>
+					<!--angle between tendon and fibers at optimal fiber length-->
+					<pennation_angle>       0.08726646000000000400 </pennation_angle>
+					<!--time constant for ramping up of muscle activation-->
+					<activation_time_constant>       0.01000000000000000000 </activation_time_constant>
+					<!--time constant for ramping down of muscle activation-->
+					<deactivation_time_constant>       0.04000000000000000100 </deactivation_time_constant>
+					<!--maximum contraction velocity at full activation in fiber lengths per
+					    second-->
+					<Vmax>      10.00000000000000000000 </Vmax>
+					<!--maximum contraction velocity at low activation in fiber lengths per
+					    second-->
+					<Vmax0>       5.00000000000000000000 </Vmax0>
+					<!--tendon strain due to maximum isometric muscle force-->
+					<FmaxTendonStrain>       0.03300000000000000200 </FmaxTendonStrain>
+					<!--passive muscle strain due to maximum isometric muscle force-->
+					<FmaxMuscleStrain>       0.59999999999999998000 </FmaxMuscleStrain>
+					<!--shape factor for Gaussian active muscle force-length relationship-->
+					<KshapeActive>       0.50000000000000000000 </KshapeActive>
+					<!--exponential shape factor for passive force-length relationship-->
+					<KshapePassive>       4.00000000000000000000 </KshapePassive>
+					<!--passive damping in the force-velocity relationship-->
+					<damping>       0.05000000000000000300 </damping>
+					<!--force-velocity shape factor-->
+					<Af>       0.29999999999999999000 </Af>
+					<!--maximum normalized lengthening force-->
+					<Flen>       1.80000000000000000000 </Flen>
+				</Thelen2003Muscle>
+				<Thelen2003Muscle name="vas_int_r">
+					<MusclePointSet name="">
+						<objects>
+							<MusclePoint name="vas_int_r-P1">
+								<location>       0.03403961738375862300      -0.22583525873512650000       0.03638717720332818700 </location>
+								<VisibleObject name="">
+									<geometry_files> </geometry_files>
+									<VisibleProperties name="">
+										<display_preference> 4 </display_preference>
+										<show_normals> false </show_normals>
+										<show_axes> false </show_axes>
+										<material_name> DEFAULT </material_name>
+									</VisibleProperties>
+									<scale_factors>       1.00000000000000000000       1.00000000000000000000       1.00000000000000000000 </scale_factors>
+								</VisibleObject>
+								<body> femur_r </body>
+							</MusclePoint>
+							<MusclePoint name="vas_int_r-P2">
+								<location>       0.03932162697779013900      -0.24461573729168298000       0.03345272742886622900 </location>
+								<VisibleObject name="">
+									<geometry_files> </geometry_files>
+									<VisibleProperties name="">
+										<display_preference> 4 </display_preference>
+										<show_normals> false </show_normals>
+										<show_axes> false </show_axes>
+										<material_name> DEFAULT </material_name>
+									</VisibleProperties>
+									<scale_factors>       1.00000000000000000000       1.00000000000000000000       1.00000000000000000000 </scale_factors>
+								</VisibleObject>
+								<body> femur_r </body>
+							</MusclePoint>
+							<MuscleViaPoint name="vas_int_r-P3">
+								<location>       0.04026064885935055200      -0.47303330364326640000       0.00645578950381629070 </location>
+								<VisibleObject name="">
+									<geometry_files> </geometry_files>
+									<VisibleProperties name="">
+										<display_preference> 4 </display_preference>
+										<show_normals> false </show_normals>
+										<show_axes> false </show_axes>
+										<material_name> DEFAULT </material_name>
+									</VisibleProperties>
+									<scale_factors>       1.00000000000000000000       1.00000000000000000000       1.00000000000000000000 </scale_factors>
+								</VisibleObject>
+								<body> femur_r </body>
+								<range>      -2.61799388000000020000      -1.41999988000000000000 </range>
+								<coordinate> knee_angle_r </coordinate>
+							</MuscleViaPoint>
+							<MovingMusclePoint name="vas_int_r-P4">
+								<location>       0.06232558661101208300       0.02842169348370033500       0.00202270919026156880 </location>
+								<VisibleObject name="">
+									<geometry_files> </geometry_files>
+									<VisibleProperties name="">
+										<display_preference> 4 </display_preference>
+										<show_normals> false </show_normals>
+										<show_axes> false </show_axes>
+										<material_name> DEFAULT </material_name>
+									</VisibleProperties>
+									<scale_factors>       1.00000000000000000000       1.00000000000000000000       1.00000000000000000000 </scale_factors>
+								</VisibleObject>
+								<body> tibia_r </body>
+								<XAttachment>
+									<natCubicSpline name="">
+										<min_x> -1000000000000000000000000000000.00000000000000000000 </min_x>
+										<max_x> 1000000000000000000000000000000.00000000000000000000 </max_x>
+										<min_y> -1000000000000000000000000000000.00000000000000000000 </min_y>
+										<max_y> 1000000000000000000000000000000.00000000000000000000 </max_y>
+										<min_z> -1000000000000000000000000000000.00000000000000000000 </min_z>
+										<max_z> 1000000000000000000000000000000.00000000000000000000 </max_z>
+										<x>      -2.09439509999999980000      -1.99997278999999990000      -1.57079633000000010000      -1.45752445999999990000      -1.39626340000000000000      -1.04719754999999990000      -0.69813170000000002000      -0.52639130000000001000      -0.34906585000000001000      -0.17453293000000000000       0.00000000000000000000       0.00017453000000000000       0.00034906999999999999       0.02792526999999999900       0.08726646000000000400       0.17453293000000000000       2.09439509999999980000 </x>
+										<y>       0.00929694364549535180       0.01200885676972782300       0.02270398816779104600       0.02511866873839257000       0.02636072044766212700       0.03289322059716807300       0.03927034634261129800       0.04255675143773325600       0.04636152592305566000       0.05228560136856361100       0.06232558661101208300       0.06233709077379460900       0.06234860630432690500       0.06424544040121808700       0.06885306221511301700       0.07690441878115564200       0.07290945047417878000 </y>
+									</natCubicSpline>
+								</XAttachment>
+								<x_coordinate> knee_angle_r </x_coordinate>
+								<YAttachment>
+									<natCubicSpline name="">
+										<min_x> -1000000000000000000000000000000.00000000000000000000 </min_x>
+										<max_x> 1000000000000000000000000000000.00000000000000000000 </max_x>
+										<min_y> -1000000000000000000000000000000.00000000000000000000 </min_y>
+										<max_y> 1000000000000000000000000000000.00000000000000000000 </max_y>
+										<min_z> -1000000000000000000000000000000.00000000000000000000 </min_z>
+										<max_z> 1000000000000000000000000000000.00000000000000000000 </max_z>
+										<x>      -2.09439509999999980000      -1.99997278999999990000      -1.57079633000000010000      -1.45752445999999990000      -1.39626340000000000000      -1.04719754999999990000      -0.69813170000000002000      -0.52639130000000001000      -0.34906585000000001000      -0.17453293000000000000       0.00000000000000000000       0.00017453000000000000       0.00034906999999999999       0.02792526999999999900       0.08726646000000000400       0.17453293000000000000       2.09439509999999980000 </x>
+										<y>       0.02876636365718449400       0.02915931266400596500       0.03069173080603627300       0.03087965107773372000       0.03091950640848027300       0.03049380691452793400       0.02986160087797951400       0.02956220845188939700       0.02935032496364496000       0.02923145240414219700       0.02842169348370033500       0.02842028388272698300       0.02841887428175363100       0.02815228918154330500       0.02721572301224867800       0.02452961468002837900      -0.07705467769781505800 </y>
+									</natCubicSpline>
+								</YAttachment>
+								<y_coordinate> knee_angle_r </y_coordinate>
+								<ZAttachment>
+									<natCubicSpline name="">
+										<min_x> -1000000000000000000000000000000.00000000000000000000 </min_x>
+										<max_x> 1000000000000000000000000000000.00000000000000000000 </max_x>
+										<min_y> -1000000000000000000000000000000.00000000000000000000 </min_y>
+										<max_y> 1000000000000000000000000000000.00000000000000000000 </max_y>
+										<min_z> -1000000000000000000000000000000.00000000000000000000 </min_z>
+										<max_z> 1000000000000000000000000000000.00000000000000000000 </max_z>
+										<x>      -2.09439999999999980000       2.09439999999999980000 </x>
+										<y>       0.00202270919026156880       0.00202270919026156880 </y>
+									</natCubicSpline>
+								</ZAttachment>
+								<z_coordinate> knee_angle_r </z_coordinate>
+							</MovingMusclePoint>
+						</objects>
+						<groups/>
+					</MusclePointSet>
+					<VisibleObject name="">
+						<geometry_files> </geometry_files>
+						<VisibleProperties name="">
+							<display_preference> 4 </display_preference>
+							<show_normals> false </show_normals>
+							<show_axes> false </show_axes>
+							<material_name> DEFAULT </material_name>
+						</VisibleProperties>
+						<scale_factors>       1.00000000000000000000       1.00000000000000000000       1.00000000000000000000 </scale_factors>
+					</VisibleObject>
+					<MuscleWrapSet name="">
+						<objects/>
+						<groups/>
+					</MuscleWrapSet>
+					<muscle_model> 9 </muscle_model>
+					<!--maximum isometric force of the muscle fibers-->
+					<max_isometric_force>    4530.00000000000000000000 </max_isometric_force>
+					<!--optimal length of the muscle fibers-->
+					<optimal_fiber_length>       0.12617327890857916000 </optimal_fiber_length>
+					<!--resting length of the tendon-->
+					<tendon_slack_length>       0.13678598111177412000 </tendon_slack_length>
+					<!--angle between tendon and fibers at optimal fiber length-->
+					<pennation_angle>       0.05235987999999999800 </pennation_angle>
+					<!--time constant for ramping up of muscle activation-->
+					<activation_time_constant>       0.01000000000000000000 </activation_time_constant>
+					<!--time constant for ramping down of muscle activation-->
+					<deactivation_time_constant>       0.04000000000000000100 </deactivation_time_constant>
+					<!--maximum contraction velocity at full activation in fiber lengths per
+					    second-->
+					<Vmax>      10.00000000000000000000 </Vmax>
+					<!--maximum contraction velocity at low activation in fiber lengths per
+					    second-->
+					<Vmax0>       5.00000000000000000000 </Vmax0>
+					<!--tendon strain due to maximum isometric muscle force-->
+					<FmaxTendonStrain>       0.03300000000000000200 </FmaxTendonStrain>
+					<!--passive muscle strain due to maximum isometric muscle force-->
+					<FmaxMuscleStrain>       0.59999999999999998000 </FmaxMuscleStrain>
+					<!--shape factor for Gaussian active muscle force-length relationship-->
+					<KshapeActive>       0.50000000000000000000 </KshapeActive>
+					<!--exponential shape factor for passive force-length relationship-->
+					<KshapePassive>       4.00000000000000000000 </KshapePassive>
+					<!--passive damping in the force-velocity relationship-->
+					<damping>       0.05000000000000000300 </damping>
+					<!--force-velocity shape factor-->
+					<Af>       0.29999999999999999000 </Af>
+					<!--maximum normalized lengthening force-->
+					<Flen>       1.80000000000000000000 </Flen>
+				</Thelen2003Muscle>
+				<Thelen2003Muscle name="med_gas_r">
+					<MusclePointSet name="">
+						<objects>
+							<MusclePoint name="med_gas_r-P1">
+								<location>      -0.02230181828591082400      -0.46117813064697494000      -0.02758382787994233300 </location>
+								<VisibleObject name="">
+									<geometry_files> </geometry_files>
+									<VisibleProperties name="">
+										<display_preference> 4 </display_preference>
+										<show_normals> false </show_normals>
+										<show_axes> false </show_axes>
+										<material_name> DEFAULT </material_name>
+									</VisibleProperties>
+									<scale_factors>       1.00000000000000000000       1.00000000000000000000       1.00000000000000000000 </scale_factors>
+								</VisibleObject>
+								<body> femur_r </body>
+							</MusclePoint>
+							<MuscleViaPoint name="med_gas_r-P2">
+								<location>      -0.03521339729354340500      -0.47209428176170593000      -0.03028351962617992200 </location>
+								<VisibleObject name="">
+									<geometry_files> </geometry_files>
+									<VisibleProperties name="">
+										<display_preference> 4 </display_preference>
+										<show_normals> false </show_normals>
+										<show_axes> false </show_axes>
+										<material_name> DEFAULT </material_name>
+									</VisibleProperties>
+									<scale_factors>       1.00000000000000000000       1.00000000000000000000       1.00000000000000000000 </scale_factors>
+								</VisibleObject>
+								<body> femur_r </body>
+								<range>      -0.78539815999999996000       0.17453293000000000000 </range>
+								<coordinate> knee_angle_r </coordinate>
+							</MuscleViaPoint>
+							<MusclePoint name="med_gas_r-P3">
+								<location>       0.00000000000000000000       0.03183479031360966800      -0.00544272256969223320 </location>
+								<VisibleObject name="">
+									<geometry_files> </geometry_files>
+									<VisibleProperties name="">
+										<display_preference> 4 </display_preference>
+										<show_normals> false </show_normals>
+										<show_axes> false </show_axes>
+										<material_name> DEFAULT </material_name>
+									</VisibleProperties>
+									<scale_factors>       1.00000000000000000000       1.00000000000000000000       1.00000000000000000000 </scale_factors>
+								</VisibleObject>
+								<body> calcn_r </body>
+							</MusclePoint>
+						</objects>
+						<groups/>
+					</MusclePointSet>
+					<VisibleObject name="">
+						<geometry_files> </geometry_files>
+						<VisibleProperties name="">
+							<display_preference> 4 </display_preference>
+							<show_normals> false </show_normals>
+							<show_axes> false </show_axes>
+							<material_name> DEFAULT </material_name>
+						</VisibleProperties>
+						<scale_factors>       1.00000000000000000000       1.00000000000000000000       1.00000000000000000000 </scale_factors>
+					</VisibleObject>
+					<MuscleWrapSet name="">
+						<objects/>
+						<groups/>
+					</MuscleWrapSet>
+					<muscle_model> 9 </muscle_model>
+					<!--maximum isometric force of the muscle fibers-->
+					<max_isometric_force>    2241.00000000000000000000 </max_isometric_force>
+					<!--optimal length of the muscle fibers-->
+					<optimal_fiber_length>       0.10311281497858139000 </optimal_fiber_length>
+					<!--resting length of the tendon-->
+					<tendon_slack_length>       0.41245125991432557000 </tendon_slack_length>
+					<!--angle between tendon and fibers at optimal fiber length-->
+					<pennation_angle>       0.29670596999999999000 </pennation_angle>
+					<!--time constant for ramping up of muscle activation-->
+					<activation_time_constant>       0.01000000000000000000 </activation_time_constant>
+					<!--time constant for ramping down of muscle activation-->
+					<deactivation_time_constant>       0.04000000000000000100 </deactivation_time_constant>
+					<!--maximum contraction velocity at full activation in fiber lengths per
+					    second-->
+					<Vmax>      10.00000000000000000000 </Vmax>
+					<!--maximum contraction velocity at low activation in fiber lengths per
+					    second-->
+					<Vmax0>       5.00000000000000000000 </Vmax0>
+					<!--tendon strain due to maximum isometric muscle force-->
+					<FmaxTendonStrain>       0.03300000000000000200 </FmaxTendonStrain>
+					<!--passive muscle strain due to maximum isometric muscle force-->
+					<FmaxMuscleStrain>       0.59999999999999998000 </FmaxMuscleStrain>
+					<!--shape factor for Gaussian active muscle force-length relationship-->
+					<KshapeActive>       0.50000000000000000000 </KshapeActive>
+					<!--exponential shape factor for passive force-length relationship-->
+					<KshapePassive>       4.00000000000000000000 </KshapePassive>
+					<!--passive damping in the force-velocity relationship-->
+					<damping>       0.05000000000000000300 </damping>
+					<!--force-velocity shape factor-->
+					<Af>       0.29999999999999999000 </Af>
+					<!--maximum normalized lengthening force-->
+					<Flen>       1.80000000000000000000 </Flen>
+				</Thelen2003Muscle>
+				<Thelen2003Muscle name="soleus_r">
+					<MusclePointSet name="">
+						<objects>
+							<MusclePoint name="soleus_r-P1">
+								<location>      -0.00269695316551528140      -0.17226753957285762000       0.00797846655442058410 </location>
+								<VisibleObject name="">
+									<geometry_files> </geometry_files>
+									<VisibleProperties name="">
+										<display_preference> 4 </display_preference>
+										<show_normals> false </show_normals>
+										<show_axes> false </show_axes>
+										<material_name> DEFAULT </material_name>
+									</VisibleProperties>
+									<scale_factors>       1.00000000000000000000       1.00000000000000000000       1.00000000000000000000 </scale_factors>
+								</VisibleObject>
+								<body> tibia_r </body>
+							</MusclePoint>
+							<MusclePoint name="soleus_r-P2">
+								<location>       0.00000000000000000000       0.03183479031360966800      -0.00544272256969223320 </location>
+								<VisibleObject name="">
+									<geometry_files> </geometry_files>
+									<VisibleProperties name="">
+										<display_preference> 4 </display_preference>
+										<show_normals> false </show_normals>
+										<show_axes> false </show_axes>
+										<material_name> DEFAULT </material_name>
+									</VisibleProperties>
+									<scale_factors>       1.00000000000000000000       1.00000000000000000000       1.00000000000000000000 </scale_factors>
+								</VisibleObject>
+								<body> calcn_r </body>
+							</MusclePoint>
+						</objects>
+						<groups/>
+					</MusclePointSet>
+					<VisibleObject name="">
+						<geometry_files> </geometry_files>
+						<VisibleProperties name="">
+							<display_preference> 4 </display_preference>
+							<show_normals> false </show_normals>
+							<show_axes> false </show_axes>
+							<material_name> DEFAULT </material_name>
+						</VisibleProperties>
+						<scale_factors>       1.00000000000000000000       1.00000000000000000000       1.00000000000000000000 </scale_factors>
+					</VisibleObject>
+					<MuscleWrapSet name="">
+						<objects/>
+						<groups/>
+					</MuscleWrapSet>
+					<muscle_model> 9 </muscle_model>
+					<!--maximum isometric force of the muscle fibers-->
+					<max_isometric_force>    5137.00000000000000000000 </max_isometric_force>
+					<!--optimal length of the muscle fibers-->
+					<optimal_fiber_length>       0.09264700134932003800 </optimal_fiber_length>
+					<!--resting length of the tendon-->
+					<tendon_slack_length>       0.25477925083217506000 </tendon_slack_length>
+					<!--angle between tendon and fibers at optimal fiber length-->
+					<pennation_angle>       0.43633231000000000000 </pennation_angle>
+					<!--time constant for ramping up of muscle activation-->
+					<activation_time_constant>       0.01000000000000000000 </activation_time_constant>
+					<!--time constant for ramping down of muscle activation-->
+					<deactivation_time_constant>       0.04000000000000000100 </deactivation_time_constant>
+					<!--maximum contraction velocity at full activation in fiber lengths per
+					    second-->
+					<Vmax>      10.00000000000000000000 </Vmax>
+					<!--maximum contraction velocity at low activation in fiber lengths per
+					    second-->
+					<Vmax0>       5.00000000000000000000 </Vmax0>
+					<!--tendon strain due to maximum isometric muscle force-->
+					<FmaxTendonStrain>       0.03300000000000000200 </FmaxTendonStrain>
+					<!--passive muscle strain due to maximum isometric muscle force-->
+					<FmaxMuscleStrain>       0.59999999999999998000 </FmaxMuscleStrain>
+					<!--shape factor for Gaussian active muscle force-length relationship-->
+					<KshapeActive>       0.50000000000000000000 </KshapeActive>
+					<!--exponential shape factor for passive force-length relationship-->
+					<KshapePassive>       4.00000000000000000000 </KshapePassive>
+					<!--passive damping in the force-velocity relationship-->
+					<damping>       0.05000000000000000300 </damping>
+					<!--force-velocity shape factor-->
+					<Af>       0.29999999999999999000 </Af>
+					<!--maximum normalized lengthening force-->
+					<Flen>       1.80000000000000000000 </Flen>
+				</Thelen2003Muscle>
+				<Thelen2003Muscle name="tib_ant_r">
+					<MusclePointSet name="">
+						<objects>
+							<MusclePoint name="tib_ant_r-P1">
+								<location>       0.02011473306373978400      -0.18249346709854092000       0.01292286932344881500 </location>
+								<VisibleObject name="">
+									<geometry_files> </geometry_files>
+									<VisibleProperties name="">
+										<display_preference> 4 </display_preference>
+										<show_normals> false </show_normals>
+										<show_axes> false </show_axes>
+										<material_name> DEFAULT </material_name>
+									</VisibleProperties>
+									<scale_factors>       1.00000000000000000000       1.00000000000000000000       1.00000000000000000000 </scale_factors>
+								</VisibleObject>
+								<body> tibia_r </body>
+							</MusclePoint>
+							<MusclePoint name="tib_ant_r-P2">
+								<location>       0.03697066192883583000      -0.44398501966265763000      -0.01988999265048840100 </location>
+								<VisibleObject name="">
+									<geometry_files> </geometry_files>
+									<VisibleProperties name="">
+										<display_preference> 4 </display_preference>
+										<show_normals> false </show_normals>
+										<show_axes> false </show_axes>
+										<material_name> DEFAULT </material_name>
+									</VisibleProperties>
+									<scale_factors>       1.00000000000000000000       1.00000000000000000000       1.00000000000000000000 </scale_factors>
+								</VisibleObject>
+								<body> tibia_r </body>
+							</MusclePoint>
+							<MusclePoint name="tib_ant_r-P3">
+								<location>       0.11973987653626916000       0.01827933108331806700      -0.03132132837269983200 </location>
+								<VisibleObject name="">
+									<geometry_files> </geometry_files>
+									<VisibleProperties name="">
+										<display_preference> 4 </display_preference>
+										<show_normals> false </show_normals>
+										<show_axes> false </show_axes>
+										<material_name> DEFAULT </material_name>
+									</VisibleProperties>
+									<scale_factors>       1.00000000000000000000       1.00000000000000000000       1.00000000000000000000 </scale_factors>
+								</VisibleObject>
+								<body> calcn_r </body>
+							</MusclePoint>
+						</objects>
+						<groups/>
+					</MusclePointSet>
+					<VisibleObject name="">
+						<geometry_files> </geometry_files>
+						<VisibleProperties name="">
+							<display_preference> 4 </display_preference>
+							<show_normals> false </show_normals>
+							<show_axes> false </show_axes>
+							<material_name> DEFAULT </material_name>
+						</VisibleProperties>
+						<scale_factors>       1.00000000000000000000       1.00000000000000000000       1.00000000000000000000 </scale_factors>
+					</VisibleObject>
+					<MuscleWrapSet name="">
+						<objects/>
+						<groups/>
+					</MuscleWrapSet>
+					<muscle_model> 9 </muscle_model>
+					<!--maximum isometric force of the muscle fibers-->
+					<max_isometric_force>    1759.00000000000000000000 </max_isometric_force>
+					<!--optimal length of the muscle fibers-->
+					<optimal_fiber_length>       0.11005276759265348000 </optimal_fiber_length>
+					<!--resting length of the tendon-->
+					<tendon_slack_length>       0.25042618681328221000 </tendon_slack_length>
+					<!--angle between tendon and fibers at optimal fiber length-->
+					<pennation_angle>       0.08726646000000000400 </pennation_angle>
+					<!--time constant for ramping up of muscle activation-->
+					<activation_time_constant>       0.01000000000000000000 </activation_time_constant>
+					<!--time constant for ramping down of muscle activation-->
+					<deactivation_time_constant>       0.04000000000000000100 </deactivation_time_constant>
+					<!--maximum contraction velocity at full activation in fiber lengths per
+					    second-->
+					<Vmax>      10.00000000000000000000 </Vmax>
+					<!--maximum contraction velocity at low activation in fiber lengths per
+					    second-->
+					<Vmax0>       5.00000000000000000000 </Vmax0>
+					<!--tendon strain due to maximum isometric muscle force-->
+					<FmaxTendonStrain>       0.03300000000000000200 </FmaxTendonStrain>
+					<!--passive muscle strain due to maximum isometric muscle force-->
+					<FmaxMuscleStrain>       0.59999999999999998000 </FmaxMuscleStrain>
+					<!--shape factor for Gaussian active muscle force-length relationship-->
+					<KshapeActive>       0.50000000000000000000 </KshapeActive>
+					<!--exponential shape factor for passive force-length relationship-->
+					<KshapePassive>       4.00000000000000000000 </KshapePassive>
+					<!--passive damping in the force-velocity relationship-->
+					<damping>       0.05000000000000000300 </damping>
+					<!--force-velocity shape factor-->
+					<Af>       0.29999999999999999000 </Af>
+					<!--maximum normalized lengthening force-->
+					<Flen>       1.80000000000000000000 </Flen>
+				</Thelen2003Muscle>
+			</objects>
+			<groups/>
+		</ActuatorSet>
+		<length_units> meters </length_units>
+		<force_units> N </force_units>
+	</Model>
+</OpenSimDocument>
+

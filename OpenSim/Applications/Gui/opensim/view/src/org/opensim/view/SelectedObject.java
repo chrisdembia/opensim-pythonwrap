@@ -28,6 +28,7 @@
  */
 package org.opensim.view;
 
+import org.opensim.modeling.AbstractWrapObject;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.MusclePoint;
@@ -64,6 +65,7 @@ public class SelectedObject implements Selectable {
 
    private Model getModel(MusclePoint mp) { return mp.getMuscle().getModel(); }
    private Model getModel(AbstractBody body) { return body.getDynamicsEngine().getModel(); }
+   private Model getModel(AbstractWrapObject wrapObj) { return getModel(wrapObj.getBody()); }
    private Model getModel(AbstractMarker marker) { return marker.getBody().getDynamicsEngine().getModel(); }
 
    public Model getOwnerModel()
@@ -74,6 +76,9 @@ public class SelectedObject implements Selectable {
       if(body != null) return getModel(body);
       AbstractMarker marker = AbstractMarker.safeDownCast(object);
       if(marker != null) return getModel(marker);
+      AbstractWrapObject wrapObj = AbstractWrapObject.safeDownCast(object);
+      if(wrapObj != null) return getModel(wrapObj.getBody());
+      
       return null;
    }
 
@@ -136,21 +141,34 @@ public class SelectedObject implements Selectable {
          MusclePoint mp = MusclePoint.safeDownCast(object);
          if (!(mp.isActive())) return null;
          SingleModelVisuals visuals = ViewDB.getInstance().getModelVisuals(getModel(mp));
+         // If muscle is now hidden return
+         int displayStatus = ViewDB.getInstance().getDisplayStatus(mp.getMuscle());
+         if (displayStatus==0) return null;
          bounds = getGlyphPointBounds(visuals.getMusclePointsRep(), visuals, object);
       } else if (AbstractMarker.safeDownCast(object) != null) {
          AbstractMarker marker = AbstractMarker.safeDownCast(object);
          SingleModelVisuals visuals = ViewDB.getInstance().getModelVisuals(getModel(marker));
+         // Check if not visible, return
+         int displayStatus = ViewDB.getInstance().getDisplayStatus(marker);
+         if (displayStatus==0) return null;
          bounds = getGlyphPointBounds(visuals.getMarkersRep(), visuals, object);
          
-      } else if (AbstractBody.safeDownCast(object) != null) {
+      } else { // if (AbstractBody.safeDownCast(object) != null)
           // Check if object is visible 
          int displayStatus = ViewDB.getInstance().getDisplayStatus(object);
          if (displayStatus==0) return null;
          vtkProp3D asm = ViewDB.getInstance().getVtkRepForObject(object);
          if(asm!=null) {
             bounds = asm.GetBounds();
-            SingleModelVisuals visuals = ViewDB.getInstance().getModelVisuals(getModel((AbstractBody)object));
-            if(bounds!=null && visuals!=null) visuals.transformModelToWorldBounds(bounds);
+            AbstractBody dBody = null;
+            if (AbstractBody.safeDownCast(object)!=null )
+                dBody = AbstractBody.safeDownCast(object);
+            else if (AbstractWrapObject.safeDownCast(object)!=null)
+                dBody = (AbstractWrapObject.safeDownCast(object)).getBody();
+            if (dBody != null){
+                SingleModelVisuals visuals = ViewDB.getInstance().getModelVisuals(getModel(dBody));
+                if(bounds!=null && visuals!=null) visuals.transformModelToWorldBounds(bounds);
+            }
          }
       }
       return bounds;

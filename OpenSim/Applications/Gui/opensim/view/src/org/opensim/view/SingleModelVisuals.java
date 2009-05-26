@@ -77,6 +77,7 @@ import vtk.vtkXMLPolyDataReader;
 import vtk.vtkAppendPolyData;
 import vtk.vtkArrowSource;
 import vtk.vtkLineSource;
+import vtk.vtkOBJReader;
 
 /**
  *
@@ -280,6 +281,13 @@ public class SingleModelVisuals {
               // Create polyData and append it to one common polyData object
               bodyPolyData.AddInput(poly);
               polyReader.GetOutput().ReleaseDataFlagOn();             
+          }
+          else if (boneFile.endsWith(".obj")){
+              vtkOBJReader objReader = new vtkOBJReader();
+              objReader.SetFileName(boneFile);
+              vtkPolyData poly = objReader.GetOutput();
+              // Create polyData and append it to one common polyData object
+              bodyPolyData.AddInput(poly);
           }
           else
               System.out.println("Unexpected extension for geometry file"+boneFile+"while processing body "+body.getName());

@@ -245,6 +245,10 @@ public class SimbodyEngine extends AbstractDynamicsEngine {
     return new Transform(opensimModelJNI.SimbodyEngine_getTransform(swigCPtr, this, AbstractBody.getCPtr(aBody), aBody), true);
   }
 
+  public SWIGTYPE_p_SimTK__Vec3 getSystemCenterOfMassAcceleration() {
+    return new SWIGTYPE_p_SimTK__Vec3(opensimModelJNI.SimbodyEngine_getSystemCenterOfMassAcceleration(swigCPtr, this), true);
+  }
+
   public void applyForce(AbstractBody aBody, SWIGTYPE_p_SimTK__Vec3 aPoint, SWIGTYPE_p_SimTK__Vec3 aForce) {
     opensimModelJNI.SimbodyEngine_applyForce(swigCPtr, this, AbstractBody.getCPtr(aBody), aBody, SWIGTYPE_p_SimTK__Vec3.getCPtr(aPoint), SWIGTYPE_p_SimTK__Vec3.getCPtr(aForce));
   }
@@ -439,6 +443,16 @@ public class SimbodyEngine extends AbstractDynamicsEngine {
 
   public void convertQuaternionsToDirectionCosines(double aQ1, double aQ2, double aQ3, double aQ4, SWIGTYPE_p_double rDirCos) {
     opensimModelJNI.SimbodyEngine_convertQuaternionsToDirectionCosines__SWIG_1(swigCPtr, this, aQ1, aQ2, aQ3, aQ4, SWIGTYPE_p_double.getCPtr(rDirCos));
+  }
+
+  public SWIGTYPE_p_SimTK__MultibodySystem getMultibodySystem() {
+    long cPtr = opensimModelJNI.SimbodyEngine_getMultibodySystem(swigCPtr, this);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_SimTK__MultibodySystem(cPtr, false);
+  }
+
+  public SWIGTYPE_p_SimTK__State getSimbodyState() {
+    long cPtr = opensimModelJNI.SimbodyEngine_getSimbodyState(swigCPtr, this);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_SimTK__State(cPtr, false);
   }
 
   public void resizeBodyAndMobilityForceVectors() {

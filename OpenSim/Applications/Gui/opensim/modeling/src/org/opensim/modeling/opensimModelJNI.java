@@ -1935,6 +1935,8 @@ public class opensimModelJNI {
   public final static native long MuscleAnalysis_getPassiveFiberForceAlongTendonStorage(long jarg1, MuscleAnalysis jarg1_);
   public final static native void MuscleAnalysis_setMuscles(long jarg1, MuscleAnalysis jarg1_, long jarg2, ArrayStr jarg2_);
   public final static native void MuscleAnalysis_setCoordinates(long jarg1, MuscleAnalysis jarg1_, long jarg2, ArrayStr jarg2_);
+  public final static native void MuscleAnalysis_setComputeMoments(long jarg1, MuscleAnalysis jarg1_, boolean jarg2);
+  public final static native boolean MuscleAnalysis_getComputeMoments(long jarg1, MuscleAnalysis jarg1_);
   public final static native int MuscleAnalysis_begin__SWIG_0(long jarg1, MuscleAnalysis jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7, long jarg8, long jarg9);
   public final static native int MuscleAnalysis_begin__SWIG_1(long jarg1, MuscleAnalysis jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7, long jarg8);
   public final static native int MuscleAnalysis_begin__SWIG_2(long jarg1, MuscleAnalysis jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7);
@@ -2404,7 +2406,7 @@ public class opensimModelJNI {
   public final static native long new_ScaleSet__SWIG_1(String jarg1);
   public final static native void delete_ScaleSet(long jarg1);
   public final static native void delete_AbstractWrapObject(long jarg1);
-  public final static native long AbstractWrapObject_copy(long jarg1, AbstractWrapObject jarg1_);
+  public final static native long AbstractWrapObject_copy__SWIG_0(long jarg1, AbstractWrapObject jarg1_);
   public final static native void AbstractWrapObject_copyData(long jarg1, AbstractWrapObject jarg1_, long jarg2, AbstractWrapObject jarg2_);
   public final static native void AbstractWrapObject_scale(long jarg1, AbstractWrapObject jarg1_, long jarg2);
   public final static native void AbstractWrapObject_setup(long jarg1, AbstractWrapObject jarg1_, long jarg2, AbstractDynamicsEngine jarg2_, long jarg3, AbstractBody jarg3_);
@@ -2422,6 +2424,10 @@ public class opensimModelJNI {
   public final static native int AbstractWrapObject_wrapLine(long jarg1, AbstractWrapObject jarg1_, long jarg2, long jarg3, long jarg4, MuscleWrap jarg4_, long jarg5, long jarg6);
   public final static native long AbstractWrapObject_getDisplayer(long jarg1, AbstractWrapObject jarg1_);
   public final static native void AbstractWrapObject_updateGeometry(long jarg1, AbstractWrapObject jarg1_);
+  public final static native boolean AbstractWrapObject_isKindOf(String jarg1);
+  public final static native boolean AbstractWrapObject_isA(long jarg1, AbstractWrapObject jarg1_, String jarg2);
+  public final static native long AbstractWrapObject_safeDownCast(long jarg1, OpenSimObject jarg1_);
+  public final static native void AbstractWrapObject_copy__SWIG_1(long jarg1, AbstractWrapObject jarg1_, long jarg2, OpenSimObject jarg2_);
   public final static native long new_WrapSphere__SWIG_0();
   public final static native long new_WrapSphere__SWIG_1(long jarg1, WrapSphere jarg1_);
   public final static native void delete_WrapSphere(long jarg1);
@@ -3356,6 +3362,7 @@ public class opensimModelJNI {
   public final static native long Body_safeDownCast(long jarg1, OpenSimObject jarg1_);
   public final static native void Body_copy__SWIG_1(long jarg1, Body jarg1_, long jarg2, OpenSimObject jarg2_);
   public final static native long Body_getMassProperties(long jarg1, Body jarg1_);
+  public final static native long Body_getIndex(long jarg1, Body jarg1_);
   public final static native void delete_SimbodyEngine(long jarg1);
   public final static native long new_SimbodyEngine__SWIG_0();
   public final static native long new_SimbodyEngine__SWIG_1(String jarg1);
@@ -3409,6 +3416,7 @@ public class opensimModelJNI {
   public final static native void SimbodyEngine_getAngularAcceleration(long jarg1, SimbodyEngine jarg1_, long jarg2, AbstractBody jarg2_, long jarg3);
   public final static native void SimbodyEngine_getAngularAccelerationBodyLocal(long jarg1, SimbodyEngine jarg1_, long jarg2, AbstractBody jarg2_, long jarg3);
   public final static native long SimbodyEngine_getTransform(long jarg1, SimbodyEngine jarg1_, long jarg2, AbstractBody jarg2_);
+  public final static native long SimbodyEngine_getSystemCenterOfMassAcceleration(long jarg1, SimbodyEngine jarg1_);
   public final static native void SimbodyEngine_applyForce(long jarg1, SimbodyEngine jarg1_, long jarg2, AbstractBody jarg2_, long jarg3, long jarg4);
   public final static native void SimbodyEngine_applyForces__SWIG_0(long jarg1, SimbodyEngine jarg1_, int jarg2, long jarg3, long jarg4, long jarg5);
   public final static native void SimbodyEngine_applyForces__SWIG_1(long jarg1, SimbodyEngine jarg1_, int jarg2, long jarg3, long jarg4, long jarg5);
@@ -3458,6 +3466,8 @@ public class opensimModelJNI {
   public final static native void SimbodyEngine_convertDirectionCosinesToQuaternions__SWIG_1(long jarg1, SimbodyEngine jarg1_, long jarg2, long jarg3, long jarg4, long jarg5, long jarg6);
   public final static native void SimbodyEngine_convertQuaternionsToDirectionCosines__SWIG_0(long jarg1, SimbodyEngine jarg1_, double jarg2, double jarg3, double jarg4, double jarg5, long jarg6);
   public final static native void SimbodyEngine_convertQuaternionsToDirectionCosines__SWIG_1(long jarg1, SimbodyEngine jarg1_, double jarg2, double jarg3, double jarg4, double jarg5, long jarg6);
+  public final static native long SimbodyEngine_getMultibodySystem(long jarg1, SimbodyEngine jarg1_);
+  public final static native long SimbodyEngine_getSimbodyState(long jarg1, SimbodyEngine jarg1_);
   public final static native void SimbodyEngine_resizeBodyAndMobilityForceVectors(long jarg1, SimbodyEngine jarg1_);
   public final static native void SimbodyEngine_resetBodyAndMobilityForceVectors(long jarg1, SimbodyEngine jarg1_);
   public final static native long SimbodyEngine_getBodyForces(long jarg1, SimbodyEngine jarg1_);

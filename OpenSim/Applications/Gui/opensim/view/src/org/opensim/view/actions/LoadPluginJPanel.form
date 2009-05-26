@@ -45,6 +45,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Library has been loaded successfully into OpenSim."/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JLabel(&quot;Library &quot;+pluginName+&quot; has been loaded successfully into OpenSim.&quot;);&#xa;"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JCheckBox" name="jLoadAlwaysCheckBox">
       <Properties>
