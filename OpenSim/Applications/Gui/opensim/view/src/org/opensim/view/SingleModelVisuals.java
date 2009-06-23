@@ -800,7 +800,9 @@ public class SingleModelVisuals {
        viaPoint.SetRadius(ViewDB.getInstance().getMuscleDisplayRadius());
        viaPoint.SetCenter(0., 0., 0.);
        //getMusclePointsRep().setColors(defaultMusclePointColor, SelectedObject.defaultSelectedColor);
-       getMusclePointsRep().setColorRange(inactiveMuscleColor, defaultMusclePointColor);
+//       getMusclePointsRep().setColorRange(inactiveMuscleColor, defaultMusclePointColor);
+       double[] zeroMusclePointColor = new double[]{0.0, 1.0, 0.0};
+       getMusclePointsRep().set3ColorRange(inactiveMuscleColor, zeroMusclePointColor, defaultMusclePointColor);
        getMusclePointsRep().setSelectedColor(SelectedObject.defaultSelectedColor);
        vtkStripper strip2 = new vtkStripper();
        strip2.SetInput(viaPoint.GetOutput());
@@ -829,7 +831,9 @@ public class SingleModelVisuals {
             getMuscleSegmentsRep().setShape(stretcher.GetOutput());
        }
        //getMuscleSegmentsRep().setColor(defaultMuscleColor);
-       getMuscleSegmentsRep().setColorRange(inactiveMuscleColor, defaultMuscleColor);
+//       getMuscleSegmentsRep().setColorRange(inactiveMuscleColor, defaultMuscleColor);
+       double[] zeroMuscleColor = new double[]{0.0, 1.0, 0.0};
+       getMuscleSegmentsRep().set3ColorRange(inactiveMuscleColor, zeroMuscleColor, defaultMuscleColor);
        
        // Arbitrary forces
        vtkArrowSource aForceDisplay=new vtkArrowSource();
