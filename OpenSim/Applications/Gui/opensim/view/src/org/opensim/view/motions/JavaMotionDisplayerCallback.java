@@ -115,7 +115,7 @@ public class JavaMotionDisplayerCallback extends SimtkAnimationCallback{
             public void run() {
                double currentRealTime = getCurrentRealTime();
                if(minRenderTimeInterval<=0 || currentRealTime-lastRenderTime>minRenderTimeInterval) {
-                  //OpenSim20 if(motionDisplayer!=null && storage.getSize()>0) motionDisplayer.applyFrameToModel(storage.getSize()-1);            
+                  if(motionDisplayer!=null && storage.getSize()>0) motionDisplayer.applyFrameToModel(storage.getSize()-1);            
                   ViewDB.getInstance().updateModelDisplay(getModelForDisplay());  // Faster? than the next few indented lines
                     //ViewDB.getInstance().updateModelDisplayNoRepaint(getModelForDisplay());
                     ////ViewDB.getInstance().renderAll(); // Render now (if want to do it later, use repaintAll()) -- may slow things down too much
@@ -186,7 +186,7 @@ public class JavaMotionDisplayerCallback extends SimtkAnimationCallback{
 
    public void cleanupMotionDisplayer() {
       setRenderMuscleActivations(false);
-      //OpenSim20 if(motionDisplayer!=null) motionDisplayer.cleanupDisplay();
+      if(motionDisplayer!=null) motionDisplayer.cleanupDisplay();
       ViewDB.getInstance().repaintAll();
    }
 

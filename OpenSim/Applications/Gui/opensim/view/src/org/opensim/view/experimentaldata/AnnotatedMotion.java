@@ -91,7 +91,7 @@ public class AnnotatedMotion extends Storage { // MotionDisplayer needs to know 
             //System.out.println("-------------------------");
 
         }
-        System.out.println("minY, maxY are at markers "+minXIndex+", "+maxXIndex);
+        /*System.out.println("minY, maxY are at markers "+minXIndex+", "+maxXIndex);
         System.out.println("Bounding box="+
                 getBoundingBox()[0]+", "+
                 getBoundingBox()[1]+", "+
@@ -99,7 +99,7 @@ public class AnnotatedMotion extends Storage { // MotionDisplayer needs to know 
                 getBoundingBox()[3]+", "+
                 getBoundingBox()[4]+", "+
                 getBoundingBox()[5]
-                );
+                );*/
         for (int i=0; i<6; i++) getBoundingBox()[i]/= getUnitConversion();
         setBoundingBoxComputed(true);
     }
@@ -160,8 +160,8 @@ public class AnnotatedMotion extends Storage { // MotionDisplayer needs to know 
                         foundPatternAtIdx=false;
                         break;               
                     }
-                    System.out.println("labelsVector.size()"+labelsVector.size());
-                    System.out.println("test index"+i+k);
+                    //System.out.println("labelsVector.size()"+labelsVector.size());
+                    //System.out.println("test index"+i+k);
                     label= labelsVector.get(i+k);
                     if (!(label.endsWith(testAgainst))){
                         foundPatternAtIdx=false;
@@ -172,14 +172,14 @@ public class AnnotatedMotion extends Storage { // MotionDisplayer needs to know 
                     found=true;
                     columnType = classifications.get(patternIdx);
                     classified.add(new ExperimentalDataObject(columnType, baseName, i));
-                    System.out.println("Found "+columnType.toString()+ " at index "+i);
+                    //System.out.println("Found "+columnType.toString()+ " at index "+i);
                     i+=(columnType.getNumberOfColumns()-1);
                     break;
                 }
             }
             if (!found){
                 classified.add(new ExperimentalDataObject(columnType, label, i));
-                System.out.println("Column "+columnType.toString()+ " unclassified");
+                //System.out.println("Column "+columnType.toString()+ " unclassified");
             }
         }
         return classified;

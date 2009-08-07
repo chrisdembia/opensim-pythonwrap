@@ -49,9 +49,9 @@ public class ClassifyDataJPanel extends javax.swing.JPanel {
     
     private AnnotatedMotion amotion;
     ExperimentalDataTreeModel treeModel;
-    RotationSpinnerListModel xSpinnerModel=new RotationSpinnerListModel(0., 0., 270., 90.);
-    RotationSpinnerListModel ySpinnerModel=new RotationSpinnerListModel(0., 0., 270., 90.);
-    RotationSpinnerListModel zSpinnerModel=new RotationSpinnerListModel(0., 0., 270., 90.);
+    RotationSpinnerListModel xSpinnerModel=new RotationSpinnerListModel(0., -270., 360., 90.);
+    RotationSpinnerListModel ySpinnerModel=new RotationSpinnerListModel(0., -270., 360., 90.);
+    RotationSpinnerListModel zSpinnerModel=new RotationSpinnerListModel(0., -270., 360., 90.);
     MotionDisplayer displayer;
     private vtkTransform lastTranform;
     private double[] rotations = new double[]{0., 0., 0.};

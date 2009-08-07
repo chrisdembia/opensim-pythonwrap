@@ -48,7 +48,7 @@ public class ExperimentalOtherDataNode extends ExperimentalDataNode {
     
     public Action[] getActions(boolean b) {
         
-        return null;
+        return new Action[0];
     }
 
 }

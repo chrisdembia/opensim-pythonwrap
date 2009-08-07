@@ -34,7 +34,6 @@ import java.awt.event.ActionListener;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Iterator;
@@ -66,21 +65,25 @@ import org.opensim.utils.Prefs;
 import org.opensim.utils.TheApp;
 import org.opensim.view.*;
 import org.opensim.view.experimentaldata.ExperimentalDataVisuals;
-import org.opensim.view.motions.MotionDisplayer;
 import vtk.AxesActor;
 import vtk.vtkActor;
+import vtk.vtkActor2D;
 import vtk.vtkAssembly;
 import vtk.vtkAssemblyNode;
 import vtk.vtkAssemblyPath;
 import vtk.vtkCamera;
 import vtk.vtkCaptionActor2D;
 import vtk.vtkFollower;
-import vtk.vtkLinearTransform;
+import vtk.vtkImageActor;
+import vtk.vtkImageChangeInformation;
+import vtk.vtkImageData;
+import vtk.vtkImageMapper;
 import vtk.vtkMatrix4x4;
 import vtk.vtkPolyDataMapper;
 import vtk.vtkProp3D;
 import vtk.vtkProp3DCollection;
 import vtk.vtkProperty;
+import vtk.vtkRenderer;
 import vtk.vtkTextActor;
 import vtk.vtkTextProperty;
 import vtk.vtkTransform;
@@ -1474,7 +1477,7 @@ public final class ViewDB extends Observable implements Observer {
 
     public void setQuery(boolean enabled) {
         query=enabled;
-        System.out.println("Annotation "+(enabled?"On":"Off"));
+        //System.out.println("Annotation "+(enabled?"On":"Off"));
         // remove captions if disabling
         if (!enabled){
             Iterator<vtkCaptionActor2D> captions=selectedObjectsAnnotations.values().iterator();
@@ -1486,6 +1489,7 @@ public final class ViewDB extends Observable implements Observer {
             selectedObjectsAnnotations.clear();
             getInstance().repaintAll();
         }
+        
     }
 
     private void removeAnnotationFromViews(final vtkCaptionActor2D nextCaption) {
@@ -1566,5 +1570,28 @@ public final class ViewDB extends Observable implements Observer {
                 return selectedObjectsAnnotations.get(selectedObject);
         }
         return null;
+    }
+
+    public void setBackroundImage(vtkImageData img) {
+     vtkImageMapper mapper = new vtkImageMapper();
+     mapper.SetInput(img);
+     vtkActor2D  actor2d = new vtkActor2D();
+     actor2d.SetMapper(mapper);
+     actor2d.SetPosition(100.0, 100.0);
+
+     // create actor 3d
+     vtkImageChangeInformation imageChange = new vtkImageChangeInformation();
+     imageChange.SetInput(img);
+     imageChange.CenterImageOn();
+
+     vtkImageActor actor3d = new vtkImageActor();
+     actor3d.SetInput(imageChange.GetOutput());
+     vtkRenderer ren2 = new vtkRenderer();
+     ren2.SetLayer(0); // top layer
+     ren2.AddViewProp(actor3d);
+     getCurrentModelWindow().getCanvas().GetRenderer().SetLayer(1); // 3d actor
+     int defLayer = getCurrentModelWindow().getCanvas().GetRenderer().GetLayer();
+     getCurrentModelWindow().getCanvas().GetRenderWindow().AddRenderer(ren2);
+     getCurrentModelWindow().getCanvas().GetRenderWindow().SetNumberOfLayers(2);
     }
 }
