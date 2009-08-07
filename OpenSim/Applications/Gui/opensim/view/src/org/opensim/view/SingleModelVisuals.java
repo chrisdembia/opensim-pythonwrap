@@ -181,8 +181,8 @@ public class SingleModelVisuals {
         vtkAssembly modelAssembly = new vtkAssembly();
         // Keep track of ground body to avoid recomputation
         defaultMarkerColor = ViewDB.getInstance().getDefaultMarkersColor();
-        AbstractBody gnd = model.getDynamicsEngine().getGroundBody();
         BodySet bodies = model.getDynamicsEngine().getBodySet();
+        AbstractBody gnd = model.getDynamicsEngine().getBodySet().get("ground");
  
         for(int bodyNum=0; bodyNum<bodies.getSize();  bodyNum++)
         {
@@ -257,7 +257,7 @@ public class SingleModelVisuals {
       vtkActor bodyRep = new vtkActor();
 
       VisibleObject bodyDisplayer = body.getDisplayer();
-
+      
       vtkAppendPolyData bodyPolyData = new vtkAppendPolyData();
       // For each bone in the current body.
       for (int k = 0; k < bodyDisplayer.getNumGeometryFiles(); ++k) {
