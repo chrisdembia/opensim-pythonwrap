@@ -42,6 +42,10 @@ public class Controller extends OpenSimObject {
     opensimModelJNI.Controller_setModel(swigCPtr, this, Model.getCPtr(aModel), aModel);
   }
 
+  public void setControlSet(ControlSet aControlSet) {
+    opensimModelJNI.Controller_setControlSet(swigCPtr, this, ControlSet.getCPtr(aControlSet), aControlSet);
+  }
+
   public void setDesiredStatesStorage(Storage aYDesStore) {
     opensimModelJNI.Controller_setDesiredStatesStorage(swigCPtr, this, Storage.getCPtr(aYDesStore), aYDesStore);
   }

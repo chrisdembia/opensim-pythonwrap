@@ -1229,7 +1229,7 @@ SWIGINTERN void OpenSim_Array_Sl_OpenSim_MusclePoint_Sm__Sg__setitem(OpenSim::Ar
  * C++ director class methods
  * --------------------------------------------------- */
 
-#include "C:/Projects/SimTK11/OpenSim1022/OpenSim/Java/OpenSimJNI/OpenSimJNI_wrap.h"
+#include "OpenSimJNI_wrap.h"
 
 SwigDirector_SimtkAnimationCallback::SwigDirector_SimtkAnimationCallback(JNIEnv *jenv, OpenSim::Model *aModel, OpenSim::Model *aModelForDisplay) : OpenSim::SimtkAnimationCallback(aModel, aModelForDisplay), Swig::Director(jenv) {
 }
@@ -30721,6 +30721,24 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Controller_1se
   arg1 = *(OpenSim::Controller **)&jarg1; 
   arg2 = *(OpenSim::Model **)&jarg2; 
   (arg1)->setModel(arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Controller_1setControlSet(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  OpenSim::Controller *arg1 = (OpenSim::Controller *) 0 ;
+  OpenSim::ControlSet *arg2 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(OpenSim::Controller **)&jarg1; 
+  arg2 = *(OpenSim::ControlSet **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::ControlSet const & reference is null");
+    return ;
+  } 
+  (arg1)->setControlSet((OpenSim::ControlSet const &)*arg2);
 }
 
 

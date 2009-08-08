@@ -1642,6 +1642,7 @@ public class opensimModelJNI {
   public final static native void delete_Controller(long jarg1);
   public final static native long Controller_getModel(long jarg1, Controller jarg1_);
   public final static native void Controller_setModel(long jarg1, Controller jarg1_, long jarg2, Model jarg2_);
+  public final static native void Controller_setControlSet(long jarg1, Controller jarg1_, long jarg2, ControlSet jarg2_);
   public final static native void Controller_setDesiredStatesStorage(long jarg1, Controller jarg1_, long jarg2, Storage jarg2_);
   public final static native boolean Controller_getOn(long jarg1, Controller jarg1_);
   public final static native void Controller_setOn(long jarg1, Controller jarg1_, boolean jarg2);
