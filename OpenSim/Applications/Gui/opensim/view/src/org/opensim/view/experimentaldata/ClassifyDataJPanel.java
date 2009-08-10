@@ -6,11 +6,14 @@
 
 package org.opensim.view.experimentaldata;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Vector;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import org.opensim.modeling.ArrayStr;
+import org.opensim.utils.FileUtils;
 import org.opensim.view.SingleModelVisuals;
 import org.opensim.view.motions.MotionControlJPanel;
 import org.opensim.view.motions.MotionDisplayer;
@@ -53,7 +56,7 @@ public class ClassifyDataJPanel extends javax.swing.JPanel {
     RotationSpinnerListModel ySpinnerModel=new RotationSpinnerListModel(0., -270., 360., 90.);
     RotationSpinnerListModel zSpinnerModel=new RotationSpinnerListModel(0., -270., 360., 90.);
     MotionDisplayer displayer;
-    private vtkTransform lastTranform;
+    private vtkTransform lastTranform = new vtkTransform();
     private double[] rotations = new double[]{0., 0., 0.};
    /** Creates new form ClassifyDataJPanel */
     public ClassifyDataJPanel() {
@@ -85,6 +88,7 @@ public class ClassifyDataJPanel extends javax.swing.JPanel {
         XSpinner.setValue(rots[0]);
         YSpinner.setValue(rots[1]);
         ZSpinner.setValue(rots[2]);
+        saveTransformedAsButton.setEnabled(amotion.getMarkerNames().size()>0);
    }
     
     /** This method is called from within the constructor to
@@ -194,7 +198,6 @@ public class ClassifyDataJPanel extends javax.swing.JPanel {
 
         saveTransformedAsButton.setText("Save As...");
         saveTransformedAsButton.setToolTipText("Save transformed data into a new file");
-        saveTransformedAsButton.setEnabled(false);
         saveTransformedAsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 saveTransformedAsButtonActionPerformed(evt);
@@ -229,7 +232,7 @@ public class ClassifyDataJPanel extends javax.swing.JPanel {
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                     .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel1Layout.createSequentialGroup()
                         .add(jTransformDataPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 99, Short.MAX_VALUE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 113, Short.MAX_VALUE)
                         .add(saveTransformedAsButton))
                     .add(org.jdesktop.layout.GroupLayout.LEADING, jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE))
                 .addContainerGap())
@@ -249,6 +252,22 @@ public class ClassifyDataJPanel extends javax.swing.JPanel {
 
     private void saveTransformedAsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveTransformedAsButtonActionPerformed
 // TODO add your handling code here:
+      String fileName = FileUtils.getInstance().browseForFilenameToSave(FileUtils.MotionFileFilter, 
+              true,
+              "transformed_"+amotion.getName());
+      if(fileName!=null) {
+          String currentExtension = amotion.getName().substring(amotion.getName().lastIndexOf("."));
+         // If no extension was specified, append ".mot or .trc"
+         if (!(fileName.endsWith(currentExtension)))
+             fileName.concat(currentExtension);
+            try {
+                amotion.saveAs(fileName, lastTranform);
+            } catch (FileNotFoundException ex) {
+                ex.printStackTrace();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+      }
     }//GEN-LAST:event_saveTransformedAsButtonActionPerformed
 
     private void ZSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_ZSpinnerStateChanged

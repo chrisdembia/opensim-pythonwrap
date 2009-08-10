@@ -32,7 +32,14 @@
 
 package org.opensim.view.experimentaldata;
 
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.util.Vector;
+import org.opensim.modeling.ArrayDouble;
 import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.StateVector;
 import org.opensim.modeling.Storage;
@@ -50,7 +57,7 @@ public class AnnotatedMotion extends Storage { // MotionDisplayer needs to know 
     private Vector<String> forceNames=null;
     private static Vector<String[]> patterns = new Vector<String[]>(6);
     private static Vector<ExperimentalDataItemType> classifications = new Vector<ExperimentalDataItemType>(6);
-    private Vector<ExperimentalDataObject> classified=new Vector<ExperimentalDataObject>(10);
+    protected Vector<ExperimentalDataObject> classified=new Vector<ExperimentalDataObject>(10);
     private double[] boundingBox = new double[]{1000., 10000., 10000., -1., -1., -1.};
     private double unitConversion = 1.0;
     private boolean boundingBoxComputed=false;
@@ -193,7 +200,7 @@ public class AnnotatedMotion extends Storage { // MotionDisplayer needs to know 
         return getNamesOfObjectsOfType(ExperimentalDataItemType.Unknown);
     }
 
-    private Vector<String> getNamesOfObjectsOfType(ExperimentalDataItemType aDataType) {
+    protected Vector<String> getNamesOfObjectsOfType(ExperimentalDataItemType aDataType) {
         Vector<String> results = new Vector<String>(4);
         if (classified !=null && classified.size()!=0){
             for(ExperimentalDataObject dataObject:classified){
@@ -239,17 +246,18 @@ public class AnnotatedMotion extends Storage { // MotionDisplayer needs to know 
     public void setBoundingBoxComputed(boolean boundingBoxComputed) {
         this.boundingBoxComputed = boundingBoxComputed;
     }
-    
-    public void applyTransform(vtkTransform vtktransform) {
+
+    public Storage applyTransform(vtkTransform vtktransform) {
         // Should know what data to apply xform to and how
         // for example mrkers are xformed as is but force vectors would not apply translations etc.
         // utilize the "clasified" table
+        Storage motionCopy = new Storage(this);
         if (classified !=null && classified.size()!=0){
             for(ExperimentalDataObject dataObject:classified){
                 if (dataObject.getObjectType()==ExperimentalDataItemType.PointData ||
-                    dataObject.getObjectType()==ExperimentalDataItemType.MarkerData){
+                        dataObject.getObjectType()==ExperimentalDataItemType.MarkerData){
                     int startIndex = dataObject.getStartIndexInFileNotIncludingTime();
-                
+                    
                     Vector<Integer> indices = new Vector<Integer>(3);
                     for (int i=0; i< dataObject.getObjectType().getNumberOfColumns(); i++){
                         indices.add(startIndex+i);
@@ -257,19 +265,47 @@ public class AnnotatedMotion extends Storage { // MotionDisplayer needs to know 
                     assert(indices.size()==3);
                     double[] point3 = new double[]{0., 0., 0. };
                     for (int rowNumber=0; rowNumber<getSize(); rowNumber++){
-                        StateVector row = getStateVector(rowNumber);
+                        StateVector row = motionCopy.getStateVector(rowNumber);
                         for(int coord=0; coord <3; coord++) {
                             point3[coord] = row.getData().getitem(startIndex+coord);
                         }
-                         double[] xformed = vtktransform.TransformDoublePoint(point3); //inplace
-                         for(int coord=0; coord <3; coord++) {
+                        double[] xformed = vtktransform.TransformDoublePoint(point3); //inplace
+                        for(int coord=0; coord <3; coord++) {
                             row.getData().setitem(startIndex+coord, xformed[coord]);
                         }
-                       
+                        
+                    }
+                } else if (dataObject.getObjectType()==ExperimentalDataItemType.ForceData){
+                    int startIndex = dataObject.getStartIndexInFileNotIncludingTime();
+                    // First vector, then position
+                    Vector<Integer> indices = new Vector<Integer>(3);
+                    for (int forceComponent =0; forceComponent<2; forceComponent++) {
+                        for (int i=0; i< 3; i++){
+                            indices.add(startIndex+i+3*forceComponent);
+                        }
+                        assert(indices.size()==3);
+                        double[] point3 = new double[]{0., 0., 0. };
+                        for (int rowNumber=0; rowNumber<getSize(); rowNumber++){
+                            StateVector row = motionCopy.getStateVector(rowNumber);
+                            for(int coord=0; coord <3; coord++) {
+                                point3[coord] = row.getData().getitem(startIndex+coord+3*forceComponent);
+                            }
+                            double[] xformed;
+                            if (forceComponent==0)
+                                xformed = vtktransform.TransformDoubleVector(point3); //inplace
+                            else
+                                xformed = vtktransform.TransformDoublePoint(point3); //inplace
+                            
+                            for(int coord=0; coord <3; coord++) {
+                                row.getData().setitem(startIndex+coord+3*forceComponent, xformed[coord]);
+                            }
+                            
+                        }
                     }
                 }
             }
         }
+        return motionCopy;
     }
 
     void saveRotations(double[] d) {
@@ -287,22 +323,69 @@ public class AnnotatedMotion extends Storage { // MotionDisplayer needs to know 
     
     
     public void getMinMax(double[] mins, double[] maxs) {
-      int rowSize = getStateVector(0).getSize();
+      StateVector sv = getStateVector(0);
+      int rowSize = sv.getSize();
       for(int t=0; t<rowSize;t++){
-          mins[t] = getStateVector(0).getData().getitem(t);
-          maxs[t] = getStateVector(0).getData().getitem(t);
+          mins[t] =sv.getData().getitem(t);
+          maxs[t] =sv.getData().getitem(t);
       }
       for(int i=1; i< getSize(); i++){
           StateVector vec = getStateVector(i);
           // Timestamp
           // Dataitem j
+          ArrayDouble vecData = vec.getData();
           for(int j=0; j< rowSize; j++){
-              if (vec.getData().getitem(j) < mins[j]) 
-                  mins[j]=vec.getData().getitem(j);
-              if (vec.getData().getitem(j) > maxs[j]) 
-                  maxs[j]=vec.getData().getitem(j);
+              if (vecData.getitem(j) < mins[j]) 
+                  mins[j]=vecData.getitem(j);
+              if (vecData.getitem(j) > maxs[j]) 
+                  maxs[j]=vecData.getitem(j);
           }
       }
   }
 
+  public void saveAs(String newFile, vtkTransform transform) throws FileNotFoundException, IOException {
+          if (newFile.endsWith(".trc"))
+             saveAsTRC(newFile, transform);
+          else if (newFile.endsWith(".mot"))
+              saveAsMot(newFile, transform);
+  }
+
+    private void saveAsMot(String newFile, vtkTransform transform) {
+        // Make a full copy of the motion then xform in place.
+        Storage xformed = applyTransform(transform);
+        xformed.print(newFile);
+    }
+    
+   private void saveAsTRC(String newFile, vtkTransform transform) throws FileNotFoundException, IOException {
+        OutputStream ostream = new FileOutputStream(newFile);
+        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(ostream));
+        writer.write("PathFileType	4	(X/Y/Z)	" + newFile + "			");
+        writer.newLine();
+        writer.write("DataRate	CameraRate	NumFrames	NumMarkers	Units	OrigDataRate	OrigDataStartFrame	OrigNumFrames");
+        writer.newLine();
+        Vector<String> markerNames = getMarkerNames();
+        writer.write("120\t120\t"+getSize()+"\t"+markerNames.size()+"\tmm\t120\t1\t"+getSize());
+        writer.newLine();
+        writer.write("Frame#	Time	");
+        String headerLine = new String("		");
+        for (int i = 0; i < markerNames.size(); i++) {
+            writer.write(markerNames.get(i) + "\t\t\t");
+            headerLine = headerLine.concat("X" + (i+1) + "\t" + "Y" + (i+1) + "\t" + "Z" + (i+1) + "\t");
+        }
+        writer.newLine();
+        writer.write(headerLine);
+        writer.newLine();
+        Storage xformed = applyTransform(transform);
+        for (int row=0; row < xformed.getSize(); row++){
+            StateVector rowData = xformed.getStateVector(row);
+            writer.write((row+1)+"\t"+rowData.getTime()+"\t");
+            ArrayDouble data = rowData.getData();
+            for(int col=0; col <data.getSize(); col++)
+                writer.write(data.getitem(col)+"\t");
+            writer.newLine();
+        }
+        writer.flush();
+        writer.close();
+    }
+    
 }

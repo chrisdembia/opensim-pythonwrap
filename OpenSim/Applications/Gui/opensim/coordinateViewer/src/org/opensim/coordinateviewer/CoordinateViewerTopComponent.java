@@ -443,6 +443,8 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
       else if (o instanceof MotionsDB){
          if (arg instanceof MotionTimeChangeEvent) {
             // Get current model, displayed group and update their sliders, text boxes
+            Model aModel = OpenSimDB.getInstance().getCurrentModel();
+            if (aModel instanceof ModelForExperimentalData) return; // No Sliders to update
             Enumeration<CoordinateSliderWithBox> displayedSliders=mapCoordinates2Sliders.elements();
             while(displayedSliders.hasMoreElements()){
                displayedSliders.nextElement().updateValue();
