@@ -34,6 +34,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
+import org.openide.nodes.Children;
 import org.openide.util.NbBundle;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.view.editors.MuscleEditorAction;
@@ -49,6 +50,7 @@ public class OneMuscleNode extends OpenSimObjectNode{
     public OneMuscleNode(OpenSimObject actuator) {
         super(actuator);
         setShortDescription(bundle.getString("HINT_MuscleNode"));
+        setChildren(Children.LEAF);
         addDisplayOption(displayOption.Showable);
         addDisplayOption(displayOption.Isolatable);
     }

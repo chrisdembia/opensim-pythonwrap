@@ -9,7 +9,7 @@ import javax.swing.Action;
 import org.openide.nodes.Children;
 import org.openide.nodes.Node;
 import org.openide.util.NbBundle;
-import org.opensim.modeling.AbstractMarker;
+import org.opensim.modeling.Marker;
 import org.opensim.modeling.MarkerSet;
 import org.opensim.view.markerEditor.NewMarkerAction;
 import org.opensim.view.nodes.OpenSimObjectNode.displayOption;
@@ -26,7 +26,7 @@ public class MarkersNode extends OpenSimObjectSetNode {
 
         for (int markerNum=0; markerNum < markerSet.getSize(); markerNum++ ){
 
-            AbstractMarker marker = markerSet.get(markerNum);
+            Marker marker = markerSet.get(markerNum);
             Children children = getChildren();
 
             OneMarkerNode node = new OneMarkerNode(marker);

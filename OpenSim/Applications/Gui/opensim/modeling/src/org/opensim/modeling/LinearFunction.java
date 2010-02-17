@@ -37,16 +37,12 @@ public class LinearFunction extends Function {
     this(opensimModelJNI.new_LinearFunction__SWIG_0(), true);
   }
 
-  public LinearFunction(int aN, SWIGTYPE_p_double aTimes, SWIGTYPE_p_double aValues, String aName) {
-    this(opensimModelJNI.new_LinearFunction__SWIG_1(aN, SWIGTYPE_p_double.getCPtr(aTimes), SWIGTYPE_p_double.getCPtr(aValues), aName), true);
+  public LinearFunction(ArrayDouble coefficients) {
+    this(opensimModelJNI.new_LinearFunction__SWIG_1(ArrayDouble.getCPtr(coefficients), coefficients), true);
   }
 
-  public LinearFunction(int aN, SWIGTYPE_p_double aTimes, SWIGTYPE_p_double aValues) {
-    this(opensimModelJNI.new_LinearFunction__SWIG_2(aN, SWIGTYPE_p_double.getCPtr(aTimes), SWIGTYPE_p_double.getCPtr(aValues)), true);
-  }
-
-  public LinearFunction(LinearFunction aFunction) {
-    this(opensimModelJNI.new_LinearFunction__SWIG_3(LinearFunction.getCPtr(aFunction), aFunction), true);
+  public LinearFunction(LinearFunction aSpline) {
+    this(opensimModelJNI.new_LinearFunction__SWIG_2(LinearFunction.getCPtr(aSpline), aSpline), true);
   }
 
   public OpenSimObject copy() {
@@ -54,125 +50,17 @@ public class LinearFunction extends Function {
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
-  public void init(Function aFunction) {
-    opensimModelJNI.LinearFunction_init(swigCPtr, this, Function.getCPtr(aFunction), aFunction);
+  public void setCoefficients(ArrayDouble coefficients) {
+    opensimModelJNI.LinearFunction_setCoefficients(swigCPtr, this, ArrayDouble.getCPtr(coefficients), coefficients);
   }
 
-  public int getSize() {
-    return opensimModelJNI.LinearFunction_getSize(swigCPtr, this);
+  public ArrayDouble getCoefficients() {
+    return new ArrayDouble(opensimModelJNI.LinearFunction_getCoefficients(swigCPtr, this), true);
   }
 
-  public double getMinX() {
-    return opensimModelJNI.LinearFunction_getMinX(swigCPtr, this);
-  }
-
-  public double getMaxX() {
-    return opensimModelJNI.LinearFunction_getMaxX(swigCPtr, this);
-  }
-
-  public ArrayDouble getX() {
-    return new ArrayDouble(opensimModelJNI.LinearFunction_getX__SWIG_0(swigCPtr, this), false);
-  }
-
-  public ArrayDouble getY() {
-    return new ArrayDouble(opensimModelJNI.LinearFunction_getY__SWIG_0(swigCPtr, this), false);
-  }
-
-  public SWIGTYPE_p_double getXValues() {
-    long cPtr = opensimModelJNI.LinearFunction_getXValues(swigCPtr, this);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_double(cPtr, false);
-  }
-
-  public SWIGTYPE_p_double getYValues() {
-    long cPtr = opensimModelJNI.LinearFunction_getYValues(swigCPtr, this);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_double(cPtr, false);
-  }
-
-  public int getNumberOfPoints() {
-    return opensimModelJNI.LinearFunction_getNumberOfPoints(swigCPtr, this);
-  }
-
-  public double getX(int aIndex) {
-    return opensimModelJNI.LinearFunction_getX__SWIG_1(swigCPtr, this, aIndex);
-  }
-
-  public double getY(int aIndex) {
-    return opensimModelJNI.LinearFunction_getY__SWIG_1(swigCPtr, this, aIndex);
-  }
-
-  public double getZ(int aIndex) {
-    return opensimModelJNI.LinearFunction_getZ(swigCPtr, this, aIndex);
-  }
-
-  public void setX(int aIndex, double aValue) {
-    opensimModelJNI.LinearFunction_setX(swigCPtr, this, aIndex, aValue);
-  }
-
-  public void setY(int aIndex, double aValue) {
-    opensimModelJNI.LinearFunction_setY(swigCPtr, this, aIndex, aValue);
-  }
-
-  public void scaleY(double aScaleFactor) {
-    opensimModelJNI.LinearFunction_scaleY(swigCPtr, this, aScaleFactor);
-  }
-
-  public boolean deletePoint(int aIndex) {
-    return opensimModelJNI.LinearFunction_deletePoint(swigCPtr, this, aIndex);
-  }
-
-  public boolean deletePoints(ArrayInt indices) {
-    return opensimModelJNI.LinearFunction_deletePoints(swigCPtr, this, ArrayInt.getCPtr(indices), indices);
-  }
-
-  public int addPoint(double aX, double aY) {
-    return opensimModelJNI.LinearFunction_addPoint(swigCPtr, this, aX, aY);
-  }
-
-  public ArrayXYPoint renderAsLineSegments(double aStart, double aEnd) {
-    long cPtr = opensimModelJNI.LinearFunction_renderAsLineSegments__SWIG_0(swigCPtr, this, aStart, aEnd);
-    return (cPtr == 0) ? null : new ArrayXYPoint(cPtr, false);
-  }
-
-  public ArrayXYPoint renderAsLineSegments(int aIndex) {
-    long cPtr = opensimModelJNI.LinearFunction_renderAsLineSegments__SWIG_1(swigCPtr, this, aIndex);
-    return (cPtr == 0) ? null : new ArrayXYPoint(cPtr, false);
-  }
-
-  public void updateBoundingBox() {
-    opensimModelJNI.LinearFunction_updateBoundingBox(swigCPtr, this);
-  }
-
-  public double evaluate(int aDerivOrder, double aX, double aY, double aZ) {
-    return opensimModelJNI.LinearFunction_evaluate__SWIG_0(swigCPtr, this, aDerivOrder, aX, aY, aZ);
-  }
-
-  public double evaluate(int aDerivOrder, double aX, double aY) {
-    return opensimModelJNI.LinearFunction_evaluate__SWIG_1(swigCPtr, this, aDerivOrder, aX, aY);
-  }
-
-  public double evaluate(int aDerivOrder, double aX) {
-    return opensimModelJNI.LinearFunction_evaluate__SWIG_2(swigCPtr, this, aDerivOrder, aX);
-  }
-
-  public double evaluate(int aDerivOrder) {
-    return opensimModelJNI.LinearFunction_evaluate__SWIG_3(swigCPtr, this, aDerivOrder);
-  }
-
-  public double evaluateTotalFirstDerivative(double aX, double aDxdt) {
-    return opensimModelJNI.LinearFunction_evaluateTotalFirstDerivative(swigCPtr, this, aX, aDxdt);
-  }
-
-  public double evaluateTotalSecondDerivative(double aX, double aDxdt, double aD2xdt2) {
-    return opensimModelJNI.LinearFunction_evaluateTotalSecondDerivative(swigCPtr, this, aX, aDxdt, aD2xdt2);
-  }
-
-  public SWIGTYPE_p_SimTK__FunctionT1_t createSimTKFunction() {
+  public SWIGTYPE_p_SimTK__Function createSimTKFunction() {
     long cPtr = opensimModelJNI.LinearFunction_createSimTKFunction(swigCPtr, this);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_SimTK__FunctionT1_t(cPtr, false);
-  }
-
-  public void updateFromXMLNode() {
-    opensimModelJNI.LinearFunction_updateFromXMLNode(swigCPtr, this);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_SimTK__Function(cPtr, false);
   }
 
   public static boolean isKindOf(String type) {

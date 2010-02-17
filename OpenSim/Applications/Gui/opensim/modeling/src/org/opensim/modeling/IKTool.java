@@ -54,6 +54,10 @@ public class IKTool extends AbstractTool {
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
+  public static void registerTypes() {
+    opensimModelJNI.IKTool_registerTypes();
+  }
+
   public IKTrialSet getIKTrialSet() {
     return new IKTrialSet(opensimModelJNI.IKTool_getIKTrialSet(swigCPtr, this), false);
   }
@@ -62,16 +66,20 @@ public class IKTool extends AbstractTool {
     return new IKTaskSet(opensimModelJNI.IKTool_getIKTaskSet(swigCPtr, this), false);
   }
 
-  public boolean initializeTrial(int i) {
-    return opensimModelJNI.IKTool_initializeTrial(swigCPtr, this, i);
+  public boolean initializeTrial(SWIGTYPE_p_SimTK__State s, int i) {
+    return opensimModelJNI.IKTool_initializeTrial(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), i);
   }
 
-  public boolean solveTrial(int i) {
-    return opensimModelJNI.IKTool_solveTrial(swigCPtr, this, i);
+  public boolean solveTrial(SWIGTYPE_p_SimTK__State s, int i) {
+    return opensimModelJNI.IKTool_solveTrial(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), i);
   }
 
   public boolean run() throws java.io.IOException {
-    return opensimModelJNI.IKTool_run(swigCPtr, this);
+    return opensimModelJNI.IKTool_run__SWIG_0(swigCPtr, this);
+  }
+
+  public boolean run(SWIGTYPE_p_SimTK__State state) {
+    return opensimModelJNI.IKTool_run__SWIG_1(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(state));
   }
 
   public void setPrintResultFiles(boolean aToWrite) {

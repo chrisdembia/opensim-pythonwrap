@@ -41,7 +41,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import javax.swing.JPopupMenu;
-import org.opensim.modeling.MovingMusclePoint;
+import org.opensim.modeling.MovingPathPoint;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.view.base.OpenSimBaseCanvas;
 import org.opensim.view.editors.ObjectEditDialogMaker;
@@ -318,7 +318,7 @@ public class OpenSimCanvas extends OpenSimBaseCanvas implements MouseWheelListen
            //System.out.println("World Pos="+worldPosition[0]+", "+worldPosition[1]+", "+worldPosition[2]);
         }
         // Kluge around Moving Muscle Points!
-        if (obj != null && MovingMusclePoint.safeDownCast(obj)!=null)
+        if (obj != null && MovingPathPoint.safeDownCast(obj)!=null)
               return null;
         if (obj==null){  // Could be user object
            vtkCellPicker pPicker=new vtkCellPicker();

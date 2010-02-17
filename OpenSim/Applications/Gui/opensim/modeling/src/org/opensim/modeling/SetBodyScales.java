@@ -122,12 +122,8 @@ public class SetBodyScales extends OpenSimObject {
     return opensimModelJNI.SetBodyScales_append__SWIG_0(swigCPtr, this, BodyScale.getCPtr(aObject), aObject);
   }
 
-  public boolean append(SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__BodyScale_t aArray) {
-    return opensimModelJNI.SetBodyScales_append__SWIG_1(swigCPtr, this, SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__BodyScale_t.getCPtr(aArray));
-  }
-
   public boolean insert(int aIndex, BodyScale aObject) {
-    return opensimModelJNI.SetBodyScales_insert(swigCPtr, this, aIndex, BodyScale.getCPtr(aObject), aObject);
+    return opensimModelJNI.SetBodyScales_insert__SWIG_0(swigCPtr, this, aIndex, BodyScale.getCPtr(aObject), aObject);
   }
 
   public boolean remove(int aIndex) {
@@ -138,26 +134,28 @@ public class SetBodyScales extends OpenSimObject {
     return opensimModelJNI.SetBodyScales_remove__SWIG_1(swigCPtr, this, BodyScale.getCPtr(aObject), aObject);
   }
 
-  public boolean replace(int aIndex, BodyScale aObject) {
-    return opensimModelJNI.SetBodyScales_replace(swigCPtr, this, aIndex, BodyScale.getCPtr(aObject), aObject);
-  }
-
   public void clearAndDestroy() {
     opensimModelJNI.SetBodyScales_clearAndDestroy(swigCPtr, this);
   }
 
+  public boolean set(int aIndex, BodyScale aObject, boolean preserveGroups) {
+    return opensimModelJNI.SetBodyScales_set__SWIG_0(swigCPtr, this, aIndex, BodyScale.getCPtr(aObject), aObject, preserveGroups);
+  }
+
   public boolean set(int aIndex, BodyScale aObject) {
-    return opensimModelJNI.SetBodyScales_set(swigCPtr, this, aIndex, BodyScale.getCPtr(aObject), aObject);
+    return opensimModelJNI.SetBodyScales_set__SWIG_1(swigCPtr, this, aIndex, BodyScale.getCPtr(aObject), aObject);
   }
 
   public BodyScale get(int aIndex) {
-    long cPtr = opensimModelJNI.SetBodyScales_get__SWIG_0(swigCPtr, this, aIndex);
-    return (cPtr == 0) ? null : new BodyScale(cPtr, false);
+    return new BodyScale(opensimModelJNI.SetBodyScales_get__SWIG_0(swigCPtr, this, aIndex), false);
   }
 
   public BodyScale get(String aName) {
-    long cPtr = opensimModelJNI.SetBodyScales_get__SWIG_1(swigCPtr, this, aName);
-    return (cPtr == 0) ? null : new BodyScale(cPtr, false);
+    return new BodyScale(opensimModelJNI.SetBodyScales_get__SWIG_1(swigCPtr, this, aName), false);
+  }
+
+  public boolean contains(String aName) {
+    return opensimModelJNI.SetBodyScales_contains(swigCPtr, this, aName);
   }
 
   public void getNames(ArrayStr rNames) {

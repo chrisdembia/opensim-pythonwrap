@@ -98,12 +98,12 @@ public class SetActuators extends OpenSimObject {
     return opensimModelJNI.SetActuators_getSize(swigCPtr, this);
   }
 
-  public int getIndex(AbstractActuator aObject, int aStartIndex) {
-    return opensimModelJNI.SetActuators_getIndex__SWIG_0(swigCPtr, this, AbstractActuator.getCPtr(aObject), aObject, aStartIndex);
+  public int getIndex(Actuator aObject, int aStartIndex) {
+    return opensimModelJNI.SetActuators_getIndex__SWIG_0(swigCPtr, this, Actuator.getCPtr(aObject), aObject, aStartIndex);
   }
 
-  public int getIndex(AbstractActuator aObject) {
-    return opensimModelJNI.SetActuators_getIndex__SWIG_1(swigCPtr, this, AbstractActuator.getCPtr(aObject), aObject);
+  public int getIndex(Actuator aObject) {
+    return opensimModelJNI.SetActuators_getIndex__SWIG_1(swigCPtr, this, Actuator.getCPtr(aObject), aObject);
   }
 
   public int getIndex(String aName, int aStartIndex) {
@@ -118,71 +118,69 @@ public class SetActuators extends OpenSimObject {
     opensimModelJNI.SetActuators_getGroupNamesContaining(swigCPtr, this, aObjectName, ArrayStr.getCPtr(rGroupNames), rGroupNames);
   }
 
-  public boolean append(AbstractActuator aObject) {
-    return opensimModelJNI.SetActuators_append__SWIG_0(swigCPtr, this, AbstractActuator.getCPtr(aObject), aObject);
+  public boolean append(Actuator aObject) {
+    return opensimModelJNI.SetActuators_append__SWIG_0(swigCPtr, this, Actuator.getCPtr(aObject), aObject);
   }
 
-  public boolean append(SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__AbstractActuator_t aArray) {
-    return opensimModelJNI.SetActuators_append__SWIG_1(swigCPtr, this, SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__AbstractActuator_t.getCPtr(aArray));
-  }
-
-  public boolean insert(int aIndex, AbstractActuator aObject) {
-    return opensimModelJNI.SetActuators_insert(swigCPtr, this, aIndex, AbstractActuator.getCPtr(aObject), aObject);
+  public boolean insert(int aIndex, Actuator aObject) {
+    return opensimModelJNI.SetActuators_insert__SWIG_0(swigCPtr, this, aIndex, Actuator.getCPtr(aObject), aObject);
   }
 
   public boolean remove(int aIndex) {
     return opensimModelJNI.SetActuators_remove__SWIG_0(swigCPtr, this, aIndex);
   }
 
-  public boolean remove(AbstractActuator aObject) {
-    return opensimModelJNI.SetActuators_remove__SWIG_1(swigCPtr, this, AbstractActuator.getCPtr(aObject), aObject);
-  }
-
-  public boolean replace(int aIndex, AbstractActuator aObject) {
-    return opensimModelJNI.SetActuators_replace(swigCPtr, this, aIndex, AbstractActuator.getCPtr(aObject), aObject);
+  public boolean remove(Actuator aObject) {
+    return opensimModelJNI.SetActuators_remove__SWIG_1(swigCPtr, this, Actuator.getCPtr(aObject), aObject);
   }
 
   public void clearAndDestroy() {
     opensimModelJNI.SetActuators_clearAndDestroy(swigCPtr, this);
   }
 
-  public boolean set(int aIndex, AbstractActuator aObject) {
-    return opensimModelJNI.SetActuators_set(swigCPtr, this, aIndex, AbstractActuator.getCPtr(aObject), aObject);
+  public boolean set(int aIndex, Actuator aObject, boolean preserveGroups) {
+    return opensimModelJNI.SetActuators_set__SWIG_0(swigCPtr, this, aIndex, Actuator.getCPtr(aObject), aObject, preserveGroups);
   }
 
-  public AbstractActuator get(int aIndex) {
-    long cPtr = opensimModelJNI.SetActuators_get__SWIG_0(swigCPtr, this, aIndex);
-    return (cPtr == 0) ? null : new AbstractActuator(cPtr, false);
+  public boolean set(int aIndex, Actuator aObject) {
+    return opensimModelJNI.SetActuators_set__SWIG_1(swigCPtr, this, aIndex, Actuator.getCPtr(aObject), aObject);
   }
 
-  public AbstractActuator get(String aName) {
-    long cPtr = opensimModelJNI.SetActuators_get__SWIG_1(swigCPtr, this, aName);
-    return (cPtr == 0) ? null : new AbstractActuator(cPtr, false);
+  public Actuator get(int aIndex) {
+    return new Actuator(opensimModelJNI.SetActuators_get__SWIG_0(swigCPtr, this, aIndex), false);
+  }
+
+  public Actuator get(String aName) {
+    return new Actuator(opensimModelJNI.SetActuators_get__SWIG_1(swigCPtr, this, aName), false);
+  }
+
+  public boolean contains(String aName) {
+    return opensimModelJNI.SetActuators_contains(swigCPtr, this, aName);
   }
 
   public void getNames(ArrayStr rNames) {
     opensimModelJNI.SetActuators_getNames(swigCPtr, this, ArrayStr.getCPtr(rNames), rNames);
   }
 
-  public AbstractActuator getLast() {
+  public Actuator getLast() {
     long cPtr = opensimModelJNI.SetActuators_getLast(swigCPtr, this);
-    return (cPtr == 0) ? null : new AbstractActuator(cPtr, false);
+    return (cPtr == 0) ? null : new Actuator(cPtr, false);
   }
 
-  public int searchBinary(AbstractActuator aObject, boolean aFindFirst, int aLo, int aHi) {
-    return opensimModelJNI.SetActuators_searchBinary__SWIG_0(swigCPtr, this, AbstractActuator.getCPtr(aObject), aObject, aFindFirst, aLo, aHi);
+  public int searchBinary(Actuator aObject, boolean aFindFirst, int aLo, int aHi) {
+    return opensimModelJNI.SetActuators_searchBinary__SWIG_0(swigCPtr, this, Actuator.getCPtr(aObject), aObject, aFindFirst, aLo, aHi);
   }
 
-  public int searchBinary(AbstractActuator aObject, boolean aFindFirst, int aLo) {
-    return opensimModelJNI.SetActuators_searchBinary__SWIG_1(swigCPtr, this, AbstractActuator.getCPtr(aObject), aObject, aFindFirst, aLo);
+  public int searchBinary(Actuator aObject, boolean aFindFirst, int aLo) {
+    return opensimModelJNI.SetActuators_searchBinary__SWIG_1(swigCPtr, this, Actuator.getCPtr(aObject), aObject, aFindFirst, aLo);
   }
 
-  public int searchBinary(AbstractActuator aObject, boolean aFindFirst) {
-    return opensimModelJNI.SetActuators_searchBinary__SWIG_2(swigCPtr, this, AbstractActuator.getCPtr(aObject), aObject, aFindFirst);
+  public int searchBinary(Actuator aObject, boolean aFindFirst) {
+    return opensimModelJNI.SetActuators_searchBinary__SWIG_2(swigCPtr, this, Actuator.getCPtr(aObject), aObject, aFindFirst);
   }
 
-  public int searchBinary(AbstractActuator aObject) {
-    return opensimModelJNI.SetActuators_searchBinary__SWIG_3(swigCPtr, this, AbstractActuator.getCPtr(aObject), aObject);
+  public int searchBinary(Actuator aObject) {
+    return opensimModelJNI.SetActuators_searchBinary__SWIG_3(swigCPtr, this, Actuator.getCPtr(aObject), aObject);
   }
 
   public int getNumGroups() {

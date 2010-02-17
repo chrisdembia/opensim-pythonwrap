@@ -39,29 +39,29 @@ import java.util.Hashtable;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Vector;
+import org.opensim.modeling.SimbodyEngine;
 import org.opensim.view.SelectedGlyphUserObject;
 import org.opensim.view.SelectionListener;
 import org.opensim.view.experimentaldata.AnnotatedMotion;
-import org.opensim.modeling.AbstractBody;
-import org.opensim.modeling.AbstractCoordinate;
-import org.opensim.modeling.AbstractTransformAxis;
-import org.opensim.modeling.AbstractDynamicsEngine;
-import org.opensim.modeling.AbstractJoint;
-import org.opensim.modeling.AbstractMarker;
-import org.opensim.modeling.ActuatorSet;
+import org.opensim.modeling.Body;
+import org.opensim.modeling.Coordinate;
+import org.opensim.modeling.TransformAxis;
+import org.opensim.modeling.Joint;
+import org.opensim.modeling.Marker;
+import org.opensim.modeling.ForceSet;
 import org.opensim.modeling.ArrayDouble;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.BodySet;
 import org.opensim.modeling.CoordinateSet;
 import org.opensim.modeling.MarkerSet;
+import org.opensim.modeling.OpenSimContext;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.view.experimentaldata.ExperimentalDataObject;
 import org.opensim.view.experimentaldata.ModelForExperimentalData;
 import org.opensim.modeling.StateVector;
 import org.opensim.modeling.Storage;
 import org.opensim.view.OpenSimvtkGlyphCloud;
-import org.opensim.view.SelectedObject;
 import org.opensim.view.SingleModelVisuals;
 import org.opensim.view.experimentaldata.ExperimentalDataItemType;
 import org.opensim.view.pub.OpenSimDB;
@@ -119,9 +119,9 @@ public class MotionDisplayer implements SelectionListener {
     private boolean renderMuscleActivations=false;
     // For columns that start with a body name, this is the map from column index to body reference.
     // The map is currently used only for body forces and generalized forces.
-    private Hashtable<Integer, AbstractBody> mapIndicesToBodies = new Hashtable<Integer, AbstractBody>(10);
+    private Hashtable<Integer, Body> mapIndicesToBodies = new Hashtable<Integer, Body>(10);
     // For generalized forces, this is the map from column index to DOF reference.
-    private Hashtable<Integer, AbstractTransformAxis> mapIndicesToDofs = new Hashtable<Integer, AbstractTransformAxis>(10);
+    private Hashtable<Integer, TransformAxis> mapIndicesToDofs = new Hashtable<Integer, TransformAxis>(10);
     
     protected Hashtable<ExperimentalDataObject, vtkActor> objectTrails = new Hashtable<ExperimentalDataObject, vtkActor>();
 
@@ -299,9 +299,9 @@ public class MotionDisplayer implements SelectionListener {
       if (model instanceof ModelForExperimentalData) {
           return 0;
       }
-      CoordinateSet coords = model.getDynamicsEngine().getCoordinateSet();
+      CoordinateSet coords = model.getCoordinateSet();
       for (int i = 0; i<coords.getSize(); i++){
-         AbstractCoordinate co = coords.get(i);
+         Coordinate co = coords.get(i);
          // GenCoord
          String cName = co.getName();
          if (cName.equals(columnName)){
@@ -310,8 +310,8 @@ public class MotionDisplayer implements SelectionListener {
             return 1;
          }
          // GenCoord_Velocity
-         if (columnName.endsWith("_vel")){
-            if (columnName.equals(cName+"_vel"))
+         if (columnName.endsWith("_vel")){ //_u
+            if (columnName.equals(cName+"_vel")) //_u
                mapIndicesToObjectTypes.put(columnIndex, ObjectTypesInMotionFiles.GenCoord_Velocity);
                mapIndicesToObjects.put(columnIndex, co); 
                return 1;
@@ -321,13 +321,13 @@ public class MotionDisplayer implements SelectionListener {
             if (columnName.equals(cName+"_torque") || columnName.equals(cName+"_force")) {
                mapIndicesToObjectTypes.put(columnIndex, ObjectTypesInMotionFiles.GenCoord_Force);
                //mapIndicesToObjects.put(columnIndex, co);
-               AbstractJoint joint = null;
-               AbstractTransformAxis unconstrainedDof = model.getDynamicsEngine().findUnconstrainedDof(co, joint);
-               AbstractBody body = unconstrainedDof.getJoint().getBody();
-               mapIndicesToBodies.put(columnIndex, body);
-               mapIndicesToDofs.put(columnIndex, unconstrainedDof);
-               int index = generalizedForcesRep.addLocation(0., 0., 0.);
-               mapIndicesToObjects.put(columnIndex, new Integer(index));
+               //Joint joint = null;
+               //TransformAxis unconstrainedDof = model.getSimbodyEngine().findUnconstrainedDof(co, joint);
+               //Body body = unconstrainedDof.getJoint().getBody();
+               //mapIndicesToBodies.put(columnIndex, body);
+               //mapIndicesToDofs.put(columnIndex, unconstrainedDof);
+               //int index = generalizedForcesRep.addLocation(0., 0., 0.);
+               //mapIndicesToObjects.put(columnIndex, new Integer(index));
                return 1;
             }
          }         
@@ -335,7 +335,7 @@ public class MotionDisplayer implements SelectionListener {
       if (columnName.contains(".excitation") || columnName.contains("activation")){
           setRenderMuscleActivations(true);
       }
-      ActuatorSet acts = model.getActuatorSet();
+      ForceSet acts = model.getForceSet();
       for (int i=0; i< acts.getSize(); i++)
           if (columnName.startsWith(acts.get(i).getName())){    // Make sure it's a muscle state'
           // Any other state
@@ -363,9 +363,9 @@ public class MotionDisplayer implements SelectionListener {
                */
       // @ToDo muscles
       // @ToDo ligaments
-       MarkerSet markers = model.getDynamicsEngine().getMarkerSet();
+       MarkerSet markers = model.getMarkerSet();
        for (int i = 0; i<markers.getSize(); i++){
-         AbstractMarker marker = markers.get(i);
+         Marker marker = markers.get(i);
          // 
          String cName = marker.getName();
          if (columnName.startsWith(cName+"_")){
@@ -380,10 +380,10 @@ public class MotionDisplayer implements SelectionListener {
          }
       }
      // Body segment since experimental markersRep are in ground frame as ground_marker_??
-       BodySet bodySet = model.getDynamicsEngine().getBodySet();
+       BodySet bodySet = model.getBodySet();
        String[] motionObjectNames=MotionObjectsDB.getInstance().getAvailableNames();
        for (int i = 0; i<bodySet.getSize(); i++){
-         AbstractBody bdy = bodySet.get(i);
+         Body bdy = bodySet.get(i);
          // 
          String bName = bdy.getName();
          if (columnName.startsWith(bName+"_")){
@@ -404,8 +404,8 @@ public class MotionDisplayer implements SelectionListener {
                }
                
             }
-            if (columnName.startsWith(bName+"_force_")){
-               if (columnName.equals(bName+"_force_vx")){
+            if (columnName.startsWith(bName) && columnName.contains("_force_")){
+               if (columnName.startsWith(bName) && columnName.endsWith("_force_vx")){
                   mapIndicesToObjectTypes.put(columnIndex, ObjectTypesInMotionFiles.Segment_force_p1);
                   mapIndicesToObjectTypes.put(columnIndex+1, ObjectTypesInMotionFiles.Segment_force_p2);
                   mapIndicesToObjectTypes.put(columnIndex+2, ObjectTypesInMotionFiles.Segment_force_p3);
@@ -483,9 +483,9 @@ public class MotionDisplayer implements SelectionListener {
                             states.getitem(startIndex+2), 
                             states.getitem(startIndex+3), 
                             states.getitem(startIndex+4));
-                    System.out.println("Loc="+states.getitem(startIndex+2)+", "+
+/*                    System.out.println("Loc="+states.getitem(startIndex+2)+", "+
                             states.getitem(startIndex+3)+", "+
-                            states.getitem(startIndex+4));
+                            states.getitem(startIndex+4)); */
                     groundForcesRep.setNormalAtLocation(nextObject.getGlyphIndex(), 
                             states.getitem(startIndex-1), 
                             states.getitem(startIndex), 
@@ -499,19 +499,21 @@ public class MotionDisplayer implements SelectionListener {
           //groundForcesRep.hide(0);
           return;
       }
+      OpenSimContext context = OpenSimDB.getInstance().getContext(model);
+
       if(statesFile) {
-         model.setStates(states);
+         context.setStates(states);
       } else {
          for(int i=0; i<genCoordColumns.size(); i++) {
-            AbstractCoordinate coord=(AbstractCoordinate)(genCoordColumns.get(i).object);
-            if(!coord.getLocked()) {
+            Coordinate coord=(Coordinate)(genCoordColumns.get(i).object);
+            if(!context.getLocked(coord)) {
                int index = genCoordColumns.get(i).stateVectorIndex;
-               coord.setValue(states.getitem(index));
+               context.setValue(coord, states.getitem(index));
             }
          }
          // update states to make sure constraints are valid
-         model.getStates(statesBuffer);
-         model.getDynamicsEngine().computeConstrainedCoordinates(statesBuffer);
+         context.getStates(statesBuffer);
+         //OpenSim20 model.getDynamicsEngine().computeConstrainedCoordinates(statesBuffer);
          // Any other states including muscles
          for(int i=0; i<anyStateColumns.size(); i++) {
               int index = anyStateColumns.get(i).stateVectorIndex;
@@ -521,7 +523,7 @@ public class MotionDisplayer implements SelectionListener {
               int bufferIndex = ((Integer)o).intValue();
               statesBuffer[bufferIndex]=newValue;
          }
-         model.setStates(statesBuffer);
+         context.setStates(statesBuffer);
          
          for(int i=0; i<segmentMarkerColumns.size(); i++) {
             int markerIndex = ((Integer)(segmentMarkerColumns.get(i).object)).intValue();
@@ -533,19 +535,19 @@ public class MotionDisplayer implements SelectionListener {
          for(int i=0; i<genCoordForceColumns.size(); i++) {
             int forceIndex = ((Integer)(genCoordForceColumns.get(i).object)).intValue();
             int index = genCoordForceColumns.get(i).stateVectorIndex;
-            AbstractDynamicsEngine de = model.getDynamicsEngine();
-            AbstractBody body = mapIndicesToBodies.get(index+1);
-            AbstractTransformAxis dof = mapIndicesToDofs.get(index+1);
+            SimbodyEngine de = model.getSimbodyEngine();
+            Body body = mapIndicesToBodies.get(index+1);
+            TransformAxis dof = mapIndicesToDofs.get(index+1);
             double[] offset = new double[3];
             double[] gOffset = new double[3];
             dof.getAxis(offset); // in parent frame, right?
             double magnitude = states.getitem(index);
             for (int j=0; j<3; j++)
                offset[j] *= (magnitude * 10.0); // * 10.0 because test data is small
-            de.transform(body, offset, de.getGroundBody(), gOffset);
+            context.transform(body, offset, de.getGroundBody(), gOffset);
             generalizedForcesRep.setNormalAtLocation(forceIndex, gOffset[0], gOffset[1], gOffset[2]);
             dof.getJoint().getLocationInChild(offset);
-            de.transformPosition(body, offset, gOffset);
+            context.transformPosition(body, offset, gOffset);
             generalizedForcesRep.setLocation(forceIndex, gOffset[0], gOffset[1], gOffset[2]);
          }
          if(genCoordForceColumns.size()>0) {
@@ -555,8 +557,8 @@ public class MotionDisplayer implements SelectionListener {
          for(int i=0; i<segmentForceColumns.size(); i++) {
             int forceIndex = ((Integer)(segmentForceColumns.get(i).object)).intValue();
             int index = segmentForceColumns.get(i).stateVectorIndex;
-            AbstractDynamicsEngine de = model.getDynamicsEngine();
-            AbstractBody body = mapIndicesToBodies.get(index+1);
+            SimbodyEngine de = model.getSimbodyEngine();
+            Body body = mapIndicesToBodies.get(index+1);
             double[] offset = new double[3];
             double[] gOffset = new double[3];
             for (int j=0; j<3; j++)
@@ -564,7 +566,7 @@ public class MotionDisplayer implements SelectionListener {
             if (body.equals(de.getGroundBody())) {
                groundForcesRep.setNormalAtLocation(forceIndex, offset[0], offset[1], offset[2]);
             } else {
-               de.transform(body, offset, de.getGroundBody(), gOffset);
+               context.transform(body, offset, de.getGroundBody(), gOffset);
                bodyForcesRep.setNormalAtLocation(forceIndex, gOffset[0], gOffset[1], gOffset[2]);
             }
             for (int j=0; j<3; j++)
@@ -572,7 +574,7 @@ public class MotionDisplayer implements SelectionListener {
             if (body.equals(de.getGroundBody())) {
                groundForcesRep.setLocation(forceIndex, offset[0], offset[1], offset[2]);
             } else {
-               de.transformPosition(body, offset, gOffset);
+               context.transformPosition(body, offset, gOffset);
                bodyForcesRep.setLocation(forceIndex, gOffset[0], gOffset[1], gOffset[2]);
             }
          }
@@ -754,7 +756,8 @@ public class MotionDisplayer implements SelectionListener {
 
     private void handleSelection(final OpenSimvtkGlyphCloud glyphRep, final int cellId) {
             final OpenSimObject obj = glyphRep.getPickedObject(cellId);
+            if (obj!=null)
             // SelectedGlyphUserObject provies the bbox, name, other attributes needed for selection mgmt
-            ViewDB.getInstance().markSelected(new SelectedGlyphUserObject(obj, model, glyphRep), true, false, true);
+                ViewDB.getInstance().markSelected(new SelectedGlyphUserObject(obj, model, glyphRep), true, false, true);
     }
 }

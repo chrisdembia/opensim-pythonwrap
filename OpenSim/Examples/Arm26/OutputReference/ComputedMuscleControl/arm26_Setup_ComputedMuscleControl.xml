@@ -6,7 +6,7 @@
 	    <actuator_set_files>? If false, the actuator set is appended to.-->
   <replace_actuator_set> false </replace_actuator_set>
 	<!--List of xml files used to construct an actuator set for the model.-->
-  <actuator_set_files> arm26_Reserve_Actuators.xml </actuator_set_files>
+  <force_set_files> arm26_Reserve_Actuators.xml </force_set_files>
 	<!--Directory used for writing results.-->
   <results_directory> Results </results_directory>
 	<!--Output precision.  It is 8 by default.-->
@@ -18,13 +18,11 @@
 	<!--Maximum number of integrator steps.-->
   <maximum_number_of_integrator_steps> 30000 </maximum_number_of_integrator_steps>
 	<!--Maximum integration step size.-->
-  <maximum_integrator_step_size> 0.00025 </maximum_integrator_step_size>
+  <maximum_integrator_step_size> 1e-004 </maximum_integrator_step_size>
 	<!--Integrator error tolerance. When the error is greater, the integrator
 	    step size is decreased.-->
   <integrator_error_tolerance> 5e-006 </integrator_error_tolerance>
-	<!--Integrator fine tolerance. When the error is less, the integrator step
-	    size is increased.-->
-  <integrator_fine_tolerance> 5e-008 </integrator_fine_tolerance>
+	
 	<!--Set of analyses to be run during the investigation.-->
   <AnalysisSet name="Analyses">
      <objects>
@@ -60,7 +58,7 @@
 	<!--Low-pass cut-off frequency for filtering the desired kinematics. A
 	    negative value results in no filtering. The default value is -1.0, so
 	    no filtering.-->
-  <lowpass_cutoff_frequency> 6 </lowpass_cutoff_frequency>
+  <lowpass_cutoff_frequency> -10 </lowpass_cutoff_frequency>
 	<!--File containing the tracking tasks. Which coordinates are tracked and
 	    with what weights are specified here.-->
   <task_set_file> arm26_ComputedMuscleControl_Tasks.xml </task_set_file>

@@ -41,7 +41,7 @@ public final class MotionsSaveAsAction extends CallableSystemAction {
       StatusDisplayer.getDefault().setStatusText("Saving motion...");
       // Needs to be converted to degrees, therefore we need to make a copy of it first
       Storage motionCopy = new Storage(motion);
-      model.getDynamicsEngine().convertRadiansToDegrees(motionCopy);
+      model.getSimbodyEngine().convertRadiansToDegrees(motionCopy);
       String extension = FileUtils.getExtension(fileName);
       if (extension==null)
          fileName += ".sto";

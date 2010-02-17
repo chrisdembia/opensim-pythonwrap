@@ -50,16 +50,20 @@ public class ModelScaler extends OpenSimObject {
     opensimModelJNI.ModelScaler_copyData(swigCPtr, this, ModelScaler.getCPtr(aModelScaler), aModelScaler);
   }
 
-  public boolean processModel(Model aModel, String aPathToSubject, double aFinalMass) {
-    return opensimModelJNI.ModelScaler_processModel__SWIG_0(swigCPtr, this, Model.getCPtr(aModel), aModel, aPathToSubject, aFinalMass);
+  public boolean processModel(SWIGTYPE_p_SimTK__State s, Model aModel, String aPathToSubject, double aFinalMass) {
+    return opensimModelJNI.ModelScaler_processModel__SWIG_0(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), Model.getCPtr(aModel), aModel, aPathToSubject, aFinalMass);
   }
 
-  public boolean processModel(Model aModel, String aPathToSubject) {
-    return opensimModelJNI.ModelScaler_processModel__SWIG_1(swigCPtr, this, Model.getCPtr(aModel), aModel, aPathToSubject);
+  public boolean processModel(SWIGTYPE_p_SimTK__State s, Model aModel, String aPathToSubject) {
+    return opensimModelJNI.ModelScaler_processModel__SWIG_1(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), Model.getCPtr(aModel), aModel, aPathToSubject);
   }
 
-  public boolean processModel(Model aModel) {
-    return opensimModelJNI.ModelScaler_processModel__SWIG_2(swigCPtr, this, Model.getCPtr(aModel), aModel);
+  public boolean processModel(SWIGTYPE_p_SimTK__State s, Model aModel) {
+    return opensimModelJNI.ModelScaler_processModel__SWIG_2(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), Model.getCPtr(aModel), aModel);
+  }
+
+  public static void registerTypes() {
+    opensimModelJNI.ModelScaler_registerTypes();
   }
 
   public void addMeasurement(Measurement aMeasurement) {
@@ -162,8 +166,8 @@ public class ModelScaler extends OpenSimObject {
     opensimModelJNI.ModelScaler_setPrintResultFiles(swigCPtr, this, aToWrite);
   }
 
-  public double computeMeasurementScaleFactor(Model aModel, MarkerData aMarkerData, Measurement aMeasurement) {
-    return opensimModelJNI.ModelScaler_computeMeasurementScaleFactor(swigCPtr, this, Model.getCPtr(aModel), aModel, MarkerData.getCPtr(aMarkerData), aMarkerData, Measurement.getCPtr(aMeasurement), aMeasurement);
+  public double computeMeasurementScaleFactor(SWIGTYPE_p_SimTK__State s, Model aModel, MarkerData aMarkerData, Measurement aMeasurement) {
+    return opensimModelJNI.ModelScaler_computeMeasurementScaleFactor(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), Model.getCPtr(aModel), aModel, MarkerData.getCPtr(aMarkerData), aMarkerData, Measurement.getCPtr(aMeasurement), aMeasurement);
   }
 
 }

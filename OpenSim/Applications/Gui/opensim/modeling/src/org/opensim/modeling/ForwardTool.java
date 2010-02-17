@@ -58,12 +58,16 @@ public class ForwardTool extends AbstractTool {
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
-  public String getControlsFileName() {
-    return opensimModelJNI.ForwardTool_getControlsFileName(swigCPtr, this);
+  public void updateFromXMLNode() {
+    opensimModelJNI.ForwardTool_updateFromXMLNode(swigCPtr, this);
   }
 
-  public void setControlsFileName(String aFileName) {
-    opensimModelJNI.ForwardTool_setControlsFileName(swigCPtr, this, aFileName);
+  public void setManager(Manager m) {
+    opensimModelJNI.ForwardTool_setManager(swigCPtr, this, Manager.getCPtr(m), m);
+  }
+
+  public Manager getManager() {
+    return new Manager(opensimModelJNI.ForwardTool_getManager(swigCPtr, this), false);
   }
 
   public String getStatesFileName() {
@@ -98,22 +102,6 @@ public class ForwardTool extends AbstractTool {
     opensimModelJNI.ForwardTool_setExternalLoadsModelKinematicsFileName(swigCPtr, this, aFileName);
   }
 
-  public String getExternalLoadsBody1() {
-    return opensimModelJNI.ForwardTool_getExternalLoadsBody1(swigCPtr, this);
-  }
-
-  public void setExternalLoadsBody1(String aName) {
-    opensimModelJNI.ForwardTool_setExternalLoadsBody1(swigCPtr, this, aName);
-  }
-
-  public String getExternalLoadsBody2() {
-    return opensimModelJNI.ForwardTool_getExternalLoadsBody2(swigCPtr, this);
-  }
-
-  public void setExternalLoadsBody2(String aName) {
-    opensimModelJNI.ForwardTool_setExternalLoadsBody2(swigCPtr, this, aName);
-  }
-
   public double getLowpassCutoffFrequencyForLoadKinematics() {
     return opensimModelJNI.ForwardTool_getLowpassCutoffFrequencyForLoadKinematics(swigCPtr, this);
   }
@@ -126,15 +114,6 @@ public class ForwardTool extends AbstractTool {
     opensimModelJNI.ForwardTool_setPrintResultFiles(swigCPtr, this, aToWrite);
   }
 
-  public Controller getController() {
-    return new Controller(opensimModelJNI.ForwardTool_getController(swigCPtr, this), false);
-  }
-
-  public Storage getStateStorage() {
-    long cPtr = opensimModelJNI.ForwardTool_getStateStorage(swigCPtr, this);
-    return (cPtr == 0) ? null : new Storage(cPtr, false);
-  }
-
   public boolean run() throws java.io.IOException {
     return opensimModelJNI.ForwardTool_run(swigCPtr, this);
   }
@@ -143,28 +122,24 @@ public class ForwardTool extends AbstractTool {
     opensimModelJNI.ForwardTool_printResults(swigCPtr, this);
   }
 
-  public static void InitializeExternalLoads(double analysisStartTime, double analysisFinalTime, Model aModel, String aExternalLoadsFileName, String aExternalLoadsModelKinematicsFileName, String aExternalLoadsBody1, String aExternalLoadsBody2, double aLowpassCutoffFrequencyForLoadKinematics, SWIGTYPE_p_p_OpenSim__ForceApplier rRightForceApp, SWIGTYPE_p_p_OpenSim__ForceApplier rLeftForceApp, SWIGTYPE_p_p_OpenSim__TorqueApplier rRightTorqueApp, SWIGTYPE_p_p_OpenSim__TorqueApplier rLeftTorqueApp) {
-    opensimModelJNI.ForwardTool_InitializeExternalLoads__SWIG_0(analysisStartTime, analysisFinalTime, Model.getCPtr(aModel), aModel, aExternalLoadsFileName, aExternalLoadsModelKinematicsFileName, aExternalLoadsBody1, aExternalLoadsBody2, aLowpassCutoffFrequencyForLoadKinematics, SWIGTYPE_p_p_OpenSim__ForceApplier.getCPtr(rRightForceApp), SWIGTYPE_p_p_OpenSim__ForceApplier.getCPtr(rLeftForceApp), SWIGTYPE_p_p_OpenSim__TorqueApplier.getCPtr(rRightTorqueApp), SWIGTYPE_p_p_OpenSim__TorqueApplier.getCPtr(rLeftTorqueApp));
+  public static double Step(double t, double t0, double t1) {
+    return opensimModelJNI.ForwardTool_Step(t, t0, t1);
   }
 
-  public static void InitializeExternalLoads(double analysisStartTime, double analysisFinalTime, Model aModel, String aExternalLoadsFileName, String aExternalLoadsModelKinematicsFileName, String aExternalLoadsBody1, String aExternalLoadsBody2, double aLowpassCutoffFrequencyForLoadKinematics, SWIGTYPE_p_p_OpenSim__ForceApplier rRightForceApp, SWIGTYPE_p_p_OpenSim__ForceApplier rLeftForceApp, SWIGTYPE_p_p_OpenSim__TorqueApplier rRightTorqueApp) {
-    opensimModelJNI.ForwardTool_InitializeExternalLoads__SWIG_1(analysisStartTime, analysisFinalTime, Model.getCPtr(aModel), aModel, aExternalLoadsFileName, aExternalLoadsModelKinematicsFileName, aExternalLoadsBody1, aExternalLoadsBody2, aLowpassCutoffFrequencyForLoadKinematics, SWIGTYPE_p_p_OpenSim__ForceApplier.getCPtr(rRightForceApp), SWIGTYPE_p_p_OpenSim__ForceApplier.getCPtr(rLeftForceApp), SWIGTYPE_p_p_OpenSim__TorqueApplier.getCPtr(rRightTorqueApp));
+  public static double SigmaUp(double tau, double to, double t) {
+    return opensimModelJNI.ForwardTool_SigmaUp(tau, to, t);
   }
 
-  public static void InitializeExternalLoads(double analysisStartTime, double analysisFinalTime, Model aModel, String aExternalLoadsFileName, String aExternalLoadsModelKinematicsFileName, String aExternalLoadsBody1, String aExternalLoadsBody2, double aLowpassCutoffFrequencyForLoadKinematics, SWIGTYPE_p_p_OpenSim__ForceApplier rRightForceApp, SWIGTYPE_p_p_OpenSim__ForceApplier rLeftForceApp) {
-    opensimModelJNI.ForwardTool_InitializeExternalLoads__SWIG_2(analysisStartTime, analysisFinalTime, Model.getCPtr(aModel), aModel, aExternalLoadsFileName, aExternalLoadsModelKinematicsFileName, aExternalLoadsBody1, aExternalLoadsBody2, aLowpassCutoffFrequencyForLoadKinematics, SWIGTYPE_p_p_OpenSim__ForceApplier.getCPtr(rRightForceApp), SWIGTYPE_p_p_OpenSim__ForceApplier.getCPtr(rLeftForceApp));
+  public static double SigmaDn(double tau, double to, double t) {
+    return opensimModelJNI.ForwardTool_SigmaDn(tau, to, t);
   }
 
-  public static void InitializeExternalLoads(double analysisStartTime, double analysisFinalTime, Model aModel, String aExternalLoadsFileName, String aExternalLoadsModelKinematicsFileName, String aExternalLoadsBody1, String aExternalLoadsBody2, double aLowpassCutoffFrequencyForLoadKinematics, SWIGTYPE_p_p_OpenSim__ForceApplier rRightForceApp) {
-    opensimModelJNI.ForwardTool_InitializeExternalLoads__SWIG_3(analysisStartTime, analysisFinalTime, Model.getCPtr(aModel), aModel, aExternalLoadsFileName, aExternalLoadsModelKinematicsFileName, aExternalLoadsBody1, aExternalLoadsBody2, aLowpassCutoffFrequencyForLoadKinematics, SWIGTYPE_p_p_OpenSim__ForceApplier.getCPtr(rRightForceApp));
+  public void loadStatesStorage(SWIGTYPE_p_std__string statesFileName, Storage rYStore) {
+    opensimModelJNI.ForwardTool_loadStatesStorage(swigCPtr, this, SWIGTYPE_p_std__string.getCPtr(statesFileName), Storage.getCPtr(rYStore));
   }
 
-  public static void InitializeExternalLoads(double analysisStartTime, double analysisFinalTime, Model aModel, String aExternalLoadsFileName, String aExternalLoadsModelKinematicsFileName, String aExternalLoadsBody1, String aExternalLoadsBody2, double aLowpassCutoffFrequencyForLoadKinematics) {
-    opensimModelJNI.ForwardTool_InitializeExternalLoads__SWIG_4(analysisStartTime, analysisFinalTime, Model.getCPtr(aModel), aModel, aExternalLoadsFileName, aExternalLoadsModelKinematicsFileName, aExternalLoadsBody1, aExternalLoadsBody2, aLowpassCutoffFrequencyForLoadKinematics);
-  }
-
-  public static void InitializeSpecifiedTimeStepping(Storage aYStore, SWIGTYPE_p_OpenSim__IntegRKF aIntegrator) {
-    opensimModelJNI.ForwardTool_InitializeSpecifiedTimeStepping(Storage.getCPtr(aYStore), aYStore, SWIGTYPE_p_OpenSim__IntegRKF.getCPtr(aIntegrator));
+  public String getParsingLog() {
+    return opensimModelJNI.ForwardTool_getParsingLog(swigCPtr, this);
   }
 
 }

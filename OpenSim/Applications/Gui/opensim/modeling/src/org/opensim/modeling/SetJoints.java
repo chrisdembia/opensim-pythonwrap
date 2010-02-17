@@ -98,12 +98,12 @@ public class SetJoints extends OpenSimObject {
     return opensimModelJNI.SetJoints_getSize(swigCPtr, this);
   }
 
-  public int getIndex(AbstractJoint aObject, int aStartIndex) {
-    return opensimModelJNI.SetJoints_getIndex__SWIG_0(swigCPtr, this, AbstractJoint.getCPtr(aObject), aObject, aStartIndex);
+  public int getIndex(Joint aObject, int aStartIndex) {
+    return opensimModelJNI.SetJoints_getIndex__SWIG_0(swigCPtr, this, Joint.getCPtr(aObject), aObject, aStartIndex);
   }
 
-  public int getIndex(AbstractJoint aObject) {
-    return opensimModelJNI.SetJoints_getIndex__SWIG_1(swigCPtr, this, AbstractJoint.getCPtr(aObject), aObject);
+  public int getIndex(Joint aObject) {
+    return opensimModelJNI.SetJoints_getIndex__SWIG_1(swigCPtr, this, Joint.getCPtr(aObject), aObject);
   }
 
   public int getIndex(String aName, int aStartIndex) {
@@ -118,71 +118,69 @@ public class SetJoints extends OpenSimObject {
     opensimModelJNI.SetJoints_getGroupNamesContaining(swigCPtr, this, aObjectName, ArrayStr.getCPtr(rGroupNames), rGroupNames);
   }
 
-  public boolean append(AbstractJoint aObject) {
-    return opensimModelJNI.SetJoints_append__SWIG_0(swigCPtr, this, AbstractJoint.getCPtr(aObject), aObject);
+  public boolean append(Joint aObject) {
+    return opensimModelJNI.SetJoints_append__SWIG_0(swigCPtr, this, Joint.getCPtr(aObject), aObject);
   }
 
-  public boolean append(SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__AbstractJoint_t aArray) {
-    return opensimModelJNI.SetJoints_append__SWIG_1(swigCPtr, this, SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__AbstractJoint_t.getCPtr(aArray));
-  }
-
-  public boolean insert(int aIndex, AbstractJoint aObject) {
-    return opensimModelJNI.SetJoints_insert(swigCPtr, this, aIndex, AbstractJoint.getCPtr(aObject), aObject);
+  public boolean insert(int aIndex, Joint aObject) {
+    return opensimModelJNI.SetJoints_insert__SWIG_0(swigCPtr, this, aIndex, Joint.getCPtr(aObject), aObject);
   }
 
   public boolean remove(int aIndex) {
     return opensimModelJNI.SetJoints_remove__SWIG_0(swigCPtr, this, aIndex);
   }
 
-  public boolean remove(AbstractJoint aObject) {
-    return opensimModelJNI.SetJoints_remove__SWIG_1(swigCPtr, this, AbstractJoint.getCPtr(aObject), aObject);
-  }
-
-  public boolean replace(int aIndex, AbstractJoint aObject) {
-    return opensimModelJNI.SetJoints_replace(swigCPtr, this, aIndex, AbstractJoint.getCPtr(aObject), aObject);
+  public boolean remove(Joint aObject) {
+    return opensimModelJNI.SetJoints_remove__SWIG_1(swigCPtr, this, Joint.getCPtr(aObject), aObject);
   }
 
   public void clearAndDestroy() {
     opensimModelJNI.SetJoints_clearAndDestroy(swigCPtr, this);
   }
 
-  public boolean set(int aIndex, AbstractJoint aObject) {
-    return opensimModelJNI.SetJoints_set(swigCPtr, this, aIndex, AbstractJoint.getCPtr(aObject), aObject);
+  public boolean set(int aIndex, Joint aObject, boolean preserveGroups) {
+    return opensimModelJNI.SetJoints_set__SWIG_0(swigCPtr, this, aIndex, Joint.getCPtr(aObject), aObject, preserveGroups);
   }
 
-  public AbstractJoint get(int aIndex) {
-    long cPtr = opensimModelJNI.SetJoints_get__SWIG_0(swigCPtr, this, aIndex);
-    return (cPtr == 0) ? null : new AbstractJoint(cPtr, false);
+  public boolean set(int aIndex, Joint aObject) {
+    return opensimModelJNI.SetJoints_set__SWIG_1(swigCPtr, this, aIndex, Joint.getCPtr(aObject), aObject);
   }
 
-  public AbstractJoint get(String aName) {
-    long cPtr = opensimModelJNI.SetJoints_get__SWIG_1(swigCPtr, this, aName);
-    return (cPtr == 0) ? null : new AbstractJoint(cPtr, false);
+  public Joint get(int aIndex) {
+    return new Joint(opensimModelJNI.SetJoints_get__SWIG_0(swigCPtr, this, aIndex), false);
+  }
+
+  public Joint get(String aName) {
+    return new Joint(opensimModelJNI.SetJoints_get__SWIG_1(swigCPtr, this, aName), false);
+  }
+
+  public boolean contains(String aName) {
+    return opensimModelJNI.SetJoints_contains(swigCPtr, this, aName);
   }
 
   public void getNames(ArrayStr rNames) {
     opensimModelJNI.SetJoints_getNames(swigCPtr, this, ArrayStr.getCPtr(rNames), rNames);
   }
 
-  public AbstractJoint getLast() {
+  public Joint getLast() {
     long cPtr = opensimModelJNI.SetJoints_getLast(swigCPtr, this);
-    return (cPtr == 0) ? null : new AbstractJoint(cPtr, false);
+    return (cPtr == 0) ? null : new Joint(cPtr, false);
   }
 
-  public int searchBinary(AbstractJoint aObject, boolean aFindFirst, int aLo, int aHi) {
-    return opensimModelJNI.SetJoints_searchBinary__SWIG_0(swigCPtr, this, AbstractJoint.getCPtr(aObject), aObject, aFindFirst, aLo, aHi);
+  public int searchBinary(Joint aObject, boolean aFindFirst, int aLo, int aHi) {
+    return opensimModelJNI.SetJoints_searchBinary__SWIG_0(swigCPtr, this, Joint.getCPtr(aObject), aObject, aFindFirst, aLo, aHi);
   }
 
-  public int searchBinary(AbstractJoint aObject, boolean aFindFirst, int aLo) {
-    return opensimModelJNI.SetJoints_searchBinary__SWIG_1(swigCPtr, this, AbstractJoint.getCPtr(aObject), aObject, aFindFirst, aLo);
+  public int searchBinary(Joint aObject, boolean aFindFirst, int aLo) {
+    return opensimModelJNI.SetJoints_searchBinary__SWIG_1(swigCPtr, this, Joint.getCPtr(aObject), aObject, aFindFirst, aLo);
   }
 
-  public int searchBinary(AbstractJoint aObject, boolean aFindFirst) {
-    return opensimModelJNI.SetJoints_searchBinary__SWIG_2(swigCPtr, this, AbstractJoint.getCPtr(aObject), aObject, aFindFirst);
+  public int searchBinary(Joint aObject, boolean aFindFirst) {
+    return opensimModelJNI.SetJoints_searchBinary__SWIG_2(swigCPtr, this, Joint.getCPtr(aObject), aObject, aFindFirst);
   }
 
-  public int searchBinary(AbstractJoint aObject) {
-    return opensimModelJNI.SetJoints_searchBinary__SWIG_3(swigCPtr, this, AbstractJoint.getCPtr(aObject), aObject);
+  public int searchBinary(Joint aObject) {
+    return opensimModelJNI.SetJoints_searchBinary__SWIG_3(swigCPtr, this, Joint.getCPtr(aObject), aObject);
   }
 
   public int getNumGroups() {

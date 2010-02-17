@@ -46,10 +46,10 @@ import org.opensim.modeling.*;
 public class ModelForExperimentalData extends Model{
     
     MarkerSet markers;
-    private AbstractBody    ground;
-    AbstractDynamicsEngine dEngine;
+    private Body    ground;
+    SimbodyEngine dEngine;
     private AnnotatedMotion motionData;
-    private ActuatorSet forces;
+    private ForceSet forces;
     /**
      * Creates a new instance of ModelForExperimentalData
      */
@@ -60,10 +60,10 @@ public class ModelForExperimentalData extends Model{
         markers = new MarkerSet();
         ground = new Body();
         getGround().setName("ground");
-        getGround().setDynamicsEngine(dEngine);
+        //getGround().setDynamicsEngine(dEngine);
         dEngine.setModel(this);
-        dEngine.getBodySet().append(getGround());
-        setForces(new ActuatorSet());
+        getBodySet().append(getGround());
+        setForces(new ForceSet());
         getGround().getDisplayer().setNumGeometryFiles(1);
         getGround().getDisplayer().setGeometryFileName(0, "axes.vtp");
         //getGround().getDisplayer().setGeometryFileName(1, "unitCube.vtp");
@@ -76,10 +76,7 @@ public class ModelForExperimentalData extends Model{
     public void getStateNames(ArrayStr rStateNames) {
         return;
     }
-    public AbstractDynamicsEngine getDynamicsEngine() {
-        return dEngine;
-    }
-    public ActuatorSet getActuatorSet() {   
+    public ForceSet getActuatorSet() {   
         return null;
     }
     
@@ -95,12 +92,12 @@ public class ModelForExperimentalData extends Model{
     }
     
     public void addForces(Vector<String> recordedForces)
-    {
+    { /*OpenSim20
         for (int i=0; i<recordedForces.size(); i++){
             Force newForce = new Force(getGround().getName());
             newForce.setName(recordedForces.get(i));
             getForces().append(newForce);
-        }
+        }*/
     }
 
     public AnnotatedMotion getMotionData() {
@@ -111,15 +108,19 @@ public class ModelForExperimentalData extends Model{
         this.motionData = motionData;
     }
 
-    public AbstractBody getGround() {
+    public Body getGround() {
         return ground;
     }
 
-    public ActuatorSet getForces() {
+    public ForceSet getForces() {
         return forces;
     }
 
-    public void setForces(ActuatorSet forces) {
+    public void setForces(ForceSet forces) {
         this.forces = forces;
+    }
+
+    public SimbodyEngine getSimbodyEngine() {
+        return dEngine;
     }
 }

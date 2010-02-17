@@ -35,16 +35,17 @@ import org.openide.NotifyDescriptor;
 import org.openide.util.Cancellable;
 import org.opensim.modeling.Analysis;
 import org.opensim.modeling.AnalyzeTool;
-import org.opensim.modeling.InterruptingIntegCallback;
+import org.opensim.modeling.InterruptCallback;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.Storage;
 import org.opensim.modeling.InverseDynamics;
+import org.opensim.modeling.OpenSimContext;
 import org.opensim.modeling.StaticOptimization;
-import org.opensim.view.motions.MotionsDB;
 import org.opensim.swingui.SwingWorker;
 import org.opensim.utils.ErrorDialog;
 import org.opensim.utils.FileUtils;
 import org.opensim.view.motions.JavaMotionDisplayerCallback;
+import org.opensim.view.motions.MotionsDB;
 
 public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
    //========================================================================
@@ -53,11 +54,13 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
    class AnalyzeToolWorker extends SwingWorker {
       private ProgressHandle progressHandle = null;
       private JavaMotionDisplayerCallback animationCallback = null;
-      private InterruptingIntegCallback interruptingCallback = null;
+      private InterruptCallback interruptingCallback = null;
       boolean result = false;
       boolean promptToKeepPartialResult = true;
-     
+      private OpenSimContext context;
+      
       AnalyzeToolWorker() throws IOException {
+          
          updateTool();
 
          // Make no motion be currently selected (so model doesn't have extraneous ground forces/experimental markers from
@@ -66,24 +69,30 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
 
          // Re-initialize our copy of the model
          Model model = new Model(getOriginalModel());
-         model.setInputFileName("");
+         String tempFileName=getOriginalModel().getInputFileName();
+         //int loc = tempFileName.lastIndexOf(".");
+         model.setInputFileName(tempFileName);
 
+ 
          // Update actuator set and contact force set based on settings in the tool, then call setup() and setModel()
          // setModel() will call addAnalysisSetToModel
-         tool.updateModelActuatorsAndContactForces(model, "");
-         model.setup();
+         tool.updateModelForces(model, "");
          tool.setModel(model);
-
+         context = new OpenSimContext(model.initSystem(), model); // Has side effect of calling setup
+        
+         model.setInputFileName("");
+         
          if(getInputSource()==InputSource.Motion && getInputMotion()!=null)
-            analyzeTool().setStatesFromMotion(getInputMotion(),false); // false == motion is in radians
+            context.setStatesFromMotion(analyzeTool(), getInputMotion(),false); // false == motion is in radians
          else
-            analyzeTool().loadStatesFromFile();
-         analyzeTool().loadControlsFromFile();
-         analyzeTool().loadPseudoStatesFromFile();
+            context.loadStatesFromFile(analyzeTool());
+         //opensim20 analyzeTool().loadControlsFromFile();
+         //opensim20 analyzeTool().loadPseudoStatesFromFile();
 
          // We don't need to add model to the 3D view... just using it to dump analyses result files
          setModel(model);
-
+         model.initSystem();
+       
          // Initialize progress bar, given we know the number of frames to process
          double ti = getInitialTime();
          double tf = getFinalTime();
@@ -97,7 +106,7 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
 
          // Animation callback will update the display during forward
          animationCallback = new JavaMotionDisplayerCallback(getModel(), getOriginalModel(), null, progressHandle);
-         getModel().addIntegCallback(animationCallback);
+         getModel().addAnalysis(animationCallback);
          animationCallback.setStepInterval(1);
          animationCallback.setMinRenderTimeInterval(0.1); // to avoid rendering really frequently which can slow down our execution
          animationCallback.startProgressUsingTime(ti,tf);
@@ -105,8 +114,8 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
          // Do this manouver (there's gotta be a nicer way) to create the object so that C++ owns it and not Java (since 
          // removeIntegCallback in finished() will cause the C++-side callback to be deleted, and if Java owned this object
          // it would then later try to delete it yet again)
-         interruptingCallback = InterruptingIntegCallback.safeDownCast((new InterruptingIntegCallback()).copy());
-         getModel().addIntegCallback(interruptingCallback);
+         interruptingCallback = new InterruptCallback(getModel());
+         getModel().addAnalysis(interruptingCallback);
 
          setExecuting(true);
       }
@@ -146,8 +155,8 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
          }
          updateMotion(motion); // replaces current motion
             
-         getModel().removeIntegCallback(animationCallback);
-         getModel().removeIntegCallback(interruptingCallback);
+         getModel().removeAnalysis(animationCallback, false);
+         getModel().removeAnalysis(interruptingCallback, false);
          interruptingCallback = null;
 
          if(result) resetModified();
@@ -197,10 +206,12 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
       else toolName = "Analyze Tool";
 
       // In inverse dynamisc mode, we know for sure we'll need a real dynamics engine, so check this up front
-      if((inverseDynamicsMode || staticOptimizationMode) && model.getDynamicsEngine().getType().equals("SimmKinematicsEngine"))
+      if((inverseDynamicsMode || staticOptimizationMode) && model.getSimbodyEngine().getType().equals("SimmKinematicsEngine"))
          throw new IOException(toolName+" requires a model with SdfastEngine or SimbodyEngine; SimmKinematicsEngine does not support dynamics.");
 
-      setTool(new AnalyzeTool());
+      AnalyzeTool dTool = new AnalyzeTool();
+      dTool.setModel(model);
+      setTool(dTool);
 
       // By default, set prefix of output to be subject name
       analyzeTool().setName(model.getName());
@@ -219,7 +230,7 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
    // Utilities for inverse dynamics specific analyze tool
    //------------------------------------------------------------------------
 
-   protected void adjustToolForMode() { 
+   protected void adjustToolForMode() {
       if(!inverseDynamicsMode && !staticOptimizationMode) return;
       // Check if have non-inverse dynamics analyses, or multiple inverse dynamics analyses
       boolean foundOtherAnalysis = false;
@@ -230,8 +241,8 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
       StaticOptimization staticOptimizationAnalysis = null;
       if (inverseDynamicsMode){
         // Since we're not using the model's actuator set, clear the actuator set related fields
-        analyzeTool().setReplaceActuatorSet(true);
-        analyzeTool().getActuatorSetFiles().setSize(0);
+        analyzeTool().setReplaceForceSet(true);
+        analyzeTool().getForceSetFiles().setSize(0);
         // Mode is either InverseDynamics or StaticOptimization
           for(int i=analyzeTool().getAnalysisSet().getSize()-1; i>=0; i--) {
               Analysis analysis = analyzeTool().getAnalysisSet().get(i);
@@ -243,7 +254,7 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
                   numFoundAnalyses++;
                   if(numFoundAnalyses==1) {
                       inverseDynamicsAnalysis = InverseDynamics.safeDownCast(analysis);
-                      if(inverseDynamicsAnalysis.getUseModelActuatorSet() || !inverseDynamicsAnalysis.getOn())
+                      if(inverseDynamicsAnalysis.getUseModelForceSet() || !inverseDynamicsAnalysis.getOn())
                           advancedSettings = true;
                   } else {
                       analyzeTool().getAnalysisSet().remove(i);
@@ -255,7 +266,7 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
               analyzeTool().getAnalysisSet().append(inverseDynamicsAnalysis);
           }
           inverseDynamicsAnalysis.setOn(true);
-          inverseDynamicsAnalysis.setUseModelActuatorSet(false);
+          inverseDynamicsAnalysis.setUseModelForceSet(false);
           
       }
       else {    // StaticOptimization assumed
@@ -282,8 +293,8 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
               analyzeTool().getAnalysisSet().append(staticOptimizationAnalysis);
           }
           staticOptimizationAnalysis.setOn(true);
-          staticOptimizationAnalysis.setUseModelActuatorSet(true);
-          analyzeTool().setReplaceActuatorSet(false);
+          staticOptimizationAnalysis.setUseModelForceSet(true);
+          analyzeTool().setReplaceForceSet(false);
       }
       if(foundOtherAnalysis || advancedSettings || numFoundAnalyses>1) {
           String message = "";
@@ -365,8 +376,9 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
    }
    public boolean getStatesValid() { return (new File(getStatesFileName()).exists()); }
 
-   public boolean needPseudoStates() { return getOriginalModel().getNumPseudoStates()>0; }
+  /*opensim20
 
+   public boolean needPseudoStates() { return getOriginalModel().getNumPseudoStates()>0; }
    public String getPseudoStatesFileName() { return analyzeTool().getPseudoStatesFileName(); }
    void setPseudoStatesFileName(String speedsFileName) {
       if(!getPseudoStatesFileName().equals(speedsFileName)) {
@@ -374,7 +386,7 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
          setModified(AbstractToolModel.Operation.InputDataChanged);
       }
    }
-
+*/
    public String getCoordinatesFileName() { return analyzeTool().getCoordinatesFileName(); }
    void setCoordinatesFileName(String coordinatesFileName) {
       if(!getCoordinatesFileName().equals(coordinatesFileName)) {
@@ -554,7 +566,7 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
 
       analyzeTool().setControlsFileName(FileUtils.makePathAbsolute(analyzeTool().getControlsFileName(), parentDir));
       analyzeTool().setStatesFileName(FileUtils.makePathAbsolute(analyzeTool().getStatesFileName(), parentDir));
-      analyzeTool().setPseudoStatesFileName(FileUtils.makePathAbsolute(analyzeTool().getPseudoStatesFileName(), parentDir));
+      //analyzeTool().setPseudoStatesFileName(FileUtils.makePathAbsolute(analyzeTool().getPseudoStatesFileName(), parentDir));
       analyzeTool().setCoordinatesFileName(FileUtils.makePathAbsolute(analyzeTool().getCoordinatesFileName(), parentDir));
       analyzeTool().setSpeedsFileName(FileUtils.makePathAbsolute(analyzeTool().getSpeedsFileName(), parentDir));
 
@@ -569,7 +581,7 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
 
       analyzeTool().setControlsFileName(FileUtils.makePathRelative(analyzeTool().getControlsFileName(), parentDir));
       analyzeTool().setStatesFileName(FileUtils.makePathRelative(analyzeTool().getStatesFileName(), parentDir));
-      analyzeTool().setPseudoStatesFileName(FileUtils.makePathRelative(analyzeTool().getPseudoStatesFileName(), parentDir));
+ //     analyzeTool().setPseudoStatesFileName(FileUtils.makePathRelative(analyzeTool().getPseudoStatesFileName(), parentDir));
       analyzeTool().setCoordinatesFileName(FileUtils.makePathRelative(analyzeTool().getCoordinatesFileName(), parentDir));
       analyzeTool().setSpeedsFileName(FileUtils.makePathRelative(analyzeTool().getSpeedsFileName(), parentDir));
 

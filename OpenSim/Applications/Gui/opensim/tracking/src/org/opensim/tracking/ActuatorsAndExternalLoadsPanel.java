@@ -94,12 +94,12 @@ public class ActuatorsAndExternalLoadsPanel extends javax.swing.JPanel {
       ((GroupLayout)this.getLayout()).layoutContainer(this);
       
       // Default to Append rather than replace AcuatorSet
-      toolModel.setReplaceActuatorSet(false);
+      toolModel.setReplaceForceSet(false);
       updatePanel();
    }
 
    private void bindPropertiesToComponents() {
-      ToolCommon.bindProperty(toolModel.getTool(), "actuator_set_files", actuatorSetFiles);
+      ToolCommon.bindProperty(toolModel.getTool(), "force_set_files", actuatorSetFiles);
       ToolCommon.bindProperty(toolModel.getTool(), "external_loads_file", externalLoadsFileName);
       ToolCommon.bindProperty(toolModel.getTool(), "external_loads_body1", externalLoadsBody1);
       ToolCommon.bindProperty(toolModel.getTool(), "external_loads_body2", externalLoadsBody2);
@@ -123,13 +123,13 @@ public class ActuatorsAndExternalLoadsPanel extends javax.swing.JPanel {
       //---------------------------------------------------------------------
       // Actuators
       //---------------------------------------------------------------------
-      buttonGroup1.setSelected(toolModel.getReplaceActuatorSet() ? 
+      buttonGroup1.setSelected(toolModel.getReplaceForceSet() ? 
                                replaceActuatorSetRadioButton.getModel() : 
                                appendActuatorSetRadioButton.getModel(), true);
 
       String str = "";
-      for(int i=0; i<toolModel.getActuatorSetFiles().getSize(); i++)
-         str += (i>0?", ":"") + toolModel.getActuatorSetFiles().getitem(i);
+      for(int i=0; i<toolModel.getForceSetFiles().getSize(); i++)
+         str += (i>0?", ":"") + toolModel.getForceSetFiles().getitem(i);
       actuatorSetFiles.setText(str);
 
       //---------------------------------------------------------------------
@@ -143,7 +143,7 @@ public class ActuatorsAndExternalLoadsPanel extends javax.swing.JPanel {
       for(JComboBox comboBox : new JComboBox[]{externalLoadsBody1, externalLoadsBody2}) {
          comboBox.removeAllItems();
          if(model==null) continue;
-         BodySet bodySet = model.getDynamicsEngine().getBodySet();
+         BodySet bodySet = model.getBodySet();
          if(bodySet==null) continue;
          for(int i=0; i<bodySet.getSize(); i++) comboBox.addItem(bodySet.get(i).getName());
          String selectedBody = (comboBox==externalLoadsBody1) ? toolModel.getExternalLoadsBody1() : toolModel.getExternalLoadsBody2();
@@ -398,11 +398,11 @@ public class ActuatorsAndExternalLoadsPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
    private void replaceActuatorSetRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_replaceActuatorSetRadioButtonActionPerformed
-      toolModel.setReplaceActuatorSet(true);
+      toolModel.setReplaceForceSet(true);
    }//GEN-LAST:event_replaceActuatorSetRadioButtonActionPerformed
 
    private void appendActuatorSetRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_appendActuatorSetRadioButtonActionPerformed
-      toolModel.setReplaceActuatorSet(false);
+      toolModel.setReplaceForceSet(false);
    }//GEN-LAST:event_appendActuatorSetRadioButtonActionPerformed
 
    //------------------------------------------------------------------------
@@ -423,9 +423,9 @@ public class ActuatorsAndExternalLoadsPanel extends javax.swing.JPanel {
    }
 
    private void editActuatorSetFilesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editActuatorSetFilesActionPerformed
-      Vector<String> actuatorSetFiles = toolModel.getActuatorSetFiles().toVector();
+      Vector<String> actuatorSetFiles = toolModel.getForceSetFiles().toVector();
       Vector<String> result = MultiFileSelectorPanel.showDialog(actuatorSetFiles, FileUtils.getFileFilter(".xml", "Actuator set file"));
-      if(result!=null) toolModel.setActuatorSetFiles(ArrayStr.fromVector(result));
+      if(result!=null) toolModel.setForceSetFiles(ArrayStr.fromVector(result));
    }//GEN-LAST:event_editActuatorSetFilesActionPerformed
 
    private void externalLoadsFileNameStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_externalLoadsFileNameStateChanged

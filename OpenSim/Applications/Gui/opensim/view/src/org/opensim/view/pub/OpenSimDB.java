@@ -40,17 +40,18 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.Observable;
 import java.util.Vector;
 import java.util.regex.Pattern;
 import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
-import org.opensim.modeling.ActuatorSet;
+import org.opensim.modeling.ForceSet;
 import org.opensim.modeling.CoordinateSet;
 import org.opensim.modeling.Model;
+import org.opensim.modeling.OpenSimContext;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.view.*;
-import org.opensim.view.pub.OpenSimDBDescriptor;
 import vtk.vtkMatrix4x4;
 
 /**
@@ -62,6 +63,8 @@ public class OpenSimDB extends Observable implements Externalizable{
     static OpenSimDB instance;
     
     static ArrayList<Model>  models = new ArrayList<Model>();
+    static private Hashtable<Model, OpenSimContext> mapModelsToContexts =
+           new Hashtable<Model, OpenSimContext>();
     static Model currentModel=null;
     ///static UndoManager undoMgr=new UndoManager();
     
@@ -82,15 +85,27 @@ public class OpenSimDB extends Observable implements Externalizable{
         }
         return instance;
     }
+    /*
+     * addModel adds a model to the OpenSimDB. 
+     * Would throw an exception if initSystem throws
+     */
+    public void addModel(Model aModel) throws IOException {
+        addModel(aModel, null);
+    }
     
-    public void addModel(Model aModel) {
-        setupGroups(aModel);
+    public void addModel(Model aModel, OpenSimContext context) throws IOException {
+        //setupGroups(aModel); // initSystem could throw exception
+        OpenSimContext dContext = context==null?new OpenSimContext(aModel.initSystem(), aModel):context;
         models.add(aModel);
-        
+        mapModelsToContexts.put(aModel, dContext);
         setChanged();
         ModelEvent evnt = new ModelEvent(aModel, ModelEvent.Operation.Open);
         notifyObservers(evnt); 
         setCurrentModel(aModel);
+    }
+    
+    public void setContext(Model aModel, OpenSimContext context) {
+        mapModelsToContexts.put(aModel, context);
     }
 
     public static Model getModel(String modelName)
@@ -129,14 +144,18 @@ public class OpenSimDB extends Observable implements Externalizable{
         notifyObservers(evnt);
         
         model.cleanup();    // Cleanup after removal 
+        mapModelsToContexts.remove(model);
         System.gc();
     }
 
    // removes old model and adds new model, but also transfers over some display properties
    // currently used by scale tool, which can't re-scale in place so it creates a new model to replace the old one
-   public void replaceModel(Model oldModel, Model newModel) {
+    // Swap context objects as well
+   
+   public void replaceModel(Model oldModel, Model newModel, OpenSimContext newContext) {
       vtkMatrix4x4 offset=null;
       double opacity=1;
+      OpenSimContext swap=null;
       if(oldModel!=null) {
          SingleModelVisuals rep = ViewDB.getInstance().getModelVisuals(oldModel);
          if(rep!=null) {
@@ -146,7 +165,12 @@ public class OpenSimDB extends Observable implements Externalizable{
          removeModel(oldModel);
       }
       if(newModel!=null) {
-         addModel(newModel);
+            try {
+                addModel(newModel, newContext);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+         //mapModelsToContexts.put(newModel, newContext);
          SingleModelVisuals rep = ViewDB.getInstance().getModelVisuals(newModel);
          if(offset!=null) {
             ViewDB.getInstance().setModelVisualsTransform(rep, offset);
@@ -154,7 +178,7 @@ public class OpenSimDB extends Observable implements Externalizable{
          }
       }
    }
-
+   
     public void saveModel(Model model, String fileName) {
       model.copy().print(fileName);
       model.setInputFileName(fileName); // update the source filename of the model
@@ -249,7 +273,7 @@ public class OpenSimDB extends Observable implements Externalizable{
 
    private void setupGroups(Model aModel) {
       // Create default groups
-      ActuatorSet acts = aModel.getActuatorSet();
+      ForceSet acts = aModel.getForceSet();
       // Until we decide how best to handle the "all" group,
       // don't add one here.
       //int numGroups = acts.getNumGroups();
@@ -259,8 +283,8 @@ public class OpenSimDB extends Observable implements Externalizable{
             //acts.addObjectToGroup("all", acts.get(i).getName());
          //}
       //}
-      if (aModel.getDynamicsEngine()==null || acts==null) return;
-      CoordinateSet coords = aModel.getDynamicsEngine().getCoordinateSet();
+      if (aModel.getSimbodyEngine()==null || acts==null) return;
+      CoordinateSet coords = aModel.getCoordinateSet();
       //numGroups = coords.getNumGroups();
       if (coords.getGroup("all")==null){
          coords.addGroup("all");
@@ -324,4 +348,33 @@ public class OpenSimDB extends Observable implements Externalizable{
         OpenSimDBDescriptor desc = (OpenSimDBDescriptor)in.readObject();
         rebuild(desc);
     }
-}
+    /*
+     * Get the context = SimTK::State holder for the passed in model
+     */
+    public OpenSimContext getContext(Model model) {
+        OpenSimContext dContext = mapModelsToContexts.get(model);
+        if(dContext==null)
+            return createContext(model);
+        return (dContext);
+    }
+    
+    /**
+     * Create a context to associate with the passed in model and add it to the global map.
+     */
+    public OpenSimContext createContext(Model aModel) {
+        OpenSimContext context = mapModelsToContexts.get(aModel);
+        if (context ==null){
+            OpenSimContext newContext;
+            try {
+                newContext = new OpenSimContext(aModel.initSystem(), aModel);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+                return null;
+            }
+         mapModelsToContexts.put(aModel, newContext);
+         context = newContext;
+        }
+         return context;
+    }
+
+ }

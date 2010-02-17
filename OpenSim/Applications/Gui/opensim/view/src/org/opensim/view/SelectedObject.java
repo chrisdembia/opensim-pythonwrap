@@ -28,13 +28,15 @@
  */
 package org.opensim.view;
 
-import org.opensim.modeling.AbstractWrapObject;
+import org.opensim.modeling.WrapObject;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.modeling.Model;
-import org.opensim.modeling.MusclePoint;
-import org.opensim.modeling.AbstractBody;
-import org.opensim.modeling.AbstractMarker;
-import org.opensim.modeling.AbstractMuscle;
+import org.opensim.modeling.Body;
+import org.opensim.modeling.Marker;
+import org.opensim.modeling.Muscle;
+import org.opensim.modeling.OpenSimContext;
+import org.opensim.modeling.PathPoint;
+import org.opensim.view.pub.OpenSimDB;
 import org.opensim.view.pub.ViewDB;
 import vtk.vtkActor;
 import vtk.vtkCaptionActor2D;
@@ -63,20 +65,20 @@ public class SelectedObject implements Selectable {
       return object.getType() + ":" + object.getName();
    }
 
-   private Model getModel(MusclePoint mp) { return mp.getMuscle().getModel(); }
-   private Model getModel(AbstractBody body) { return body.getDynamicsEngine().getModel(); }
-   private Model getModel(AbstractWrapObject wrapObj) { return getModel(wrapObj.getBody()); }
-   private Model getModel(AbstractMarker marker) { return marker.getBody().getDynamicsEngine().getModel(); }
+   private Model getModel(PathPoint mp) { return mp.getBody().getModel(); }
+   private Model getModel(Body body) { return body.getModel(); }
+   private Model getModel(WrapObject wrapObj) { return getModel(wrapObj.getBody()); }
+   private Model getModel(Marker marker) { return marker.getBody().getModel(); }
 
    public Model getOwnerModel()
    {
-      MusclePoint mp = MusclePoint.safeDownCast(object);
+      PathPoint mp = PathPoint.safeDownCast(object);
       if(mp != null) return getModel(mp);
-      AbstractBody body = AbstractBody.safeDownCast(object);
+      Body body = Body.safeDownCast(object);
       if(body != null) return getModel(body);
-      AbstractMarker marker = AbstractMarker.safeDownCast(object);
+      Marker marker = Marker.safeDownCast(object);
       if(marker != null) return getModel(marker);
-      AbstractWrapObject wrapObj = AbstractWrapObject.safeDownCast(object);
+      WrapObject wrapObj = WrapObject.safeDownCast(object);
       if(wrapObj != null) return getModel(wrapObj.getBody());
       
       return null;
@@ -84,18 +86,18 @@ public class SelectedObject implements Selectable {
 
    public void markSelected(boolean highlight)
    {
-      if (MusclePoint.safeDownCast(object) != null) {
-         MusclePoint mp = MusclePoint.safeDownCast(object);
+      if (PathPoint.safeDownCast(object) != null) {
+         PathPoint mp = PathPoint.safeDownCast(object);
          SingleModelVisuals visuals = ViewDB.getInstance().getModelVisuals(getModel(mp));
          OpenSimvtkGlyphCloud cloud = visuals.getMusclePointsRep();
          int id = cloud.getPointId(object);
          if(id>=0) { // just to be safe
             cloud.setSelected(id, highlight);
-            AbstractMuscle m = mp.getMuscle();
+            Muscle m = Muscle.safeDownCast(mp.getPath().getOwner());
             visuals.updateActuatorGeometry(m, false); //TODO: perhaps overkill for getting musclepoint to update?
          }
-      } else if (AbstractMarker.safeDownCast(object) != null) {
-         AbstractMarker marker = AbstractMarker.safeDownCast(object);
+      } else if (Marker.safeDownCast(object) != null) {
+         Marker marker = Marker.safeDownCast(object);
          SingleModelVisuals visuals = ViewDB.getInstance().getModelVisuals(getModel(marker));
          OpenSimvtkGlyphCloud cloud = visuals.getMarkersRep();
          int id = cloud.getPointId(object);
@@ -103,18 +105,18 @@ public class SelectedObject implements Selectable {
             cloud.setSelected(id, highlight);
             cloud.setModified();
          }
-      } else if (AbstractBody.safeDownCast(object) != null) {
+      } else if (Body.safeDownCast(object) != null) {
          vtkProp3D asm = ViewDB.getInstance().getVtkRepForObject(object);
          double unselectedColor[] = {1.0, 1.0, 1.0};
          if(highlight){
              // Save existing color with the body for later restoration
-             AbstractBody b=(AbstractBody)object;
+             Body b=(Body)object;
              double[] currentColor = ((vtkActor)asm).GetProperty().GetColor();
              b.getDisplayer().getVisibleProperties().setColor(currentColor);
              ViewDB.getInstance().applyColor(defaultSelectedColor, asm);
          }
          else{
-            AbstractBody b=(AbstractBody)object;
+            Body b=(Body)object;
             double[] actualColor = new double[3];
             b.getDisplayer().getVisibleProperties().getColor(actualColor);
             ViewDB.getInstance().applyColor(actualColor, asm);
@@ -136,17 +138,20 @@ public class SelectedObject implements Selectable {
 
    public double[] getBounds()
    {
+      
       double[] bounds = null;
-      if (MusclePoint.safeDownCast(object) != null) {
-         MusclePoint mp = MusclePoint.safeDownCast(object);
-         if (!(mp.isActive())) return null;
-         SingleModelVisuals visuals = ViewDB.getInstance().getModelVisuals(getModel(mp));
+      if (PathPoint.safeDownCast(object) != null) {
+         PathPoint mp = PathPoint.safeDownCast(object);
+         Model dModel = getModel(mp);
+         OpenSimContext context = OpenSimDB.getInstance().getContext(dModel);
+         if (!(context.isActivePathPoint(mp))) return null;
+         SingleModelVisuals visuals = ViewDB.getInstance().getModelVisuals(dModel);
          // If muscle is now hidden return
-         int displayStatus = ViewDB.getInstance().getDisplayStatus(mp.getMuscle());
+         int displayStatus = ViewDB.getInstance().getDisplayStatus(mp.getPath().getOwner());
          if (displayStatus==0) return null;
          bounds = getGlyphPointBounds(visuals.getMusclePointsRep(), visuals, object);
-      } else if (AbstractMarker.safeDownCast(object) != null) {
-         AbstractMarker marker = AbstractMarker.safeDownCast(object);
+      } else if (Marker.safeDownCast(object) != null) {
+         Marker marker = Marker.safeDownCast(object);
          SingleModelVisuals visuals = ViewDB.getInstance().getModelVisuals(getModel(marker));
          // Check if not visible, return
          int displayStatus = ViewDB.getInstance().getDisplayStatus(marker);
@@ -160,16 +165,16 @@ public class SelectedObject implements Selectable {
          vtkProp3D asm = ViewDB.getInstance().getVtkRepForObject(object);
          if(asm!=null) {
             bounds = asm.GetBounds();
-            AbstractBody dBody = null;
-            if (AbstractBody.safeDownCast(object)!=null )
-                dBody = AbstractBody.safeDownCast(object);
-            else if (AbstractWrapObject.safeDownCast(object)!=null)
-                dBody = (AbstractWrapObject.safeDownCast(object)).getBody();
+            Body dBody = null;
+            if (Body.safeDownCast(object)!=null )
+                dBody = Body.safeDownCast(object);
+            else if (WrapObject.safeDownCast(object)!=null)
+                dBody = (WrapObject.safeDownCast(object)).getBody();
             if (dBody != null){
                 SingleModelVisuals visuals = ViewDB.getInstance().getModelVisuals(getModel(dBody));
-                if(bounds!=null && visuals!=null) visuals.transformModelToWorldBounds(bounds);
-            }
+            if(bounds!=null && visuals!=null) visuals.transformModelToWorldBounds(bounds);
          }
+      }
       }
       return bounds;
    }
@@ -179,7 +184,7 @@ public class SelectedObject implements Selectable {
              if (bounds == null){   // object currently invisible
                  caption.SetVisibility(0);
                  return;
-             }
+}
              else
                  caption.SetVisibility(1);
              caption.SetAttachmentPoint(new double[]{

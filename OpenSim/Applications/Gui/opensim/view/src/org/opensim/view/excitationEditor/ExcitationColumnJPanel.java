@@ -37,7 +37,7 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.Vector;
 import org.opensim.modeling.ControlLinear;
-import org.opensim.modeling.Function;
+import org.opensim.modeling.XYFunctionInterface;
 
 /**
  *
@@ -152,7 +152,7 @@ public class ExcitationColumnJPanel extends javax.swing.JPanel {
         cache.set(row, panel);
     }
     
-    void append(ExcitationPanel excitationPanel, ControlLinear excitation, Vector<Function> functionsToEdit)
+    void append(ExcitationPanel excitationPanel, ControlLinear excitation, Vector<XYFunctionInterface> functionsToEdit)
     {
         excitationPanel.setPreferredSize(new Dimension(300, 100));
         add(excitationPanel);

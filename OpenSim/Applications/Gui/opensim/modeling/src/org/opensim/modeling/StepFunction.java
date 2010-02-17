@@ -62,14 +62,6 @@ public class StepFunction extends Function {
     return opensimModelJNI.StepFunction_getSize(swigCPtr, this);
   }
 
-  public double getMinX() {
-    return opensimModelJNI.StepFunction_getMinX(swigCPtr, this);
-  }
-
-  public double getMaxX() {
-    return opensimModelJNI.StepFunction_getMaxX(swigCPtr, this);
-  }
-
   public ArrayDouble getX() {
     return new ArrayDouble(opensimModelJNI.StepFunction_getX__SWIG_0(swigCPtr, this), false);
   }
@@ -112,10 +104,6 @@ public class StepFunction extends Function {
     opensimModelJNI.StepFunction_setY(swigCPtr, this, aIndex, aValue);
   }
 
-  public void scaleY(double aScaleFactor) {
-    opensimModelJNI.StepFunction_scaleY(swigCPtr, this, aScaleFactor);
-  }
-
   public boolean deletePoint(int aIndex) {
     return opensimModelJNI.StepFunction_deletePoint(swigCPtr, this, aIndex);
   }
@@ -128,36 +116,6 @@ public class StepFunction extends Function {
     return opensimModelJNI.StepFunction_addPoint(swigCPtr, this, aX, aY);
   }
 
-  public ArrayXYPoint renderAsLineSegments(double aStart, double aEnd) {
-    long cPtr = opensimModelJNI.StepFunction_renderAsLineSegments__SWIG_0(swigCPtr, this, aStart, aEnd);
-    return (cPtr == 0) ? null : new ArrayXYPoint(cPtr, false);
-  }
-
-  public ArrayXYPoint renderAsLineSegments(int aIndex) {
-    long cPtr = opensimModelJNI.StepFunction_renderAsLineSegments__SWIG_1(swigCPtr, this, aIndex);
-    return (cPtr == 0) ? null : new ArrayXYPoint(cPtr, false);
-  }
-
-  public void updateBoundingBox() {
-    opensimModelJNI.StepFunction_updateBoundingBox(swigCPtr, this);
-  }
-
-  public double evaluate(int aDerivOrder, double aX, double aY, double aZ) {
-    return opensimModelJNI.StepFunction_evaluate__SWIG_0(swigCPtr, this, aDerivOrder, aX, aY, aZ);
-  }
-
-  public double evaluate(int aDerivOrder, double aX, double aY) {
-    return opensimModelJNI.StepFunction_evaluate__SWIG_1(swigCPtr, this, aDerivOrder, aX, aY);
-  }
-
-  public double evaluate(int aDerivOrder, double aX) {
-    return opensimModelJNI.StepFunction_evaluate__SWIG_2(swigCPtr, this, aDerivOrder, aX);
-  }
-
-  public double evaluate(int aDerivOrder) {
-    return opensimModelJNI.StepFunction_evaluate__SWIG_3(swigCPtr, this, aDerivOrder);
-  }
-
   public double evaluateTotalFirstDerivative(double aX, double aDxdt) {
     return opensimModelJNI.StepFunction_evaluateTotalFirstDerivative(swigCPtr, this, aX, aDxdt);
   }
@@ -166,9 +124,25 @@ public class StepFunction extends Function {
     return opensimModelJNI.StepFunction_evaluateTotalSecondDerivative(swigCPtr, this, aX, aDxdt, aD2xdt2);
   }
 
-  public SWIGTYPE_p_SimTK__FunctionT1_t createSimTKFunction() {
+  public double calcValue(SWIGTYPE_p_SimTK__Vector x) {
+    return opensimModelJNI.StepFunction_calcValue(swigCPtr, this, SWIGTYPE_p_SimTK__Vector.getCPtr(x));
+  }
+
+  public double calcDerivative(SWIGTYPE_p_std__vectorTint_t derivComponents, SWIGTYPE_p_SimTK__Vector x) {
+    return opensimModelJNI.StepFunction_calcDerivative(swigCPtr, this, SWIGTYPE_p_std__vectorTint_t.getCPtr(derivComponents), SWIGTYPE_p_SimTK__Vector.getCPtr(x));
+  }
+
+  public int getArgumentSize() {
+    return opensimModelJNI.StepFunction_getArgumentSize(swigCPtr, this);
+  }
+
+  public int getMaxDerivativeOrder() {
+    return opensimModelJNI.StepFunction_getMaxDerivativeOrder(swigCPtr, this);
+  }
+
+  public SWIGTYPE_p_SimTK__Function createSimTKFunction() {
     long cPtr = opensimModelJNI.StepFunction_createSimTKFunction(swigCPtr, this);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_SimTK__FunctionT1_t(cPtr, false);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_SimTK__Function(cPtr, false);
   }
 
   public void updateFromXMLNode() {

@@ -41,10 +41,6 @@ public class IKSolverImpl extends IKSolverInterface {
     opensimModelJNI.IKSolverImpl_initializeSolver(swigCPtr, this, IKTrial.getCPtr(aIKOptions), aIKOptions, Storage.getCPtr(inputData), inputData, Storage.getCPtr(outputData), outputData);
   }
 
-  public void solveFrames(IKTrial aIKOptions, Storage inputData, Storage outputData) {
-    opensimModelJNI.IKSolverImpl_solveFrames(swigCPtr, this, IKTrial.getCPtr(aIKOptions), aIKOptions, Storage.getCPtr(inputData), inputData, Storage.getCPtr(outputData), outputData);
-  }
-
   public void interrupt() {
     opensimModelJNI.IKSolverImpl_interrupt(swigCPtr, this);
   }

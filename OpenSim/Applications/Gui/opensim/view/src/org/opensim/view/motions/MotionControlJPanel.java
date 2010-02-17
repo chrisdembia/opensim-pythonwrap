@@ -812,6 +812,8 @@ public class MotionControlJPanel extends javax.swing.JPanel
    }
 
     public static MotionControlJPanel getInstance() {
+        if (instance==null)
+            instance = new MotionControlJPanel();
         return instance;
     }
 

@@ -160,7 +160,7 @@ public class ScaleFactorsTableModel extends AbstractTableModel implements Observ
 
    ScaleFactorsTableModel(ScaleToolModel scaleToolModel) {
       this.scaleToolModel = scaleToolModel;
-      bodySet = scaleToolModel.getUnscaledModel().getDynamicsEngine().getBodySet();
+      bodySet = scaleToolModel.getUnscaledModel().getBodySet();
       scaleToolModel.addObserver(this);
    }
 

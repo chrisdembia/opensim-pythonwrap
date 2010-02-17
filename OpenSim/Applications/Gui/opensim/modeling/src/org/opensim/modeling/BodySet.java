@@ -8,7 +8,7 @@
 
 package org.opensim.modeling;
 
-public class BodySet extends SetBodies {
+public class BodySet extends ModelComponentSetBodies {
   private long swigCPtr;
 
   public BodySet(long cPtr, boolean cMemoryOwn) {
@@ -37,12 +37,24 @@ public class BodySet extends SetBodies {
     this(opensimModelJNI.new_BodySet__SWIG_0(), true);
   }
 
-  public BodySet(BodySet aAbsBodySet) {
-    this(opensimModelJNI.new_BodySet__SWIG_1(BodySet.getCPtr(aAbsBodySet), aAbsBodySet), true);
+  public BodySet(Model model) {
+    this(opensimModelJNI.new_BodySet__SWIG_1(Model.getCPtr(model), model), true);
   }
 
-  public void setup(AbstractDynamicsEngine aAbstractDynamicsEngine) {
-    opensimModelJNI.BodySet_setup(swigCPtr, this, AbstractDynamicsEngine.getCPtr(aAbstractDynamicsEngine), aAbstractDynamicsEngine);
+  public BodySet(BodySet aAbsBodySet) {
+    this(opensimModelJNI.new_BodySet__SWIG_2(BodySet.getCPtr(aAbsBodySet), aAbsBodySet), true);
+  }
+
+  public void setup(Model aModel) {
+    opensimModelJNI.BodySet_setup(swigCPtr, this, Model.getCPtr(aModel), aModel);
+  }
+
+  public BodySet(Model model, String aFileName, boolean aUpdateFromXMLNode) {
+    this(opensimModelJNI.new_BodySet__SWIG_3(Model.getCPtr(model), model, aFileName, aUpdateFromXMLNode), true);
+  }
+
+  public BodySet(Model model, String aFileName) {
+    this(opensimModelJNI.new_BodySet__SWIG_4(Model.getCPtr(model), model, aFileName), true);
   }
 
   public void scale(ScaleSet aScaleSet, boolean aScaleMass) {
@@ -53,8 +65,8 @@ public class BodySet extends SetBodies {
     opensimModelJNI.BodySet_scale__SWIG_1(swigCPtr, this, ScaleSet.getCPtr(aScaleSet), aScaleSet);
   }
 
-  public BodySet copyFrom(BodySet aBodySet, AbstractDynamicsEngine aAbstractDynamicsEngine) {
-    return new BodySet(opensimModelJNI.BodySet_copyFrom(swigCPtr, this, BodySet.getCPtr(aBodySet), aBodySet, AbstractDynamicsEngine.getCPtr(aAbstractDynamicsEngine), aAbstractDynamicsEngine), false);
+  public BodySet copyFrom(BodySet aBodySet, Model aModel) {
+    return new BodySet(opensimModelJNI.BodySet_copyFrom(swigCPtr, this, BodySet.getCPtr(aBodySet), aBodySet, Model.getCPtr(aModel), aModel), false);
   }
 
 }

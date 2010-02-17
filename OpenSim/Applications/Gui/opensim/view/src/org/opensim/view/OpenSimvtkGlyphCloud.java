@@ -121,14 +121,14 @@ public class OpenSimvtkGlyphCloud {    // Assume same shape
       lookupTable.AddRGBPoint(0.0, color0[0], color0[1], color0[2]);
       lookupTable.AddRGBPoint(1.0, color1[0], color1[1], color1[2]);
    }
-   
+   /*
    public void set3ColorRange(double[] color0, double[] color1, double[] color2) {
       initializeLookupTableIfNecessary();
       lookupTable.AddRGBPoint(0.0, color0[0], color0[1], color0[2]);
       lookupTable.AddRGBPoint(0.5, color1[0], color1[1], color1[2]);
       lookupTable.AddRGBPoint(1.0, color2[0], color2[1], color2[2]);
    }
-
+*/
    public void setSelectedColor(double[] color) {
       initializeLookupTableIfNecessary();
       lookupTable.AddRGBPoint(-1.0, color[0], color[1], color[2]);

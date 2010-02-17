@@ -9,22 +9,6 @@
 package org.opensim.modeling;
 
 public class opensimModel {
-  public static int getArray_CAPMIN() {
-    return opensimModelJNI.Array_CAPMIN_get();
-  }
-
-  public static String getObjectDEFAULT_NAME() {
-    return opensimModelJNI.ObjectDEFAULT_NAME_get();
-  }
-
-  public static int getStorage_DEFAULT_CAPACITY() {
-    return opensimModelJNI.Storage_DEFAULT_CAPACITY_get();
-  }
-
-  public static int getIO_STRLEN() {
-    return opensimModelJNI.IO_STRLEN_get();
-  }
-
   public static void setOpenSimVersion(String value) {
     opensimModelJNI.OpenSimVersion_set(value);
   }
@@ -41,9 +25,20 @@ public class opensimModel {
     return opensimModelJNI.GetVersion();
   }
 
-  public static AbstractDynamicsEngine makeSimbodyEngine(Model aModel, SimmKinematicsEngine aSimmEngine) {
-    long cPtr = opensimModelJNI.makeSimbodyEngine(Model.getCPtr(aModel), aModel, SimmKinematicsEngine.getCPtr(aSimmEngine), aSimmEngine);
-    return (cPtr == 0) ? null : new AbstractDynamicsEngine(cPtr, false);
+  public static int getArray_CAPMIN() {
+    return opensimModelJNI.Array_CAPMIN_get();
+  }
+
+  public static String getObjectDEFAULT_NAME() {
+    return opensimModelJNI.ObjectDEFAULT_NAME_get();
+  }
+
+  public static int getStorage_DEFAULT_CAPACITY() {
+    return opensimModelJNI.Storage_DEFAULT_CAPACITY_get();
+  }
+
+  public static int getIO_STRLEN() {
+    return opensimModelJNI.IO_STRLEN_get();
   }
 
 }

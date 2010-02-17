@@ -36,14 +36,17 @@ import org.openide.NotifyDescriptor;
 import org.openide.util.Cancellable;
 import org.opensim.modeling.IKTool;
 import org.opensim.modeling.IKTrial;
-import org.opensim.modeling.InterruptingIntegCallback;
+import org.opensim.modeling.InterruptCallback;
+//import org.opensim.modeling.InterruptingIntegCallback;
 import org.opensim.modeling.Model;
+import org.opensim.modeling.OpenSimContext;
 import org.opensim.modeling.Storage;
 import org.opensim.view.motions.MotionsDB;
 import org.opensim.swingui.SwingWorker;
 import org.opensim.utils.ErrorDialog;
 import org.opensim.utils.FileUtils;
 import org.opensim.view.motions.JavaMotionDisplayerCallback;
+import org.opensim.view.pub.OpenSimDB;
 
 //==================================================================
 // IKToolModel
@@ -56,22 +59,21 @@ public class IKToolModel extends Observable implements Observer {
    class IKToolWorker extends SwingWorker {
       private ProgressHandle progressHandle = null;
       private JavaMotionDisplayerCallback animationCallback = null;
-      private InterruptingIntegCallback interruptingCallback = null;
+      private InterruptCallback interruptingCallback = null;
       boolean result = false;
       boolean promptToKeepPartialResult = true;
-      private Model modelCopy = null;
-     
+      //private Model modelCopy = null;
+      final OpenSimContext context=OpenSimDB.getInstance().getContext(getOriginalModel());
+      
       IKToolWorker() throws Exception {
          updateIKTool();
 
          // Operate on a copy of the model -- this way if users play with parameters in the GUI it won't affect the model we're actually computing on
-         modelCopy = new Model(getOriginalModel()); //For now create from 
-         modelCopy.setInputFileName("");
-         modelCopy.setup();
-         ikTool.setModel(modelCopy);
+         ikTool.setModel(getOriginalModel());
 
          // We assume we're working with trial 0.  No support for dealing with other trials in the trial set right now.
-         if (!ikTool.initializeTrial(0))
+         
+         if (!context.initializeTrial(ikTool, 0))
             throw new Exception("Inverse kinematics tool initialization failed -- check messages window for more details.");
 
          // Make no motion be currently selected (so model doesn't have extraneous ground forces/experimental markers from
@@ -91,30 +93,36 @@ public class IKToolModel extends Observable implements Observer {
                               });
 
          // Animation callback will update the display during IK solve
-         animationCallback = new JavaMotionDisplayerCallback(modelCopy, getOriginalModel(), ikTool.getIKTrialSet().get(0).getOutputStorage(), progressHandle);
-         animationCallback.setModelForDisplaySetConfiguration(false);
-         modelCopy.addIntegCallback(animationCallback);
+         animationCallback = new JavaMotionDisplayerCallback(getOriginalModel(), ikTool.getIKTrialSet().get(0).getOutputStorage(), progressHandle);
+         //OpenSim20 animationCallback.setModelForDisplaySetConfiguration(false);
+         getOriginalModel().addAnalysis(animationCallback);
          animationCallback.setStepInterval(1);
-         animationCallback.startProgressUsingSteps(1, endFrame-startFrame+1);
+         animationCallback.startProgressUsingTime(trial.getStartTime(), trial.getEndTime());
          animationCallback.setOptimizerAlgorithm(ikTool.getIKTrialSet().get(0).getOptimizerAlgorithm());
 
          // Do this manouver (there's gotta be a nicer way) to create the object so that C++ owns it and not Java (since 
          // removeIntegCallback in finished() will cause the C++-side callback to be deleted, and if Java owned this object
          // it would then later try to delete it yet again)
-         interruptingCallback = InterruptingIntegCallback.safeDownCast((new InterruptingIntegCallback()).copy());
-         modelCopy.addIntegCallback(interruptingCallback);
+         interruptingCallback = new InterruptCallback(getOriginalModel());
+         getOriginalModel().addAnalysis(interruptingCallback);
 
          setExecuting(true);
       }
 
-      public void interrupt(boolean promptToKeepPartialResult) {
+      public void interrupt(boolean promptToKeepPartialResult)  {
          this.promptToKeepPartialResult = promptToKeepPartialResult;
-         if(interruptingCallback!=null) interruptingCallback.interrupt();
+         if(interruptingCallback!=null){
+              interruptingCallback.interrupt();
+         }
       }
 
       public Object construct() {
-         result = ikTool.solveTrial(0);
-
+         try {
+            result = context.solveTrial(ikTool, 0);
+         }
+         catch(Exception ex) {
+                   finished();
+         }
          return this;
       }
 
@@ -124,8 +132,8 @@ public class IKToolModel extends Observable implements Observer {
          // Clean up motion displayer (this is necessary!)
          animationCallback.cleanupMotionDisplayer();
 
-         modelCopy.removeIntegCallback(animationCallback);
-         modelCopy.removeIntegCallback(interruptingCallback);
+         getOriginalModel().removeAnalysis(animationCallback, false);
+         getOriginalModel().removeAnalysis(interruptingCallback, false);
          interruptingCallback = null;
 
          if(result) resetModified();
@@ -150,7 +158,7 @@ public class IKToolModel extends Observable implements Observer {
 
          setExecuting(false);
 
-         modelCopy = null;
+         //modelCopy = null;
          worker = null;
       }
    }

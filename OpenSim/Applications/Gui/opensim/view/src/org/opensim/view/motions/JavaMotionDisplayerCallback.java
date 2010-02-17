@@ -27,6 +27,7 @@
 *  OR BUSINESS INTERRUPTION) OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
 *  WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 package org.opensim.view.motions;
 
 import java.lang.reflect.InvocationTargetException;
@@ -35,14 +36,14 @@ import org.netbeans.api.progress.ProgressHandle;
 import org.opensim.modeling.*;
 import org.opensim.view.SingleModelVisuals;
 import org.opensim.view.motions.MotionDisplayer;
+import org.opensim.view.pub.OpenSimDB;
 import org.opensim.view.pub.ViewDB;
 
 /**
  *
  * @author Ayman Habib
- * Used in Tool/Workers of simTrack
  */
-public class JavaMotionDisplayerCallback extends SimtkAnimationCallback{
+public class JavaMotionDisplayerCallback extends AnalysisWrapper {
    Storage storage = null;
    MotionDisplayer motionDisplayer = null;
    ProgressHandle progressHandle = null;
@@ -62,19 +63,53 @@ public class JavaMotionDisplayerCallback extends SimtkAnimationCallback{
    double stopDisplayTime = 0;
    double minSimTime = -1;
    double currentSimTime = 0;
-   String optimizerAlgorithm = null;
-
-   /** Creates a new instance of JavaMotionDisplayerCallback */
-   public JavaMotionDisplayerCallback(Model aModel, Model aModelForDisplay, Storage storage, ProgressHandle progressHandle) {
-      super(aModel, aModelForDisplay);
+   String optimizerAlgorithm = "";
+   OpenSimContext context = null;
+   OpenSimContext simulationContext = null; // Corresponding to actual model being run
+   Model modelForDisplay=null;
+   boolean ownsStorage=false;
+   int numStates=0;
+   ArrayStr stateLabels=null;
+   private double[] statesBuffer;
+   
+   // Creates a new instance of JavaMotionDisplayerCallback 
+   public JavaMotionDisplayerCallback(Model aModel, Storage aStorage, ProgressHandle progressHandle) {
+      super(aModel);
+      modelForDisplay=aModel;
+      context = OpenSimDB.getInstance().getContext(aModel);
       if(storage!=null) {
-         this.storage = storage;
-         motionDisplayer = new MotionDisplayer(storage, getModelForDisplay());
+         this.storage = aStorage;
       }
+      else 
+            createResultStorage();
+      
+      motionDisplayer = new MotionDisplayer(storage, getModelForDisplay());
       this.progressHandle = progressHandle;
    }
-   public JavaMotionDisplayerCallback(Model aModel, Storage storage, ProgressHandle progressHandle) {
-      this(aModel, aModel, storage, progressHandle);
+
+    private void createResultStorage() {
+        storage = new Storage();
+        storage.setName("Results");
+        stateLabels = new ArrayStr();
+        getModelForDisplay().getStateNames(stateLabels);
+        stateLabels.insert(0, "time");
+        storage.setColumnLabels(stateLabels);
+        numStates = getModelForDisplay().getNumStates();
+        statesBuffer = new double[numStates];
+        ownsStorage=true;
+    }
+   
+   public JavaMotionDisplayerCallback(Model aModel, Model aModelForDisplay, Storage aStorage, ProgressHandle progressHandle) {
+      super(aModel);
+      modelForDisplay=aModelForDisplay;
+      context = OpenSimDB.getInstance().getContext(aModelForDisplay);
+      if(aStorage!=null) {
+         this.storage = aStorage;
+      }
+      else
+          createResultStorage();
+      motionDisplayer = new MotionDisplayer(storage, getModelForDisplay());
+      this.progressHandle = progressHandle;
    }
 
    // In seconds
@@ -98,7 +133,7 @@ public class JavaMotionDisplayerCallback extends SimtkAnimationCallback{
       progressUsingTime = false;
       this.startStep = startStep;
       this.endStep = endStep;
-      if(progressHandle!=null) progressHandle.start(endStep-startStep+1);
+      //OpenSim20 if(progressHandle!=null) progressHandle.start(endStep-startStep+1);
    }
    
    public void setOptimizerAlgorithm(String aOptimizerAlgorithm) {
@@ -115,7 +150,8 @@ public class JavaMotionDisplayerCallback extends SimtkAnimationCallback{
             public void run() {
                double currentRealTime = getCurrentRealTime();
                if(minRenderTimeInterval<=0 || currentRealTime-lastRenderTime>minRenderTimeInterval) {
-                  if(motionDisplayer!=null && storage.getSize()>0) motionDisplayer.applyFrameToModel(storage.getSize()-1);            
+                  if(motionDisplayer!=null && storage.getSize()>0) 
+                      motionDisplayer.applyFrameToModel(storage.getSize()-1);            
                   ViewDB.getInstance().updateModelDisplay(getModelForDisplay());  // Faster? than the next few indented lines
                     //ViewDB.getInstance().updateModelDisplayNoRepaint(getModelForDisplay());
                     ////ViewDB.getInstance().renderAll(); // Render now (if want to do it later, use repaintAll()) -- may slow things down too much
@@ -132,17 +168,26 @@ public class JavaMotionDisplayerCallback extends SimtkAnimationCallback{
       }
    }
    
-   public void processStep(int step) {
+   public void processStep(SWIGTYPE_p_SimTK__State s) {
       if(!getOn()) return;
+      super.step(s, 0);
       if(progressHandle!=null) {
-         int progressStep = progressUsingTime ? (int)((getCurrentTime()-startTime)*progressTimeResolution) : step-startStep+1;
+         int progressStep = (int)((getSimulationTime()-startTime)*progressTimeResolution);
          if(progressStep > lastProgressStep) { // make sure we only advance progress (else an exception is thrown)
             progressHandle.progress(progressStep);
             lastProgressStep = progressStep;
          }
       }
-      currentSimTime = getCurrentTime();   
-      if(proceed(step) && currentSimTime>minSimTime) {
+      currentSimTime = getSimulationTime();   
+      if (ownsStorage) {    // Callback is the one accumulating results //ASSERTS downlstream 0327
+          // Need to make sure nextResult is not Freed by gc
+          StateVector nextResult = new StateVector();
+          super.getStates(statesBuffer);
+          System.out.println("Simulation time="+currentSimTime+" state[0]="+statesBuffer[0]);
+          nextResult.setStates(currentSimTime, numStates, statesBuffer);
+          storage.append(nextResult);
+      }
+      if(true) {
           stopIKTime = getCurrentRealTime(); // Stop timing of ik computations
           startDisplayTime = getCurrentRealTime(); // Start timing of display update
           updateDisplaySynchronously();
@@ -156,34 +201,6 @@ public class JavaMotionDisplayerCallback extends SimtkAnimationCallback{
       }
    }
    
-   public int step(SWIGTYPE_p_double aXPrev, SWIGTYPE_p_double aYPrev, SWIGTYPE_p_double aYPPrev, int aStep, double aDT, double aT, SWIGTYPE_p_double aX, SWIGTYPE_p_double aY, SWIGTYPE_p_double aYP, SWIGTYPE_p_double aDYDT, SWIGTYPE_p_void aClientData) {
-      int retValue = super.step(aXPrev, aYPrev, aYPPrev, aStep, aDT, aT, aX, aY, aYP, aDYDT, aClientData);
-      processStep(aStep);
-      return retValue;
-   }
-   
-   public int step(SWIGTYPE_p_double aXPrev, SWIGTYPE_p_double aYPrev, SWIGTYPE_p_double aYPPrev, int aStep, double aDT, double aT, SWIGTYPE_p_double aX, SWIGTYPE_p_double aY, SWIGTYPE_p_double aYP, SWIGTYPE_p_double aDYDT) {
-      int retValue = super.step(aXPrev, aYPrev, aYPPrev, aStep, aDT, aT, aX, aY, aYP, aDYDT);
-      processStep(aStep);
-      return retValue;
-   }
-   
-   public int step(SWIGTYPE_p_double aXPrev, SWIGTYPE_p_double aYPrev, SWIGTYPE_p_double aYPPrev, int aStep, double aDT, double aT, SWIGTYPE_p_double aX, SWIGTYPE_p_double aY, SWIGTYPE_p_double aYP) {
-      int retValue = super.step(aXPrev, aYPrev, aYPPrev, aStep, aDT, aT, aX, aY, aYP);
-      processStep(aStep);
-      return retValue;
-   }
-   
-   public int step(SWIGTYPE_p_double aXPrev, SWIGTYPE_p_double aYPrev, SWIGTYPE_p_double aYPPrev, int aStep, double aDT, double aT, SWIGTYPE_p_double aX, SWIGTYPE_p_double aY) {
-      int retValue = super.step(aXPrev, aYPrev, aYPPrev, aStep, aDT, aT, aX, aY);
-      processStep(aStep);
-      return retValue;
-   }
-   public int begin(int aStep, double aDT, double aT, SWIGTYPE_p_double aX, SWIGTYPE_p_double aY) {
-      int retValue = super.begin(aStep, aDT, aT, aX, aY);
-      return retValue;
-   }
-
    public void cleanupMotionDisplayer() {
       setRenderMuscleActivations(false);
       if(motionDisplayer!=null) motionDisplayer.cleanupDisplay();
@@ -193,4 +210,40 @@ public class JavaMotionDisplayerCallback extends SimtkAnimationCallback{
    protected void finalize() {
       super.finalize();
    }
+   
+    public void setStepInterval(int i) {
+        //throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    private Model getModelForDisplay() {
+        return modelForDisplay;//get_model();
+    }
+
+    private boolean getModelForDisplayCompatibleStates() {
+        return false;
+    }
+
+    public int step(SWIGTYPE_p_SimTK__State s) {
+        int retValue;
+        retValue = super.step(s, 0);
+        processStep(s);
+        return retValue;
+    }
+
+    public int begin(SWIGTYPE_p_SimTK__State s) {
+        int retValue=0;
+        
+        //retValue = super.begin(s);
+        return retValue;
+    }
+
+    private double getCurrentTime() {
+        return context.getTime();
+    }
+
+    public Storage getStateStorage() {
+        return storage;
+    }
+    
+    
 }

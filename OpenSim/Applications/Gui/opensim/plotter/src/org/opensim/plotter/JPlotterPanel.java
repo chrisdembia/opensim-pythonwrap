@@ -46,10 +46,8 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Vector;
 import javax.swing.AbstractAction;
-import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFormattedTextField;
-import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
@@ -64,8 +62,7 @@ import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
-import org.opensim.modeling.AbstractCoordinate;
-import org.opensim.modeling.AbstractTransformAxis;
+import org.opensim.modeling.Coordinate;
 import org.opensim.modeling.Analysis;
 import org.opensim.modeling.AnalysisSet;
 import org.opensim.modeling.AnalyzeTool;
@@ -74,6 +71,7 @@ import org.opensim.modeling.ArrayStorage;
 import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.CoordinateSet;
 import org.opensim.modeling.Model;
+import org.opensim.modeling.OpenSimContext;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.modeling.StateVector;
 import org.opensim.modeling.Storage;
@@ -148,6 +146,7 @@ public class JPlotterPanel extends javax.swing.JPanel
    // 
    // 
    Model currentModel = OpenSimDB.getInstance().getCurrentModel();
+   OpenSimContext openSimContext;
    private Storage statesStorage;
    private boolean clamp=false;
    double  yMin, yMax;
@@ -307,23 +306,23 @@ public class JPlotterPanel extends javax.swing.JPanel
             .addContainerGap()
             .add(jAdvancedPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                .add(jRectifyCheckBox)
-               .add(jAdvancedPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                        .add(jAdvancedPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
                   .add(org.jdesktop.layout.GroupLayout.LEADING, jClampCheckBox)
-                  .add(org.jdesktop.layout.GroupLayout.LEADING, jAdvancedPanelLayout.createSequentialGroup()
-                     .add(jLabel9)
-                     .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                           .add(org.jdesktop.layout.GroupLayout.LEADING, jAdvancedPanelLayout.createSequentialGroup()
+                              .add(jLabel9)
+                              .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                      .add(jDomainStartTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 74, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                  .add(org.jdesktop.layout.GroupLayout.LEADING, jAdvancedPanelLayout.createSequentialGroup()
-                     .add(jLabel1)
-                     .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                           .add(org.jdesktop.layout.GroupLayout.LEADING, jAdvancedPanelLayout.createSequentialGroup()
+                              .add(jLabel1)
+                              .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                      .add(jFormattedTextFieldYmin))))
-            .add(jAdvancedPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                  .add(jAdvancedPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                .add(jAdvancedPanelLayout.createSequentialGroup()
                   .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 19, Short.MAX_VALUE)
                   .add(jAdvancedPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                      .add(jAdvancedPanelLayout.createSequentialGroup()
-                        .add(jLabel10)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                     .add(jLabel10)
+                  .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jDomainEndTextField))
                      .add(jAdvancedPanelLayout.createSequentialGroup()
                         .add(jLabel3)
@@ -344,11 +343,11 @@ public class JPlotterPanel extends javax.swing.JPanel
             .add(jAdvancedPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                .add(jAdvancedPanelLayout.createSequentialGroup()
                   .add(jAdvancedPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                     .add(jRectifyCheckBox)
+                  .add(jRectifyCheckBox)
                      .add(jActivationOverrideCheckBox))
                   .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                   .add(jAdvancedPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                     .add(jClampCheckBox)
+                  .add(jClampCheckBox)
                      .add(jActivationLabel)
                      .add(jActivationValueFormattedTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                   .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 25, Short.MAX_VALUE)
@@ -364,7 +363,7 @@ public class JPlotterPanel extends javax.swing.JPanel
                      .add(jLabel3)
                      .add(jFormattedTextFieldYmax, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                   .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                  .add(jAdvancedPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+            .add(jAdvancedPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                      .add(jLabel10)
                      .add(jDomainEndTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
             .addContainerGap())
@@ -630,7 +629,7 @@ public class JPlotterPanel extends javax.swing.JPanel
       else if (evt.getSource() == jXQtyTextField) {
          JPlotterPanel.this.jXQtyTextFieldActionPerformed(evt);
       }
-   }
+      }
 
    public void focusGained(java.awt.event.FocusEvent evt) {
    }
@@ -842,10 +841,11 @@ public class JPlotterPanel extends javax.swing.JPanel
           // May plot against motion curve or against a GC
           jXPopupMenu.removeAll();
           currentModel = OpenSimDB.getInstance().getCurrentModel();
+          openSimContext = OpenSimDB.getInstance().getContext(currentModel);
           // Guard against all models being deleted while the dialog is up
           if (currentModel==null) return;
           SingleModelGuiElements guiElem = ViewDB.getInstance().getModelGuiElements(currentModel);
-          String[] coordNames = guiElem.getCoordinateNames();
+          String[] coordNames = guiElem.getUnconstrainedCoordinateNames();
           for(int i=0; i<coordNames.length; i++){
              final String coordinateName=coordNames[i];
              JMenuItem coordinateMenuItem = new JMenuItem(coordinateName);
@@ -854,9 +854,9 @@ public class JPlotterPanel extends javax.swing.JPanel
                    setDomainName(coordinateName);
                    sourceX=null;
                    jXQtyTextField.setText(coordinateName);
-                   CoordinateSet cs = currentModel.getDynamicsEngine().getCoordinateSet();
-                   AbstractCoordinate coord = cs.get(coordinateName);
-                   if (coord.getMotionType() == AbstractTransformAxis.MotionType.Rotational) {
+                   CoordinateSet cs = currentModel.getCoordinateSet();
+                   Coordinate coord = cs.get(coordinateName);
+                   if (coord.getMotionType() == Coordinate.MotionType.Rotational) {
                       double conversionToGuiUnits = Math.toDegrees(1.0);
                       domainFormat.setMinimumFractionDigits(0);
                       domainFormat.setMaximumFractionDigits(5);
@@ -1402,6 +1402,7 @@ public class JPlotterPanel extends javax.swing.JPanel
             for (int i=0; i<objs.size(); i++) {
                if (objs.get(i) instanceof Model) {
                   currentModel = (Model)objs.get(i);
+                  openSimContext = OpenSimDB.getInstance().getContext(currentModel);
                   processCurrentModel();
                   populateYPopup();           
                   if (dFilterDlg != null){
@@ -1427,6 +1428,7 @@ public class JPlotterPanel extends javax.swing.JPanel
             }
             else if (evt.getOperation()==ModelEvent.Operation.SetCurrent){
                currentModel=evt.getModel();
+               openSimContext = OpenSimDB.getInstance().getContext(currentModel);
                populateYPopup();           
                if (dFilterDlg != null){
                   dFilterDlg.dispose();
@@ -1457,7 +1459,7 @@ public class JPlotterPanel extends javax.swing.JPanel
       currentModel.getStateNames(stateNames);
       // Save states for later restoration so that the GUI and model are in sync. after analysis
       double[] saveStates = new double[numStates];
-      currentModel.getStates(saveStates);
+      openSimContext.getStates(saveStates);
       
       Storage extendedMotionStorage;
        if (motion != null && motion instanceof PlotterSourceMotion){
@@ -1471,15 +1473,15 @@ public class JPlotterPanel extends javax.swing.JPanel
          
           // make states for analysis by setting fiberlength and activation and form complete storage
          double[] statesForAnalysis = new double[numStates];
-         currentModel.getStates(statesForAnalysis);
+         openSimContext.getStates(statesForAnalysis);
          setNonzeroDefaultValues(stateNames, statesForAnalysis, isActivationOverride(), getActivationValue());
          double NUM_STEPS=100.0;
          int xIndex = statesStorage.getStateIndex(getDomainName());
-         AbstractCoordinate coord = currentModel.getDynamicsEngine().getCoordinateSet().get(getDomainName());
+         Coordinate coord = currentModel.getCoordinateSet().get(getDomainName());
          
          double domStart=(Double)jDomainStartTextField.getValue();
          double domEnd=(Double)jDomainEndTextField.getValue();
-         if (coord.getMotionType() == AbstractTransformAxis.MotionType.Rotational){
+         if (coord.getMotionType() == Coordinate.MotionType.Rotational){
             domStart=Math.toRadians(domStart);
             if (domStart < coord.getRangeMin())
                domStart = coord.getRangeMin();
@@ -1497,7 +1499,7 @@ public class JPlotterPanel extends javax.swing.JPanel
             //System.out.println("Step="+i+", val="+degVal);
             statesForAnalysis[xIndex]=val;
             StateVector newVector = new StateVector();
-            currentModel.getDynamicsEngine().computeConstrainedCoordinates(statesForAnalysis);
+            openSimContext.computeConstrainedCoordinates(statesForAnalysis);
             newVector.setStates(time, numStates, statesForAnalysis);            
             statesStorage.append(newVector);
          }
@@ -1509,15 +1511,15 @@ public class JPlotterPanel extends javax.swing.JPanel
       }
       tool.setPrintResultFiles(false);
       analysisSource.getStorage().purge();
+      tool.print("PlotterTool.xml");
       try {
          tool.run();
       } catch (IOException ex) {
          ex.printStackTrace();
       }
       analysisSource.getStorage().print("toolOutput.sto");
-      currentModel.getDynamicsEngine().convertRadiansToDegrees(analysisSource.getStorage());
-      currentModel.getDynamicsEngine().convertRadiansToDegrees(statesStorage);
-      currentModel.setStates(saveStates);
+      currentModel.getSimbodyEngine().convertRadiansToDegrees(analysisSource.getStorage());
+      currentModel.getSimbodyEngine().convertRadiansToDegrees(statesStorage);
    }
 
     private void setNonzeroDefaultValues(final ArrayStr stateNames, final double[] statesForAnalysis, boolean activationOverride, double activationValue) {
@@ -1529,8 +1531,8 @@ public class JPlotterPanel extends javax.swing.JPanel
                  statesForAnalysis[i]=activationValue;
               else
                  statesForAnalysis[i]=1.0;
-           }
         }
+    }
     }
    
    private Storage createStateStorageWithHeader(final Model mdl) {
@@ -1591,7 +1593,7 @@ public class JPlotterPanel extends javax.swing.JPanel
                final String internalName=(qName.equalsIgnoreCase("moment"))?"Moment_":"MomentArm_";
                JMenu gcMenu = new JMenu(qName);
                SingleModelGuiElements guiElem = ViewDB.getInstance().getModelGuiElements(currentModel);
-               String[] coordNames = guiElem.getCoordinateNames();
+               String[] coordNames = guiElem.getUnconstrainedCoordinateNames();
                for(int j=0; j<coordNames.length; j++){
                   final String coordinateName=coordNames[j];
                   JMenuItem coordinateMenuItem = new JMenuItem(coordinateName);
@@ -2060,7 +2062,7 @@ public class JPlotterPanel extends javax.swing.JPanel
             if (activationColumns.get(j) && overrideActivation)
                buffer[j]=newActivation;
          }
-         currentModel.getDynamicsEngine().computeConstrainedCoordinates(buffer);
+         openSimContext.computeConstrainedCoordinates(buffer);
          outputStateVector.setStates(statesFromMotion.getTime(), numStates, buffer);
          outputStorage.append(outputStateVector);
       }

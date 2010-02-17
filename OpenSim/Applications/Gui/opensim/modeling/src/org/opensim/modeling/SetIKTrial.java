@@ -122,12 +122,8 @@ public class SetIKTrial extends OpenSimObject {
     return opensimModelJNI.SetIKTrial_append__SWIG_0(swigCPtr, this, IKTrial.getCPtr(aObject), aObject);
   }
 
-  public boolean append(SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__IKTrial_t aArray) {
-    return opensimModelJNI.SetIKTrial_append__SWIG_1(swigCPtr, this, SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__IKTrial_t.getCPtr(aArray));
-  }
-
   public boolean insert(int aIndex, IKTrial aObject) {
-    return opensimModelJNI.SetIKTrial_insert(swigCPtr, this, aIndex, IKTrial.getCPtr(aObject), aObject);
+    return opensimModelJNI.SetIKTrial_insert__SWIG_0(swigCPtr, this, aIndex, IKTrial.getCPtr(aObject), aObject);
   }
 
   public boolean remove(int aIndex) {
@@ -138,26 +134,28 @@ public class SetIKTrial extends OpenSimObject {
     return opensimModelJNI.SetIKTrial_remove__SWIG_1(swigCPtr, this, IKTrial.getCPtr(aObject), aObject);
   }
 
-  public boolean replace(int aIndex, IKTrial aObject) {
-    return opensimModelJNI.SetIKTrial_replace(swigCPtr, this, aIndex, IKTrial.getCPtr(aObject), aObject);
-  }
-
   public void clearAndDestroy() {
     opensimModelJNI.SetIKTrial_clearAndDestroy(swigCPtr, this);
   }
 
+  public boolean set(int aIndex, IKTrial aObject, boolean preserveGroups) {
+    return opensimModelJNI.SetIKTrial_set__SWIG_0(swigCPtr, this, aIndex, IKTrial.getCPtr(aObject), aObject, preserveGroups);
+  }
+
   public boolean set(int aIndex, IKTrial aObject) {
-    return opensimModelJNI.SetIKTrial_set(swigCPtr, this, aIndex, IKTrial.getCPtr(aObject), aObject);
+    return opensimModelJNI.SetIKTrial_set__SWIG_1(swigCPtr, this, aIndex, IKTrial.getCPtr(aObject), aObject);
   }
 
   public IKTrial get(int aIndex) {
-    long cPtr = opensimModelJNI.SetIKTrial_get__SWIG_0(swigCPtr, this, aIndex);
-    return (cPtr == 0) ? null : new IKTrial(cPtr, false);
+    return new IKTrial(opensimModelJNI.SetIKTrial_get__SWIG_0(swigCPtr, this, aIndex), false);
   }
 
   public IKTrial get(String aName) {
-    long cPtr = opensimModelJNI.SetIKTrial_get__SWIG_1(swigCPtr, this, aName);
-    return (cPtr == 0) ? null : new IKTrial(cPtr, false);
+    return new IKTrial(opensimModelJNI.SetIKTrial_get__SWIG_1(swigCPtr, this, aName), false);
+  }
+
+  public boolean contains(String aName) {
+    return opensimModelJNI.SetIKTrial_contains(swigCPtr, this, aName);
   }
 
   public void getNames(ArrayStr rNames) {

@@ -28,7 +28,8 @@ package org.opensim.tracking;
 import java.util.Hashtable;
 import java.util.Observable;
 import java.util.Vector;
-import org.opensim.modeling.AbstractTransformAxis;
+import org.opensim.modeling.Coordinate;
+import org.opensim.modeling.OpenSimContext;
 import org.opensim.modeling.CoordinateSet;
 import org.opensim.modeling.IKCoordinateTask;
 import org.opensim.modeling.IKMarkerTask;
@@ -39,6 +40,7 @@ import org.opensim.modeling.MarkerSet;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.Storage;
 import org.opensim.tracking.IKTasksModel.ValueType;
+import org.opensim.view.pub.OpenSimDB;
 
 //==================================================================
 // IKTasksModelEvent
@@ -132,7 +134,7 @@ class IKMarkerTasksModel extends IKTasksModel {
    }   
 
    public void reset(boolean defaultApply, double defaultWeight) {
-      MarkerSet markerSet = model.getDynamicsEngine().getMarkerSet();
+      MarkerSet markerSet = model.getMarkerSet();
       tasks.setSize(markerSet.getSize());
       for(int i=0; i<tasks.size(); i++) {
          IKMarkerTask markerTask = new IKMarkerTask();
@@ -169,7 +171,7 @@ class IKMarkerTasksModel extends IKTasksModel {
       reset(false,0);
       for(int i=0; i<fullTaskSet.getSize(); i++) {
          if(IKMarkerTask.safeDownCast(fullTaskSet.get(i))!=null) {
-            int index = model.getDynamicsEngine().getMarkerSet().getIndex(fullTaskSet.get(i).getName());
+            int index = model.getMarkerSet().getIndex(fullTaskSet.get(i).getName());
             if(index >= 0) tasks.set(index, new IKMarkerTask(IKMarkerTask.safeDownCast(fullTaskSet.get(i)))); // Java-side copy
          }
       }
@@ -212,15 +214,17 @@ class IKMarkerTasksModel extends IKTasksModel {
 class IKCoordinateTasksModel extends IKTasksModel {
    private Hashtable<String,Boolean> coordinateExistsInData = new Hashtable<String,Boolean>();
    protected Vector<Double> conversion = new Vector<Double>();
+   private OpenSimContext openSimContext;
 
    public IKCoordinateTasksModel(Model model) {
       super(model);
+      openSimContext = OpenSimDB.getInstance().getContext(model);
       reset(false,0);
       setModified();
    }
 
    public void reset(boolean defaultApply, double defaultWeight) {
-      CoordinateSet coordinateSet = model.getDynamicsEngine().getCoordinateSet();
+      CoordinateSet coordinateSet = model.getCoordinateSet();
       tasks.setSize(coordinateSet.getSize());
       conversion.setSize(coordinateSet.getSize());;
       for(int i=0; i<tasks.size(); i++) {
@@ -230,7 +234,7 @@ class IKCoordinateTasksModel extends IKTasksModel {
          coordinateTask.setWeight(defaultWeight);
          coordinateTask.setValueType(IKCoordinateTask.ValueType.DefaultValue);
          tasks.set(i, coordinateTask);
-         conversion.set(i, (getMotionType(i)==AbstractTransformAxis.MotionType.Rotational) ? 180.0/Math.PI : 1);
+         conversion.set(i, (getMotionType(i)==Coordinate.MotionType.Rotational) ? 180.0/Math.PI : 1);
       }
    }
 
@@ -247,7 +251,7 @@ class IKCoordinateTasksModel extends IKTasksModel {
       reset(false,0);
       for(int i=0; i<fullTaskSet.getSize(); i++) {
          if(IKCoordinateTask.safeDownCast(fullTaskSet.get(i))!=null) {
-            int index = model.getDynamicsEngine().getCoordinateSet().getIndex(fullTaskSet.get(i).getName());
+            int index = model.getCoordinateSet().getIndex(fullTaskSet.get(i).getName());
             if(index >= 0) tasks.set(index, new IKCoordinateTask(IKCoordinateTask.safeDownCast(fullTaskSet.get(i)))); // Java-side copy
          }
       }
@@ -270,7 +274,7 @@ class IKCoordinateTasksModel extends IKTasksModel {
    }
 
    private IKCoordinateTask get(int i) { return (IKCoordinateTask)tasks.get(i); }
-   private AbstractTransformAxis.MotionType getMotionType(int i) { return model.getDynamicsEngine().getCoordinateSet().get(i).getMotionType(); }
+   private Coordinate.MotionType getMotionType(int i) { return model.getCoordinateSet().get(i).getMotionType(); }
   
    public ValueType getValueType(int i) {
       IKCoordinateTask.ValueType taskValueType = get(i).getValueType();
@@ -297,7 +301,7 @@ class IKCoordinateTasksModel extends IKTasksModel {
       return 0;
    }
    public double getDefaultValue(int i) {
-      return conversion.get(i) * model.getDynamicsEngine().getCoordinateSet().get(i).getDefaultValue();
+      return conversion.get(i) * model.getCoordinateSet().get(i).getDefaultValue();
    }
    public double getManualValue(int i) {
       return conversion.get(i) * get(i).getValue();
@@ -310,7 +314,7 @@ class IKCoordinateTasksModel extends IKTasksModel {
       }
    }
 
-   public boolean isLocked(int i) { return model.getDynamicsEngine().getCoordinateSet().get(i).getLocked(); }
+   public boolean isLocked(int i) { return openSimContext.getLocked(model.getCoordinateSet().get(i)); }
 
    public boolean isValidValue(int i) {
       return getValueType(i)!=ValueType.FromFile || coordinateExistsInData.get(getName(i))!=null;

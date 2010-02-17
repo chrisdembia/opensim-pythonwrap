@@ -43,6 +43,7 @@ import org.opensim.modeling.ControlLinear;
 import org.opensim.modeling.ControlLinearNode;
 import org.opensim.modeling.Function;
 import org.opensim.modeling.SetControlNodes;
+import org.opensim.modeling.XYFunctionInterface;
 import org.opensim.view.functionEditor.FunctionNode;
 import org.opensim.view.functionEditor.FunctionPanel;
 import org.opensim.view.functionEditor.FunctionPanelListener;
@@ -57,12 +58,12 @@ public class ExcitationPanelListener implements FunctionPanelListener{
     ControlLinear control;
     // THE LIST OF DISPLAYED FUNCTIONS IS CACHED SO THAT INSERTION AND DELETION IS POSSIBLE
     // THE LIST NEEDS UPDATING WHENEVER ORIGINAL FUNCTION IS RECREATED.
-    Vector<Function> functions;//=new  Vector<Function>(3);    
+    Vector<XYFunctionInterface> functions;//=new  Vector<Function>(3);
     //ControlLinearNode newControlNode;
     /**
      * Creates a new instance of ExcitationPanelListener
      */
-    public ExcitationPanelListener(FunctionPanel functionPanel, ControlLinear excitation, Vector<Function> functions) {
+    public ExcitationPanelListener(FunctionPanel functionPanel, ControlLinear excitation, Vector<XYFunctionInterface> functions) {
         this.functionPanel = functionPanel;
         this.control = excitation;
         this.functions=functions;
@@ -258,17 +259,17 @@ public class ExcitationPanelListener implements FunctionPanelListener{
       }
    }
 
-    public void addFunction(Function aFunction)
+    public void addFunction(XYFunctionInterface aFunction)
     {
         functions.add(aFunction);
     }
     
-    public void removeFunction(Function aFunction)
+    public void removeFunction(XYFunctionInterface aFunction)
     {
         functions.remove(aFunction);
     }
     
-    public void replaceFunction(Function aFunction, int index)
+    public void replaceFunction(XYFunctionInterface aFunction, int index)
     {
         functions.setElementAt(aFunction, index);
     }

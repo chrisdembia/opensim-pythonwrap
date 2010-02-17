@@ -3,11 +3,11 @@
 	<defaults/>
 	<!--Name of the .osim file used to construct a model.-->
 	<model_file> subject01_simbody.osim </model_file>
-	<!--Replace the model's actuator set with sets specified in
-	    <actuator_set_files>? If false, the actuator set is appended to.-->
-	<replace_actuator_set> true </replace_actuator_set>
-	<!--List of xml files used to construct an actuator set for the model.-->
-	<actuator_set_files> gait2354_RRA_Actuators.xml </actuator_set_files>
+	<!--Replace the model's force set with sets specified in
+	    <force_set_files>? If false, the force set is appended to.-->
+	<replace_force_set> true </replace_force_set>
+	<!--List of xml files used to construct an force set for the model.-->
+	<force_set_files> gait2354_RRA_Actuators.xml </force_set_files>
 	<!--Directory used for writing results.-->
 	<results_directory> ResultsRRA/ </results_directory>
 	<!--Output precision.  It is 8 by default.-->
@@ -19,13 +19,10 @@
 	<!--Maximum number of integrator steps.-->
 	<maximum_number_of_integrator_steps> 20000 </maximum_number_of_integrator_steps>
 	<!--Maximum integration step size.-->
-	<maximum_integrator_step_size> 0.001 </maximum_integrator_step_size>
+	<maximum_integrator_step_size> 1e-004 </maximum_integrator_step_size>
 	<!--Integrator error tolerance. When the error is greater, the integrator
 	    step size is decreased.-->
-	<integrator_error_tolerance> 0.0001 </integrator_error_tolerance>
-	<!--Integrator fine tolerance. When the error is less, the integrator step
-	    size is increased.-->
-	<integrator_fine_tolerance> 1e-006 </integrator_fine_tolerance>
+	<integrator_error_tolerance> 1e-005 </integrator_error_tolerance>
 
 	<!--Flag (true or false) indicating whether or not to make an adjustment
 	    in the center of mass of a body to reduced DC offsets in MX and MZ. If
@@ -96,7 +93,7 @@
 	<!--Specify which optimizer to use (ipopt or cfsqp).-->
 	<optimizer_algorithm> ipopt </optimizer_algorithm>
 
-	<!--Time window over which the desired actuator forces are achieved.
+	<!--Time window over which the desired forces are achieved.
 	    Muscles forces cannot change instantaneously, so a finite time window
 	    must be allowed. The recommended time window for RRA is about 0.001
 	    sec, and for CMC is about 0.010 sec.-->

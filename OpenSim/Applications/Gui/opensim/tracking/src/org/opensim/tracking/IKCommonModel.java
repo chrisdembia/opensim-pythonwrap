@@ -140,7 +140,7 @@ public class IKCommonModel extends Observable implements Observer {
          try {
             coordinateData = new Storage(coordinateDataFile.fileName);
             // Possibly not really needed, since we don't really use the contents of this file
-            model.getDynamicsEngine().convertDegreesToRadians(coordinateData);
+            model.getSimbodyEngine().convertDegreesToRadians(coordinateData);
          } catch (IOException ex) {
             coordinateData = null;
             success = false;

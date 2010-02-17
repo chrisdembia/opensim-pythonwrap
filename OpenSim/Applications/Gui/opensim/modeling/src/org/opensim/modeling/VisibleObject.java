@@ -50,10 +50,6 @@ public class VisibleObject extends OpenSimObject {
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
-  public void setup(AbstractDynamicsEngine aEngine) {
-    opensimModelJNI.VisibleObject_setup(swigCPtr, this, AbstractDynamicsEngine.getCPtr(aEngine), aEngine);
-  }
-
   public void setOwner(OpenSimObject aObject) {
     opensimModelJNI.VisibleObject_setOwner(swigCPtr, this, OpenSimObject.getCPtr(aObject), aObject);
   }
@@ -87,12 +83,16 @@ public class VisibleObject extends OpenSimObject {
     return new VisibleProperties(opensimModelJNI.VisibleObject_getVisibleProperties(swigCPtr, this), false);
   }
 
-  public void setTransform(Transform aTransform) {
-    opensimModelJNI.VisibleObject_setTransform(swigCPtr, this, Transform.getCPtr(aTransform), aTransform);
+  public void getTransformAsDouble16(double[] flatList) {
+    opensimModelJNI.VisibleObject_getTransformAsDouble16(swigCPtr, this, flatList);
   }
 
-  public Transform getTransform() {
-    return new Transform(opensimModelJNI.VisibleObject_getTransform(swigCPtr, this), false);
+  public void setTransform(SWIGTYPE_p_SimTK__Transform aTransform) {
+    opensimModelJNI.VisibleObject_setTransform(swigCPtr, this, SWIGTYPE_p_SimTK__Transform.getCPtr(aTransform));
+  }
+
+  public void translate(SWIGTYPE_p_SimTK__Vec3 t) {
+    opensimModelJNI.VisibleObject_translate(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(t));
   }
 
   public void setScaleFactors(SWIGTYPE_p_SimTK__Vec3 aScaleFactors) {
@@ -109,58 +109,6 @@ public class VisibleObject extends OpenSimObject {
 
   public void getScaleFactors(double[] aScaleFactors) {
     opensimModelJNI.VisibleObject_getScaleFactors__SWIG_1(swigCPtr, this, aScaleFactors);
-  }
-
-  public void rotateRadians(double[] rR) {
-    opensimModelJNI.VisibleObject_rotateRadians__SWIG_0(swigCPtr, this, rR);
-  }
-
-  public void rotateRadians(double[] rR, Transform.RotationOrder order) {
-    opensimModelJNI.VisibleObject_rotateRadians__SWIG_1(swigCPtr, this, rR, order.swigValue());
-  }
-
-  public void rotateRadiansX(double rR) {
-    opensimModelJNI.VisibleObject_rotateRadiansX(swigCPtr, this, rR);
-  }
-
-  public void rotateRadiansY(double rR) {
-    opensimModelJNI.VisibleObject_rotateRadiansY(swigCPtr, this, rR);
-  }
-
-  public void rotateRadiansZ(double rR) {
-    opensimModelJNI.VisibleObject_rotateRadiansZ(swigCPtr, this, rR);
-  }
-
-  public void rotateRadiansAxis(double rR, SWIGTYPE_p_SimTK__Vec3 axis) {
-    opensimModelJNI.VisibleObject_rotateRadiansAxis(swigCPtr, this, rR, SWIGTYPE_p_SimTK__Vec3.getCPtr(axis));
-  }
-
-  public void rotateDegrees(double[] rR) {
-    opensimModelJNI.VisibleObject_rotateDegrees__SWIG_0(swigCPtr, this, rR);
-  }
-
-  public void rotateDegrees(double[] rR, Transform.RotationOrder order) {
-    opensimModelJNI.VisibleObject_rotateDegrees__SWIG_1(swigCPtr, this, rR, order.swigValue());
-  }
-
-  public void rotateDegreesX(double rR) {
-    opensimModelJNI.VisibleObject_rotateDegreesX(swigCPtr, this, rR);
-  }
-
-  public void rotateDegreesY(double rR) {
-    opensimModelJNI.VisibleObject_rotateDegreesY(swigCPtr, this, rR);
-  }
-
-  public void rotateDegreesZ(double rR) {
-    opensimModelJNI.VisibleObject_rotateDegreesZ(swigCPtr, this, rR);
-  }
-
-  public void rotateDegreesAxis(double rR, SWIGTYPE_p_SimTK__Vec3 axis) {
-    opensimModelJNI.VisibleObject_rotateDegreesAxis(swigCPtr, this, rR, SWIGTYPE_p_SimTK__Vec3.getCPtr(axis));
-  }
-
-  public void translate(SWIGTYPE_p_SimTK__Vec3 t) {
-    opensimModelJNI.VisibleObject_translate(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(t));
   }
 
   public void addDependent(VisibleObject aChild) {

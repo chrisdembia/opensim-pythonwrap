@@ -3,12 +3,12 @@
 
 	<!-- MODEL AND ACTUATORS -->
 	<!--Name of the .osim file used to construct a model.-->
-	<model_file> subject01_simbody_adjusted.osim </model_file>
-	<!--Replace the model's actuator set with sets specified in
-	    <actuator_set_files>? If false, the actuator set is appended to.-->
-	<replace_actuator_set> false </replace_actuator_set>
-	<!--List of xml files used to construct an actuator set for the model.-->
-	<actuator_set_files> gait2354_CMC_Actuators.xml </actuator_set_files>
+	<model_file> gait2354_simbody.osim </model_file>
+	<!--Replace the model's force set with sets specified in
+	    <force_set_files>? If false, the force set is appended to.-->
+	<replace_force_set> false </replace_force_set>
+	<!--List of xml files used to construct an force set for the model.-->
+	<force_set_files> gait2354_CMC_Actuators.xml </force_set_files>
 
 	<!-- BASIC SETTINGS -->
 	<!--Output precision.  It is 8 by default.-->
@@ -35,23 +35,23 @@
 	<!-- INPUT FILES -->
 	<!--XML file containing the controls (e.g., muscle excitations) for the
 	    forward simulation.-->
-	<controls_file> ResultsCMC/subject01_walk1_controls.xml </controls_file>
+	<controls_file> OutputReference/ResultsCMC/subject01_walk1_controls.xml </controls_file>
 	<!--Storage file (.sto) containing the center of pressure.-->
 	<cop_file> subject01_walk1_grf.mot </cop_file>
 	<!--Storage file (.sto) containing the generalized coordinates for the
 	    model. These coordinates are used in conjuction with the center of
 	    pressure data to place the corrective springs at the centers of
 	    pressure in the local frames of each foot.-->
-	<coordinates_file> ResultsCMC/subject01_walk1_Kinematics_q.sto </coordinates_file>
+	<coordinates_file> OutputReference/ResultsCMC/subject01_walk1_Kinematics_q.sto </coordinates_file>
 	<!--Storage file (.sto) containing the generalized speeds for the model.
 	    These speeds are used to set the expected velocities of the centers of
 	    pressure so that damping can be applied by the corrective springs if
 	    the trajectory of the foot deviates from the expected trajectory.-->
-	<speeds_file> ResultsCMC/subject01_walk1_Kinematics_u.sto </speeds_file>
+	<speeds_file> OutputReference/ResultsCMC/subject01_walk1_Kinematics_u.sto </speeds_file>
 	<!--Storage file (.sto) containing the model states during the unperturbed
 	    simulation. These states are used to set the initial states of the
 	    model for each perturbed simulation.-->
-	<states_file> ResultsCMC/subject01_walk1_states.sto </states_file>
+	<states_file> OutputReference/ResultsCMC/subject01_walk1_states.sto </states_file>
 
 	<!-- ANALYSES -->
 	<!--Set of analyses to be run during the investigation.-->
@@ -97,7 +97,7 @@
 	<external_loads_file> subject01_walk1_grf.mot </external_loads_file>
 	<!--Motion file (.mot) or storage file (.sto) containing the model
 	    kinematics corresponding to the external loads.-->
-	<external_loads_model_kinematics_file> subject01_walk1_ik.mot </external_loads_model_kinematics_file>
+	<external_loads_model_kinematics_file> OutputReference/subject01_walk1_ik.mot </external_loads_model_kinematics_file>
 	<!--Name of the body to which the first set of external loads should be
 	    applied (e.g., the name of the right foot).-->
 	<external_loads_body1> calcn_r </external_loads_body1>
@@ -164,6 +164,15 @@
 	<perturbed_actuators> all </perturbed_actuators>
 	<!--Whether or not to compute induced accelerations due to gravity perturbation.-->
 	<perturb_gravity> true </perturb_gravity>
+    <ControllerSet>
+      <objects>
+        <ControlSetController name="ControlSetController">
+            <controls_file>  OutputReference/ResultsCMC/subject01_walk1_controls.xml </controls_file>
+        </ControlSetController>
+        <CorrectionController name="CorrectionController">
+        </CorrectionController>
+     </objects>
+    </ControllerSet>
 
 </PerturbationTool>
 

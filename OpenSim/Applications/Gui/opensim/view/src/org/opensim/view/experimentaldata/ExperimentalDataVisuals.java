@@ -54,19 +54,19 @@ import vtk.vtkProp3D;
 public class ExperimentalDataVisuals extends SingleModelVisuals{
     ModelForExperimentalData model;    // Fake model used to visualize the data
     protected Hashtable<OpenSimObject, vtkProp3D> objectTrails = new Hashtable<OpenSimObject, vtkProp3D>();
-    //vtkCubeSource bbox;
+    vtkCubeSource bbox;
     /**
      * Creates a new instance of ExperimentalDataVisuals
      */
     public ExperimentalDataVisuals(Model mdl) {
         super(mdl);
-        //bbox = new vtkCubeSource();
+        bbox = new vtkCubeSource();
         model = (ModelForExperimentalData) mdl;
         AnnotatedMotion mot = model.getMotionData();
         if (mot.isBoundingBoxComputed()){
             double[] bounds = mot.getBoundingBox();
 
-            //bbox.SetBounds(bounds);
+            bbox.SetBounds(bounds);
             vtkActor groundRep = (vtkActor) getVtkRepForObject(model.getGround());
             //groundRep.GetMapper().AddInputConnection(bbox.GetOutputPort());
             //groundRep.GetMapper().Modified();

@@ -39,13 +39,12 @@ import org.opensim.view.pub.ViewDB;
  *
  * @author Ayman Habib
  */
-public class JavaAnimationCallback extends SimtkAnimationCallback{
+public class JavaAnimationCallback extends Analysis {
    
-   /** Creates a new instance of JavaAnimationCallback */
    public JavaAnimationCallback(Model aModel) {
       super(aModel);
    }
-   
+   /*
    public int step(SWIGTYPE_p_double aXPrev, SWIGTYPE_p_double aYPrev, SWIGTYPE_p_double aYPPrev, int aStep, double aDT, double aT, SWIGTYPE_p_double aX, SWIGTYPE_p_double aY, SWIGTYPE_p_double aYP, SWIGTYPE_p_double aDYDT, SWIGTYPE_p_void aClientData) {
       int retValue;
       retValue = super.step(aXPrev, aYPrev, aYPPrev, aStep, aDT, aT, aX, aY, aYP, aDYDT, aClientData);
@@ -95,6 +94,5 @@ public class JavaAnimationCallback extends SimtkAnimationCallback{
    
    protected void finalize() {
       super.finalize();
-   }
-   
+   }*/
 }

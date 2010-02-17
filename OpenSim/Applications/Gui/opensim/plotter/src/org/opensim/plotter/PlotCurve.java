@@ -31,8 +31,7 @@ package org.opensim.plotter;
 import java.util.Vector;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.xy.XYSeries;
-import org.opensim.modeling.AbstractCoordinate;
-import org.opensim.modeling.AbstractTransformAxis;
+import org.opensim.modeling.Coordinate;
 import org.opensim.modeling.ArrayDouble;
 import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.CoordinateSet;
@@ -307,13 +306,13 @@ public class PlotCurve {
     private void convertAnglesToDegreesIfNeeded(String string, ArrayDouble tempArray) {
         // Check if name is a rotational degree of freedom in current model if so convert
         // every entry in the pased in array of data values, otherwise do nothing.
-        CoordinateSet coords= OpenSimDB.getInstance().getCurrentModel().getDynamicsEngine().getCoordinateSet();
+        CoordinateSet coords= OpenSimDB.getInstance().getCurrentModel().getCoordinateSet();
         ArrayStr coordinateNames = new ArrayStr();
         coords.getNames(coordinateNames);
         if (coordinateNames.findIndex(string)!=-1){
             // Check if rotational rather than translational
-            AbstractCoordinate coord = coords.get(string);
-            if (coord.getMotionType() == AbstractTransformAxis.MotionType.Rotational){
+            Coordinate coord = coords.get(string);
+            if (coord.getMotionType() == Coordinate.MotionType.Rotational){
                 double conversion = Math.toDegrees(1.0);
                 for(int i=0; i<tempArray.getSize(); i++){
                     tempArray.setitem(i, conversion*tempArray.getitem(i));

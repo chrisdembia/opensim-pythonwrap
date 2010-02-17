@@ -75,18 +75,6 @@ public class IKTrial extends OpenSimObject {
     return opensimModelJNI.IKTrial_getGroundReactionSmoothing(swigCPtr, this);
   }
 
-  public boolean initializeTrialCommon(Model aModel, IKTaskSet aIKTaskSet, MarkerData aMarkerData) {
-    return opensimModelJNI.IKTrial_initializeTrialCommon(swigCPtr, this, Model.getCPtr(aModel), aModel, IKTaskSet.getCPtr(aIKTaskSet), aIKTaskSet, MarkerData.getCPtr(aMarkerData), aMarkerData);
-  }
-
-  public boolean initializeTrial(Model aModel, IKTaskSet aIKTaskSet) {
-    return opensimModelJNI.IKTrial_initializeTrial(swigCPtr, this, Model.getCPtr(aModel), aModel, IKTaskSet.getCPtr(aIKTaskSet), aIKTaskSet);
-  }
-
-  public boolean solveTrial(Model aModel, IKTaskSet aIKTaskSet) {
-    return opensimModelJNI.IKTrial_solveTrial(swigCPtr, this, Model.getCPtr(aModel), aModel, IKTaskSet.getCPtr(aIKTaskSet), aIKTaskSet);
-  }
-
   public void interrupt() {
     opensimModelJNI.IKTrial_interrupt(swigCPtr, this);
   }
@@ -155,9 +143,27 @@ public class IKTrial extends OpenSimObject {
     return opensimModelJNI.IKTrial_getOptimizerAlgorithm(swigCPtr, this);
   }
 
+  public SWIGTYPE_p_OpenSim__IKTarget getIKTarget() {
+    long cPtr = opensimModelJNI.IKTrial_getIKTarget(swigCPtr, this);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_OpenSim__IKTarget(cPtr, false);
+  }
+
+  public Storage getExperimentalMarkerData() {
+    long cPtr = opensimModelJNI.IKTrial_getExperimentalMarkerData(swigCPtr, this);
+    return (cPtr == 0) ? null : new Storage(cPtr, false);
+  }
+
   public Storage getOutputStorage() {
     long cPtr = opensimModelJNI.IKTrial_getOutputStorage(swigCPtr, this);
     return (cPtr == 0) ? null : new Storage(cPtr, false);
+  }
+
+  public void setAccumulatedCost(double totCost) {
+    opensimModelJNI.IKTrial_setAccumulatedCost(swigCPtr, this, totCost);
+  }
+
+  public double getAccumulatedCost() {
+    return opensimModelJNI.IKTrial_getAccumulatedCost(swigCPtr, this);
   }
 
   public void setPrintResultFiles(boolean aToWrite) {

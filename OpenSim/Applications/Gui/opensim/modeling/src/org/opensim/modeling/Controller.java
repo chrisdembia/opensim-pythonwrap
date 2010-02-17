@@ -8,7 +8,7 @@
 
 package org.opensim.modeling;
 
-public class Controller extends OpenSimObject {
+public class Controller extends ModelComponent {
   private long swigCPtr;
 
   public Controller(long cPtr, boolean cMemoryOwn) {
@@ -33,33 +33,56 @@ public class Controller extends OpenSimObject {
     super.delete();
   }
 
-  public Model getModel() {
-    long cPtr = opensimModelJNI.Controller_getModel(swigCPtr, this);
-    return (cPtr == 0) ? null : new Model(cPtr, false);
+  public boolean getIsEnabled() {
+    return opensimModelJNI.Controller_getIsEnabled(swigCPtr, this);
   }
 
-  public void setModel(Model aModel) {
-    opensimModelJNI.Controller_setModel(swigCPtr, this, Model.getCPtr(aModel), aModel);
+  public void setIsEnabled(boolean aTrueFalse) {
+    opensimModelJNI.Controller_setIsEnabled(swigCPtr, this, aTrueFalse);
   }
 
-  public void setControlSet(ControlSet aControlSet) {
-    opensimModelJNI.Controller_setControlSet(swigCPtr, this, ControlSet.getCPtr(aControlSet), aControlSet);
+  public double computeControl(SWIGTYPE_p_SimTK__State s, int index) {
+    return opensimModelJNI.Controller_computeControl(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), index);
   }
 
-  public void setDesiredStatesStorage(Storage aYDesStore) {
-    opensimModelJNI.Controller_setDesiredStatesStorage(swigCPtr, this, Storage.getCPtr(aYDesStore), aYDesStore);
+  public void setActuators(SetActuators actuators) {
+    opensimModelJNI.Controller_setActuators(swigCPtr, this, SetActuators.getCPtr(actuators), actuators);
   }
 
-  public boolean getOn() {
-    return opensimModelJNI.Controller_getOn(swigCPtr, this);
+  public void setupSystem(SWIGTYPE_p_SimTK__MultibodySystem system) {
+    opensimModelJNI.Controller_setupSystem(swigCPtr, this, SWIGTYPE_p_SimTK__MultibodySystem.getCPtr(system));
   }
 
-  public void setOn(boolean aTrueFalse) {
-    opensimModelJNI.Controller_setOn(swigCPtr, this, aTrueFalse);
+  public void setup(Model model) {
+    opensimModelJNI.Controller_setup(swigCPtr, this, Model.getCPtr(model), model);
   }
 
-  public void computeControls(SWIGTYPE_p_double rDT, double aT, SWIGTYPE_p_double aY, ControlSet rX) {
-    opensimModelJNI.Controller_computeControls(swigCPtr, this, SWIGTYPE_p_double.getCPtr(rDT), aT, SWIGTYPE_p_double.getCPtr(aY), ControlSet.getCPtr(rX), rX);
+  public void createSystem(SWIGTYPE_p_SimTK__MultibodySystem system) {
+    opensimModelJNI.Controller_createSystem(swigCPtr, this, SWIGTYPE_p_SimTK__MultibodySystem.getCPtr(system));
+  }
+
+  public void initState(SWIGTYPE_p_SimTK__State s) {
+    opensimModelJNI.Controller_initState(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s));
+  }
+
+  public double getFirstTime() {
+    return opensimModelJNI.Controller_getFirstTime(swigCPtr, this);
+  }
+
+  public double getLastTime() {
+    return opensimModelJNI.Controller_getLastTime(swigCPtr, this);
+  }
+
+  public SetActuators updActuators() {
+    return new SetActuators(opensimModelJNI.Controller_updActuators(swigCPtr, this), false);
+  }
+
+  public SetActuators getActuatorSet() {
+    return new SetActuators(opensimModelJNI.Controller_getActuatorSet(swigCPtr, this), false);
+  }
+
+  public ArrayStr getActuatorList() {
+    return new ArrayStr(opensimModelJNI.Controller_getActuatorList(swigCPtr, this), false);
   }
 
 }

@@ -74,15 +74,15 @@ public class Units {
   }
 
   public final static class UnitType {
-    public final static UnitType simmUnknownUnits = new UnitType("simmUnknownUnits", opensimModelJNI.Units_simmUnknownUnits_get());
-    public final static UnitType simmRadians = new UnitType("simmRadians");
-    public final static UnitType simmDegrees = new UnitType("simmDegrees");
-    public final static UnitType simmMillimeters = new UnitType("simmMillimeters");
-    public final static UnitType simmCentimeters = new UnitType("simmCentimeters");
-    public final static UnitType simmMeters = new UnitType("simmMeters");
-    public final static UnitType simmSeconds = new UnitType("simmSeconds");
-    public final static UnitType simmMilliseconds = new UnitType("simmMilliseconds");
-    public final static UnitType simmNewtons = new UnitType("simmNewtons");
+    public final static UnitType UnknownUnits = new UnitType("UnknownUnits", opensimModelJNI.Units_UnknownUnits_get());
+    public final static UnitType Radians = new UnitType("Radians");
+    public final static UnitType Degrees = new UnitType("Degrees");
+    public final static UnitType Millimeters = new UnitType("Millimeters");
+    public final static UnitType Centimeters = new UnitType("Centimeters");
+    public final static UnitType Meters = new UnitType("Meters");
+    public final static UnitType Seconds = new UnitType("Seconds");
+    public final static UnitType Milliseconds = new UnitType("Milliseconds");
+    public final static UnitType Newtons = new UnitType("Newtons");
 
     public final int swigValue() {
       return swigValue;
@@ -118,7 +118,7 @@ public class Units {
       swigNext = this.swigValue+1;
     }
 
-    private static UnitType[] swigValues = { simmUnknownUnits, simmRadians, simmDegrees, simmMillimeters, simmCentimeters, simmMeters, simmSeconds, simmMilliseconds, simmNewtons };
+    private static UnitType[] swigValues = { UnknownUnits, Radians, Degrees, Millimeters, Centimeters, Meters, Seconds, Milliseconds, Newtons };
     private static int swigNext = 0;
     private final int swigValue;
     private final String swigName;

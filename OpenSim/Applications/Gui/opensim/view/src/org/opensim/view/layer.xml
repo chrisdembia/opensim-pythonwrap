@@ -20,7 +20,7 @@
             <file name="org-opensim-view-FileExportSIMMModelAction.instance"/>
             <file name="org-opensim-view-ViewReplicateAction.instance"/>
             <file name="org-opensim-view-SaveAction.instance"/>
-            <file name="org-opensim-view-FileSaveModelAction.instance"/>
+                    <file name="org-opensim-view-FileSaveModelAction.instance"/>
             <file name="org-opensim-view-actions-EditPreferencesAction.instance"/>
             <file name="org-opensim-view-actions-FileCloseAction.instance"/>
             <file name="org-opensim-view-actions-FileImportSIMMAction.instance"/>
@@ -89,7 +89,7 @@
     <folder name="File">
             <file name="org-opensim-view-OpenOsimModel.shadow">
                 <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-FileOpenOsimModelAction.instance"/>
-            </file>        
+            </file>
             <file name="org-opensim-view-actions-FileCloseAction.shadow">
                 <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-actions-FileCloseAction.instance"/>
             </file>
@@ -216,7 +216,7 @@
             <file name="org-netbeans-modules-autoupdate-UpdateAction.instance_hidden"/>
             <file name="org-netbeans-modules-autoupdate-catalog-ModuleCatalogAction.instance_hidden"/>
             <file name="org-netbeans-modules-favorites-templates-TemplatesAction.instance_hidden"/>
-            <file name="org-openide-actions-ToolsAction.instance_hidden"/>
+             <file name="org-openide-actions-ToolsAction.instance_hidden"/>
             <file name="org-opensim-plotter-separatorBefore.instance_hidden"/>
             <file name="org-opensim-view-actions-LoadUserLibraryAction.shadow">
                 <attr name="originalFile" stringvalue="Actions/Tools/org-opensim-view-actions-ToolsLoadUserLibraryAction.instance"/>
@@ -307,8 +307,6 @@
             <file name="org-openide-actions-PasteAction.instance_hidden"/>
             <file name="org-openide-actions-RedoAction.instance_hidden"/>
             <file name="org-openide-actions-UndoAction.instance_hidden"/>
-            <attr name="org-opensim-view-ShowModelsDropdownAction.instance/org-opensim-view-motions-ShowMotionSliderAction.instance" boolvalue="false"/>
-            <attr name="org-opensim-view-motions-ShowMotionSliderAction.instance" boolvalue="true"/>
             <file name="org-opensim-view-motions-ShowMotionSliderAction.instance" url="org-opensim-view-motions-ShowMotionSliderAction.instance"/>
         </folder>
         <file name="File_hidden"/>

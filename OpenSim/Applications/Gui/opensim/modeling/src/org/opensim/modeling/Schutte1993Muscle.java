@@ -8,7 +8,7 @@
 
 package org.opensim.modeling;
 
-public class Schutte1993Muscle extends AbstractMuscle {
+public class Schutte1993Muscle extends Muscle {
   private long swigCPtr;
 
   public Schutte1993Muscle(long cPtr, boolean cMemoryOwn) {
@@ -33,14 +33,6 @@ public class Schutte1993Muscle extends AbstractMuscle {
     super.delete();
   }
 
-  public Schutte1993Muscle() {
-    this(opensimModelJNI.new_Schutte1993Muscle__SWIG_0(), true);
-  }
-
-  public Schutte1993Muscle(Schutte1993Muscle aMuscle) {
-    this(opensimModelJNI.new_Schutte1993Muscle__SWIG_1(Schutte1993Muscle.getCPtr(aMuscle), aMuscle), true);
-  }
-
   public OpenSimObject copy() {
     long cPtr = opensimModelJNI.Schutte1993Muscle_copy__SWIG_0(swigCPtr, this);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
@@ -50,8 +42,8 @@ public class Schutte1993Muscle extends AbstractMuscle {
     opensimModelJNI.Schutte1993Muscle_copyData(swigCPtr, this, Schutte1993Muscle.getCPtr(aMuscle), aMuscle);
   }
 
-  public void copyPropertyValues(AbstractActuator aActuator) {
-    opensimModelJNI.Schutte1993Muscle_copyPropertyValues(swigCPtr, this, AbstractActuator.getCPtr(aActuator), aActuator);
+  public void copyPropertyValues(Actuator aActuator) {
+    opensimModelJNI.Schutte1993Muscle_copyPropertyValues(swigCPtr, this, Actuator.getCPtr(aActuator), aActuator);
   }
 
   public double getMaxIsometricForce() {
@@ -79,55 +71,43 @@ public class Schutte1993Muscle extends AbstractMuscle {
   }
 
   public double getDamping() {
-    return opensimModelJNI.Schutte1993Muscle_getDamping(swigCPtr, this);
+    return opensimModelJNI.Schutte1993Muscle_getDamping__SWIG_0(swigCPtr, this);
   }
 
-  public double getPennationAngle() {
-    return opensimModelJNI.Schutte1993Muscle_getPennationAngle(swigCPtr, this);
+  public boolean setTimeScale(double aTimeScale) {
+    return opensimModelJNI.Schutte1993Muscle_setTimeScale(swigCPtr, this, aTimeScale);
   }
 
-  public double getFiberLength() {
-    return opensimModelJNI.Schutte1993Muscle_getFiberLength(swigCPtr, this);
+  public boolean setActivation1(double aActivation1) {
+    return opensimModelJNI.Schutte1993Muscle_setActivation1(swigCPtr, this, aActivation1);
   }
 
-  public double getNormalizedFiberLength() {
-    return opensimModelJNI.Schutte1993Muscle_getNormalizedFiberLength(swigCPtr, this);
+  public boolean setActivation2(double aActivation2) {
+    return opensimModelJNI.Schutte1993Muscle_setActivation2(swigCPtr, this, aActivation2);
   }
 
-  public double getPassiveFiberForce() {
-    return opensimModelJNI.Schutte1993Muscle_getPassiveFiberForce(swigCPtr, this);
+  public boolean setMaxIsometricForce(double aMaxIsometricForce) {
+    return opensimModelJNI.Schutte1993Muscle_setMaxIsometricForce(swigCPtr, this, aMaxIsometricForce);
   }
 
-  public double getStress() {
-    return opensimModelJNI.Schutte1993Muscle_getStress(swigCPtr, this);
+  public boolean setOptimalFiberLength(double aOptimalFiberLength) {
+    return opensimModelJNI.Schutte1993Muscle_setOptimalFiberLength(swigCPtr, this, aOptimalFiberLength);
   }
 
-  public void computeStateDerivatives(double[] rDYDT) {
-    opensimModelJNI.Schutte1993Muscle_computeStateDerivatives(swigCPtr, this, rDYDT);
+  public boolean setTendonSlackLength(double aTendonSlackLength) {
+    return opensimModelJNI.Schutte1993Muscle_setTendonSlackLength(swigCPtr, this, aTendonSlackLength);
   }
 
-  public void computeEquilibrium() {
-    opensimModelJNI.Schutte1993Muscle_computeEquilibrium(swigCPtr, this);
+  public boolean setPennationAngle(double aPennationAngle) {
+    return opensimModelJNI.Schutte1993Muscle_setPennationAngle(swigCPtr, this, aPennationAngle);
   }
 
-  public void computeActuation() {
-    opensimModelJNI.Schutte1993Muscle_computeActuation(swigCPtr, this);
+  public boolean setMaxContractionVelocity(double aMaxContractionVelocity) {
+    return opensimModelJNI.Schutte1993Muscle_setMaxContractionVelocity(swigCPtr, this, aMaxContractionVelocity);
   }
 
-  public double computeIsometricForce(double activation) {
-    return opensimModelJNI.Schutte1993Muscle_computeIsometricForce(swigCPtr, this, activation);
-  }
-
-  public double computeIsokineticForceAssumingInfinitelyStiffTendon(double aActivation) {
-    return opensimModelJNI.Schutte1993Muscle_computeIsokineticForceAssumingInfinitelyStiffTendon(swigCPtr, this, aActivation);
-  }
-
-  public void postScale(ScaleSet aScaleSet) {
-    opensimModelJNI.Schutte1993Muscle_postScale(swigCPtr, this, ScaleSet.getCPtr(aScaleSet), aScaleSet);
-  }
-
-  public void scale(ScaleSet aScaleSet) {
-    opensimModelJNI.Schutte1993Muscle_scale(swigCPtr, this, ScaleSet.getCPtr(aScaleSet), aScaleSet);
+  public boolean setDamping(double aDamping) {
+    return opensimModelJNI.Schutte1993Muscle_setDamping(swigCPtr, this, aDamping);
   }
 
   public void setup(Model aModel) {
@@ -139,9 +119,17 @@ public class Schutte1993Muscle extends AbstractMuscle {
     return (cPtr == 0) ? null : new Function(cPtr, false);
   }
 
+  public boolean setActiveForceLengthCurve(Function aActiveForceLengthCurve) {
+    return opensimModelJNI.Schutte1993Muscle_setActiveForceLengthCurve(swigCPtr, this, Function.getCPtr(aActiveForceLengthCurve), aActiveForceLengthCurve);
+  }
+
   public Function getPassiveForceLengthCurve() {
     long cPtr = opensimModelJNI.Schutte1993Muscle_getPassiveForceLengthCurve(swigCPtr, this);
     return (cPtr == 0) ? null : new Function(cPtr, false);
+  }
+
+  public boolean setPassiveForceLengthCurve(Function aPassiveForceLengthCurve) {
+    return opensimModelJNI.Schutte1993Muscle_setPassiveForceLengthCurve(swigCPtr, this, Function.getCPtr(aPassiveForceLengthCurve), aPassiveForceLengthCurve);
   }
 
   public Function getTendonForceLengthCurve() {
@@ -149,20 +137,17 @@ public class Schutte1993Muscle extends AbstractMuscle {
     return (cPtr == 0) ? null : new Function(cPtr, false);
   }
 
-  public double calcNonzeroPassiveForce(double aNormFiberLength, double aNormFiberVelocity) {
-    return opensimModelJNI.Schutte1993Muscle_calcNonzeroPassiveForce(swigCPtr, this, aNormFiberLength, aNormFiberVelocity);
+  public boolean setTendonForceLengthCurve(Function aTendonForceLengthCurve) {
+    return opensimModelJNI.Schutte1993Muscle_setTendonForceLengthCurve(swigCPtr, this, Function.getCPtr(aTendonForceLengthCurve), aTendonForceLengthCurve);
   }
 
-  public double calcFiberVelocity(double aActivation, double aActiveForce, double aVelocityDependentForce) {
-    return opensimModelJNI.Schutte1993Muscle_calcFiberVelocity(swigCPtr, this, aActivation, aActiveForce, aVelocityDependentForce);
+  public Function getForceVelocityCurve() {
+    long cPtr = opensimModelJNI.Schutte1993Muscle_getForceVelocityCurve(swigCPtr, this);
+    return (cPtr == 0) ? null : new Function(cPtr, false);
   }
 
-  public double calcTendonForce(double aNormTendonLength) {
-    return opensimModelJNI.Schutte1993Muscle_calcTendonForce(swigCPtr, this, aNormTendonLength);
-  }
-
-  public double getActivation() {
-    return opensimModelJNI.Schutte1993Muscle_getActivation(swigCPtr, this);
+  public boolean setForceVelocityCurve(Function aForceVelocityCurve) {
+    return opensimModelJNI.Schutte1993Muscle_setForceVelocityCurve(swigCPtr, this, Function.getCPtr(aForceVelocityCurve), aForceVelocityCurve);
   }
 
   public static boolean isKindOf(String type) {

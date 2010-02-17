@@ -98,12 +98,12 @@ public class SetWrapObject extends OpenSimObject {
     return opensimModelJNI.SetWrapObject_getSize(swigCPtr, this);
   }
 
-  public int getIndex(AbstractWrapObject aObject, int aStartIndex) {
-    return opensimModelJNI.SetWrapObject_getIndex__SWIG_0(swigCPtr, this, AbstractWrapObject.getCPtr(aObject), aObject, aStartIndex);
+  public int getIndex(WrapObject aObject, int aStartIndex) {
+    return opensimModelJNI.SetWrapObject_getIndex__SWIG_0(swigCPtr, this, WrapObject.getCPtr(aObject), aObject, aStartIndex);
   }
 
-  public int getIndex(AbstractWrapObject aObject) {
-    return opensimModelJNI.SetWrapObject_getIndex__SWIG_1(swigCPtr, this, AbstractWrapObject.getCPtr(aObject), aObject);
+  public int getIndex(WrapObject aObject) {
+    return opensimModelJNI.SetWrapObject_getIndex__SWIG_1(swigCPtr, this, WrapObject.getCPtr(aObject), aObject);
   }
 
   public int getIndex(String aName, int aStartIndex) {
@@ -118,71 +118,69 @@ public class SetWrapObject extends OpenSimObject {
     opensimModelJNI.SetWrapObject_getGroupNamesContaining(swigCPtr, this, aObjectName, ArrayStr.getCPtr(rGroupNames), rGroupNames);
   }
 
-  public boolean append(AbstractWrapObject aObject) {
-    return opensimModelJNI.SetWrapObject_append__SWIG_0(swigCPtr, this, AbstractWrapObject.getCPtr(aObject), aObject);
+  public boolean append(WrapObject aObject) {
+    return opensimModelJNI.SetWrapObject_append__SWIG_0(swigCPtr, this, WrapObject.getCPtr(aObject), aObject);
   }
 
-  public boolean append(SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__AbstractWrapObject_t aArray) {
-    return opensimModelJNI.SetWrapObject_append__SWIG_1(swigCPtr, this, SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__AbstractWrapObject_t.getCPtr(aArray));
-  }
-
-  public boolean insert(int aIndex, AbstractWrapObject aObject) {
-    return opensimModelJNI.SetWrapObject_insert(swigCPtr, this, aIndex, AbstractWrapObject.getCPtr(aObject), aObject);
+  public boolean insert(int aIndex, WrapObject aObject) {
+    return opensimModelJNI.SetWrapObject_insert__SWIG_0(swigCPtr, this, aIndex, WrapObject.getCPtr(aObject), aObject);
   }
 
   public boolean remove(int aIndex) {
     return opensimModelJNI.SetWrapObject_remove__SWIG_0(swigCPtr, this, aIndex);
   }
 
-  public boolean remove(AbstractWrapObject aObject) {
-    return opensimModelJNI.SetWrapObject_remove__SWIG_1(swigCPtr, this, AbstractWrapObject.getCPtr(aObject), aObject);
-  }
-
-  public boolean replace(int aIndex, AbstractWrapObject aObject) {
-    return opensimModelJNI.SetWrapObject_replace(swigCPtr, this, aIndex, AbstractWrapObject.getCPtr(aObject), aObject);
+  public boolean remove(WrapObject aObject) {
+    return opensimModelJNI.SetWrapObject_remove__SWIG_1(swigCPtr, this, WrapObject.getCPtr(aObject), aObject);
   }
 
   public void clearAndDestroy() {
     opensimModelJNI.SetWrapObject_clearAndDestroy(swigCPtr, this);
   }
 
-  public boolean set(int aIndex, AbstractWrapObject aObject) {
-    return opensimModelJNI.SetWrapObject_set(swigCPtr, this, aIndex, AbstractWrapObject.getCPtr(aObject), aObject);
+  public boolean set(int aIndex, WrapObject aObject, boolean preserveGroups) {
+    return opensimModelJNI.SetWrapObject_set__SWIG_0(swigCPtr, this, aIndex, WrapObject.getCPtr(aObject), aObject, preserveGroups);
   }
 
-  public AbstractWrapObject get(int aIndex) {
-    long cPtr = opensimModelJNI.SetWrapObject_get__SWIG_0(swigCPtr, this, aIndex);
-    return (cPtr == 0) ? null : new AbstractWrapObject(cPtr, false);
+  public boolean set(int aIndex, WrapObject aObject) {
+    return opensimModelJNI.SetWrapObject_set__SWIG_1(swigCPtr, this, aIndex, WrapObject.getCPtr(aObject), aObject);
   }
 
-  public AbstractWrapObject get(String aName) {
-    long cPtr = opensimModelJNI.SetWrapObject_get__SWIG_1(swigCPtr, this, aName);
-    return (cPtr == 0) ? null : new AbstractWrapObject(cPtr, false);
+  public WrapObject get(int aIndex) {
+    return new WrapObject(opensimModelJNI.SetWrapObject_get__SWIG_0(swigCPtr, this, aIndex), false);
+  }
+
+  public WrapObject get(String aName) {
+    return new WrapObject(opensimModelJNI.SetWrapObject_get__SWIG_1(swigCPtr, this, aName), false);
+  }
+
+  public boolean contains(String aName) {
+    return opensimModelJNI.SetWrapObject_contains(swigCPtr, this, aName);
   }
 
   public void getNames(ArrayStr rNames) {
     opensimModelJNI.SetWrapObject_getNames(swigCPtr, this, ArrayStr.getCPtr(rNames), rNames);
   }
 
-  public AbstractWrapObject getLast() {
+  public WrapObject getLast() {
     long cPtr = opensimModelJNI.SetWrapObject_getLast(swigCPtr, this);
-    return (cPtr == 0) ? null : new AbstractWrapObject(cPtr, false);
+    return (cPtr == 0) ? null : new WrapObject(cPtr, false);
   }
 
-  public int searchBinary(AbstractWrapObject aObject, boolean aFindFirst, int aLo, int aHi) {
-    return opensimModelJNI.SetWrapObject_searchBinary__SWIG_0(swigCPtr, this, AbstractWrapObject.getCPtr(aObject), aObject, aFindFirst, aLo, aHi);
+  public int searchBinary(WrapObject aObject, boolean aFindFirst, int aLo, int aHi) {
+    return opensimModelJNI.SetWrapObject_searchBinary__SWIG_0(swigCPtr, this, WrapObject.getCPtr(aObject), aObject, aFindFirst, aLo, aHi);
   }
 
-  public int searchBinary(AbstractWrapObject aObject, boolean aFindFirst, int aLo) {
-    return opensimModelJNI.SetWrapObject_searchBinary__SWIG_1(swigCPtr, this, AbstractWrapObject.getCPtr(aObject), aObject, aFindFirst, aLo);
+  public int searchBinary(WrapObject aObject, boolean aFindFirst, int aLo) {
+    return opensimModelJNI.SetWrapObject_searchBinary__SWIG_1(swigCPtr, this, WrapObject.getCPtr(aObject), aObject, aFindFirst, aLo);
   }
 
-  public int searchBinary(AbstractWrapObject aObject, boolean aFindFirst) {
-    return opensimModelJNI.SetWrapObject_searchBinary__SWIG_2(swigCPtr, this, AbstractWrapObject.getCPtr(aObject), aObject, aFindFirst);
+  public int searchBinary(WrapObject aObject, boolean aFindFirst) {
+    return opensimModelJNI.SetWrapObject_searchBinary__SWIG_2(swigCPtr, this, WrapObject.getCPtr(aObject), aObject, aFindFirst);
   }
 
-  public int searchBinary(AbstractWrapObject aObject) {
-    return opensimModelJNI.SetWrapObject_searchBinary__SWIG_3(swigCPtr, this, AbstractWrapObject.getCPtr(aObject), aObject);
+  public int searchBinary(WrapObject aObject) {
+    return opensimModelJNI.SetWrapObject_searchBinary__SWIG_3(swigCPtr, this, WrapObject.getCPtr(aObject), aObject);
   }
 
   public int getNumGroups() {

@@ -35,9 +35,8 @@ import java.util.ResourceBundle;
 import org.openide.nodes.Children;
 import org.openide.nodes.Node;
 import org.openide.util.NbBundle;
-import org.opensim.modeling.AbstractActuator;
-import org.opensim.modeling.ActuatorSet;
 import org.opensim.modeling.ArrayObjPtr;
+import org.opensim.modeling.Muscle;
 import org.opensim.modeling.ObjectGroup;
 
 /**
@@ -59,10 +58,16 @@ public class ActuatorGroupNode extends OpenSimObjectNode {
       Children children = getChildren();
       ArrayObjPtr members = group.getMembers();
       for (int i = 0; i < members.getSize(); i++ ) {
-         OneActuatorNode node = new OneActuatorNode(members.get(i));
          Node[] arrNodes = new Node[1];
-         arrNodes[0] = node;
-         children.add(arrNodes);         
+         Muscle msl = Muscle.safeDownCast(members.get(i));
+         if (msl != null) {
+            OneMuscleNode node = new OneMuscleNode(msl);
+            arrNodes[0] = node;
+         } else {
+            OneActuatorNode node = new OneActuatorNode(members.get(i));
+            arrNodes[0] = node;
+         }
+         children.add(arrNodes);
       }
       addDisplayOption(displayOption.Showable);
       addDisplayOption(displayOption.Isolatable);

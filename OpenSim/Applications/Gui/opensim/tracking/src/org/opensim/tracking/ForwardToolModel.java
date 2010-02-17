@@ -33,7 +33,7 @@ import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
 import org.openide.util.Cancellable;
 import org.opensim.modeling.ForwardTool;
-import org.opensim.modeling.InterruptingIntegCallback;
+import org.opensim.modeling.InterruptCallback;
 import org.opensim.modeling.Kinematics;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.Storage;
@@ -50,7 +50,7 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
    class ForwardToolWorker extends SwingWorker {
       private ProgressHandle progressHandle = null;
       private JavaMotionDisplayerCallback animationCallback = null;
-      private InterruptingIntegCallback interruptingCallback = null;
+      private InterruptCallback interruptingCallback = null;
       private Kinematics kinematicsAnalysis = null; // For creating a storage we'll use as a motion
       boolean result = false;
       boolean promptToKeepPartialResult = true;
@@ -64,12 +64,16 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
 
          // Re-initialize our copy of the model
          Model model = new Model(getOriginalModel());
-         model.setInputFileName("");
+         String tempFileName=getOriginalModel().getInputFileName();
+         //int loc = tempFileName.lastIndexOf(".");
+         model.setInputFileName(tempFileName);
 
          // Update actuator set and contact force set based on settings in the tool, then call setup() and setModel()
          // setModel() will call addAnalysisSetToModel
-         tool.updateModelActuatorsAndContactForces(model, "");
-         model.setup();
+         tool.updateModelForces(model, "");
+         model.initSystem();
+         model.setInputFileName("");    // Will do this after initSystem so that contact geometry can be loaded properly
+         
          tool.setModel(model);
 
          // don't add the model... we'll run forward on the new model but will actually apply the resulting motions to the current model
@@ -89,10 +93,11 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
                                     return true;
                                  }
                               });
-
+         //getOriginalModel().setName("Originial");
+         //model.setName("daCopy");
          // Animation callback will update the display *of the original model* during forward
-         animationCallback = new JavaMotionDisplayerCallback(getModel(), getOriginalModel(), null, progressHandle);
-         getModel().addIntegCallback(animationCallback);
+         animationCallback = new JavaMotionDisplayerCallback(model, getOriginalModel(), null, progressHandle);
+         getModel().addAnalysis(animationCallback);
          animationCallback.setStepInterval(1);
          animationCallback.setMinRenderTimeInterval(0.1); // to avoid rendering really frequently which can slow down our execution
          animationCallback.setRenderMuscleActivations(true);
@@ -101,16 +106,8 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
          // Do this manouver (there's gotta be a nicer way) to create the object so that C++ owns it and not Java (since 
          // removeIntegCallback in finished() will cause the C++-side callback to be deleted, and if Java owned this object
          // it would then later try to delete it yet again)
-         interruptingCallback = InterruptingIntegCallback.safeDownCast((new InterruptingIntegCallback()).copy());
-         getModel().addIntegCallback(interruptingCallback);
-
-         // Kinematics analysis -- so that we can extract the resulting motion
-         // NO LONGER NEEDED SINCE WE JUST GET THE STATES FROM THE INTEGRAND
-         //kinematicsAnalysis = Kinematics.safeDownCast((new Kinematics()).copy());
-         //kinematicsAnalysis.setRecordAccelerations(false);
-         //kinematicsAnalysis.setInDegrees(false);
-         //kinematicsAnalysis.setPrintResultFiles(false);
-         //getModel().addAnalysis(kinematicsAnalysis);
+         interruptingCallback = new InterruptCallback(getModel());
+         getModel().addAnalysis(interruptingCallback);
 
          setExecuting(true);
       }
@@ -132,37 +129,38 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
       }
 
       public void finished() {
+         System.out.println("Finished running forward tool.");
          boolean processResults = result;
          if(!result && promptToKeepPartialResult) {
             Object answer = DialogDisplayer.getDefault().notify(new NotifyDescriptor.Confirmation("Forward integration did not complete.  Keep partial result?",NotifyDescriptor.YES_NO_OPTION));
             if(answer==NotifyDescriptor.YES_OPTION) processResults = true;
          }
-
+         //animationCallback.getStateStorage().print("AccumulatedState.sto");
          // Clean up motion displayer (this is necessary!)
          // Do it before adding/removing motions in MotionsDB since here we disable muscle activation rendering, 
          // but we want added motions to be able to enable that
          animationCallback.cleanupMotionDisplayer();
 
          if(processResults) {
-            Storage motion = null;
-            if(forwardTool().getStateStorage()!=null) {
-               motion = new Storage(forwardTool().getStateStorage());
-               motion.resampleLinear(0.001);
+            Storage motion = animationCallback.getStateStorage();
+            if(motion!=null) {
+                motion = new Storage(motion);
+                motion.resampleLinear(0.001);
             }
             updateMotion(motion); // replaces current motion
          }
 
-         //getModel().removeAnalysis(kinematicsAnalysis);
+         //opensim20 getModel().removeAnalysis(kinematicsAnalysis);
 
          // TODO: move this to a worker thread so as to not freeze the GUI if writing takes a while?
-         if(processResults) {
-            forwardTool().printResults();
-         }
+         //opensim20 if(processResults) {
+            //opensim20 forwardTool().printResults(); // CRASH HERE 0327
+         //opensim20 }
 
          progressHandle.finish();
 
-         getModel().removeIntegCallback(animationCallback);
-         getModel().removeIntegCallback(interruptingCallback);
+         getModel().removeAnalysis(animationCallback, false);
+         getModel().removeAnalysis(interruptingCallback, false);
          interruptingCallback = null;
 
          if(result) resetModified();
@@ -183,10 +181,11 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
       super(model);
 
       // Check that the model has a real dynamics engine
-      if(model.getDynamicsEngine().getType().equals("SimmKinematicsEngine"))
-         throw new IOException("Forward dynamics tool requires a model with SdfastEngine or SimbodyEngine; SimmKinematicsEngine does not support dynamics.");
-
-      setTool(new ForwardTool());
+      //if(model.getSimbodyEngine().getType().equals("SimmKinematicsEngine"))
+      //   throw new IOException("Forward dynamics tool requires a model with SdfastEngine or SimbodyEngine; SimmKinematicsEngine does not support dynamics.");
+      ForwardTool dTool = new ForwardTool();
+      dTool.setModel(model);
+      setTool(dTool);
 
       // By default, set prefix of output to be subject name
       forwardTool().setName(model.getName());
@@ -221,7 +220,10 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
          setModified(AbstractToolModel.Operation.InputDataChanged);
       }
    }
-   public boolean getControlsValid() { return (new File(getControlsFileName()).exists()); }
+   public boolean getControlsValid() { 
+       // If model has no controls then return true always otherwise check file exists
+       return (/*getOriginalModel().getNumControls()==0|| */new File(getControlsFileName()).exists()); 
+   }
 
    public String getInitialStatesFileName() { return forwardTool().getStatesFileName(); }
    public void setInitialStatesFileName(String fileName) {
@@ -344,6 +346,12 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
       try {
          // TODO: pass it our model instead
          newForwardTool = new ForwardTool(fileName, true, false);
+         if (newForwardTool.getParsingLog().length()>0){
+             // Corrective springs were replaced with CorrectiveController. 
+             // Inform user and popu a dialog
+            DialogDisplayer.getDefault().notify(new NotifyDescriptor.Message(newForwardTool.getParsingLog()));
+             
+         }
       } catch (IOException ex) {
          ErrorDialog.displayIOExceptionDialog("Error loading file","Could not load "+fileName,ex);
          return false;

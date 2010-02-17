@@ -25,6 +25,7 @@
  */
 package org.opensim.view;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
@@ -38,13 +39,10 @@ import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
 import org.opensim.logger.OpenSimLogger;
-import org.opensim.modeling.AbstractBody;
-import org.opensim.modeling.AbstractDynamicsEngine;
-import org.opensim.modeling.BodySet;
 import org.opensim.modeling.Model;
-import org.opensim.modeling.SimmKinematicsEngine;
 import org.opensim.utils.ErrorDialog;
 import org.opensim.utils.FileUtils;
+import org.opensim.view.base.ExecOpenSimProcess;
 import org.opensim.view.pub.OpenSimDB;
 
 public class FileOpenOsimModelAction extends CallableSystemAction {
@@ -64,9 +62,41 @@ public class FileOpenOsimModelAction extends CallableSystemAction {
                 StatusDisplayer.getDefault().setStatusText("");
             } catch (IOException ex) {
                 progressHandle.finish();
-                ErrorDialog.displayIOExceptionDialog("OpenSim Model Loading Error",
-                  "Could not construct a model from "+fileName+".\nConsider using File/import instead.\n",
-                  ex);
+                if (ex.getMessage().startsWith("OldVersionException")) {
+                   Object userAnswer = DialogDisplayer.getDefault().notify(
+                      new NotifyDescriptor.Confirmation("File "+fileName+" is from an early version of OpenSim, do you want to update it to current version",NotifyDescriptor.YES_NO_OPTION));
+                   if(userAnswer==NotifyDescriptor.NO_OPTION) return;
+
+                   File f = new File(fileName);
+                   File modelDir = f.getParentFile();
+                   String newOsimFileName = FileUtils.addSuffix(fileName, "_v18");
+                   String command = "migrate15to18.exe \"" + fileName + "\"" + " \"" + newOsimFileName + "\"";
+                   OpenSimLogger.logMessage("Executing ["+command+"]", 0);
+                   boolean success = ExecOpenSimProcess.execute(command, new String[]{""}, modelDir );
+                   // if file was not generated warn and point to message area
+                   File testExists = new File(newOsimFileName);
+                   if (!testExists.exists()){
+                      DialogDisplayer.getDefault().notify(
+                         new NotifyDescriptor.Message("Error updating model file. Please check Message window for details."));
+                      success=false;
+                   }
+
+                   if (success){
+                       try {
+                          // Display original model
+                          ((FileOpenOsimModelAction) FileOpenOsimModelAction.findObject(
+                             (Class)Class.forName("org.opensim.view.FileOpenOsimModelAction"))).loadModel(newOsimFileName);
+                       } catch (ClassNotFoundException exc) {
+                          exc.printStackTrace();
+                       } catch (IOException exc) {
+                          DialogDisplayer.getDefault().notify(
+                             new NotifyDescriptor.Message("Error opening migrated model file "+newOsimFileName+". Please check Message window for details."));
+                       }
+                   }
+                } else  {
+                   ErrorDialog.displayIOExceptionDialog("OpenSim Model Loading Error",
+                      "Could not construct a model from "+fileName+".", ex);
+                }
             }    
         }
     }
@@ -81,11 +111,11 @@ public class FileOpenOsimModelAction extends CallableSystemAction {
     
     public boolean loadModel(final Model aModel, boolean loadInForground) throws IOException {
         boolean retValue = false;
-        boolean isOk = aModel.builtOK();
+        /*boolean isOk = aModel.builtOK();
         if (!isOk){
             OpenSimLogger.logMessage("Failed to construct model from file "+fileName+"\n", OpenSimLogger.ERROR);
             return retValue;            
-        }
+        }*/
         if (OpenSimDB.getInstance().hasModel(aModel)){   // If model is already loaded, complain and return.
             OpenSimLogger.logMessage("Model is already loaded\n", OpenSimLogger.ERROR);
             return retValue;            
@@ -99,7 +129,11 @@ public class FileOpenOsimModelAction extends CallableSystemAction {
         else 
             SwingUtilities.invokeLater(new Runnable(){
             public void run() {
-                OpenSimDB.getInstance().addModel(aModel);
+                    try {
+                        OpenSimDB.getInstance().addModel(aModel);
+                    } catch (IOException ex) {
+                        DialogDisplayer.getDefault().notify(new NotifyDescriptor.Message(ex.getMessage()));
+                    }
             }});
         retValue = true;
         return retValue;        
@@ -121,11 +155,12 @@ public class FileOpenOsimModelAction extends CallableSystemAction {
              OpenSimLogger.logMessage("Failed to construct model from file "+fileName+"\n", OpenSimLogger.ERROR);
             return retValue;
         }
-        aModel.setup();
+        ///aModel.initSystem();        // Call 1 to initSystem is it needed?
 
         // Check if the model uses a SimmKinematicsEngine. If it does,
         // ask the user if he wants to migrate it to a SimbodyEngine.
         // If yes, also check to see if any inertial properties are zero.
+        /*
         AbstractDynamicsEngine oldEngine = aModel.getDynamicsEngine();
         SimmKinematicsEngine simmKE = SimmKinematicsEngine.safeDownCast(oldEngine);
         if (simmKE != null) {
@@ -161,19 +196,19 @@ public class FileOpenOsimModelAction extends CallableSystemAction {
               aModel.copy().print(fileName);  //So user is not prompted again
            }
         }
-
+*/
         return loadModel(aModel, loadInForground);
     }
-
+/*
     // Check the model to see if any of its bodies have zero mass or inertia.
     private boolean hasZeroMasses(Model aModel) {
        AbstractDynamicsEngine engine = aModel.getDynamicsEngine();
        BodySet bodies = engine.getBodySet();
-       AbstractBody groundBody = engine.getGroundBody();
+       Body groundBody = engine.getGroundBody();
        double[] inertia = new double[9];
        for (int i=0; i<bodies.getSize(); i++) {
-          AbstractBody body = bodies.get(i);
-          if (AbstractBody.getCPtr(body) != AbstractBody.getCPtr(groundBody)) {
+          Body body = bodies.get(i);
+          if (Body.getCPtr(body) != Body.getCPtr(groundBody)) {
              if (body.getMass() <= 0.0)
                 return true;
              body.getInertia(inertia);
@@ -184,7 +219,7 @@ public class FileOpenOsimModelAction extends CallableSystemAction {
  
        return false;
     }
-
+*/
     public String getName() {
         return NbBundle.getMessage(FileOpenOsimModelAction.class, "CTL_OpenOsimModel");
     }

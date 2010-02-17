@@ -152,7 +152,7 @@ public class ScaleToolPanel extends BaseToolPanel implements Observer {
       unscaledModelMassTextField.setText(numFormat.format(scaleToolModel.getModelMass(unscaledModel)));
       unscaledModelMassTextField.setScrollOffset(0);
       // Assumes user has not had a chance to modify the marker set of the unscaled model yet...
-      MarkerSet markerSet = unscaledModel.getDynamicsEngine().getMarkerSet();
+      MarkerSet markerSet = unscaledModel.getMarkerSet();
       int numMarkers = markerSet.getSize();
       if(numMarkers > 0) unscaledMarkerSetInfoTextField.setText(numFormat.format(numMarkers)+" markers");
       else unscaledMarkerSetInfoTextField.setText("No markers");
@@ -168,7 +168,7 @@ public class ScaleToolPanel extends BaseToolPanel implements Observer {
 
       // Marker set
       Model unscaledModel = scaleToolModel.getUnscaledModel();
-      MarkerSet markerSet = unscaledModel.getDynamicsEngine().getMarkerSet();
+      MarkerSet markerSet = unscaledModel.getMarkerSet();
       int numMarkers = markerSet.getSize();
       if(numMarkers > 0) markerSetInfoTextField.setText(numFormat.format(numMarkers)+" markers");
       else markerSetInfoTextField.setText("No markers!");

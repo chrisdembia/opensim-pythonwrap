@@ -158,22 +158,6 @@ public class CMCTool extends AbstractTool {
     opensimModelJNI.CMCTool_setExternalLoadsModelKinematicsFileName(swigCPtr, this, aFileName);
   }
 
-  public String getExternalLoadsBody1() {
-    return opensimModelJNI.CMCTool_getExternalLoadsBody1(swigCPtr, this);
-  }
-
-  public void setExternalLoadsBody1(String aName) {
-    opensimModelJNI.CMCTool_setExternalLoadsBody1(swigCPtr, this, aName);
-  }
-
-  public String getExternalLoadsBody2() {
-    return opensimModelJNI.CMCTool_getExternalLoadsBody2(swigCPtr, this);
-  }
-
-  public void setExternalLoadsBody2(String aName) {
-    opensimModelJNI.CMCTool_setExternalLoadsBody2(swigCPtr, this, aName);
-  }
-
   public double getLowpassCutoffFrequencyForLoadKinematics() {
     return opensimModelJNI.CMCTool_getLowpassCutoffFrequencyForLoadKinematics(swigCPtr, this);
   }
@@ -195,17 +179,11 @@ public class CMCTool extends AbstractTool {
   }
 
   public Storage getForceStorage() {
-    long cPtr = opensimModelJNI.CMCTool_getForceStorage(swigCPtr, this);
-    return (cPtr == 0) ? null : new Storage(cPtr, false);
+    return new Storage(opensimModelJNI.CMCTool_getForceStorage(swigCPtr, this), false);
   }
 
-  public Storage getStateStorage() {
-    long cPtr = opensimModelJNI.CMCTool_getStateStorage(swigCPtr, this);
-    return (cPtr == 0) ? null : new Storage(cPtr, false);
-  }
-
-  public void setOriginalActuatorSet(ActuatorSet aActuatorSet) {
-    opensimModelJNI.CMCTool_setOriginalActuatorSet(swigCPtr, this, ActuatorSet.getCPtr(aActuatorSet), aActuatorSet);
+  public void setOriginalForceSet(ForceSet aForceSet) {
+    opensimModelJNI.CMCTool_setOriginalForceSet(swigCPtr, this, ForceSet.getCPtr(aForceSet), aForceSet);
   }
 
 }

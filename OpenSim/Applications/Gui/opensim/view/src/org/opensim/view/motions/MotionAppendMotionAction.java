@@ -108,7 +108,7 @@ public final class MotionAppendMotionAction extends CallableSystemAction {
    }
 
    private boolean labelStartsWithCoordinateName(String label, Model model) {
-      CoordinateSet coordset = model.getDynamicsEngine().getCoordinateSet();
+      CoordinateSet coordset = model.getCoordinateSet();
       for (int i=0; i<coordset.getSize(); i++) {
          if (label.startsWith(coordset.get(i).getName()))
             return true;
@@ -117,7 +117,7 @@ public final class MotionAppendMotionAction extends CallableSystemAction {
    }
 
    private boolean labelStartsWithMarkerName(String label, Model model) {
-      MarkerSet markerset = model.getDynamicsEngine().getMarkerSet();
+      MarkerSet markerset = model.getMarkerSet();
       for (int i=0; i<markerset.getSize(); i++) {
          if (label.startsWith(markerset.get(i).getName() + "_"))
             return true;

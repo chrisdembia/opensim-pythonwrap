@@ -19,13 +19,10 @@
 	<!--Maximum number of integrator steps.-->
 	<maximum_number_of_integrator_steps> 20000 </maximum_number_of_integrator_steps>
 	<!--Maximum integration step size.-->
-	<maximum_integrator_step_size> 0.001 </maximum_integrator_step_size>
+	<maximum_integrator_step_size> 1e-004 </maximum_integrator_step_size>
 	<!--Integrator error tolerance. When the error is greater, the integrator
 	    step size is decreased.-->
-	<integrator_error_tolerance> 0.0001 </integrator_error_tolerance>
-	<!--Integrator fine tolerance. When the error is less, the integrator step
-	    size is increased.-->
-	<integrator_fine_tolerance> 1e-006 </integrator_fine_tolerance>
+	<integrator_error_tolerance> 1e-005 </integrator_error_tolerance>
 
 	<!--Flag (true or false) indicating whether or not to make an adjustment
 	    in the center of mass of a body to reduced DC offsets in MX and MZ. If

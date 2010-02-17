@@ -83,6 +83,10 @@ public class ScaleTool extends OpenSimObject {
     return opensimModelJNI.ScaleTool_isDefaultMarkerPlacer(swigCPtr, this);
   }
 
+  public static void registerTypes() {
+    opensimModelJNI.ScaleTool_registerTypes();
+  }
+
   public double getSubjectMass() {
     return opensimModelJNI.ScaleTool_getSubjectMass(swigCPtr, this);
   }

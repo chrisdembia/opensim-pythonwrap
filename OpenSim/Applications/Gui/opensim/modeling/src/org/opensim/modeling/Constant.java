@@ -37,16 +37,12 @@ public class Constant extends Function {
     this(opensimModelJNI.new_Constant__SWIG_0(), true);
   }
 
-  public Constant(int aN, SWIGTYPE_p_double aTimes, SWIGTYPE_p_double aValues, String aName) {
-    this(opensimModelJNI.new_Constant__SWIG_1(aN, SWIGTYPE_p_double.getCPtr(aTimes), SWIGTYPE_p_double.getCPtr(aValues), aName), true);
-  }
-
-  public Constant(int aN, SWIGTYPE_p_double aTimes, SWIGTYPE_p_double aValues) {
-    this(opensimModelJNI.new_Constant__SWIG_2(aN, SWIGTYPE_p_double.getCPtr(aTimes), SWIGTYPE_p_double.getCPtr(aValues)), true);
+  public Constant(double value) {
+    this(opensimModelJNI.new_Constant__SWIG_1(value), true);
   }
 
   public Constant(Constant aSpline) {
-    this(opensimModelJNI.new_Constant__SWIG_3(Constant.getCPtr(aSpline), aSpline), true);
+    this(opensimModelJNI.new_Constant__SWIG_2(Constant.getCPtr(aSpline), aSpline), true);
   }
 
   public OpenSimObject copy() {
@@ -54,69 +50,21 @@ public class Constant extends Function {
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
-  public void init(Function aFunction) {
-    opensimModelJNI.Constant_init(swigCPtr, this, Function.getCPtr(aFunction), aFunction);
-  }
-
-  public int getNumberOfPoints() {
-    return opensimModelJNI.Constant_getNumberOfPoints(swigCPtr, this);
-  }
-
-  public double getX(int aIndex) {
-    return opensimModelJNI.Constant_getX(swigCPtr, this, aIndex);
-  }
-
-  public double getY(int aIndex) {
-    return opensimModelJNI.Constant_getY(swigCPtr, this, aIndex);
-  }
-
-  public double getZ(int aIndex) {
-    return opensimModelJNI.Constant_getZ(swigCPtr, this, aIndex);
-  }
-
-  public boolean deletePoint(int aIndex) {
-    return opensimModelJNI.Constant_deletePoint(swigCPtr, this, aIndex);
-  }
-
-  public int addPoint(double aX, double aY) {
-    return opensimModelJNI.Constant_addPoint(swigCPtr, this, aX, aY);
-  }
-
   public void setValue(double aValue) {
     opensimModelJNI.Constant_setValue(swigCPtr, this, aValue);
   }
 
-  public void updateBoundingBox() {
-    opensimModelJNI.Constant_updateBoundingBox(swigCPtr, this);
+  public double calcValue(SWIGTYPE_p_SimTK__Vector xUnused) {
+    return opensimModelJNI.Constant_calcValue(swigCPtr, this, SWIGTYPE_p_SimTK__Vector.getCPtr(xUnused));
   }
 
-  public double evaluate(int aDerivOrder, double aX, double aY, double aZ) {
-    return opensimModelJNI.Constant_evaluate__SWIG_0(swigCPtr, this, aDerivOrder, aX, aY, aZ);
+  public double getValue() {
+    return opensimModelJNI.Constant_getValue(swigCPtr, this);
   }
 
-  public double evaluate(int aDerivOrder, double aX, double aY) {
-    return opensimModelJNI.Constant_evaluate__SWIG_1(swigCPtr, this, aDerivOrder, aX, aY);
-  }
-
-  public double evaluate(int aDerivOrder, double aX) {
-    return opensimModelJNI.Constant_evaluate__SWIG_2(swigCPtr, this, aDerivOrder, aX);
-  }
-
-  public double evaluate(int aDerivOrder) {
-    return opensimModelJNI.Constant_evaluate__SWIG_3(swigCPtr, this, aDerivOrder);
-  }
-
-  public double evaluate() {
-    return opensimModelJNI.Constant_evaluate__SWIG_4(swigCPtr, this);
-  }
-
-  public void scaleY(double aScaleFactor) {
-    opensimModelJNI.Constant_scaleY(swigCPtr, this, aScaleFactor);
-  }
-
-  public SWIGTYPE_p_SimTK__FunctionT1_t createSimTKFunction() {
+  public SWIGTYPE_p_SimTK__Function createSimTKFunction() {
     long cPtr = opensimModelJNI.Constant_createSimTKFunction(swigCPtr, this);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_SimTK__FunctionT1_t(cPtr, false);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_SimTK__Function(cPtr, false);
   }
 
   public static boolean isKindOf(String type) {

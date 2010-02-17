@@ -34,8 +34,8 @@ import java.util.List;
 import javax.swing.event.ChangeListener;
 import org.openide.nodes.Children;
 import org.openide.nodes.Node;
-import org.opensim.modeling.AbstractActuator;
-import org.opensim.modeling.ActuatorSet;
+import org.opensim.modeling.Force;
+import org.opensim.modeling.ForceSet;
 
 /**
  *
@@ -44,9 +44,9 @@ import org.opensim.modeling.ActuatorSet;
 public class MuscleChildren extends Children.Keys {
     
     private ChangeListener listener;
-    ActuatorSet actuatorSet;
+    ForceSet actuatorSet;
     
-    MuscleChildren(ActuatorSet actuatorSet) {
+    MuscleChildren(ForceSet actuatorSet) {
         this.actuatorSet = actuatorSet;
     }
     protected void addNotify() {
@@ -56,7 +56,7 @@ public class MuscleChildren extends Children.Keys {
         setKeys(Collections.EMPTY_SET);
     }
     protected Node[] createNodes(Object key) {
-        AbstractActuator act = actuatorSet.get((String) key);
+        Force act = actuatorSet.get((String) key);
         return new Node[] { new OneActuatorNode(act) };
     }
     

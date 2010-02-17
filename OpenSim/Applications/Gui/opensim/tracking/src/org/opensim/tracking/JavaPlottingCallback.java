@@ -33,15 +33,18 @@ package org.opensim.tracking;
 import javax.swing.SwingUtilities;
 import org.openide.DialogDescriptor;
 import org.openide.DialogDisplayer;
+import org.opensim.modeling.AnalysisWrapper;
 import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.CMCTool;
 import org.opensim.modeling.Model;
+import org.opensim.modeling.OpenSimContext;
+import org.opensim.modeling.SWIGTYPE_p_SimTK__State;
 import org.opensim.modeling.SWIGTYPE_p_double;
-import org.opensim.modeling.SWIGTYPE_p_void;
-import org.opensim.modeling.SimtkAnimationCallback;
+import org.opensim.modeling.Analysis;
 import org.opensim.modeling.Storage;
 import org.opensim.plotter.JPlotterPanel;
 import org.opensim.plotter.PlotCurve;
+import org.opensim.view.pub.OpenSimDB;
 
 /**
  *
@@ -52,7 +55,7 @@ import org.opensim.plotter.PlotCurve;
  * - In RRA1 should display the residuals
  * - In CMC should probably show pre and post tracking quantities
  */
-public class JavaPlottingCallback extends SimtkAnimationCallback{
+public class JavaPlottingCallback extends AnalysisWrapper{
     
     CMCTool cmcRraTool;
     JPlotterPanel plotter;
@@ -64,41 +67,20 @@ public class JavaPlottingCallback extends SimtkAnimationCallback{
     private String[] qtyNames=null;
     int[] qtyIndices=null;   // Keep indices to qtys for quick access in step
     boolean plotterInitialized=false;
+    //OpenSimContext context=null;
     
     /** Creates a new instance of JavaPlottingCallback */
-    public JavaPlottingCallback(Model model) {
+    public JavaPlottingCallback(Model model, Model aModelForDisplay) {
         super(model);
+        //context = OpenSimDB.getInstance().getContext(aModelForDisplay);
     }
     
-  public int step(SWIGTYPE_p_double aXPrev, SWIGTYPE_p_double aYPrev, SWIGTYPE_p_double aYPPrev, int aStep, double aDT, double aT, SWIGTYPE_p_double aX, SWIGTYPE_p_double aY, SWIGTYPE_p_double aYP, SWIGTYPE_p_double aDYDT, SWIGTYPE_p_void aClientData) {
-      int retValue;
-      //retValue = super.step(aXPrev, aYPrev, aYPPrev, aStep, aDT, aT, aX, aY, aYP, aDYDT, aClientData);
-       processStep(aT);
+  public int step(SWIGTYPE_p_SimTK__State s) {
+      super.step(s);
+      processStep(getSimulationTime());
       return 0;
    }
    
-   public int step(SWIGTYPE_p_double aXPrev, SWIGTYPE_p_double aYPrev, SWIGTYPE_p_double aYPPrev, int aStep, double aDT, double aT, SWIGTYPE_p_double aX, SWIGTYPE_p_double aY, SWIGTYPE_p_double aYP, SWIGTYPE_p_double aDYDT) {
-      int retValue;
-      //retValue = super.step(aXPrev, aYPrev, aYPPrev, aStep, aDT, aT, aX, aY, aYP, aDYDT);
-       processStep(aT);
-      return 0;
-   }
-   
-   public int step(SWIGTYPE_p_double aXPrev, SWIGTYPE_p_double aYPrev, SWIGTYPE_p_double aYPPrev, int aStep, double aDT, double aT, SWIGTYPE_p_double aX, SWIGTYPE_p_double aY, SWIGTYPE_p_double aYP) {
-      int retValue;
-      //retValue = super.step(aXPrev, aYPrev, aYPPrev, aStep, aDT, aT, aX, aY, aYP);
-       processStep(aT);
-      return 0;
-   }
-   
-   public int step(SWIGTYPE_p_double aXPrev, SWIGTYPE_p_double aYPrev, SWIGTYPE_p_double aYPPrev, int aStep, double aDT, double aT, SWIGTYPE_p_double aX, SWIGTYPE_p_double aY) {
-       int retValue;
-       
-       //retValue = super.step(aXPrev, aYPrev, aYPPrev, aStep, aDT, aT, aX, aY);
-       processStep(aT);
-       return 0;
-    }
-
    private void processStep(final double aT) {
        // begin should have been called first but actully it is not!
        synchronized(this){ // Make sure nothing happens to this object until we're done.
@@ -108,7 +90,7 @@ public class JavaPlottingCallback extends SimtkAnimationCallback{
            if (plotterInitialized){
                // update Plotter if it's up'
                timeIndex = s.findIndex(aT);
-               //System.out.println("time="+aT+" index="+timeIndex);
+               System.out.println("JavaPlottingCallback:time="+aT+" index="+timeIndex);
                if (timeIndex>=0 && lastIndex!=timeIndex){
                    for(int i=0; i<getQtyNames().length; i++){
                        double value = s.getStateVector(timeIndex).getData().getitem(qtyIndices[i]);
@@ -120,7 +102,7 @@ public class JavaPlottingCallback extends SimtkAnimationCallback{
        }
    }
 
-    public int begin(int aStep, double aDT, double aT, SWIGTYPE_p_double aX, SWIGTYPE_p_double aY) {
+ public int begin(SWIGTYPE_p_SimTK__State s) {
         int retValue=0;
         
         //retValue = super.begin(aStep, aDT, aT, aX, aY);
@@ -134,24 +116,25 @@ public class JavaPlottingCallback extends SimtkAnimationCallback{
         s = findForceStorage(cmcRraTool);
         if (s == null)
             return;
-        /*
+        
         System.out.println("=====");
         ArrayStr residuals = s.getColumnLabels();
         for(int i=0; i< residuals.getSize(); i++)
             System.out.println(residuals.getitem(i));
-        System.out.println("=====");*/
+        System.out.println("=====");
         // Create plotter dialog and display s, column for markerError
         plotter = new JPlotterPanel();
+        plotter.setName("Forces");
         DialogDescriptor dlg = new DialogDescriptor(plotter,"Plotter Dialog");
         dlg.setModal(false);
         DialogDisplayer.getDefault().createDialog(dlg).setVisible(true);
-        dlg.setTitle("Live Plot");
+        dlg.setTitle("Live Plot: Forces");
         cvs = new PlotCurve[getQtyNames().length];
         
         for(int i=0; i<getQtyNames().length; i++){
-                cvs[i]=plotter.showAnalysisCurveAgainstTime(getModel(), s, "Residual Forces", 
-                        getQtyNames()[i], getQtyNames()[i], "xlabel-to-fill", "y-label-to-fill"
-                        );
+                cvs[i]=plotter.showAnalysisCurveAgainstTime(get_model(), s, "Residual Forces", 
+                         getQtyNames()[i], getQtyNames()[i], "xlabel-to-fill", "y-label-to-fill"
+                         );
             qtyIndices[i]=s.getStateIndex(getQtyNames()[i]);
         }
         plotterInitialized=true;

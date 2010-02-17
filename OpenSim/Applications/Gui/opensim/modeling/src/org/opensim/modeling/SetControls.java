@@ -122,12 +122,8 @@ public class SetControls extends OpenSimObject {
     return opensimModelJNI.SetControls_append__SWIG_0(swigCPtr, this, Control.getCPtr(aObject), aObject);
   }
 
-  public boolean append(SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__Control_t aArray) {
-    return opensimModelJNI.SetControls_append__SWIG_1(swigCPtr, this, SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__Control_t.getCPtr(aArray));
-  }
-
   public boolean insert(int aIndex, Control aObject) {
-    return opensimModelJNI.SetControls_insert(swigCPtr, this, aIndex, Control.getCPtr(aObject), aObject);
+    return opensimModelJNI.SetControls_insert__SWIG_0(swigCPtr, this, aIndex, Control.getCPtr(aObject), aObject);
   }
 
   public boolean remove(int aIndex) {
@@ -138,26 +134,28 @@ public class SetControls extends OpenSimObject {
     return opensimModelJNI.SetControls_remove__SWIG_1(swigCPtr, this, Control.getCPtr(aObject), aObject);
   }
 
-  public boolean replace(int aIndex, Control aObject) {
-    return opensimModelJNI.SetControls_replace(swigCPtr, this, aIndex, Control.getCPtr(aObject), aObject);
-  }
-
   public void clearAndDestroy() {
     opensimModelJNI.SetControls_clearAndDestroy(swigCPtr, this);
   }
 
+  public boolean set(int aIndex, Control aObject, boolean preserveGroups) {
+    return opensimModelJNI.SetControls_set__SWIG_0(swigCPtr, this, aIndex, Control.getCPtr(aObject), aObject, preserveGroups);
+  }
+
   public boolean set(int aIndex, Control aObject) {
-    return opensimModelJNI.SetControls_set(swigCPtr, this, aIndex, Control.getCPtr(aObject), aObject);
+    return opensimModelJNI.SetControls_set__SWIG_1(swigCPtr, this, aIndex, Control.getCPtr(aObject), aObject);
   }
 
   public Control get(int aIndex) {
-    long cPtr = opensimModelJNI.SetControls_get__SWIG_0(swigCPtr, this, aIndex);
-    return (cPtr == 0) ? null : new Control(cPtr, false);
+    return new Control(opensimModelJNI.SetControls_get__SWIG_0(swigCPtr, this, aIndex), false);
   }
 
   public Control get(String aName) {
-    long cPtr = opensimModelJNI.SetControls_get__SWIG_1(swigCPtr, this, aName);
-    return (cPtr == 0) ? null : new Control(cPtr, false);
+    return new Control(opensimModelJNI.SetControls_get__SWIG_1(swigCPtr, this, aName), false);
+  }
+
+  public boolean contains(String aName) {
+    return opensimModelJNI.SetControls_contains(swigCPtr, this, aName);
   }
 
   public void getNames(ArrayStr rNames) {

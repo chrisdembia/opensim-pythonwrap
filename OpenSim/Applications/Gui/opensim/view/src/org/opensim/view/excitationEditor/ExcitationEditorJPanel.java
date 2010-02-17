@@ -73,9 +73,10 @@ import org.opensim.modeling.ControlLinear;
 import org.opensim.modeling.ControlLinearNode;
 import org.opensim.modeling.ControlSet;
 import org.opensim.modeling.Function;
-import org.opensim.modeling.LinearFunction;
+import org.opensim.modeling.PiecewiseLinearFunction;
 import org.opensim.modeling.SetControlNodes;
 import org.opensim.modeling.StepFunction;
+import org.opensim.modeling.XYFunctionInterface;
 import org.opensim.utils.DialogUtils;
 import org.opensim.utils.FileUtils;
 import org.opensim.utils.OpenSimDialog;
@@ -909,8 +910,10 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
         columnNode.setUserObject(getExcitationGridPanel().getExcitationColumn(colIndex));
         if (getControlSet()==null) return;  // There's no controls to use!'
         for(int i=0; i<names.length; i++){
-            Control nextControl = getControlSet().get(names[i]);
-            if (nextControl==null && controlSet!=null)
+            Control nextControl = null;
+            if (getControlSet().contains(names[i]))
+                nextControl = getControlSet().get(names[i]);
+            else if (getControlSet().contains(getLongName(names[i])))
                 nextControl = getControlSet().get(getLongName(names[i]));
              if (nextControl==null)
                  continue;
@@ -924,7 +927,7 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
      */
     public void addExcitation(final DefaultMutableTreeNode columnNode, final Control nextControl, final int colIndex) {
         // Build an array of OpenSim::Functions for value, min, max
-        Vector<Function> functions = new Vector<Function>(3);
+        Vector<XYFunctionInterface> functions = new Vector<XYFunctionInterface>(3);
         ControlLinear control = ControlLinear.safeDownCast(nextControl);
         // Create a panel to hold the control/min/max and return the array of underlying OpenSim::Functions
         ExcitationPanel nextExcitationPanel = createPanel(control, functions); 
@@ -950,7 +953,11 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
         treeModel.insertNodeInto((MutableTreeNode)excitationNode, (MutableTreeNode)columnNode, columnNode.getChildCount());
         jExcitationsTree.scrollPathToVisible(new TreePath(excitationNode.getPath()));
         // Handle addition to the panel of excitations
-        getExcitationGridPanel().addExcitationPanel(colIndex, nextExcitationPanel, control, functions);
+        Vector<XYFunctionInterface> xyFunctions = new Vector<XYFunctionInterface>(3);
+        xyFunctions.add(functions.get(0));
+        xyFunctions.add(functions.get(1));
+        xyFunctions.add(functions.get(2));
+        getExcitationGridPanel().addExcitationPanel(colIndex, nextExcitationPanel, control, xyFunctions);
     }
 
 
@@ -1054,26 +1061,27 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
        return filtered;
    }
    
-   static ExcitationPanel createPanel(ControlLinear excitation, Vector<Function> functions)
+   static ExcitationPanel createPanel(ControlLinear excitation, Vector<XYFunctionInterface> functions)
    {
          ControlLinear cl = ControlLinear.safeDownCast(excitation);
          XYSeriesCollection seriesCollection = new XYSeriesCollection();
          
          FunctionXYSeries xySeries = new FunctionXYSeries("excitation");
          SetControlNodes cnodes = cl.getControlValues();
-         Function ctrlFunction = createFunctionFromControlLinear(xySeries, cnodes, !cl.getUseSteps());
+         XYFunctionInterface ctrlFunction = createFunctionFromControlLinear(xySeries, cnodes, !cl.getUseSteps());
+         int np = ctrlFunction.getNumberOfPoints();
          functions.add(ctrlFunction);
          seriesCollection.addSeries(xySeries);
          
          FunctionXYSeries xySeriesMin = new FunctionXYSeries("min");
          SetControlNodes minNodes = cl.getControlMinValues();
-         Function minFunction = createFunctionFromControlLinear(xySeriesMin, minNodes, true);
+         XYFunctionInterface minFunction = createFunctionFromControlLinear(xySeriesMin, minNodes, true);
          functions.add(minFunction);
          seriesCollection.addSeries(xySeriesMin);
         
          FunctionXYSeries xySeriesMax = new FunctionXYSeries("max");
          SetControlNodes maxNodes = cl.getControlMaxValues();
-         Function maxFunction = createFunctionFromControlLinear(xySeriesMax, maxNodes, true);
+         XYFunctionInterface maxFunction = createFunctionFromControlLinear(xySeriesMax, maxNodes, true);
          functions.add(maxFunction);
          seriesCollection.addSeries(xySeriesMax);
          
@@ -1083,7 +1091,11 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
          FunctionPlot xyPlot = (FunctionPlot)chart.getXYPlot();
          XYDataset xyDataset = xyPlot.getDataset();
 
-         ExcitationRenderer renderer = new ExcitationRenderer(excitation, functions);        
+         Vector<XYFunctionInterface> xyFunctions = new Vector<XYFunctionInterface>(functions.size());
+         for (int i=0; i<functions.size(); i++)
+             xyFunctions.add(functions.get(i));
+
+         ExcitationRenderer renderer = new ExcitationRenderer(excitation, functions);
          ValueAxis va = xyPlot.getRangeAxis();
          if (va instanceof NumberAxis) {
             NumberAxis na = (NumberAxis) va;
@@ -1099,26 +1111,29 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
    }
 
 
-    public static Function createFunctionFromControlLinear(final FunctionXYSeries xySeries, final SetControlNodes cnodes, boolean useLinear) {
-        Function ctrlFunction;
+    public static XYFunctionInterface createFunctionFromControlLinear(final FunctionXYSeries xySeries, final SetControlNodes cnodes, boolean useLinear) {
+        Function ctrlFunction=null;
+        XYFunctionInterface xyFunction=null;
         if (!useLinear){ // Step function
             ctrlFunction = new StepFunction();
+            xyFunction = new XYFunctionInterface(ctrlFunction, true);
             for (int i=0; i<cnodes.getSize(); i++) {
                ControlLinearNode clnode = cnodes.get(i);
-               ctrlFunction.addPoint(clnode.getTime(), clnode.getValue());
+               xyFunction.addPoint(clnode.getTime(), clnode.getValue());
                xySeries.add(clnode.getTime(), clnode.getValue());
             }
         }
         else { // Linear function
-            ctrlFunction = new LinearFunction();
+            ctrlFunction = new PiecewiseLinearFunction();
+            xyFunction = new XYFunctionInterface(ctrlFunction, true);
             for (int i=0; i<cnodes.getSize(); i++) {
                ControlLinearNode clnode = cnodes.get(i);
-               ctrlFunction.addPoint(clnode.getTime(), clnode.getValue());
+               xyFunction.addPoint(clnode.getTime(), clnode.getValue());
                xySeries.add(clnode.getTime(), clnode.getValue());
             }
             
         }
-        return ctrlFunction;
+        return xyFunction;
     }
    
    private void invokeTreePopupIfNeeded(int evtX, int evtY) {

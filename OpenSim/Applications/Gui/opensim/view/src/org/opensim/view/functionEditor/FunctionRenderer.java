@@ -59,8 +59,8 @@ import org.jfree.util.PaintList;
 import org.jfree.util.PublicCloneable;
 import org.jfree.util.ShapeUtilities;
 import org.opensim.modeling.ArrayXYPoint;
-import org.opensim.modeling.Function;
 import org.opensim.modeling.Units;
+import org.opensim.modeling.XYFunctionInterface;
 
 /**
  *
@@ -72,7 +72,7 @@ public class FunctionRenderer extends XYLineAndShapeRendererWithHighlight
         PublicCloneable,
         Serializable {
    
-   protected ArrayList<Function> functionList = new ArrayList<Function>(0);
+   protected ArrayList<XYFunctionInterface> functionList = new ArrayList<XYFunctionInterface>(0);
    static Paint[] defaultColors = ChartColor.createDefaultPaintArray();
    static Paint[] reservedColors = new Paint[]{Color.BLACK, Color.BLUE, Color.RED};
    /** 
@@ -99,20 +99,20 @@ public class FunctionRenderer extends XYLineAndShapeRendererWithHighlight
    private Paint interiorTitlePaint = Color.RED;
    
    /** Creates a FunctionRenderer for a single function. */
-   public FunctionRenderer(Function theFunction) {
+   public FunctionRenderer(XYFunctionInterface theFunction) {
       addFunction(theFunction);
-      XUnits = new Units(Units.UnitType.simmRadians);
-      XDisplayUnits = new Units(Units.UnitType.simmDegrees);
-      YUnits = new Units(Units.UnitType.simmMeters);
-      YDisplayUnits = new Units(Units.UnitType.simmMeters);
+      XUnits = new Units(Units.UnitType.Radians);
+      XDisplayUnits = new Units(Units.UnitType.Degrees);
+      YUnits = new Units(Units.UnitType.Meters);
+      YDisplayUnits = new Units(Units.UnitType.Meters);
    }
    /**
     * Separate function for potentially adding more than one function by the Excitation editor e.g. min/max
     */
-   public void addFunction(final Function theFunction) {
+   public void addFunction(final XYFunctionInterface theFunction) {
        addFunction(theFunction, true);
    }
-   public void addFunction(final Function theFunction, boolean baseShapeVisible) {
+   public void addFunction(final XYFunctionInterface theFunction, boolean baseShapeVisible) {
       functionList.add(theFunction);
       int index = functionList.size()-1;
       shapeFillPaintList.add(new PaintList());
@@ -128,7 +128,7 @@ public class FunctionRenderer extends XYLineAndShapeRendererWithHighlight
      setSeriesStroke(index, new BasicStroke(1.5f));
      setSeriesOutlineStroke(index, new BasicStroke(1.0f));
      setFunctionDefaultFillPaint(index, Color.WHITE);
-     setFunctionHighlightFillPaint(index, Color.YELLOW);
+     setFunctionHighlightFillPaint(index, Color.BLUE);
    }
 
    public void drawFunctions(Graphics2D g2,

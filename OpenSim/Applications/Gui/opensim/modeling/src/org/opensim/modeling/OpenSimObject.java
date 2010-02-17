@@ -48,7 +48,7 @@ public class OpenSimObject {
     return( cacheId );
   }
   // Flag to indicate if an object is pickable in the GUI
-  // Example of a non-pickable object would be a MuscleWrapPoint
+  // Example of a non-pickable object would be a PathWrapPoint
   private boolean pickable=true;
   
   public boolean isPickable() {
@@ -94,10 +94,6 @@ public class OpenSimObject {
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
-  public void migrateFromPreviousVersion(OpenSimObject aObject) {
-    opensimModelJNI.OpenSimObject_migrateFromPreviousVersion(swigCPtr, this, OpenSimObject.getCPtr(aObject), aObject);
-  }
-
   public static OpenSimObject SafeCopy(OpenSimObject aObject) {
     long cPtr = opensimModelJNI.OpenSimObject_SafeCopy(OpenSimObject.getCPtr(aObject), aObject);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
@@ -106,6 +102,19 @@ public class OpenSimObject {
   public VisibleObject getDisplayer() {
     long cPtr = opensimModelJNI.OpenSimObject_getDisplayer(swigCPtr, this);
     return (cPtr == 0) ? null : new VisibleObject(cPtr, false);
+  }
+
+  public VisibleObject updDisplayer() {
+    long cPtr = opensimModelJNI.OpenSimObject_updDisplayer(swigCPtr, this);
+    return (cPtr == 0) ? null : new VisibleObject(cPtr, false);
+  }
+
+  public void renameChildNode(String aOldName, String aNewName, SWIGTYPE_p_DOMElement startNode) {
+    opensimModelJNI.OpenSimObject_renameChildNode__SWIG_0(swigCPtr, this, aOldName, aNewName, SWIGTYPE_p_DOMElement.getCPtr(startNode));
+  }
+
+  public void renameChildNode(String aOldName, String aNewName) {
+    opensimModelJNI.OpenSimObject_renameChildNode__SWIG_1(swigCPtr, this, aOldName, aNewName);
   }
 
   public void setType(String aType) {
@@ -144,16 +153,20 @@ public class OpenSimObject {
     return new PropertySet(opensimModelJNI.OpenSimObject_getPropertySet(swigCPtr, this), false);
   }
 
-  public static void RegisterType(OpenSimObject aObject, boolean allowOverwrite) {
-    opensimModelJNI.OpenSimObject_RegisterType__SWIG_0(OpenSimObject.getCPtr(aObject), aObject, allowOverwrite);
-  }
-
   public static void RegisterType(OpenSimObject aObject) {
-    opensimModelJNI.OpenSimObject_RegisterType__SWIG_1(OpenSimObject.getCPtr(aObject), aObject);
+    opensimModelJNI.OpenSimObject_RegisterType(OpenSimObject.getCPtr(aObject), aObject);
   }
 
-  public static void ReplaceType(OpenSimObject aObject) {
-    opensimModelJNI.OpenSimObject_ReplaceType(OpenSimObject.getCPtr(aObject), aObject);
+  public static void RenameType(String oldTypeName, OpenSimObject aObjectOfNewType) {
+    opensimModelJNI.OpenSimObject_RenameType(oldTypeName, OpenSimObject.getCPtr(aObjectOfNewType), aObjectOfNewType);
+  }
+
+  public static void setDebugLevel(int newLevel) {
+    opensimModelJNI.OpenSimObject_setDebugLevel(newLevel);
+  }
+
+  public static int getDebugLevel() {
+    return opensimModelJNI.OpenSimObject_getDebugLevel();
   }
 
   public static OpenSimObject makeObjectFromFile(String aFileName) {
@@ -256,12 +269,12 @@ public class OpenSimObject {
     opensimModelJNI.OpenSimObject_deleteObserver(swigCPtr, this, OpenSimObject.getCPtr(aObserver), aObserver);
   }
 
-  public void addObserverEvent(OpenSimObject aObserver, SWIGTYPE_p_Event aEvent) {
-    opensimModelJNI.OpenSimObject_addObserverEvent(swigCPtr, this, OpenSimObject.getCPtr(aObserver), aObserver, SWIGTYPE_p_Event.getCPtr(aEvent));
+  public void addObserverEvent(OpenSimObject aObserver, SWIGTYPE_p_OpenSim__Event aEvent) {
+    opensimModelJNI.OpenSimObject_addObserverEvent(swigCPtr, this, OpenSimObject.getCPtr(aObserver), aObserver, SWIGTYPE_p_OpenSim__Event.getCPtr(aEvent));
   }
 
-  public void notifyObservers(SWIGTYPE_p_Event aEvent) {
-    opensimModelJNI.OpenSimObject_notifyObservers(swigCPtr, this, SWIGTYPE_p_Event.getCPtr(aEvent));
+  public void notifyObservers(SWIGTYPE_p_OpenSim__Event aEvent) {
+    opensimModelJNI.OpenSimObject_notifyObservers(swigCPtr, this, SWIGTYPE_p_OpenSim__Event.getCPtr(aEvent));
   }
 
   public void deleteObservers() {
@@ -272,8 +285,8 @@ public class OpenSimObject {
     return opensimModelJNI.OpenSimObject_countObservers(swigCPtr, this);
   }
 
-  public void update(OpenSimObject aObject, SWIGTYPE_p_Event aEvent) {
-    opensimModelJNI.OpenSimObject_update(swigCPtr, this, OpenSimObject.getCPtr(aObject), aObject, SWIGTYPE_p_Event.getCPtr(aEvent));
+  public void update(OpenSimObject aObject, SWIGTYPE_p_OpenSim__Event aEvent) {
+    opensimModelJNI.OpenSimObject_update(swigCPtr, this, OpenSimObject.getCPtr(aObject), aObject, SWIGTYPE_p_OpenSim__Event.getCPtr(aEvent));
   }
 
   public static void setSerializeAllDefaults(boolean aBoolean) {

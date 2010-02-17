@@ -122,12 +122,8 @@ public class SetMeasurements extends OpenSimObject {
     return opensimModelJNI.SetMeasurements_append__SWIG_0(swigCPtr, this, Measurement.getCPtr(aObject), aObject);
   }
 
-  public boolean append(SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__Measurement_t aArray) {
-    return opensimModelJNI.SetMeasurements_append__SWIG_1(swigCPtr, this, SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__Measurement_t.getCPtr(aArray));
-  }
-
   public boolean insert(int aIndex, Measurement aObject) {
-    return opensimModelJNI.SetMeasurements_insert(swigCPtr, this, aIndex, Measurement.getCPtr(aObject), aObject);
+    return opensimModelJNI.SetMeasurements_insert__SWIG_0(swigCPtr, this, aIndex, Measurement.getCPtr(aObject), aObject);
   }
 
   public boolean remove(int aIndex) {
@@ -138,26 +134,28 @@ public class SetMeasurements extends OpenSimObject {
     return opensimModelJNI.SetMeasurements_remove__SWIG_1(swigCPtr, this, Measurement.getCPtr(aObject), aObject);
   }
 
-  public boolean replace(int aIndex, Measurement aObject) {
-    return opensimModelJNI.SetMeasurements_replace(swigCPtr, this, aIndex, Measurement.getCPtr(aObject), aObject);
-  }
-
   public void clearAndDestroy() {
     opensimModelJNI.SetMeasurements_clearAndDestroy(swigCPtr, this);
   }
 
+  public boolean set(int aIndex, Measurement aObject, boolean preserveGroups) {
+    return opensimModelJNI.SetMeasurements_set__SWIG_0(swigCPtr, this, aIndex, Measurement.getCPtr(aObject), aObject, preserveGroups);
+  }
+
   public boolean set(int aIndex, Measurement aObject) {
-    return opensimModelJNI.SetMeasurements_set(swigCPtr, this, aIndex, Measurement.getCPtr(aObject), aObject);
+    return opensimModelJNI.SetMeasurements_set__SWIG_1(swigCPtr, this, aIndex, Measurement.getCPtr(aObject), aObject);
   }
 
   public Measurement get(int aIndex) {
-    long cPtr = opensimModelJNI.SetMeasurements_get__SWIG_0(swigCPtr, this, aIndex);
-    return (cPtr == 0) ? null : new Measurement(cPtr, false);
+    return new Measurement(opensimModelJNI.SetMeasurements_get__SWIG_0(swigCPtr, this, aIndex), false);
   }
 
   public Measurement get(String aName) {
-    long cPtr = opensimModelJNI.SetMeasurements_get__SWIG_1(swigCPtr, this, aName);
-    return (cPtr == 0) ? null : new Measurement(cPtr, false);
+    return new Measurement(opensimModelJNI.SetMeasurements_get__SWIG_1(swigCPtr, this, aName), false);
+  }
+
+  public boolean contains(String aName) {
+    return opensimModelJNI.SetMeasurements_contains(swigCPtr, this, aName);
   }
 
   public void getNames(ArrayStr rNames) {

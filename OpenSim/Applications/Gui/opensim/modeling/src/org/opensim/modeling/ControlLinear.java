@@ -198,6 +198,10 @@ public class ControlLinear extends Control {
     opensimModelJNI.ControlLinear_filter(swigCPtr, this, aT);
   }
 
+  public static double Interpolate(double aX1, double aY1, double aX2, double aY2, double aX) {
+    return opensimModelJNI.ControlLinear_Interpolate(aX1, aY1, aX2, aY2, aX);
+  }
+
   public static boolean isKindOf(String type) {
     return opensimModelJNI.ControlLinear_isKindOf(type);
   }

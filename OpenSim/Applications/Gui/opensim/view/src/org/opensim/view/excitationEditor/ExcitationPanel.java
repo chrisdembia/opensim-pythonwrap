@@ -53,9 +53,10 @@ import org.opensim.modeling.ArrayDouble;
 import org.opensim.modeling.ControlLinear;
 import org.opensim.modeling.ControlLinearNode;
 import org.opensim.modeling.Function;
-import org.opensim.modeling.LinearFunction;
+import org.opensim.modeling.PiecewiseLinearFunction;
 import org.opensim.modeling.SetControlNodes;
 import org.opensim.modeling.Storage;
+import org.opensim.modeling.XYFunctionInterface;
 import org.opensim.utils.DialogUtils;
 import org.opensim.utils.FileUtils;
 import org.opensim.utils.OpenSimDialog;
@@ -189,13 +190,14 @@ public class ExcitationPanel extends FunctionPanel{
         XYSeries ser=seriesCollection.getSeries(series);
         ser.clear();
         // RenderingInfo keeps stale refs need to be removed from the Chart
-        Function ctrlFunction = null;
+        XYFunctionInterface ctrlFunction = null;
         if (series==0)
              ctrlFunction=ExcitationEditorJPanel.createFunctionFromControlLinear((FunctionXYSeries) ser, 
                      cnodes, !renderer.getControl().getUseSteps());
         else
              ctrlFunction=ExcitationEditorJPanel.createFunctionFromControlLinear((FunctionXYSeries) ser, 
                      cnodes, true);
+        //XYFunctionInterface xyFunc = new XYFunctionInterface(ctrlFunction);
         renderer.replaceFunction(series, ctrlFunction);
         
         // The following is a hack adopted from the FunctionPanel to nvoke methods on listeners directly instead of using events!!
@@ -321,7 +323,8 @@ public class ExcitationPanel extends FunctionPanel{
                     // create a curve against time for each selected column and add it to tthe chart
                     ArrayDouble times = new ArrayDouble();
                     s.getTimeColumn(times);
-                    Function f = new LinearFunction();
+                    Function f = new PiecewiseLinearFunction();
+                    XYFunctionInterface xyFunc = new XYFunctionInterface(f);
                     for(int i=0; i<selNames.length;i++ ){
                         XYSeries nextCurve=new XYSeries(selNames[i]);
                         ArrayDouble data = new ArrayDouble();
@@ -329,12 +332,12 @@ public class ExcitationPanel extends FunctionPanel{
                         s.getDataColumn(index, data);
                         for(int j=0; j<data.getSize(); j++){
                             nextCurve.add(times.getitem(j), data.getitem(j), false);
-                            f.addPoint(times.getitem(j), data.getitem(j));
+                            xyFunc.addPoint(times.getitem(j), data.getitem(j));
                             //System.out.println("index="+j+" data="+data.getitem(j)+ " at time="+times.getitem(j));
                         }
                         ((XYSeriesCollection)getChart().getXYPlot().getDataset()).addSeries(nextCurve);
                         ExcitationRenderer renderer = (ExcitationRenderer)getChart().getXYPlot().getRenderer(0);
-                        renderer.addFunction(f, false);
+                        renderer.addFunction(xyFunc, false);
                     }
                 }
             }

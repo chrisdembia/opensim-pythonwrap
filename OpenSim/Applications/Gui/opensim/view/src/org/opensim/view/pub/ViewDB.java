@@ -43,21 +43,21 @@ import java.util.Set;
 import java.util.Vector;
 import java.util.prefs.Preferences;
 import javax.swing.SwingUtilities;
+//import javax.swing.plaf.basic.BasicFileChooserUI.SelectionListener;
 import org.openide.DialogDescriptor;
 import org.openide.DialogDisplayer;
 import org.openide.awt.StatusDisplayer;
 import org.openide.util.NbBundle;
-import org.opensim.modeling.AbstractActuator;
-import org.opensim.modeling.AbstractBody;
-import org.opensim.modeling.AbstractMarker;
-import org.opensim.modeling.AbstractMuscle;
+import org.opensim.modeling.Actuator;
+import org.opensim.modeling.Marker;
+import org.opensim.modeling.Muscle;
 import org.opensim.modeling.ArrayObjPtr;
 import org.opensim.modeling.Model;
-import org.opensim.view.SelectionListener;
 import org.opensim.view.experimentaldata.ModelForExperimentalData;
-import org.opensim.modeling.MusclePoint;
+import org.opensim.modeling.PathPoint;
 import org.opensim.modeling.ObjectGroup;
 import org.opensim.modeling.OpenSimObject;
+import org.opensim.modeling.PathPoint;
 import org.opensim.modeling.VisibleObject;
 import org.opensim.modeling.VisibleProperties;
 import org.opensim.modeling.VisibleProperties.DisplayPreference;
@@ -67,23 +67,17 @@ import org.opensim.view.*;
 import org.opensim.view.experimentaldata.ExperimentalDataVisuals;
 import vtk.AxesActor;
 import vtk.vtkActor;
-import vtk.vtkActor2D;
 import vtk.vtkAssembly;
 import vtk.vtkAssemblyNode;
 import vtk.vtkAssemblyPath;
 import vtk.vtkCamera;
 import vtk.vtkCaptionActor2D;
 import vtk.vtkFollower;
-import vtk.vtkImageActor;
-import vtk.vtkImageChangeInformation;
-import vtk.vtkImageData;
-import vtk.vtkImageMapper;
 import vtk.vtkMatrix4x4;
 import vtk.vtkPolyDataMapper;
 import vtk.vtkProp3D;
 import vtk.vtkProp3DCollection;
 import vtk.vtkProperty;
-import vtk.vtkRenderer;
 import vtk.vtkTextActor;
 import vtk.vtkTextProperty;
 import vtk.vtkTransform;
@@ -121,6 +115,7 @@ public final class ViewDB extends Observable implements Observer {
    // Flag indicating whether new models are open in a new window or in the same window
    static boolean openModelInNewWindow=true;
    
+   static boolean useImmediateModeRendering=false; // Use Render instead of paint
    private ArrayList<Selectable> selectedObjects = new ArrayList<Selectable>(0);
    private Hashtable<Selectable, vtkCaptionActor2D> selectedObjectsAnnotations = new Hashtable<Selectable, vtkCaptionActor2D>(0);
    private ArrayList<SelectionListener> selectionListeners = new ArrayList<SelectionListener>(0);
@@ -136,12 +131,21 @@ public final class ViewDB extends Observable implements Observer {
    private double nonCurrentModelOpacity = 0.4;
    private double muscleDisplayRadius = 0.005;
    private double markerDisplayRadius = .01;
-
+   private int debugLevel=0;
    private NumberFormat numFormat = NumberFormat.getInstance();
 
    /** Creates a new instance of ViewDB */
    private ViewDB() {
-   }
+        applyPreferences();
+     }
+
+    public void applyPreferences() {
+        String debugLevelString="0";
+        String saved = Preferences.userNodeForPackage(TheApp.class).get("Debug", debugLevelString);
+        // Parse saved to an int, use 0 (no debug) on failure
+        if (saved.equalsIgnoreCase("Off")) saved="0";
+        debugLevel = Integer.parseInt(saved);
+    }
    
    /**
     * Enforce a singleton pattern
@@ -179,12 +183,16 @@ public final class ViewDB extends Observable implements Observer {
             ObjectsAddedEvent ev = (ObjectsAddedEvent)arg;
             Vector<OpenSimObject> objs = ev.getObjects();
             for (int i=0; i<objs.size(); i++) {
-                if (objs.get(i) instanceof Model) {
+               if (objs.get(i) instanceof Model) {
                     assert(false);
-                }
-               if (objs.get(i) instanceof AbstractMarker) {
+                     }
+               if (objs.get(i) instanceof Marker) {
                   SingleModelVisuals vis = mapModelsToVisuals.get(ev.getModel());
-                  vis.addMarkerGeometry((AbstractMarker)objs.get(i));
+                  vis.addMarkerGeometry((Marker)objs.get(i));
+                  repaintAll();
+               } else if (objs.get(i) instanceof Marker) {
+                  SingleModelVisuals vis = mapModelsToVisuals.get(ev.getModel());
+                  vis.addMarkerGeometry((Marker)objs.get(i));
                   repaintAll();
                }
             }
@@ -231,13 +239,13 @@ public final class ViewDB extends Observable implements Observer {
                }
                if (obj instanceof Model) {
                   // TODO: do same stuff as ModelEvent.Operation.Close event
-               } else if (obj instanceof AbstractMuscle) {
-                  removeObjectsBelongingToMuscleFromSelection((AbstractMuscle)obj);
-                  getModelVisuals(ev.getModel()).removeActuatorGeometry((AbstractActuator)obj);
+               } else if (obj instanceof Muscle) {
+                  removeObjectsBelongingToMuscleFromSelection((Muscle)obj);
+                  getModelVisuals(ev.getModel()).removeActuatorGeometry((Actuator)obj);
                   repaint = true;
-               } else if (obj instanceof AbstractMarker) {
+               } else if (obj instanceof Marker) {
                   SingleModelVisuals vis = mapModelsToVisuals.get(ev.getModel());
-                  vis.removeMarkerGeometry((AbstractMarker)obj);
+                  vis.removeMarkerGeometry((Marker)obj);
                   repaint = true;
                }
             }
@@ -253,12 +261,12 @@ public final class ViewDB extends Observable implements Observer {
             Vector<OpenSimObject> objs = ev.getObjects();
             for (int i=0; i<objs.size(); i++) {
                // if an actuator changed names, update the list of names in the model gui elements
-               if (objs.get(i) instanceof AbstractActuator) {
-                  //AbstractActuator act = (AbstractActuator)ev.getObject();
+               if (objs.get(i) instanceof Actuator) {
+                  //Actuator act = (Actuator)ev.getObject();
                   //getModelGuiElements(act.getModel()).updateActuatorNames();
-               } else if (objs.get(i) instanceof AbstractMarker) {
-                  //AbstractMarker marker = (AbstractMarker)ev.getObject();
-                  //getModelGuiElements(marker.getBody().getDynamicsEngine().getModel()).updateMarkerNames();
+               } else if (objs.get(i) instanceof Marker) {
+                  //Marker marker = (Marker)ev.getObject();
+                  //getModelGuiElements(marker.getBody().get_model()).updateMarkerNames();
                }
             }
          } else if (arg instanceof ModelEvent ) {
@@ -494,8 +502,9 @@ public final class ViewDB extends Observable implements Observer {
     */
    private void createNewViewWindowIfNeeded() {
       if (openModelInNewWindow){
-         final ModelWindowVTKTopComponent win = new ModelWindowVTKTopComponent();
          boolean evt = SwingUtilities.isEventDispatchThread();
+         // The following line has the side effect of loading VTK libraries, can't move it to another thread'
+         final ModelWindowVTKTopComponent win = new ModelWindowVTKTopComponent(); 
          openWindows.add(win);
          openModelInNewWindow=false;
          setCurrentModelWindow(win);
@@ -562,7 +571,10 @@ public final class ViewDB extends Observable implements Observer {
    public void repaintAll() {
       Iterator<ModelWindowVTKTopComponent> windowIter = openWindows.iterator();
       while(windowIter.hasNext()){
-         windowIter.next().getCanvas().repaint();
+         if (useImmediateModeRendering)
+            windowIter.next().getCanvas().Render();
+         else
+            windowIter.next().getCanvas().repaint();
       }
    }
 
@@ -577,26 +589,23 @@ public final class ViewDB extends Observable implements Observer {
     * Set the color of the passed in object.
     */
    public void setObjectColor(OpenSimObject object, double[] colorComponents) {
-      if(MusclePoint.safeDownCast(object)!=null) {
+      if(PathPoint.safeDownCast(object)!=null) {
          // I don't think this is called from anywhere - Eran.
-         //MusclePoint mp = MusclePoint.safeDownCast(object);
+         //PathPoint mp = MusclePoint.safeDownCast(object);
          //SingleModelVisuals visuals = getModelVisuals(mp.getMuscle().getModel());
          //OpenSimvtkGlyphCloud cloud = visuals.getMusclePointsRep();
          //cloud.updateUnselectedColor(colorComponents);
          //AbstractMuscle m = mp.getMuscle();
          //visuals.updateActuatorGeometry(m, false); //TODO: perhaps overkill for getting musclepoint to update?
-      } else if(AbstractBody.safeDownCast(object)!=null) { // should check for body here
+      } else{ // should check for body here
          vtkProp3D asm = ViewDB.getInstance().getVtkRepForObject(object);
          /** make sure the object is not selected, if so change only in database */
          if (ViewDB.getInstance().findObjectInSelectedList(object)!=-1){
-             object.getDisplayer().getVisibleProperties().setColor(colorComponents);
+             if (object.getDisplayer()!=null)
+                object.getDisplayer().getVisibleProperties().setColor(colorComponents);
          }
          else
             if(asm!=null) applyColor(colorComponents, asm);
-      } 
-      else{
-          vtkProp3D asm = ViewDB.getInstance().getVtkRepForObject(object);
-          int x=1;
       }
    }
 
@@ -680,14 +689,14 @@ public final class ViewDB extends Observable implements Observer {
    /**
     * Remove items from selection list which belong to the given model
     */
-   public void removeObjectsBelongingToMuscleFromSelection(AbstractMuscle muscle)
+   public void removeObjectsBelongingToMuscleFromSelection(Muscle muscle)
    {
       boolean modified = false;
       for (int i=selectedObjects.size()-1; i>=0; i--) {
          // First see if the selected object is a muscle.
-         AbstractMuscle asm = AbstractMuscle.safeDownCast(selectedObjects.get(i).getOpenSimObject());
+         Muscle asm = Muscle.safeDownCast(selectedObjects.get(i).getOpenSimObject());
          if (asm != null) {
-            if (AbstractMuscle.getCPtr(asm) == AbstractMuscle.getCPtr(muscle)) {
+            if (Muscle.getCPtr(asm) == Muscle.getCPtr(muscle)) {
                markSelected(selectedObjects.get(i), false, false, false);
                selectedObjects.remove(i);
                modified = true;
@@ -695,10 +704,10 @@ public final class ViewDB extends Observable implements Observer {
             }
          }
          // Now see if the selected object is a muscle point.
-         MusclePoint mp = MusclePoint.safeDownCast(selectedObjects.get(i).getOpenSimObject());
+         PathPoint mp = PathPoint.safeDownCast(selectedObjects.get(i).getOpenSimObject());
          if (mp != null) {
-            for (int j=0; j < muscle.getAttachmentSet().getSize(); j++) {
-               if (MusclePoint.getCPtr(mp) == MusclePoint.getCPtr(muscle.getAttachmentSet().get(j))) {
+            for (int j=0; j < muscle.getGeometryPath().getPathPointSet().getSize(); j++) {
+               if (PathPoint.getCPtr(mp) == PathPoint.getCPtr(muscle.getGeometryPath().getPathPointSet().get(j))) {
                   markSelected(selectedObjects.get(i), false, false, false);
                   //System.out.println("removing " + mp.getName());
                   selectedObjects.remove(i);
@@ -721,7 +730,7 @@ public final class ViewDB extends Observable implements Observer {
    {
       boolean modified = false;
       for (int i=selectedObjects.size()-1; i>=0; i--) {
-         if (selectedObjects.get(i).getOpenSimObject() instanceof AbstractMarker) {
+         if (selectedObjects.get(i).getOpenSimObject() instanceof Marker) {
             markSelected(selectedObjects.get(i), false, sendEvent, false);
             selectedObjects.remove(i);
             modified = true;
@@ -777,7 +786,7 @@ public final class ViewDB extends Observable implements Observer {
          notifyObservers(evnt);
       }
    }
-
+   
     private void addAnnotationToViews(final vtkCaptionActor2D theCaption) {
         // Add caption to all windows
         Iterator<ModelWindowVTKTopComponent> windowIter = openWindows.iterator();
@@ -1057,7 +1066,7 @@ public final class ViewDB extends Observable implements Observer {
             toggleObjectDisplay(members.get(i), visible);
          }
       } else {
-          toggleObjectDisplay(openSimObject, visible);          
+         toggleObjectDisplay(openSimObject, visible);
       }
       updateAnnotationAnchors(); // in case object had annotations
    }
@@ -1066,6 +1075,7 @@ public final class ViewDB extends Observable implements Observer {
       // use VisibleObject to hold on/off status, and
       // do not repaint the windows or update any geometry because
       // this is now handled by the functions that call toggleObjectDisplay().
+      //System.out.println("Toggle object "+openSimObject.getName()+" "+ (visible?"On":"Off"));
       VisibleObject vo = openSimObject.getDisplayer();
       if (vo != null) {
          VisibleProperties vp = vo.getVisibleProperties();
@@ -1076,15 +1086,15 @@ public final class ViewDB extends Observable implements Observer {
             vp.setDisplayPreference(DisplayPreference.None);
       }
 
-      AbstractMarker marker = AbstractMarker.safeDownCast(openSimObject);
+      Marker marker = Marker.safeDownCast(openSimObject);
       if (marker != null) {
-         SingleModelVisuals vis = getModelVisuals(marker.getBody().getDynamicsEngine().getModel());
+         SingleModelVisuals vis = getModelVisuals(marker.getBody().getModel());
          vis.setMarkerVisibility(marker, visible);
          updateAnnotationAnchors(); // in case object had annotations
          return;
       }
 
-      AbstractActuator act = AbstractActuator.safeDownCast(openSimObject);
+      Actuator act = Actuator.safeDownCast(openSimObject);
       if (act != null) {
          SingleModelVisuals vis = getModelVisuals(act.getModel());
          vis.updateActuatorGeometry(act, visible); // call act.updateGeometry() if actuator is becoming visible
@@ -1233,14 +1243,14 @@ public final class ViewDB extends Observable implements Observer {
      * Use carfully as you're responsible for any cleanup. Selection management is not supported.
      */
     public void addUserObjectToModel(Model model, vtkActor vtkActor) {
-         SingleModelVisuals visModel = mapModelsToVisuals.get(model);
-         visModel.addUserObject(vtkActor);
+        SingleModelVisuals visModel = mapModelsToVisuals.get(model);
+        visModel.addUserObject(vtkActor);
     }
 
     public void removeUserObjectFromModel(Model model, vtkActor vtkActor) {
        SingleModelVisuals visModel = mapModelsToVisuals.get(model);
        if (visModel != null)
-            visModel.removeUserObject(vtkActor);
+       visModel.removeUserObject(vtkActor);
     }
     
     public void addUserObjectToCurrentView(vtkActor vtkActor) {
@@ -1420,7 +1430,7 @@ public final class ViewDB extends Observable implements Observer {
             modelVisuals.add(dataVisuals);
         mapModelsToVisuals.put(model, dataVisuals);
         sceneAssembly.AddPart(dataVisuals.getModelDisplayAssembly());
-    }
+}
     
     public void displayText(String text, int forntSize){
         textActor.SetInput(text);
@@ -1477,7 +1487,7 @@ public final class ViewDB extends Observable implements Observer {
 
     public void setQuery(boolean enabled) {
         query=enabled;
-        //System.out.println("Annotation "+(enabled?"On":"Off"));
+        System.out.println("Annotation "+(enabled?"On":"Off"));
         // remove captions if disabling
         if (!enabled){
             Iterator<vtkCaptionActor2D> captions=selectedObjectsAnnotations.values().iterator();
@@ -1489,7 +1499,6 @@ public final class ViewDB extends Observable implements Observer {
             selectedObjectsAnnotations.clear();
             getInstance().repaintAll();
         }
-        
     }
 
     private void removeAnnotationFromViews(final vtkCaptionActor2D nextCaption) {
@@ -1571,27 +1580,12 @@ public final class ViewDB extends Observable implements Observer {
         }
         return null;
     }
+    /** Debugging */
+    public int getDebugLevel() {
+        return debugLevel;
+    }
 
-    public void setBackroundImage(vtkImageData img) {
-     vtkImageMapper mapper = new vtkImageMapper();
-     mapper.SetInput(img);
-     vtkActor2D  actor2d = new vtkActor2D();
-     actor2d.SetMapper(mapper);
-     actor2d.SetPosition(100.0, 100.0);
-
-     // create actor 3d
-     vtkImageChangeInformation imageChange = new vtkImageChangeInformation();
-     imageChange.SetInput(img);
-     imageChange.CenterImageOn();
-
-     vtkImageActor actor3d = new vtkImageActor();
-     actor3d.SetInput(imageChange.GetOutput());
-     vtkRenderer ren2 = new vtkRenderer();
-     ren2.SetLayer(0); // top layer
-     ren2.AddViewProp(actor3d);
-     getCurrentModelWindow().getCanvas().GetRenderer().SetLayer(1); // 3d actor
-     int defLayer = getCurrentModelWindow().getCanvas().GetRenderer().GetLayer();
-     getCurrentModelWindow().getCanvas().GetRenderWindow().AddRenderer(ren2);
-     getCurrentModelWindow().getCanvas().GetRenderWindow().SetNumberOfLayers(2);
+    public void setDebugLevel(int debugLevel) {
+        this.debugLevel = debugLevel;
     }
 }

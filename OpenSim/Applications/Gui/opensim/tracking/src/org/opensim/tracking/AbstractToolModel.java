@@ -62,23 +62,28 @@ public abstract class AbstractToolModel extends Observable {
    public Model getOriginalModel() { return originalModel; }
 
    public Model getModel() { return model; }
-   protected void setModel(Model model) { this.model = model; }
+   protected void setModel(Model model) { 
+       this.model = model; 
+       // Include model's file name in xml rep.'
+       if (model.getInputFileName()!="")
+           tool.setModelFilename(model.getInputFileName());
+   }
 
    //------------------------------------------------------------------------
    // Actuators
    //------------------------------------------------------------------------
-   public boolean getReplaceActuatorSet() { return tool.getReplaceActuatorSet(); }
-   public void setReplaceActuatorSet(boolean replace) { 
-      if(getReplaceActuatorSet() != replace) {
-         tool.setReplaceActuatorSet(replace);
+   public boolean getReplaceForceSet() { return tool.getReplaceForceSet(); }
+   public void setReplaceForceSet(boolean replace) { 
+      if(getReplaceForceSet() != replace) {
+         tool.setReplaceForceSet(replace);
          setModified(Operation.ActuatorsDataChanged);
       }
    }
 
-   public ArrayStr getActuatorSetFiles() { return tool.getActuatorSetFiles(); }
-   public void setActuatorSetFiles(ArrayStr files) {
-      if(!getActuatorSetFiles().arrayEquals(files)) {
-         tool.setActuatorSetFiles(files);
+   public ArrayStr getForceSetFiles() { return tool.getForceSetFiles(); }
+   public void setForceSetFiles(ArrayStr files) {
+      if(!getForceSetFiles().arrayEquals(files)) {
+         tool.setForceSetFiles(files);
          setModified(Operation.ActuatorsDataChanged);
       }
    }
@@ -186,13 +191,7 @@ public abstract class AbstractToolModel extends Observable {
          setModified(Operation.IntegratorSettingsChanged);
       }
    }
-   public double getFineTolerance() { return tool.getFineTolerance(); }
-   public void setFineTolerance(double tolerance) {
-      if(getFineTolerance() != tolerance) {
-         tool.setFineTolerance(tolerance);
-         setModified(Operation.IntegratorSettingsChanged);
-      }
-   }
+
 
    //------------------------------------------------------------------------
    // Other settings
@@ -260,7 +259,7 @@ public abstract class AbstractToolModel extends Observable {
       tool.setModelFilename(FileUtils.makePathAbsolute(tool.getModelFilename(), parentDir));
       tool.setResultsDir(FileUtils.makePathAbsolute(tool.getResultsDir(), parentDir));
 
-      ArrayStr actuatorSetFiles = getActuatorSetFiles();
+      ArrayStr actuatorSetFiles = getForceSetFiles();
       for(int i=0; i<actuatorSetFiles.getSize(); i++)
          actuatorSetFiles.set(i, FileUtils.makePathAbsolute(actuatorSetFiles.getitem(i), parentDir));
    }
@@ -271,7 +270,7 @@ public abstract class AbstractToolModel extends Observable {
       tool.setModelFilename(FileUtils.makePathRelative(tool.getModelFilename(), parentDir));
       tool.setResultsDir(FileUtils.makePathRelative(tool.getResultsDir(), parentDir));
 
-      ArrayStr actuatorSetFiles = getActuatorSetFiles();
+      ArrayStr actuatorSetFiles = getForceSetFiles();
       for(int i=0; i<actuatorSetFiles.getSize(); i++)
          actuatorSetFiles.set(i, FileUtils.makePathRelative(actuatorSetFiles.getitem(i), parentDir));
    }

@@ -49,7 +49,7 @@ import org.openide.NotifyDescriptor;
 import org.openide.util.NbBundle;
 import org.openide.windows.TopComponent;
 import org.openide.windows.WindowManager;
-import org.opensim.modeling.AbstractCoordinate;
+import org.opensim.modeling.Coordinate;
 import org.opensim.modeling.CoordinateSet;
 import org.opensim.view.ModelSettings;
 import org.opensim.view.ModelPose;
@@ -57,6 +57,7 @@ import org.opensim.view.pub.OpenSimDB;
 import org.opensim.modeling.Model;
 import org.opensim.view.experimentaldata.ModelForExperimentalData;
 import org.opensim.modeling.ObjectGroup;
+import org.opensim.modeling.OpenSimContext;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.view.motions.MotionTimeChangeEvent;
 import org.opensim.view.motions.MotionsDB;
@@ -71,6 +72,7 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
    
    private static CoordinateViewerTopComponent instance;
    private Model aModel;
+   private OpenSimContext openSimContext;
    private CoordinateSet coords;
    javax.swing.JPanel CoordinatesPanel;
    ModelSettings prefs;//=new ModelGUIPrefs();
@@ -79,8 +81,8 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
    
    private ComboBoxModel groupsComboBoxModel;
    ObjectGroup currentGroup;
-   Hashtable<AbstractCoordinate, CoordinateSliderWithBox> mapCoordinates2Sliders =
-           new Hashtable<AbstractCoordinate, CoordinateSliderWithBox>(4);
+   Hashtable<Coordinate, CoordinateSliderWithBox> mapCoordinates2Sliders =
+           new Hashtable<Coordinate, CoordinateSliderWithBox>(4);
    static final String DEFAULT_POSE_NAME="Default";
    
    /** path to the icon used by the component and its open action */
@@ -98,11 +100,12 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
       // The following line enables coordinate sliders to update while playing back motion
       // Currently too slow
       MotionsDB.getInstance().addObserver(this);
+      
       // Populate list of cooridnate groups from model
       jCoordinateGroupsComboBox.addActionListener(new ActionListener(){
          public void actionPerformed(ActionEvent e) {
             JComboBox cb = (JComboBox)e.getSource();
-            currentGroup = coords.getGroup((String)cb.getSelectedItem());
+            //currentGroup = coords.getGroup((String)cb.getSelectedItem());
             updateDisplayGroup();
          }});
       
@@ -116,6 +119,8 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
     */
     // <editor-fold defaultstate="collapsed" desc=" Generated Code ">//GEN-BEGIN:initComponents
     private void initComponents() {
+        jLabel3 = new javax.swing.JLabel();
+        jCoordinateGroupsComboBox = new javax.swing.JComboBox();
         jPosesPopupMenu = new javax.swing.JPopupMenu();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
@@ -125,12 +130,13 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
         jDeletePoseButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jModelNameLabel = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
-        jCoordinateGroupsComboBox = new javax.swing.JComboBox();
         jPosesButton = new javax.swing.JButton();
 
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel3, "Group");
+        jCoordinateGroupsComboBox.setEnabled(false);
+        jCoordinateGroupsComboBox.setFocusable(false);
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
         jScrollPane2.setViewportView(jTextArea1);
@@ -163,21 +169,17 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
 
         org.openide.awt.Mnemonics.setLocalizedText(jModelNameLabel, "model name");
 
-        org.openide.awt.Mnemonics.setLocalizedText(jLabel3, "Group");
-
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 293, Short.MAX_VALUE)
+            .add(0, 327, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 172, Short.MAX_VALUE)
+            .add(0, 193, Short.MAX_VALUE)
         );
         jScrollPane1.setViewportView(jPanel1);
-
-        jCoordinateGroupsComboBox.setEnabled(false);
 
         jPosesButton.setComponentPopupMenu(jPosesPopupMenu);
         org.openide.awt.Mnemonics.setLocalizedText(jPosesButton, "Poses >");
@@ -196,33 +198,24 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .addContainerGap()
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                    .add(layout.createSequentialGroup()
-                        .add(jLabel1)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jModelNameLabel))
-                    .add(layout.createSequentialGroup()
-                        .add(jLabel3)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jCoordinateGroupsComboBox, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 109, Short.MAX_VALUE)
+                .add(jLabel1)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jModelNameLabel)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 143, Short.MAX_VALUE)
                 .add(jPosesButton)
                 .addContainerGap())
-            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)
+            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
+                .addContainerGap()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jPosesButton)
                     .add(jLabel1)
                     .add(jModelNameLabel))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel3)
-                    .add(jCoordinateGroupsComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jPosesButton))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE))
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -353,6 +346,7 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
          updateAvailability();
          return;
       }
+      openSimContext = OpenSimDB.getInstance().getContext(aModel);
       hasModel=true;
       if (ViewDB.getInstance().getModelSavedSettings(aModel)==null)
          modelHasFile = false;
@@ -361,7 +355,7 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
          prefs=ViewDB.getInstance().getModelSavedSettings(aModel).getPrefs();
       }
       jModelNameLabel.setText(aModel.getName());
-      coords = aModel.getDynamicsEngine().getCoordinateSet();
+      coords = aModel.getCoordinateSet();
       updateAvailability();
       Vector<String> coordinateGroupNames = new Vector<String>();
       for(int i=0; i<coords.getNumGroups(); i++)
@@ -369,7 +363,7 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
       groupsComboBoxModel = new DefaultComboBoxModel(coordinateGroupNames);
       jCoordinateGroupsComboBox.setModel(groupsComboBoxModel);
       String currentGroupName= (String)groupsComboBoxModel.getSelectedItem();
-      currentGroup = coords.getGroup(currentGroupName);
+      //currentGroup = coords.getGroup(currentGroupName);
       // Create CoordinateSliderWithBox for each coordinate and add them to the ScrollPane
       updateDisplayGroup();
       ViewDB.getInstance().updateModelDisplay(OpenSimDB.getInstance().getCurrentModel());
@@ -406,7 +400,7 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
             /*else if (evt.getOperation()==ModelEvent.Operation.Open){
                // Create a Default pose here since coordinates will change on us later
                aModel = evt.getModel();
-               coords = aModel.getDynamicsEngine().getCoordinateSet();
+               coords = aModel.getCoordinateSet();
                ViewDB.getInstance().processSavedSettings(aModel);
                prefs=ViewDB.getInstance().getModelSavedSettings(aModel).getPrefs();
                createDefaultPoseIfNeeded(prefs.getPoses());
@@ -443,8 +437,6 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
       else if (o instanceof MotionsDB){
          if (arg instanceof MotionTimeChangeEvent) {
             // Get current model, displayed group and update their sliders, text boxes
-            Model aModel = OpenSimDB.getInstance().getCurrentModel();
-            if (aModel instanceof ModelForExperimentalData) return; // No Sliders to update
             Enumeration<CoordinateSliderWithBox> displayedSliders=mapCoordinates2Sliders.elements();
             while(displayedSliders.hasMoreElements()){
                displayedSliders.nextElement().updateValue();
@@ -475,12 +467,11 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
       jPanel1.add(Box.createRigidArea(new Dimension(10,10)));
 
       for(int i=0; i<coords.getSize(); i++){
-         AbstractCoordinate coord = coords.get(i);
-         boolean restraint = coord.isRestraintActive();
+         Coordinate coord = coords.get(i);
          boolean constrained = coord.isConstrained();
          if (constrained)
             System.out.println("Coordinate "+coord.getName()+" will have no slider");
-         if (currentGroup.contains(coord.getName()) && (!constrained)){
+         if (!constrained){
             CoordinateSliderWithBox sliderPanel = new CoordinateSliderWithBox(coord);
             mapCoordinates2Sliders.put(coord, sliderPanel);
             sliderPanel.setAlignmentX(Component.RIGHT_ALIGNMENT);
@@ -512,9 +503,9 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
          String name=coordinateNames.get(i);
          double storedValue = (Double)coordinateValues.get(i);
          
-         AbstractCoordinate coord=coords.get(name);
+         Coordinate coord=coords.get(name);
          if (coord !=null){
-            coord.setValue(storedValue);
+            openSimContext.setValue(coord, storedValue);
             CoordinateSliderWithBox coordinateSlider = mapCoordinates2Sliders.get(coord);
             if (coordinateSlider!=null)
                 coordinateSlider.updateValue();
@@ -581,6 +572,7 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
         Object[] models = OpenSimDB.getInstance().getAllModels();
         for (int i=0; i< models.length; i++){
             Model mdl = (Model) models[i];
+            openSimContext = OpenSimDB.getInstance().getContext(mdl);
             ModelPose pose = mDesc.getPoses().get(i);
             if (pose.getPoseName().equals(mdl.getName())){
                 applyPoseToModel(mdl, pose);
@@ -597,9 +589,9 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
             String name=coordinateNames.get(i);
             double storedValue = (Double)coordinateValues.get(i);
             
-            AbstractCoordinate coord=mdl.getDynamicsEngine().getCoordinateSet().get(name);
+            Coordinate coord=mdl.getCoordinateSet().get(name);
             if (coord !=null){
-                coord.setValue(storedValue);
+                openSimContext.setValue(coord, storedValue);
             }
         }
     }

@@ -46,7 +46,7 @@ public class CoordinateViewerDescriptor {
         Object[] models = opensimDB.getAllModels();
         for (int i=0; i< models.length; i++){
             Model mdl = (Model) models[i];
-            getPoses().add(i, new ModelPose(mdl.getDynamicsEngine().getCoordinateSet(), mdl.getName()));
+            getPoses().add(i, new ModelPose(mdl.getCoordinateSet(), mdl.getName()));
         }
     }
 

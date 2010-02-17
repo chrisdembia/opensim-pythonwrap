@@ -50,12 +50,12 @@ import org.opensim.modeling.Measurement;
 import org.opensim.modeling.MeasurementSet;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.ModelScaler;
+import org.opensim.modeling.OpenSimContext;
 import org.opensim.modeling.PropertyStr;
 import org.opensim.modeling.Scale;
 import org.opensim.modeling.ScaleSet;
 import org.opensim.modeling.ScaleTool;
 import org.opensim.modeling.Storage;
-import org.opensim.modeling.rdMath;
 import org.opensim.view.motions.MotionsDB;
 import org.opensim.swingui.SwingWorker;
 import org.opensim.utils.ErrorDialog;
@@ -295,7 +295,8 @@ public class ScaleToolModel extends Observable implements Observer {
       private ProgressHandle progressHandle = null;
       boolean result = false;
       private Model processedModel = null;
-     
+      OpenSimContext processedModelContext=null;
+      
       ScaleToolWorker() throws Exception {
          updateScaleTool();
 
@@ -312,7 +313,7 @@ public class ScaleToolModel extends Observable implements Observer {
          processedModel.setName(scaleTool.getName());
          processedModel.setInputFileName("");
          processedModel.setOriginalModelPathFromModel(unscaledModel); // important to keep track of the original path so bone loading works
-         processedModel.setup();
+         //processedModel.setup();
 
          setExecuting(true);
       }
@@ -329,8 +330,9 @@ public class ScaleToolModel extends Observable implements Observer {
          // TODO: use the Storage's we've already read in rather than reading them againag
          if(getModelScalerEnabled()) {
             System.out.println("ModelScaler...");
+            processedModelContext = OpenSimDB.getInstance().createContext(processedModel);
             // Pass empty path as path to subject, since we already have the measurement trial as an absolute path
-            if(!scaleTool.getModelScaler().processModel(processedModel, "", scaleTool.getSubjectMass())) {
+            if(!processedModelContext.processModelScale(scaleTool.getModelScaler(), processedModel, "", scaleTool.getSubjectMass())) {
                result = false;
                return this;
             }
@@ -339,7 +341,7 @@ public class ScaleToolModel extends Observable implements Observer {
          if(getMarkerPlacerEnabled()) {
             System.out.println("MarkerPlacer...");
             // Pass empty path as path to subject, since we already have the static trial as an absolute path
-            if(!scaleTool.getMarkerPlacer().processModel(processedModel, "")) {
+            if(!processedModelContext.processModelMarkerPlacer(scaleTool.getMarkerPlacer(), processedModel, "")) {
                result = false;
                return this;
             }
@@ -352,8 +354,9 @@ public class ScaleToolModel extends Observable implements Observer {
          progressHandle.finish();
 
          if(result) {
-            OpenSimDB.getInstance().replaceModel(scaledModel, processedModel);
+            OpenSimDB.getInstance().replaceModel(scaledModel, processedModel, processedModelContext);
             scaledModel = processedModel;
+            /*
             if(ViewDB.getInstance().getModelGuiElements(scaledModel)!=null)
                ViewDB.getInstance().getModelGuiElements(scaledModel).setUnsavedChangesFlag(true);
 
@@ -362,7 +365,7 @@ public class ScaleToolModel extends Observable implements Observer {
                motion.setName("static pose");
                MotionsDB.getInstance().addMotion(scaledModel, motion);
             }
-            resetModified();
+            resetModified(); */
          }
 
          setExecuting(false);
@@ -383,7 +386,7 @@ public class ScaleToolModel extends Observable implements Observer {
    private ScaleTool scaleTool = null;
    private Model originalModel = null;
    private MarkerSet originalMarkerSet = null;
-   private Model unscaledModel = null;
+   private Model unscaledModel = null;  //Working copy to scale inplace
    private Model scaledModel = null;
 
    private boolean modifiedSinceLastExecute = true;
@@ -410,8 +413,8 @@ public class ScaleToolModel extends Observable implements Observer {
       unscaledModel = new Model(originalModel);
       unscaledModel.setInputFileName("");
       unscaledModel.setOriginalModelPathFromModel(originalModel); // important to keep track of the original path so bone loading works
-      unscaledModel.setup();
-      originalMarkerSet = new MarkerSet(unscaledModel.getDynamicsEngine().getMarkerSet());
+      //unscaledModel.setup();
+      originalMarkerSet = new MarkerSet(unscaledModel.getMarkerSet());
 
       // Create scale tool
       scaleTool = new ScaleTool();
@@ -420,7 +423,7 @@ public class ScaleToolModel extends Observable implements Observer {
 
       measurementValues = new Vector<Double>();
 
-      bodySetScaleFactors = new BodySetScaleFactors(this, unscaledModel.getDynamicsEngine().getBodySet());
+      bodySetScaleFactors = new BodySetScaleFactors(this, unscaledModel.getBodySet());
 
       ikCommonModel = new IKCommonModel(unscaledModel);
       ikCommonModel.addObserver(this);
@@ -591,9 +594,10 @@ public class ScaleToolModel extends Observable implements Observer {
    }
 
    private void resetMarkers() {
-      unscaledModel.getDynamicsEngine().replaceMarkerSet(originalMarkerSet);
+      OpenSimContext context = OpenSimDB.getInstance().createContext(unscaledModel); //Call(1) 
+      context.replaceMarkerSet(unscaledModel, originalMarkerSet);
       if(extraMarkerSet!=null)
-         unscaledModel.getDynamicsEngine().updateMarkerSet(extraMarkerSet);
+         unscaledModel.updateMarkerSet(extraMarkerSet);
 
       // Update hash table
       markerExistsInModel.clear();
@@ -628,7 +632,7 @@ public class ScaleToolModel extends Observable implements Observer {
    }
 
    public MarkerSet getMarkerSet() {
-      return getUnscaledModel().getDynamicsEngine().getMarkerSet();
+      return getUnscaledModel().getMarkerSet();
    }
 
    public boolean getMarkerExistsInModel(String markerName) {
@@ -750,7 +754,7 @@ public class ScaleToolModel extends Observable implements Observer {
    //------------------------------------------------------------------------
 
    private ScaleSet createIdentityScaleSet() {
-      BodySet bodySet = getUnscaledModel().getDynamicsEngine().getBodySet();
+      BodySet bodySet = getUnscaledModel().getBodySet();
       ScaleSet scaleSet = new ScaleSet();
       double[] identityScale = new double[]{1., 1., 1.};
       for(int i=0; i<bodySet.getSize(); i++) {
@@ -780,8 +784,9 @@ public class ScaleToolModel extends Observable implements Observer {
    private void recomputeMeasurement(int i) {
       if(measurementTrial==null) return;
       MeasurementSet measurementSet = scaleTool.getModelScaler().getMeasurementSet();
-      double scaleFactor = scaleTool.getModelScaler().computeMeasurementScaleFactor(getUnscaledModel(), measurementTrial, measurementSet.get(i));
-      if(rdMath.isNAN(scaleFactor)) measurementValues.set(i,null);
+      OpenSimContext context = OpenSimDB.getInstance().getContext(getUnscaledModel());
+      double scaleFactor = context.computeMeasurementScaleFactor(scaleTool.getModelScaler(), getUnscaledModel(), measurementTrial, measurementSet.get(i));
+      if(OpenSimContext.isNaN(scaleFactor)) measurementValues.set(i,null);
       else measurementValues.set(i,new Double(scaleFactor));
    }
 
@@ -962,7 +967,7 @@ public class ScaleToolModel extends Observable implements Observer {
       if(!helper.promptUser()) return false;
       updateScaleTool();
       AbsoluteToRelativePaths(fileName);
-      scaleTool.copy().print(fileName);
+      scaleTool.print(fileName);
       relativeToAbsolutePaths(fileName);
       return true;
    }
@@ -972,7 +977,7 @@ public class ScaleToolModel extends Observable implements Observer {
    //------------------------------------------------------------------------
 
    public static double getModelMass(Model model) {
-      BodySet bodySet = model.getDynamicsEngine().getBodySet();
+      BodySet bodySet = model.getBodySet();
       double mass = 0;
       for(int i=0; i<bodySet.getSize(); i++)
          mass += bodySet.get(i).getMass();

@@ -136,7 +136,7 @@ public class MotionsDB extends Observable // Observed by other entities in motio
      */
    boolean motionAssociationPossible(Model modelForMotion, Storage newMotion) {
       ArrayStr coordinateNames = new ArrayStr();
-      modelForMotion.getDynamicsEngine().getCoordinateSet().getNames(coordinateNames);
+      modelForMotion.getCoordinateSet().getNames(coordinateNames);
       int numCoordinates = coordinateNames.getSize();
       int numUsedColumns = 0;    // Keep track of how many columns correspond to Coords or Markers
       for(int i=0; i<numCoordinates; i++){
@@ -144,7 +144,7 @@ public class MotionsDB extends Observable // Observed by other entities in motio
             numUsedColumns++;
       }
       ArrayStr markerNames = new ArrayStr();
-      modelForMotion.getDynamicsEngine().getMarkerSet().getNames(markerNames);
+      modelForMotion.getMarkerSet().getNames(markerNames);
       for(int i=0; i<markerNames.getSize(); i++){
          if ((newMotion.getStateIndex(markerNames.getitem(i)+"_tx")!=-1) ||
                  (newMotion.getStateIndex(markerNames.getitem(i)+"_Tx")!=-1) ||
@@ -157,17 +157,17 @@ public class MotionsDB extends Observable // Observed by other entities in motio
 
    public void addMotion(Model model, Storage motion, boolean convertAngles) {
       if (! (model instanceof ModelForExperimentalData)){
-          if(convertAngles) model.getDynamicsEngine().convertDegreesToRadians(motion);
-      }
-          // Add to mapModels2Motion
-      ArrayList<Storage> motions = mapModels2Motions.get(model);
-      if(motions==null) { // First motion for model
-         motions = new ArrayList<Storage>(4);
-         mapModels2Motions.put(model, motions);
-      }
+          if(convertAngles) model.getSimbodyEngine().convertDegreesToRadians(motion);
 
-      motions.add(motion);
-      
+          // Add to mapModels2Motion
+          ArrayList<Storage> motions = mapModels2Motions.get(model);
+          if(motions==null) { // First motion for model
+             motions = new ArrayList<Storage>(4);
+             mapModels2Motions.put(model, motions);
+          }
+
+          motions.add(motion);
+      }
       // Add to mapMotion2BitSet
       BitSet motionBits = new BitSet(numBits);
       mapMotion2BitSet.put(motion, motionBits);
@@ -206,6 +206,7 @@ public class MotionsDB extends Observable // Observed by other entities in motio
    public void setCurrent(Model model, Storage motion) {
       setCurrentMotion(new ModelMotionPair(model, motion));
       MotionEvent evt = new MotionEvent(this, MotionEvent.Operation.CurrentMotionsChanged);
+      evt.setModel(model);
       setChanged();
       notifyObservers(evt);
    }
@@ -295,18 +296,14 @@ public class MotionsDB extends Observable // Observed by other entities in motio
                   case Open:
                   {
                      Node modelNode = ExplorerTopComponent.findInstance().getModelNode(evnt.getModel());
-                     Node newMotionNode = new OneMotionNode(evnt.getMotion());
-                     if (evnt.getModel() instanceof ModelForExperimentalData)
-                         modelNode.getChildren().add(new Node[]{newMotionNode});
-                     else {
-                         MotionsNode motionsNode = (MotionsNode) modelNode.getChildren().findChild("Motions");
-                         if(motionsNode==null) {
-                             motionsNode = new MotionsNode();
-                             getInstance().addObserver(motionsNode);
-                             modelNode.getChildren().add(new Node[]{motionsNode});
-                         }
-                         motionsNode.getChildren().add(new Node[]{newMotionNode});
+                     MotionsNode motionsNode = (MotionsNode) modelNode.getChildren().findChild("Motions");
+                     if(motionsNode==null) {
+                        motionsNode = new MotionsNode();
+                        getInstance().addObserver(motionsNode);
+                        modelNode.getChildren().add(new Node[]{motionsNode});
                      }
+                     Node newMotionNode = new OneMotionNode(evnt.getMotion());
+                     motionsNode.getChildren().add(new Node[]{newMotionNode});
                      break;
                   }
                   case Close:

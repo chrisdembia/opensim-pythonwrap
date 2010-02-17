@@ -95,7 +95,7 @@ public class IKToolPanel extends BaseToolPanel implements Observer {
       Model model = ikToolModel.getOriginalModel();
       modelNameTextField.setText(model.getName());
       modelNameTextField.setCaretPosition(0);
-      MarkerSet markerSet = model.getDynamicsEngine().getMarkerSet();
+      MarkerSet markerSet = model.getMarkerSet();
       int numMarkers = markerSet.getSize();
       if(numMarkers > 0) markerSetInfoTextField.setText(numFormat.format(numMarkers)+" markers");
       else markerSetInfoTextField.setText("No markers");

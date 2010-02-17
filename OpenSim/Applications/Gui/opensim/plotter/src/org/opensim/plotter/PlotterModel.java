@@ -387,6 +387,7 @@ public class PlotterModel {
                 man.setComputeMoments(computeMoments);
              }
              an.setOn(true);
+             //an.print("ma.xml");
              break;
         }
         if (shortName.startsWith("MomentArm") || shortName.startsWith("Moment")){

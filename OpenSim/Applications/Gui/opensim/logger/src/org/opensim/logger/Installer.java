@@ -44,8 +44,7 @@ public class Installer extends ModuleInstall {
    
    public void close() {
       if(logCallback != null) {
-         logCallback.removeFromLogManager();
-         logCallback=null;
+        logCallback.removeFromLogManager();
       }
       super.close();
       

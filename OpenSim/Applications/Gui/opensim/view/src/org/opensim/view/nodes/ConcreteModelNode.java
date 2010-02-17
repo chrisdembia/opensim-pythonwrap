@@ -5,6 +5,7 @@ import org.openide.nodes.Node;
 import org.opensim.modeling.Model;
 import org.opensim.view.experimentaldata.ModelForExperimentalData;
 import org.opensim.view.*;
+import org.opensim.view.nodes.ContactGeometriesNode;
 import org.opensim.view.nodes.OpenSimObjectNode.displayOption;
 import org.opensim.view.pub.ViewDB;
 
@@ -18,15 +19,16 @@ public class ConcreteModelNode extends OpenSimObjectNode {
 		isDataHolderOnly = (m instanceof ModelForExperimentalData);
 		if (!isDataHolderOnly)
 		{   // Data Import model has no engine or Actuators
-            getChildren().add(new Node[] {new BodiesNode(m.getDynamicsEngine().getBodySet())});
-            getChildren().add(new Node[] {new ActuatorsNode(m.getActuatorSet())});
-            getChildren().add(new Node[] {new JointsNode(m.getDynamicsEngine().getJointSet())});
-            getChildren().add(new Node[] {new MarkersNode(m.getDynamicsEngine().getMarkerSet())});
+        getChildren().add(new Node[] {new BodiesNode(m.getBodySet())});
+        getChildren().add(new Node[] {new AllForcesNode(m.getForceSet())});
+        getChildren().add(new Node[] {new JointsNode(m.getJointSet())});
+        getChildren().add(new Node[] {new ContactGeometriesNode(m.getContactGeometrySet())});
+        getChildren().add(new Node[] {new MarkersNode(m.getMarkerSet())});
         }
-      addDisplayOption(displayOption.Isolatable);
-      addDisplayOption(displayOption.Showable);
-   }
-   public Model getModel() {
+        addDisplayOption(displayOption.Isolatable);
+        addDisplayOption(displayOption.Showable);
+    }
+    public Model getModel() {
         return (Model) getOpenSimObject();
     }
     /**

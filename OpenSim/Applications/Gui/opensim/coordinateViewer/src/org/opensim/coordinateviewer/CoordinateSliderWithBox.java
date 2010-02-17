@@ -51,9 +51,8 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.text.NumberFormatter;
 import org.openide.util.Utilities;
-import org.opensim.modeling.AbstractCoordinate;
-import org.opensim.modeling.AbstractDynamicsEngine;
-import org.opensim.modeling.AbstractTransformAxis;
+import org.opensim.modeling.Coordinate;
+import org.opensim.modeling.OpenSimContext;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.view.ObjectsChangedEvent;
 import org.opensim.view.pub.OpenSimDB;
@@ -74,7 +73,8 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
    NumberFormat numberFormat;
    NumberFormatter formatter;
    private boolean rotational;
-   private AbstractCoordinate coord;
+   private Coordinate coord;
+   private OpenSimContext openSimContext;
    private static double ROUNDOFF=1E-5;  // work around for roundoff converting Strings to/from doubles
    private static String LABELS_FORMAT="###.###";          // Number of digits to show after floating point in bounds
    // Should make images static or use reference rather than create a new instance per slider.
@@ -87,10 +87,11 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
    static ImageIcon locked_rolloverIcon=new ImageIcon(Utilities.loadImage("org/opensim/coordinateviewer/images/locked_rollover.png"));
    static ImageIcon lockedIcon=new ImageIcon(Utilities.loadImage("org/opensim/coordinateviewer/images/locked.png"));
    
-   
-   public CoordinateSliderWithBox(AbstractCoordinate coord) {
+  
+   public CoordinateSliderWithBox(Coordinate coord) {
       this.coord = coord;
-      setRotational(coord.getMotionType()==AbstractTransformAxis.MotionType.Rotational);
+      openSimContext = OpenSimDB.getInstance().getContext(coord.getModel());
+      setRotational(coord.getMotionType()==Coordinate.MotionType.Rotational);
       this.min=coord.getRangeMin()*conversion;
       this.max=coord.getRangeMax()*conversion;
       min=roundBoundIfNeeded(min);
@@ -121,9 +122,9 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
       
       createBoundsLabels(jXSlider, min, max, 0, numTicks-1);
       jCoordinateNameLabel.setText(coord.getName());
-      boolean clamped = coord.getClamped();
+      boolean clamped = openSimContext.getClamped(coord);
       jClampedCheckBox.setSelected(clamped);
-      boolean locked = coord.getLocked();
+      boolean locked = openSimContext.getLocked(coord);
       jLockedCheckBox.setSelected(locked);
       if (!clamped | locked){
          jMinimumLabel.setEnabled(false);
@@ -276,7 +277,7 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
     
    private void jClampedCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jClampedCheckBoxActionPerformed
       boolean newValue = ((JCheckBox)(evt.getSource())).isSelected();
-      coord.setClamped(newValue);
+      openSimContext.setClamped(coord, newValue);
       setTextfieldBounds(newValue);
       if (jLockedCheckBox.isSelected()) {
          // do nothing
@@ -284,10 +285,10 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
          jMinimumLabel.setEnabled(newValue);
          jMaximumLabel.setEnabled(newValue);
       }
-      if (coord.getClamped()){
-         if (coord.getValue()>coord.getRangeMax()){
+      if (openSimContext.getClamped(coord)){
+         if (openSimContext.getValue(coord)>coord.getRangeMax()){
             setTheValue(coord.getRangeMax()*conversion, true, true, true, true);
-         } else if (coord.getValue()<coord.getRangeMin()){
+         } else if (openSimContext.getValue(coord)<coord.getRangeMin()){
             setTheValue(coord.getRangeMin()*conversion, true, true, true, true);
          }
       }
@@ -297,7 +298,7 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
    private void jLockedCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLockedCheckBoxActionPerformed
 // TODO add your handling code here:
       boolean newValue = ((JCheckBox)(evt.getSource())).isSelected();
-      coord.setLocked(newValue);
+      openSimContext.setLocked(coord, newValue);
       jXSlider.setEnabled(!newValue);
       jFormattedTextField.setEnabled(!newValue);
       if (jClampedCheckBox.isSelected()) {
@@ -339,7 +340,7 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
           jXSlider.addChangeListener(this);
        }
        if(setCoordinate) {
-          coord.setValue(theValue/conversion);
+          openSimContext.setValue(coord, theValue/conversion);
           if (updateDisplay) {
              // Use renderAll rather than repaintAll for greater responsiveness in 3d viewer
              //ViewDB.getInstance().updateModelDisplay(OpenSimDB.getInstance().getCurrentModel());
@@ -347,8 +348,8 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
              ViewDB.getInstance().renderAll();
              Vector<OpenSimObject> objs = new Vector<OpenSimObject>(1);
              objs.add(coord);
-             AbstractDynamicsEngine eng = coord.getDynamicsEngine();
-             ObjectsChangedEvent evnt = new ObjectsChangedEvent(this, eng.getModel(), objs);
+             //SimbodyEngine eng = coord.getDynamicsEngine();
+             ObjectsChangedEvent evnt = new ObjectsChangedEvent(this, coord.getJoint().getBody().getModel(), objs);
              OpenSimDB.getInstance().setChanged();
              OpenSimDB.getInstance().notifyObservers(evnt);
           }
@@ -364,7 +365,7 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
      * Called from CoordinateSliderWithBox in response to model coordinates changing.
      */
     public void updateValue() {
-       double theValue=coord.getValue() * conversion;
+       double theValue=openSimContext.getValue(coord) * conversion;
        setTheValue(theValue, true, true, false, false);
     }
     
@@ -418,7 +419,7 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
              // Try to parse the text into a double as it could be out of range, in this case truncate
              try {
                 double valueFromTextField = numberFormat.parse(text).doubleValue();
-                if (coord.getClamped()){
+                if (openSimContext.getClamped(coord)){
                    if (valueFromTextField >max){
                       jFormattedTextField.setText(numberFormat.format(max));
                       jFormattedTextField.commitEdit();
@@ -450,7 +451,7 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
              // Try to parse the text into a double as it could be out of range, in this case truncate
              try {
                 double valueFromTextField = numberFormat.parse(text).doubleValue();
-                if (coord.getClamped()){
+                if (openSimContext.getClamped(coord)){
                    if (valueFromTextField >max){
                       jFormattedTextField.setText(numberFormat.format(max));
                       jFormattedTextField.commitEdit();

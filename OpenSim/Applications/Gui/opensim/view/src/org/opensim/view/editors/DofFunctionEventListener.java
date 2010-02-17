@@ -34,9 +34,11 @@
 
 package org.opensim.view.editors;
 
-import org.opensim.modeling.AbstractTransformAxis;
+import org.opensim.modeling.Coordinate;
+import org.opensim.modeling.TransformAxis;
 import org.opensim.modeling.Function;
 import org.opensim.modeling.Model;
+import org.opensim.modeling.OpenSimContext;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.view.SingleModelGuiElements;
 import org.opensim.view.functionEditor.FunctionEvent;
@@ -60,24 +62,29 @@ public class DofFunctionEventListener implements FunctionEventListener {
 
    public void handleFunctionEvent(FunctionEvent event) {
       OpenSimObject object = event.getObject();
-      AbstractTransformAxis dof = AbstractTransformAxis.safeDownCast(object);
+      TransformAxis dof = TransformAxis.safeDownCast(object);
 
       if (dof != null) {
          Model model = OpenSimDB.getInstance().getCurrentModel();
          SingleModelGuiElements guiElem = ViewDB.getInstance().getModelGuiElements(model);
+         OpenSimContext openSimContext = OpenSimDB.getInstance().getContext(model);
+         // TODO: for now, deal only with the first coordinate.
+         String coordName = dof.getCoordinateNames().getitem(0);
+         Coordinate coord = dof.getJoint().getCoordinateSet().get(coordName);
 
          if (event instanceof FunctionReplacedEvent) {
             FunctionReplacedEvent fre = (FunctionReplacedEvent) event;
             Function oldFunction = fre.getFunction();
             Function newFunction = fre.getReplacementFunction();
             if (Function.getCPtr(oldFunction) != Function.getCPtr(newFunction)) {
-               dof.setFunction(newFunction);
+               openSimContext.replaceTransformAxisFunction(dof, newFunction);
                ViewDB.getInstance().updateModelDisplayNoRepaint(model);
                ViewDB.getInstance().renderAll();
                guiElem.setUnsavedChangesFlag(true);
             }
-         } else if (event instanceof FunctionModifiedEvent) {
-            dof.getJoint().invalidate();
+         } else if (event instanceof FunctionModifiedEvent) {                        
+            //TODO: not a good way to force a joint recalculation!!
+            openSimContext.setValue(coord, openSimContext.getValue(coord));
             ViewDB.getInstance().updateModelDisplayNoRepaint(model);
             ViewDB.getInstance().renderAll();
             guiElem.setUnsavedChangesFlag(true);

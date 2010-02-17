@@ -36,7 +36,7 @@ import javax.swing.Action;
 import javax.swing.ImageIcon;
 import org.openide.nodes.Children;
 import org.openide.util.NbBundle;
-import org.opensim.modeling.AbstractTransformAxis;
+import org.opensim.modeling.TransformAxis;
 import org.opensim.view.editors.DofFunctionEditorAction;
 import org.opensim.modeling.OpenSimObject;
 
@@ -48,12 +48,12 @@ public class DofFunctionNode extends OpenSimObjectNode{
    
    private static ResourceBundle bundle = NbBundle.getBundle(DofFunctionNode.class);
    private String displayName = null;
-   private AbstractTransformAxis dof = null;
+   private TransformAxis dof = null;
    
    /**
     * Creates a new instance of DofFunctionNode
     */
-   public DofFunctionNode(OpenSimObject func, String name, AbstractTransformAxis dof) {
+   public DofFunctionNode(OpenSimObject func, String name, TransformAxis dof) {
       super(func);
       this.displayName = name;
       this.dof = dof;

@@ -31,8 +31,7 @@ package org.opensim.plotter;
 import java.util.Vector;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
-import org.opensim.modeling.AbstractCoordinate;
-import org.opensim.modeling.AbstractTransformAxis;
+import org.opensim.modeling.Coordinate;
 import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.Storage;
@@ -141,22 +140,22 @@ public class PlotterSourceAnalysis implements PlotterSourceInterface {
    }
 
    public double getDefaultMin(String domainName) {
-      AbstractCoordinate coord = model.getDynamicsEngine().getCoordinateSet().get(domainName);
+      Coordinate coord = model.getCoordinateSet().get(domainName);
       if (coord==null)
          return 0.0;
       double min = coord.getRangeMin();
-      if (coord.getMotionType() == AbstractTransformAxis.MotionType.Rotational){
+      if (coord.getMotionType() == Coordinate.MotionType.Rotational){
          min = Math.toDegrees(min);
       }
       return min;
    }
 
    public double getDefaultMax(String domainName) {
-      AbstractCoordinate coord = model.getDynamicsEngine().getCoordinateSet().get(domainName);
+      Coordinate coord = model.getCoordinateSet().get(domainName);
       if (coord==null)
          return 1.0;
       double max = coord.getRangeMax();
-      if (coord.getMotionType() == AbstractTransformAxis.MotionType.Rotational){
+      if (coord.getMotionType() == Coordinate.MotionType.Rotational){
          max = Math.toDegrees(max);
       }
       return max;

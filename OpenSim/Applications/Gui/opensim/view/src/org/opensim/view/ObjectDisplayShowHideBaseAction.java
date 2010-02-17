@@ -30,8 +30,8 @@ import org.openide.nodes.Node;
 import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
-import org.opensim.modeling.AbstractActuator;
-import org.opensim.modeling.AbstractBody;
+import org.opensim.modeling.Actuator;
+import org.opensim.modeling.Body;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.view.nodes.ConcreteModelNode;
@@ -47,12 +47,12 @@ abstract class ObjectDisplayShowHideBaseAction extends CallableSystemAction {
    }
 
    private Model getModel(OpenSimObject object) {
-      AbstractActuator act = AbstractActuator.safeDownCast(object);
+      Actuator act = Actuator.safeDownCast(object);
       if (act != null)
          return act.getModel();
-      AbstractBody body = AbstractBody.safeDownCast(object);
+      Body body = Body.safeDownCast(object);
       if (body != null)
-         return body.getDynamicsEngine().getModel();
+         return body.getModel();
       return null;
    }
 

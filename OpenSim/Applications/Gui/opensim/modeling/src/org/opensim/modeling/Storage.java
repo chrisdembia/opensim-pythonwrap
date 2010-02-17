@@ -224,10 +224,6 @@ public class Storage extends OpenSimObject {
     opensimModelJNI.Storage_getDataColumn__SWIG_4(swigCPtr, this, columnName, ArrayDouble.getCPtr(data), data);
   }
 
-  public void interpolateAt(ArrayDouble targetTimes) {
-    opensimModelJNI.Storage_interpolateAt(swigCPtr, this, ArrayDouble.getCPtr(targetTimes), targetTimes);
-  }
-
   public void setStepInterval(int aStepInterval) {
     opensimModelJNI.Storage_setStepInterval(swigCPtr, this, aStepInterval);
   }
@@ -288,12 +284,12 @@ public class Storage extends OpenSimObject {
     return opensimModelJNI.Storage_reset__SWIG_2(swigCPtr, this, aTime);
   }
 
-  public void crop(double newStartTime, double newFinalTime) {
-    opensimModelJNI.Storage_crop(swigCPtr, this, newStartTime, newFinalTime);
-  }
-
   public void purge() {
     opensimModelJNI.Storage_purge(swigCPtr, this);
+  }
+
+  public void crop(double newStartTime, double newFinalTime) {
+    opensimModelJNI.Storage_crop(swigCPtr, this, newStartTime, newFinalTime);
   }
 
   public int append(StateVector aVec, boolean aCheckForDuplicateTime) {
@@ -448,12 +444,16 @@ public class Storage extends OpenSimObject {
     opensimModelJNI.Storage_pad(swigCPtr, this, aPadSize);
   }
 
-  public void lowpassFIR(int aOrder, double aCutoffFequency) {
-    opensimModelJNI.Storage_lowpassFIR(swigCPtr, this, aOrder, aCutoffFequency);
+  public void smoothSpline(int aOrder, double aCutoffFrequency) {
+    opensimModelJNI.Storage_smoothSpline(swigCPtr, this, aOrder, aCutoffFrequency);
   }
 
-  public void lowpassIIR(double aCutoffFrequency) {
-    opensimModelJNI.Storage_lowpassIIR(swigCPtr, this, aCutoffFrequency);
+  public void lowpassIIR(double aCutoffFequency) {
+    opensimModelJNI.Storage_lowpassIIR(swigCPtr, this, aCutoffFequency);
+  }
+
+  public void lowpassFIR(int aOrder, double aCutoffFequency) {
+    opensimModelJNI.Storage_lowpassFIR(swigCPtr, this, aOrder, aCutoffFequency);
   }
 
   public void addToRdStorage(Storage rStorage, double aStartTime, double aEndTime) {
@@ -478,6 +478,14 @@ public class Storage extends OpenSimObject {
 
   public double resampleLinear(double aDT) {
     return opensimModelJNI.Storage_resampleLinear(swigCPtr, this, aDT);
+  }
+
+  public double compareColumn(Storage aOtherStorage, SWIGTYPE_p_std__string aColumnName, double startTime, double endTime) {
+    return opensimModelJNI.Storage_compareColumn__SWIG_0(swigCPtr, this, Storage.getCPtr(aOtherStorage), aOtherStorage, SWIGTYPE_p_std__string.getCPtr(aColumnName), startTime, endTime);
+  }
+
+  public double compareColumn(Storage aOtherStorage, SWIGTYPE_p_std__string aColumnName, double startTime) {
+    return opensimModelJNI.Storage_compareColumn__SWIG_1(swigCPtr, this, Storage.getCPtr(aOtherStorage), aOtherStorage, SWIGTYPE_p_std__string.getCPtr(aColumnName), startTime);
   }
 
   public void print() {
@@ -506,6 +514,10 @@ public class Storage extends OpenSimObject {
 
   public static void printResult(Storage aStorage, String aName, String aDir, double aDT, String aExtension) {
     opensimModelJNI.Storage_printResult(Storage.getCPtr(aStorage), aStorage, aName, aDir, aDT, aExtension);
+  }
+
+  public void interpolateAt(ArrayDouble targetTimes) {
+    opensimModelJNI.Storage_interpolateAt(swigCPtr, this, ArrayDouble.getCPtr(targetTimes), targetTimes);
   }
 
 }

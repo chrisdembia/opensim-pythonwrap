@@ -42,162 +42,30 @@ public class Function extends OpenSimObject {
     opensimModelJNI.Function_init(swigCPtr, this, Function.getCPtr(aFunction), aFunction);
   }
 
-  public void setMinX(double aMinX) {
-    opensimModelJNI.Function_setMinX(swigCPtr, this, aMinX);
-  }
-
-  public double getMinX() {
-    return opensimModelJNI.Function_getMinX(swigCPtr, this);
-  }
-
-  public void setMaxX(double aMaxX) {
-    opensimModelJNI.Function_setMaxX(swigCPtr, this, aMaxX);
-  }
-
-  public double getMaxX() {
-    return opensimModelJNI.Function_getMaxX(swigCPtr, this);
-  }
-
-  public void setMinY(double aMinY) {
-    opensimModelJNI.Function_setMinY(swigCPtr, this, aMinY);
-  }
-
-  public double getMinY() {
-    return opensimModelJNI.Function_getMinY(swigCPtr, this);
-  }
-
-  public void setMaxY(double aMaxY) {
-    opensimModelJNI.Function_setMaxY(swigCPtr, this, aMaxY);
-  }
-
-  public double getMaxY() {
-    return opensimModelJNI.Function_getMaxY(swigCPtr, this);
-  }
-
-  public void setMinZ(double aMinZ) {
-    opensimModelJNI.Function_setMinZ(swigCPtr, this, aMinZ);
-  }
-
-  public double getMinZ() {
-    return opensimModelJNI.Function_getMinZ(swigCPtr, this);
-  }
-
-  public void setMaxZ(double aMaxZ) {
-    opensimModelJNI.Function_setMaxZ(swigCPtr, this, aMaxZ);
-  }
-
-  public double getMaxZ() {
-    return opensimModelJNI.Function_getMaxZ(swigCPtr, this);
-  }
-
-  public int getNumberOfPoints() {
-    return opensimModelJNI.Function_getNumberOfPoints(swigCPtr, this);
-  }
-
-  public SWIGTYPE_p_double getXValues() {
-    long cPtr = opensimModelJNI.Function_getXValues(swigCPtr, this);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_double(cPtr, false);
-  }
-
-  public SWIGTYPE_p_double getYValues() {
-    long cPtr = opensimModelJNI.Function_getYValues(swigCPtr, this);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_double(cPtr, false);
-  }
-
-  public double getX(int aIndex) {
-    return opensimModelJNI.Function_getX(swigCPtr, this, aIndex);
-  }
-
-  public double getY(int aIndex) {
-    return opensimModelJNI.Function_getY(swigCPtr, this, aIndex);
-  }
-
-  public double getZ(int aIndex) {
-    return opensimModelJNI.Function_getZ(swigCPtr, this, aIndex);
-  }
-
-  public void setX(int aIndex, double aValue) {
-    opensimModelJNI.Function_setX(swigCPtr, this, aIndex, aValue);
-  }
-
-  public void setY(int aIndex, double aValue) {
-    opensimModelJNI.Function_setY(swigCPtr, this, aIndex, aValue);
-  }
-
-  public void setZ(int aIndex, double aValue) {
-    opensimModelJNI.Function_setZ(swigCPtr, this, aIndex, aValue);
-  }
-
-  public boolean deletePoint(int aIndex) {
-    return opensimModelJNI.Function_deletePoint(swigCPtr, this, aIndex);
-  }
-
-  public boolean deletePoints(ArrayInt indices) {
-    return opensimModelJNI.Function_deletePoints(swigCPtr, this, ArrayInt.getCPtr(indices), indices);
-  }
-
-  public int addPoint(double aX, double aY) {
-    return opensimModelJNI.Function_addPoint(swigCPtr, this, aX, aY);
-  }
-
-  public ArrayXYPoint renderAsLineSegments(double aStart, double aEnd) {
-    long cPtr = opensimModelJNI.Function_renderAsLineSegments__SWIG_0(swigCPtr, this, aStart, aEnd);
-    return (cPtr == 0) ? null : new ArrayXYPoint(cPtr, false);
-  }
-
-  public ArrayXYPoint renderAsLineSegments(int aIndex) {
-    long cPtr = opensimModelJNI.Function_renderAsLineSegments__SWIG_1(swigCPtr, this, aIndex);
-    return (cPtr == 0) ? null : new ArrayXYPoint(cPtr, false);
-  }
-
-  public static void deleteXYPointArray(ArrayXYPoint aArray) {
-    opensimModelJNI.Function_deleteXYPointArray(ArrayXYPoint.getCPtr(aArray), aArray);
-  }
-
-  public void isLinear(double aTol, double aMinX, double aMaxX, SWIGTYPE_p_double rMX, double aMinY, double aMaxY, SWIGTYPE_p_double rMY, double aMinZ, double aMaxZ, SWIGTYPE_p_double rMZ) {
-    opensimModelJNI.Function_isLinear(swigCPtr, this, aTol, aMinX, aMaxX, SWIGTYPE_p_double.getCPtr(rMX), aMinY, aMaxY, SWIGTYPE_p_double.getCPtr(rMY), aMinZ, aMaxZ, SWIGTYPE_p_double.getCPtr(rMZ));
-  }
-
   public static Function makeFunctionOfType(Function aFunction, String aNewTypeName) {
     long cPtr = opensimModelJNI.Function_makeFunctionOfType(Function.getCPtr(aFunction), aFunction, aNewTypeName);
     return (cPtr == 0) ? null : new Function(cPtr, false);
   }
 
-  public void updateBoundingBox() {
-    opensimModelJNI.Function_updateBoundingBox(swigCPtr, this);
+  public double calcValue(SWIGTYPE_p_SimTK__Vector x) {
+    return opensimModelJNI.Function_calcValue(swigCPtr, this, SWIGTYPE_p_SimTK__Vector.getCPtr(x));
   }
 
-  public double evaluate(int aDerivOrder, double aX, double aY, double aZ) {
-    return opensimModelJNI.Function_evaluate__SWIG_0(swigCPtr, this, aDerivOrder, aX, aY, aZ);
+  public double calcDerivative(SWIGTYPE_p_std__vectorTint_t derivComponents, SWIGTYPE_p_SimTK__Vector x) {
+    return opensimModelJNI.Function_calcDerivative(swigCPtr, this, SWIGTYPE_p_std__vectorTint_t.getCPtr(derivComponents), SWIGTYPE_p_SimTK__Vector.getCPtr(x));
   }
 
-  public double evaluate(int aDerivOrder, double aX, double aY) {
-    return opensimModelJNI.Function_evaluate__SWIG_1(swigCPtr, this, aDerivOrder, aX, aY);
+  public int getArgumentSize() {
+    return opensimModelJNI.Function_getArgumentSize(swigCPtr, this);
   }
 
-  public double evaluate(int aDerivOrder, double aX) {
-    return opensimModelJNI.Function_evaluate__SWIG_2(swigCPtr, this, aDerivOrder, aX);
+  public int getMaxDerivativeOrder() {
+    return opensimModelJNI.Function_getMaxDerivativeOrder(swigCPtr, this);
   }
 
-  public double evaluate(int aDerivOrder) {
-    return opensimModelJNI.Function_evaluate__SWIG_3(swigCPtr, this, aDerivOrder);
-  }
-
-  public double evaluateTotalFirstDerivative(double aX, double aDxdt) {
-    return opensimModelJNI.Function_evaluateTotalFirstDerivative(swigCPtr, this, aX, aDxdt);
-  }
-
-  public double evaluateTotalSecondDerivative(double aX, double aDxdt, double aD2xdt2) {
-    return opensimModelJNI.Function_evaluateTotalSecondDerivative(swigCPtr, this, aX, aDxdt, aD2xdt2);
-  }
-
-  public void scaleY(double aScaleFactor) {
-    opensimModelJNI.Function_scaleY(swigCPtr, this, aScaleFactor);
-  }
-
-  public SWIGTYPE_p_SimTK__FunctionT1_t createSimTKFunction() {
+  public SWIGTYPE_p_SimTK__Function createSimTKFunction() {
     long cPtr = opensimModelJNI.Function_createSimTKFunction(swigCPtr, this);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_SimTK__FunctionT1_t(cPtr, false);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_SimTK__Function(cPtr, false);
   }
 
   public static boolean isKindOf(String type) {

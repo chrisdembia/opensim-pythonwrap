@@ -8,7 +8,7 @@
 
 package org.opensim.modeling;
 
-public class Body extends AbstractBody {
+public class Body extends ModelComponent {
   private long swigCPtr;
 
   public Body(long cPtr, boolean cMemoryOwn) {
@@ -37,12 +37,12 @@ public class Body extends AbstractBody {
     this(opensimModelJNI.new_Body__SWIG_0(), true);
   }
 
-  public Body(Body aBody) {
-    this(opensimModelJNI.new_Body__SWIG_1(Body.getCPtr(aBody), aBody), true);
+  public Body(String aName, double aMass, SWIGTYPE_p_SimTK__Vec3 aMassCenter, SWIGTYPE_p_SimTK__Inertia aInertia) {
+    this(opensimModelJNI.new_Body__SWIG_1(aName, aMass, SWIGTYPE_p_SimTK__Vec3.getCPtr(aMassCenter), SWIGTYPE_p_SimTK__Inertia.getCPtr(aInertia)), true);
   }
 
-  public Body(AbstractBody aBody) {
-    this(opensimModelJNI.new_Body__SWIG_2(AbstractBody.getCPtr(aBody), aBody), true);
+  public Body(Body aBody) {
+    this(opensimModelJNI.new_Body__SWIG_2(Body.getCPtr(aBody), aBody), true);
   }
 
   public OpenSimObject copy() {
@@ -51,20 +51,15 @@ public class Body extends AbstractBody {
   }
 
   public void copyData(Body aBody) {
-    opensimModelJNI.Body_copyData__SWIG_0(swigCPtr, this, Body.getCPtr(aBody), aBody);
+    opensimModelJNI.Body_copyData(swigCPtr, this, Body.getCPtr(aBody), aBody);
   }
 
-  public void copyData(AbstractBody aBody) {
-    opensimModelJNI.Body_copyData__SWIG_1(swigCPtr, this, AbstractBody.getCPtr(aBody), aBody);
+  public void setup(Model aModel) {
+    opensimModelJNI.Body_setup(swigCPtr, this, Model.getCPtr(aModel), aModel);
   }
 
-  public void setup(AbstractDynamicsEngine aEngine) {
-    opensimModelJNI.Body_setup(swigCPtr, this, AbstractDynamicsEngine.getCPtr(aEngine), aEngine);
-  }
-
-  public SimbodyEngine getEngine() {
-    long cPtr = opensimModelJNI.Body_getEngine(swigCPtr, this);
-    return (cPtr == 0) ? null : new SimbodyEngine(cPtr, false);
+  public void addDisplayGeometry(String aGeometryFileName) {
+    opensimModelJNI.Body_addDisplayGeometry(swigCPtr, this, aGeometryFileName);
   }
 
   public double getMass() {
@@ -84,24 +79,23 @@ public class Body extends AbstractBody {
   }
 
   public void getInertia(SWIGTYPE_p_SimTK__Mat33 rInertia) {
-    opensimModelJNI.Body_getInertia__SWIG_0(swigCPtr, this, SWIGTYPE_p_SimTK__Mat33.getCPtr(rInertia));
+    opensimModelJNI.Body_getInertia(swigCPtr, this, SWIGTYPE_p_SimTK__Mat33.getCPtr(rInertia));
   }
 
-  public void getInertia(double[] rInertia) {
-    opensimModelJNI.Body_getInertia__SWIG_1(swigCPtr, this, rInertia);
+  public boolean setInertia(SWIGTYPE_p_SimTK__Inertia aInertia) {
+    return opensimModelJNI.Body_setInertia(swigCPtr, this, SWIGTYPE_p_SimTK__Inertia.getCPtr(aInertia));
   }
 
-  public boolean setInertia(SWIGTYPE_p_SimTK__Mat33 aInertia) {
-    return opensimModelJNI.Body_setInertia(swigCPtr, this, SWIGTYPE_p_SimTK__Mat33.getCPtr(aInertia));
+  public boolean hasJoint() {
+    return opensimModelJNI.Body_hasJoint(swigCPtr, this);
   }
 
-  public SWIGTYPE_p_OpenSim__Joint getJoint() {
-    long cPtr = opensimModelJNI.Body_getJoint(swigCPtr, this);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_OpenSim__Joint(cPtr, false);
+  public Joint getJoint() {
+    return new Joint(opensimModelJNI.Body_getJoint(swigCPtr, this), false);
   }
 
-  public void setJoint(SWIGTYPE_p_OpenSim__Joint aJoint) {
-    opensimModelJNI.Body_setJoint(swigCPtr, this, SWIGTYPE_p_OpenSim__Joint.getCPtr(aJoint));
+  public void setJoint(Joint aJoint) {
+    opensimModelJNI.Body_setJoint(swigCPtr, this, Joint.getCPtr(aJoint), aJoint);
   }
 
   public void scale(SWIGTYPE_p_SimTK__Vec3 aScaleFactors, boolean aScaleMass) {
@@ -129,12 +123,26 @@ public class Body extends AbstractBody {
     return (cPtr == 0) ? null : new VisibleObject(cPtr, false);
   }
 
-  public void setDisplayer(VisibleObject aVisibleObject) {
-    opensimModelJNI.Body_setDisplayer(swigCPtr, this, VisibleObject.getCPtr(aVisibleObject), aVisibleObject);
+  public VisibleObject updDisplayer() {
+    long cPtr = opensimModelJNI.Body_updDisplayer(swigCPtr, this);
+    return (cPtr == 0) ? null : new VisibleObject(cPtr, false);
+  }
+
+  public SWIGTYPE_p_SimTK__MobilizedBodyIndex getIndex() {
+    return new SWIGTYPE_p_SimTK__MobilizedBodyIndex(opensimModelJNI.Body_getIndex(swigCPtr, this), true);
   }
 
   public void getScaleFactors(SWIGTYPE_p_SimTK__Vec3 aScaleFactors) {
     opensimModelJNI.Body_getScaleFactors(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(aScaleFactors));
+  }
+
+  public WrapObject getWrapObject(String aName) {
+    long cPtr = opensimModelJNI.Body_getWrapObject(swigCPtr, this, aName);
+    return (cPtr == 0) ? null : new WrapObject(cPtr, false);
+  }
+
+  public WrapObjectSet getWrapObjectSet() {
+    return new WrapObjectSet(opensimModelJNI.Body_getWrapObjectSet(swigCPtr, this), false);
   }
 
   public static boolean isKindOf(String type) {
@@ -156,10 +164,6 @@ public class Body extends AbstractBody {
 
   public SWIGTYPE_p_SimTK__MassProperties getMassProperties() {
     return new SWIGTYPE_p_SimTK__MassProperties(opensimModelJNI.Body_getMassProperties(swigCPtr, this), true);
-  }
-
-  public SWIGTYPE_p_SimTK__MobilizedBodyIndex getIndex() {
-    return new SWIGTYPE_p_SimTK__MobilizedBodyIndex(opensimModelJNI.Body_getIndex(swigCPtr, this), true);
   }
 
 }

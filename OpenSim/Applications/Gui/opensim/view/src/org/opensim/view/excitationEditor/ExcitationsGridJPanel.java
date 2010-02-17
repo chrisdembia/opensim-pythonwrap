@@ -37,7 +37,7 @@ import java.util.Vector;
 import javax.swing.JPanel;
 import org.opensim.modeling.ControlLinear;
 import org.opensim.modeling.ControlSet;
-import org.opensim.modeling.Function;
+import org.opensim.modeling.XYFunctionInterface;
 
 /**
  *
@@ -106,7 +106,7 @@ public class ExcitationsGridJPanel extends JPanel {
         excitationColumns.get(col).exchange(row1, row2);
     }
     
-    void addExcitationPanel(int j, ExcitationPanel excPanel, ControlLinear excitation, Vector<Function> functions) {
+    void addExcitationPanel(int j, ExcitationPanel excPanel, ControlLinear excitation, Vector<XYFunctionInterface> functions) {
         excitationColumns.get(j).append(excPanel, excitation, functions);
     }
 

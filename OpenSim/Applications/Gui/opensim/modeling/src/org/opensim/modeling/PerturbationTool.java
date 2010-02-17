@@ -58,6 +58,10 @@ public class PerturbationTool extends ForwardTool {
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
+  public void updateFromXMLNode() {
+    opensimModelJNI.PerturbationTool_updateFromXMLNode(swigCPtr, this);
+  }
+
   public boolean run() throws java.io.IOException {
     return opensimModelJNI.PerturbationTool_run(swigCPtr, this);
   }

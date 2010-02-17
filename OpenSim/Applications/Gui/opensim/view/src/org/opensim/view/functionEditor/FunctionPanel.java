@@ -487,7 +487,13 @@ public class FunctionPanel extends ChartPanel
             crosshairAnnotation.setText("(" + xString + ", " + yString + ")");
             crosshairAnnotation.setX(crosshairX);
             crosshairAnnotation.setY(crosshairY);
-            xyPlot.handleClick(screenX, screenY, this.getChartRenderingInfo().getPlotInfo());
+            xyPlot.setDomainCrosshairValue(crosshairX);
+            xyPlot.setRangeCrosshairValue(crosshairY);
+            // JPL 11/19/09: the chart's plotInfo does not appear to be updated when the
+            // FunctionPanel is resized. So the following call to handleClick will pass in
+            // the wrong plot area for calculating crosshair coordinates. So instead, set
+            // the crosshair directly with the two lines above this comment.
+            //xyPlot.handleClick(screenX, screenY, this.getChartRenderingInfo().getPlotInfo());
          }
       }
    }

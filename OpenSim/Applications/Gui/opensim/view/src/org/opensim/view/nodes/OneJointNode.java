@@ -35,9 +35,11 @@ import javax.swing.ImageIcon;
 import org.openide.nodes.Children;
 import org.openide.nodes.Node;
 import org.openide.util.NbBundle;
-import org.opensim.modeling.AbstractJoint;
-import org.opensim.modeling.TransformAxisSet;
+import org.opensim.modeling.CustomJoint;
+import org.opensim.modeling.Joint;
 import org.opensim.modeling.OpenSimObject;
+import org.opensim.modeling.SpatialTransform;
+import org.opensim.modeling.TransformAxis;
 
 /**
  *
@@ -50,13 +52,14 @@ public class OneJointNode extends OpenSimObjectNode{
     public OneJointNode(OpenSimObject j) {
         super(j);
         setShortDescription(bundle.getString("HINT_JointNode"));
-        AbstractJoint joint = AbstractJoint.safeDownCast(j);
-        if (joint != null) {
-           TransformAxisSet dofs = joint.getTransformAxisSet();
-           if (dofs != null)
-              getChildren().add(new Node[] {new DofsNode(joint.getTransformAxisSet())});
-           else
-              setChildren(Children.LEAF);
+        Joint joint = Joint.safeDownCast(j);
+        CustomJoint cj = CustomJoint.safeDownCast(joint);
+        if (cj != null) {
+           SpatialTransform spt = cj.getSpatialTransform();
+           for (int i=0; i<6; i++) {
+              TransformAxis ta = spt.getTransformAxis(i);
+              getChildren().add(new Node[] {new OneDofNode(ta)});
+           }
         } else {
            setChildren(Children.LEAF);
         }

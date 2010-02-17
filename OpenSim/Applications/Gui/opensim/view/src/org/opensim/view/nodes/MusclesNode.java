@@ -32,16 +32,15 @@ import java.awt.Image;
 import java.net.URL;
 import javax.swing.ImageIcon;
 import java.util.ResourceBundle;
-import javax.swing.Action;
-import javax.swing.JMenu;
 import org.openide.nodes.Children;
 import org.openide.nodes.Node;
 import org.openide.util.NbBundle;
-import org.opensim.modeling.AbstractMuscle;
-import org.opensim.modeling.ActuatorSet;
+import org.opensim.modeling.Muscle;
+import org.opensim.modeling.ForceSet;
 import org.opensim.modeling.ArrayObjPtr;
 import org.opensim.modeling.ObjectGroup;
-import org.opensim.view.ObjectDisplayMenuAction;
+import org.opensim.modeling.SetActuators;
+import org.opensim.view.nodes.OpenSimObjectNode.displayOption;
 
 /**
  *
@@ -55,19 +54,19 @@ public class MusclesNode extends OpenSimObjectSetNode {
    /**
     * Creates a new instance of MusclesNode
     */
-   public MusclesNode(ActuatorSet as) {
+   public MusclesNode(ForceSet as) {
       super(as);
       setDisplayName(NbBundle.getMessage(MusclesNode.class, "CTL_Muscles"));
       Children children = getChildren();
       int numMuscleGroups = countMuscleGroups(as);
       int numMuscles = countMuscles(as);
       if (numMuscleGroups == 0) {
-         // There are no AbstractMuscle groups, so just add all of the
+         // There are no Muscle groups, so just add all of the
          // muscles directly under the Muscles node.
          for (int actuatorNum=0; actuatorNum < as.getSize(); actuatorNum++ ) {
-            AbstractMuscle muscle = AbstractMuscle.safeDownCast(as.get(actuatorNum));
+            Muscle muscle = Muscle.safeDownCast(as.get(actuatorNum));
             if (muscle != null) {
-               OneActuatorNode node = new OneActuatorNode(muscle);
+               OneMuscleNode node = new OneMuscleNode(muscle);
                Node[] arrNodes = new Node[1];
                arrNodes[0] = node;
                children.add(arrNodes);
@@ -84,9 +83,9 @@ public class MusclesNode extends OpenSimObjectSetNode {
             ObjectGroup grp = as.getGroup(i);
             ArrayObjPtr apo = grp.getMembers();
             if (apo.getSize() > 0) {
-               AbstractMuscle muscle = AbstractMuscle.safeDownCast(apo.get(0));
-               // If the first member of the group is an AbstractMuscle, then
-               // consider this group to be an AbstractMuscle group.
+               Muscle muscle = Muscle.safeDownCast(apo.get(0));
+               // If the first member of the group is an Muscle, then
+               // consider this group to be an Muscle group.
                if (muscle != null && grp.getName().equals("all")) {
                   userDefinedAllGroup = true;
                   break;
@@ -98,7 +97,7 @@ public class MusclesNode extends OpenSimObjectSetNode {
             ObjectGroup allGroup = new ObjectGroup();
             allGroup.setName("all");
             for (int actuatorNum=0; actuatorNum < as.getSize(); actuatorNum++ ) {
-               AbstractMuscle muscle = AbstractMuscle.safeDownCast(as.get(actuatorNum));
+               Muscle muscle = Muscle.safeDownCast(as.get(actuatorNum));
                if (muscle != null) {
                   allGroup.add(muscle);
                }
@@ -110,9 +109,9 @@ public class MusclesNode extends OpenSimObjectSetNode {
             ObjectGroup grp = as.getGroup(i);
             ArrayObjPtr apo = grp.getMembers();
             if (apo.getSize() > 0) {
-               AbstractMuscle muscle = AbstractMuscle.safeDownCast(apo.get(0));
-               // If the first member of the group is an AbstractMuscle, then
-               // consider this group to be an AbstractMuscle group.
+               Muscle muscle = Muscle.safeDownCast(apo.get(0));
+               // If the first member of the group is an Muscle, then
+               // consider this group to be an Muscle group.
                if (muscle != null)
                   children.add(new Node[] {new ActuatorGroupNode(grp)});
             }
@@ -158,25 +157,25 @@ public class MusclesNode extends OpenSimObjectSetNode {
        return NbBundle.getMessage(MusclesNode.class, "CTL_Muscles");
    }
 
-   private int countMuscleGroups(ActuatorSet as) {
+   private int countMuscleGroups(ForceSet as) {
       int count = 0;
       for (int i = 0; i < as.getNumGroups(); i++) {
          ObjectGroup grp = as.getGroup(i);
          ArrayObjPtr apo = grp.getMembers();
          if (apo.getSize()==0) continue;  // Gaurd against empty groups
-         AbstractMuscle muscle = AbstractMuscle.safeDownCast(apo.get(0)); 
-         // If the first member of the group is an AbstractMuscle, then
-         // consider this group to be an AbstractMuscle group.
+         Muscle muscle = Muscle.safeDownCast(apo.get(0)); 
+         // If the first member of the group is an Muscle, then
+         // consider this group to be an Muscle group.
          if (muscle != null)
             count++;
       }
       return count;
    }
 
-   private int countMuscles(ActuatorSet as) {
+   private int countMuscles(ForceSet as) {
       int count = 0;
       for (int i = 0; i < as.getSize(); i++) {
-         AbstractMuscle muscle = AbstractMuscle.safeDownCast(as.get(i));
+         Muscle muscle = Muscle.safeDownCast(as.get(i));
          if (muscle != null)
             count++;
       }

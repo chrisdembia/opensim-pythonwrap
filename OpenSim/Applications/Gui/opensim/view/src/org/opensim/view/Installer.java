@@ -36,6 +36,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import org.openide.modules.ModuleInstall;
 import org.openide.util.NbBundle;
+import org.opensim.modeling.OpenSimObject;
 import org.opensim.utils.TheApp;
 import org.opensim.view.base.OpenSimBaseCanvas;
 import org.opensim.view.pub.OpenSimDB;
@@ -70,7 +71,7 @@ public class Installer extends ModuleInstall {
 
     public void restored() {
         super.restored();
-        System.setProperty ("netbeans.buildnumber", "1.9"); // Should get that from JNI but sometimes doesn't work'
+        System.setProperty ("netbeans.buildnumber", "2.0"); // Should get that from JNI but sometimes doesn't work'
         try {
              // Put your startup code here.
             UIManager.setLookAndFeel( UIManager.getSystemLookAndFeelClassName() );
@@ -101,26 +102,29 @@ public class Installer extends ModuleInstall {
          * @todo open explorer window, Restore default directory and Bones directories, ..
          */
         restorePrefs();
-        /** Restore from file */
-
-        try {
-            XMLDecoder decoder = new XMLDecoder(new BufferedInputStream(
-                new FileInputStream("AppState.xml")));
-            ApplicationState readState= (ApplicationState)decoder.readObject();
-            PluginsDB.getInstance().loadPlugins();
-            OpenSimDB.getInstance().rebuild((OpenSimDBDescriptor) readState.getObject("OpenSimDB"));
-            ViewDB.getInstance().rebuild((ViewDBDescriptor) readState.getObject("ViewDB"));
-            decoder.close();
-        } catch (FileNotFoundException ex) {
-            // First time, no file yet
-           ApplicationState as = ApplicationState.getInstance();
-           as.addObject("OpenSimDB", new OpenSimDBDescriptor(OpenSimDB.getInstance()));
-           //as.addObject("OpenSimDB", OpenSimDB.getInstance());
-           as.addObject("ViewDB", new ViewDBDescriptor(ViewDB.getInstance()));
-            //ex.printStackTrace();
-           as.addObject("PluginsDB", PluginsDB.getInstance());
-        } catch (IOException ex) {
-            ex.printStackTrace();
+        
+        String saved = Preferences.userNodeForPackage(TheApp.class).get("Persist Models", "On");
+        if (saved.equalsIgnoreCase("On")){
+            /** Restore from file */            
+            try {
+                XMLDecoder decoder = new XMLDecoder(new BufferedInputStream(
+                        new FileInputStream("AppState.xml")));
+                ApplicationState readState= (ApplicationState)decoder.readObject();
+                PluginsDB.getInstance().loadPlugins();
+                OpenSimDB.getInstance().rebuild((OpenSimDBDescriptor) readState.getObject("OpenSimDB"));
+                ViewDB.getInstance().rebuild((ViewDBDescriptor) readState.getObject("ViewDB"));
+                decoder.close();
+            } catch (FileNotFoundException ex) {
+                // First time, no file yet
+                ApplicationState as = ApplicationState.getInstance();
+                as.addObject("OpenSimDB", new OpenSimDBDescriptor(OpenSimDB.getInstance()));
+                //as.addObject("OpenSimDB", OpenSimDB.getInstance());
+                as.addObject("ViewDB", new ViewDBDescriptor(ViewDB.getInstance()));
+                //ex.printStackTrace();
+                as.addObject("PluginsDB", PluginsDB.getInstance());
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
         }
     }
     /**
@@ -160,5 +164,17 @@ public class Installer extends ModuleInstall {
          String markerColor = NbBundle.getMessage(ViewDB.class, "CTL_MarkersColorRGB");        
          saved = Preferences.userNodeForPackage(TheApp.class).get("Markers Color", markerColor);
          Preferences.userNodeForPackage(TheApp.class).put("Markers Color", saved);
+
+         String persistModels = "On";        
+         saved = Preferences.userNodeForPackage(TheApp.class).get("Persist Models", persistModels);
+         Preferences.userNodeForPackage(TheApp.class).put("Persist Models", saved);
+
+         String debugLevel = "0";        
+         saved = Preferences.userNodeForPackage(TheApp.class).get("Debug", debugLevel);
+         if (saved.equalsIgnoreCase("Off")) saved="0";
+         Preferences.userNodeForPackage(TheApp.class).put("Debug", saved);
+         int debugLevelInt = Integer.parseInt(saved);
+         OpenSimObject.setDebugLevel(debugLevelInt);
+
     }
 }

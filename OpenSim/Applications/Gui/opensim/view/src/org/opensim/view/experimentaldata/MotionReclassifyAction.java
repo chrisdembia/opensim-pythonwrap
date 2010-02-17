@@ -49,7 +49,7 @@ public final class MotionReclassifyAction extends CallableSystemAction {
         final AnnotatedMotion amot = (AnnotatedMotion) ((OneMotionNode)(selected[0])).getMotion();
         final ClassifyDataJPanel dataPanel= new ClassifyDataJPanel();
         dataPanel.setAmotion(amot);
-        final DialogDescriptor dlg = new DialogDescriptor(dataPanel, "Preview Transform");
+        final DialogDescriptor dlg = new DialogDescriptor(dataPanel, "Inspect Experimental Data");
         dlg.setModal(false);
         Dialog wDlg = DialogDisplayer.getDefault().createDialog(dlg);
         wDlg.setVisible(true);

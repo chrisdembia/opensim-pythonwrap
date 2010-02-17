@@ -8,7 +8,7 @@
 
 package org.opensim.modeling;
 
-public class Force extends AbstractActuator {
+public class Force extends ModelComponent {
   private long swigCPtr;
 
   public Force(long cPtr, boolean cMemoryOwn) {
@@ -33,171 +33,44 @@ public class Force extends AbstractActuator {
     super.delete();
   }
 
-  public Force(String aBodyAName, String aBodyBName) {
-    this(opensimModelJNI.new_Force__SWIG_0(aBodyAName, aBodyBName), true);
+  public void setup(Model model) {
+    opensimModelJNI.Force_setup(swigCPtr, this, Model.getCPtr(model), model);
   }
 
-  public Force(String aBodyAName) {
-    this(opensimModelJNI.new_Force__SWIG_1(aBodyAName), true);
+  public void postInit(Model model) {
+    opensimModelJNI.Force_postInit(swigCPtr, this, Model.getCPtr(model), model);
+  }
+
+  public int getNumStateVariables() {
+    return opensimModelJNI.Force_getNumStateVariables(swigCPtr, this);
+  }
+
+  public String getStateVariableName(int index) {
+    return opensimModelJNI.Force_getStateVariableName(swigCPtr, this, index);
+  }
+
+  public double getStateVariable(SWIGTYPE_p_SimTK__State state, int index) {
+    return opensimModelJNI.Force_getStateVariable(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(state), index);
+  }
+
+  public void setStateVariable(SWIGTYPE_p_SimTK__State state, int index, double value) {
+    opensimModelJNI.Force_setStateVariable(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(state), index, value);
+  }
+
+  public Force(SWIGTYPE_p_DOMElement aNode) {
+    this(opensimModelJNI.new_Force__SWIG_0(SWIGTYPE_p_DOMElement.getCPtr(aNode)), true);
   }
 
   public Force() {
-    this(opensimModelJNI.new_Force__SWIG_2(), true);
+    this(opensimModelJNI.new_Force__SWIG_1(), true);
   }
 
-  public Force(Force aForce) {
-    this(opensimModelJNI.new_Force__SWIG_3(Force.getCPtr(aForce), aForce), true);
+  public ArrayStr getRecordLabels() {
+    return new ArrayStr(opensimModelJNI.Force_getRecordLabels(swigCPtr, this), true);
   }
 
-  public OpenSimObject copy() {
-    long cPtr = opensimModelJNI.Force_copy__SWIG_0(swigCPtr, this);
-    return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
-  }
-
-  public void setBodyA(AbstractBody aBody) {
-    opensimModelJNI.Force_setBodyA(swigCPtr, this, AbstractBody.getCPtr(aBody), aBody);
-  }
-
-  public AbstractBody getBodyA() {
-    long cPtr = opensimModelJNI.Force_getBodyA(swigCPtr, this);
-    return (cPtr == 0) ? null : new AbstractBody(cPtr, false);
-  }
-
-  public void setPointA(SWIGTYPE_p_SimTK__Vec3 aPoint) {
-    opensimModelJNI.Force_setPointA(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(aPoint));
-  }
-
-  public void getPointA(SWIGTYPE_p_SimTK__Vec3 rPoint) {
-    opensimModelJNI.Force_getPointA(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(rPoint));
-  }
-
-  public void setForceDirectionA(SWIGTYPE_p_SimTK__Vec3 aDirection) {
-    opensimModelJNI.Force_setForceDirectionA(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(aDirection));
-  }
-
-  public void getForceDirectionA(SWIGTYPE_p_SimTK__Vec3 rDirection) {
-    opensimModelJNI.Force_getForceDirectionA(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(rDirection));
-  }
-
-  public void setBodyB(AbstractBody aBody) {
-    opensimModelJNI.Force_setBodyB(swigCPtr, this, AbstractBody.getCPtr(aBody), aBody);
-  }
-
-  public AbstractBody getBodyB() {
-    long cPtr = opensimModelJNI.Force_getBodyB(swigCPtr, this);
-    return (cPtr == 0) ? null : new AbstractBody(cPtr, false);
-  }
-
-  public void setPointB(SWIGTYPE_p_SimTK__Vec3 aPoint) {
-    opensimModelJNI.Force_setPointB(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(aPoint));
-  }
-
-  public void getPointB(SWIGTYPE_p_SimTK__Vec3 rPoint) {
-    opensimModelJNI.Force_getPointB(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(rPoint));
-  }
-
-  public void getForceDirectionB(SWIGTYPE_p_SimTK__Vec3 rDirection) {
-    opensimModelJNI.Force_getForceDirectionB(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(rDirection));
-  }
-
-  public void setPointAFunction(SWIGTYPE_p_VectorFunction aVectorFunction) {
-    opensimModelJNI.Force_setPointAFunction(swigCPtr, this, SWIGTYPE_p_VectorFunction.getCPtr(aVectorFunction));
-  }
-
-  public SWIGTYPE_p_VectorFunction getPointAFunction() {
-    long cPtr = opensimModelJNI.Force_getPointAFunction(swigCPtr, this);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_VectorFunction(cPtr, false);
-  }
-
-  public void setPointBFunction(SWIGTYPE_p_VectorFunction aVectorFunction) {
-    opensimModelJNI.Force_setPointBFunction(swigCPtr, this, SWIGTYPE_p_VectorFunction.getCPtr(aVectorFunction));
-  }
-
-  public SWIGTYPE_p_VectorFunction getPointBFunction() {
-    long cPtr = opensimModelJNI.Force_getPointBFunction(swigCPtr, this);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_VectorFunction(cPtr, false);
-  }
-
-  public void setScaleFunction(Function _scaleFunction) {
-    opensimModelJNI.Force_setScaleFunction(swigCPtr, this, Function.getCPtr(_scaleFunction), _scaleFunction);
-  }
-
-  public Function getScaleFunction() {
-    long cPtr = opensimModelJNI.Force_getScaleFunction(swigCPtr, this);
-    return (cPtr == 0) ? null : new Function(cPtr, false);
-  }
-
-  public void setScaleFactor(double aScaleFactor) {
-    opensimModelJNI.Force_setScaleFactor(swigCPtr, this, aScaleFactor);
-  }
-
-  public double getScaleFactor() {
-    return opensimModelJNI.Force_getScaleFactor(swigCPtr, this);
-  }
-
-  public void setOptimalForce(double aOptimalForce) {
-    opensimModelJNI.Force_setOptimalForce(swigCPtr, this, aOptimalForce);
-  }
-
-  public double getOptimalForce() {
-    return opensimModelJNI.Force_getOptimalForce(swigCPtr, this);
-  }
-
-  public double getStress() {
-    return opensimModelJNI.Force_getStress(swigCPtr, this);
-  }
-
-  public void apply() {
-    opensimModelJNI.Force_apply(swigCPtr, this);
-  }
-
-  public void computeActuation() {
-    opensimModelJNI.Force_computeActuation(swigCPtr, this);
-  }
-
-  public void computeForceDirectionForBodyB() {
-    opensimModelJNI.Force_computeForceDirectionForBodyB(swigCPtr, this);
-  }
-
-  public void computeSpeed() {
-    opensimModelJNI.Force_computeSpeed(swigCPtr, this);
-  }
-
-  public void updatePointA() {
-    opensimModelJNI.Force_updatePointA(swigCPtr, this);
-  }
-
-  public void updatePointB() {
-    opensimModelJNI.Force_updatePointB(swigCPtr, this);
-  }
-
-  public boolean check() {
-    return opensimModelJNI.Force_check(swigCPtr, this);
-  }
-
-  public void setup(Model aModel) {
-    opensimModelJNI.Force_setup(swigCPtr, this, Model.getCPtr(aModel), aModel);
-  }
-
-  public void computeLineOfAction(SWIGTYPE_p_SimTK__Vec3 aLineOfAction) {
-    opensimModelJNI.Force_computeLineOfAction(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(aLineOfAction));
-  }
-
-  public static boolean isKindOf(String type) {
-    return opensimModelJNI.Force_isKindOf(type);
-  }
-
-  public boolean isA(String type) {
-    return opensimModelJNI.Force_isA(swigCPtr, this, type);
-  }
-
-  public static Force safeDownCast(OpenSimObject obj) {
-    long cPtr = opensimModelJNI.Force_safeDownCast(OpenSimObject.getCPtr(obj), obj);
-    return (cPtr == 0) ? null : new Force(cPtr, false);
-  }
-
-  public void copy(OpenSimObject aObject) {
-    opensimModelJNI.Force_copy__SWIG_1(swigCPtr, this, OpenSimObject.getCPtr(aObject), aObject);
+  public ArrayDouble getRecordValues(SWIGTYPE_p_SimTK__State state) {
+    return new ArrayDouble(opensimModelJNI.Force_getRecordValues(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(state)), true);
   }
 
 }

@@ -25,8 +25,8 @@
 */
 package org.opensim.logger;
 
-import org.opensim.modeling.*;
 import javax.swing.SwingUtilities;
+import org.opensim.modeling.SimtkLogCallback;
 
 public class JavaLogCallback extends SimtkLogCallback {
    public void log(final String str) {

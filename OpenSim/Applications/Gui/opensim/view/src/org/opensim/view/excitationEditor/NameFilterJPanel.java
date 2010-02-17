@@ -43,7 +43,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
-import org.opensim.modeling.ActuatorSet;
+import org.opensim.modeling.ForceSet;
 import org.opensim.modeling.ArrayObjPtr;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.ObjectGroup;
@@ -349,7 +349,7 @@ public class NameFilterJPanel extends javax.swing.JPanel
 
    private void restrictToGroup(final String groupName) {
        // get members and use them to filter
-      ActuatorSet acts=currentModel.getActuatorSet();
+      ForceSet acts=currentModel.getForceSet();
       ObjectGroup gp=acts.getGroup(groupName);
       ArrayObjPtr members=gp.getMembers();
       // Form a vector of muscle names

@@ -27,16 +27,15 @@ package org.opensim.view;
 
 import org.openide.DialogDescriptor;
 import org.openide.DialogDisplayer;
-import org.openide.NotifyDescriptor;
 import org.openide.awt.StatusDisplayer;
 import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
 import org.opensim.modeling.Model;
+//import org.opensim.modeling.SimmFileWriter;
 import org.opensim.modeling.SimmFileWriter;
 import org.opensim.view.actions.OpenSimToSIMMOptionsJPanel;
 import org.opensim.view.pub.OpenSimDB;
-import org.opensim.view.pub.ViewDB;
 
 /**
  * A Class represnting the Action of exporting an OpenSim model to SIMM's jnt format.
@@ -45,7 +44,6 @@ import org.opensim.view.pub.ViewDB;
 public final class FileExportSIMMModelAction extends CallableSystemAction {
     
     public void performAction() {
-        // TODO implement action body
         Model mdl = OpenSimDB.getInstance().getCurrentModel();
         if (mdl != null){
             OpenSimToSIMMOptionsJPanel exportPanel = new OpenSimToSIMMOptionsJPanel();
@@ -70,8 +68,8 @@ public final class FileExportSIMMModelAction extends CallableSystemAction {
                 if (!mslfileName.endsWith(".msl"))
                     mslfileName = mslfileName+".msl";
                 modelWriter.writeMuscleFile(mslfileName);
-                StatusDisplayer.getDefault().setStatusText("Exported SIMM jnt & muscle files for model "+
-                        mdl.getName()+".");
+
+                StatusDisplayer.getDefault().setStatusText("Exported SIMM jnt & muscle files for model " + mdl.getName() + ".");
             }
         }
     }
@@ -99,5 +97,9 @@ public final class FileExportSIMMModelAction extends CallableSystemAction {
     public boolean isEnabled() {
        return OpenSimDB.getInstance().getCurrentModel()!=null;
    }
+
+    private void throwUnimplemented() {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
 
 }

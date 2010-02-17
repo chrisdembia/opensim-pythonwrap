@@ -18,7 +18,7 @@ import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.SystemAction;
 import org.openide.util.datatransfer.NewType;
-import org.opensim.modeling.AbstractBody;
+import org.opensim.modeling.Body;
 import org.opensim.modeling.BodySet;
 import org.opensim.modeling.Model;
 
@@ -36,7 +36,7 @@ public class BodiesNode extends OpenSimObjectSetNode {
 
         for (int bodyNum=0; bodyNum < bodySet.getSize(); bodyNum++ ){
 
-            AbstractBody body = bodySet.get(bodyNum);
+            Body body = bodySet.get(bodyNum);
             Children children = getChildren();
 
             if (topological){

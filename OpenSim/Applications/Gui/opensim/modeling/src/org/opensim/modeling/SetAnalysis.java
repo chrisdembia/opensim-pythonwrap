@@ -122,12 +122,8 @@ public class SetAnalysis extends OpenSimObject {
     return opensimModelJNI.SetAnalysis_append__SWIG_0(swigCPtr, this, Analysis.getCPtr(aObject), aObject);
   }
 
-  public boolean append(SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__Analysis_t aArray) {
-    return opensimModelJNI.SetAnalysis_append__SWIG_1(swigCPtr, this, SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__Analysis_t.getCPtr(aArray));
-  }
-
   public boolean insert(int aIndex, Analysis aObject) {
-    return opensimModelJNI.SetAnalysis_insert(swigCPtr, this, aIndex, Analysis.getCPtr(aObject), aObject);
+    return opensimModelJNI.SetAnalysis_insert__SWIG_0(swigCPtr, this, aIndex, Analysis.getCPtr(aObject), aObject);
   }
 
   public boolean remove(int aIndex) {
@@ -138,26 +134,28 @@ public class SetAnalysis extends OpenSimObject {
     return opensimModelJNI.SetAnalysis_remove__SWIG_1(swigCPtr, this, Analysis.getCPtr(aObject), aObject);
   }
 
-  public boolean replace(int aIndex, Analysis aObject) {
-    return opensimModelJNI.SetAnalysis_replace(swigCPtr, this, aIndex, Analysis.getCPtr(aObject), aObject);
-  }
-
   public void clearAndDestroy() {
     opensimModelJNI.SetAnalysis_clearAndDestroy(swigCPtr, this);
   }
 
+  public boolean set(int aIndex, Analysis aObject, boolean preserveGroups) {
+    return opensimModelJNI.SetAnalysis_set__SWIG_0(swigCPtr, this, aIndex, Analysis.getCPtr(aObject), aObject, preserveGroups);
+  }
+
   public boolean set(int aIndex, Analysis aObject) {
-    return opensimModelJNI.SetAnalysis_set(swigCPtr, this, aIndex, Analysis.getCPtr(aObject), aObject);
+    return opensimModelJNI.SetAnalysis_set__SWIG_1(swigCPtr, this, aIndex, Analysis.getCPtr(aObject), aObject);
   }
 
   public Analysis get(int aIndex) {
-    long cPtr = opensimModelJNI.SetAnalysis_get__SWIG_0(swigCPtr, this, aIndex);
-    return (cPtr == 0) ? null : new Analysis(cPtr, false);
+    return new Analysis(opensimModelJNI.SetAnalysis_get__SWIG_0(swigCPtr, this, aIndex), false);
   }
 
   public Analysis get(String aName) {
-    long cPtr = opensimModelJNI.SetAnalysis_get__SWIG_1(swigCPtr, this, aName);
-    return (cPtr == 0) ? null : new Analysis(cPtr, false);
+    return new Analysis(opensimModelJNI.SetAnalysis_get__SWIG_1(swigCPtr, this, aName), false);
+  }
+
+  public boolean contains(String aName) {
+    return opensimModelJNI.SetAnalysis_contains(swigCPtr, this, aName);
   }
 
   public void getNames(ArrayStr rNames) {

@@ -8,7 +8,7 @@
 
 package org.opensim.modeling;
 
-public class Analysis extends IntegCallback {
+public class Analysis extends OpenSimObject {
   private long swigCPtr;
 
   public Analysis(long cPtr, boolean cMemoryOwn) {
@@ -50,6 +50,24 @@ public class Analysis extends IntegCallback {
     opensimModelJNI.Analysis_copy__SWIG_0(swigCPtr, this, OpenSimObject.getCPtr(aObject), aObject);
   }
 
+  public void set_model(Model value) {
+    opensimModelJNI.Analysis__model_set(swigCPtr, this, Model.getCPtr(value), value);
+  }
+
+  public Model get_model() {
+    long cPtr = opensimModelJNI.Analysis__model_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new Model(cPtr, false);
+  }
+
+  public void set_statesStore(Storage value) {
+    opensimModelJNI.Analysis__statesStore_set(swigCPtr, this, Storage.getCPtr(value), value);
+  }
+
+  public Storage get_statesStore() {
+    long cPtr = opensimModelJNI.Analysis__statesStore_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new Storage(cPtr, false);
+  }
+
   public Analysis(Model aModel) {
     this(opensimModelJNI.new_Analysis__SWIG_0(Model.getCPtr(aModel), aModel), true);
   }
@@ -75,8 +93,48 @@ public class Analysis extends IntegCallback {
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
+  public int begin(SWIGTYPE_p_SimTK__State s) {
+    return opensimModelJNI.Analysis_begin(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s));
+  }
+
+  public int step(SWIGTYPE_p_SimTK__State s, int stepNumber) {
+    return opensimModelJNI.Analysis_step(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), stepNumber);
+  }
+
+  public int end(SWIGTYPE_p_SimTK__State s) {
+    return opensimModelJNI.Analysis_end(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s));
+  }
+
   public void setModel(Model aModel) {
     opensimModelJNI.Analysis_setModel(swigCPtr, this, Model.getCPtr(aModel), aModel);
+  }
+
+  public void setStatesStore(Storage aStatesStore) {
+    opensimModelJNI.Analysis_setStatesStore(swigCPtr, this, Storage.getCPtr(aStatesStore), aStatesStore);
+  }
+
+  public void setOn(boolean aTrueFalse) {
+    opensimModelJNI.Analysis_setOn(swigCPtr, this, aTrueFalse);
+  }
+
+  public boolean getOn() {
+    return opensimModelJNI.Analysis_getOn(swigCPtr, this);
+  }
+
+  public void setStartTime(double aStartTime) {
+    opensimModelJNI.Analysis_setStartTime(swigCPtr, this, aStartTime);
+  }
+
+  public double getStartTime() {
+    return opensimModelJNI.Analysis_getStartTime(swigCPtr, this);
+  }
+
+  public void setEndTime(double aEndTime) {
+    opensimModelJNI.Analysis_setEndTime(swigCPtr, this, aEndTime);
+  }
+
+  public double getEndTime() {
+    return opensimModelJNI.Analysis_getEndTime(swigCPtr, this);
   }
 
   public void setInDegrees(boolean aTrueFalse) {
@@ -85,6 +143,22 @@ public class Analysis extends IntegCallback {
 
   public boolean getInDegrees() {
     return opensimModelJNI.Analysis_getInDegrees(swigCPtr, this);
+  }
+
+  public boolean proceed(int aStep) {
+    return opensimModelJNI.Analysis_proceed__SWIG_0(swigCPtr, this, aStep);
+  }
+
+  public boolean proceed() {
+    return opensimModelJNI.Analysis_proceed__SWIG_1(swigCPtr, this);
+  }
+
+  public void setStepInterval(int aStepInterval) {
+    opensimModelJNI.Analysis_setStepInterval(swigCPtr, this, aStepInterval);
+  }
+
+  public int getStepInterval() {
+    return opensimModelJNI.Analysis_getStepInterval(swigCPtr, this);
   }
 
   public void setColumnLabels(ArrayStr aLabels) {

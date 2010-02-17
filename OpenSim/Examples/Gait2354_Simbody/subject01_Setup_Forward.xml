@@ -2,12 +2,12 @@
 <ForwardTool name="subject01_walk1">
 
 	<!--Name of the .osim file used to construct a model.-->
-	<model_file> subject01_simbody_adjusted.osim </model_file>
-	<!--Replace the model's actuator set with sets specified in
-	    <actuator_set_files>? If false, the actuator set is appended to.-->
-	<replace_actuator_set> false </replace_actuator_set>
-	<!--List of xml files used to construct an actuator set for the model.-->
-	<actuator_set_files> gait2354_CMC_Actuators.xml </actuator_set_files>
+	<model_file> gait2354_simbody.osim </model_file>
+	<!--Replace the model's force set with sets specified in
+	    <force_set_files>? If false, the force set is appended to.-->
+	<replace_force_set> false </replace_force_set>
+	<!--List of xml files used to construct an force set for the model.-->
+	<force_set_files> gait2354_CMC_Actuators.xml </force_set_files>
 	<!--Directory used for writing results.-->
 	<results_directory> ResultsForward </results_directory>
 	<!--Output precision.  It is 8 by default.-->
@@ -105,7 +105,7 @@
 	<use_specified_dt> true </use_specified_dt>
 	
 	<!-- EXTERNAL LOADS -->
-	<!--Motion file (.mot) or storage file (.sto) containing the external
+<!--Motion file (.mot) or storage file (.sto) containing the external
 	    loads applied to the model.-->
 	<external_loads_file> subject01_walk1_grf.mot </external_loads_file>
 	<!--Motion file (.mot) or storage file (.sto) containing the model
@@ -121,7 +121,7 @@
 	    corresponding to the external loads. A negative value results in no
 	    filtering. The default value is -1.0, so no filtering.-->
 	<lowpass_cutoff_frequency_for_load_kinematics> 6 </lowpass_cutoff_frequency_for_load_kinematics>
-	
+
 	<!-- CORRECTIVE SPRINGS -->
 	<!-- body1 -->
 	<!--True-false flag indicating whether or not to turn on a linear corrective spring for external load body 1.-->

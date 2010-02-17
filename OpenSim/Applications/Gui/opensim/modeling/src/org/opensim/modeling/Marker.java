@@ -8,7 +8,7 @@
 
 package org.opensim.modeling;
 
-public class Marker extends AbstractMarker {
+public class Marker extends OpenSimObject {
   private long swigCPtr;
 
   public Marker(long cPtr, boolean cMemoryOwn) {
@@ -46,12 +46,16 @@ public class Marker extends AbstractMarker {
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
+  public static void deleteMarker(Marker aMarker) {
+    opensimModelJNI.Marker_deleteMarker(Marker.getCPtr(aMarker), aMarker);
+  }
+
   public void copyData(Marker aMarker) {
     opensimModelJNI.Marker_copyData(swigCPtr, this, Marker.getCPtr(aMarker), aMarker);
   }
 
-  public void updateFromMarker(AbstractMarker aMarker) {
-    opensimModelJNI.Marker_updateFromMarker(swigCPtr, this, AbstractMarker.getCPtr(aMarker), aMarker);
+  public void updateFromMarker(Marker aMarker) {
+    opensimModelJNI.Marker_updateFromMarker(swigCPtr, this, Marker.getCPtr(aMarker), aMarker);
   }
 
   public void getOffset(SWIGTYPE_p_SimTK__Vec3 rOffset) {
@@ -107,21 +111,20 @@ public class Marker extends AbstractMarker {
     return opensimModelJNI.Marker_setBodyNameUseDefault(swigCPtr, this, aValue);
   }
 
-  public AbstractBody getBody() {
-    long cPtr = opensimModelJNI.Marker_getBody(swigCPtr, this);
-    return (cPtr == 0) ? null : new AbstractBody(cPtr, false);
+  public Body getBody() {
+    return new Body(opensimModelJNI.Marker_getBody(swigCPtr, this), false);
   }
 
-  public void setBody(AbstractBody aBody, boolean preserveLocation) {
-    opensimModelJNI.Marker_setBody(swigCPtr, this, AbstractBody.getCPtr(aBody), aBody, preserveLocation);
+  public void changeBody(Body aBody) {
+    opensimModelJNI.Marker_changeBody(swigCPtr, this, Body.getCPtr(aBody), aBody);
   }
 
   public void scale(SWIGTYPE_p_SimTK__Vec3 aScaleFactors) {
     opensimModelJNI.Marker_scale(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(aScaleFactors));
   }
 
-  public void setup(AbstractDynamicsEngine aEngine) {
-    opensimModelJNI.Marker_setup(swigCPtr, this, AbstractDynamicsEngine.getCPtr(aEngine), aEngine);
+  public void setup(Model aModel) {
+    opensimModelJNI.Marker_setup(swigCPtr, this, Model.getCPtr(aModel), aModel);
   }
 
   public void updateGeometry() {
@@ -130,6 +133,11 @@ public class Marker extends AbstractMarker {
 
   public VisibleObject getDisplayer() {
     long cPtr = opensimModelJNI.Marker_getDisplayer(swigCPtr, this);
+    return (cPtr == 0) ? null : new VisibleObject(cPtr, false);
+  }
+
+  public VisibleObject updDisplayer() {
+    long cPtr = opensimModelJNI.Marker_updDisplayer(swigCPtr, this);
     return (cPtr == 0) ? null : new VisibleObject(cPtr, false);
   }
 

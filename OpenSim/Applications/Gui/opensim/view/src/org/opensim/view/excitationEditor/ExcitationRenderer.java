@@ -48,8 +48,8 @@ import org.jfree.data.xy.XYDataset;
 import org.jfree.ui.RectangleEdge;
 import org.opensim.modeling.ArrayXYPoint;
 import org.opensim.modeling.ControlLinear;
-import org.opensim.modeling.Function;
 import org.opensim.modeling.Units;
+import org.opensim.modeling.XYFunctionInterface;
 import org.opensim.view.functionEditor.FunctionRenderer;
 
 /**
@@ -72,13 +72,13 @@ public class ExcitationRenderer extends FunctionRenderer
    /**
      * Creates a ExcitationRenderer for a single function.
      */
-   public ExcitationRenderer(ControlLinear theControl, Vector<Function> dFunctions) {
+   public ExcitationRenderer(ControlLinear theControl, Vector<XYFunctionInterface> dFunctions) {
        super(dFunctions.get(0));
        control=theControl;
-       setXUnits(new Units(Units.UnitType.simmSeconds));
-       setXDisplayUnits(new Units(Units.UnitType.simmSeconds));
-       setYUnits(new Units(Units.UnitType.simmSeconds));
-       setYDisplayUnits(new Units(Units.UnitType.simmSeconds));
+       setXUnits(new Units(Units.UnitType.Seconds));
+       setXDisplayUnits(new Units(Units.UnitType.Seconds));
+       setYUnits(new Units(Units.UnitType.Seconds));
+       setYDisplayUnits(new Units(Units.UnitType.Seconds));
        setBaseShapesVisible(true);
        setBaseShapesFilled(true);
        setBaseSeriesVisibleInLegend(false);
@@ -106,7 +106,7 @@ public class ExcitationRenderer extends FunctionRenderer
       functionList.get(series).setY(index, newY);
    }
 
-   void replaceFunction(int series, Function aFunction) {
+   void replaceFunction(int series, XYFunctionInterface aFunction) {
       functionList.set(series, aFunction);
       // Replace the function in listener as well
    }

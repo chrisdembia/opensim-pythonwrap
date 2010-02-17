@@ -30,7 +30,8 @@ import javax.swing.AbstractAction;
 import javax.swing.JOptionPane;
 import org.openide.nodes.Node;
 import org.openide.util.NbBundle;
-import org.opensim.modeling.AbstractTransformAxis;
+import org.opensim.modeling.Coordinate;
+import org.opensim.modeling.TransformAxis;
 import org.opensim.modeling.Function;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.Units;
@@ -45,9 +46,9 @@ import org.opensim.view.pub.OpenSimDB;
  */
 public class DofFunctionEditorAction extends AbstractAction {
 
-    private AbstractTransformAxis dof = null;
+    private TransformAxis dof = null;
 
-    public DofFunctionEditorAction(AbstractTransformAxis dof) {
+    public DofFunctionEditorAction(TransformAxis dof) {
         super(NbBundle.getMessage(DofFunctionEditorAction.class, "CTL_FunctionEditorAction"));
         this.dof = dof;
 //        putValue(SMALL_ICON, new ImageIcon(Utilities.loadImage(FunctionEditorTopComponent.ICON_PATH, true)));
@@ -61,7 +62,7 @@ public class DofFunctionEditorAction extends AbstractAction {
          Function currentFunction = functionEditor.getFunction();
          Model currentModel = OpenSimDB.getInstance().getCurrentModel();
          Function newFunction = Function.safeDownCast(funcNode.getOpenSimObject());
-         Model newModel = dof.getJoint().getDynamicsEngine().getModel();
+         Model newModel = dof.getJoint().getBody().getModel();
          if (newFunction != null && Function.getCPtr(newFunction) != Function.getCPtr(currentFunction)) {
             if (Model.getCPtr(newModel) != Model.getCPtr(currentModel)) {
                Object[] options = {"OK"};
@@ -77,23 +78,29 @@ public class DofFunctionEditorAction extends AbstractAction {
                functionEditor.addChangeListener(new DofFunctionEventListener());
                FunctionEditorOptions options = new FunctionEditorOptions();
                options.title = dof.getJoint().getName();
-               if (dof.getMotionType() == AbstractTransformAxis.MotionType.Rotational) {
-                  options.YUnits = new Units(Units.UnitType.simmRadians);
-                  options.YDisplayUnits = new Units(Units.UnitType.simmDegrees);
-               } else {
-                  options.YUnits = new Units(Units.UnitType.simmMeters);
-                  options.YDisplayUnits = options.YUnits;
-               }
-               options.YLabel = options.YDisplayUnits.getLabel();
-               if (dof.getCoordinate() != null) {
-                  if (dof.getCoordinate().getMotionType() == AbstractTransformAxis.MotionType.Rotational) {
-                     options.XUnits = new Units(Units.UnitType.simmRadians);
-                     options.XDisplayUnits = new Units(Units.UnitType.simmDegrees);
+               //TODO: For now, just get the first coordinate name.
+               String coordName = dof.getCoordinateNames().getitem(0);
+               Coordinate coord = dof.getJoint().getCoordinateSet().get(coordName);
+               if (coord != null) {
+                  // Determine the units of the X axis
+                  if (coord.getMotionType() == Coordinate.MotionType.Rotational) {
+                     options.XUnits = new Units(Units.UnitType.Radians);
+                     options.XDisplayUnits = new Units(Units.UnitType.Degrees);
+                     options.XLabel = coord.getName() + " (deg)";
                   } else {
-                     options.XUnits = new Units(Units.UnitType.simmMeters);
+                     options.XUnits = new Units(Units.UnitType.Meters);
                      options.XDisplayUnits = options.XUnits;
+                     options.XLabel = coord.getName() + " (m)";
                   }
-                  options.XLabel = dof.getCoordinate().getName() + " (deg)";
+                  // Determine the units of the Y axis
+                  if (dof.getName().startsWith("translation")) {
+                     options.YUnits = new Units(Units.UnitType.Meters);
+                     options.YDisplayUnits = options.YUnits;
+                  } else {
+                     options.YUnits = new Units(Units.UnitType.Radians);
+                     options.YDisplayUnits = new Units(Units.UnitType.Degrees);
+                  }
+                  options.YLabel = options.YDisplayUnits.getLabel();
                }
                functionEditor.open(newModel, dof, null, newFunction, options);
                functionEditor.requestActive();

@@ -36,10 +36,10 @@ import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
 import org.opensim.modeling.Model;
+//import org.opensim.modeling.SimmFileWriter;
 import org.opensim.modeling.SimmFileWriter;
 import org.opensim.view.actions.OpenSimToSIMMOptionsJPanel;
 import org.opensim.view.pub.OpenSimDB;
-import org.opensim.view.pub.ViewDB;
 
 /**
  * A Class represnting the Action of exporting an OpenSim model to SIMM's jnt format.
@@ -94,8 +94,8 @@ public final class FileExportSIMMJntAction extends CallableSystemAction {
                 if (!mslfileName.endsWith(".msl"))
                     mslfileName = mslfileName+".msl";
                 modelWriter.writeMuscleFile(mslfileName);
-                StatusDisplayer.getDefault().setStatusText("Exported SIMM jnt & muscle files for model "+
-                        mdl.getName()+".");
+
+                StatusDisplayer.getDefault().setStatusText("Exported SIMM jnt & muscle files for model " + mdl.getName()+".");
             }
         }
     }

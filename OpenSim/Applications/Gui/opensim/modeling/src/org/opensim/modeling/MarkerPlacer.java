@@ -50,12 +50,12 @@ public class MarkerPlacer extends OpenSimObject {
     opensimModelJNI.MarkerPlacer_copyData(swigCPtr, this, MarkerPlacer.getCPtr(aMarkerPlacementParams), aMarkerPlacementParams);
   }
 
-  public boolean processModel(Model aModel, String aPathToSubject) {
-    return opensimModelJNI.MarkerPlacer_processModel__SWIG_0(swigCPtr, this, Model.getCPtr(aModel), aModel, aPathToSubject);
+  public boolean processModel(SWIGTYPE_p_SimTK__State s, Model aModel, String aPathToSubject) {
+    return opensimModelJNI.MarkerPlacer_processModel__SWIG_0(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), Model.getCPtr(aModel), aModel, aPathToSubject);
   }
 
-  public boolean processModel(Model aModel) {
-    return opensimModelJNI.MarkerPlacer_processModel__SWIG_1(swigCPtr, this, Model.getCPtr(aModel), aModel);
+  public boolean processModel(SWIGTYPE_p_SimTK__State s, Model aModel) {
+    return opensimModelJNI.MarkerPlacer_processModel__SWIG_1(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), Model.getCPtr(aModel), aModel);
   }
 
   public boolean getApply() {

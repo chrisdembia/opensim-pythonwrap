@@ -38,7 +38,9 @@ import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import org.opensim.modeling.OpenSimObject;
 import org.opensim.utils.TheApp;
+import org.opensim.view.pub.ViewDB;
 
 /**
  *
@@ -174,8 +176,13 @@ public class EditPreferencesJPanel extends javax.swing.JPanel {
       for(int i=0; i< data.getRowCount(); i++){
          String key = (String)data.getValueAt(i, 0);
          String value = (String)data.getValueAt(i, 1);
-           Preferences.userNodeForPackage(TheApp.class).put(key, value);         
+         Preferences.userNodeForPackage(TheApp.class).put(key, value);         
       }
+      ViewDB.getInstance().applyPreferences();
+      String saved = Preferences.userNodeForPackage(TheApp.class).get("Debug", "0");
+      int debugLevel = Integer.parseInt(saved);
+      OpenSimObject.setDebugLevel(debugLevel);
+     
    }
    
 }

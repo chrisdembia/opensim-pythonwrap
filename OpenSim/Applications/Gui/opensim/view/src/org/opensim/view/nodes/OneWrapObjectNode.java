@@ -7,12 +7,12 @@ import javax.swing.ImageIcon;
 import org.openide.nodes.Children;
 import org.openide.nodes.Node;
 import org.openide.util.NbBundle;
-import org.opensim.modeling.AbstractBody;
-import org.opensim.modeling.AbstractWrapObject;
+import org.opensim.modeling.Body;
+import org.opensim.modeling.WrapObject;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.modeling.WrapObjectSet;
 
-/** Node class to wrap AbstractWrapObject objects */
+/** Node class to wrap WrapObject objects */
 public class OneWrapObjectNode extends OpenSimObjectNode{
    private static ResourceBundle bundle = NbBundle.getBundle(OneBodyNode.class);
    public OneWrapObjectNode(OpenSimObject b) {

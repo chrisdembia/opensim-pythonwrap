@@ -122,12 +122,8 @@ public class SetIKTasks extends OpenSimObject {
     return opensimModelJNI.SetIKTasks_append__SWIG_0(swigCPtr, this, IKTask.getCPtr(aObject), aObject);
   }
 
-  public boolean append(SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__IKTask_t aArray) {
-    return opensimModelJNI.SetIKTasks_append__SWIG_1(swigCPtr, this, SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__IKTask_t.getCPtr(aArray));
-  }
-
   public boolean insert(int aIndex, IKTask aObject) {
-    return opensimModelJNI.SetIKTasks_insert(swigCPtr, this, aIndex, IKTask.getCPtr(aObject), aObject);
+    return opensimModelJNI.SetIKTasks_insert__SWIG_0(swigCPtr, this, aIndex, IKTask.getCPtr(aObject), aObject);
   }
 
   public boolean remove(int aIndex) {
@@ -138,26 +134,28 @@ public class SetIKTasks extends OpenSimObject {
     return opensimModelJNI.SetIKTasks_remove__SWIG_1(swigCPtr, this, IKTask.getCPtr(aObject), aObject);
   }
 
-  public boolean replace(int aIndex, IKTask aObject) {
-    return opensimModelJNI.SetIKTasks_replace(swigCPtr, this, aIndex, IKTask.getCPtr(aObject), aObject);
-  }
-
   public void clearAndDestroy() {
     opensimModelJNI.SetIKTasks_clearAndDestroy(swigCPtr, this);
   }
 
+  public boolean set(int aIndex, IKTask aObject, boolean preserveGroups) {
+    return opensimModelJNI.SetIKTasks_set__SWIG_0(swigCPtr, this, aIndex, IKTask.getCPtr(aObject), aObject, preserveGroups);
+  }
+
   public boolean set(int aIndex, IKTask aObject) {
-    return opensimModelJNI.SetIKTasks_set(swigCPtr, this, aIndex, IKTask.getCPtr(aObject), aObject);
+    return opensimModelJNI.SetIKTasks_set__SWIG_1(swigCPtr, this, aIndex, IKTask.getCPtr(aObject), aObject);
   }
 
   public IKTask get(int aIndex) {
-    long cPtr = opensimModelJNI.SetIKTasks_get__SWIG_0(swigCPtr, this, aIndex);
-    return (cPtr == 0) ? null : new IKTask(cPtr, false);
+    return new IKTask(opensimModelJNI.SetIKTasks_get__SWIG_0(swigCPtr, this, aIndex), false);
   }
 
   public IKTask get(String aName) {
-    long cPtr = opensimModelJNI.SetIKTasks_get__SWIG_1(swigCPtr, this, aName);
-    return (cPtr == 0) ? null : new IKTask(cPtr, false);
+    return new IKTask(opensimModelJNI.SetIKTasks_get__SWIG_1(swigCPtr, this, aName), false);
+  }
+
+  public boolean contains(String aName) {
+    return opensimModelJNI.SetIKTasks_contains(swigCPtr, this, aName);
   }
 
   public void getNames(ArrayStr rNames) {

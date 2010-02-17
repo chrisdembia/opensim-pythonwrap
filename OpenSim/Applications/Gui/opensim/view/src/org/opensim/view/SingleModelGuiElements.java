@@ -36,13 +36,14 @@ package org.opensim.view;
 
 import java.util.ArrayList;
 import java.util.Vector;
-import org.opensim.modeling.AbstractActuator;
-import org.opensim.modeling.AbstractMuscle;
-import org.opensim.modeling.ActuatorSet;
+import org.opensim.modeling.Force;
+import org.opensim.modeling.Muscle;
+import org.opensim.modeling.ForceSet;
 import org.opensim.modeling.ArrayObjPtr;
 import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.BodySet;
+import org.opensim.modeling.Coordinate;
 import org.opensim.modeling.CoordinateSet;
 import org.opensim.modeling.MarkerSet;
 import org.opensim.modeling.ObjectGroup;
@@ -57,6 +58,7 @@ public class SingleModelGuiElements {
     
     private String[] bodyNames=null;
     private String[] coordinateNames=null;
+    private String[] unconstrainedCoordinateNames=null;
     private String[] actuatorClassNames=null;
     private String[] actuatorNames=null;
     private String[] markerNames=null;
@@ -133,7 +135,7 @@ public class SingleModelGuiElements {
     public String[] getBodyNames()
     {
        if (bodyNames==null){
-         BodySet bodies = model.getDynamicsEngine().getBodySet();
+         BodySet bodies = model.getBodySet();
          bodyNames = new String[bodies.getSize()];
          for (int i = 0; i < bodies.getSize(); i++)
             bodyNames[i] = new String(bodies.get(i).getName());
@@ -148,7 +150,7 @@ public class SingleModelGuiElements {
     public String[] getCoordinateNames()
     {
        if (coordinateNames==null){
-         CoordinateSet coordinates = model.getDynamicsEngine().getCoordinateSet();
+         CoordinateSet coordinates = model.getCoordinateSet();
          coordinateNames = new String[coordinates.getSize()];
          for (int i = 0; i < coordinates.getSize(); i++)
             coordinateNames[i] = new String(coordinates.get(i).getName());
@@ -156,18 +158,37 @@ public class SingleModelGuiElements {
        return coordinateNames;
     }
     /**
+     * Get a list of names for model coordinates
+     */
+    public String[] getUnconstrainedCoordinateNames()
+    {
+       if (unconstrainedCoordinateNames==null){
+         CoordinateSet coordinates = model.getCoordinateSet();
+         Vector<String> coordinateNamesVec = new Vector<String>();
+         for (int i = 0; i < coordinates.getSize(); i++){
+            Coordinate coord = coordinates.get(i);
+            boolean constrained = coord.isConstrained();
+            if (!constrained)
+                coordinateNamesVec.add(coord.getName());
+         }
+         unconstrainedCoordinateNames= new String[coordinateNamesVec.size()];
+         coordinateNamesVec.toArray(unconstrainedCoordinateNames);
+       }
+       return unconstrainedCoordinateNames;
+    }
+    /**
      * Get a list of names for actuator groups in model
      */
     public Vector<String> getActuatorGroupNames()
     {
         Vector<String> ret=new Vector<String>(4);
-        ActuatorSet actuators = model.getActuatorSet();
+        ForceSet actuators = model.getForceSet();
         if (actuators !=null){
             ArrayStr muscleGroupNames = new ArrayStr();
             actuators.getGroupNames(muscleGroupNames);
             for(int i=0; i<muscleGroupNames.getSize();i++){
                 ret.add(muscleGroupNames.getitem(i));
-                AbstractActuator act = actuators.get(i);
+                Force act = actuators.get(i);
             }
         }
        return ret;
@@ -178,7 +199,7 @@ public class SingleModelGuiElements {
     public Vector<String> getActuatorNamesForGroup(String groupName)
     {
        Vector<String> ret = new Vector<String>(20);
-        ActuatorSet actuators = model.getActuatorSet();
+        ForceSet actuators = model.getForceSet();
         if (actuators !=null){
            ObjectGroup group=actuators.getGroup(groupName);
            assert(group!=null);
@@ -195,10 +216,10 @@ public class SingleModelGuiElements {
     public Vector<String> getMuscleNames()
     {
        Vector<String> ret=new Vector<String>(20);
-       ActuatorSet actuators = model.getActuatorSet();
+       ForceSet actuators = model.getForceSet();
        if (actuators !=null){
            for(int i=0; i<actuators.getSize();i++){
-              if (AbstractMuscle.safeDownCast(actuators.get(i)) != null)
+              if (Muscle.safeDownCast(actuators.get(i)) != null)
                  ret.add(actuators.get(i).getName());
            }
        }
@@ -218,7 +239,7 @@ public class SingleModelGuiElements {
    public void updateMarkerNames()
    {
       ArrayList<String> namesList = new ArrayList<String>(4);
-      MarkerSet markers = model.getDynamicsEngine().getMarkerSet();
+      MarkerSet markers = model.getMarkerSet();
       if (markers != null) {
          for (int i=0; i<markers.getSize(); i++)
             namesList.add(markers.get(i).getName());
@@ -257,11 +278,11 @@ public class SingleModelGuiElements {
    public void updateActuatorNames()
    {
       ArrayList<String> namesList = new ArrayList<String>(4);
-      ActuatorSet actuators = model.getActuatorSet();
+      ForceSet actuators = model.getForceSet();
       if (actuators != null) {
          for (int i=0; i<actuators.getSize(); i++) {
-            AbstractActuator act =actuators.get(i);
-            AbstractMuscle muscle = AbstractMuscle.safeDownCast(act);
+            Force act =actuators.get(i);
+            Muscle muscle = Muscle.safeDownCast(act);
             if (muscle != null) {
                namesList.add(muscle.getName());
             }

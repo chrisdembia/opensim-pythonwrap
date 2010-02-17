@@ -53,7 +53,7 @@ public final class FileLoadDataAction extends CallableSystemAction {
                     Storage newStorage = new Storage();
                     markerData.makeRdStorage(newStorage);
                     AnnotatedMotion amot = new AnnotatedMotion(newStorage, markerData.getMarkerNames());
-                    amot.setUnitConversion(1.0/(markerData.getUnits().convertTo(Units.UnitType.simmMeters)));
+                    amot.setUnitConversion(1.0/(markerData.getUnits().convertTo(Units.UnitType.Meters)));
                     amot.setName(new File(fileName).getName());
                     // Add the visuals to support it
                     ModelForExperimentalData modelForDataImport = new ModelForExperimentalData(nextNumber++, amot);
@@ -67,23 +67,16 @@ public final class FileLoadDataAction extends CallableSystemAction {
                     Storage newStorage=null;
                     try {
                         newStorage = new Storage(fileName);
+                        AnnotatedMotion amot = new AnnotatedMotion(newStorage);
+                        // Show dialog to allow users to specify 
+                        amot.setName(new File(fileName).getName());
+                        // Add the visuals to support it
+                        ModelForExperimentalData modelForDataImport = new ModelForExperimentalData(nextNumber++, amot);
+                        OpenSimDB.getInstance().addModel(modelForDataImport);
+                        MotionsDB.getInstance().addMotion(modelForDataImport, amot, false);
                     } catch (IOException ex) {
                         ex.printStackTrace();
                     }
-                     AnnotatedMotion amot = new AnnotatedMotion(newStorage);
-                     // Show dialog to allow users to specify 
-                     amot.setName(new File(fileName).getName());
-                     /*
-                     ClassifyDataJPanel dataPanel= new ClassifyDataJPanel();
-                     dataPanel.setAmotion(amot);
-                     DialogDescriptor dlg = new DialogDescriptor(dataPanel, "Inspect Experimental Data");
-                     dlg.setModal(false);
-                     DialogDisplayer.getDefault().createDialog(dlg).setVisible(true);
-                     */
-                     // Add the visuals to support it
-                     ModelForExperimentalData modelForDataImport = new ModelForExperimentalData(nextNumber++, amot);
-                     OpenSimDB.getInstance().addModel(modelForDataImport);
-                     MotionsDB.getInstance().addMotion(modelForDataImport, amot, false);
             }
         }
     }

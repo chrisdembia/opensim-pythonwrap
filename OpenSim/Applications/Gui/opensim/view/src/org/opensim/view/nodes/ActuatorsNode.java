@@ -33,9 +33,13 @@ import java.net.URL;
 import javax.swing.ImageIcon;
 import java.util.ResourceBundle;
 import javax.swing.Action;
+import org.openide.nodes.Children;
 import org.openide.nodes.Node;
 import org.openide.util.NbBundle;
-import org.opensim.modeling.ActuatorSet;
+import org.opensim.modeling.Actuator;
+import org.opensim.modeling.Force;
+import org.opensim.modeling.ForceSet;
+import org.opensim.modeling.Muscle;
 
 /**
  *
@@ -49,13 +53,26 @@ public class ActuatorsNode extends OpenSimObjectSetNode {
    /**
     * Creates a new instance of ActuatorsNode
     */
-   public ActuatorsNode(ActuatorSet as) {
+   public ActuatorsNode(ForceSet as) {
       super(as);
       setDisplayName(NbBundle.getMessage(ActuatorsNode.class, "CTL_Actuators"));
-      getChildren().add(new Node[] {new MusclesNode(as)});
-      getChildren().add(new Node[] {new ForcesNode(as)});
-      getChildren().add(new Node[] {new TorquesNode(as)});
-      getChildren().add(new Node[] {new GeneralizedForcesNode(as)});
+      Children children = getChildren();
+
+      // Add all of the Actuators that are not Muscles directly under the Actuators node.
+      for (int forceNum=0; forceNum < as.getSize(); forceNum++ ) {
+         Force nextForce = as.get(forceNum);
+         Actuator act = Actuator.safeDownCast(nextForce);
+         Muscle msl = Muscle.safeDownCast(nextForce);
+         if (act != null && msl == null) {
+            OneActuatorNode node = new OneActuatorNode(nextForce);
+            Node[] arrNodes = new Node[1];
+            arrNodes[0] = node;
+            children.add(arrNodes);
+         }
+      }
+
+      if (getChildren().getNodesCount() == 0)
+         setChildren(children.LEAF);
    }
    /**
     * Display name

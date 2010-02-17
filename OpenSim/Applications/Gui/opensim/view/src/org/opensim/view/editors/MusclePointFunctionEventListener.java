@@ -34,14 +34,16 @@
 
 package org.opensim.view.editors;
 
+import org.opensim.modeling.OpenSimContext;
 import org.opensim.view.functionEditor.FunctionEvent;
 import org.opensim.view.functionEditor.FunctionEventListener;
 import org.opensim.view.functionEditor.FunctionModifiedEvent;
 import org.opensim.view.functionEditor.FunctionReplacedEvent;
-import org.opensim.modeling.AbstractActuator;
+import org.opensim.modeling.Muscle;
 import org.opensim.modeling.Function;
-import org.opensim.modeling.MovingMusclePoint;
+import org.opensim.modeling.MovingPathPoint;
 import org.opensim.modeling.OpenSimObject;
+import org.opensim.view.pub.OpenSimDB;
 
 /**
  *
@@ -56,7 +58,8 @@ public class MusclePointFunctionEventListener implements FunctionEventListener {
    public void handleFunctionEvent(FunctionEvent event) {
       OpenSimObject object = event.getObject();
 
-      MovingMusclePoint mmp = MovingMusclePoint.safeDownCast(object);
+      MovingPathPoint mmp = MovingPathPoint.safeDownCast(object);
+      OpenSimContext context=OpenSimDB.getInstance().getContext(mmp.getBody().getModel());
       if (mmp != null) {
          if (event instanceof FunctionReplacedEvent) {
             FunctionReplacedEvent fre = (FunctionReplacedEvent) event;
@@ -64,23 +67,23 @@ public class MusclePointFunctionEventListener implements FunctionEventListener {
             Function newFunction = fre.getReplacementFunction();
             if (Function.getCPtr(oldFunction) != Function.getCPtr(newFunction)) {
                if (Function.getCPtr(oldFunction) == Function.getCPtr(mmp.getXFunction()))
-                  mmp.setXFunction(newFunction);
+                  context.setXFunction(mmp, newFunction);
                else if (Function.getCPtr(oldFunction) == Function.getCPtr(mmp.getYFunction()))
-                  mmp.setYFunction(newFunction);
+                  context.setYFunction(mmp, newFunction);
                else if (Function.getCPtr(oldFunction) == Function.getCPtr(mmp.getZFunction()))
-                  mmp.setZFunction(newFunction);
-               MuscleEditorTopComponent.findInstance().movingPointMoved(event.getModel(), mmp.getMuscle(), mmp);
+                  context.setZFunction(mmp, newFunction);
+               MuscleEditorTopComponent.findInstance().movingPointMoved(event.getModel(), Muscle.safeDownCast(mmp.getPath().getOwner()), mmp);
             }
          } else if (event instanceof FunctionModifiedEvent) {
             FunctionModifiedEvent fme = (FunctionModifiedEvent) event;
             Function function = fme.getFunction();
             if (Function.getCPtr(function) == Function.getCPtr(mmp.getXFunction()))
-               mmp.setXFunction(function);
+               context.setXFunction(mmp, function);
             else if (Function.getCPtr(function) == Function.getCPtr(mmp.getYFunction()))
-               mmp.setYFunction(function);
+               context.setYFunction(mmp, function);
             else if (Function.getCPtr(function) == Function.getCPtr(mmp.getZFunction()))
-               mmp.setZFunction(function);
-            MuscleEditorTopComponent.findInstance().movingPointMoved(event.getModel(), mmp.getMuscle(), mmp);
+               context.setZFunction(mmp, function);
+            MuscleEditorTopComponent.findInstance().movingPointMoved(event.getModel(), Muscle.safeDownCast(mmp.getPath().getOwner()), mmp);
          }
       }
    }

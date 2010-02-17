@@ -45,7 +45,7 @@ import org.opensim.modeling.Storage;
 public class MotionEvent extends EventObject {
     
     public enum Operation{Open, Close, CurrentMotionsChanged, Modified};
-    Model model;
+    private Model model;
     Storage motion;
     Operation op= Operation.Open;
     /**
@@ -53,13 +53,13 @@ public class MotionEvent extends EventObject {
      */
     public MotionEvent(Object source, Model model, Storage motion, Operation op) {
         super(source);
-        this.model = model;
+        this.setModel(model);
         this.motion = motion;
         this.op = op;
     }
     public MotionEvent(Object source, Operation op) {
         super(source);
-        this.model = null;
+        this.setModel(null);
         this.motion = null;
         this.op = op;
     }
@@ -77,5 +77,9 @@ public class MotionEvent extends EventObject {
     public MotionEvent.Operation getOperation()
     {
         return op;
+    }
+
+    public void setModel(Model model) {
+        this.model = model;
     }
 }

@@ -52,7 +52,7 @@ import org.openide.nodes.Children;
 import org.openide.nodes.Node;
 import org.openide.util.Mutex;
 import org.openide.util.MutexException;
-import org.opensim.modeling.AbstractMarker;
+import org.opensim.modeling.Marker;
 import org.opensim.modeling.Model;
 import org.opensim.view.experimentaldata.ModelForExperimentalData;
 import org.opensim.modeling.OpenSimObject;
@@ -105,11 +105,11 @@ final public class ExplorerTopComponent extends TopComponent
    final class handleDelete extends AbstractAction {
        public void actionPerformed(ActionEvent e) {
           Node[] selectedNodes = manager.getSelectedNodes();
-          ArrayList<AbstractMarker> markers = new ArrayList<AbstractMarker>(0);
+          ArrayList<Marker> markers = new ArrayList<Marker>(0);
           for (int i=0; i<selectedNodes.length; i++) {
              if (selectedNodes[i] instanceof OneMarkerNode) {
                 OpenSimObjectNode node = (OpenSimObjectNode)selectedNodes[i];
-                markers.add((AbstractMarker)node.getOpenSimObject());
+                markers.add((Marker)node.getOpenSimObject());
              }
           }
           if (markers.size() > 0) {
@@ -223,8 +223,8 @@ final public class ExplorerTopComponent extends TopComponent
                        }
                     }
                     );
-                 } else if (objs.get(i) instanceof AbstractMarker) {
-                    AbstractMarker marker = (AbstractMarker)objs.get(i);
+                 } else if (objs.get(i) instanceof Marker) {
+                    Marker marker = (Marker)objs.get(i);
                     Model model = evnt.getModel();
                     ConcreteModelNode modelNode = getModelNode(model);
                     Children children = modelNode.getChildren();
@@ -243,8 +243,8 @@ final public class ExplorerTopComponent extends TopComponent
               final ObjectsDeletedEvent evnt = (ObjectsDeletedEvent)arg;
               final Vector<OpenSimObject> objs = evnt.getObjects();
               for (int i=0; i<objs.size(); i++) {
-                 if (objs.get(i) instanceof AbstractMarker) {
-                    AbstractMarker marker = (AbstractMarker)objs.get(i);
+                 if (objs.get(i) instanceof Marker) {
+                    Marker marker = (Marker)objs.get(i);
                     Model model = evnt.getModel();
                     ConcreteModelNode modelNode = getModelNode(model);
                     Children children = modelNode.getChildren();
@@ -257,7 +257,7 @@ final public class ExplorerTopComponent extends TopComponent
                           for (int k=0; k<nodes.length; k++) {
                              if (nodes[k] instanceof OneMarkerNode) {
                                 OneMarkerNode omn = (OneMarkerNode)nodes[k];
-                                if (AbstractMarker.getCPtr(omn.getOpenSimObject()) == AbstractMarker.getCPtr(marker)) {
+                                if (Marker.getCPtr(omn.getOpenSimObject()) == Marker.getCPtr(marker)) {
                                    try {
                                       children.remove(new Node[] {nodes[k]});
                                       if (nodes[k] != null)

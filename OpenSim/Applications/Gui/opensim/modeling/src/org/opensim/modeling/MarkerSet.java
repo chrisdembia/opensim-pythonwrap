@@ -50,8 +50,8 @@ public class MarkerSet extends SetMarkers {
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
-  public void setup(AbstractDynamicsEngine aAbstractDynamicsEngine) {
-    opensimModelJNI.MarkerSet_setup(swigCPtr, this, AbstractDynamicsEngine.getCPtr(aAbstractDynamicsEngine), aAbstractDynamicsEngine);
+  public void setup(Model aModel) {
+    opensimModelJNI.MarkerSet_setup(swigCPtr, this, Model.getCPtr(aModel), aModel);
   }
 
   public void getMarkerNames(ArrayStr aMarkerNamesArray) {
@@ -66,9 +66,9 @@ public class MarkerSet extends SetMarkers {
     opensimModelJNI.MarkerSet_addNamePrefix(swigCPtr, this, prefix);
   }
 
-  public AbstractMarker addMarker(String aName, double[] aOffset, AbstractBody aBody) {
-    long cPtr = opensimModelJNI.MarkerSet_addMarker(swigCPtr, this, aName, aOffset, AbstractBody.getCPtr(aBody), aBody);
-    return (cPtr == 0) ? null : new AbstractMarker(cPtr, false);
+  public Marker addMarker(String aName, double[] aOffset, Body aBody) {
+    long cPtr = opensimModelJNI.MarkerSet_addMarker(swigCPtr, this, aName, aOffset, Body.getCPtr(aBody), aBody);
+    return (cPtr == 0) ? null : new Marker(cPtr, false);
   }
 
 }

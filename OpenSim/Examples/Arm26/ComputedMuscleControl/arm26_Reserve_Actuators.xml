@@ -10,14 +10,14 @@
 	</defaults>
 	<objects>
 		<!-- Shoulder -->
-		<GeneralizedForce name="r_shoulder_elev_reserve">
+		<CoordinateActuator name="r_shoulder_elev_reserve">
 		  <coordinate> r_shoulder_elev </coordinate>
 		  <optimal_force> 25.0 </optimal_force>
-		</GeneralizedForce>
+		</CoordinateActuator>
 		<!-- Elbow -->
-		<GeneralizedForce name="r_elbow_flex_reserve">
+		<CoordinateActuator name="r_elbow_flex_reserve">
 		  <coordinate> r_elbow_flex </coordinate>
 		  <optimal_force> 25.0 </optimal_force>
-		</GeneralizedForce>
+		</CoordinateActuator>
 	</objects>
 </ActuatorSet>

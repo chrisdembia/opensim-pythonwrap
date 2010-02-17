@@ -36,7 +36,7 @@ import org.openide.util.Cancellable;
 import org.openide.windows.WindowManager;
 import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.CMCTool;
-import org.opensim.modeling.InterruptingIntegCallback;
+import org.opensim.modeling.InterruptCallback;
 import org.opensim.modeling.Kinematics;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.Storage;
@@ -58,7 +58,7 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
    class CMCToolWorker extends SwingWorker {
       private ProgressHandle progressHandle = null;
       private JavaMotionDisplayerCallback animationCallback = null;
-      private InterruptingIntegCallback interruptingCallback = null;
+      private InterruptCallback interruptingCallback = null;
       private JavaPlottingCallback plottingCallback = null;
       
       private Kinematics kinematicsAnalysis = null; // For creating a storage we'll use as a motion
@@ -69,24 +69,27 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
       CMCToolWorker() throws IOException {
          updateTool();
 
-         // Make no motion be currently selected (so model doesn't have extraneous ground forces/experimental markers from
+         // Make no motion be currently selected (so workersModel doesn't have extraneous ground forces/experimental markers from
          // another motion show up on it)
          MotionsDB.getInstance().clearCurrent();
 
          // CMC needs to remember the original actuator set, since it is replaced in updateModelActuatorsAndContactForces
-         cmcTool().setOriginalActuatorSet(getOriginalModel().getActuatorSet());
+         cmcTool().setOriginalForceSet(getOriginalModel().getForceSet());
 
-         // Re-initialize our copy of the model
-         Model model = new Model(getOriginalModel());
-         model.setInputFileName("");
+         // Re-initialize our copy of the workersModel
+         Model workersModel = new Model(getOriginalModel());
+         String tempFileName=getOriginalModel().getInputFileName();
+         //int loc = tempFileName.lastIndexOf(".");
+         workersModel.setInputFileName(tempFileName);
 
          // Update actuator set and contact force set based on settings in the tool, then call setup() and setModel()
          // setModel() will call addAnalysisSetToModel
-         tool.updateModelActuatorsAndContactForces(model, "");
-         model.setup();
-         tool.setModel(model);
+         tool.updateModelForces(workersModel, "");
+         workersModel.initSystem();
+         workersModel.setInputFileName("");    // Will do this after initSystem so that contact geometry can be loaded properly
+         tool.setModel(workersModel);
 
-         setModel(model);
+         setModel(workersModel);
 
          // TODO: eventually we'll want to have the kinematics analysis store the motion for us...
 
@@ -102,32 +105,32 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
                               });
 
          // Animation callback will update the display during forward
-         animationCallback = new JavaMotionDisplayerCallback(getModel(), getOriginalModel(), null, progressHandle);
+         animationCallback = new JavaMotionDisplayerCallback(workersModel, getOriginalModel(), null, progressHandle);
          
-         getModel().addIntegCallback(animationCallback);
+         getModel().addAnalysis(animationCallback);
          animationCallback.setStepInterval(1);
          animationCallback.setMinRenderTimeInterval(0.1); // to avoid rendering really frequently which can slow down our execution
          animationCallback.setRenderMuscleActivations(true);
          animationCallback.startProgressUsingTime(ti,tf);
-         animationCallback.setOn(true);
+
          // Do this maneuver (there's gotta be a nicer way) to create the object so that C++ owns it and not Java (since 
          // removeIntegCallback in finished() will cause the C++-side callback to be deleted, and if Java owned this object
          // it would then later try to delete it yet again)
-         interruptingCallback = InterruptingIntegCallback.safeDownCast((new InterruptingIntegCallback()).copy());
-         getModel().addIntegCallback(interruptingCallback);
+         interruptingCallback = new InterruptCallback(getModel());
+         getModel().addAnalysis(interruptingCallback);
 
          if (plotMatrics){
              if (reuseMetrics && qtys2plot!=null){
-                 plottingCallback = new JavaPlottingCallback(getModel());
+                 plottingCallback = new JavaPlottingCallback(workersModel, getOriginalModel());
                  plottingCallback.setTool((CMCTool) tool);
                  plottingCallback.setStepInterval(1);
                  plottingCallback.setQtyNames(qtys2plot);
-                 getModel().addIntegCallback(plottingCallback);
+                 getModel().addAnalysis(plottingCallback);
                  
              }
             else {    
                  ArrayStr actuatorNames = new ArrayStr();
-                 getModel().getActuatorSet().getNames(actuatorNames);
+                 getModel().getForceSet().getNames(actuatorNames);
                  // We shouldn't be doing GUI stuff here, however, this is the only place
                  // that we know what Actuators to use for CMC or RRA
                  FilterableStringArray namesSource = new FilterableStringArray(actuatorNames);
@@ -141,13 +144,13 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
                  if (selectionDlg.getDialogReturnValue()==selectionDlg.OK_OPTION){
                      selected= filterPanel.getSelected();
                      if (selected != null && selected.length >=1){   // Create and add callback only if absolutely needed.
-                         plottingCallback = new JavaPlottingCallback(getModel());
+                         plottingCallback = new JavaPlottingCallback(workersModel, getOriginalModel());
                          plottingCallback.setTool((CMCTool) tool);
                          plottingCallback.setStepInterval(1);
                          plottingCallback.setQtyNames(selected);
                          qtys2plot = new String[selected.length];
                          System.arraycopy(selected, 0, qtys2plot, 0, selected.length);
-                         getModel().addIntegCallback(plottingCallback);
+                         getModel().addAnalysis(plottingCallback);
                      }
                  }
              }
@@ -170,6 +173,7 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
 
       public Object construct() {
          try {
+             tool.print("rraFromGUI1217.xml");
             result = tool.run();
          } catch (IOException ex) {
             DialogDisplayer.getDefault().notify(new NotifyDescriptor.Message("Tool execution failed. Check Messages window for details."));
@@ -200,9 +204,9 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
                motion = null;
             }
 
-            motion = null;
-            if(cmcTool().getStateStorage()!=null) {
-               motion = new Storage(cmcTool().getStateStorage());
+            motion = animationCallback.getStateStorage();
+            if(motion!=null) {
+               motion = new Storage(motion);
                motion.resampleLinear(0.001); // so that we don't get a crazy oversampled storage
             }
 
@@ -210,11 +214,12 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
                Model newReducedResidualsModel = null;
                try {
                   newReducedResidualsModel = new Model(getOutputModelFileName());
-                  newReducedResidualsModel.setup();
+                  //newReducedResidualsModel.setup();
                } catch (IOException ex) {
                   newReducedResidualsModel = null;
                }
-               OpenSimDB.getInstance().replaceModel(reducedResidualsModel, newReducedResidualsModel);
+               //OpenSim20 added argument
+               OpenSimDB.getInstance().replaceModel(reducedResidualsModel, newReducedResidualsModel, null);
                reducedResidualsModel = newReducedResidualsModel;
                MotionsDB.getInstance().addMotion(reducedResidualsModel, motion);
             } else {
@@ -231,8 +236,8 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
 
          progressHandle.finish();
 
-         getModel().removeIntegCallback(animationCallback);
-         getModel().removeIntegCallback(interruptingCallback);
+         getModel().removeAnalysis(animationCallback, false);
+         getModel().removeAnalysis(interruptingCallback, false);
          interruptingCallback = null;
 
          if(result) resetModified();
@@ -258,7 +263,7 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
    public CMCToolModel(Model model) throws IOException {
       super(model);
 
-      if(model.getDynamicsEngine().getType().equals("SimmKinematicsEngine"))
+      if(model.getSimbodyEngine().getType().equals("SimmKinematicsEngine"))
          throw new IOException("Computed muscle control tool requires a model with SdfastEngine or SimbodyEngine; SimmKinematicsEngine does not support dynamics.");
 
       setTool(new CMCTool());
@@ -287,7 +292,9 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
    }
    public boolean getDesiredKinematicsValid() { return (new File(getDesiredKinematicsFileName()).exists()); }
 
-   public String getTaskSetFileName() { return cmcTool().getTaskSetFileName(); }
+   public String getTaskSetFileName() { 
+       return cmcTool().getTaskSetFileName(); 
+   }
    public void setTaskSetFileName(String fileName) {
       if(!getTaskSetFileName().equals(fileName)) {
          cmcTool().setTaskSetFileName(fileName);
@@ -356,14 +363,16 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
       }
    }
    public boolean getAdjustedCOMBodyValid() {
-      return getOriginalModel().getDynamicsEngine().getBodySet().getIndex(getAdjustedCOMBody())>=0;
+      return getOriginalModel().getBodySet().getIndex(getAdjustedCOMBody())>=0;
    }
 
    private boolean isRRAValid() {
       return !getAdjustModelToReduceResidualsEnabled() || (!FileUtils.effectivelyNull(getOutputModelFileName()) && getAdjustedCOMBodyValid());
    }
 
-   public boolean getUseFastTarget() { return cmcTool().getUseFastTarget(); }
+   public boolean getUseFastTarget() { 
+       return cmcTool().getUseFastTarget(); 
+   }
    public void setUseFastTarget(boolean enabled) {
       if(getUseFastTarget() != enabled) {
          cmcTool().setUseFastTarget(enabled);
@@ -371,8 +380,12 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
       }
    } 
  
-   public double getCmcTimeWindow() { return cmcTool().getTimeWindow(); };
-   public void setCmcTimeWindow(double newTimeWindow) { cmcTool().setTimeWindow(newTimeWindow); };
+   public double getCmcTimeWindow() { 
+       return cmcTool().getTimeWindow(); 
+   };
+   public void setCmcTimeWindow(double newTimeWindow) { 
+       cmcTool().setTimeWindow(newTimeWindow); 
+   };
    //------------------------------------------------------------------------
    // External loads get/set (don't need to call setModified since AbstractToolModel does that)
    //------------------------------------------------------------------------

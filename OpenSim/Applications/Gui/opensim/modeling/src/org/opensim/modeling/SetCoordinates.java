@@ -98,12 +98,12 @@ public class SetCoordinates extends OpenSimObject {
     return opensimModelJNI.SetCoordinates_getSize(swigCPtr, this);
   }
 
-  public int getIndex(AbstractCoordinate aObject, int aStartIndex) {
-    return opensimModelJNI.SetCoordinates_getIndex__SWIG_0(swigCPtr, this, AbstractCoordinate.getCPtr(aObject), aObject, aStartIndex);
+  public int getIndex(Coordinate aObject, int aStartIndex) {
+    return opensimModelJNI.SetCoordinates_getIndex__SWIG_0(swigCPtr, this, Coordinate.getCPtr(aObject), aObject, aStartIndex);
   }
 
-  public int getIndex(AbstractCoordinate aObject) {
-    return opensimModelJNI.SetCoordinates_getIndex__SWIG_1(swigCPtr, this, AbstractCoordinate.getCPtr(aObject), aObject);
+  public int getIndex(Coordinate aObject) {
+    return opensimModelJNI.SetCoordinates_getIndex__SWIG_1(swigCPtr, this, Coordinate.getCPtr(aObject), aObject);
   }
 
   public int getIndex(String aName, int aStartIndex) {
@@ -118,71 +118,69 @@ public class SetCoordinates extends OpenSimObject {
     opensimModelJNI.SetCoordinates_getGroupNamesContaining(swigCPtr, this, aObjectName, ArrayStr.getCPtr(rGroupNames), rGroupNames);
   }
 
-  public boolean append(AbstractCoordinate aObject) {
-    return opensimModelJNI.SetCoordinates_append__SWIG_0(swigCPtr, this, AbstractCoordinate.getCPtr(aObject), aObject);
+  public boolean append(Coordinate aObject) {
+    return opensimModelJNI.SetCoordinates_append__SWIG_0(swigCPtr, this, Coordinate.getCPtr(aObject), aObject);
   }
 
-  public boolean append(SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__AbstractCoordinate_t aArray) {
-    return opensimModelJNI.SetCoordinates_append__SWIG_1(swigCPtr, this, SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__AbstractCoordinate_t.getCPtr(aArray));
-  }
-
-  public boolean insert(int aIndex, AbstractCoordinate aObject) {
-    return opensimModelJNI.SetCoordinates_insert(swigCPtr, this, aIndex, AbstractCoordinate.getCPtr(aObject), aObject);
+  public boolean insert(int aIndex, Coordinate aObject) {
+    return opensimModelJNI.SetCoordinates_insert__SWIG_0(swigCPtr, this, aIndex, Coordinate.getCPtr(aObject), aObject);
   }
 
   public boolean remove(int aIndex) {
     return opensimModelJNI.SetCoordinates_remove__SWIG_0(swigCPtr, this, aIndex);
   }
 
-  public boolean remove(AbstractCoordinate aObject) {
-    return opensimModelJNI.SetCoordinates_remove__SWIG_1(swigCPtr, this, AbstractCoordinate.getCPtr(aObject), aObject);
-  }
-
-  public boolean replace(int aIndex, AbstractCoordinate aObject) {
-    return opensimModelJNI.SetCoordinates_replace(swigCPtr, this, aIndex, AbstractCoordinate.getCPtr(aObject), aObject);
+  public boolean remove(Coordinate aObject) {
+    return opensimModelJNI.SetCoordinates_remove__SWIG_1(swigCPtr, this, Coordinate.getCPtr(aObject), aObject);
   }
 
   public void clearAndDestroy() {
     opensimModelJNI.SetCoordinates_clearAndDestroy(swigCPtr, this);
   }
 
-  public boolean set(int aIndex, AbstractCoordinate aObject) {
-    return opensimModelJNI.SetCoordinates_set(swigCPtr, this, aIndex, AbstractCoordinate.getCPtr(aObject), aObject);
+  public boolean set(int aIndex, Coordinate aObject, boolean preserveGroups) {
+    return opensimModelJNI.SetCoordinates_set__SWIG_0(swigCPtr, this, aIndex, Coordinate.getCPtr(aObject), aObject, preserveGroups);
   }
 
-  public AbstractCoordinate get(int aIndex) {
-    long cPtr = opensimModelJNI.SetCoordinates_get__SWIG_0(swigCPtr, this, aIndex);
-    return (cPtr == 0) ? null : new AbstractCoordinate(cPtr, false);
+  public boolean set(int aIndex, Coordinate aObject) {
+    return opensimModelJNI.SetCoordinates_set__SWIG_1(swigCPtr, this, aIndex, Coordinate.getCPtr(aObject), aObject);
   }
 
-  public AbstractCoordinate get(String aName) {
-    long cPtr = opensimModelJNI.SetCoordinates_get__SWIG_1(swigCPtr, this, aName);
-    return (cPtr == 0) ? null : new AbstractCoordinate(cPtr, false);
+  public Coordinate get(int aIndex) {
+    return new Coordinate(opensimModelJNI.SetCoordinates_get__SWIG_0(swigCPtr, this, aIndex), false);
+  }
+
+  public Coordinate get(String aName) {
+    return new Coordinate(opensimModelJNI.SetCoordinates_get__SWIG_1(swigCPtr, this, aName), false);
+  }
+
+  public boolean contains(String aName) {
+    return opensimModelJNI.SetCoordinates_contains(swigCPtr, this, aName);
   }
 
   public void getNames(ArrayStr rNames) {
     opensimModelJNI.SetCoordinates_getNames(swigCPtr, this, ArrayStr.getCPtr(rNames), rNames);
   }
 
-  public AbstractCoordinate getLast() {
+  public Coordinate getLast() {
     long cPtr = opensimModelJNI.SetCoordinates_getLast(swigCPtr, this);
-    return (cPtr == 0) ? null : new AbstractCoordinate(cPtr, false);
+    return (cPtr == 0) ? null : new Coordinate(cPtr, false);
   }
 
-  public int searchBinary(AbstractCoordinate aObject, boolean aFindFirst, int aLo, int aHi) {
-    return opensimModelJNI.SetCoordinates_searchBinary__SWIG_0(swigCPtr, this, AbstractCoordinate.getCPtr(aObject), aObject, aFindFirst, aLo, aHi);
+  public int searchBinary(Coordinate aObject, boolean aFindFirst, int aLo, int aHi) {
+    return opensimModelJNI.SetCoordinates_searchBinary__SWIG_0(swigCPtr, this, Coordinate.getCPtr(aObject), aObject, aFindFirst, aLo, aHi);
   }
 
-  public int searchBinary(AbstractCoordinate aObject, boolean aFindFirst, int aLo) {
-    return opensimModelJNI.SetCoordinates_searchBinary__SWIG_1(swigCPtr, this, AbstractCoordinate.getCPtr(aObject), aObject, aFindFirst, aLo);
+  public int searchBinary(Coordinate aObject, boolean aFindFirst, int aLo) {
+    return opensimModelJNI.SetCoordinates_searchBinary__SWIG_1(swigCPtr, this, Coordinate.getCPtr(aObject), aObject, aFindFirst, aLo);
   }
 
-  public int searchBinary(AbstractCoordinate aObject, boolean aFindFirst) {
-    return opensimModelJNI.SetCoordinates_searchBinary__SWIG_2(swigCPtr, this, AbstractCoordinate.getCPtr(aObject), aObject, aFindFirst);
+  public int searchBinary(Coordinate aObject, boolean aFindFirst) {
+    return opensimModelJNI.SetCoordinates_searchBinary__SWIG_2(swigCPtr, this, Coordinate.getCPtr(aObject), aObject, aFindFirst);
   }
 
-  public int searchBinary(AbstractCoordinate aObject) {
-    return opensimModelJNI.SetCoordinates_searchBinary__SWIG_3(swigCPtr, this, AbstractCoordinate.getCPtr(aObject), aObject);
+  public int searchBinary(Coordinate aObject) {
+    return opensimModelJNI.SetCoordinates_searchBinary__SWIG_3(swigCPtr, this, Coordinate.getCPtr(aObject), aObject);
   }
 
   public int getNumGroups() {

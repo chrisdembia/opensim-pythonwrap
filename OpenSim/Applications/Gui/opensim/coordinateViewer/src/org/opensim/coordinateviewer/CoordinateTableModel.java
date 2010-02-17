@@ -29,9 +29,11 @@
 package org.opensim.coordinateviewer;
 
 import javax.swing.table.AbstractTableModel;
-import org.opensim.modeling.AbstractCoordinate;
+import org.opensim.modeling.Coordinate;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.CoordinateSet;
+import org.opensim.modeling.OpenSimContext;
+import org.opensim.view.pub.OpenSimDB;
 /**
  *
  * @author Ayman
@@ -43,6 +45,8 @@ public class CoordinateTableModel extends AbstractTableModel{
    int numCoords;
    private Model model;
    private CoordinateSet coords;
+   private OpenSimContext openSimContext;
+
    /** Creates a new instance of CoordinateTableModel */
    public CoordinateTableModel(Model aModel) {
       model = aModel;
@@ -50,15 +54,16 @@ public class CoordinateTableModel extends AbstractTableModel{
          reset();
          return;
       }
-      coords = model.getDynamicsEngine().getCoordinateSet();
+      openSimContext = OpenSimDB.getInstance().getContext(model);
+      coords = model.getCoordinateSet();
       numCoords = coords.getSize();
       contents = new Object[numCoords][5];
       for(int i=0; i<numCoords; i++){
-         AbstractCoordinate coord = coords.get(i);
+         Coordinate coord = coords.get(i);
          contents[i][0]=coord.getName();
-         contents[i][1]=(coord.getClamped())?Boolean.TRUE:Boolean.FALSE; // Clamped
-         contents[i][2]=(coord.getLocked())?Boolean.TRUE:Boolean.FALSE; // Locked
-         contents[i][3]=coord.getValue(); // Value
+         contents[i][1]=(openSimContext.getClamped(coord))?Boolean.TRUE:Boolean.FALSE; // Clamped
+         contents[i][2]=(openSimContext.getLocked(coord))?Boolean.TRUE:Boolean.FALSE; // Locked
+         contents[i][3]=openSimContext.getValue(coord); // Value
          
       }
    }
@@ -100,7 +105,7 @@ public class CoordinateTableModel extends AbstractTableModel{
       return model;
    }
 
-   AbstractCoordinate getCoordinate(int row) {
+   Coordinate getCoordinate(int row) {
       return coords.get(row);
    }
    

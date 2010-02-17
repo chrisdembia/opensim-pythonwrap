@@ -41,4 +41,9 @@ public class PolyhedralGeometry extends Geometry {
     return opensimModelJNI.PolyhedralGeometry_getGeometryFilename(swigCPtr, this);
   }
 
+  public static PolyhedralGeometry dynamic_cast(Geometry geometry) {
+    long cPtr = opensimModelJNI.PolyhedralGeometry_dynamic_cast(Geometry.getCPtr(geometry), geometry);
+    return (cPtr == 0) ? null : new PolyhedralGeometry(cPtr, false);
+  }
+
 }

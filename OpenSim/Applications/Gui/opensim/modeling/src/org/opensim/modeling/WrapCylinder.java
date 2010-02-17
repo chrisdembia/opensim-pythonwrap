@@ -8,7 +8,7 @@
 
 package org.opensim.modeling;
 
-public class WrapCylinder extends AbstractWrapObject {
+public class WrapCylinder extends WrapObject {
   private long swigCPtr;
 
   public WrapCylinder(long cPtr, boolean cMemoryOwn) {
@@ -78,12 +78,8 @@ public class WrapCylinder extends AbstractWrapObject {
     opensimModelJNI.WrapCylinder_scale(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(aScaleFactors));
   }
 
-  public void setup(AbstractDynamicsEngine aEngine, AbstractBody aBody) {
-    opensimModelJNI.WrapCylinder_setup(swigCPtr, this, AbstractDynamicsEngine.getCPtr(aEngine), aEngine, AbstractBody.getCPtr(aBody), aBody);
-  }
-
-  public int wrapLine(SWIGTYPE_p_SimTK__Vec3 aPoint1, SWIGTYPE_p_SimTK__Vec3 aPoint2, MuscleWrap aMuscleWrap, SWIGTYPE_p_OpenSim__WrapResult aWrapResult, SWIGTYPE_p_bool aFlag) {
-    return opensimModelJNI.WrapCylinder_wrapLine(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(aPoint1), SWIGTYPE_p_SimTK__Vec3.getCPtr(aPoint2), MuscleWrap.getCPtr(aMuscleWrap), aMuscleWrap, SWIGTYPE_p_OpenSim__WrapResult.getCPtr(aWrapResult), SWIGTYPE_p_bool.getCPtr(aFlag));
+  public void setup(Model aModel, Body aBody) {
+    opensimModelJNI.WrapCylinder_setup(swigCPtr, this, Model.getCPtr(aModel), aModel, Body.getCPtr(aBody), aBody);
   }
 
 }

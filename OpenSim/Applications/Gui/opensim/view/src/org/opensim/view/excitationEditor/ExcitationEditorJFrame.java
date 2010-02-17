@@ -31,26 +31,23 @@
 
 package org.opensim.view.excitationEditor;
 import java.awt.BorderLayout;
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
+import org.opensim.modeling.Actuator;
 import org.opensim.modeling.ControlLinear;
 import org.opensim.modeling.ControlSet;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.OpenSimObject;
+import org.opensim.modeling.SetActuators;
 import org.opensim.utils.FileUtils;
 import org.opensim.utils.TheApp;
-import org.opensim.view.Camera;
 import org.opensim.view.pub.OpenSimDB;
 
 /**
@@ -330,23 +327,31 @@ public class ExcitationEditorJFrame extends javax.swing.JFrame {
         }
         // Create a blank control set
         ControlSet controlSet = new ControlSet();
+        
         // Cycle thru Actuators and create a Control for it with default min=0, max=1, val=0
-        int nx = currentModel.getNumControls();
+        SetActuators acts = currentModel.getForceSet().getActuators();
 	controlSet.setName(currentModel.getName()+"_Default");
 
-	for(int i=0;i<nx;i++) {
-		ControlLinear control = new ControlLinear();
-                control.setControlValue(0.0, 0.1);
-                control.setControlValue(1.0, 0.1);
-                control.setControlValueMin(0.0, 0.0);
-                control.setControlValueMin(1.0, 0.0);
-                control.setControlValueMax(0.0, 1.0);
-                control.setControlValueMax(1.0, 1.0);
-		control.setName(currentModel.getControlName(i));
-                System.out.println(currentModel.getControlName(i));
-		controlSet.append(control);
-                controlsRefs.add(control);
+	for(int i=0;i<acts.getSize();i++) {
+                Actuator act = acts.get(i);
+                int numControls = act.getNumControls();
+                for (int nc=0;nc<numControls;nc++){
+                    ControlLinear control = new ControlLinear();
+                    control.setControlValue(0.0, 0.1);
+                    control.setControlValue(1.0, 0.1);
+                    control.setControlValueMin(0.0, 0.0);
+                    control.setControlValueMin(1.0, 0.0);
+                    control.setControlValueMax(0.0, 1.0);
+                    control.setControlValueMax(1.0, 1.0);
+                    if (nc==0)
+                        control.setName(act.getName());
+                    else
+                        control.setName(act.getName()+String.valueOf(nc));
+                    controlSet.append(control);
+                    controlsRefs.add(control);
+                }
 	}
+        
         String fileName = FileUtils.getInstance().browseForFilenameToSave( 
                 FileUtils.getFileFilter(".xml", "Save excitations to file"), true, "controls.xml", this); 
          if(fileName!=null) { 

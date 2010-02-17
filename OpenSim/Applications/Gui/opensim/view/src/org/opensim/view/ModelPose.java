@@ -30,6 +30,7 @@ package org.opensim.view;
 
 import java.util.Vector;
 import org.opensim.modeling.*;
+import org.opensim.view.pub.OpenSimDB;
 
 /**
  *
@@ -53,13 +54,21 @@ public class ModelPose {
 
    public ModelPose(CoordinateSet coords, String name, boolean isDefault) {
       setPoseName(name);
+      Model model=null;
+      OpenSimContext context=null;
+      if (coords.getSize()>0){
+          Coordinate coord = coords.get(0);
+          model=coord.getModel();
+          context = OpenSimDB.getInstance().getContext(model);
+      }
       for(int i=0; i< coords.getSize(); i++){
-         AbstractCoordinate coord = coords.get(i);
+         Coordinate coord = coords.get(i);
+        
          getCoordinateNames().add(coord.getName());
          if (isDefault)
             getCoordinateValues().add(coord.getDefaultValue());
          else
-            getCoordinateValues().add(coord.getValue());
+            getCoordinateValues().add(context.getValue(coord));
       }
    }
    public Vector<Double> getCoordinateValues() {

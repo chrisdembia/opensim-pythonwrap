@@ -34,11 +34,12 @@
 
 package org.opensim.view.editors;
 
+import org.opensim.modeling.Muscle;
 import org.opensim.view.functionEditor.FunctionEvent;
 import org.opensim.view.functionEditor.FunctionEventListener;
 import org.opensim.view.functionEditor.FunctionModifiedEvent;
 import org.opensim.view.functionEditor.FunctionReplacedEvent;
-import org.opensim.modeling.AbstractActuator;
+import org.opensim.modeling.Actuator;
 import org.opensim.modeling.Function;
 import org.opensim.modeling.OpenSimObject;
 
@@ -55,7 +56,7 @@ public class MusclePropertyFunctionEventListener implements FunctionEventListene
    public void handleFunctionEvent(FunctionEvent event) {
       OpenSimObject object = event.getObject();
 
-      AbstractActuator act = AbstractActuator.safeDownCast(object);
+      Muscle act = Muscle.safeDownCast(object);
       if (act != null) {
          if (event instanceof FunctionReplacedEvent) {
             FunctionReplacedEvent fre = (FunctionReplacedEvent) event;

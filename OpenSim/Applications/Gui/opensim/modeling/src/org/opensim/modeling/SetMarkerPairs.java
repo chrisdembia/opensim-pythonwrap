@@ -122,12 +122,8 @@ public class SetMarkerPairs extends OpenSimObject {
     return opensimModelJNI.SetMarkerPairs_append__SWIG_0(swigCPtr, this, MarkerPair.getCPtr(aObject), aObject);
   }
 
-  public boolean append(SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__MarkerPair_t aArray) {
-    return opensimModelJNI.SetMarkerPairs_append__SWIG_1(swigCPtr, this, SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__MarkerPair_t.getCPtr(aArray));
-  }
-
   public boolean insert(int aIndex, MarkerPair aObject) {
-    return opensimModelJNI.SetMarkerPairs_insert(swigCPtr, this, aIndex, MarkerPair.getCPtr(aObject), aObject);
+    return opensimModelJNI.SetMarkerPairs_insert__SWIG_0(swigCPtr, this, aIndex, MarkerPair.getCPtr(aObject), aObject);
   }
 
   public boolean remove(int aIndex) {
@@ -138,26 +134,28 @@ public class SetMarkerPairs extends OpenSimObject {
     return opensimModelJNI.SetMarkerPairs_remove__SWIG_1(swigCPtr, this, MarkerPair.getCPtr(aObject), aObject);
   }
 
-  public boolean replace(int aIndex, MarkerPair aObject) {
-    return opensimModelJNI.SetMarkerPairs_replace(swigCPtr, this, aIndex, MarkerPair.getCPtr(aObject), aObject);
-  }
-
   public void clearAndDestroy() {
     opensimModelJNI.SetMarkerPairs_clearAndDestroy(swigCPtr, this);
   }
 
+  public boolean set(int aIndex, MarkerPair aObject, boolean preserveGroups) {
+    return opensimModelJNI.SetMarkerPairs_set__SWIG_0(swigCPtr, this, aIndex, MarkerPair.getCPtr(aObject), aObject, preserveGroups);
+  }
+
   public boolean set(int aIndex, MarkerPair aObject) {
-    return opensimModelJNI.SetMarkerPairs_set(swigCPtr, this, aIndex, MarkerPair.getCPtr(aObject), aObject);
+    return opensimModelJNI.SetMarkerPairs_set__SWIG_1(swigCPtr, this, aIndex, MarkerPair.getCPtr(aObject), aObject);
   }
 
   public MarkerPair get(int aIndex) {
-    long cPtr = opensimModelJNI.SetMarkerPairs_get__SWIG_0(swigCPtr, this, aIndex);
-    return (cPtr == 0) ? null : new MarkerPair(cPtr, false);
+    return new MarkerPair(opensimModelJNI.SetMarkerPairs_get__SWIG_0(swigCPtr, this, aIndex), false);
   }
 
   public MarkerPair get(String aName) {
-    long cPtr = opensimModelJNI.SetMarkerPairs_get__SWIG_1(swigCPtr, this, aName);
-    return (cPtr == 0) ? null : new MarkerPair(cPtr, false);
+    return new MarkerPair(opensimModelJNI.SetMarkerPairs_get__SWIG_1(swigCPtr, this, aName), false);
+  }
+
+  public boolean contains(String aName) {
+    return opensimModelJNI.SetMarkerPairs_contains(swigCPtr, this, aName);
   }
 
   public void getNames(ArrayStr rNames) {

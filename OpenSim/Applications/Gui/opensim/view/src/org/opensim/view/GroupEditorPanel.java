@@ -37,7 +37,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import org.opensim.modeling.ArrayObjPtr;
 import org.opensim.modeling.ArrayStr;
-import org.opensim.modeling.ActuatorSet;
+import org.opensim.modeling.ForceSet;
 import org.opensim.modeling.CoordinateSet;
 import org.opensim.modeling.ObjectGroup;
 import javax.swing.border.TitledBorder;

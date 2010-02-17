@@ -36,7 +36,7 @@ import java.util.ResourceBundle;
 import org.openide.nodes.Node;
 import org.openide.util.NbBundle;
 import org.openide.nodes.Children;
-import org.opensim.modeling.AbstractJoint;
+import org.opensim.modeling.Joint;
 import org.opensim.modeling.JointSet;
 
 /**

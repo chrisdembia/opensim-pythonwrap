@@ -87,7 +87,7 @@
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jTransformDataPanel" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="113" max="32767" attributes="0"/>
+                          <EmptySpace pref="99" max="32767" attributes="0"/>
                           <Component id="saveTransformedAsButton" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Component id="jScrollPane2" alignment="0" pref="210" max="32767" attributes="0"/>
@@ -230,6 +230,7 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Save As..."/>
             <Property name="toolTipText" type="java.lang.String" value="Save transformed data into a new file"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="saveTransformedAsButtonActionPerformed"/>
