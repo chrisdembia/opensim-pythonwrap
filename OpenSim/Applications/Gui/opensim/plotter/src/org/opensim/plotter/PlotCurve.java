@@ -139,7 +139,7 @@ public class PlotCurve {
          for(int i=0; i<colNames.length; i++){
             colNames[i]=colNames[i].trim();
              if (i==0){
-                storage.getDataColumn(colNames[i], Array);
+                storage.getDataColumn(colNames[i], Array, storage.getFirstTime());
                  // have to do this before clamoing since clamping is done in degrees
                 if (convertAnglesToDegrees)
                     convertAnglesToDegreesIfNeeded(colNames[i], Array);

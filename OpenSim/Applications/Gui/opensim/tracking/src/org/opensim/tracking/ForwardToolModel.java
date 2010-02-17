@@ -257,12 +257,6 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
    public String getExternalLoadsModelKinematicsFileName() { return forwardTool().getExternalLoadsModelKinematicsFileName(); }
    protected void setExternalLoadsModelKinematicsFileNameInternal(String fileName) { forwardTool().setExternalLoadsModelKinematicsFileName(fileName); }
 
-   public String getExternalLoadsBody1() { return forwardTool().getExternalLoadsBody1(); }
-   protected void setExternalLoadsBody1Internal(String name) { forwardTool().setExternalLoadsBody1(name); }
-
-   public String getExternalLoadsBody2() { return forwardTool().getExternalLoadsBody2(); }
-   protected void setExternalLoadsBody2Internal(String name) { forwardTool().setExternalLoadsBody2(name); }
-
    public double getLowpassCutoffFrequencyForLoadKinematics() { return forwardTool().getLowpassCutoffFrequencyForLoadKinematics(); }
    protected void setLowpassCutoffFrequencyForLoadKinematicsInternal(double cutoffFrequency) { forwardTool().setLowpassCutoffFrequencyForLoadKinematics(cutoffFrequency); }
 

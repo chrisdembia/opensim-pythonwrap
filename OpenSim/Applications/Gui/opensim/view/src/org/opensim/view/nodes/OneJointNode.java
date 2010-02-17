@@ -45,34 +45,34 @@ import org.opensim.modeling.TransformAxis;
  *
  * @author Ayman Habib
  */
-public class OneJointNode extends OpenSimObjectNode{
-    
-    private static ResourceBundle bundle = NbBundle.getBundle(OneJointNode.class);
-    /** Creates a new instance of OneMuscleNode */
-    public OneJointNode(OpenSimObject j) {
-        super(j);
-        setShortDescription(bundle.getString("HINT_JointNode"));
-        Joint joint = Joint.safeDownCast(j);
-        CustomJoint cj = CustomJoint.safeDownCast(joint);
-        if (cj != null) {
-           SpatialTransform spt = cj.getSpatialTransform();
-           for (int i=0; i<6; i++) {
-              TransformAxis ta = spt.getTransformAxis(i);
-              getChildren().add(new Node[] {new OneDofNode(ta)});
-           }
-        } else {
-           setChildren(Children.LEAF);
-        }
-    }
-    public Image getIcon(int i) {
-        URL imageURL = this.getClass().getResource("icons/jointNode.png");
-        if (imageURL != null) {
-            return new ImageIcon(imageURL, "Joint").getImage();
-        } else {
-            return null;
-        }
-    }
-   public Image getOpenedIcon(int i) {
-        return getIcon(i);
-    }
+public class OneJointNode extends OpenSimObjectNode {
+
+	private static ResourceBundle bundle = NbBundle.getBundle(OneJointNode.class);
+	/** Creates a new instance of OneMuscleNode */
+	public OneJointNode(OpenSimObject j) {
+		super(j);
+		setShortDescription(bundle.getString("HINT_JointNode"));
+		Joint joint = Joint.safeDownCast(j);
+		CustomJoint cj = CustomJoint.safeDownCast(joint);
+		if (cj != null) {
+			SpatialTransform spt = cj.getSpatialTransform();
+			for (int i = 0; i < 6; i++) {
+				TransformAxis ta = spt.getTransformAxis(i);
+				getChildren().add(new Node[] { new OneDofNode(ta) });
+			}
+		} else {
+			setChildren(Children.LEAF);
+		}
+	}
+	public Image getIcon(int i) {
+		URL imageURL = this.getClass().getResource("icons/jointNode.png");
+		if (imageURL != null) {
+			return new ImageIcon(imageURL, "Joint").getImage();
+		} else {
+			return null;
+		}
+	}
+	public Image getOpenedIcon(int i) {
+		return getIcon(i);
+	}
 }

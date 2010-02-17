@@ -314,24 +314,6 @@ abstract class AbstractToolModelWithExternalLoads extends AbstractToolModel {
       }
    }
 
-   public abstract String getExternalLoadsBody1();
-   protected abstract void setExternalLoadsBody1Internal(String name);
-   public void setExternalLoadsBody1(String name) {
-      if(!getExternalLoadsBody1().equals(name)) {
-         setExternalLoadsBody1Internal(name);
-         setModified(AbstractToolModel.Operation.ExternalLoadsDataChanged);
-      }
-   }
-
-   public abstract String getExternalLoadsBody2();
-   protected abstract void setExternalLoadsBody2Internal(String name);
-   public void setExternalLoadsBody2(String name) {
-      if(!getExternalLoadsBody2().equals(name)) {
-         setExternalLoadsBody2Internal(name);
-         setModified(AbstractToolModel.Operation.ExternalLoadsDataChanged);
-      }
-   }
-
    public abstract double getLowpassCutoffFrequencyForLoadKinematics();
    protected abstract void setLowpassCutoffFrequencyForLoadKinematicsInternal(double cutoffFrequency);
    public void setLowpassCutoffFrequencyForLoadKinematics(double cutoffFrequency) {

@@ -1992,7 +1992,13 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
 
    // NOTE: forward tool specific!
    private void useSpecifiedDtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_useSpecifiedDtActionPerformed
-      forwardToolModel().setUseSpecifiedDt(useSpecifiedDt.isSelected());
+      boolean selected=useSpecifiedDt.isSelected();
+      forwardToolModel().setUseSpecifiedDt(selected);
+      // toggle available options
+      maximumNumberOfSteps.setEnabled(!selected);
+      maxDT.setEnabled(!selected);
+      minDT.setEnabled(!selected);
+      errorTolerance.setEnabled(!selected);
    }//GEN-LAST:event_useSpecifiedDtActionPerformed
 
    //------------------------------------------------------------------------

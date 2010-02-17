@@ -31,6 +31,7 @@ package org.opensim.view.pub;
 import java.awt.Dialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.reflect.InvocationTargetException;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -515,11 +516,13 @@ public final class ViewDB extends Observable implements Observer {
              win.open();
          }
          else 
-            SwingUtilities.invokeLater(new Runnable(){ // Should change to WindowManager.getDefault().invokeWhenUIReady if/when we upgrade NB
-                public void run(){
-                 win.open();
-                 win.requestActive();
-                }});
+         {
+                    SwingUtilities.invokeLater(new Runnable(){ // Should change to WindowManager.getDefault().invokeWhenUIReady if/when we upgrade NB
+                        public void run(){
+                         win.open();
+                         win.requestActive();
+                        }});
+          } 
       }
    }
    /**

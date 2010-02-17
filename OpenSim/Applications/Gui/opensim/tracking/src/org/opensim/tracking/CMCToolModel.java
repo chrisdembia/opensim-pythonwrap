@@ -395,12 +395,6 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
    public String getExternalLoadsModelKinematicsFileName() { return cmcTool().getExternalLoadsModelKinematicsFileName(); }
    protected void setExternalLoadsModelKinematicsFileNameInternal(String fileName) { cmcTool().setExternalLoadsModelKinematicsFileName(fileName); }
 
-   public String getExternalLoadsBody1() { return cmcTool().getExternalLoadsBody1(); }
-   protected void setExternalLoadsBody1Internal(String name) { cmcTool().setExternalLoadsBody1(name); }
-
-   public String getExternalLoadsBody2() { return cmcTool().getExternalLoadsBody2(); }
-   protected void setExternalLoadsBody2Internal(String name) { cmcTool().setExternalLoadsBody2(name); }
-
    public double getLowpassCutoffFrequencyForLoadKinematics() { return cmcTool().getLowpassCutoffFrequencyForLoadKinematics(); }
    protected void setLowpassCutoffFrequencyForLoadKinematicsInternal(double cutoffFrequency) { cmcTool().setLowpassCutoffFrequencyForLoadKinematics(cutoffFrequency); }
 

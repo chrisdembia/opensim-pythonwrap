@@ -66,7 +66,7 @@ public class LineSegmentMuscleDisplayer {
 
    public void setRenderActivation(boolean enabled) {
       renderActivation = enabled;
-      updateGeometry(false);
+      updateGeometry(true);
    }
 
     private void freeGlyphIds() {

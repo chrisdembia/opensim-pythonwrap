@@ -75,8 +75,8 @@ public class JavaPlottingCallback extends AnalysisWrapper{
         //context = OpenSimDB.getInstance().getContext(aModelForDisplay);
     }
     
-  public int step(SWIGTYPE_p_SimTK__State s) {
-      super.step(s);
+  public int step(SWIGTYPE_p_SimTK__State s, int i) {
+      super.step(s, i);
       processStep(getSimulationTime());
       return 0;
    }

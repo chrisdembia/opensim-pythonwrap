@@ -393,7 +393,10 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
             MuscleNameTextField.setText(currentAct.getName());
             return false;
          }
-         Muscle existingAct = Muscle.safeDownCast(currentModel.getForceSet().get(actName));
+
+         Muscle existingAct = null;
+         if (currentModel.getForceSet().contains(actName))
+             existingAct = Muscle.safeDownCast(currentModel.getForceSet().get(actName));
          if (existingAct != null && Muscle.getCPtr(existingAct) != Muscle.getCPtr(currentAct)) {
             MuscleNameTextField.setText(currentAct.getName());
             Object[] options = {"OK"};
@@ -625,8 +628,16 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       FunctionEditorTopComponent win = FunctionEditorTopComponent.findInstance();
       win.closeObject(currentAct);
 
+      // Before restoring, see if the name will be changing.
+      boolean sameName = currentAct.getName().equals(savedAct.getName());
+
+      // Copy the elements of the saved actuator into the current actuator.
+      OpenSimContext context = OpenSimDB.getInstance().getContext(currentModel);
+      context.copyMuscle(savedAct, currentAct);
+      vis.updateActuatorGeometry(currentAct, true);
+
       // If the name has changed, fire an event.
-      if (currentAct.getName().equals(savedAct.getName()) == false) {
+      if (sameName == false) {
          ViewDB.getInstance().getModelGuiElements(currentModel).updateActuatorNames();
          Vector<OpenSimObject> objs = new Vector<OpenSimObject>(1);
          objs.add(currentAct);
@@ -634,11 +645,6 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
          OpenSimDB.getInstance().setChanged();
          OpenSimDB.getInstance().notifyObservers(evnt);
       }
-
-      // Copy the elements of the saved actuator into the current actuator.
-      OpenSimContext context = OpenSimDB.getInstance().getContext(currentModel);
-      context.copyMuscle(savedAct, currentAct);
-      vis.updateActuatorGeometry(currentAct, true);
 
       setPendingChanges(false, currentAct, false);
       setupComponent(currentAct);

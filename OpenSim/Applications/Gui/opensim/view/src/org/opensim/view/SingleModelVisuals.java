@@ -400,7 +400,8 @@ public class SingleModelVisuals {
    public void updateModelDisplay(Model model) {
       // Cycle thru bodies and update their transforms from the kinematics engine
         BodySet bodies = model.getBodySet();
-        for(int bodyNum=0; bodyNum<bodies.getSize();  bodyNum++){
+        int bodiesSize = bodies.getSize();
+        for(int bodyNum=0; bodyNum<bodiesSize;  bodyNum++){
 
             Body body = bodies.get(bodyNum);
 
@@ -419,8 +420,7 @@ public class SingleModelVisuals {
 
                 if (Marker.safeDownCast(owner)!=null){
                    // Markers are handled in updateMarkersGeometry
-                } else if (PathPoint.safeDownCast(owner)!=null||
-                        ConditionalPathPoint.safeDownCast(owner)!=null){
+                } else if (PathPoint.safeDownCast(owner)!=null){
                    // Muscle points are handled in updateActuatorsGeometry
                 } else {
                    // Must be a wrap object, so we set the wrap object's transform to the body transform (the wrap object

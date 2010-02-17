@@ -128,4 +128,14 @@ public abstract class SwingWorker {
             t.start();
         }
     }
+    
+    /**
+     * Set Thread Priority.
+     */
+    public void setPriority(int newPriority) {
+        Thread t = threadVar.get();
+        if (t != null) {
+            t.setPriority(newPriority);
+        }
+    }
 }

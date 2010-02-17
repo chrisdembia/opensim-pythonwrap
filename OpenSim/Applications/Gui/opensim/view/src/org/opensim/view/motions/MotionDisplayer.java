@@ -504,11 +504,21 @@ public class MotionDisplayer implements SelectionListener {
       if(statesFile) {
          context.setStates(states);
       } else {
+         boolean realize=false;
+         int which=-1;
          for(int i=0; i<genCoordColumns.size(); i++) {
             Coordinate coord=(Coordinate)(genCoordColumns.get(i).object);
             if(!context.getLocked(coord)) {
                int index = genCoordColumns.get(i).stateVectorIndex;
-               context.setValue(coord, states.getitem(index));
+               context.setValue(coord, states.getitem(index), false);
+               realize=true;
+               which=i;
+            }
+            // Make sure we realize once IF a coordinate has bben set
+            if (i==genCoordColumns.size()-1 && realize){
+                coord=(Coordinate)(genCoordColumns.get(which).object);
+                int index = genCoordColumns.get(which).stateVectorIndex;
+                context.setValue(coord, states.getitem(index), true);
             }
          }
          // update states to make sure constraints are valid

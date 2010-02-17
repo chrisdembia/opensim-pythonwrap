@@ -68,9 +68,6 @@ public class DofFunctionEventListener implements FunctionEventListener {
          Model model = OpenSimDB.getInstance().getCurrentModel();
          SingleModelGuiElements guiElem = ViewDB.getInstance().getModelGuiElements(model);
          OpenSimContext openSimContext = OpenSimDB.getInstance().getContext(model);
-         // TODO: for now, deal only with the first coordinate.
-         String coordName = dof.getCoordinateNames().getitem(0);
-         Coordinate coord = dof.getJoint().getCoordinateSet().get(coordName);
 
          if (event instanceof FunctionReplacedEvent) {
             FunctionReplacedEvent fre = (FunctionReplacedEvent) event;
@@ -82,12 +79,17 @@ public class DofFunctionEventListener implements FunctionEventListener {
                ViewDB.getInstance().renderAll();
                guiElem.setUnsavedChangesFlag(true);
             }
-         } else if (event instanceof FunctionModifiedEvent) {                        
-            //TODO: not a good way to force a joint recalculation!!
-            openSimContext.setValue(coord, openSimContext.getValue(coord));
-            ViewDB.getInstance().updateModelDisplayNoRepaint(model);
-            ViewDB.getInstance().renderAll();
-            guiElem.setUnsavedChangesFlag(true);
+         } else if (event instanceof FunctionModifiedEvent) {
+            if (dof.getCoordinateNames().getSize() > 0) {
+               //TODO: not a good way to force a joint recalculation!!
+               // TODO: for now, deal only with the first coordinate.
+               String coordName = dof.getCoordinateNames().getitem(0);
+               Coordinate coord = dof.getJoint().getCoordinateSet().get(coordName);
+               openSimContext.setValue(coord, openSimContext.getValue(coord));
+               ViewDB.getInstance().updateModelDisplayNoRepaint(model);
+               ViewDB.getInstance().renderAll();
+               guiElem.setUnsavedChangesFlag(true);
+            }
          }
       }
    }

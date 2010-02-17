@@ -360,7 +360,7 @@ final public class FunctionEditorTopComponent extends TopComponent implements Ob
 
    private String getFunctionTypeName(Function func) {
       MultiplierFunction mf = MultiplierFunction.safeDownCast(func);
-      if (mf != null) {
+      if (mf != null && mf.getFunction() != null) {
          return mf.getFunction().getType();
       } else {
          return func.getType();
@@ -379,7 +379,7 @@ final public class FunctionEditorTopComponent extends TopComponent implements Ob
 
        Function newFunction = null;
        MultiplierFunction mf = MultiplierFunction.safeDownCast(function);
-       if (mf != null) {
+       if (mf != null && mf.getFunction() != null) {
           // Make a new sub-function of the chosen type.
           Function newf = Function.makeFunctionOfType(mf.getFunction(), nameOfNewType);
           // Make a new MultiplierFunction to hold the new sub-function. The

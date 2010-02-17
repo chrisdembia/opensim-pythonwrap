@@ -57,7 +57,7 @@ public class OneContactForceNode extends OpenSimObjectNode{
         //addDisplayOption(displayOption.Isolatable);
     }
     public Image getIcon(int i) {
-        URL imageURL = this.getClass().getResource("icons/muscleNode.png");
+        URL imageURL = this.getClass().getResource("/org/opensim/view/nodes/icons/contactNode.png");
         if (imageURL != null) {
             return new ImageIcon(imageURL, "Actuator").getImage();
         } else {

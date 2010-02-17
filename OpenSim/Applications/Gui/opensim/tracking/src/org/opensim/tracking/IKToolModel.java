@@ -66,6 +66,9 @@ public class IKToolModel extends Observable implements Observer {
       final OpenSimContext context=OpenSimDB.getInstance().getContext(getOriginalModel());
       
       IKToolWorker() throws Exception {
+         // Give the thread a nudge so that we're not much slower than command line'
+         setPriority(Thread.MAX_PRIORITY);
+         
          updateIKTool();
 
          // Operate on a copy of the model -- this way if users play with parameters in the GUI it won't affect the model we're actually computing on
@@ -94,10 +97,11 @@ public class IKToolModel extends Observable implements Observer {
 
          // Animation callback will update the display during IK solve
          animationCallback = new JavaMotionDisplayerCallback(getOriginalModel(), ikTool.getIKTrialSet().get(0).getOutputStorage(), progressHandle);
+         //OpenSim20 animationCallback.setRenderMuscleActivations(false);
          //OpenSim20 animationCallback.setModelForDisplaySetConfiguration(false);
          getOriginalModel().addAnalysis(animationCallback);
          animationCallback.setStepInterval(1);
-         animationCallback.startProgressUsingTime(trial.getStartTime(), trial.getEndTime());
+         animationCallback.startProgressUsingSteps(startFrame, endFrame);
          animationCallback.setOptimizerAlgorithm(ikTool.getIKTrialSet().get(0).getOptimizerAlgorithm());
 
          // Do this manouver (there's gotta be a nicer way) to create the object so that C++ owns it and not Java (since 
@@ -105,7 +109,6 @@ public class IKToolModel extends Observable implements Observer {
          // it would then later try to delete it yet again)
          interruptingCallback = new InterruptCallback(getOriginalModel());
          getOriginalModel().addAnalysis(interruptingCallback);
-
          setExecuting(true);
       }
 

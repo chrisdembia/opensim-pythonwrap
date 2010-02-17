@@ -458,10 +458,13 @@ final public class MarkerEditorTopComponent extends TopComponent implements Obse
    private void MarkerComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MarkerComboBoxActionPerformed
       if (currentModel == null)
          return;
-      String nameOfNewMarker = MarkerComboBox.getSelectedItem().toString();
-      Marker newMarker = currentModel.getMarkerSet().get(nameOfNewMarker);
-      if (newMarker != null && Marker.getCPtr(newMarker) != Marker.getCPtr(currentMarker)) {
-         setupComponent(newMarker);
+      Object selObj = MarkerComboBox.getSelectedItem();
+      if (selObj != null) {
+         String nameOfNewMarker = selObj.toString();
+         Marker newMarker = currentModel.getMarkerSet().get(nameOfNewMarker);
+         if (newMarker != null && Marker.getCPtr(newMarker) != Marker.getCPtr(currentMarker)) {
+            setupComponent(newMarker);
+         }
       }
    }//GEN-LAST:event_MarkerComboBoxActionPerformed
     
@@ -745,8 +748,15 @@ final public class MarkerEditorTopComponent extends TopComponent implements Obse
 
       SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(currentModel);
 
+      // Before restoring, see if the name will be changing.
+      boolean sameName = currentMarker.getName().equals(savedMarker.getName());
+
+      // Copy the elements of the saved marker into the current marker.
+      currentMarker.copy(savedMarker);
+      vis.updateMarkerGeometry(currentMarker);
+
       // If the name has changed, update the marker list in ViewDB and fire an event.
-      if (currentMarker.getName().equals(savedMarker.getName()) == false) {
+      if (sameName == false) {
          ViewDB.getInstance().getModelGuiElements(currentModel).updateMarkerNames();
          Vector<OpenSimObject> objs = new Vector<OpenSimObject>(1);
          objs.add(currentMarker);
@@ -754,10 +764,6 @@ final public class MarkerEditorTopComponent extends TopComponent implements Obse
          OpenSimDB.getInstance().setChanged();
          OpenSimDB.getInstance().notifyObservers(evnt);
       }
-
-      // Copy the elements of the saved marker into the current marker.
-      currentMarker.copy(savedMarker);
-      vis.updateMarkerGeometry(currentMarker);
 
       setPendingChanges(MarkerState.UNMODIFIED, currentMarker, false);
       setupComponent(currentMarker);
@@ -1130,20 +1136,22 @@ final public class MarkerEditorTopComponent extends TopComponent implements Obse
             MarkerNameTextField.setText(currentMarker.getName());
             return false;
          }
-         Marker existingMarker = currentModel.getMarkerSet().get(markerName);
-         if (existingMarker != null && Marker.getCPtr(existingMarker) != Marker.getCPtr(currentMarker)) {
-            MarkerNameTextField.setText(currentMarker.getName());
-            Object[] options = {"OK"};
-            String message = "The name \"" + markerName + "\" is already being used. Please choose a different marker name.";
-            int answer = JOptionPane.showOptionDialog(this,
-                         message,
-                         "Marker Editor",
-                         JOptionPane.OK_OPTION,
-                         JOptionPane.WARNING_MESSAGE,
-                         null,
-                         options,
-                         options[0]);
-            return false;
+         if (currentModel.getMarkerSet().contains(markerName)){
+            Marker existingMarker = currentModel.getMarkerSet().get(markerName);
+            if (existingMarker != null && Marker.getCPtr(existingMarker) != Marker.getCPtr(currentMarker)) {
+                MarkerNameTextField.setText(currentMarker.getName());
+                Object[] options = {"OK"};
+                String message = "The name \"" + markerName + "\" is already being used. Please choose a different marker name.";
+                int answer = JOptionPane.showOptionDialog(this,
+                             message,
+                             "Marker Editor",
+                             JOptionPane.OK_OPTION,
+                             JOptionPane.WARNING_MESSAGE,
+                             null,
+                             options,
+                             options[0]);
+                return false;
+            }
          } else {
             // If the new name is the same as one of a backed-up marker (which could be
             // restored at some time in the future), do not allow the new name.

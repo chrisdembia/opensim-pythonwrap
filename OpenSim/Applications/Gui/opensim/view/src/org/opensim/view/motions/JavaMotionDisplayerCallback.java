@@ -71,13 +71,14 @@ public class JavaMotionDisplayerCallback extends AnalysisWrapper {
    int numStates=0;
    ArrayStr stateLabels=null;
    private double[] statesBuffer;
+   //private int stepNumber=0;
    
    // Creates a new instance of JavaMotionDisplayerCallback 
    public JavaMotionDisplayerCallback(Model aModel, Storage aStorage, ProgressHandle progressHandle) {
       super(aModel);
       modelForDisplay=aModel;
       context = OpenSimDB.getInstance().getContext(aModel);
-      if(storage!=null) {
+      if(aStorage!=null) {
          this.storage = aStorage;
       }
       else 
@@ -133,7 +134,7 @@ public class JavaMotionDisplayerCallback extends AnalysisWrapper {
       progressUsingTime = false;
       this.startStep = startStep;
       this.endStep = endStep;
-      //OpenSim20 if(progressHandle!=null) progressHandle.start(endStep-startStep+1);
+      if(progressHandle!=null) progressHandle.start(endStep-startStep+1);
    }
    
    public void setOptimizerAlgorithm(String aOptimizerAlgorithm) {
@@ -168,15 +169,19 @@ public class JavaMotionDisplayerCallback extends AnalysisWrapper {
       }
    }
    
-   public void processStep(SWIGTYPE_p_SimTK__State s) {
+   public void processStep(SWIGTYPE_p_SimTK__State s, int stepNumber) {
       if(!getOn()) return;
-      super.step(s, 0);
+      if (!proceed(stepNumber)) return;
+      super.step(s, stepNumber);
       if(progressHandle!=null) {
+          if (!progressUsingTime) progressHandle.progress(stepNumber-startStep);
+          else {
          int progressStep = (int)((getSimulationTime()-startTime)*progressTimeResolution);
          if(progressStep > lastProgressStep) { // make sure we only advance progress (else an exception is thrown)
             progressHandle.progress(progressStep);
             lastProgressStep = progressStep;
          }
+      }
       }
       currentSimTime = getSimulationTime();   
       if (ownsStorage) {    // Callback is the one accumulating results //ASSERTS downlstream 0327
@@ -199,6 +204,7 @@ public class JavaMotionDisplayerCallback extends AnalysisWrapper {
           //System.out.println(optimizerAlgorithm);
           startIKTime = getCurrentRealTime(); // Start timing of ik computations
       }
+      stepNumber++;
    }
    
    public void cleanupMotionDisplayer() {
@@ -211,22 +217,18 @@ public class JavaMotionDisplayerCallback extends AnalysisWrapper {
       super.finalize();
    }
    
-    public void setStepInterval(int i) {
-        //throw new UnsupportedOperationException("Not yet implemented");
-    }
-
     private Model getModelForDisplay() {
         return modelForDisplay;//get_model();
     }
 
     private boolean getModelForDisplayCompatibleStates() {
-        return false;
+        return true;
     }
 
-    public int step(SWIGTYPE_p_SimTK__State s) {
+    public int step(SWIGTYPE_p_SimTK__State s, int stepNumber) {
         int retValue;
-        retValue = super.step(s, 0);
-        processStep(s);
+        retValue = super.step(s, stepNumber);
+        processStep(s, stepNumber);
         return retValue;
     }
 

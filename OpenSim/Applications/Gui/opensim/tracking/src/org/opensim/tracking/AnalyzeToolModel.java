@@ -472,12 +472,6 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
    public String getExternalLoadsModelKinematicsFileName() { return analyzeTool().getExternalLoadsModelKinematicsFileName(); }
    protected void setExternalLoadsModelKinematicsFileNameInternal(String fileName) { analyzeTool().setExternalLoadsModelKinematicsFileName(fileName); }
 
-   public String getExternalLoadsBody1() { return analyzeTool().getExternalLoadsBody1(); }
-   protected void setExternalLoadsBody1Internal(String name) { analyzeTool().setExternalLoadsBody1(name); }
-
-   public String getExternalLoadsBody2() { return analyzeTool().getExternalLoadsBody2(); }
-   protected void setExternalLoadsBody2Internal(String name) { analyzeTool().setExternalLoadsBody2(name); }
-
    public double getLowpassCutoffFrequencyForLoadKinematics() { return analyzeTool().getLowpassCutoffFrequencyForLoadKinematics(); }
    protected void setLowpassCutoffFrequencyForLoadKinematicsInternal(double cutoffFrequency) { analyzeTool().setLowpassCutoffFrequencyForLoadKinematics(cutoffFrequency); }
 

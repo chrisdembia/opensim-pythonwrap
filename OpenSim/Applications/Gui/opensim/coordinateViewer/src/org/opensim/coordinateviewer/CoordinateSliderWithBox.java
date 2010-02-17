@@ -52,6 +52,7 @@ import javax.swing.event.ChangeListener;
 import javax.swing.text.NumberFormatter;
 import org.openide.util.Utilities;
 import org.opensim.modeling.Coordinate;
+import org.opensim.modeling.Model;
 import org.opensim.modeling.OpenSimContext;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.view.ObjectsChangedEvent;
@@ -75,6 +76,7 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
    private boolean rotational;
    private Coordinate coord;
    private OpenSimContext openSimContext;
+   private Model model;
    private static double ROUNDOFF=1E-5;  // work around for roundoff converting Strings to/from doubles
    private static String LABELS_FORMAT="###.###";          // Number of digits to show after floating point in bounds
    // Should make images static or use reference rather than create a new instance per slider.
@@ -90,7 +92,8 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
   
    public CoordinateSliderWithBox(Coordinate coord) {
       this.coord = coord;
-      openSimContext = OpenSimDB.getInstance().getContext(coord.getModel());
+      this.model = coord.getModel();
+      openSimContext = OpenSimDB.getInstance().getContext(model);
       setRotational(coord.getMotionType()==Coordinate.MotionType.Rotational);
       this.min=coord.getRangeMin()*conversion;
       this.max=coord.getRangeMax()*conversion;
@@ -349,7 +352,7 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
              Vector<OpenSimObject> objs = new Vector<OpenSimObject>(1);
              objs.add(coord);
              //SimbodyEngine eng = coord.getDynamicsEngine();
-             ObjectsChangedEvent evnt = new ObjectsChangedEvent(this, coord.getJoint().getBody().getModel(), objs);
+             ObjectsChangedEvent evnt = new ObjectsChangedEvent(this, model, objs);
              OpenSimDB.getInstance().setChanged();
              OpenSimDB.getInstance().notifyObservers(evnt);
           }

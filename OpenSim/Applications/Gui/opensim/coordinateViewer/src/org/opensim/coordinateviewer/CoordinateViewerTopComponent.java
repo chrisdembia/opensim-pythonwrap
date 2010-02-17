@@ -498,6 +498,8 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
           DialogDisplayer.getDefault().notify(new NotifyDescriptor.Message(
                     "Number of coordinates in saved pose does not match the model... Aborting pose setting."));
       }
+      boolean realize=false;
+      int which = -1;
       for(int i=0;i<coordinateNames.size();i++){
          // Values in file
          String name=coordinateNames.get(i);
@@ -505,12 +507,21 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
          
          Coordinate coord=coords.get(name);
          if (coord !=null){
-            openSimContext.setValue(coord, storedValue);
+            openSimContext.setValue(coord, storedValue, false);
+            realize=true;
+            which = i;
             CoordinateSliderWithBox coordinateSlider = mapCoordinates2Sliders.get(coord);
             if (coordinateSlider!=null)
                 coordinateSlider.updateValue();
          }
+         if (i==coordinateNames.size()-1){  // One realize per pose
+            name=coordinateNames.get(which);
+            storedValue = (Double)coordinateValues.get(which);
+            coord=coords.get(name);
+            openSimContext.setValue(coord, storedValue, true);             
+         }
       }
+      
    }
 
    private void updatePosesPopup() {
