@@ -447,7 +447,7 @@ public class MotionDisplayer implements SelectionListener {
       ViewDB.getInstance().updateAnnotationAnchors();
    }
 
-   void applyTimeToModel(double currentTime)
+   public void applyTimeToModel(double currentTime)
    {
       //TODO: Option to snap to nearest valid storage time rather than interpolate...
       //
