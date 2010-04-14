@@ -124,7 +124,7 @@ public class MotionObjectsDB {
       return marker.GetOutput();
    }
 
-   vtkPolyData getShape(String shapeName) {
+   public vtkPolyData getShape(String shapeName) {
         return motionObjectsMap.get(shapeName);
     }
    
