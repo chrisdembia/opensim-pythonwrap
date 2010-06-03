@@ -66,10 +66,6 @@ public class CustomJoint extends Joint {
     opensimModelJNI.CustomJoint_copyData(swigCPtr, this, CustomJoint.getCPtr(aJoint), aJoint);
   }
 
-  public void setup(Model aModel) {
-    opensimModelJNI.CustomJoint_setup(swigCPtr, this, Model.getCPtr(aModel), aModel);
-  }
-
   public int numCoordinates() {
     return opensimModelJNI.CustomJoint_numCoordinates(swigCPtr, this);
   }

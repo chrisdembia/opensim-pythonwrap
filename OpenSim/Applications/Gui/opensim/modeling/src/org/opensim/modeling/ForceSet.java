@@ -78,10 +78,6 @@ public class ForceSet extends ModelComponentSetForces {
     opensimModelJNI.ForceSet_setup(swigCPtr, this, Model.getCPtr(aModel), aModel);
   }
 
-  public void postInit(Model aModel) {
-    opensimModelJNI.ForceSet_postInit(swigCPtr, this, Model.getCPtr(aModel), aModel);
-  }
-
   public boolean remove(int aIndex) {
     return opensimModelJNI.ForceSet_remove(swigCPtr, this, aIndex);
   }
@@ -112,6 +108,14 @@ public class ForceSet extends ModelComponentSetForces {
 
   public SetActuators updActuators() {
     return new SetActuators(opensimModelJNI.ForceSet_updActuators(swigCPtr, this), false);
+  }
+
+  public SWIGTYPE_p_OpenSim__SetTOpenSim__Muscle_t getMuscles() {
+    return new SWIGTYPE_p_OpenSim__SetTOpenSim__Muscle_t(opensimModelJNI.ForceSet_getMuscles(swigCPtr, this), false);
+  }
+
+  public SWIGTYPE_p_OpenSim__SetTOpenSim__Muscle_t updMuscles() {
+    return new SWIGTYPE_p_OpenSim__SetTOpenSim__Muscle_t(opensimModelJNI.ForceSet_updMuscles(swigCPtr, this), false);
   }
 
   public void getStateVariableNames(ArrayStr rNames) {

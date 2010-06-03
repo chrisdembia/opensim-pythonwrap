@@ -158,16 +158,16 @@ public class MotionsDB extends Observable // Observed by other entities in motio
    public void addMotion(Model model, Storage motion, boolean convertAngles) {
       if (! (model instanceof ModelForExperimentalData)){
           if(convertAngles) model.getSimbodyEngine().convertDegreesToRadians(motion);
-
-          // Add to mapModels2Motion
-          ArrayList<Storage> motions = mapModels2Motions.get(model);
-          if(motions==null) { // First motion for model
-             motions = new ArrayList<Storage>(4);
-             mapModels2Motions.put(model, motions);
-          }
-
-          motions.add(motion);
       }
+      // Add to mapModels2Motion
+      ArrayList<Storage> motions = mapModels2Motions.get(model);
+      if(motions==null) { // First motion for model
+         motions = new ArrayList<Storage>(4);
+         mapModels2Motions.put(model, motions);
+      }
+
+      motions.add(motion);
+      
       // Add to mapMotion2BitSet
       BitSet motionBits = new BitSet(numBits);
       mapMotion2BitSet.put(motion, motionBits);
@@ -288,6 +288,14 @@ public class MotionsDB extends Observable // Observed by other entities in motio
                }
             }
          }
+         else if (evnt.getOperation()==ModelEvent.Operation.SetCurrent){
+              if (evnt.getModel() instanceof ModelForExperimentalData){
+                  // Make corresponding motion current as well
+                  ArrayList<Storage> motions = getModelMotions(evnt.getModel());
+                  assert(motions.size()==1);
+                  setCurrent(evnt.getModel(), motions.get(0));
+              }
+         }
       } else if (o instanceof MotionsDB && arg instanceof MotionEvent) {
          final MotionEvent evnt = (MotionEvent) arg;
          SwingUtilities.invokeLater(new Runnable(){
@@ -296,14 +304,18 @@ public class MotionsDB extends Observable // Observed by other entities in motio
                   case Open:
                   {
                      Node modelNode = ExplorerTopComponent.findInstance().getModelNode(evnt.getModel());
-                     MotionsNode motionsNode = (MotionsNode) modelNode.getChildren().findChild("Motions");
-                     if(motionsNode==null) {
-                        motionsNode = new MotionsNode();
-                        getInstance().addObserver(motionsNode);
-                        modelNode.getChildren().add(new Node[]{motionsNode});
-                     }
                      Node newMotionNode = new OneMotionNode(evnt.getMotion());
-                     motionsNode.getChildren().add(new Node[]{newMotionNode});
+                     if (evnt.getModel() instanceof ModelForExperimentalData)
+                         modelNode.getChildren().add(new Node[]{newMotionNode});
+                     else {
+                         MotionsNode motionsNode = (MotionsNode) modelNode.getChildren().findChild("Motions");
+                         if(motionsNode==null) {
+                             motionsNode = new MotionsNode();
+                             getInstance().addObserver(motionsNode);
+                             modelNode.getChildren().add(new Node[]{motionsNode});
+                         }
+                         motionsNode.getChildren().add(new Node[]{newMotionNode});
+                     }
                      break;
                   }
                   case Close:

@@ -29,6 +29,7 @@
 package org.opensim.plotter;
 
 import java.util.Vector;
+import org.opensim.modeling.Model;
 import org.opensim.modeling.Storage;
 
 /**
@@ -65,5 +66,7 @@ public interface PlotterSourceInterface {
    public boolean isValidName(String columnName);
    
    public boolean convertAngularUnits();
+   
+   public boolean hasFullState(Model model);
 
 }

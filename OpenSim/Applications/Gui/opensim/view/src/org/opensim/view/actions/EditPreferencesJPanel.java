@@ -42,6 +42,7 @@ import org.opensim.modeling.OpenSimObject;
 import org.opensim.utils.TheApp;
 import org.opensim.view.pub.ViewDB;
 
+
 /**
  *
  * @author  Ayman. Edit user preferences. So far no validation is done on the type 
@@ -177,7 +178,7 @@ public class EditPreferencesJPanel extends javax.swing.JPanel {
          String key = (String)data.getValueAt(i, 0);
          String value = (String)data.getValueAt(i, 1);
          Preferences.userNodeForPackage(TheApp.class).put(key, value);         
-      }
+         }   
       ViewDB.getInstance().applyPreferences();
       String saved = Preferences.userNodeForPackage(TheApp.class).get("Debug", "0");
       int debugLevel = Integer.parseInt(saved);

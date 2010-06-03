@@ -68,6 +68,7 @@ public final class ForwardToolAction extends CallableSystemAction {
    }
    
    public boolean isEnabled() {
-      return OpenSimDB.getInstance().getCurrentModel()!=null;
+      return (OpenSimDB.getInstance().getCurrentModel()!=null &&
+              OpenSimDB.getInstance().getCurrentModel().getNumStates()>0);
    }
 }

@@ -69,7 +69,7 @@ public class XMLExternalFileChooser extends javax.swing.JPanel {
 
          // Update this component's valid flag whenever the filename field changes state
          externalFileName.addChangeListener(new ChangeListener() {
-            public void stateChanged(ChangeEvent evt) { putClientProperty("valid", (Boolean)isValid()); }
+            public void stateChanged(ChangeEvent evt) { putClientProperty("valid", (Boolean)isValidated()); }
          });
 
          add(externalFileName);
@@ -77,7 +77,9 @@ public class XMLExternalFileChooser extends javax.swing.JPanel {
 
       public String getName() { return writeExternalCheckBox.getText(); }
       public String getExternalFileName() { return writeExternalCheckBox.isSelected() ? externalFileName.getFileName() : null; }
-      public boolean isValid() { return !writeExternalCheckBox.isSelected() || !FileUtils.effectivelyNull(externalFileName.getFileName()); }
+      public boolean isValidated() {
+          if (writeExternalCheckBox==null || externalFileName==null) return false;
+          return !writeExternalCheckBox.isSelected() || !FileUtils.effectivelyNull(externalFileName.getFileName()); }
    }
 
    // If returns true then was successful (user pressed OK), and sets new values in externalFileNames
@@ -109,18 +111,20 @@ public class XMLExternalFileChooser extends javax.swing.JPanel {
       XMLExternalFileChooser.Item item = new XMLExternalFileChooser.Item(name, defaultExternalFileName);
       // Update valid flag for this whole component whenever an individual item's valid flag changes
       item.addPropertyChangeListener("valid", new PropertyChangeListener() {
-         public void propertyChange(PropertyChangeEvent evt) { putClientProperty("valid", (Boolean)isValid()); }
+         public void propertyChange(PropertyChangeEvent evt) { putClientProperty("valid", (Boolean)isValidated()); }
       });
       jPanel1.add(item);
    }
 
    public String getItemExternalFileName(int i) {
-      return ((XMLExternalFileChooser.Item)jPanel1.getComponent(i)).getExternalFileName();
+      String fileName=((XMLExternalFileChooser.Item)jPanel1.getComponent(i)).getExternalFileName();
+      return FileUtils.addExtensionIfNeeded(fileName,".xml");
    }
 
-   public boolean isValid() {
+   public boolean isValidated() {
+      if (jPanel1==null) return false;
       for(int i=0; i<jPanel1.getComponents().length; i++)
-         if(!((XMLExternalFileChooser.Item)jPanel1.getComponent(i)).isValid())
+         if(!((XMLExternalFileChooser.Item)jPanel1.getComponent(i)).isValidated())
             return false;
       return true;
    }

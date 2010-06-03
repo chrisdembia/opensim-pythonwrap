@@ -50,8 +50,4 @@ public class CustomActuator extends Actuator {
     opensimModelJNI.CustomActuator_copy(swigCPtr, this, OpenSimObject.getCPtr(aObject), aObject);
   }
 
-  public void createSystem(SWIGTYPE_p_SimTK__MultibodySystem system) {
-    opensimModelJNI.CustomActuator_createSystem(swigCPtr, this, SWIGTYPE_p_SimTK__MultibodySystem.getCPtr(system));
-  }
-
 }

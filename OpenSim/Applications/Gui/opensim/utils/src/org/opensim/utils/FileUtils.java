@@ -60,6 +60,7 @@ public final class FileUtils {
     // Some predefined filters
     public static FileFilter OpenSimModelFileFilter = getFileFilter(".osim", "OpenSim model");
     public static FileFilter MotionFileFilter = getFileFilter(".mot,.sto", "Motion or storage file");
+    public static FileFilter TrcFileFilter = getFileFilter(".trc", "Marker trajectory file");
     
     public static String getNextAvailableName(String folder, String baseName) {
         File baseFile = new File(baseName);
@@ -113,7 +114,7 @@ public final class FileUtils {
      * Extension should contain the leading . e.g. ".xml"
      */
     public static String addExtensionIfNeeded(String path, String extension) {
-        if (path.endsWith(extension) || path.contains("."))
+        if (path.endsWith(extension) || getExtension(path)!=null)
             return path;
         // just append extension
         return path+extension;
@@ -346,7 +347,7 @@ public final class FileUtils {
                 }
                 URI u = base.toURI().relativize(file.toURI());
                 b.append(u.getPath());
-                if (b.charAt(b.length() -1)=='/'){
+                if (b.length()>=1 && b.charAt(b.length() -1)=='/'){
                     b.setLength(b.length() -1);
                 }
                 relative = b.toString();

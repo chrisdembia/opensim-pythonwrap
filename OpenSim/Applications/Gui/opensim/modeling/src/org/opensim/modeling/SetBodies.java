@@ -123,7 +123,7 @@ public class SetBodies extends OpenSimObject {
   }
 
   public boolean insert(int aIndex, Body aObject) {
-    return opensimModelJNI.SetBodies_insert__SWIG_0(swigCPtr, this, aIndex, Body.getCPtr(aObject), aObject);
+    return opensimModelJNI.SetBodies_insert(swigCPtr, this, aIndex, Body.getCPtr(aObject), aObject);
   }
 
   public boolean remove(int aIndex) {

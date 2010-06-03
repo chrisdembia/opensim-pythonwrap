@@ -355,6 +355,7 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
          prefs=ViewDB.getInstance().getModelSavedSettings(aModel).getPrefs();
       }
       jModelNameLabel.setText(aModel.getName());
+      if (aModel.getNumCoordinates()==0) return;
       coords = aModel.getCoordinateSet();
       updateAvailability();
       Vector<String> coordinateGroupNames = new Vector<String>();
@@ -413,7 +414,7 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
             // If any of the event objects is a model not equal to the current one, this means there is a new
             // current model. So update the panel.
             for (int i=0; i<objs.size(); i++) {
-               if (objs.get(i) instanceof Model && !(objs.get(i) instanceof ModelForExperimentalData)) {
+               if (objs.get(i) instanceof Model) {
                   if (aModel == null || !aModel.equals(objs.get(i))) {
                      jPanel1.removeAll();
                      componentOpened();
@@ -528,7 +529,7 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
          jPosesPopupMenu.removeAll();
          // Add items to select poses with callback to apply them
          createDefaultPoseIfNeeded(prefs.getPoses());
-         Vector<ModelPose> poses =prefs.getPoses();
+         final Vector<ModelPose> poses =prefs.getPoses();
          for(int i=0; i<poses.size(); i++){
             final ModelPose p=poses.get(i);
             JMenuItem item=new JMenuItem(p.getPoseName());
@@ -549,6 +550,21 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
                updatePosesPopup();
             }});
          jPosesPopupMenu.add(newItem);
+         JMenuItem setDefaultItem = new JMenuItem("Set Default");
+         setDefaultItem.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e) {
+               // Show a dialog warning that this change is persistent if model is saved
+                openSimContext.setDefaultsFromState();
+                for(int i=0; i<poses.size(); i++){
+                    final ModelPose p=poses.get(i);
+                    if (p.getPoseName().compareTo(DEFAULT_POSE_NAME)==0){
+                        Vector<String> cnames = p.getCoordinateNames();
+                        for(int c=0; c<cnames.size();c++)
+                            p.getCoordinateValues().set(c, openSimContext.getValue(aModel.getCoordinateSet().get(c)));
+                    }
+                }
+            }});
+         jPosesPopupMenu.add(setDefaultItem);
          if (poses.size()>0){
             JMenuItem deleteItem=new JMenuItem("Delete...");
             deleteItem.addActionListener(new ActionListener(){

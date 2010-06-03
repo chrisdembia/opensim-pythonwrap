@@ -34,22 +34,31 @@ import org.opensim.modeling.Model;
 import org.opensim.modeling.Storage;
 import org.opensim.utils.FileUtils;
 import org.opensim.view.ExplorerTopComponent;
+import org.opensim.view.experimentaldata.AnnotatedMotion;
+import org.opensim.view.experimentaldata.ClassifyDataJPanel;
 
 public final class MotionsSaveAsAction extends CallableSystemAction {
   
    public static void saveMotion(Model model, Storage motion, String fileName) {
       StatusDisplayer.getDefault().setStatusText("Saving motion...");
       // Needs to be converted to degrees, therefore we need to make a copy of it first
+      if (motion instanceof AnnotatedMotion){
+          // This must come from a file, either trc or mot
+          if (!ClassifyDataJPanel.saveTransformedMotion((AnnotatedMotion)motion, fileName))
+              return;
+      }
+      else {
       Storage motionCopy = new Storage(motion);
       model.getSimbodyEngine().convertRadiansToDegrees(motionCopy);
       String extension = FileUtils.getExtension(fileName);
       if (extension==null)
-         fileName += ".sto";
+         fileName += ".mot";    // if no extension use .mot since we're in degrees now'
       if(FileUtils.getExtension(fileName).toLowerCase().equals("mot"))
          motionCopy.setWriteSIMMHeader(true); // Write SIMM header for SIMM compatibility
       // TODO: set precision?
       motionCopy.print(fileName);
       MotionsDB.getInstance().setMotionModified(motion,false); 
+      }
       StatusDisplayer.getDefault().setStatusText("Saved motion "+motion.getName()+" to "+fileName);
    }
 
@@ -57,7 +66,18 @@ public final class MotionsSaveAsAction extends CallableSystemAction {
       Node[] selected = ExplorerTopComponent.findInstance().getExplorerManager().getSelectedNodes();
       if(selected.length==1 && (selected[0] instanceof OneMotionNode)) {
          OneMotionNode node = (OneMotionNode)selected[0];
-         String fileName = FileUtils.getInstance().browseForFilenameToSave(FileUtils.MotionFileFilter, true, "");
+         // if AnnotatedMotion make sure we keep extension same as original
+         String fileName = "";
+         if (node.getMotion() instanceof AnnotatedMotion){
+             AnnotatedMotion dMotion = (AnnotatedMotion)node.getMotion();
+             String currentExtension = dMotion.getName().substring(dMotion.getName().lastIndexOf("."));
+             if (currentExtension.endsWith("trc"))
+                fileName=FileUtils.getInstance().browseForFilenameToSave(FileUtils.TrcFileFilter, true, "");
+             else
+                fileName=FileUtils.getInstance().browseForFilenameToSave(FileUtils.MotionFileFilter, true, "");                 
+         }
+         else
+            fileName=FileUtils.getInstance().browseForFilenameToSave(FileUtils.MotionFileFilter, true, "");
          if(fileName!=null) saveMotion(node.getModel(), node.getMotion(), fileName);
       }
    }

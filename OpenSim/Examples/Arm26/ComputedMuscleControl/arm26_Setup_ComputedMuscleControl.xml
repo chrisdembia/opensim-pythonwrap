@@ -62,6 +62,8 @@
 	<!--File containing the tracking tasks. Which coordinates are tracked and
 	    with what weights are specified here.-->
   <task_set_file> arm26_ComputedMuscleControl_Tasks.xml </task_set_file>
+	<!--File containing the constraints on the controls.-->
+  <constraints_file> arm26_ComputedMuscleControl_ControlConstraints.xml </constraints_file>
 	<!--Flag (true or false) indicating whether to use the fast CMC
 	    optimization target. The fast target requires the desired
 	    accelerations to be met. The optimizer fails if the acclerations

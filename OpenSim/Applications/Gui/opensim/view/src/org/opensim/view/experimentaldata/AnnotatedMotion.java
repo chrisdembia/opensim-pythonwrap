@@ -32,7 +32,16 @@
 
 package org.opensim.view.experimentaldata;
 
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.util.Vector;
+import org.openide.DialogDisplayer;
+import org.openide.NotifyDescriptor;
+import org.opensim.modeling.ArrayDouble;
 import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.StateVector;
 import org.opensim.modeling.Storage;
@@ -55,6 +64,9 @@ public class AnnotatedMotion extends Storage { // MotionDisplayer needs to know 
     private double unitConversion = 1.0;
     private boolean boundingBoxComputed=false;
     private double[] currentRotations = new double[]{0., 0., 0.};
+    private double frameRate=0.;
+    private double cameraRate=0.;
+    private double dataRate=0.;
     /** Creates a new instance of AnnotatedMotion 
      * This constructor is called when a trc file is read (so we know it is 
      * Marker only data already.
@@ -171,14 +183,14 @@ public class AnnotatedMotion extends Storage { // MotionDisplayer needs to know 
                 if (foundPatternAtIdx){
                     found=true;
                     columnType = classifications.get(patternIdx);
-                    classified.add(new ExperimentalDataObject(columnType, baseName, i));
+                    classified.add(new ExperimentalDataObject(columnType, baseName, i-1));
                     System.out.println("Found "+columnType.toString()+ " at index "+i);
                     i+=(columnType.getNumberOfColumns()-1);
                     break;
                 }
             }
             if (!found){
-                classified.add(new ExperimentalDataObject(columnType, label, i));
+                classified.add(new ExperimentalDataObject(columnType, label, i-1));
                 System.out.println("Column "+columnType.toString()+ " unclassified");
             }
         }
@@ -215,6 +227,7 @@ public class AnnotatedMotion extends Storage { // MotionDisplayer needs to know 
     void toggleObjectTrail(ExperimentalDataObject obj) {
         // We'll create a separate table to keep track ofr trails. '
         MotionDisplayer displayer=MotionControlJPanel.getInstance().getMasterMotion().getDisplayer(this);
+        if (displayer ==null) return;
         displayer.toggleTrail(obj);
         obj.setTrailDisplayed(!obj.isTrailDisplayed());
     }
@@ -239,36 +252,47 @@ public class AnnotatedMotion extends Storage { // MotionDisplayer needs to know 
     public void setBoundingBoxComputed(boolean boundingBoxComputed) {
         this.boundingBoxComputed = boundingBoxComputed;
     }
-    
-    public void applyTransform(vtkTransform vtktransform) {
+ 
+    public Storage applyTransform(vtkTransform vtktransform) {
         // Should know what data to apply xform to and how
         // for example mrkers are xformed as is but force vectors would not apply translations etc.
         // utilize the "clasified" table
+        Storage motionCopy = new Storage(this);
         if (classified !=null && classified.size()!=0){
             for(ExperimentalDataObject dataObject:classified){
                 if (dataObject.getObjectType()==ExperimentalDataItemType.PointData ||
-                    dataObject.getObjectType()==ExperimentalDataItemType.MarkerData){
+                        dataObject.getObjectType()==ExperimentalDataItemType.MarkerData){
                     int startIndex = dataObject.getStartIndexInFileNotIncludingTime();
-                
-                    Vector<Integer> indices = new Vector<Integer>(3);
-                    for (int i=0; i< dataObject.getObjectType().getNumberOfColumns(); i++){
-                        indices.add(startIndex+i);
-                    }
-                    assert(indices.size()==3);
-                    double[] point3 = new double[]{0., 0., 0. };
-                    for (int rowNumber=0; rowNumber<getSize(); rowNumber++){
-                        StateVector row = getStateVector(rowNumber);
-                        for(int coord=0; coord <3; coord++) {
-                            point3[coord] = row.getData().getitem(startIndex+coord);
-                        }
-                         double[] xformed = vtktransform.TransformDoublePoint(point3); //inplace
-                         for(int coord=0; coord <3; coord++) {
-                            row.getData().setitem(startIndex+coord, xformed[coord]);
-                        }
-                       
-                    }
+                    transformPointData(motionCopy, vtktransform, startIndex);
+                } else if (dataObject.getObjectType()==ExperimentalDataItemType.ForceData){
+                    int startIndex = dataObject.getStartIndexInFileNotIncludingTime();
+                    // First vector, then position
+                    // If we allow for translations the first line may need to change
+                    transformPointData(motionCopy, vtktransform, startIndex);
+                    transformPointData(motionCopy, vtktransform, startIndex+3);
                 }
+                else {
+                    System.out.println("bad type="+dataObject.getObjectType());
+                    //throw new UnsupportedOperationException("Not yet implemented");
+                }
+          }
+        }
+        return motionCopy;
+    }
+
+    private void transformPointData(final Storage motionCopy, final vtkTransform vtktransform, final int startIndex) {
+        double[] point3 = new double[]{0., 0., 0. };
+        for (int rowNumber=0; rowNumber<getSize(); rowNumber++){
+            StateVector row = motionCopy.getStateVector(rowNumber);
+            //if (rowNumber==0) System.out.println("Start index="+startIndex+" row size="+row.getSize());
+            for(int coord=0; coord <3; coord++) {
+                point3[coord] = row.getData().getitem(startIndex+coord);
             }
+            double[] xformed = vtktransform.TransformDoublePoint(point3); //inplace
+            for(int coord=0; coord <3; coord++) {
+                row.getData().setitem(startIndex+coord, xformed[coord]);
+            }
+            
         }
     }
 
@@ -287,22 +311,116 @@ public class AnnotatedMotion extends Storage { // MotionDisplayer needs to know 
     
     
     public void getMinMax(double[] mins, double[] maxs) {
-      int rowSize = getStateVector(0).getSize();
+      StateVector sv = getStateVector(0);
+      int rowSize = sv.getSize();
       for(int t=0; t<rowSize;t++){
-          mins[t] = getStateVector(0).getData().getitem(t);
-          maxs[t] = getStateVector(0).getData().getitem(t);
+          mins[t] =Double.POSITIVE_INFINITY;
+          maxs[t] =Double.NEGATIVE_INFINITY;
       }
-      for(int i=1; i< getSize(); i++){
+      for(int i=0; i< getSize(); i++){
           StateVector vec = getStateVector(i);
           // Timestamp
           // Dataitem j
+          ArrayDouble vecData = vec.getData();
           for(int j=0; j< rowSize; j++){
-              if (vec.getData().getitem(j) < mins[j]) 
-                  mins[j]=vec.getData().getitem(j);
-              if (vec.getData().getitem(j) > maxs[j]) 
-                  maxs[j]=vec.getData().getitem(j);
+              double dValue = vecData.getitem(j);
+              if (Double.isNaN(dValue)) // Gaps
+                  continue;
+              if ( dValue< mins[j]) 
+                  mins[j]=dValue;
+              if (dValue > maxs[j]) 
+                  maxs[j]=dValue;
           }
       }
   }
 
+  public void saveAs(String newFile, vtkTransform transform) throws FileNotFoundException, IOException {
+          if (newFile.endsWith(".trc"))
+             saveAsTRC(newFile, transform);
+          else if (newFile.endsWith(".mot"))
+              saveAsMot(newFile, transform);
+          else 
+              DialogDisplayer.getDefault().notify(
+                      new NotifyDescriptor.Message("Please specify either .trc or .mot file extension"));
+  }
+
+    private void saveAsMot(String newFile, vtkTransform transform) {
+        // Make a full copy of the motion then xform in place.
+        Storage xformed = applyTransform(transform);
+        xformed.print(newFile);
+    }
+    
+   private void saveAsTRC(String newFile, vtkTransform transform) throws FileNotFoundException, IOException {
+        OutputStream ostream = new FileOutputStream(newFile);
+        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(ostream));
+        writer.write("PathFileType        4      (X/Y/Z)      " + newFile + "         ");
+        writer.newLine();
+        writer.write("DataRate\tCameraRate\tNumFrames\tNumMarkers\tUnits\tOrigDataRate\tOrigDataStartFrame\tOrigNumFrames");
+        writer.newLine();
+        Vector<String> markerNames = getMarkerNames();
+        /*
+         *   ok = readDoubleFromString(line, &aSMD._dataRate);
+             ok = ok && readDoubleFromString(line, &aSMD._cameraRate);
+             ok = ok && readIntegerFromString(line, &aSMD._numFrames);
+             ok = ok && readIntegerFromString(line, &aSMD._numMarkers);
+             ok = ok && readStringFromString(line, buffer);
+   */
+        writer.write(getDataRate()+"\t"+
+                getCameraRate()+"\t"+
+                getSize()+"\t"+markerNames.size()+"\tmm\t"+
+                getDataRate()+"\t"+ "1\t"+getSize());
+        writer.newLine();
+        writer.write("Frame#      Time ");
+        String headerLine = new String("   ");
+        for (int i = 0; i < markerNames.size(); i++) {
+            writer.write(markerNames.get(i) + "\t\t\t");
+            headerLine = headerLine.concat("X" + (i+1) + "\t" + "Y" + (i+1) + "\t" + "Z" + (i+1) + "\t");
+        }
+        writer.newLine();
+        writer.write(headerLine);
+        writer.newLine();
+        Storage xformed = applyTransform(transform);
+        for (int row=0; row < xformed.getSize(); row++){
+            StateVector rowData = xformed.getStateVector(row);
+            writer.write((row+1)+"\t"+rowData.getTime()+"\t");
+            ArrayDouble data = rowData.getData();
+            for(int col=0; col <data.getSize(); col++){
+                if (Double.isNaN(data.getitem(col)))
+                    writer.write("\t");
+                else
+                    writer.write(data.getitem(col)+"\t");
+            }
+            writer.newLine();
+        }
+        writer.flush();
+        writer.close();
+    }
+
+    public void setDataRate(double d) {
+        this.dataRate = d;
+    }
+
+    public void setCameraRate(double d) {
+        this.cameraRate = d;
+    }
+
+    public double getFrameRate() {
+        return frameRate;
+    }
+
+    public void setFrameRate(double frameRate) {
+        this.frameRate = frameRate;
+    }
+
+    public double getCameraRate() {
+        return cameraRate;
+    }
+
+    public double getDataRate() {
+        return dataRate;
+    }
+
+    private void unimplemented() {
+    }
+    
 }

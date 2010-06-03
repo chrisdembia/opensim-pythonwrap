@@ -13,7 +13,6 @@ import org.opensim.view.pub.ViewDB;
 import vtk.vtkFollower;
 import vtk.vtkPolyDataMapper;
 import vtk.vtkVectorText;
-
 /**
  * A sample plugin/tool that's used to mark the current model by displaying its
  * name and hiding all other models for 5 seconds.
@@ -36,13 +35,13 @@ public final class AnnotationAction extends CallableSystemAction {
         textActor.SetScale(0.1, 0.1, 0.1);
         textActor.AddPosition(0., 0., 0.);
         vis.addUserObject(textActor);
-        ViewDB.getInstance().hideOthers(mdl, true);
+        //ViewDB.getInstance().hideOthers(mdl, true);
         ViewDB.getInstance().repaintAll();
         // Create timer that will undo the change in 5000 msec.
         Timer restoreTimer = new Timer(5000, new ActionListener(){
             public void actionPerformed(ActionEvent e) {
                 vis.removeUserObject(textActor);
-                ViewDB.getInstance().hideOthers(mdl, false);
+                //ViewDB.getInstance().hideOthers(mdl, false);
                 ViewDB.getInstance().repaintAll();
             }});
         restoreTimer.setRepeats(false);
@@ -58,8 +57,6 @@ public final class AnnotationAction extends CallableSystemAction {
         super.initialize();
         // see org.openide.util.actions.SystemAction.iconResource() javadoc for more details
         putValue("noIconInMenu", Boolean.TRUE);
-        // Make sure the command is enabled only if there's an open model.'
-        ViewDB.getInstance().registerModelCommand(this);
     }
     
     public HelpCtx getHelpCtx() {

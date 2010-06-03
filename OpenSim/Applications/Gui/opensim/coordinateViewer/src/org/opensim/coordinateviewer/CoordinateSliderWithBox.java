@@ -302,6 +302,8 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
 // TODO add your handling code here:
       boolean newValue = ((JCheckBox)(evt.getSource())).isSelected();
       openSimContext.setLocked(coord, newValue);
+      // locked -> unClamped, update the GUI accordingly
+      jClampedCheckBox.setSelected(openSimContext.getClamped(coord));
       jXSlider.setEnabled(!newValue);
       jFormattedTextField.setEnabled(!newValue);
       if (jClampedCheckBox.isSelected()) {

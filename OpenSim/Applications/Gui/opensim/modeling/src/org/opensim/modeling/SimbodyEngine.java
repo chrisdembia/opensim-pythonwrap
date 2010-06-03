@@ -60,7 +60,7 @@ public class SimbodyEngine extends OpenSimObject {
   }
 
   public Model getModel() {
-    return new Model(opensimModelJNI.SimbodyEngine_getModel__SWIG_0(swigCPtr, this), false);
+    return new Model(opensimModelJNI.SimbodyEngine_getModel(swigCPtr, this), false);
   }
 
   public void setModel(Model aModel) {

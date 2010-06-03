@@ -355,13 +355,14 @@ public class IKToolModel extends Observable implements Observer {
    }
 
    public boolean saveSettings(String fileName) {
-      XMLExternalFileChooserHelper helper = new XMLExternalFileChooserHelper(fileName);
+      String fullFilename = FileUtils.addExtensionIfNeeded(fileName, ".xml");
+      XMLExternalFileChooserHelper helper = new XMLExternalFileChooserHelper(fullFilename);
       helper.addObject(ikTool.getIKTaskSet(), "IK Task Set");
       if(!helper.promptUser()) return false;
       updateIKTool();
-      AbsoluteToRelativePaths(fileName);
-      ikTool.print(fileName);
-      relativeToAbsolutePaths(fileName);
+      AbsoluteToRelativePaths(fullFilename);
+      ikTool.print(fullFilename);
+      relativeToAbsolutePaths(fullFilename);
       return true;
    }
    

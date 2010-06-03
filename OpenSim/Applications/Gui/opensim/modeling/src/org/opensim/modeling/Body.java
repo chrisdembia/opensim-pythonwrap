@@ -54,10 +54,6 @@ public class Body extends ModelComponent {
     opensimModelJNI.Body_copyData(swigCPtr, this, Body.getCPtr(aBody), aBody);
   }
 
-  public void setup(Model aModel) {
-    opensimModelJNI.Body_setup(swigCPtr, this, Model.getCPtr(aModel), aModel);
-  }
-
   public void addDisplayGeometry(String aGeometryFileName) {
     opensimModelJNI.Body_addDisplayGeometry(swigCPtr, this, aGeometryFileName);
   }

@@ -74,7 +74,7 @@ public final class Prefs {
     public double[] parseColor(String aColor) {
         double[] color = new double[3];
         int i=0;
-        StringTokenizer tokenizer = new StringTokenizer(aColor, " \t\n\r\f,");
+        StringTokenizer tokenizer = new StringTokenizer(aColor, " \t\n\r\f,;");
         while (tokenizer.hasMoreTokens() && i<3){
             String nextToken = tokenizer.nextToken();
             try {

@@ -85,6 +85,8 @@ public class PlotterQuantityNameFilterJPanel extends javax.swing.JPanel
       jFilename.setText(src.getDisplayName());
       tableModel = new QuantityNameFilterTableModel(src, new String[]{"Quantity Name", "Selected"});
       jTable1.setModel(tableModel);
+      jTable1.putClientProperty("terminateEditOnFocusLost", Boolean.TRUE);
+      // Create popup m
       jTable1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
       tableModel.addTableModelListener(this);
       //Don't track selection jTable1.getSelectionModel().addListSelectionListener(this);

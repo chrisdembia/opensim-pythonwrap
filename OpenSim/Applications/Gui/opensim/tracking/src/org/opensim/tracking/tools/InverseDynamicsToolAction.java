@@ -68,6 +68,7 @@ public final class InverseDynamicsToolAction extends CallableSystemAction {
    }
    
    public boolean isEnabled() {
-      return OpenSimDB.getInstance().getCurrentModel()!=null;
+      return (OpenSimDB.getInstance().getCurrentModel()!=null && 
+              OpenSimDB.getInstance().getCurrentModel().getNumCoordinates()>0);
    }
 }

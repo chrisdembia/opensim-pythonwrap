@@ -70,7 +70,8 @@ public class ScaleFactorsPanel extends javax.swing.JPanel implements Observer {
       }
 
       initComponents();
-      
+      jTable.putClientProperty("terminateEditOnFocusLost", Boolean.TRUE);
+
       measurementXYZ = new JComboBox[]{measurementX, measurementY, measurementZ};
       manualScaleXYZ = new JTextField[]{manualScaleX, manualScaleY, manualScaleZ};
 

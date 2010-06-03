@@ -33,6 +33,7 @@ import java.util.Vector;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 import org.opensim.modeling.ArrayStr;
+import org.opensim.modeling.Model;
 import org.opensim.modeling.Storage;
 
 /**
@@ -139,6 +140,10 @@ public class PlotterSourceStringArray implements PlotterSourceInterface {
    }
 
     public boolean convertAngularUnits() {
+        return false;
+    }
+
+    public boolean hasFullState(Model model) {
         return false;
     }
 

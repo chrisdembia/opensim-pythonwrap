@@ -312,12 +312,20 @@ public class Storage extends OpenSimObject {
     return opensimModelJNI.Storage_append__SWIG_4(swigCPtr, this, aT, aN, SWIGTYPE_p_double.getCPtr(aY));
   }
 
+  public int append(double aT, SWIGTYPE_p_SimTK__Vector aY, boolean aCheckForDuplicateTime) {
+    return opensimModelJNI.Storage_append__SWIG_5(swigCPtr, this, aT, SWIGTYPE_p_SimTK__Vector.getCPtr(aY), aCheckForDuplicateTime);
+  }
+
+  public int append(double aT, SWIGTYPE_p_SimTK__Vector aY) {
+    return opensimModelJNI.Storage_append__SWIG_6(swigCPtr, this, aT, SWIGTYPE_p_SimTK__Vector.getCPtr(aY));
+  }
+
   public int append(double aT, SWIGTYPE_p_SimTK__Vec3 aY, boolean aCheckForDuplicateTime) {
-    return opensimModelJNI.Storage_append__SWIG_5(swigCPtr, this, aT, SWIGTYPE_p_SimTK__Vec3.getCPtr(aY), aCheckForDuplicateTime);
+    return opensimModelJNI.Storage_append__SWIG_7(swigCPtr, this, aT, SWIGTYPE_p_SimTK__Vec3.getCPtr(aY), aCheckForDuplicateTime);
   }
 
   public int append(double aT, SWIGTYPE_p_SimTK__Vec3 aY) {
-    return opensimModelJNI.Storage_append__SWIG_6(swigCPtr, this, aT, SWIGTYPE_p_SimTK__Vec3.getCPtr(aY));
+    return opensimModelJNI.Storage_append__SWIG_8(swigCPtr, this, aT, SWIGTYPE_p_SimTK__Vec3.getCPtr(aY));
   }
 
   public int store(int aStep, double aT, int aN, SWIGTYPE_p_double aY) {
@@ -488,6 +496,10 @@ public class Storage extends OpenSimObject {
     return opensimModelJNI.Storage_compareColumn__SWIG_1(swigCPtr, this, Storage.getCPtr(aOtherStorage), aOtherStorage, SWIGTYPE_p_std__string.getCPtr(aColumnName), startTime);
   }
 
+  public boolean makeStorageLabelsUnique() {
+    return opensimModelJNI.Storage_makeStorageLabelsUnique(swigCPtr, this);
+  }
+
   public void print() {
     opensimModelJNI.Storage_print__SWIG_0(swigCPtr, this);
   }
@@ -510,6 +522,10 @@ public class Storage extends OpenSimObject {
 
   public int print(String aFileName, double aDT) {
     return opensimModelJNI.Storage_print__SWIG_5(swigCPtr, this, aFileName, aDT);
+  }
+
+  public void setOutputFileName(String aFileName) {
+    opensimModelJNI.Storage_setOutputFileName(swigCPtr, this, aFileName);
   }
 
   public static void printResult(Storage aStorage, String aName, String aDir, double aDT, String aExtension) {

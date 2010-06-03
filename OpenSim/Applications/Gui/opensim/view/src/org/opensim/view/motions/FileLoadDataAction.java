@@ -55,6 +55,8 @@ public final class FileLoadDataAction extends CallableSystemAction {
                     AnnotatedMotion amot = new AnnotatedMotion(newStorage, markerData.getMarkerNames());
                     amot.setUnitConversion(1.0/(markerData.getUnits().convertTo(Units.UnitType.Meters)));
                     amot.setName(new File(fileName).getName());
+                    amot.setDataRate(markerData.getDataRate());
+                    amot.setCameraRate(markerData.getCameraRate());
                     // Add the visuals to support it
                     ModelForExperimentalData modelForDataImport = new ModelForExperimentalData(nextNumber++, amot);
                     OpenSimDB.getInstance().addModel(modelForDataImport);
@@ -67,16 +69,23 @@ public final class FileLoadDataAction extends CallableSystemAction {
                     Storage newStorage=null;
                     try {
                         newStorage = new Storage(fileName);
-                        AnnotatedMotion amot = new AnnotatedMotion(newStorage);
-                        // Show dialog to allow users to specify 
-                        amot.setName(new File(fileName).getName());
-                        // Add the visuals to support it
-                        ModelForExperimentalData modelForDataImport = new ModelForExperimentalData(nextNumber++, amot);
-                        OpenSimDB.getInstance().addModel(modelForDataImport);
-                        MotionsDB.getInstance().addMotion(modelForDataImport, amot, false);
                     } catch (IOException ex) {
+                        System.out.println("Failed to construct storage from "+fileName+". Previewing is aborted.");
                         ex.printStackTrace();
                     }
+                    AnnotatedMotion amot = new AnnotatedMotion(newStorage);
+                    
+                    amot.setName(new File(fileName).getName());
+                    ModelForExperimentalData modelForDataImport=null;
+                    try {
+                        modelForDataImport = new ModelForExperimentalData(nextNumber++, amot);
+                        OpenSimDB.getInstance().addModel(modelForDataImport);
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                        System.out.println("Missing resource file Models/Internal/_openSimlab.osim. Previewing is aborted.");
+                        return;
+                    }
+                    MotionsDB.getInstance().addMotion(modelForDataImport, amot, false);
             }
         }
     }

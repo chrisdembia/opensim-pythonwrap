@@ -39,6 +39,7 @@ import java.util.Hashtable;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Vector;
+import org.opensim.logger.OpenSimLogger;
 import org.opensim.modeling.SimbodyEngine;
 import org.opensim.view.SelectedGlyphUserObject;
 import org.opensim.view.SelectionListener;
@@ -46,7 +47,6 @@ import org.opensim.view.experimentaldata.AnnotatedMotion;
 import org.opensim.modeling.Body;
 import org.opensim.modeling.Coordinate;
 import org.opensim.modeling.TransformAxis;
-import org.opensim.modeling.Joint;
 import org.opensim.modeling.Marker;
 import org.opensim.modeling.ForceSet;
 import org.opensim.modeling.ArrayDouble;
@@ -404,8 +404,14 @@ public class MotionDisplayer implements SelectionListener {
                }
                
             }
-            if (columnName.startsWith(bName) && columnName.contains("_force_")){
-               if (columnName.startsWith(bName) && columnName.endsWith("_force_vx")){
+            int numColumnsIncludingTime = simmMotionData.getColumnLabels().getSize();
+            if (columnName.startsWith(bName) && columnName.contains("force")){
+               if (columnName.startsWith(bName) && columnName.endsWith("_vx")){
+                  // Make sure we're not going outside # columns due to assumption about column ordering'
+                  if ((columnIndex+5) > numColumnsIncludingTime){
+                      OpenSimLogger.logMessage("Unexpected column headers for forces at column  "+columnIndex+" will be ignored", OpenSimLogger.INFO);
+                      continue;
+                  }
                   mapIndicesToObjectTypes.put(columnIndex, ObjectTypesInMotionFiles.Segment_force_p1);
                   mapIndicesToObjectTypes.put(columnIndex+1, ObjectTypesInMotionFiles.Segment_force_p2);
                   mapIndicesToObjectTypes.put(columnIndex+2, ObjectTypesInMotionFiles.Segment_force_p3);
@@ -442,9 +448,17 @@ public class MotionDisplayer implements SelectionListener {
 
    void applyFrameToModel(int currentFrame) 
    {
+      boolean profile=(OpenSimObject.getDebugLevel()>=2);
+      long before = 0, after=0;
+      if (profile)
+          before =System.nanoTime();
       StateVector states=simmMotionData.getStateVector(currentFrame);
       applyStatesToModel(states.getData());
       ViewDB.getInstance().updateAnnotationAnchors();
+      if (profile) {
+          after=System.nanoTime();
+          System.out.println("applyFrameToModel time: "+1e-6*(after-before)+" ms");
+      }
    }
 
    public void applyTimeToModel(double currentTime)
@@ -461,7 +475,11 @@ public class MotionDisplayer implements SelectionListener {
 
    private void applyStatesToModel(ArrayDouble states) 
    {
-      if (model instanceof ModelForExperimentalData){
+     boolean profile=(OpenSimObject.getDebugLevel()>=2);
+     long before = 0, after=0;
+     if (profile)
+          before =System.nanoTime();
+     if (model instanceof ModelForExperimentalData){
           int dataSize = states.getSize();
           AnnotatedMotion mot = (AnnotatedMotion)simmMotionData;
           Vector<ExperimentalDataObject> objects=mot.getClassified();
@@ -480,23 +498,20 @@ public class MotionDisplayer implements SelectionListener {
                 else if (nextObject.getObjectType()==ExperimentalDataItemType.ForceData){
                     int startIndex = nextObject.getStartIndexInFileNotIncludingTime();
                     groundForcesRep.setLocation(nextObject.getGlyphIndex(), 
-                            states.getitem(startIndex+2), 
                             states.getitem(startIndex+3), 
-                            states.getitem(startIndex+4));
-/*                    System.out.println("Loc="+states.getitem(startIndex+2)+", "+
-                            states.getitem(startIndex+3)+", "+
-                            states.getitem(startIndex+4)); */
+                            states.getitem(startIndex+4), 
+                            states.getitem(startIndex+5));
                     groundForcesRep.setNormalAtLocation(nextObject.getGlyphIndex(), 
-                            states.getitem(startIndex-1), 
                             states.getitem(startIndex), 
-                            states.getitem(startIndex+1));
+                            states.getitem(startIndex+1), 
+                            states.getitem(startIndex+2));
                    
                     forcesModified=true;
               }
               if (forcesModified) groundForcesRep.setModified();
               if (markersModified) markersRep.setModified();
           }
-          //groundForcesRep.hide(0);
+           //groundForcesRep.hide(0);
           return;
       }
       OpenSimContext context = OpenSimDB.getInstance().getContext(model);
@@ -592,6 +607,10 @@ public class MotionDisplayer implements SelectionListener {
             groundForcesRep.setModified();
             bodyForcesRep.setModified();
          }
+      }
+      if (profile) {
+          after=System.nanoTime();
+          OpenSimLogger.logMessage("applyFrameToModel time: "+1e-6*(after-before)+" ms.\n", OpenSimLogger.INFO);
       }
     }
 
@@ -707,8 +726,12 @@ public class MotionDisplayer implements SelectionListener {
         int numPoints = xCoord.getSize();
         for(int i=0;i<numPoints-1;i++){
             vtkLineSource nextLine = new vtkLineSource();
+            double vals[] = new double[]{xCoord.getitem(i), yCoord.getitem(i), zCoord.getitem(i)};
+            double valsp1[] = new double[]{xCoord.getitem(i+1), yCoord.getitem(i+1), zCoord.getitem(i+1)};
             nextLine.SetPoint1(xCoord.getitem(i)/scale, yCoord.getitem(i)/scale, zCoord.getitem(i)/scale);
             nextLine.SetPoint2(xCoord.getitem(i+1)/scale, yCoord.getitem(i+1)/scale, zCoord.getitem(i+1)/scale);
+            if (Double.isNaN(xCoord.getitem(i))||Double.isNaN(xCoord.getitem(i+1)))
+                continue;   // Gap in data
             /*System.out.println("Line ("+nextLine.GetPoint1()[0]+", "+
                     nextLine.GetPoint1()[1]+", "+nextLine.GetPoint1()[2]+")- to "+nextLine.GetPoint2()[0]+
                     nextLine.GetPoint2()[1]+", "+nextLine.GetPoint2()[2]);*/

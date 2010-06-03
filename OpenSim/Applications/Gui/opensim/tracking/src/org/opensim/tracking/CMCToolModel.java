@@ -173,7 +173,6 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
 
       public Object construct() {
          try {
-             tool.print("rraFromGUI1217.xml");
             result = tool.run();
          } catch (IOException ex) {
             DialogDisplayer.getDefault().notify(new NotifyDescriptor.Message("Tool execution failed. Check Messages window for details."));
@@ -211,6 +210,7 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
             }
 
             if(getAdjustModelToReduceResidualsEnabled()) {
+                if (new File(getOutputModelFileName()).exists()) {
                Model newReducedResidualsModel = null;
                try {
                   newReducedResidualsModel = new Model(getOutputModelFileName());
@@ -222,6 +222,7 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
                OpenSimDB.getInstance().replaceModel(reducedResidualsModel, newReducedResidualsModel, null);
                reducedResidualsModel = newReducedResidualsModel;
                MotionsDB.getInstance().addMotion(reducedResidualsModel, motion);
+               }
             } else {
                if(reducedResidualsModel!=null) {
                   OpenSimDB.getInstance().removeModel(reducedResidualsModel);
@@ -436,8 +437,8 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
    // Validation
    //------------------------------------------------------------------------
 
-   public boolean isValid() {
-      return super.isValid() && getDesiredKinematicsValid() && getTaskSetValid() && getConstraintsValid() && isRRAValid();
+   public boolean isValidated() {
+      return super.isValidated() && getDesiredKinematicsValid() && getTaskSetValid() && getConstraintsValid() && isRRAValid();
    }
 
    //------------------------------------------------------------------------
@@ -506,10 +507,11 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
    }
 
    public boolean saveSettings(String fileName) {
+      String fullFilename = FileUtils.addExtensionIfNeeded(fileName, ".xml");
       updateTool();
-      AbsoluteToRelativePaths(fileName);
-      cmcTool().print(fileName);
-      relativeToAbsolutePaths(fileName);
+      AbsoluteToRelativePaths(fullFilename);
+      cmcTool().print(fullFilename);
+      relativeToAbsolutePaths(fullFilename);
       return true;
    }
 

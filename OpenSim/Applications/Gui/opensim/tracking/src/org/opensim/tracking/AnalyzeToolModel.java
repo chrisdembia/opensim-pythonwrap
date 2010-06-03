@@ -512,8 +512,8 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
              (getInputSource()==InputSource.Coordinates && getCoordinatesValid()); // TODO check SpeedsValid once we re-enable speeds
    }
 
-   public boolean isValid() {
-      return super.isValid() && isValidInput() && getControlsValid() && getAnalysisSet().getSize()>0;
+   public boolean isValidated() {
+      return super.isValidated() && isValidInput() && getControlsValid() && getAnalysisSet().getSize()>0;
    }
 
    //------------------------------------------------------------------------
@@ -603,10 +603,11 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
    }
 
    public boolean saveSettings(String fileName) {
+      String fullFilename = FileUtils.addExtensionIfNeeded(fileName, ".xml");
       updateTool();
-      AbsoluteToRelativePaths(fileName);
-      analyzeTool().print(fileName);
-      relativeToAbsolutePaths(fileName);
+      AbsoluteToRelativePaths(fullFilename);
+      analyzeTool().print(fullFilename);
+      relativeToAbsolutePaths(fullFilename);
       return true;
    }
 }

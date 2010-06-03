@@ -84,6 +84,7 @@ public class IKTaskSetPanel extends javax.swing.JPanel implements ListSelectionL
          table.getColumnModel().getColumn(0).setPreferredWidth(enabledColumnWidth);
          table.getColumnModel().getColumn(0).setMinWidth(enabledColumnWidth);
          table.getColumnModel().getColumn(0).setMaxWidth(enabledColumnWidth);
+         table.putClientProperty("terminateEditOnFocusLost", Boolean.TRUE);
       }
 
       updatePanel();

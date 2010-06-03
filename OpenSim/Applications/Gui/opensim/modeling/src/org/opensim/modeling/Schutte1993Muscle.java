@@ -141,15 +141,6 @@ public class Schutte1993Muscle extends Muscle {
     return opensimModelJNI.Schutte1993Muscle_setTendonForceLengthCurve(swigCPtr, this, Function.getCPtr(aTendonForceLengthCurve), aTendonForceLengthCurve);
   }
 
-  public Function getForceVelocityCurve() {
-    long cPtr = opensimModelJNI.Schutte1993Muscle_getForceVelocityCurve(swigCPtr, this);
-    return (cPtr == 0) ? null : new Function(cPtr, false);
-  }
-
-  public boolean setForceVelocityCurve(Function aForceVelocityCurve) {
-    return opensimModelJNI.Schutte1993Muscle_setForceVelocityCurve(swigCPtr, this, Function.getCPtr(aForceVelocityCurve), aForceVelocityCurve);
-  }
-
   public static boolean isKindOf(String type) {
     return opensimModelJNI.Schutte1993Muscle_isKindOf(type);
   }

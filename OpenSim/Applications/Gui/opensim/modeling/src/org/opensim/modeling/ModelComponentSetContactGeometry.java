@@ -59,7 +59,7 @@ public class ModelComponentSetContactGeometry extends SetContactGeometry {
   }
 
   public boolean append(ContactGeometry aObject) {
-    return opensimModelJNI.ModelComponentSetContactGeometry_append__SWIG_0(swigCPtr, this, ContactGeometry.getCPtr(aObject), aObject);
+    return opensimModelJNI.ModelComponentSetContactGeometry_append(swigCPtr, this, ContactGeometry.getCPtr(aObject), aObject);
   }
 
   public boolean insert(int aIndex, ContactGeometry aObject) {

@@ -54,14 +54,6 @@ public class Actuator extends Force {
     opensimModelJNI.Actuator_initStateCache(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), SWIGTYPE_p_SimTK__SubsystemIndex.getCPtr(subsystemIndex), Model.getCPtr(model), model);
   }
 
-  public void setup(Model aModel) {
-    opensimModelJNI.Actuator_setup(swigCPtr, this, Model.getCPtr(aModel), aModel);
-  }
-
-  public void setModel(Model aModel) {
-    opensimModelJNI.Actuator_setModel(swigCPtr, this, Model.getCPtr(aModel), aModel);
-  }
-
   public Model getModel() {
     return new Model(opensimModelJNI.Actuator_getModel(swigCPtr, this), false);
   }
@@ -233,6 +225,44 @@ public class Actuator extends Force {
 
   public int getNumControls() {
     return opensimModelJNI.Actuator_getNumControls(swigCPtr, this);
+  }
+
+  public void overrideForce(SWIGTYPE_p_SimTK__State s, boolean flag) {
+    opensimModelJNI.Actuator_overrideForce(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), flag);
+  }
+
+  public boolean isForceOverriden(SWIGTYPE_p_SimTK__State s) {
+    return opensimModelJNI.Actuator_isForceOverriden(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s));
+  }
+
+  public void setOverrideForce(SWIGTYPE_p_SimTK__State s, double value) {
+    opensimModelJNI.Actuator_setOverrideForce(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), value);
+  }
+
+  public double getOverrideForce(SWIGTYPE_p_SimTK__State s) {
+    return opensimModelJNI.Actuator_getOverrideForce(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s));
+  }
+
+  public double computeOverrideForce(SWIGTYPE_p_SimTK__State s) {
+    return opensimModelJNI.Actuator_computeOverrideForce(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s));
+  }
+
+  public void setOverrideForceFunction(SWIGTYPE_p_OpenSim__StateFunction arg0) {
+    opensimModelJNI.Actuator_setOverrideForceFunction(swigCPtr, this, SWIGTYPE_p_OpenSim__StateFunction.getCPtr(arg0));
+  }
+
+  public SWIGTYPE_p_OpenSim__StateFunction getOverrideForceFunction() {
+    long cPtr = opensimModelJNI.Actuator_getOverrideForceFunction(swigCPtr, this);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_OpenSim__StateFunction(cPtr, false);
+  }
+
+  public SWIGTYPE_p_OpenSim__StateFunction updOverrideForceFunction() {
+    long cPtr = opensimModelJNI.Actuator_updOverrideForceFunction(swigCPtr, this);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_OpenSim__StateFunction(cPtr, false);
+  }
+
+  public void resetOverrideForceFunction() {
+    opensimModelJNI.Actuator_resetOverrideForceFunction(swigCPtr, this);
   }
 
 }

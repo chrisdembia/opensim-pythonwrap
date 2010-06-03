@@ -28,11 +28,11 @@
  */
 package org.opensim.plotter;
 
-import java.io.File;
 import java.util.Vector;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 import org.opensim.modeling.ArrayStr;
+import org.opensim.modeling.Model;
 import org.opensim.modeling.Storage;
 
 /**
@@ -49,9 +49,12 @@ public class PlotterSourceStorage implements PlotterSourceInterface {
     public boolean[] selectionStatus;
 
     public Storage storage;
+    
+    boolean isStatesStorage;
    /** Creates a new instance of PlotterSourceFile */
    public PlotterSourceStorage(Storage aStorage) {
       storage=aStorage;
+      storage.makeStorageLabelsUnique();
       displayName = "Storage:"+aStorage.getName();
       ArrayStr labels = storage.getColumnLabels();
       allAvailable = new String[labels.getSize()];
@@ -60,6 +63,7 @@ public class PlotterSourceStorage implements PlotterSourceInterface {
          allAvailable[i]=labels.getitem(i);
          selectionStatus[i]=false;
       }
+      isStatesStorage = false;
    }
 
    public String[] getAllQuantities() {
@@ -153,6 +157,33 @@ public class PlotterSourceStorage implements PlotterSourceInterface {
 
     public boolean convertAngularUnits() {
         return false;
+    }
+
+    public boolean hasFullState(Model model) {
+        ArrayStr stateNames = new ArrayStr();
+        stateNames.append("time");
+        model.getStateNames(stateNames);
+        //outStringArray(stateNames);
+        ArrayStr storageLabels = storage.getColumnLabels();
+        //outStringArray(storageLabels);
+        isStatesStorage = storageLabels.arrayEquals(stateNames);
+        //for (int i=0; i< stateNames.getSize(); i++)
+        //    if (storageLabels.getitem(i).equals(stateNames.getitem(i)))
+        //        System.out.println("Index "+i+" matches");
+        
+        if (isStatesStorage) 
+            System.out.println("Using states from input/states file");
+        else
+            System.out.println("Computing equilibrium for musle states");            
+        return isStatesStorage;
+    }
+
+    private void outStringArray(ArrayStr stateNames) {
+       System.out.println("Printing state names:");
+       System.out.println("Size:"+stateNames.getSize());
+        for(int i=0; i< stateNames.getSize(); i++)
+            System.out.println(stateNames.getitem(i));
+          System.out.println("========");
     }
 
 }

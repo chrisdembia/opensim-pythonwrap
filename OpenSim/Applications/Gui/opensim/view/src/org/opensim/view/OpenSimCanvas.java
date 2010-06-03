@@ -41,6 +41,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import javax.swing.JPopupMenu;
+import org.opensim.logger.OpenSimLogger;
 import org.opensim.modeling.MovingPathPoint;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.view.base.OpenSimBaseCanvas;
@@ -73,10 +74,12 @@ public class OpenSimCanvas extends OpenSimBaseCanvas implements MouseWheelListen
     double dragStartZ = 0.0; // Z value in camera frame of point under cursor when dragging began
     int lastLeftButtonClickCount = 0;
     OpenSimObject lastLeftButtonClickObject = null;
+    boolean profile=false;
     
     /** Creates a new instance of OpenSimCanvas */
     public OpenSimCanvas() {
         addMouseWheelListener(this);
+        profile=(OpenSimObject.getDebugLevel()>=2);
     }
     
     public int getLastX() {
@@ -386,11 +389,14 @@ public class OpenSimCanvas extends OpenSimBaseCanvas implements MouseWheelListen
    }
 
     public void Render() {
-        //long before=System.nanoTime();
+        long before = 0;
+        if (profile) before=System.nanoTime();
         //ViewDB.getInstance().setTextCamera(GetRenderer().GetActiveCamera());
         super.Render();
-        //long after=System.nanoTime();
-        //System.out.println("Render only: "+1e-6*(after-before)+" ms");
+        if (profile) {
+          long after=System.nanoTime();
+          OpenSimLogger.logMessage("Render time: "+1e-6*(after-before)+" ms.\n", OpenSimLogger.INFO);
+        }
         if (movieWriter!=null && movieWriterReady){
             imageFilter.Modified();
             imageFilter.Update();

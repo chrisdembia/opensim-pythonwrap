@@ -123,7 +123,7 @@ public class SetActuators extends OpenSimObject {
   }
 
   public boolean insert(int aIndex, Actuator aObject) {
-    return opensimModelJNI.SetActuators_insert__SWIG_0(swigCPtr, this, aIndex, Actuator.getCPtr(aObject), aObject);
+    return opensimModelJNI.SetActuators_insert(swigCPtr, this, aIndex, Actuator.getCPtr(aObject), aObject);
   }
 
   public boolean remove(int aIndex) {

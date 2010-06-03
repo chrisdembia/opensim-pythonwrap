@@ -34,9 +34,12 @@
 
 package org.opensim.view;
 
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
+import java.util.List;
 import org.opensim.modeling.Force;
 import org.opensim.modeling.Actuator;
 import org.opensim.modeling.Body;
@@ -66,17 +69,16 @@ import vtk.vtkAssemblyPath;
 import vtk.vtkCylinderSource;
 import vtk.vtkLinearTransform;
 import vtk.vtkMatrix4x4;
+import vtk.vtkPointData;
 import vtk.vtkPolyData;
 import vtk.vtkPolyDataAlgorithm;
 import vtk.vtkPolyDataMapper;
 import vtk.vtkProp3D;
 import vtk.vtkProp3DCollection;
-import vtk.vtkSTLReader;
 import vtk.vtkSphereSource;
 import vtk.vtkStripper;
 import vtk.vtkTransform;
 import vtk.vtkTransformPolyDataFilter;
-import vtk.vtkXMLPolyDataReader;
 import vtk.vtkAppendPolyData;
 import vtk.vtkArrowSource;
 import vtk.vtkLineSource;
@@ -136,6 +138,8 @@ public class SingleModelVisuals {
     private vtkProp3DCollection  userObjects = new vtkProp3DCollection();
     private vtkProp3DCollection  bodiesCollection = new vtkProp3DCollection();
     private boolean debug=false;
+    
+    private HashMap<String, List<vtkActor>> bodyToActors = new HashMap<String, List<vtkActor>>();
     /**
      * Creates a new instance of SingleModelVisuals
      */
@@ -185,7 +189,7 @@ public class SingleModelVisuals {
         vtkAssembly modelAssembly = new vtkAssembly();
         // Keep track of ground body to avoid recomputation
         defaultMarkerColor = ViewDB.getInstance().getDefaultMarkersColor();
-        Body gnd = model.getSimbodyEngine().getGroundBody();
+        Body gnd = model.getGroundBody();
         BodySet bodies = model.getBodySet();
  
         for(int bodyNum=0; bodyNum<bodies.getSize();  bodyNum++)
@@ -193,13 +197,25 @@ public class SingleModelVisuals {
             Body body = bodies.get(bodyNum);
 
             // Body actor
-            vtkActor bodyRep = createAndAddBodyActor(modelAssembly, body, modelFilePath);
+            vtkAssembly bodyRep = new BodyRep(modelAssembly, body, modelFilePath);
 
             if(bodyRep!=null) {
                // Fill the maps between objects and display to support picking, highlighting, etc..
                // The reverse map takes an actor to an Object and is filled as actors are created.
                mapObject2VtkObjects.put(body, bodyRep);
-               mapVtkObjects2Objects.put(bodyRep, body);
+               // Picker picks Actors only, put those in reverseMap instead of BodyRep
+               vtkProp3DCollection props = bodyRep.GetParts();
+               props.InitTraversal();
+               ArrayList<vtkActor> actors = new ArrayList<vtkActor>();
+               for(int act=0; act < props.GetNumberOfItems(); act++){
+                    vtkProp3D nextActor = props.GetNextProp3D();
+                    mapVtkObjects2Objects.put(nextActor, body);
+                    if (nextActor instanceof vtkActor)
+                        actors.add((vtkActor)nextActor);
+               }
+               bodyToActors.put(body.getName(), actors);
+               //////applyDisplayPrefs(body.getDisplayer(), bodyRep);
+
             }
 
             // Bodies have things attached to them as handled by the
@@ -255,8 +271,8 @@ public class SingleModelVisuals {
 
    /**
     * Create actor for a single Body
-    */
-   private vtkActor createAndAddBodyActor(vtkAssembly modelAssembly, Body body, String modelFilePath)
+    *
+   private vtkProp3D createAndAddBodyActor(vtkAssembly modelAssembly, Body body, String modelFilePath)
    {
       vtkActor bodyRep = new vtkActor();
 
@@ -298,13 +314,6 @@ public class SingleModelVisuals {
           else
               System.out.println("Unexpected extension for geometry file"+boneFile+"while processing body "+body.getName());
       }
-      /*
-     if (bodyDisplayer.getVisibleProperties().getShowAxes()){
-          bodyAxes.SetOrigin(new double[]{0., 0., 0.});
-          vtkPolyData axesGeometry = bodyAxes.GetOutput();
-          bodyAxes.SetScaleFactor(.3);
-          bodyPolyData.AddInput(bodyAxes.GetOutput());
-     }*/
       // Mapper
       vtkPolyDataMapper bodyMapper = new vtkPolyDataMapper();
       bodyMapper.SetInput(bodyPolyData.GetOutput());  bodyPolyData=null;
@@ -948,6 +957,10 @@ public class SingleModelVisuals {
 
     public vtkProp3DCollection getUserObjects() {
         return userObjects;
+    }
+
+    public List<vtkActor> getMeshesForBody(String bodyName) {
+        return bodyToActors.get(bodyName);
     }
     
 }

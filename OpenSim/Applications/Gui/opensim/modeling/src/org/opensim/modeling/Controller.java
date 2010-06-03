@@ -49,22 +49,6 @@ public class Controller extends ModelComponent {
     opensimModelJNI.Controller_setActuators(swigCPtr, this, SetActuators.getCPtr(actuators), actuators);
   }
 
-  public void setupSystem(SWIGTYPE_p_SimTK__MultibodySystem system) {
-    opensimModelJNI.Controller_setupSystem(swigCPtr, this, SWIGTYPE_p_SimTK__MultibodySystem.getCPtr(system));
-  }
-
-  public void setup(Model model) {
-    opensimModelJNI.Controller_setup(swigCPtr, this, Model.getCPtr(model), model);
-  }
-
-  public void createSystem(SWIGTYPE_p_SimTK__MultibodySystem system) {
-    opensimModelJNI.Controller_createSystem(swigCPtr, this, SWIGTYPE_p_SimTK__MultibodySystem.getCPtr(system));
-  }
-
-  public void initState(SWIGTYPE_p_SimTK__State s) {
-    opensimModelJNI.Controller_initState(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s));
-  }
-
   public double getFirstTime() {
     return opensimModelJNI.Controller_getFirstTime(swigCPtr, this);
   }

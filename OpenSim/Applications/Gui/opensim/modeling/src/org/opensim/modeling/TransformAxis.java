@@ -102,6 +102,10 @@ public class TransformAxis extends OpenSimObject {
     return new SWIGTYPE_p_SimTK__Vec3(opensimModelJNI.TransformAxis_getAxis__SWIG_2(swigCPtr, this), false);
   }
 
+  public double getAxis(int aXYZ) {
+    return opensimModelJNI.TransformAxis_getAxis__SWIG_3(swigCPtr, this, aXYZ);
+  }
+
   public void setup(Joint aJoint) {
     opensimModelJNI.TransformAxis_setup(swigCPtr, this, Joint.getCPtr(aJoint), aJoint);
   }

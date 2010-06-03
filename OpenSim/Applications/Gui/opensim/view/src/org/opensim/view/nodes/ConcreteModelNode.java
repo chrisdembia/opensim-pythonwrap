@@ -20,9 +20,9 @@ public class ConcreteModelNode extends OpenSimObjectNode {
 		if (!isDataHolderOnly)
 		{   // Data Import model has no engine or Actuators
         getChildren().add(new Node[] {new BodiesNode(m.getBodySet())});
-        getChildren().add(new Node[] {new AllForcesNode(m.getForceSet())});
         getChildren().add(new Node[] {new JointsNode(m.getJointSet())});
         getChildren().add(new Node[] {new ContactGeometriesNode(m.getContactGeometrySet())});
+        getChildren().add(new Node[] {new AllForcesNode(m.getForceSet())});
         getChildren().add(new Node[] {new MarkersNode(m.getMarkerSet())});
         }
         addDisplayOption(displayOption.Isolatable);
@@ -41,8 +41,6 @@ public class ConcreteModelNode extends OpenSimObjectNode {
 			if (isDataHolderOnly)
 			{
 				classSpecificActions = new Action[]{
-					(ModelMakeCurrentAction) ModelMakeCurrentAction.findObject(
-							(Class)Class.forName("org.opensim.view.nodes.ModelMakeCurrentAction"), true),
 					(ModelDisplayMenuAction) ModelDisplayMenuAction.findObject(
 							(Class)Class.forName("org.opensim.view.ModelDisplayMenuAction"), true),
 					(ModelCloseSelectedAction) ModelCloseSelectedAction.findObject(

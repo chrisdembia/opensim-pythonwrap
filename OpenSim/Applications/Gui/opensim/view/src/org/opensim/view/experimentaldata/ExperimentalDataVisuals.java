@@ -38,13 +38,14 @@ import org.opensim.modeling.ArrayDouble;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.view.*;
+import org.opensim.view.pub.ViewDB;
 import vtk.vtkActor;
 import vtk.vtkAppendPolyData;
 import vtk.vtkCubeSource;
 import vtk.vtkLineSource;
-import vtk.vtkPlaneSource;
 import vtk.vtkPolyDataMapper;
 import vtk.vtkProp3D;
+import vtk.vtkProp3DCollection;
 
 /**
  *
@@ -67,7 +68,8 @@ public class ExperimentalDataVisuals extends SingleModelVisuals{
             double[] bounds = mot.getBoundingBox();
 
             bbox.SetBounds(bounds);
-            vtkActor groundRep = (vtkActor) getVtkRepForObject(model.getGround());
+            ViewDB.getInstance().setObjectRepresentation(model.getGround(), 1, 0);
+            BodyRep groundRep = (BodyRep) getVtkRepForObject(model.getGround());
             //groundRep.GetMapper().AddInputConnection(bbox.GetOutputPort());
             //groundRep.GetMapper().Modified();
             //System.out.println("Origin at "+bounds[0]+", "+bounds[1]+", "+bounds[2]);
@@ -76,7 +78,7 @@ public class ExperimentalDataVisuals extends SingleModelVisuals{
             //        ", "+(bounds[5]-bounds[2]));
             groundRep.SetScale(bounds[3]-bounds[0], bounds[4]-bounds[1], bounds[5]-bounds[2]);
             groundRep.SetPosition(bounds[0], bounds[1], bounds[2]);
-            groundRep.GetProperty().SetRepresentationToWireframe();
+
         }
          /*
         // Make a plane for Lab frame.

@@ -67,6 +67,7 @@ import org.opensim.utils.TheApp;
 import org.opensim.view.*;
 import org.opensim.view.experimentaldata.ExperimentalDataVisuals;
 import vtk.AxesActor;
+import vtk.FrameActor;
 import vtk.vtkActor;
 import vtk.vtkAssembly;
 import vtk.vtkAssemblyNode;
@@ -614,7 +615,9 @@ public final class ViewDB extends Observable implements Observer {
 
    public void applyColor(final double[] colorComponents, final vtkProp3D asm) {
       ApplyFunctionToActors(asm, new ActorFunctionApplier() {
-         public void apply(vtkActor actor) { actor.GetProperty().SetColor(colorComponents); }});
+         public void apply(vtkActor actor) { 
+             if (!(actor instanceof FrameActor))
+                actor.GetProperty().SetColor(colorComponents); }});
       repaintAll();
    }
    
@@ -1252,8 +1255,10 @@ public final class ViewDB extends Observable implements Observer {
 
     public void removeUserObjectFromModel(Model model, vtkActor vtkActor) {
        SingleModelVisuals visModel = mapModelsToVisuals.get(model);
-       if (visModel != null)
+       if (visModel != null){
        visModel.removeUserObject(vtkActor);
+            removeAnnotationObjects(model);
+    }
     }
     
     public void addUserObjectToCurrentView(vtkActor vtkActor) {
@@ -1345,10 +1350,19 @@ public final class ViewDB extends Observable implements Observer {
    
    public double[] getDefaultMarkersColor() {
          String markersColorStr = NbBundle.getMessage(ViewDB.class,"CTL_MarkersColorRGB");
-         markersColorStr =Preferences.userNodeForPackage(TheApp.class).get("Markers Color", markersColorStr);
          double[] color = new double[]{1.0, 0.6, 0.8};
+         markersColorStr =Preferences.userNodeForPackage(TheApp.class).get("Markers Color", markersColorStr);
          if (markersColorStr != null)
             color = Prefs.getInstance().parseColor(markersColorStr);
+         return color;
+   }
+   
+   public double[] getDefaultTextColor() {
+         String textColorStr = NbBundle.getMessage(ViewDB.class,"CTL_TextColorRGB");
+         double[] color = new double[]{1.0, 1.0, 1.0};
+         textColorStr =Preferences.userNodeForPackage(TheApp.class).get("Text Color", textColorStr);
+         if (textColorStr != null)
+            color = Prefs.getInstance().parseColor(textColorStr);
          return color;
    }
    
@@ -1441,7 +1455,8 @@ public final class ViewDB extends Observable implements Observer {
         tprop.SetFontFamilyToArial();
         tprop.SetLineSpacing(1.0);
         tprop.SetFontSize(forntSize);
-        tprop.SetColor(1.0,0.0,0.0);
+        //System.out.println("Text Color="+getDefaultTextColor());
+        tprop.SetColor(getDefaultTextColor());
         textActor.SetDisplayPosition( 50, 50 );
         Iterator<ModelWindowVTKTopComponent> windowIter = openWindows.iterator();
         while(windowIter.hasNext()){

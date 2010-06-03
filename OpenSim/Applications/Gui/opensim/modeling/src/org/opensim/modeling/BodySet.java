@@ -65,8 +65,4 @@ public class BodySet extends ModelComponentSetBodies {
     opensimModelJNI.BodySet_scale__SWIG_1(swigCPtr, this, ScaleSet.getCPtr(aScaleSet), aScaleSet);
   }
 
-  public BodySet copyFrom(BodySet aBodySet, Model aModel) {
-    return new BodySet(opensimModelJNI.BodySet_copyFrom(swigCPtr, this, BodySet.getCPtr(aBodySet), aBodySet, Model.getCPtr(aModel), aModel), false);
-  }
-
 }

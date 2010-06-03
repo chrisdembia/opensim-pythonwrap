@@ -125,7 +125,7 @@ public class AnalysisSetPanel extends javax.swing.JPanel implements Observer {
       this.toolModel = toolModel;
 
       initComponents();
-
+      analysisSetTable.putClientProperty("terminateEditOnFocusLost", Boolean.TRUE);
       // Create popup menu for addButton (all available analyses)
       AnalysisSet.getAvailableAnalyses(availableAnalyses);
       addButton.addMouseListener(new MouseAdapter() {

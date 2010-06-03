@@ -8,7 +8,7 @@
 
 package org.opensim.modeling;
 
-public class CoordinateSet extends SetCoordinates {
+public class CoordinateSet extends ModelComponentSetCoordinates {
   private long swigCPtr;
 
   public CoordinateSet(long cPtr, boolean cMemoryOwn) {
@@ -37,12 +37,28 @@ public class CoordinateSet extends SetCoordinates {
     this(opensimModelJNI.new_CoordinateSet__SWIG_0(), true);
   }
 
-  public CoordinateSet(CoordinateSet aCoordinateSet) {
-    this(opensimModelJNI.new_CoordinateSet__SWIG_1(CoordinateSet.getCPtr(aCoordinateSet), aCoordinateSet), true);
+  public CoordinateSet(Model model) {
+    this(opensimModelJNI.new_CoordinateSet__SWIG_1(Model.getCPtr(model), model), true);
   }
 
-  public void setup(Model aModel) {
-    opensimModelJNI.CoordinateSet_setup(swigCPtr, this, Model.getCPtr(aModel), aModel);
+  public CoordinateSet(Model model, String aFileName, boolean aUpdateFromXMLNode) {
+    this(opensimModelJNI.new_CoordinateSet__SWIG_2(Model.getCPtr(model), model, aFileName, aUpdateFromXMLNode), true);
+  }
+
+  public CoordinateSet(Model model, String aFileName) {
+    this(opensimModelJNI.new_CoordinateSet__SWIG_3(Model.getCPtr(model), model, aFileName), true);
+  }
+
+  public CoordinateSet(CoordinateSet aCoordinateSet) {
+    this(opensimModelJNI.new_CoordinateSet__SWIG_4(CoordinateSet.getCPtr(aCoordinateSet), aCoordinateSet), true);
+  }
+
+  public void populate(Model model) {
+    opensimModelJNI.CoordinateSet_populate(swigCPtr, this, Model.getCPtr(model), model);
+  }
+
+  public void setup(Model model) {
+    opensimModelJNI.CoordinateSet_setup(swigCPtr, this, Model.getCPtr(model), model);
   }
 
   public void getSpeedNames(ArrayStr rNames) {

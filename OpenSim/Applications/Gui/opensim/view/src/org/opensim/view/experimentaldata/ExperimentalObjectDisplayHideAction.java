@@ -18,7 +18,7 @@ public final class ExperimentalObjectDisplayHideAction extends CallableSystemAct
              ExperimentalDataObject obj=node.getDataObject();
              // Tell MotionDisplayer to hide it
              obj.getMyGlyph().hide(obj.getGlyphIndex());
-             System.out.println("Hiding index "+obj.getGlyphIndex()+" of object "+obj.toString());
+             //System.out.println("Hiding index "+obj.getGlyphIndex()+" of object "+obj.toString());
              obj.setDisplayed(false);
              obj.getMyGlyph().setModified();
          }

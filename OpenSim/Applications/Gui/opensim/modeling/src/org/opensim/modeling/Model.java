@@ -96,12 +96,16 @@ public class Model extends ModelComponent {
     return new SWIGTYPE_p_SimTK__State(opensimModelJNI.Model_initSystem(swigCPtr, this), false);
   }
 
-  public void invalidateSystem() {
-    opensimModelJNI.Model_invalidateSystem(swigCPtr, this);
-  }
-
   public void setDefaultsFromState(SWIGTYPE_p_SimTK__State state) {
     opensimModelJNI.Model_setDefaultsFromState(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(state));
+  }
+
+  public void initStateWithoutRecreatingSystem(SWIGTYPE_p_SimTK__State state) {
+    opensimModelJNI.Model_initStateWithoutRecreatingSystem(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(state));
+  }
+
+  public void invalidateSystem() {
+    opensimModelJNI.Model_invalidateSystem(swigCPtr, this);
   }
 
   public void formStateStorage(Storage originalStorage, Storage statesStorage) {
@@ -132,8 +136,12 @@ public class Model extends ModelComponent {
     return new SWIGTYPE_p_SimTK__SimbodyMatterSubsystem(opensimModelJNI.Model_updMatterSubsystem(swigCPtr, this), false);
   }
 
-  public SWIGTYPE_p_SimTK__Force__UniformGravity getGravitySubsystem() {
-    return new SWIGTYPE_p_SimTK__Force__UniformGravity(opensimModelJNI.Model_getGravitySubsystem(swigCPtr, this), false);
+  public SWIGTYPE_p_SimTK__Force__Gravity getGravityForce() {
+    return new SWIGTYPE_p_SimTK__Force__Gravity(opensimModelJNI.Model_getGravityForce(swigCPtr, this), false);
+  }
+
+  public SWIGTYPE_p_SimTK__Force__Gravity updGravityForce() {
+    return new SWIGTYPE_p_SimTK__Force__Gravity(opensimModelJNI.Model_updGravityForce(swigCPtr, this), false);
   }
 
   public SWIGTYPE_p_SimTK__GeneralForceSubsystem getUserForceSubsystem() {
@@ -142,10 +150,6 @@ public class Model extends ModelComponent {
 
   public SWIGTYPE_p_SimTK__GeneralForceSubsystem updUserForceSubsystem() {
     return new SWIGTYPE_p_SimTK__GeneralForceSubsystem(opensimModelJNI.Model_updUserForceSubsystem(swigCPtr, this), false);
-  }
-
-  public void createSystem() {
-    opensimModelJNI.Model_createSystem(swigCPtr, this);
   }
 
   public void addBody(Body aBody) {
@@ -220,8 +224,8 @@ public class Model extends ModelComponent {
     opensimModelJNI.Model_setPerturbForcesEnabled(swigCPtr, this, enabled);
   }
 
-  public void getGravity(SWIGTYPE_p_SimTK__Vec3 rGrav) {
-    opensimModelJNI.Model_getGravity(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(rGrav));
+  public SWIGTYPE_p_SimTK__Vec3 getGravity() {
+    return new SWIGTYPE_p_SimTK__Vec3(opensimModelJNI.Model_getGravity(swigCPtr, this), true);
   }
 
   public boolean setGravity(SWIGTYPE_p_SimTK__Vec3 aGrav) {
@@ -262,6 +266,14 @@ public class Model extends ModelComponent {
 
   public SetActuators updActuators() {
     return new SetActuators(opensimModelJNI.Model_updActuators(swigCPtr, this), false);
+  }
+
+  public SWIGTYPE_p_OpenSim__SetTOpenSim__Muscle_t getMuscles() {
+    return new SWIGTYPE_p_OpenSim__SetTOpenSim__Muscle_t(opensimModelJNI.Model_getMuscles(swigCPtr, this), false);
+  }
+
+  public SWIGTYPE_p_OpenSim__SetTOpenSim__Muscle_t updMuscles() {
+    return new SWIGTYPE_p_OpenSim__SetTOpenSim__Muscle_t(opensimModelJNI.Model_updMuscles(swigCPtr, this), false);
   }
 
   public ForceSet getForceSet() {
@@ -474,6 +486,10 @@ public class Model extends ModelComponent {
 
   public void disownAllComponents() {
     opensimModelJNI.Model_disownAllComponents(swigCPtr, this);
+  }
+
+  public void overrideAllActuators(SWIGTYPE_p_SimTK__State s, boolean flag) {
+    opensimModelJNI.Model_overrideAllActuators(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), flag);
   }
 
 }

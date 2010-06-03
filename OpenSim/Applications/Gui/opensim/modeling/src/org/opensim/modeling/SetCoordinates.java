@@ -123,7 +123,7 @@ public class SetCoordinates extends OpenSimObject {
   }
 
   public boolean insert(int aIndex, Coordinate aObject) {
-    return opensimModelJNI.SetCoordinates_insert__SWIG_0(swigCPtr, this, aIndex, Coordinate.getCPtr(aObject), aObject);
+    return opensimModelJNI.SetCoordinates_insert(swigCPtr, this, aIndex, Coordinate.getCPtr(aObject), aObject);
   }
 
   public boolean remove(int aIndex) {

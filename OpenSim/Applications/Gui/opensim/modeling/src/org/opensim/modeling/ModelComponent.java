@@ -33,30 +33,6 @@ public class ModelComponent extends OpenSimObject {
     super.delete();
   }
 
-  public ModelComponent() {
-    this(opensimModelJNI.new_ModelComponent__SWIG_0(), true);
-  }
-
-  public ModelComponent(String aFileName, boolean aUpdateFromXMLNode) throws java.io.IOException {
-    this(opensimModelJNI.new_ModelComponent__SWIG_1(aFileName, aUpdateFromXMLNode), true);
-  }
-
-  public ModelComponent(String aFileName) throws java.io.IOException {
-    this(opensimModelJNI.new_ModelComponent__SWIG_2(aFileName), true);
-  }
-
-  public ModelComponent(SWIGTYPE_p_OpenSim__XMLDocument aDocument) {
-    this(opensimModelJNI.new_ModelComponent__SWIG_3(SWIGTYPE_p_OpenSim__XMLDocument.getCPtr(aDocument)), true);
-  }
-
-  public ModelComponent(SWIGTYPE_p_DOMElement aNode) {
-    this(opensimModelJNI.new_ModelComponent__SWIG_4(SWIGTYPE_p_DOMElement.getCPtr(aNode)), true);
-  }
-
-  public ModelComponent(ModelComponent copy) {
-    this(opensimModelJNI.new_ModelComponent__SWIG_5(ModelComponent.getCPtr(copy), copy), true);
-  }
-
   public Model getModel() {
     return new Model(opensimModelJNI.ModelComponent_getModel(swigCPtr, this), false);
   }

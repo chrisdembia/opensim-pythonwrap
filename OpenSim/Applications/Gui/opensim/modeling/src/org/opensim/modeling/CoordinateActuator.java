@@ -67,16 +67,16 @@ public class CoordinateActuator extends CustomActuator {
     return opensimModelJNI.CoordinateActuator_isCoordinateValid(swigCPtr, this);
   }
 
-  public void createSystem(SWIGTYPE_p_SimTK__MultibodySystem system) {
-    opensimModelJNI.CoordinateActuator_createSystem(swigCPtr, this, SWIGTYPE_p_SimTK__MultibodySystem.getCPtr(system));
-  }
-
   public ArrayStr getRecordLabels() {
     return new ArrayStr(opensimModelJNI.CoordinateActuator_getRecordLabels(swigCPtr, this), true);
   }
 
   public ArrayDouble getRecordValues(SWIGTYPE_p_SimTK__State state) {
     return new ArrayDouble(opensimModelJNI.CoordinateActuator_getRecordValues(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(state)), true);
+  }
+
+  public double getSpeed(SWIGTYPE_p_SimTK__State s) {
+    return opensimModelJNI.CoordinateActuator_getSpeed(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s));
   }
 
   public void updateFromXMLNode() {

@@ -31,6 +31,7 @@
 
 package org.opensim.view.experimentaldata;
 
+import java.io.IOException;
 import java.util.Vector;
 import org.opensim.modeling.*;
 
@@ -53,36 +54,19 @@ public class ModelForExperimentalData extends Model{
     /**
      * Creates a new instance of ModelForExperimentalData
      */
-    public ModelForExperimentalData(int i, AnnotatedMotion motionData) {
+    public ModelForExperimentalData(int i, AnnotatedMotion motionData) throws IOException {
+        super("Models/Internal/_openSimlab.osim");
         setName("ExperimentalData_"+i);
         this.motionData=motionData;
-        dEngine = new SimbodyEngine();
-        markers = new MarkerSet();
-        ground = new Body();
-        getGround().setName("ground");
-        //getGround().setDynamicsEngine(dEngine);
-        dEngine.setModel(this);
-        getBodySet().append(getGround());
-        setForces(new ForceSet());
-        getGround().getDisplayer().setNumGeometryFiles(1);
-        getGround().getDisplayer().setGeometryFileName(0, "axes.vtp");
-        //getGround().getDisplayer().setGeometryFileName(1, "unitCube.vtp");
-        
-    }
-
-   public int getNumStates() {
-       return 0;
+        //setup();
+        dEngine = this.getSimbodyEngine();
+        markers = this.getMarkerSet();
+        ground = this.getGroundBody();
+        forces = this.getForceSet();
+        // blank filename to make sure it doesn't get overwritten
+        this.setInputFileName("");
+       
    }
-    public void getStateNames(ArrayStr rStateNames) {
-        return;
-    }
-    public ForceSet getActuatorSet() {   
-        return null;
-    }
-    
-    public MarkerSet getMarkerSet() {
-        return markers;
-    }
     
     public void addMarkers(Vector<String> experimentalMarkers)
     {

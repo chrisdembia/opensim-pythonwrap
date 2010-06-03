@@ -123,7 +123,7 @@ public class SetIKTasks extends OpenSimObject {
   }
 
   public boolean insert(int aIndex, IKTask aObject) {
-    return opensimModelJNI.SetIKTasks_insert__SWIG_0(swigCPtr, this, aIndex, IKTask.getCPtr(aObject), aObject);
+    return opensimModelJNI.SetIKTasks_insert(swigCPtr, this, aIndex, IKTask.getCPtr(aObject), aObject);
   }
 
   public boolean remove(int aIndex) {

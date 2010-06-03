@@ -36,6 +36,7 @@ import java.io.ObjectInput;
 import java.io.ObjectOutput;
 import java.util.ArrayList;
 import org.opensim.modeling.Model;
+import org.opensim.view.experimentaldata.ModelForExperimentalData;
 
 /**
  *
@@ -62,7 +63,8 @@ public class OpenSimDBDescriptor implements Externalizable {
     public OpenSimDBDescriptor(OpenSimDB opensimDB) {
         Object[] models = opensimDB.getAllModels();
         for (int i=0; i< models.length; i++){
-            if (!(models[i] instanceof Model))
+            if (!(models[i] instanceof Model)|| 
+                    (models[i] instanceof ModelForExperimentalData))
                 continue;
             Model mdl = (Model) models[i];
             String file = mdl.getInputFileName();   // Should be Absolute Path I think

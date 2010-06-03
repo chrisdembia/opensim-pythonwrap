@@ -46,10 +46,6 @@ public class GeometryPath extends ModelComponent {
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
-  public void setup(Model aModel, OpenSimObject aOwner) {
-    opensimModelJNI.GeometryPath_setup(swigCPtr, this, Model.getCPtr(aModel), aModel, OpenSimObject.getCPtr(aOwner), aOwner);
-  }
-
   public void setName(String aName) {
     opensimModelJNI.GeometryPath_setName(swigCPtr, this, aName);
   }
@@ -68,10 +64,6 @@ public class GeometryPath extends ModelComponent {
 
   public PathWrapSet getWrapSet() {
     return new PathWrapSet(opensimModelJNI.GeometryPath_getWrapSet(swigCPtr, this), false);
-  }
-
-  public void initState(SWIGTYPE_p_SimTK__State s) {
-    opensimModelJNI.GeometryPath_initState(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s));
   }
 
   public void initStateCache(SWIGTYPE_p_SimTK__State s, SWIGTYPE_p_SimTK__SubsystemIndex subsystemIndex, Model model) {
@@ -119,6 +111,10 @@ public class GeometryPath extends ModelComponent {
   public OpenSimObject getOwner() {
     long cPtr = opensimModelJNI.GeometryPath_getOwner(swigCPtr, this);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
+  }
+
+  public void setOwner(OpenSimObject anObject) {
+    opensimModelJNI.GeometryPath_setOwner(swigCPtr, this, OpenSimObject.getCPtr(anObject), anObject);
   }
 
   public double getLength(SWIGTYPE_p_SimTK__State s) {
@@ -171,6 +167,14 @@ public class GeometryPath extends ModelComponent {
 
   public void postScale(SWIGTYPE_p_SimTK__State s, ScaleSet aScaleSet) {
     opensimModelJNI.GeometryPath_postScale(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), ScaleSet.getCPtr(aScaleSet), aScaleSet);
+  }
+
+  public void setup(Model aModel) {
+    opensimModelJNI.GeometryPath_setup(swigCPtr, this, Model.getCPtr(aModel), aModel);
+  }
+
+  public void initState(SWIGTYPE_p_SimTK__State s) {
+    opensimModelJNI.GeometryPath_initState(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s));
   }
 
   public VisibleObject getDisplayer() {

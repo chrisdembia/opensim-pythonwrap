@@ -110,10 +110,6 @@ public class Delp1990Muscle extends Muscle {
     return opensimModelJNI.Delp1990Muscle_setMass(swigCPtr, this, aMass);
   }
 
-  public void setup(Model aModel) {
-    opensimModelJNI.Delp1990Muscle_setup(swigCPtr, this, Model.getCPtr(aModel), aModel);
-  }
-
   public Function getActiveForceLengthCurve() {
     long cPtr = opensimModelJNI.Delp1990Muscle_getActiveForceLengthCurve(swigCPtr, this);
     return (cPtr == 0) ? null : new Function(cPtr, false);

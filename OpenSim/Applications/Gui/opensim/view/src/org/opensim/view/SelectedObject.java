@@ -41,6 +41,7 @@ import org.opensim.view.pub.ViewDB;
 import vtk.vtkActor;
 import vtk.vtkCaptionActor2D;
 import vtk.vtkProp3D;
+import vtk.vtkProp3DCollection;
 
 
 /**
@@ -106,12 +107,13 @@ public class SelectedObject implements Selectable {
             cloud.setModified();
          }
       } else if (Body.safeDownCast(object) != null) {
-         vtkProp3D asm = ViewDB.getInstance().getVtkRepForObject(object);
+         BodyRep asm = (BodyRep) ViewDB.getInstance().getVtkRepForObject(object);
          double unselectedColor[] = {1.0, 1.0, 1.0};
          if(highlight){
              // Save existing color with the body for later restoration
              Body b=(Body)object;
-             double[] currentColor = ((vtkActor)asm).GetProperty().GetColor();
+             vtkProp3DCollection props =asm.GetParts();
+             double[] currentColor = ((vtkActor)props.GetLastProp3D()).GetProperty().GetColor();
              b.getDisplayer().getVisibleProperties().setColor(currentColor);
              ViewDB.getInstance().applyColor(defaultSelectedColor, asm);
          }

@@ -172,4 +172,8 @@ public class PlotterSourceAnalysis implements PlotterSourceInterface {
     public boolean convertAngularUnits() {
         return false;
     }
+
+    public boolean hasFullState(Model model) {
+        return false;
+    }
 }

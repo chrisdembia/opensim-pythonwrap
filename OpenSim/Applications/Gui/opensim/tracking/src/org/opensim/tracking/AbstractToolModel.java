@@ -210,7 +210,7 @@ public abstract class AbstractToolModel extends Observable {
 
    public abstract double[] getAvailableTimeRange();
 
-   public abstract boolean isValid();
+   public abstract boolean isValidated();
 
    public abstract void execute();
    public abstract void cancel();
@@ -342,7 +342,7 @@ abstract class AbstractToolModelWithExternalLoads extends AbstractToolModel {
       if(!externalLoadsEnabled) setExternalLoadsFileNameInternal("");
    }
 
-   public boolean isValid() {
+   public boolean isValidated() {
       return !getExternalLoadsEnabled() || ((new File(getExternalLoadsFileName()).exists()) && (new File(getExternalLoadsModelKinematicsFileName()).exists()));
    }
 

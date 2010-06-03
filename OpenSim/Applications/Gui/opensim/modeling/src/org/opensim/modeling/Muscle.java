@@ -38,14 +38,6 @@ public class Muscle extends CustomActuator {
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
-  public void setup(Model aModel) {
-    opensimModelJNI.Muscle_setup(swigCPtr, this, Model.getCPtr(aModel), aModel);
-  }
-
-  public void postInit(Model aModel) {
-    opensimModelJNI.Muscle_postInit(swigCPtr, this, Model.getCPtr(aModel), aModel);
-  }
-
   public void setName(String aName) {
     opensimModelJNI.Muscle_setName(swigCPtr, this, aName);
   }
@@ -56,18 +48,6 @@ public class Muscle extends CustomActuator {
 
   public void updateFromXMLNode() {
     opensimModelJNI.Muscle_updateFromXMLNode(swigCPtr, this);
-  }
-
-  public void initState(SWIGTYPE_p_SimTK__State s) {
-    opensimModelJNI.Muscle_initState(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s));
-  }
-
-  public void setDefaultsFromState(SWIGTYPE_p_SimTK__State state) {
-    opensimModelJNI.Muscle_setDefaultsFromState(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(state));
-  }
-
-  public void initStateCache(SWIGTYPE_p_SimTK__State s, SWIGTYPE_p_SimTK__SubsystemIndex subsystemIndex, Model model) {
-    opensimModelJNI.Muscle_initStateCache(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), SWIGTYPE_p_SimTK__SubsystemIndex.getCPtr(subsystemIndex), Model.getCPtr(model), model);
   }
 
   public void equilibrate(SWIGTYPE_p_SimTK__State state) {
@@ -176,6 +156,10 @@ public class Muscle extends CustomActuator {
 
   public double computeActuation(SWIGTYPE_p_SimTK__State s) {
     return opensimModelJNI.Muscle_computeActuation(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s));
+  }
+
+  public double computeLengtheningSpeed(SWIGTYPE_p_SimTK__State s) {
+    return opensimModelJNI.Muscle_computeLengtheningSpeed(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s));
   }
 
   public double computeIsometricForce(SWIGTYPE_p_SimTK__State s, double activation) {

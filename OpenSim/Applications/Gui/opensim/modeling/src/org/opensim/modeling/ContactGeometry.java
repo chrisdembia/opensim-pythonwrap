@@ -59,7 +59,7 @@ public class ContactGeometry extends ModelComponent {
   }
 
   public Body getBody() {
-    return new Body(opensimModelJNI.ContactGeometry_getBody__SWIG_0(swigCPtr, this), false);
+    return new Body(opensimModelJNI.ContactGeometry_getBody(swigCPtr, this), false);
   }
 
   public void setBody(Body body) {
@@ -80,10 +80,6 @@ public class ContactGeometry extends ModelComponent {
 
   public SWIGTYPE_p_SimTK__Transform getTransform() {
     return new SWIGTYPE_p_SimTK__Transform(opensimModelJNI.ContactGeometry_getTransform(swigCPtr, this), true);
-  }
-
-  public void setup(Model aModel) {
-    opensimModelJNI.ContactGeometry_setup(swigCPtr, this, Model.getCPtr(aModel), aModel);
   }
 
   public void scale(ScaleSet aScaleSet) {

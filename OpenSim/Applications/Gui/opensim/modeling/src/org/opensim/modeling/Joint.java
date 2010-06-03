@@ -99,7 +99,19 @@ public class Joint extends ModelComponent {
   }
 
   public void getOrientationInParent(SWIGTYPE_p_SimTK__Vec3 rOrientation) {
-    opensimModelJNI.Joint_getOrientationInParent(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(rOrientation));
+    opensimModelJNI.Joint_getOrientationInParent__SWIG_0(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(rOrientation));
+  }
+
+  public void getOrientationInChild(double[] rOrientation) {
+    opensimModelJNI.Joint_getOrientationInChild(swigCPtr, this, rOrientation);
+  }
+
+  public void getOrientationInParent(double[] rOrientation) {
+    opensimModelJNI.Joint_getOrientationInParent__SWIG_1(swigCPtr, this, rOrientation);
+  }
+
+  public void getLocationInChild(double[] rLocation) {
+    opensimModelJNI.Joint_getLocationInChild__SWIG_0(swigCPtr, this, rLocation);
   }
 
   public void getLocationInParent(double[] rLocation) {
@@ -110,12 +122,16 @@ public class Joint extends ModelComponent {
     opensimModelJNI.Joint_setLocationInChild(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(aLocation));
   }
 
-  public void getLocationInChild(double[] rLocation) {
-    opensimModelJNI.Joint_getLocationInChild__SWIG_0(swigCPtr, this, rLocation);
-  }
-
   public void getLocationInChild(SWIGTYPE_p_SimTK__Vec3 rLocation) {
     opensimModelJNI.Joint_getLocationInChild__SWIG_1(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(rLocation));
+  }
+
+  public double getLocationInParent(int aXYZ) {
+    return opensimModelJNI.Joint_getLocationInParent__SWIG_2(swigCPtr, this, aXYZ);
+  }
+
+  public double getLocationInChild(int aXYZ) {
+    return opensimModelJNI.Joint_getLocationInChild__SWIG_2(swigCPtr, this, aXYZ);
   }
 
   public CoordinateSet getCoordinateSet() {

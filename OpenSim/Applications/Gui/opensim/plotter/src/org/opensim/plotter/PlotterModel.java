@@ -44,6 +44,7 @@ import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.MuscleAnalysis;
 import org.opensim.modeling.Storage;
+import org.opensim.view.experimentaldata.ModelForExperimentalData;
 
 /**
  *
@@ -121,7 +122,7 @@ public class PlotterModel {
    
     public void addModel(Model aModel)
     {
-        if (loadedModels.contains(aModel))
+        if (loadedModels.contains(aModel)|| aModel instanceof ModelForExperimentalData)
             return;
         // Create AnalyzeTool with built in muscle and moment analyses
         AnalyzeTool tool = new AnalyzeTool(aModel);

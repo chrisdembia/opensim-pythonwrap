@@ -103,6 +103,40 @@ public class XYFunctionInterface extends OpenSimObject {
     return XYFunctionInterface.FunctionType.swigToEnum(opensimModelJNI.XYFunctionInterface_getFunctionType(swigCPtr, this));
   }
 
+  public double getScale() {
+    return opensimModelJNI.XYFunctionInterface_getScale(swigCPtr, this);
+  }
+
+  public Constant getConstant() {
+    long cPtr = opensimModelJNI.XYFunctionInterface_getConstant(swigCPtr, this);
+    return (cPtr == 0) ? null : new Constant(cPtr, false);
+  }
+
+  public StepFunction getStepFunction() {
+    long cPtr = opensimModelJNI.XYFunctionInterface_getStepFunction(swigCPtr, this);
+    return (cPtr == 0) ? null : new StepFunction(cPtr, false);
+  }
+
+  public PiecewiseLinearFunction getPiecewiseLinearFunction() {
+    long cPtr = opensimModelJNI.XYFunctionInterface_getPiecewiseLinearFunction(swigCPtr, this);
+    return (cPtr == 0) ? null : new PiecewiseLinearFunction(cPtr, false);
+  }
+
+  public LinearFunction getLinearFunction() {
+    long cPtr = opensimModelJNI.XYFunctionInterface_getLinearFunction(swigCPtr, this);
+    return (cPtr == 0) ? null : new LinearFunction(cPtr, false);
+  }
+
+  public NaturalCubicSpline getNaturalCubicSpline() {
+    long cPtr = opensimModelJNI.XYFunctionInterface_getNaturalCubicSpline(swigCPtr, this);
+    return (cPtr == 0) ? null : new NaturalCubicSpline(cPtr, false);
+  }
+
+  public SWIGTYPE_p_GCVSpline getGCVSpline() {
+    long cPtr = opensimModelJNI.XYFunctionInterface_getGCVSpline(swigCPtr, this);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_GCVSpline(cPtr, false);
+  }
+
   public final static class FunctionType {
     public final static FunctionType typeConstant = new FunctionType("typeConstant");
     public final static FunctionType typeStepFunction = new FunctionType("typeStepFunction");

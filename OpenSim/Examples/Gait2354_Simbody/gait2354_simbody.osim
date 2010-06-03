@@ -6376,7 +6376,7 @@
 					<mass_center>       0.03459999999999999900       0.00600000000000000010      -0.01750000000000000200 </mass_center>
 					<inertia_xx>       0.00010000000000000000 </inertia_xx>
 					<inertia_yy>       0.00020000000000000001 </inertia_yy>
-					<inertia_zz>       0.00100000000000000000 </inertia_zz>
+					<inertia_zz>       0.000100000000000000000 </inertia_zz>
 					<inertia_xy>       0.00000000000000000000 </inertia_xy>
 					<inertia_xz>       0.00000000000000000000 </inertia_xz>
 					<inertia_yz>       0.00000000000000000000 </inertia_yz>
@@ -6957,7 +6957,7 @@
 					<mass_center>       0.03459999999999999900       0.00600000000000000010       0.01750000000000000200 </mass_center>
 					<inertia_xx>       0.00010000000000000000 </inertia_xx>
 					<inertia_yy>       0.00020000000000000001 </inertia_yy>
-					<inertia_zz>       0.00100000000000000000 </inertia_zz>
+					<inertia_zz>       0.000100000000000000000 </inertia_zz>
 					<inertia_xy>       0.00000000000000000000 </inertia_xy>
 					<inertia_xz>       0.00000000000000000000 </inertia_xz>
 					<inertia_yz>       0.00000000000000000000 </inertia_yz>

@@ -83,6 +83,7 @@ public class NameFilterJPanel extends javax.swing.JPanel
       FilterTextField.setText(getPattern());
       jFilename.setText(src.getDisplayName());
       tableModel = new NameFilterTableModel(src, new String[]{"Quantity Name", "Selected"});
+      jTable1.putClientProperty("terminateEditOnFocusLost", Boolean.TRUE);
       jTable1.setModel(tableModel);
       jTable1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
       tableModel.addTableModelListener(this);

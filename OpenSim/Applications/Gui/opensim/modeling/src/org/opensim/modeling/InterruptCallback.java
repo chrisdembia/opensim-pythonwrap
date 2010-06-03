@@ -45,8 +45,8 @@ public class InterruptCallback extends Analysis {
     opensimModelJNI.InterruptCallback_interrupt(swigCPtr, this);
   }
 
-  public int step(SWIGTYPE_p_SimTK__State s) {
-    return opensimModelJNI.InterruptCallback_step(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s));
+  public int step(SWIGTYPE_p_SimTK__State s, int stepNumber) {
+    return opensimModelJNI.InterruptCallback_step(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), stepNumber);
   }
 
 }

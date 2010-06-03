@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<OpenSimDocument Version="10905">
-	<Model name="arm26_with_bucket">
+<OpenSimDocument Version="20001">
+	<Model name="arm26">
 		<defaults>
 			<ControlLinear name="default">
 				<is_model_control> true </is_model_control>
@@ -16,7 +16,7 @@
 				<kv>      20.00000000000000000000 </kv>
 			</ControlLinear>
 			<CoordinateActuator name="default">
-				<coordinate>  </coordinate>
+				<coordinate> Unassigned </coordinate>
 				<optimal_force>     300.00000000000000000000 </optimal_force>
 			</CoordinateActuator>
 			<PointActuator name="default">
@@ -62,7 +62,7 @@
 				<!--resting length of the tendon-->
 				<tendon_slack_length>       0.07800000000000000000 </tendon_slack_length>
 				<!--angle between tendon and fibers at optimal fiber length-->
-				<pennation_angle>       0.00000000000000000000 </pennation_angle>
+				<pennation_angle>       0.13962633999999999000 </pennation_angle>
 				<!--time constant for ramping up of muscle activation-->
 				<activation_time_constant>       0.01000000000000000000 </activation_time_constant>
 				<!--time constant for ramping down of muscle activation-->
@@ -117,13 +117,13 @@
 				    muscle force-->
 				<activation2>       0.00000000000000000000 </activation2>
 				<!--Maximum isometric force that the fibers can generate-->
-				<max_isometric_force>       0.00000000000000000000 </max_isometric_force>
+				<max_isometric_force>     546.00000000000000000000 </max_isometric_force>
 				<!--Optimal length of the muscle fibers-->
-				<optimal_fiber_length>       0.00000000000000000000 </optimal_fiber_length>
+				<optimal_fiber_length>       0.05349999999999999900 </optimal_fiber_length>
 				<!--Resting length of the tendon-->
-				<tendon_slack_length>       0.00000000000000000000 </tendon_slack_length>
+				<tendon_slack_length>       0.07800000000000000000 </tendon_slack_length>
 				<!--Angle between tendon and fibers at optimal fiber length-->
-				<pennation_angle>       0.00000000000000000000 </pennation_angle>
+				<pennation_angle>       0.13962633999999999000 </pennation_angle>
 				<!--Maximum contraction velocity of the fibers, in optimal fiberlengths
 				    per second-->
 				<max_contraction_velocity>       0.00000000000000000000 </max_contraction_velocity>
@@ -228,9 +228,24 @@
 					</NaturalCubicSpline>
 				</force_velocity_curve>
 			</Delp1990Muscle>
+			<CorrectionController name="default">
+				<!--A list of actuators that this controller will control.The keyword ALL
+				    indicates the controller will controll all the acuators in the model-->
+				<actuator_list> </actuator_list>
+				<!--Flag (true or false) indicating whether or not the controller is
+				    enabled (ON) should-->
+				<enable_controller> false </enable_controller>
+				<!--Gain for position errors-->
+				<kp>     100.00000000000000000000 </kp>
+				<!--Gain for velocity errors-->
+				<kv>      20.00000000000000000000 </kv>
+			</CorrectionController>
 			<CMC_Joint name="default">
 				<!--Flag (true or false) indicating whether or not a task is on.-->
 				<on> false </on>
+				<!--Weight with which a task is tracked relative to other tasks. To track
+				    a task more tightly, make the weight larger.-->
+				<weight>       1.00000000000000000000       1.00000000000000000000       1.00000000000000000000 </weight>
 				<!--Name of body frame with respect to which a tracking objective is
 				    specified. The special name 'center_of_mass' refers to the system
 				    center of mass. This property is not used for tracking joint angles.-->
@@ -244,9 +259,6 @@
 				    those to be made active (true) or inactive (false).  A task for
 				    tracking a joint coordinate only has one component.-->
 				<active> false false false </active>
-				<!--Weight with which a task is tracked relative to other tasks. To track
-				    a task more tightly, make the weight larger.-->
-				<weight>       1.00000000000000000000       1.00000000000000000000       1.00000000000000000000 </weight>
 				<!--Position error feedback gain (stiffness). To achieve critical damping
 				    of errors, choose kv = 2*sqrt(kp).-->
 				<kp>       1.00000000000000000000       1.00000000000000000000       1.00000000000000000000 </kp>
@@ -273,8 +285,8 @@
 				<limit>       0.00000000000000000000 </limit>
 			</CMC_Joint>
 		</defaults>
-		<credits> Model authors names.. </credits>
-		<publications> List of publications related to model... </publications>
+		<credits> The OpenSim Development Team (Reinbolt, J; Seth, A; Habib, A; Hamner, S) </credits>
+		<publications> This is an example model distributed with OpenSim </publications>
 		<ForceSet name="">
 			<objects>
 				<Thelen2003Muscle name="TRIlong">
@@ -1095,13 +1107,16 @@
 					<!--maximum normalized lengthening force-->
 					<Flen>       1.80000000000000000000 </Flen>
 				</Thelen2003Muscle>
+				<GeneralizedForce name="r_handle_rot_force">
+					<coordinate> r_handle_rot </coordinate>
+					<optimal_force> 1000 </optimal_force>
+				</GeneralizedForce>
 			</objects>
-			<groups/>
 		</ForceSet>
 		<length_units> meters </length_units>
 		<force_units> N </force_units>
 		<!--Acceleration due to gravity.-->
-		<gravity>       0.00000000000000000000      -9.80664999999999940000       0.00000000000000000000 </gravity>
+		<gravity>	0.0		-9.8066		0.0 </gravity>
 		<!--Bodies in the model.-->
 		<BodySet name="">
 			<objects>
@@ -1266,7 +1281,7 @@
 								<VisibleObject name="">
 									<geometry_files> </geometry_files>
 									<VisibleProperties name="">
-										<display_preference> 0 </display_preference>
+										<display_preference> 4 </display_preference>
 										<show_normals> false </show_normals>
 										<show_axes> false </show_axes>
 										<material_name> DEFAULT </material_name>
@@ -1283,7 +1298,7 @@
 								<VisibleObject name="">
 									<geometry_files> </geometry_files>
 									<VisibleProperties name="">
-										<display_preference> 0 </display_preference>
+										<display_preference> 4 </display_preference>
 										<show_normals> false </show_normals>
 										<show_axes> false </show_axes>
 										<material_name> DEFAULT </material_name>
@@ -1300,7 +1315,7 @@
 								<VisibleObject name="">
 									<geometry_files> </geometry_files>
 									<VisibleProperties name="">
-										<display_preference> 0 </display_preference>
+										<display_preference> 4 </display_preference>
 										<show_normals> false </show_normals>
 										<show_axes> false </show_axes>
 										<material_name> DEFAULT </material_name>
@@ -1426,22 +1441,22 @@
 					</WrapObjectSet>
 				</Body>
 				<Body name="bucket">
-					<mass>       1.00000000000000000000 </mass>
-					<mass_center>       0.00000000000000000000      -0.10000000000000001000       0.00000000000000000000 </mass_center>
-					<inertia_xx>       0.00223958000000000010 </inertia_xx>
-					<inertia_yy>       0.00281249999999999990 </inertia_yy>
-					<inertia_zz>       0.00223958000000000010 </inertia_zz>
-					<inertia_xy>       0.00000000000000000000 </inertia_xy>
-					<inertia_xz>       0.00000000000000000000 </inertia_xz>
-					<inertia_yz>       0.00000000000000000000 </inertia_yz>
+					<mass> 1.0 </mass>
+					<mass_center> 0.0 -0.1 0.0 </mass_center>
+					<inertia_xx>       0.0024 </inertia_xx>
+					<inertia_yy>       0.0028 </inertia_yy>
+					<inertia_zz>       0.0024 </inertia_zz>
+					<inertia_xy>       0.0    </inertia_xy>
+					<inertia_xz>       0.0 	  </inertia_xz>
+					<inertia_yz>       0.0    </inertia_yz>
 					<!--Joint that connects this body with the parent body.-->
 					<Joint>
-						<CustomJoint name="r_handle">
+						<PinJoint name="r_handle">
 							<parent_body> r_ulna_radius_hand </parent_body>
-							<location_in_parent>       0.03100000000000000000      -0.31000000000000000000       0.07000000000000000700 </location_in_parent>
-							<orientation_in_parent>       0.00000000000000000000       0.00000000000000000000       0.00000000000000000000 </orientation_in_parent>
-							<location>       0.00000000000000000000       0.00000000000000000000       0.00000000000000000000 </location>
-							<orientation>       0.00000000000000000000       0.00000000000000000000       0.00000000000000000000 </orientation>
+							<location_in_parent>       0.031      -0.31      0.07	</location_in_parent>
+							<orientation_in_parent>    0.0        0.0         0.0	</orientation_in_parent>
+							<location>       0.0       0.0        0.0 		  </location>
+							<orientation>    0.0       0.0        0.0 		  </orientation>
 							<!--Generalized coordinates parameterizing this joint.-->
 							<CoordinateSet name="">
 								<objects>
@@ -1449,10 +1464,10 @@
 										<!--Cooridnate can describe rotational, translational, or coupled values.
 										    Defaults to rotational.-->
 										<motion_type> rotational </motion_type>
-										<default_value>       0.00000000000000000000 </default_value>
-										<default_speed_value>       0.00000000000000000000 </default_speed_value>
-										<initial_value>       0.00000000000000000000 </initial_value>
-										<range>      -3.14159265000000020000       3.14159265000000020000 </range>
+										<default_value>	0.0 </default_value>
+										<default_speed_value>	0.0 </default_speed_value>
+										<initial_value>	0.0 </initial_value>
+										<range> -3.14159265	3.14159265 </range>
 										<clamped> false </clamped>
 										<locked> false </locked>
 										<prescribed_function/>
@@ -1460,66 +1475,8 @@
 								</objects>
 								<groups/>
 							</CoordinateSet>
-							<reverse> false </reverse>
-							<SpatialTransform name="">
-								<!--3 Axes for rotations are listed first.-->
-								<TransformAxis name="rotation1">
-									<function>
-										<LinearFunction name="">
-											<coefficients>       1.00000000000000000000       0.00000000000000000000 </coefficients>
-										</LinearFunction>
-									</function>
-									<coordinates> r_handle_rot </coordinates>
-									<axis>       0.04940001000000000100       0.03660001000000000200       0.99810825000000003000 </axis>
-								</TransformAxis>
-								<TransformAxis name="rotation2">
-									<function>
-										<Constant name="">
-											<value>       0.00000000000000000000 </value>
-										</Constant>
-									</function>
-									<coordinates> </coordinates>
-									<axis>       0.00000000000000000000       1.00000000000000000000       0.00000000000000000000 </axis>
-								</TransformAxis>
-								<TransformAxis name="rotation3">
-									<function>
-										<Constant name="">
-											<value>       0.00000000000000000000 </value>
-										</Constant>
-									</function>
-									<coordinates> </coordinates>
-									<axis>       0.99810825000000003000       0.00000000000000000000      -0.04940001000000000100 </axis>
-								</TransformAxis>
-								<!--3 Axes for translations are listed next.-->
-								<TransformAxis name="translation1">
-									<function>
-										<Constant name="">
-											<value>       0.00000000000000000000 </value>
-										</Constant>
-									</function>
-									<coordinates> </coordinates>
-									<axis>       1.00000000000000000000       0.00000000000000000000       0.00000000000000000000 </axis>
-								</TransformAxis>
-								<TransformAxis name="translation2">
-									<function>
-										<Constant name="">
-											<value>       0.00000000000000000000 </value>
-										</Constant>
-									</function>
-									<coordinates> </coordinates>
-									<axis>       0.00000000000000000000       1.00000000000000000000       0.00000000000000000000 </axis>
-								</TransformAxis>
-								<TransformAxis name="translation3">
-									<function>
-										<Constant name="">
-											<value>       0.00000000000000000000 </value>
-										</Constant>
-									</function>
-									<coordinates> </coordinates>
-									<axis>       0.00000000000000000000       0.00000000000000000000       1.00000000000000000000 </axis>
-								</TransformAxis>
-							</SpatialTransform>
-						</CustomJoint>
+						</PinJoint>
+						<reverse> false </reverse>
 					</Joint>
 					<VisibleObject name="">
 						<geometry_files> bucket.vtp </geometry_files>
@@ -1529,12 +1486,8 @@
 							<show_axes> false </show_axes>
 							<material_name> DEFAULT </material_name>
 						</VisibleProperties>
-						<scale_factors>       1.00000000000000000000       1.00000000000000000000       1.00000000000000000000 </scale_factors>
+						<scale_factors>       1.0       1.0       1.0 </scale_factors>
 					</VisibleObject>
-					<WrapObjectSet name="">
-						<objects/>
-						<groups/>
-					</WrapObjectSet>
 				</Body>
 			</objects>
 			<groups/>

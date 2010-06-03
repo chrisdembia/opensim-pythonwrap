@@ -66,20 +66,8 @@ public class PerturbationTool extends ForwardTool {
     return opensimModelJNI.PerturbationTool_run(swigCPtr, this);
   }
 
-  public void printResults(String aBaseName, String aDir, double aDT, String aExtension) {
-    opensimModelJNI.PerturbationTool_printResults__SWIG_0(swigCPtr, this, aBaseName, aDir, aDT, aExtension);
-  }
-
-  public void printResults(String aBaseName, String aDir, double aDT) {
-    opensimModelJNI.PerturbationTool_printResults__SWIG_1(swigCPtr, this, aBaseName, aDir, aDT);
-  }
-
-  public void printResults(String aBaseName, String aDir) {
-    opensimModelJNI.PerturbationTool_printResults__SWIG_2(swigCPtr, this, aBaseName, aDir);
-  }
-
-  public void printResults(String aBaseName) {
-    opensimModelJNI.PerturbationTool_printResults__SWIG_3(swigCPtr, this, aBaseName);
+  public void printResults() {
+    opensimModelJNI.PerturbationTool_printResults(swigCPtr, this);
   }
 
 }

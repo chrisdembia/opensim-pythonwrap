@@ -836,7 +836,10 @@ final public class FunctionEditorTopComponent extends TopComponent implements Ob
       this.object = object;
       this.relatedObjects = relatedObjects;
       this.function = function;
-      this.xyFunction = new XYFunctionInterface(function);
+      if (function == null)
+         this.xyFunction = null;
+      else
+         this.xyFunction = new XYFunctionInterface(function);
       this.options = options;
       setupComponent();
       setPendingChanges(false, true);

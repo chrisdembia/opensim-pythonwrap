@@ -103,29 +103,27 @@ public class OneMotionNode extends OpenSimObjectNode{
     public Action[] getActions(boolean b) {
         Action[] retValue=null;
         try {
-            
+            boolean isCurrent = MotionsDB.getInstance().isModelMotionPairCurrent(new MotionsDB.ModelMotionPair(getModel(), getMotion()));
             retValue = new Action[]{
                 (MotionsSetCurrentAction) MotionsSetCurrentAction.findObject(
                      (Class)Class.forName("org.opensim.view.motions.MotionsSetCurrentAction"), true),
+                isExperimental()?null:
                 (MotionRenameAction) MotionRenameAction.findObject(
                      (Class)Class.forName("org.opensim.view.motions.MotionRenameAction"), true),
+                 isExperimental()?null:
                 (MotionAppendMotionAction) MotionAppendMotionAction.findObject(
                      (Class)Class.forName("org.opensim.view.motions.MotionAppendMotionAction"), true),
                 (MotionsSynchronizeAction) MotionsSynchronizeAction.findObject(
                      (Class)Class.forName("org.opensim.view.motions.MotionsSynchronizeAction"), true),
                 (MotionsSaveAsAction) MotionsSaveAsAction.findObject(
                      (Class)Class.forName("org.opensim.view.motions.MotionsSaveAsAction"), true),
+                 isExperimental()?null:
                 (MotionsCloseAction) MotionsCloseAction.findObject(
                      (Class)Class.forName("org.opensim.view.motions.MotionsCloseAction"), true),
-                isExperimental()?
+                (isExperimental() && isCurrent)?
                     (MotionReclassifyAction) MotionReclassifyAction.findObject(
                      (Class)Class.forName("org.opensim.view.experimentaldata.MotionReclassifyAction"), true)
                      :null,
-                /*
-               (AnnotateMotionObjectsAction) AnnotateMotionObjectsAction.findObject(
-                           (Class)Class.forName("org.opensim.view.experimentaldata.AnnotateMotionObjectsAction"), 
-                                   true),
-                 */
             };
         } catch (ClassNotFoundException ex) {
             ex.printStackTrace();

@@ -291,8 +291,8 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
    // Validation
    //------------------------------------------------------------------------
 
-   public boolean isValid() {
-      return super.isValid() && getInitialStatesValid() && getControlsValid();
+   public boolean isValidated() {
+      return super.isValidated() && getInitialStatesValid() && getControlsValid();
    }
 
    //------------------------------------------------------------------------
@@ -359,10 +359,11 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
    }
 
    public boolean saveSettings(String fileName) {
+      String fullFilename = FileUtils.addExtensionIfNeeded(fileName, ".xml");
       updateTool();
-      AbsoluteToRelativePaths(fileName);
-      forwardTool().print(fileName);
-      relativeToAbsolutePaths(fileName);
+      AbsoluteToRelativePaths(fullFilename);
+      forwardTool().print(fullFilename);
+      relativeToAbsolutePaths(fullFilename);
       return true;
    }
 }

@@ -11,15 +11,30 @@ package org.opensim.view.nodes;
 
 
 import java.awt.Image;
+import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
+import java.awt.dnd.DnDConstants;
 import java.io.IOException;
+import java.lang.Class;
+import java.lang.String;
 import java.net.URL;
+import java.util.Hashtable;
+import java.util.List;
 import javax.swing.ImageIcon;
 import org.openide.nodes.AbstractNode;
 import org.openide.nodes.Children;
 import org.openide.nodes.Node;
+import org.openide.nodes.NodeTransfer;
+import org.openide.nodes.PropertySupport;
+import org.openide.nodes.Sheet;
+//import org.openide.util.Exceptions;
+import org.openide.util.Lookup;
+import org.openide.util.datatransfer.NewType;
 import org.openide.util.datatransfer.PasteType;
 import org.opensim.modeling.Model;
+import org.opensim.modeling.OpenSimObject;
+import org.opensim.modeling.Property.PropertyType;
+import org.opensim.view.editors.ObjectEditDialogMaker;
 
 /**
  * 
@@ -42,27 +57,10 @@ public class OpenSimNode extends AbstractNode {
         super(children);
     }
 
-    public boolean canCopy() {
-        return false;
+    public OpenSimNode(Children children, Lookup lookup) {
+        super(children, lookup);
     }
 
-    public PasteType getDropType(Transferable transferable, int i, int i0) {
-        PasteType retValue;
-        
-        retValue = super.getDropType(transferable, i, i0);
-        return retValue;
-    }
-
-    public boolean canCut() {
-         return false;
-    }
-
-    public Transferable clipboardCopy() throws IOException {
-        Transferable retValue;
-        
-        retValue = super.clipboardCopy();
-        return retValue;
-    }
 
     /** Root node (has all open models as its children). Unused!*/
     public static class RootNode extends OpenSimNode {
@@ -133,5 +131,115 @@ public class OpenSimNode extends AbstractNode {
           ((OpenSimNode)children[i]).renameObjectNode(objectToRename, newName);
        }
     }
+/*
+    @Override
+    public PasteType getDropType(Transferable t, final int action, int index) {
+       if (this instanceof OpenSimObjectNode)
+        System.out.println(((OpenSimObjectNode)this).toString()+":"+"getDropType");
+       DataFlavor[] flavors= t.getTransferDataFlavors();
+       System.out.println("Flavors:"+flavors.toString());
+        final Node dropNode = NodeTransfer.node( t,
+                DnDConstants.ACTION_COPY_OR_MOVE+NodeTransfer.CLIPBOARD_CUT );
+        if( null != dropNode ) {
+            /*final Movie movie = (Movie)dropNode.getLookup().lookup( Movie.class );
+            if( null != movie  && !this.equals( dropNode.getParentNode() )) {
+                return new PasteType() {
+                    public Transferable paste() throws IOException {
+                        getChildren().add( new Node[] { new MovieNode(movie) } );
+                        if( (action & DnDConstants.ACTION_MOVE) != 0 ) {
+                            dropNode.getParentNode().getChildren().remove( new Node[] {dropNode} );
+                        }
+                        return null;
+                    }
+                };
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public Cookie getCookie(Class clazz) {
+       if (this instanceof OpenSimObjectNode)
+        System.out.println(((OpenSimObjectNode)this).toString()+":"+"getCookie");
+        Children ch = getChildren();
+
+        if (clazz.isInstance(ch)) {
+            return (Cookie) ch;
+        }
+
+        return super.getCookie(clazz);
+    }
+
+    @Override
+    protected void createPasteTypes(Transferable t, List s) {
+        if (this instanceof OpenSimObjectNode)
+       System.out.println(((OpenSimObjectNode)this).toString()+":"+"createPasteTypes");
+       super.createPasteTypes(t, s);
+        PasteType paste = getDropType( t, DnDConstants.ACTION_COPY, -1 );
+        if( null != paste )
+            s.add( paste );
+    }
+*/
+    @Override
+    public Sheet createSheet() {
+        Sheet sheet = Sheet.createDefault();
+        Sheet.Set set = Sheet.createPropertiesSet();
+        //Sheet.Set setExpert = Sheet.createExpertSet();
+        if (this instanceof OpenSimObjectNode) {
+            OpenSimObject obj = ((OpenSimObjectNode) (this)).getOpenSimObject();
+            
+            org.opensim.modeling.PropertySet ps= obj.getPropertySet();
+            Hashtable<PropertyType, Class> mapPropertyEnumToClass = new Hashtable<PropertyType, Class>();
+            Hashtable<PropertyType, String> mapPropertyEnumToGetters = new Hashtable<PropertyType, String>();
+            mapPropertyEnumToClass.put(PropertyType.Int, Integer.class);
+            mapPropertyEnumToGetters.put(PropertyType.Int, "getValueInt");
+            mapPropertyEnumToClass.put(PropertyType.Dbl, Double.class);
+            mapPropertyEnumToGetters.put(PropertyType.Dbl, "getValueDbl");
+            mapPropertyEnumToClass.put(PropertyType.Str, String.class);
+            mapPropertyEnumToGetters.put(PropertyType.Str, "getValueStr");
+            mapPropertyEnumToClass.put(PropertyType.Bool, Boolean.class);
+            mapPropertyEnumToGetters.put(PropertyType.Bool, "getValueBool");
+            mapPropertyEnumToClass.put(PropertyType.Obj, OpenSimObject.class);
+            mapPropertyEnumToGetters.put(PropertyType.Obj, "getValueObj");
+
+            for(int i=0; i<ps.getSize(); i++){
+                try {
+                    org.opensim.modeling.Property prop = ps.get(i);
+                    if (mapPropertyEnumToClass.containsKey(prop.getType())) {
+                        // Need Class, functionToGet, functioToSet // Editor
+                        PropertySupport.Reflection nextNodeProp = new PropertySupport.Reflection(prop, mapPropertyEnumToClass.get(prop.getType()), mapPropertyEnumToGetters.get(prop.getType()), null);
+                        nextNodeProp.setName(prop.getName());
+                        set.put(nextNodeProp);
+                        if (prop.getType()==PropertyType.Obj)
+                            nextNodeProp.setPropertyEditorClass(ObjectEditDialogMaker.class);
+                    }
+                } catch (NoSuchMethodException ex) {
+                    ex.printStackTrace();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+           }
+        }
+        sheet.put(set);
+        //sheet.put(setExpert);
+        return sheet;
+    }
+    /*
+    protected void createPasteTypes(Transferable t, List ls) {
+    final Node[] ns = NodeTransfer.nodes (t, NodeTransfer.COPY);
+    if (ns != null) {
+      ls.add (new PasteType () {
+        public Transferable paste () throws IOException {
+          Node[] nue = new Node[ns.length];
+          for (int i = 0; i < nue.length; i++)
+            nue[i] = ns[i].cloneNode ();
+          getChildren ().add (nue);
+          return null;
+        }
+      });
+    }
+    // Also try superclass, but give it lower priority:
+    super.createPasteTypes(t, ls);
+  }*/
 
 } // class OpenSimNode

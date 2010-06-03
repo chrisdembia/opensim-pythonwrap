@@ -50,16 +50,12 @@ public class Ligament extends CustomForce {
     opensimModelJNI.Ligament_copyData(swigCPtr, this, Ligament.getCPtr(aLigament), aLigament);
   }
 
-  public void initState(SWIGTYPE_p_SimTK__State s) {
-    opensimModelJNI.Ligament_initState(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s));
-  }
-
   public void initStateCache(SWIGTYPE_p_SimTK__State s, SWIGTYPE_p_SimTK__SubsystemIndex subsystemIndex, Model model) {
     opensimModelJNI.Ligament_initStateCache(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), SWIGTYPE_p_SimTK__SubsystemIndex.getCPtr(subsystemIndex), Model.getCPtr(model), model);
   }
 
-  public SWIGTYPE_p_GeometryPath getGeometryPath() {
-    return new SWIGTYPE_p_GeometryPath(opensimModelJNI.Ligament_getGeometryPath(swigCPtr, this), false);
+  public GeometryPath getGeometryPath() {
+    return new GeometryPath(opensimModelJNI.Ligament_getGeometryPath(swigCPtr, this), false);
   }
 
   public double getLength(SWIGTYPE_p_SimTK__State s) {
@@ -91,12 +87,8 @@ public class Ligament extends CustomForce {
     return opensimModelJNI.Ligament_setForceLengthCurve(swigCPtr, this, Function.getCPtr(aForceLengthCurve), aForceLengthCurve);
   }
 
-  public void setup(Model aModel) {
-    opensimModelJNI.Ligament_setup(swigCPtr, this, Model.getCPtr(aModel), aModel);
-  }
-
-  public void computeForce(SWIGTYPE_p_SimTK__State s) {
-    opensimModelJNI.Ligament_computeForce(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s));
+  public void computeForce(SWIGTYPE_p_SimTK__State s, SWIGTYPE_p_SimTK__Vector_TSimTK__SpatialVec_t bodyForces, SWIGTYPE_p_SimTK__Vector generalizedForces) {
+    opensimModelJNI.Ligament_computeForce(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), SWIGTYPE_p_SimTK__Vector_TSimTK__SpatialVec_t.getCPtr(bodyForces), SWIGTYPE_p_SimTK__Vector.getCPtr(generalizedForces));
   }
 
   public void preScale(SWIGTYPE_p_SimTK__State s, ScaleSet aScaleSet) {

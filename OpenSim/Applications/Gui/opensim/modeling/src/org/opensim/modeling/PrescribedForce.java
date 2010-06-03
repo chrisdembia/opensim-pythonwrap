@@ -54,8 +54,8 @@ public class PrescribedForce extends CustomForce {
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
-  public void setupFromXML() {
-    opensimModelJNI.PrescribedForce_setupFromXML(swigCPtr, this);
+  public void setup(Model model) {
+    opensimModelJNI.PrescribedForce_setup(swigCPtr, this, Model.getCPtr(model), model);
   }
 
   public void setBodyName(String aBodyName) {

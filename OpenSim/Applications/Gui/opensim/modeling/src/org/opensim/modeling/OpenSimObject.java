@@ -125,10 +125,6 @@ public class OpenSimObject {
     return opensimModelJNI.OpenSimObject_getType(swigCPtr, this);
   }
 
-  public String getNewType() {
-    return opensimModelJNI.OpenSimObject_getNewType(swigCPtr, this);
-  }
-
   public void setName(String aName) {
     opensimModelJNI.OpenSimObject_setName(swigCPtr, this, aName);
   }

@@ -49,8 +49,8 @@ public final class FileSaveAsModelAction extends CallableSystemAction {
       String fileName = FileUtils.getInstance().browseForFilenameToSave(FileUtils.OpenSimModelFileFilter, true, model.getInputFileName());
       if(fileName!=null) {
          // If no extension was specified, append ".osim""
-         if (!fileName.contains(".")) fileName += ".osim";
-         saveModel(model, fileName);
+         String fullFilename = FileUtils.addExtensionIfNeeded(fileName,".osim");
+         saveModel(model, fullFilename);
          return true;
       } else return false;
    }

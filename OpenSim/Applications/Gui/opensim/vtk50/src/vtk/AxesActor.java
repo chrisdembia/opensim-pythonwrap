@@ -14,71 +14,64 @@ public class AxesActor extends vtkAssembly {
   private vtkFollower xtextActor, ytextActor, ztextActor;
   public AxesActor() {
     super();
-    createAxes(1.0);
+    createAxes(1.0, true, true);
   }
 
+   public AxesActor(double scale, boolean showTips, boolean showText) {
+       createAxes(scale, showTips, showText);
+   }
+   
    public AxesActor(double scale) {
     super();
-    createAxes(scale);
+    createAxes(scale, true, true);
   }
 
-  protected void createAxes(double scale) {
+  protected void createAxes(double scale, boolean includeArrowTips, boolean includeText) {
 /*
     vtkAxes axes = new vtkAxes();
     axes.SetOrigin(0, 0, 0);
     axes.SetScaleFactor(axisLength);
 */
-    xactor = new vtkTextActor();
-    yactor = new vtkTextActor();
-    zactor = new vtkTextActor();
-
-    xactor.SetInput("X");
-    yactor.SetInput("Y");
-    zactor.SetInput("Z");
-
-    //xactor.ScaledTextOn();
-    //yactor.ScaledTextOn();
-    //zactor.ScaledTextOn();
-
-    xactor.GetPositionCoordinate().SetCoordinateSystemToWorld();
-    yactor.GetPositionCoordinate().SetCoordinateSystemToWorld();
-    zactor.GetPositionCoordinate().SetCoordinateSystemToWorld();
-
-    xactor.GetPositionCoordinate().SetValue(axisLength, 0.0, 0.0);
-    yactor.GetPositionCoordinate().SetValue(0.0, axisLength, 0.0);
-    zactor.GetPositionCoordinate().SetValue(0.0, 0.0, axisLength);
-
-    xactor.GetTextProperty().SetColor(1.0, 1.0, 1.0);
-    xactor.GetTextProperty().ShadowOn();
-    xactor.GetTextProperty().ItalicOn();
-    xactor.GetTextProperty().BoldOff();
-
-    yactor.GetTextProperty().SetColor(1.0, 1.0, 1.0);
-    yactor.GetTextProperty().ShadowOn();
-    yactor.GetTextProperty().ItalicOn();
-    yactor.GetTextProperty().BoldOff();
-
-    zactor.GetTextProperty().SetColor(1.0, 1.0, 1.0);
-    zactor.GetTextProperty().ShadowOn();
-    zactor.GetTextProperty().ItalicOn();
-    zactor.GetTextProperty().BoldOff();
-
-    xactor.SetMaximumLineHeight(0.25);
-    yactor.SetMaximumLineHeight(0.25);
-    zactor.SetMaximumLineHeight(0.25);
-/*
-    vtkTubeFilter tube = new vtkTubeFilter();
-    tube.SetInput(axes.GetOutput());
-    tube.SetRadius(0.01);
-    tube.SetNumberOfSides(6);
-
-    vtkPolyDataMapper tubeMapper = new vtkPolyDataMapper();
-    tubeMapper.SetInput(tube.GetOutput());
-    
-    vtkActor tubeActor = new vtkActor();
-    tubeActor.SetMapper(tubeMapper);
-    tubeActor.PickableOff();
- */   
+      if (includeText) {
+          xactor = new vtkTextActor();
+          yactor = new vtkTextActor();
+          zactor = new vtkTextActor();
+          
+          xactor.SetInput("X");
+          yactor.SetInput("Y");
+          zactor.SetInput("Z");
+          
+          //xactor.ScaledTextOn();
+          //yactor.ScaledTextOn();
+          //zactor.ScaledTextOn();
+          
+          xactor.GetPositionCoordinate().SetCoordinateSystemToWorld();
+          yactor.GetPositionCoordinate().SetCoordinateSystemToWorld();
+          zactor.GetPositionCoordinate().SetCoordinateSystemToWorld();
+          
+          xactor.GetPositionCoordinate().SetValue(axisLength, 0.0, 0.0);
+          yactor.GetPositionCoordinate().SetValue(0.0, axisLength, 0.0);
+          zactor.GetPositionCoordinate().SetValue(0.0, 0.0, axisLength);
+          
+          xactor.GetTextProperty().SetColor(1.0, 1.0, 1.0);
+          xactor.GetTextProperty().ShadowOn();
+          xactor.GetTextProperty().ItalicOn();
+          xactor.GetTextProperty().BoldOff();
+          
+          yactor.GetTextProperty().SetColor(1.0, 1.0, 1.0);
+          yactor.GetTextProperty().ShadowOn();
+          yactor.GetTextProperty().ItalicOn();
+          yactor.GetTextProperty().BoldOff();
+          
+          zactor.GetTextProperty().SetColor(1.0, 1.0, 1.0);
+          zactor.GetTextProperty().ShadowOn();
+          zactor.GetTextProperty().ItalicOn();
+          zactor.GetTextProperty().BoldOff();
+          
+          xactor.SetMaximumLineHeight(0.25);
+          yactor.SetMaximumLineHeight(0.25);
+          zactor.SetMaximumLineHeight(0.25);
+      }
   
     int cylRes = 36;
     double cylRadius = 0.01*scale;
@@ -132,97 +125,98 @@ public class AxesActor extends vtkAssembly {
     zcylActor.GetProperty().SetAmbient(cylAmbient);
     zcylActor.GetProperty().SetOpacity(cylOpacity);
 
-    int coneRes = 36;
-    double coneScale = 0.075;
-    double coneAmbient = 0.5;
-    double coneOpacity = .5;
-    
-    //--- x-Cone
-    vtkConeSource xcone = new vtkConeSource();
-    xcone.SetResolution(coneRes);
-    vtkPolyDataMapper xconeMapper = new vtkPolyDataMapper();
-    xconeMapper.SetInput(xcone.GetOutput());
-    vtkActor xconeActor = new vtkActor();
-    xconeActor.SetMapper(xconeMapper);
-    xconeActor.GetProperty().SetColor(1,0,0);
-    xconeActor.SetScale(coneScale, coneScale, coneScale);
-    xconeActor.SetPosition(axisLength+(coneScale/2), 0.0, 0.0);
-    xconeActor.GetProperty().SetAmbient(coneAmbient);
-    xconeActor.GetProperty().SetOpacity(coneOpacity);
-
-    //--- y-Cone
-    vtkConeSource ycone = new vtkConeSource();
-    ycone.SetResolution(coneRes);
-    vtkPolyDataMapper yconeMapper = new vtkPolyDataMapper();
-    yconeMapper.SetInput(ycone.GetOutput());
-    vtkActor yconeActor = new vtkActor();
-    yconeActor.SetMapper(yconeMapper);
-    yconeActor.GetProperty().SetColor(0,1,0);
-    yconeActor.RotateZ(90);
-    yconeActor.SetScale(coneScale, coneScale, coneScale);
-    yconeActor.SetPosition(0.0, axisLength+(coneScale/2), 0.0);
-    yconeActor.GetProperty().SetAmbient(coneAmbient);
-    yconeActor.GetProperty().SetOpacity(coneOpacity);
-
-    //--- z-Cone
-    vtkConeSource zcone = new vtkConeSource();
-    zcone.SetResolution(coneRes);
-    vtkPolyDataMapper zconeMapper = new vtkPolyDataMapper();
-    zconeMapper.SetInput(zcone.GetOutput());
-    vtkActor zconeActor = new vtkActor();
-    zconeActor.SetMapper(zconeMapper);
-    zconeActor.GetProperty().SetColor(0,0,1);
-    zconeActor.RotateY(-90);
-    zconeActor.SetScale(coneScale, coneScale, coneScale);
-    zconeActor.SetPosition(0.0, 0.0, axisLength+(coneScale/2));
-    yconeActor.GetProperty().SetAmbient(coneAmbient);
-    yconeActor.GetProperty().SetOpacity(coneOpacity);
-    
-    //--- x-Label
-    vtkVectorText xtext = new vtkVectorText();
-    xtext.SetText("X");
-    vtkPolyDataMapper xtextMapper = new vtkPolyDataMapper();
-    xtextMapper.SetInput(xtext.GetOutput());
-    xtextActor = new vtkFollower();
-    xtextActor.SetMapper(xtextMapper);
-    xtextActor.SetScale(axisTextLength, axisTextLength, axisTextLength);
-    xtextActor.GetProperty().SetColor(1, 0, 0);
-    xtextActor.SetPosition(axisLength, 0.0, 0.0);
-    
-    //--- y-Label
-    vtkVectorText ytext = new vtkVectorText();
-    ytext.SetText("Y");
-    vtkPolyDataMapper ytextMapper = new vtkPolyDataMapper();
-    ytextMapper.SetInput(ytext.GetOutput());
-    ytextActor = new vtkFollower();
-    ytextActor.SetMapper(ytextMapper);
-    ytextActor.SetScale(axisTextLength, axisTextLength, axisTextLength);
-    ytextActor.GetProperty().SetColor(0, 1, 0);
-    ytextActor.SetPosition(0.0, axisLength, 0.0);
-    
-    //--- z-Label
-    vtkVectorText ztext = new vtkVectorText();
-    ztext.SetText("Z");
-    vtkPolyDataMapper ztextMapper = new vtkPolyDataMapper();
-    ztextMapper.SetInput(ztext.GetOutput());
-    ztextActor = new vtkFollower();
-    ztextActor.SetMapper(ztextMapper);
-    ztextActor.SetScale(axisTextLength, axisTextLength, axisTextLength);
-    ztextActor.GetProperty().SetColor(0, 0, 1);
-    ztextActor.SetPosition(0.0, 0.0, axisLength);
-
+    if (includeArrowTips) {
+        int coneRes = 36;
+        double coneScale = 0.075;
+        double coneAmbient = 0.5;
+        double coneOpacity = .5;
+        
+        vtkConeSource xcone = new vtkConeSource();
+        xcone.SetResolution(coneRes);
+        vtkPolyDataMapper xconeMapper = new vtkPolyDataMapper();
+        xconeMapper.SetInput(xcone.GetOutput());
+        vtkActor xconeActor = new vtkActor();
+        xconeActor.SetMapper(xconeMapper);
+        xconeActor.GetProperty().SetColor(1,0,0);
+        xconeActor.SetScale(coneScale, coneScale, coneScale);
+        xconeActor.SetPosition(axisLength+(coneScale/2), 0.0, 0.0);
+        xconeActor.GetProperty().SetAmbient(coneAmbient);
+        xconeActor.GetProperty().SetOpacity(coneOpacity);
+        
+        //--- y-Cone
+        vtkConeSource ycone = new vtkConeSource();
+        ycone.SetResolution(coneRes);
+        vtkPolyDataMapper yconeMapper = new vtkPolyDataMapper();
+        yconeMapper.SetInput(ycone.GetOutput());
+        vtkActor yconeActor = new vtkActor();
+        yconeActor.SetMapper(yconeMapper);
+        yconeActor.GetProperty().SetColor(0,1,0);
+        yconeActor.RotateZ(90);
+        yconeActor.SetScale(coneScale, coneScale, coneScale);
+        yconeActor.SetPosition(0.0, axisLength+(coneScale/2), 0.0);
+        yconeActor.GetProperty().SetAmbient(coneAmbient);
+        yconeActor.GetProperty().SetOpacity(coneOpacity);
+        
+        //--- z-Cone
+        vtkConeSource zcone = new vtkConeSource();
+        zcone.SetResolution(coneRes);
+        vtkPolyDataMapper zconeMapper = new vtkPolyDataMapper();
+        zconeMapper.SetInput(zcone.GetOutput());
+        vtkActor zconeActor = new vtkActor();
+        zconeActor.SetMapper(zconeMapper);
+        zconeActor.GetProperty().SetColor(0,0,1);
+        zconeActor.RotateY(-90);
+        zconeActor.SetScale(coneScale, coneScale, coneScale);
+        zconeActor.SetPosition(0.0, 0.0, axisLength+(coneScale/2));
+        yconeActor.GetProperty().SetAmbient(coneAmbient);
+        yconeActor.GetProperty().SetOpacity(coneOpacity);
+        
+        this.AddPart(xconeActor);
+        this.AddPart(yconeActor);
+        this.AddPart(zconeActor);
+    }
+    if (includeText) {
+        //--- x-Label
+        vtkVectorText xtext = new vtkVectorText();
+        xtext.SetText("X");
+        vtkPolyDataMapper xtextMapper = new vtkPolyDataMapper();
+        xtextMapper.SetInput(xtext.GetOutput());
+        xtextActor = new vtkFollower();
+        xtextActor.SetMapper(xtextMapper);
+        xtextActor.SetScale(axisTextLength, axisTextLength, axisTextLength);
+        xtextActor.GetProperty().SetColor(1, 0, 0);
+        xtextActor.SetPosition(axisLength, 0.0, 0.0);
+        
+        //--- y-Label
+        vtkVectorText ytext = new vtkVectorText();
+        ytext.SetText("Y");
+        vtkPolyDataMapper ytextMapper = new vtkPolyDataMapper();
+        ytextMapper.SetInput(ytext.GetOutput());
+        ytextActor = new vtkFollower();
+        ytextActor.SetMapper(ytextMapper);
+        ytextActor.SetScale(axisTextLength, axisTextLength, axisTextLength);
+        ytextActor.GetProperty().SetColor(0, 1, 0);
+        ytextActor.SetPosition(0.0, axisLength, 0.0);
+        
+        //--- z-Label
+        vtkVectorText ztext = new vtkVectorText();
+        ztext.SetText("Z");
+        vtkPolyDataMapper ztextMapper = new vtkPolyDataMapper();
+        ztextMapper.SetInput(ztext.GetOutput());
+        ztextActor = new vtkFollower();
+        ztextActor.SetMapper(ztextMapper);
+        ztextActor.SetScale(axisTextLength, axisTextLength, axisTextLength);
+        ztextActor.GetProperty().SetColor(0, 0, 1);
+        ztextActor.SetPosition(0.0, 0.0, axisLength);
+        
+        this.AddPart(xtextActor);
+        this.AddPart(ytextActor);
+        this.AddPart(ztextActor);
+    }
     //this.AddPart(tubeActor);
     this.AddPart(xcylActor);
     this.AddPart(ycylActor);
     this.AddPart(zcylActor);
-    
-    this.AddPart(xconeActor);
-    this.AddPart(yconeActor);
-    this.AddPart(zconeActor);
-    
-    this.AddPart(xtextActor);
-    this.AddPart(ytextActor);
-    this.AddPart(ztextActor);
 
   }
 

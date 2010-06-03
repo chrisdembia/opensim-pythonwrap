@@ -123,7 +123,7 @@ public class SetIKTrial extends OpenSimObject {
   }
 
   public boolean insert(int aIndex, IKTrial aObject) {
-    return opensimModelJNI.SetIKTrial_insert__SWIG_0(swigCPtr, this, aIndex, IKTrial.getCPtr(aObject), aObject);
+    return opensimModelJNI.SetIKTrial_insert(swigCPtr, this, aIndex, IKTrial.getCPtr(aObject), aObject);
   }
 
   public boolean remove(int aIndex) {

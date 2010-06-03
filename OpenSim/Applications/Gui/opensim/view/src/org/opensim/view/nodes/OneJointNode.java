@@ -30,11 +30,14 @@ package org.opensim.view.nodes;
 
 import java.awt.Image;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
+import javax.swing.Action;
 import javax.swing.ImageIcon;
 import org.openide.nodes.Children;
 import org.openide.nodes.Node;
 import org.openide.util.NbBundle;
+import org.openide.util.actions.SystemAction;
 import org.opensim.modeling.CustomJoint;
 import org.opensim.modeling.Joint;
 import org.opensim.modeling.OpenSimObject;
@@ -75,4 +78,25 @@ public class OneJointNode extends OpenSimObjectNode {
 	public Image getOpenedIcon(int i) {
 		return getIcon(i);
 	}
+
+    public Action[] getActions(boolean b) {
+        Action[] superActions = (Action[]) super.getActions(b);        
+        // Arrays are fixed size, onvert to a List
+        List<Action> actions = java.util.Arrays.asList(superActions);
+        // Create new Array of proper size
+        Action[] retActions = new Action[actions.size()];
+        
+        actions.toArray(retActions);
+        /*
+        try {
+            // append new command to the end of the list of actions
+            retActions[actions.size()] = (JointToggleChildFrameAction) JointToggleChildFrameAction.findObject(
+                     (Class)Class.forName("org.opensim.view.nodes.JointToggleChildFrameAction"), true);
+            retActions[actions.size()+1] = (JointToggleParentFrameAction) JointToggleParentFrameAction.findObject(
+                     (Class)Class.forName("org.opensim.view.nodes.JointToggleParentFrameAction"), true);
+        } catch (ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }*/
+        return retActions;
+    }
 }

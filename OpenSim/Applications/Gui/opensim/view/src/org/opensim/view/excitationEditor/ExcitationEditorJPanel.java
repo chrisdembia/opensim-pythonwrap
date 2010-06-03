@@ -1075,13 +1075,13 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
          
          FunctionXYSeries xySeriesMin = new FunctionXYSeries("min");
          SetControlNodes minNodes = cl.getControlMinValues();
-         XYFunctionInterface minFunction = createFunctionFromControlLinear(xySeriesMin, minNodes, true);
+         XYFunctionInterface minFunction = createFunctionFromControlLinear(xySeriesMin, minNodes, false);
          functions.add(minFunction);
          seriesCollection.addSeries(xySeriesMin);
         
          FunctionXYSeries xySeriesMax = new FunctionXYSeries("max");
          SetControlNodes maxNodes = cl.getControlMaxValues();
-         XYFunctionInterface maxFunction = createFunctionFromControlLinear(xySeriesMax, maxNodes, true);
+         XYFunctionInterface maxFunction = createFunctionFromControlLinear(xySeriesMax, maxNodes, false);
          functions.add(maxFunction);
          seriesCollection.addSeries(xySeriesMax);
          

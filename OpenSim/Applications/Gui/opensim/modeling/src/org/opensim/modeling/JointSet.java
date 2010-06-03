@@ -45,8 +45,8 @@ public class JointSet extends ModelComponentSetJoints {
     this(opensimModelJNI.new_JointSet__SWIG_2(JointSet.getCPtr(aJointSet), aJointSet), true);
   }
 
-  public void setup(Model aModel) {
-    opensimModelJNI.JointSet_setup(swigCPtr, this, Model.getCPtr(aModel), aModel);
+  public void populate(Model aModel) {
+    opensimModelJNI.JointSet_populate(swigCPtr, this, Model.getCPtr(aModel), aModel);
   }
 
   public JointSet(Model model, String aFileName, boolean aUpdateFromXMLNode) {

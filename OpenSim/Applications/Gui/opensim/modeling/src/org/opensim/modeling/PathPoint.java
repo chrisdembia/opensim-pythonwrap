@@ -55,7 +55,7 @@ public class PathPoint extends OpenSimObject {
   }
 
   public SWIGTYPE_p_SimTK__Vec3 getLocation() {
-    return new SWIGTYPE_p_SimTK__Vec3(opensimModelJNI.PathPoint_getLocation__SWIG_0(swigCPtr, this), false);
+    return new SWIGTYPE_p_SimTK__Vec3(opensimModelJNI.PathPoint_getLocation(swigCPtr, this), false);
   }
 
   public double getLocationCoord(int aXYZ) {

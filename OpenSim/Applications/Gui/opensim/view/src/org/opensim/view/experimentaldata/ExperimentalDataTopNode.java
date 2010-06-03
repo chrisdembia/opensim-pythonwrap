@@ -29,11 +29,17 @@
 package org.opensim.view.experimentaldata;
 
 import java.awt.Image;
+import java.io.IOException;
 import java.net.URL;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.ResourceBundle;
 import javax.swing.ImageIcon;
+import org.openide.nodes.Node;
 import org.openide.util.NbBundle;
 import org.opensim.modeling.Model;
+import org.opensim.view.motions.MotionEvent;
+import org.opensim.view.motions.MotionsDB;
 import org.opensim.view.nodes.*;
 
 /**
@@ -41,8 +47,9 @@ import org.opensim.view.nodes.*;
  * @author Ayman Habib
  *
  * Top level external(=experimental) data node in Navigator view. 
+ * This node implements Observer so that it can make the motion underneath it uncurrent
  */
-public class ExperimentalDataTopNode extends ConcreteModelNode{
+public class ExperimentalDataTopNode extends ConcreteModelNode implements Observer {
    
    private static ResourceBundle bundle = NbBundle.getBundle(ExperimentalDataTopNode.class);
    
@@ -52,6 +59,7 @@ public class ExperimentalDataTopNode extends ConcreteModelNode{
        String nodeName=bundle.getString("EXPERIMENTALDATA_NODE_ID");
        setDisplayName(nodeName);
        setName(nodeName); // To be used by findNode();
+       MotionsDB.getInstance().addObserver(this);
    }
    
    /**
@@ -91,6 +99,22 @@ public class ExperimentalDataTopNode extends ConcreteModelNode{
 
     public static void setBundle(ResourceBundle aBundle) {
         bundle = aBundle;
+    }
+
+   public void update(Observable o, Object arg) {
+      if (o instanceof MotionsDB && arg instanceof MotionEvent) {
+         // No matter what set the names of the naodes so that the explorer view is updated 
+         // with what's current in bold'
+         Node[] nodes = this.getChildren().getNodes();
+         for(int i=0; i< nodes.length; i++){
+            nodes[i].setName(nodes[i].getName());
+         }
+      }
+   }
+
+    public void destroy() throws IOException {
+        MotionsDB.getInstance().deleteObserver(this);
+        super.destroy();
     }
 
 }

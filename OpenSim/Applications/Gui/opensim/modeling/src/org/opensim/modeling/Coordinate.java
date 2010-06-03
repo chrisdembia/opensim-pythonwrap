@@ -8,7 +8,7 @@
 
 package org.opensim.modeling;
 
-public class Coordinate extends OpenSimObject {
+public class Coordinate extends ModelComponent {
   private long swigCPtr;
 
   public Coordinate(long cPtr, boolean cMemoryOwn) {
@@ -56,14 +56,6 @@ public class Coordinate extends OpenSimObject {
 
   public void setup(Model aModel) {
     opensimModelJNI.Coordinate_setup(swigCPtr, this, Model.getCPtr(aModel), aModel);
-  }
-
-  public void initState(SWIGTYPE_p_SimTK__State s) {
-    opensimModelJNI.Coordinate_initState(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s));
-  }
-
-  public void setDefaultsFromState(SWIGTYPE_p_SimTK__State state) {
-    opensimModelJNI.Coordinate_setDefaultsFromState(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(state));
   }
 
   public void setJoint(Joint aOwningJoint) {

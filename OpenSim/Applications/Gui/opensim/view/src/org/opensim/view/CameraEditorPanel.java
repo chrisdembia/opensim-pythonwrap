@@ -140,7 +140,7 @@ public class CameraEditorPanel extends javax.swing.JPanel implements Observer {
    public CameraEditorPanel() {
       initComponents();
       CameraDB.getInstance().addObserver(this);
-
+      camerasListTable.putClientProperty("terminateEditOnFocusLost", Boolean.TRUE);
       camerasListTable.setTableHeader(null);
       camerasListTable.setModel(camerasListTableModel);
       camerasListTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);

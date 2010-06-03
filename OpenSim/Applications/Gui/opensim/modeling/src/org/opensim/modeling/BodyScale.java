@@ -68,7 +68,7 @@ public class BodyScale extends OpenSimObject {
   }
 
   public ArrayStr getAxisNames() {
-    return new ArrayStr(opensimModelJNI.BodyScale_getAxisNames__SWIG_0(swigCPtr, this), false);
+    return new ArrayStr(opensimModelJNI.BodyScale_getAxisNames(swigCPtr, this), false);
   }
 
   public void setAxisNames(ArrayStr aAxisNames) {

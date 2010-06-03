@@ -77,6 +77,7 @@ public class JTreeTable extends JTable {
 
     public JTreeTable(TreeTableModel treeTableModel) {
 	super();
+        putClientProperty("terminateEditOnFocusLost", Boolean.TRUE);
 
 	// Create the tree. It will be used as a renderer and editor.
 	tree = new TreeTableCellRenderer(treeTableModel);

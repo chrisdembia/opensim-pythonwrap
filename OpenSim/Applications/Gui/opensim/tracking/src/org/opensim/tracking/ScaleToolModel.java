@@ -960,15 +960,16 @@ public class ScaleToolModel extends Observable implements Observer {
    }
 
    public boolean saveSettings(String fileName) {
-      XMLExternalFileChooserHelper helper = new XMLExternalFileChooserHelper(fileName);
+      String fullFilename = FileUtils.addExtensionIfNeeded(fileName, ".xml");
+      XMLExternalFileChooserHelper helper = new XMLExternalFileChooserHelper(fullFilename);
       helper.addObject(scaleTool.getModelScaler().getMeasurementSet(), "Measurement Set");
       helper.addObject(scaleTool.getModelScaler().getScaleSet(), "Scale Set (manual scale factors)");
       helper.addObject(scaleTool.getMarkerPlacer().getIKTaskSet(), "IK Task Set (for static pose)");
       if(!helper.promptUser()) return false;
       updateScaleTool();
-      AbsoluteToRelativePaths(fileName);
-      scaleTool.print(fileName);
-      relativeToAbsolutePaths(fileName);
+      AbsoluteToRelativePaths(fullFilename);
+      scaleTool.print(fullFilename);
+      relativeToAbsolutePaths(fullFilename);
       return true;
    }
 

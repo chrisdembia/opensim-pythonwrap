@@ -532,6 +532,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       // Make a backup of each actuator in the current model and add it to the savedActs hash table.
       if (currentModel != null) {
          ForceSet actuators = currentModel.getForceSet();
+         if (actuators==null) return;
          for (int i=0; i<actuators.getSize(); i++) {
             Muscle muscle = Muscle.safeDownCast(actuators.get(i));
             if (muscle != null) {
@@ -2519,7 +2520,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
             // If any of the event objects is a model not equal to the current model, this means there is a new
             // current model, so we need to handle the event.
             for (int i=0; i<objs.size(); i++) {
-               if (objs.get(i) instanceof Model && !(objs.get(i) instanceof ModelForExperimentalData)) {
+               if (objs.get(i) instanceof Model) {
                   if (currentModel == null || !currentModel.equals(objs.get(i))) {
                      return true;
                   }
@@ -2592,7 +2593,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
             // If any of the event objects is a model not equal to the current model, this means there is a new
             // current model. So clear out the panel.
             for (int i=0; i<objs.size(); i++) {
-               if (objs.get(i) instanceof Model && !(objs.get(i) instanceof ModelForExperimentalData)) {
+               if (objs.get(i) instanceof Model) {
                   if (currentModel == null || !currentModel.equals(objs.get(i))) {
                      currentModel = (Model)objs.get(i);
                      openSimContext = OpenSimDB.getInstance().getContext(currentModel);

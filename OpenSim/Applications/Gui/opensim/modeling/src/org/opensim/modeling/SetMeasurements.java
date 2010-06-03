@@ -123,7 +123,7 @@ public class SetMeasurements extends OpenSimObject {
   }
 
   public boolean insert(int aIndex, Measurement aObject) {
-    return opensimModelJNI.SetMeasurements_insert__SWIG_0(swigCPtr, this, aIndex, Measurement.getCPtr(aObject), aObject);
+    return opensimModelJNI.SetMeasurements_insert(swigCPtr, this, aIndex, Measurement.getCPtr(aObject), aObject);
   }
 
   public boolean remove(int aIndex) {

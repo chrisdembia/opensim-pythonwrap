@@ -31,6 +31,8 @@ import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
 import org.opensim.modeling.Storage;
 import org.opensim.view.ExplorerTopComponent;
+import org.opensim.view.experimentaldata.ModelForExperimentalData;
+import org.opensim.view.pub.OpenSimDB;
 
 public final class MotionsSetCurrentAction extends CallableSystemAction {
     
@@ -40,9 +42,12 @@ public final class MotionsSetCurrentAction extends CallableSystemAction {
     }
     
     public void performAction() {
+        MotionsDB.getInstance().clearCurrent();
         Node[] selected = ExplorerTopComponent.findInstance().getExplorerManager().getSelectedNodes();
         OneMotionNode node = (OneMotionNode)selected[0];
         MotionsDB.getInstance().setCurrent(node.getModel(), (Storage)node.getOpenSimObject());
+        if (node.getModel() instanceof ModelForExperimentalData)
+            OpenSimDB.getInstance().setCurrentModel(node.getModel());
     }
     
     public String getName() {
@@ -61,6 +66,5 @@ public final class MotionsSetCurrentAction extends CallableSystemAction {
     
     protected boolean asynchronous() {
         return false;
-    }
-    
+    }    
 }

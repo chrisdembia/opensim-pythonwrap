@@ -123,7 +123,7 @@ public class SetControls extends OpenSimObject {
   }
 
   public boolean insert(int aIndex, Control aObject) {
-    return opensimModelJNI.SetControls_insert__SWIG_0(swigCPtr, this, aIndex, Control.getCPtr(aObject), aObject);
+    return opensimModelJNI.SetControls_insert(swigCPtr, this, aIndex, Control.getCPtr(aObject), aObject);
   }
 
   public boolean remove(int aIndex) {

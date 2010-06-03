@@ -300,7 +300,7 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
    }
 
    public void updateDialogButtons() {
-      updateApplyButton(!toolModel.isExecuting() && toolModel.isModified() && toolModel.isValid());
+      updateApplyButton(!toolModel.isExecuting() && toolModel.isModified() && toolModel.isValidated());
    }
 
    //---------------------------------------------------------------------

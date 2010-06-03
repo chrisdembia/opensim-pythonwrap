@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ControlSet name="arm26_CMC">
+	<defaults>
+		<ControlLinear name="default">
+			<is_model_control> true </is_model_control>
+			<extrapolate> true </extrapolate>
+			<default_min> 0.02 </default_min>
+			<default_max> 1.00 </default_max>
+			<use_steps> true </use_steps>
+		</ControlLinear>
+	</defaults>
+	<objects>
+
+    <!-- right -->
+    <ControlLinear name="r_shoulder_elev_reserve.excitation">
+      <default_min> -1000 </default_min>
+      <default_max>  1000 </default_max>
+    </ControlLinear>
+    <ControlLinear name="r_elbow_flex_reserve.excitation">
+      <default_min> -1000 </default_min>
+      <default_max>  1000 </default_max>
+    </ControlLinear>
+
+
+		<!-- muscles -->
+		<ControlLinear name="TRIlong.excitation" />
+		<ControlLinear name="TRIlat.excitation" />
+		<ControlLinear name="TRImed.excitation" />
+		<ControlLinear name="BIClong.excitation" />
+		<ControlLinear name="BICshort.excitation" />
+		<ControlLinear name="BRA.excitation" />
+
+	</objects>
+</ControlSet>
+

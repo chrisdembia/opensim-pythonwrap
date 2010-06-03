@@ -27,13 +27,13 @@ public class EditOneForceJPanel extends javax.swing.JPanel {
     boolean initializing;
     ArrayStr lbls;
     private DialogDescriptor dDialog;
-    boolean uniqueNames=false;
+    boolean uniqueNames=false;  // If true we should be using column numbers exclusively
     
     /** Creates new form EditOneForceJPanel */
     public EditOneForceJPanel(PrescribedForce force, Storage storage, Model aModel) {
         prescribedForce = force;
-        forceStorage = storage;
-        uniqueNames = makeStorageLabelsUnique(forceStorage);
+        forceStorage = new Storage(storage);
+        uniqueNames = forceStorage.makeStorageLabelsUnique();
         
         lbls=forceStorage.getColumnLabels();
         model = aModel;
@@ -679,6 +679,7 @@ public class EditOneForceJPanel extends javax.swing.JPanel {
                 while(exist){
                     newName = offending+"("+String.valueOf(c)+")";
                     exist= (lbls.findIndex(newName)!=-1);
+                    c++;
                 }
                 lbls.setitem(i, newName);
             }

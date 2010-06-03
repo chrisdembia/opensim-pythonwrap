@@ -30,6 +30,8 @@ package org.opensim.view.nodes;
 
 import java.util.ArrayList;
 import javax.swing.Action;
+import org.openide.nodes.Children;
+import org.openide.util.lookup.Lookups;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.view.ObjectDisplayHideAction;
 import org.opensim.view.ObjectDisplayMenuAction;
@@ -52,6 +54,14 @@ public class OpenSimObjectNode extends OpenSimNode {
     public OpenSimObjectNode(OpenSimObject obj) {
        this.openSimObject = obj;
        setDisplayName(obj.getName());
+       //super(Children.LEAF, Lookups.fixed( new Object[] {obj} ) );
+
+     }
+    public OpenSimObjectNode(OpenSimObject obj, boolean leaf) {
+      super(Children.LEAF, Lookups.fixed( new Object[] {obj} ) );
+      this.openSimObject = obj;
+       setDisplayName(obj.getName());
+
      }
     /**
      * Display name 

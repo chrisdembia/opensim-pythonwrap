@@ -359,7 +359,7 @@
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="DatafileNameLabel" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Component id="externalLoadsDataFileName" pref="330" max="32767" attributes="0"/>
+              <Component id="externalLoadsDataFileName" pref="326" max="32767" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
           <Component id="ForcesListManagerPanel" alignment="0" max="32767" attributes="0"/>
@@ -395,7 +395,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="DatafileNameLabel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Foce data file"/>
+        <Property name="text" type="java.lang.String" value="Force data file"/>
       </Properties>
     </Component>
     <Container class="javax.swing.JPanel" name="ForcesListManagerPanel">

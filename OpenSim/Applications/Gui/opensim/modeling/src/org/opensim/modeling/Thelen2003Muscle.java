@@ -166,10 +166,6 @@ public class Thelen2003Muscle extends Muscle {
     return opensimModelJNI.Thelen2003Muscle_setFlen(swigCPtr, this, aFlen);
   }
 
-  public void setup(Model aModel) {
-    opensimModelJNI.Thelen2003Muscle_setup(swigCPtr, this, Model.getCPtr(aModel), aModel);
-  }
-
   public static boolean isKindOf(String type) {
     return opensimModelJNI.Thelen2003Muscle_isKindOf(type);
   }

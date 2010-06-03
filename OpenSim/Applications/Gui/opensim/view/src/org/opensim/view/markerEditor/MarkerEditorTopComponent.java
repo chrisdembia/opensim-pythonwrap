@@ -967,6 +967,7 @@ final public class MarkerEditorTopComponent extends TopComponent implements Obse
             markerset.remove(marker);
             if (sendEvent)
                objs.add(marker);
+            marker.removeSelfFromDisplay();
             numMarkersDeleted++;
          }
       }
@@ -1267,7 +1268,7 @@ final public class MarkerEditorTopComponent extends TopComponent implements Obse
             // If any of the event objects is a model not equal to the current model, this means there is a new
             // current model. So clear out the panel.
             for (int i=0; i<objs.size(); i++) {
-               if (objs.get(i) instanceof Model && !(objs.get(i) instanceof ModelForExperimentalData)) {
+               if (objs.get(i) instanceof Model) {
                   if (currentModel == null || !currentModel.equals(objs.get(i))) {
                      currentModel = (Model)objs.get(i);
                      currentMarker = null;

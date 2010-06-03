@@ -63,11 +63,9 @@ import javax.swing.tree.TreePath;
 import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
 import org.opensim.modeling.Coordinate;
-import org.opensim.modeling.Analysis;
 import org.opensim.modeling.AnalysisSet;
 import org.opensim.modeling.AnalyzeTool;
 import org.opensim.modeling.ArrayDouble;
-import org.opensim.modeling.ArrayStorage;
 import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.CoordinateSet;
 import org.opensim.modeling.Model;
@@ -85,6 +83,7 @@ import org.opensim.view.ModelEvent;
 import org.opensim.view.ObjectSetCurrentEvent;
 import org.opensim.view.ObjectsRenamedEvent;
 import org.opensim.view.SingleModelGuiElements;
+import org.opensim.view.experimentaldata.ModelForExperimentalData;
 import org.opensim.view.pub.OpenSimDB;
 import org.opensim.view.pub.ViewDB;
 /**
@@ -1449,7 +1448,10 @@ public class JPlotterPanel extends javax.swing.JPanel
     */
    void runAnalysisTool(PlotterSourceAnalysis source, PlotterSourceInterface motion, String[] ranges) {
       AnalyzeTool tool = plotterModel.getAnalyzeTool(currentModel);
-      tool.setSolveForEquilibrium(true);
+      if (motion instanceof PlotterSourceMotion || motion instanceof PlotterSourceStorage)
+          tool.setSolveForEquilibrium(!motion.hasFullState(currentModel));
+      else 
+            tool.setSolveForEquilibrium(true);
       PlotterSourceAnalysis analysisSource = (PlotterSourceAnalysis)source;
       plotterModel.configureAnalyses(tool, analysisSource, domainName, ranges);
       
@@ -1517,6 +1519,7 @@ public class JPlotterPanel extends javax.swing.JPanel
       } catch (IOException ex) {
          ex.printStackTrace();
       }
+      openSimContext.setStates(saveStates);
       analysisSource.getStorage().print("toolOutput.sto");
       currentModel.getSimbodyEngine().convertRadiansToDegrees(analysisSource.getStorage());
       currentModel.getSimbodyEngine().convertRadiansToDegrees(statesStorage);
@@ -1559,7 +1562,7 @@ public class JPlotterPanel extends javax.swing.JPanel
    }
    
    private void processCurrentModel() {
-      if (currentModel!=null){
+      if (currentModel!=null && !(currentModel instanceof ModelForExperimentalData) ){
          initAnalyses();
          statesStorage=createStateStorageWithHeader(currentModel);
       }
@@ -1575,7 +1578,7 @@ public class JPlotterPanel extends javax.swing.JPanel
       // Add analyses
       // Add Motions
       // Add files
-      if (currentModel!=null){
+      if (currentModel!=null ){
          // Built in
          ////////////////////////////////////////////////////////////////////////
          // Analyses
@@ -1587,6 +1590,7 @@ public class JPlotterPanel extends javax.swing.JPanel
          //assert(analyses!=null);
          boolean addedSomething=false;
          /// Builtin
+         if (! (currentModel instanceof ModelForExperimentalData)){
          for (int i=0; i< plotterModel.getBuiltinQuantities().length; i++){
             final String qName = plotterModel.getBuiltinQuantities()[i];
             if (qName.startsWith("moment")){   // Need a cascade menu to select a GC
@@ -1628,7 +1632,9 @@ public class JPlotterPanel extends javax.swing.JPanel
                }
             });
          }
+         }
          // Other Analyses
+         /*
          for(int i=0;i<analyses.getSize();i++){
             final Analysis nextAnalysis = analyses.get(i);
             if (nextAnalysis.getName().equalsIgnoreCase("MuscleAnalysis"))
@@ -1657,6 +1663,7 @@ public class JPlotterPanel extends javax.swing.JPanel
             jSourcePopupMenu.add(nextAnalysisSubmenu);
             addedSomething=true;
          }  // Current model's analyses'
+          **/
          jSourcePopupMenu.addSeparator();
          // Now motions
          ////////////////////////////////////////////////////////////////////////

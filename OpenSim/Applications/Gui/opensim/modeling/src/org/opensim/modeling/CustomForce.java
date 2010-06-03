@@ -33,8 +33,4 @@ public class CustomForce extends Force {
     super.delete();
   }
 
-  public void createSystem(SWIGTYPE_p_SimTK__MultibodySystem system) {
-    opensimModelJNI.CustomForce_createSystem(swigCPtr, this, SWIGTYPE_p_SimTK__MultibodySystem.getCPtr(system));
-  }
-
 }

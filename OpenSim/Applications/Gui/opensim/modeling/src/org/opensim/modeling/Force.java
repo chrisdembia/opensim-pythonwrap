@@ -33,12 +33,13 @@ public class Force extends ModelComponent {
     super.delete();
   }
 
-  public void setup(Model model) {
-    opensimModelJNI.Force_setup(swigCPtr, this, Model.getCPtr(model), model);
+  public void copyData(Force aForce) {
+    opensimModelJNI.Force_copyData(swigCPtr, this, Force.getCPtr(aForce), aForce);
   }
 
-  public void postInit(Model model) {
-    opensimModelJNI.Force_postInit(swigCPtr, this, Model.getCPtr(model), model);
+  public OpenSimObject copy() {
+    long cPtr = opensimModelJNI.Force_copy(swigCPtr, this);
+    return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
   public int getNumStateVariables() {
@@ -57,20 +58,20 @@ public class Force extends ModelComponent {
     opensimModelJNI.Force_setStateVariable(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(state), index, value);
   }
 
-  public Force(SWIGTYPE_p_DOMElement aNode) {
-    this(opensimModelJNI.new_Force__SWIG_0(SWIGTYPE_p_DOMElement.getCPtr(aNode)), true);
-  }
-
-  public Force() {
-    this(opensimModelJNI.new_Force__SWIG_1(), true);
-  }
-
   public ArrayStr getRecordLabels() {
     return new ArrayStr(opensimModelJNI.Force_getRecordLabels(swigCPtr, this), true);
   }
 
   public ArrayDouble getRecordValues(SWIGTYPE_p_SimTK__State state) {
     return new ArrayDouble(opensimModelJNI.Force_getRecordValues(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(state)), true);
+  }
+
+  public boolean isDisabled(SWIGTYPE_p_SimTK__State s) {
+    return opensimModelJNI.Force_isDisabled(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s));
+  }
+
+  public void setDisabled(SWIGTYPE_p_SimTK__State s, boolean disabled) {
+    opensimModelJNI.Force_setDisabled(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), disabled);
   }
 
 }

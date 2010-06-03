@@ -123,7 +123,7 @@ public class SetContactGeometry extends OpenSimObject {
   }
 
   public boolean insert(int aIndex, ContactGeometry aObject) {
-    return opensimModelJNI.SetContactGeometry_insert__SWIG_0(swigCPtr, this, aIndex, ContactGeometry.getCPtr(aObject), aObject);
+    return opensimModelJNI.SetContactGeometry_insert(swigCPtr, this, aIndex, ContactGeometry.getCPtr(aObject), aObject);
   }
 
   public boolean remove(int aIndex) {

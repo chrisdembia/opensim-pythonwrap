@@ -72,7 +72,7 @@ public class FileOpenOsimModelAction extends CallableSystemAction {
                    String newOsimFileName = FileUtils.addSuffix(fileName, "_v18");
                    String command = "migrate15to18.exe \"" + fileName + "\"" + " \"" + newOsimFileName + "\"";
                    OpenSimLogger.logMessage("Executing ["+command+"]", 0);
-                   boolean success = ExecOpenSimProcess.execute(command, new String[]{""}, modelDir );
+                   boolean success = ExecOpenSimProcess.execute(command, null, modelDir );
                    // if file was not generated warn and point to message area
                    File testExists = new File(newOsimFileName);
                    if (!testExists.exists()){

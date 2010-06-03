@@ -44,6 +44,7 @@ import org.opensim.modeling.ForceSet;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.modeling.PrescribedForce;
 import org.opensim.modeling.Storage;
+import org.opensim.utils.FileUtils;
 
 /**
  *
@@ -75,6 +76,14 @@ public class EditPrescribedForceSetPanel extends javax.swing.JPanel
         initComponents();
         externalLoadsDataFileName.setExtensionsAndDescription(".sto,.mot", "Data file for prescribed forces");
         String dataFile = dTool.getExternalForceSet().getDataFileName();
+        File extForcesFile = new File(extFileName);
+        if (extForcesFile.exists() && dataFile!=""){
+            // Make dataFile relative to path of extForcesFile
+            if (dataFile.indexOf(File.separatorChar)==-1){
+                String parentDir = extForcesFile.getParent();
+                dataFile = parentDir+File.separator+dataFile;
+            }
+        }
         externalLoadsDataFileName.setFileName(dataFile);
         if (dataFile!="" && dataFile !=null && new File(dataFile).exists()){
             try {
@@ -304,7 +313,7 @@ public class EditPrescribedForceSetPanel extends javax.swing.JPanel
             }
         });
 
-        DatafileNameLabel.setText("Foce data file");
+        DatafileNameLabel.setText("Force data file");
 
         ForcesListManagerPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Specify Forces/Torques for model"));
         jForcesList.setModel(forceListModel);
@@ -367,7 +376,7 @@ public class EditPrescribedForceSetPanel extends javax.swing.JPanel
                 .addContainerGap()
                 .add(DatafileNameLabel)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(externalLoadsDataFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
+                .add(externalLoadsDataFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
                 .addContainerGap())
             .add(ForcesListManagerPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );

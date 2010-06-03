@@ -14,15 +14,15 @@ public final class StaticOptimizationAction extends CallableSystemAction {
     
     public void performAction() {
         // TODO implement action body
-      Model model = OpenSimDB.getInstance().getCurrentModel();
-      if(model==null) return;
-
-      try {
-         final AnalyzeAndForwardToolPanel panel = new AnalyzeAndForwardToolPanel(model,AnalyzeAndForwardToolPanel.Mode.StaticOptimization);
-         BaseToolPanel.openToolDialog(panel, "Static Optimization Tool");
-      } catch (IOException ex) {
-         ErrorDialog.displayIOExceptionDialog("Static Optimization Tool Error","Error while initializing static optimization tool",ex);
-      }
+        Model model = OpenSimDB.getInstance().getCurrentModel();
+        if(model==null) return;
+        
+        try {
+            final AnalyzeAndForwardToolPanel panel = new AnalyzeAndForwardToolPanel(model,AnalyzeAndForwardToolPanel.Mode.StaticOptimization);
+            BaseToolPanel.openToolDialog(panel, "Static Optimization Tool");
+        } catch (IOException ex) {
+            ErrorDialog.displayIOExceptionDialog("Static Optimization Tool Error","Error while initializing static optimization tool",ex);
+        }
     }
     
     public String getName() {
@@ -42,8 +42,9 @@ public final class StaticOptimizationAction extends CallableSystemAction {
     protected boolean asynchronous() {
         return false;
     }
-
+    
     public boolean isEnabled() {
-      return OpenSimDB.getInstance().getCurrentModel()!=null;
-   }    
+        return (OpenSimDB.getInstance().getCurrentModel()!=null &&
+                OpenSimDB.getInstance().getCurrentModel().getForceSet().getSize()!=0);
+    }
 }

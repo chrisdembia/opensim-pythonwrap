@@ -6,11 +6,14 @@
 
 package org.opensim.view.experimentaldata;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Vector;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import org.opensim.modeling.ArrayStr;
+import org.opensim.utils.FileUtils;
 import org.opensim.view.SingleModelVisuals;
 import org.opensim.view.motions.MotionControlJPanel;
 import org.opensim.view.motions.MotionDisplayer;
@@ -49,11 +52,11 @@ public class ClassifyDataJPanel extends javax.swing.JPanel {
     
     private AnnotatedMotion amotion;
     ExperimentalDataTreeModel treeModel;
-    RotationSpinnerListModel xSpinnerModel=new RotationSpinnerListModel(0., 0., 270., 90.);
-    RotationSpinnerListModel ySpinnerModel=new RotationSpinnerListModel(0., 0., 270., 90.);
-    RotationSpinnerListModel zSpinnerModel=new RotationSpinnerListModel(0., 0., 270., 90.);
+    RotationSpinnerListModel xSpinnerModel=new RotationSpinnerListModel(0., -270., 360., 90.);
+    RotationSpinnerListModel ySpinnerModel=new RotationSpinnerListModel(0., -270., 360., 90.);
+    RotationSpinnerListModel zSpinnerModel=new RotationSpinnerListModel(0., -270., 360., 90.);
     MotionDisplayer displayer;
-    private vtkTransform lastTranform;
+    private vtkTransform lastTranform = new vtkTransform();
     private double[] rotations = new double[]{0., 0., 0.};
    /** Creates new form ClassifyDataJPanel */
     public ClassifyDataJPanel() {
@@ -194,7 +197,6 @@ public class ClassifyDataJPanel extends javax.swing.JPanel {
 
         saveTransformedAsButton.setText("Save As...");
         saveTransformedAsButton.setToolTipText("Save transformed data into a new file");
-        saveTransformedAsButton.setEnabled(false);
         saveTransformedAsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 saveTransformedAsButtonActionPerformed(evt);
@@ -229,7 +231,7 @@ public class ClassifyDataJPanel extends javax.swing.JPanel {
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                     .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel1Layout.createSequentialGroup()
                         .add(jTransformDataPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 99, Short.MAX_VALUE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 113, Short.MAX_VALUE)
                         .add(saveTransformedAsButton))
                     .add(org.jdesktop.layout.GroupLayout.LEADING, jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE))
                 .addContainerGap())
@@ -249,8 +251,37 @@ public class ClassifyDataJPanel extends javax.swing.JPanel {
 
     private void saveTransformedAsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveTransformedAsButtonActionPerformed
 // TODO add your handling code here:
+      String fileName = FileUtils.getInstance().browseForFilenameToSave(FileUtils.MotionFileFilter, 
+              true,
+              "transformed_"+amotion.getName());
+      if (fileName!=null)
+        saveTransformedMotion(amotion, fileName);
     }//GEN-LAST:event_saveTransformedAsButtonActionPerformed
 
+    public static boolean saveTransformedMotion(AnnotatedMotion dMotion, String fileName){
+      boolean success = false;
+      if(fileName!=null) {
+          String currentExtension = FileUtils.getExtension(dMotion.getName());
+         // If no extension was specified, append ".mot or .trc"
+         if (!(fileName.endsWith(currentExtension)))
+             fileName.concat(currentExtension);
+            try {
+                // getCurrentRotations into lastTransform
+                vtkTransform dTransform = new vtkTransform();
+                dTransform.RotateX(dMotion.getCurrentRotations()[0]);
+                dTransform.RotateY(dMotion.getCurrentRotations()[1]);
+                dTransform.RotateZ(dMotion.getCurrentRotations()[2]);
+                dMotion.saveAs(fileName, dTransform);
+                success = true;
+            } catch (FileNotFoundException ex) {
+                ex.printStackTrace();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+      }  
+      return success;
+    }
+    
     private void ZSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_ZSpinnerStateChanged
         double delta = getRotationAngleChange(evt);
         updateTransform(xSpinnerModel.getLastValue(), 
@@ -303,6 +334,7 @@ public class ClassifyDataJPanel extends javax.swing.JPanel {
         ViewDB.getInstance().setOrientation(displayer.getModel(), getRotations());
         ViewDB.getInstance().updateAnnotationAnchors();
         ViewDB.getInstance().repaintAll();
+        amotion.setCurrentRotations(getRotations());
     }
 
     void resetTransforms() {

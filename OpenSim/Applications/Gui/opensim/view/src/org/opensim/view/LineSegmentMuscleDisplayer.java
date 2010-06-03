@@ -69,7 +69,8 @@ public class LineSegmentMuscleDisplayer {
       updateGeometry(true);
    }
 
-    private void freeGlyphIds() {
+   private void freeGlyphIds()
+   {
       //System.out.println("LineSegmentMuscleDisplay ("+act.getName()+"): freeGlyphIds");
       for(int i=0; i<musclePointGlyphIds.size(); i++) musclePointsRep.remove(musclePointGlyphIds.get(i));
       musclePointGlyphIds.clear();
@@ -79,7 +80,8 @@ public class LineSegmentMuscleDisplayer {
    }
 
    // TODO: deal with remapping selections?
-    private void updateGlyphIds() {
+   private void updateGlyphIds()
+   {
       int oldPointsSize = musclePointGlyphIds.size();
       int oldSegmentsSize = muscleSegmentGlyphIds.size();
 
@@ -139,13 +141,15 @@ public class LineSegmentMuscleDisplayer {
       }
    }
 
-    public void addGeometry() {
+   public void addGeometry()
+   {
       openSimContext.updateDisplayer(act);
       updateGlyphIds();
       updateGeometry(false);
    }
 
-    public void updateGeometry(boolean callUpdateDisplayer) {
+   public void updateGeometry(boolean callUpdateDisplayer)
+   {
       // Get attachments and connect them
       if(callUpdateDisplayer) openSimContext.updateDisplayer(act);
       VisibleObject actuatorDisplayer = act.getDisplayer();
@@ -249,7 +253,8 @@ public class LineSegmentMuscleDisplayer {
       //musclePointsRep.setModified();
    }
 
-    public void removeGeometry() {
+   public void removeGeometry()
+   {
       freeGlyphIds();
       VisibleObject actuatorDisplayer = act.getDisplayer();
       if(actuatorDisplayer!=null) actuatorDisplayer.getVisibleProperties().setDisplayPreference(DisplayPreference.None);
@@ -301,7 +306,8 @@ public class LineSegmentMuscleDisplayer {
     /**
      * Normalize a vector and return its length
      */
-    private double normalizeAndGetLength(double[] vector3) {
+    private double normalizeAndGetLength(double[] vector3)
+    {
         double length = Math.sqrt(vector3[0]*vector3[0]+
                                   vector3[1]*vector3[1]+
                                   vector3[2]*vector3[2]);

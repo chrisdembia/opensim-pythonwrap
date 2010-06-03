@@ -123,7 +123,7 @@ public class SetJoints extends OpenSimObject {
   }
 
   public boolean insert(int aIndex, Joint aObject) {
-    return opensimModelJNI.SetJoints_insert__SWIG_0(swigCPtr, this, aIndex, Joint.getCPtr(aObject), aObject);
+    return opensimModelJNI.SetJoints_insert(swigCPtr, this, aIndex, Joint.getCPtr(aObject), aObject);
   }
 
   public boolean remove(int aIndex) {
