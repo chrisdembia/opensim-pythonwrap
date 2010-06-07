@@ -36,9 +36,9 @@ public class BodyRep extends vtkAssembly{
     private boolean showJointBFrame = false;
     protected Hashtable<Body, FrameActor> mapChildren2Frames = new Hashtable<Body, FrameActor>(2);
     private double bFrameScale =1.2;
-    private double bFrameRadius =0.5;
-    private double pFrameScale = bFrameScale;
-    private double pFrameRadius = bFrameRadius;
+    private double bFrameRadius =0.005;
+    private double pFrameScale = 1.6;
+    private double pFrameRadius = .003;
     
     private Body body;
     /** Creates a new instance of BodyRep */
@@ -48,7 +48,10 @@ public class BodyRep extends vtkAssembly{
       jointBFrame.SetScale(bFrameScale);
       jointBFrame.setRadius(bFrameRadius);
       jointBFrame.GetProperty().SetOpacity(0.5);
-      jointBFrame.GetProperty().SetLineStipplePattern(1);
+      bodyAxes.SetScale(2.);
+      bodyAxes.setRadius(0.001);
+      //bodyAxes.setSymmetric(true);
+      //jointBFrame.GetProperty().SetLineStipplePattern(1);
       VisibleObject bodyDisplayer = body.getDisplayer();
 
       // Scale
@@ -143,7 +146,8 @@ public class BodyRep extends vtkAssembly{
         }
     }
 
-    public void setShowJointPFrame(Body body){
+    public void setShowJointPFrame(Body body, boolean state){
+        if (state){
         FrameActor jointPFrame = new FrameActor();
         jointPFrame.SetScale(pFrameScale); //.2
         jointPFrame.setRadius(pFrameRadius); //.02
@@ -153,12 +157,22 @@ public class BodyRep extends vtkAssembly{
         jointPFrame.SetPosition(location);
         body.getJoint().getOrientationInParent(orientation);
         jointPFrame.SetOrientation(orientation);
-        jointPFrame.GetProperty().SetOpacity(0.5);
+            jointPFrame.GetProperty().SetOpacity(0.75);
         jointPFrame.GetProperty().SetLineStipplePattern(2);
         AddPart(jointPFrame);   
         Modified();
         mapChildren2Frames.put(body, jointPFrame);
     }
+        else {  // Removing
+            FrameActor jointPFrame = mapChildren2Frames.get(body);
+            RemovePart(jointPFrame);   
+            Modified();
+            mapChildren2Frames.remove(body);
+        }
+    }
 
+    public boolean isShowJointPFrame(Body body){
+        return (mapChildren2Frames.get(body)!=null);
+    }
 
 }

@@ -84,10 +84,10 @@ public class OneJointNode extends OpenSimObjectNode {
         // Arrays are fixed size, onvert to a List
         List<Action> actions = java.util.Arrays.asList(superActions);
         // Create new Array of proper size
-        Action[] retActions = new Action[actions.size()];
+        Action[] retActions = new Action[actions.size()+2];
         
         actions.toArray(retActions);
-        /*
+        
         try {
             // append new command to the end of the list of actions
             retActions[actions.size()] = (JointToggleChildFrameAction) JointToggleChildFrameAction.findObject(
@@ -96,7 +96,7 @@ public class OneJointNode extends OpenSimObjectNode {
                      (Class)Class.forName("org.opensim.view.nodes.JointToggleParentFrameAction"), true);
         } catch (ClassNotFoundException ex) {
             ex.printStackTrace();
-        }*/
+        }
         return retActions;
     }
 }

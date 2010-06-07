@@ -18,9 +18,12 @@ public class FrameActor extends vtkActor{
     private double defaultScale=.1;
     private double defaultRadius=.001;
     private static int Resolution=8;
+    private boolean symmetric=false;
+    private vtkAxes axesGeometry;
+    private vtkTubeFilter dFilter;
     /** Creates a new instance of FrameActor */
     public FrameActor() {
-        vtkAxes axesGeometry= new vtkAxes();
+        axesGeometry= new vtkAxes();
         axesGeometry.Update();
         vtkDataArray dArray=axesGeometry.GetOutput().GetPointData().GetScalars();
         dArray.SetTuple1(2, 0.5);
@@ -30,7 +33,7 @@ public class FrameActor extends vtkActor{
         axesGeometry.GetOutput().GetPointData().SetScalars(dArray);
         axesGeometry.SetOrigin(0., 0., 0.);
         axesGeometry.SetScaleFactor(defaultScale);
-        vtkTubeFilter dFilter = new vtkTubeFilter();
+        dFilter = new vtkTubeFilter();
         dFilter.SetInput(axesGeometry.GetOutput());
         dFilter.SetRadius(defaultRadius);
         dFilter.SetNumberOfSides(getResolution());
@@ -44,7 +47,7 @@ public class FrameActor extends vtkActor{
     }
 
     public void setRadius(double aRadius) {
-        defaultRadius = aRadius;
+        dFilter.SetRadius(aRadius);
         Modified();
     }
     public static int getResolution() {
@@ -53,6 +56,18 @@ public class FrameActor extends vtkActor{
 
     public static void setResolution(int aResolution) {
         Resolution = aResolution;
+    }
+
+    public boolean isSymmetric() {
+        return symmetric;
+    }
+
+    public void setSymmetric(boolean symmetric) {
+        this.symmetric = symmetric;
+        if (symmetric) 
+            axesGeometry.SymmetricOn();
+        else
+            axesGeometry.SymmetricOff();
     }
     
     
