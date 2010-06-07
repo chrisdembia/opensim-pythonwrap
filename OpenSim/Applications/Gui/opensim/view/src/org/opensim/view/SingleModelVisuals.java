@@ -239,7 +239,7 @@ public class SingleModelVisuals {
                            ConditionalPathPoint.safeDownCast(owner)!=null){
                    // Muscle points are handled in addActuatorsGeometry
                 } else {
-                   vtkActor attachmentRep = createAndAddDependentObjectActor(modelAssembly, Dependent, modelFilePath);
+                   vtkActor attachmentRep = createAndAddDependentObjectActor(bodyRep, Dependent, modelFilePath);
                    if(attachmentRep!=null) {
                       mapObject2VtkObjects.put(Dependent.getOwner(), attachmentRep);
                       mapVtkObjects2Objects.put(attachmentRep, Dependent.getOwner());
@@ -270,74 +270,74 @@ public class SingleModelVisuals {
     }
 
    /**
-    * Create actor for a single Body
-    *
-   private vtkProp3D createAndAddBodyActor(vtkAssembly modelAssembly, Body body, String modelFilePath)
-   {
-      vtkActor bodyRep = new vtkActor();
-
-      VisibleObject bodyDisplayer = body.getDisplayer();
-
-      vtkAppendPolyData bodyPolyData = new vtkAppendPolyData();
-      // For each bone in the current body.
-      for (int k = 0; k < bodyDisplayer.getNumGeometryFiles(); ++k) {
-          String boneFile = GeometryFileLocator.getInstance().getFullname(modelFilePath,bodyDisplayer.getGeometryFileName(k), debug);
-          if (boneFile==null)
-             continue;
-          if (boneFile.toLowerCase().endsWith(".vtp")){
-              vtkXMLPolyDataReader polyReader = new vtkXMLPolyDataReader();
-              polyReader.SetFileName(boneFile);
-
-              vtkPolyData poly = polyReader.GetOutput();
-              // Create polyData and append it to one common polyData object
-              bodyPolyData.AddInput(poly);
-              polyReader.GetOutput().ReleaseDataFlagOn();
-          }
-          else if (boneFile.toLowerCase().endsWith(".stl")){
-              vtkSTLReader polyReader = new vtkSTLReader();
-              polyReader.SetFileName(boneFile);
-
-              vtkPolyData poly = polyReader.GetOutput();
-              // Create polyData and append it to one common polyData object
-              bodyPolyData.AddInput(poly);
-              polyReader.GetOutput().ReleaseDataFlagOn();             
-          }
-          else if (boneFile.toLowerCase().endsWith(".obj")){
-              vtkOBJReader polyReader = new vtkOBJReader();
-              polyReader.SetFileName(boneFile);
-
-              vtkPolyData poly = polyReader.GetOutput();
-              // Create polyData and append it to one common polyData object
-              bodyPolyData.AddInput(poly);
-              polyReader.GetOutput().ReleaseDataFlagOn();             
-          }
-          else
-              System.out.println("Unexpected extension for geometry file"+boneFile+"while processing body "+body.getName());
-      }
-      // Mapper
-      vtkPolyDataMapper bodyMapper = new vtkPolyDataMapper();
-      bodyMapper.SetInput(bodyPolyData.GetOutput());  bodyPolyData=null;
-      bodyRep.SetMapper(bodyMapper);
-      
-      // Scale
-      double[] scales = new double[3];
-      bodyDisplayer.getScaleFactors(scales);
-      bodyRep.SetScale(scales);
-
-      // Add to assembly only if populated to avoid artificially big bounding box
-      if (bodyDisplayer.getNumGeometryFiles()>0) {
-         bodiesCollection.AddItem(bodyRep);
-         modelAssembly.AddPart(bodyRep);
-      }
-      applyDisplayPrefs(bodyDisplayer, bodyRep);
-      return bodyRep;
-   }
-
-   /**
-    * Create actor for wrap object(s)
-    * TODO: Does this really handle multiple geometries under the visibleObject?
-    */
-   private vtkActor createAndAddDependentObjectActor(vtkAssembly modelAssembly, VisibleObject visibleObject, String modelPath)
+     * Create actor for a single Body
+     * 
+     *   private vtkProp3D createAndAddBodyActor(vtkAssembly bodyAssembly, Body body, String modelFilePath)
+     *   {
+     *      vtkActor bodyRep = new vtkActor();
+     * 
+     *      VisibleObject bodyDisplayer = body.getDisplayer();
+     * 
+     *      vtkAppendPolyData bodyPolyData = new vtkAppendPolyData();
+     *      // For each bone in the current body.
+     *      for (int k = 0; k < bodyDisplayer.getNumGeometryFiles(); ++k) {
+     *          String boneFile = GeometryFileLocator.getInstance().getFullname(modelFilePath,bodyDisplayer.getGeometryFileName(k), debug);
+     *          if (boneFile==null)
+     *             continue;
+     *          if (boneFile.toLowerCase().endsWith(".vtp")){
+     *              vtkXMLPolyDataReader polyReader = new vtkXMLPolyDataReader();
+     *              polyReader.SetFileName(boneFile);
+     * 
+     *              vtkPolyData poly = polyReader.GetOutput();
+     *              // Create polyData and append it to one common polyData object
+     *              bodyPolyData.AddInput(poly);
+     *              polyReader.GetOutput().ReleaseDataFlagOn();
+     *          }
+     *          else if (boneFile.toLowerCase().endsWith(".stl")){
+     *              vtkSTLReader polyReader = new vtkSTLReader();
+     *              polyReader.SetFileName(boneFile);
+     * 
+     *              vtkPolyData poly = polyReader.GetOutput();
+     *              // Create polyData and append it to one common polyData object
+     *              bodyPolyData.AddInput(poly);
+     *              polyReader.GetOutput().ReleaseDataFlagOn();             
+     *          }
+     *          else if (boneFile.toLowerCase().endsWith(".obj")){
+     *              vtkOBJReader polyReader = new vtkOBJReader();
+     *              polyReader.SetFileName(boneFile);
+     * 
+     *              vtkPolyData poly = polyReader.GetOutput();
+     *              // Create polyData and append it to one common polyData object
+     *              bodyPolyData.AddInput(poly);
+     *              polyReader.GetOutput().ReleaseDataFlagOn();             
+     *          }
+     *          else
+     *              System.out.println("Unexpected extension for geometry file"+boneFile+"while processing body "+body.getName());
+     *      }
+     *      // Mapper
+     *      vtkPolyDataMapper bodyMapper = new vtkPolyDataMapper();
+     *      bodyMapper.SetInput(bodyPolyData.GetOutput());  bodyPolyData=null;
+     *      bodyRep.SetMapper(bodyMapper);
+     *      
+     *      // Scale
+     *      double[] scales = new double[3];
+     *      bodyDisplayer.getScaleFactors(scales);
+     *      bodyRep.SetScale(scales);
+     * 
+     *      // Add to assembly only if populated to avoid artificially big bounding box
+     *      if (bodyDisplayer.getNumGeometryFiles()>0) {
+     *         bodiesCollection.AddItem(bodyRep);
+     *         bodyAssembly.AddPart(bodyRep);
+     *      }
+     *      applyDisplayPrefs(bodyDisplayer, bodyRep);
+     *      return bodyRep;
+     *   }
+     * 
+     *   /**
+     * Create actor for wrap object(s)
+     * TODO: Does this really handle multiple geometries under the visibleObject?
+     */
+   private vtkActor createAndAddDependentObjectActor(vtkAssembly bodyAssembly, VisibleObject visibleObject, String modelPath)
    {
       vtkActor attachmentRep = new vtkActor();
       for(int gc=0; gc<visibleObject.countGeometry(); gc++){
@@ -396,7 +396,7 @@ public class SingleModelVisuals {
          }
       }
 
-      if(attachmentRep!=null) modelAssembly.AddPart(attachmentRep);
+      if(attachmentRep!=null) bodyAssembly.AddPart(attachmentRep);
       applyDisplayPrefs(visibleObject,attachmentRep);
       return attachmentRep;
    }
@@ -434,8 +434,8 @@ public class SingleModelVisuals {
                 } else {
                    // Must be a wrap object, so we set the wrap object's transform to the body transform (the wrap object
                    // has an additional xform that was set in createModelAssembly specifying the wrap object's xform in its parent body's space)
-                   vtkProp3D deptAssembly = mapObject2VtkObjects.get(dependent.getOwner());
-                   deptAssembly.SetUserMatrix(bodyVtkTransform);
+                   //vtkProp3D deptAssembly = mapObject2VtkObjects.get(dependent.getOwner());
+                   //deptAssembly.SetUserMatrix(bodyVtkTransform);
                 }
             }
         }
