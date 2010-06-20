@@ -158,6 +158,10 @@ public class Muscle extends CustomActuator {
     return opensimModelJNI.Muscle_computeActuation(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s));
   }
 
+  public double computeMomentArm(SWIGTYPE_p_SimTK__State s, Coordinate aCoord) {
+    return opensimModelJNI.Muscle_computeMomentArm(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), Coordinate.getCPtr(aCoord), aCoord);
+  }
+
   public double computeLengtheningSpeed(SWIGTYPE_p_SimTK__State s) {
     return opensimModelJNI.Muscle_computeLengtheningSpeed(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s));
   }

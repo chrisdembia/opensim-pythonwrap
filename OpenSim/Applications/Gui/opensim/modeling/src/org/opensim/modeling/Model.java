@@ -156,8 +156,8 @@ public class Model extends ModelComponent {
     opensimModelJNI.Model_addBody(swigCPtr, this, Body.getCPtr(aBody), aBody);
   }
 
-  public void addConstraint(SWIGTYPE_p_OpenSim__Constraint aConstraint) {
-    opensimModelJNI.Model_addConstraint(swigCPtr, this, SWIGTYPE_p_OpenSim__Constraint.getCPtr(aConstraint));
+  public void addConstraint(Constraint aConstraint) {
+    opensimModelJNI.Model_addConstraint(swigCPtr, this, Constraint.getCPtr(aConstraint), aConstraint);
   }
 
   public void addForce(Force aForce) {
@@ -408,12 +408,12 @@ public class Model extends ModelComponent {
     return new Body(opensimModelJNI.Model_getGroundBody(swigCPtr, this), false);
   }
 
-  public SWIGTYPE_p_OpenSim__ConstraintSet updConstraintSet() {
-    return new SWIGTYPE_p_OpenSim__ConstraintSet(opensimModelJNI.Model_updConstraintSet(swigCPtr, this), false);
+  public ConstraintSet updConstraintSet() {
+    return new ConstraintSet(opensimModelJNI.Model_updConstraintSet(swigCPtr, this), false);
   }
 
-  public SWIGTYPE_p_OpenSim__ConstraintSet getConstraintSet() {
-    return new SWIGTYPE_p_OpenSim__ConstraintSet(opensimModelJNI.Model_getConstraintSet(swigCPtr, this), false);
+  public ConstraintSet getConstraintSet() {
+    return new ConstraintSet(opensimModelJNI.Model_getConstraintSet(swigCPtr, this), false);
   }
 
   public MarkerSet updMarkerSet() {
@@ -490,6 +490,14 @@ public class Model extends ModelComponent {
 
   public void overrideAllActuators(SWIGTYPE_p_SimTK__State s, boolean flag) {
     opensimModelJNI.Model_overrideAllActuators(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), flag);
+  }
+
+  public String getValidationLog() {
+    return opensimModelJNI.Model_getValidationLog(swigCPtr, this);
+  }
+
+  public void clearValidationLog() {
+    opensimModelJNI.Model_clearValidationLog(swigCPtr, this);
   }
 
 }

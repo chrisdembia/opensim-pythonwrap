@@ -149,12 +149,16 @@ public class GeometryPath extends ModelComponent {
     return new ArrayPathPoint(opensimModelJNI.GeometryPath_updCurrentDisplayPath(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s)), false);
   }
 
+  public void getPointForceDirections(SWIGTYPE_p_SimTK__State s, SWIGTYPE_p_OpenSim__ArrayTOpenSim__PointForceDirection_p_t rPFDs) {
+    opensimModelJNI.GeometryPath_getPointForceDirections(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), SWIGTYPE_p_OpenSim__ArrayTOpenSim__PointForceDirection_p_t.getCPtr(rPFDs));
+  }
+
   public double computeMomentArm(SWIGTYPE_p_SimTK__State s, Coordinate aCoord) {
     return opensimModelJNI.GeometryPath_computeMomentArm(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), Coordinate.getCPtr(aCoord), aCoord);
   }
 
-  public void computeMomentArms(SWIGTYPE_p_SimTK__State s, ArrayDouble rMomentArms) {
-    opensimModelJNI.GeometryPath_computeMomentArms(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), ArrayDouble.getCPtr(rMomentArms), rMomentArms);
+  public SWIGTYPE_p_SimTK__Vector computeMomentArms(SWIGTYPE_p_SimTK__State s) {
+    return new SWIGTYPE_p_SimTK__Vector(opensimModelJNI.GeometryPath_computeMomentArms(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s)), true);
   }
 
   public void preScale(SWIGTYPE_p_SimTK__State s, ScaleSet aScaleSet) {

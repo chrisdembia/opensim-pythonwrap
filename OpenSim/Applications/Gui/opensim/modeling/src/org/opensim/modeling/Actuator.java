@@ -243,10 +243,6 @@ public class Actuator extends Force {
     return opensimModelJNI.Actuator_getOverrideForce(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s));
   }
 
-  public double computeOverrideForce(SWIGTYPE_p_SimTK__State s) {
-    return opensimModelJNI.Actuator_computeOverrideForce(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s));
-  }
-
   public void setOverrideForceFunction(SWIGTYPE_p_OpenSim__StateFunction arg0) {
     opensimModelJNI.Actuator_setOverrideForceFunction(swigCPtr, this, SWIGTYPE_p_OpenSim__StateFunction.getCPtr(arg0));
   }

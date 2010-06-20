@@ -87,6 +87,10 @@ public class Ligament extends CustomForce {
     return opensimModelJNI.Ligament_setForceLengthCurve(swigCPtr, this, Function.getCPtr(aForceLengthCurve), aForceLengthCurve);
   }
 
+  public double computeMomentArm(SWIGTYPE_p_SimTK__State s, Coordinate aCoord) {
+    return opensimModelJNI.Ligament_computeMomentArm(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), Coordinate.getCPtr(aCoord), aCoord);
+  }
+
   public void computeForce(SWIGTYPE_p_SimTK__State s, SWIGTYPE_p_SimTK__Vector_TSimTK__SpatialVec_t bodyForces, SWIGTYPE_p_SimTK__Vector generalizedForces) {
     opensimModelJNI.Ligament_computeForce(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), SWIGTYPE_p_SimTK__Vector_TSimTK__SpatialVec_t.getCPtr(bodyForces), SWIGTYPE_p_SimTK__Vector.getCPtr(generalizedForces));
   }

@@ -226,6 +226,7 @@ public class Property {
     public final static PropertyType StrArray = new PropertyType("StrArray");
     public final static PropertyType ObjArray = new PropertyType("ObjArray");
     public final static PropertyType DblVec3 = new PropertyType("DblVec3");
+    public final static PropertyType Transform = new PropertyType("Transform");
 
     public final int swigValue() {
       return swigValue;
@@ -261,7 +262,53 @@ public class Property {
       swigNext = this.swigValue+1;
     }
 
-    private static PropertyType[] swigValues = { None, Bool, Int, Dbl, Str, Obj, ObjPtr, BoolArray, IntArray, DblArray, StrArray, ObjArray, DblVec3 };
+    private static PropertyType[] swigValues = { None, Bool, Int, Dbl, Str, Obj, ObjPtr, BoolArray, IntArray, DblArray, StrArray, ObjArray, DblVec3, Transform };
+    private static int swigNext = 0;
+    private final int swigValue;
+    private final String swigName;
+  }
+
+  public final static class PropertyCategory {
+    public final static PropertyCategory NoCategory = new PropertyCategory("NoCategory");
+    public final static PropertyCategory Display = new PropertyCategory("Display");
+    public final static PropertyCategory System = new PropertyCategory("System");
+    public final static PropertyCategory Dynamics = new PropertyCategory("Dynamics");
+
+    public final int swigValue() {
+      return swigValue;
+    }
+
+    public String toString() {
+      return swigName;
+    }
+
+    public static PropertyCategory swigToEnum(int swigValue) {
+      if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
+        return swigValues[swigValue];
+      for (int i = 0; i < swigValues.length; i++)
+        if (swigValues[i].swigValue == swigValue)
+          return swigValues[i];
+      throw new IllegalArgumentException("No enum " + PropertyCategory.class + " with value " + swigValue);
+    }
+
+    private PropertyCategory(String swigName) {
+      this.swigName = swigName;
+      this.swigValue = swigNext++;
+    }
+
+    private PropertyCategory(String swigName, int swigValue) {
+      this.swigName = swigName;
+      this.swigValue = swigValue;
+      swigNext = swigValue+1;
+    }
+
+    private PropertyCategory(String swigName, PropertyCategory swigEnum) {
+      this.swigName = swigName;
+      this.swigValue = swigEnum.swigValue;
+      swigNext = this.swigValue+1;
+    }
+
+    private static PropertyCategory[] swigValues = { NoCategory, Display, System, Dynamics };
     private static int swigNext = 0;
     private final int swigValue;
     private final String swigName;

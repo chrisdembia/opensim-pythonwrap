@@ -210,8 +210,6 @@ public class OpenSimNode extends AbstractNode {
                         PropertySupport.Reflection nextNodeProp = new PropertySupport.Reflection(prop, mapPropertyEnumToClass.get(prop.getType()), mapPropertyEnumToGetters.get(prop.getType()), null);
                         nextNodeProp.setName(prop.getName());
                         set.put(nextNodeProp);
-                        if (prop.getType()==PropertyType.Obj)
-                            nextNodeProp.setPropertyEditorClass(ObjectEditDialogMaker.class);
                     }
                 } catch (NoSuchMethodException ex) {
                     ex.printStackTrace();

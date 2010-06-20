@@ -1353,7 +1353,7 @@ public final class ViewDB extends Observable implements Observer {
          double[] color = new double[]{1.0, 0.6, 0.8};
          markersColorStr =Preferences.userNodeForPackage(TheApp.class).get("Markers Color", markersColorStr);
          if (markersColorStr != null)
-            color = Prefs.getInstance().parseColor(markersColorStr);
+            color = Prefs.parseColor(markersColorStr);
          return color;
    }
    
@@ -1362,7 +1362,7 @@ public final class ViewDB extends Observable implements Observer {
          double[] color = new double[]{1.0, 1.0, 1.0};
          textColorStr =Preferences.userNodeForPackage(TheApp.class).get("Text Color", textColorStr);
          if (textColorStr != null)
-            color = Prefs.getInstance().parseColor(textColorStr);
+            color = Prefs.parseColor(textColorStr);
          return color;
    }
    

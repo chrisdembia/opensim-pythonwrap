@@ -8,7 +8,7 @@
 
 package org.opensim.modeling;
 
-public class Storage extends OpenSimObject {
+public class Storage extends StorageInterface {
   private long swigCPtr;
 
   public Storage(long cPtr, boolean cMemoryOwn) {
@@ -31,14 +31,6 @@ public class Storage extends OpenSimObject {
     }
     swigCPtr = 0;
     super.delete();
-  }
-
-  public static double getLARGE_NEGATIVE() {
-    return opensimModelJNI.Storage_LARGE_NEGATIVE_get();
-  }
-
-  public static double getLARGE_POSITIVE() {
-    return opensimModelJNI.Storage_LARGE_POSITIVE_get();
   }
 
   public static void setDEFAULT_HEADER_TOKEN(String value) {
@@ -95,7 +87,23 @@ public class Storage extends OpenSimObject {
 
   public OpenSimObject copy() {
     long cPtr = opensimModelJNI.Storage_copy(swigCPtr, this);
-    return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
+    return (cPtr == 0) ? null : new StorageInterface(cPtr, false);
+  }
+
+  public String getName() {
+    return opensimModelJNI.Storage_getName(swigCPtr, this);
+  }
+
+  public String getDescription() {
+    return opensimModelJNI.Storage_getDescription(swigCPtr, this);
+  }
+
+  public void setName(String aName) {
+    opensimModelJNI.Storage_setName(swigCPtr, this, aName);
+  }
+
+  public void setDescription(String aDescription) {
+    opensimModelJNI.Storage_setDescription(swigCPtr, this, aDescription);
   }
 
   public int getSize() {

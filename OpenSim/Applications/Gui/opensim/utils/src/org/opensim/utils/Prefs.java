@@ -40,7 +40,7 @@ import java.util.prefs.Preferences;
 public final class Prefs {
    
    private static Prefs instance;
-   private NumberFormat numFormat = NumberFormat.getInstance();
+   private static NumberFormat numFormat = NumberFormat.getInstance();
 
     /**
      * Creates a new instance of Prefs
@@ -71,7 +71,7 @@ public final class Prefs {
     /**
      * Parse a string of color attributes and return it in an array of doubles
      */
-    public double[] parseColor(String aColor) {
+    public static double[] parseColor(String aColor) {
         double[] color = new double[3];
         int i=0;
         StringTokenizer tokenizer = new StringTokenizer(aColor, " \t\n\r\f,;");

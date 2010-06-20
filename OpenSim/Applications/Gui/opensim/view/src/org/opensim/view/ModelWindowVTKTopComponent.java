@@ -1348,7 +1348,7 @@ public class ModelWindowVTKTopComponent extends TopComponent
         // Get userBackgroundColor
         String userBackgroundColor="0.0, 0.0, 0.0";
         userBackgroundColor = prefs.get("BackgroundColor", userBackgroundColor);
-        double[] background = Prefs.getInstance().parseColor(userBackgroundColor);
+        double[] background = Prefs.parseColor(userBackgroundColor);
         
         // Set toolBarPanel1 background color
         toolBarPanel1.setBackground(new java.awt.Color((int) (background[0]*255), (int) (background[1]*255), (int) (background[2]*255)));
