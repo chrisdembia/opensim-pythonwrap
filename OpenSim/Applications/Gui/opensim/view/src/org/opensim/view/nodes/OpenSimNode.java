@@ -46,6 +46,20 @@ import org.opensim.view.editors.ObjectEditDialogMaker;
  */
 public class OpenSimNode extends AbstractNode {
     
+    static Hashtable<PropertyType, Class> mapPropertyEnumToClass = new Hashtable<PropertyType, Class>();
+    static Hashtable<PropertyType, String> mapPropertyEnumToGetters = new Hashtable<PropertyType, String>();
+    static {
+        mapPropertyEnumToClass.put(PropertyType.Int, Integer.class);
+        mapPropertyEnumToGetters.put(PropertyType.Int, "getValueInt");
+        mapPropertyEnumToClass.put(PropertyType.Dbl, Double.class);
+        mapPropertyEnumToGetters.put(PropertyType.Dbl, "getValueDbl");
+        mapPropertyEnumToClass.put(PropertyType.Str, String.class);
+        mapPropertyEnumToGetters.put(PropertyType.Str, "getValueStr");
+        mapPropertyEnumToClass.put(PropertyType.Bool, Boolean.class);
+        mapPropertyEnumToGetters.put(PropertyType.Bool, "getValueBool");
+        mapPropertyEnumToClass.put(PropertyType.Obj, OpenSimObject.class);
+        mapPropertyEnumToGetters.put(PropertyType.Obj, "getValueObj");
+    }
     /**
      * Creates a new instance of OpenSimNode
      */
@@ -71,7 +85,7 @@ public class OpenSimNode extends AbstractNode {
     /**
      * Find the Model for a node by traversing up the tree
      */
-    protected Model getModelForNode() {
+    public Model getModelForNode() {
         if (this instanceof ConcreteModelNode)
             return ((ConcreteModelNode)this).getModel();
         else 
@@ -189,18 +203,6 @@ public class OpenSimNode extends AbstractNode {
             OpenSimObject obj = ((OpenSimObjectNode) (this)).getOpenSimObject();
             
             org.opensim.modeling.PropertySet ps= obj.getPropertySet();
-            Hashtable<PropertyType, Class> mapPropertyEnumToClass = new Hashtable<PropertyType, Class>();
-            Hashtable<PropertyType, String> mapPropertyEnumToGetters = new Hashtable<PropertyType, String>();
-            mapPropertyEnumToClass.put(PropertyType.Int, Integer.class);
-            mapPropertyEnumToGetters.put(PropertyType.Int, "getValueInt");
-            mapPropertyEnumToClass.put(PropertyType.Dbl, Double.class);
-            mapPropertyEnumToGetters.put(PropertyType.Dbl, "getValueDbl");
-            mapPropertyEnumToClass.put(PropertyType.Str, String.class);
-            mapPropertyEnumToGetters.put(PropertyType.Str, "getValueStr");
-            mapPropertyEnumToClass.put(PropertyType.Bool, Boolean.class);
-            mapPropertyEnumToGetters.put(PropertyType.Bool, "getValueBool");
-            mapPropertyEnumToClass.put(PropertyType.Obj, OpenSimObject.class);
-            mapPropertyEnumToGetters.put(PropertyType.Obj, "getValueObj");
 
             for(int i=0; i<ps.getSize(); i++){
                 try {
