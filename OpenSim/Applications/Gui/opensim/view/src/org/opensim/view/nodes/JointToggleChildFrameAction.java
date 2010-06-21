@@ -8,7 +8,7 @@ import org.openide.util.actions.BooleanStateAction;
 import org.opensim.modeling.Body;
 import org.opensim.modeling.Joint;
 import org.opensim.modeling.OpenSimObject;
-import org.opensim.view.BodyRep;
+import org.opensim.view.BodyDisplayer;
 import org.opensim.view.ExplorerTopComponent;
 import org.opensim.view.pub.ViewDB;
 import vtk.vtkProp3D;
@@ -30,8 +30,8 @@ public final class JointToggleChildFrameAction extends BooleanStateAction {
                 Joint jnt = Joint.safeDownCast(object);
                 Body b = jnt.getBody();
                 vtkProp3D visuals=ViewDB.getInstance().getModelVisuals(b.getModel()).getVtkRepForObject(b);
-                if (visuals instanceof BodyRep){
-                    BodyRep rep = (BodyRep) visuals;
+                if (visuals instanceof BodyDisplayer){
+                    BodyDisplayer rep = (BodyDisplayer) visuals;
                     rep.setShowJointBFrame(newState);
                 }
             }
@@ -67,8 +67,8 @@ public final class JointToggleChildFrameAction extends BooleanStateAction {
             Joint jnt = Joint.safeDownCast(dNode.getOpenSimObject());
             Body b = jnt.getBody();
             vtkProp3D visuals=ViewDB.getInstance().getModelVisuals(b.getModel()).getVtkRepForObject(b);
-            if (visuals instanceof BodyRep){
-               BodyRep rep = (BodyRep) visuals;
+            if (visuals instanceof BodyDisplayer){
+               BodyDisplayer rep = (BodyDisplayer) visuals;
                setBooleanState(rep.isShowJointBFrame());
             }
             return true;

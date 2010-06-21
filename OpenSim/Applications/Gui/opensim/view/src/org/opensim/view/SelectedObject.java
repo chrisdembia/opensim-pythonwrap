@@ -107,7 +107,7 @@ public class SelectedObject implements Selectable {
             cloud.setModified();
          }
       } else if (Body.safeDownCast(object) != null) {
-         BodyRep asm = (BodyRep) ViewDB.getInstance().getVtkRepForObject(object);
+         BodyDisplayer asm = (BodyDisplayer) ViewDB.getInstance().getVtkRepForObject(object);
          double unselectedColor[] = {1.0, 1.0, 1.0};
          if(highlight){
              // Save existing color with the body for later restoration

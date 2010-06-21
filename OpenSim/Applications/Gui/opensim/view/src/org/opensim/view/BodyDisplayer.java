@@ -1,5 +1,5 @@
 /*
- * BodyRep.java
+ * BodyDisplayer.java
  *
  * Created on April 3, 2010, 1:28 AM
  *
@@ -28,7 +28,7 @@ import vtk.vtkXMLPolyDataReader;
  *
  * The visual Representation of one body (bones, base-frame, ..
  */
-public class BodyRep extends vtkAssembly{
+public class BodyDisplayer extends vtkAssembly{
     
     private FrameActor bodyAxes = new FrameActor();
     private FrameActor jointBFrame = new FrameActor();
@@ -41,8 +41,10 @@ public class BodyRep extends vtkAssembly{
     private double pFrameRadius = .003;
     
     private Body body;
-    /** Creates a new instance of BodyRep */
-    public BodyRep(vtkAssembly modelAssembly, Body body, String modelFilePath)
+    /**
+     * Creates a new instance of BodyDisplayer
+     */
+    public BodyDisplayer(vtkAssembly modelAssembly, Body body, String modelFilePath)
    {
       this.body = body;
       jointBFrame.SetScale(bFrameScale);

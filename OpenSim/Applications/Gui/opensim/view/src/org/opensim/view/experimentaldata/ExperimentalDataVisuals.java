@@ -69,7 +69,7 @@ public class ExperimentalDataVisuals extends SingleModelVisuals{
 
             bbox.SetBounds(bounds);
             ViewDB.getInstance().setObjectRepresentation(model.getGround(), 1, 0);
-            BodyRep groundRep = (BodyRep) getVtkRepForObject(model.getGround());
+            BodyDisplayer groundRep = (BodyDisplayer) getVtkRepForObject(model.getGround());
             //groundRep.GetMapper().AddInputConnection(bbox.GetOutputPort());
             //groundRep.GetMapper().Modified();
             //System.out.println("Origin at "+bounds[0]+", "+bounds[1]+", "+bounds[2]);

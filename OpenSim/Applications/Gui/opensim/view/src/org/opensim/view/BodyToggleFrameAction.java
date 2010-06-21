@@ -22,8 +22,8 @@ public final class BodyToggleFrameAction extends BooleanStateAction {
         Body b = Body.safeDownCast(dNode.getOpenSimObject());
         //System.out.println("Setting showAxis to "+getBooleanState());
         vtkProp3D visuals=ViewDB.getInstance().getModelVisuals(b.getModel()).getVtkRepForObject(b);
-        if (visuals instanceof BodyRep){
-            BodyRep rep = (BodyRep) visuals;
+        if (visuals instanceof BodyDisplayer){
+            BodyDisplayer rep = (BodyDisplayer) visuals;
             boolean newState = getBooleanState();
             rep.setShowAxes(getBooleanState());
         }
@@ -72,8 +72,8 @@ public final class BodyToggleFrameAction extends BooleanStateAction {
                 Body b = Body.safeDownCast(dNode.getOpenSimObject());
                 //System.out.println("Setting showAxis to "+getBooleanState());
                 vtkProp3D visuals=ViewDB.getInstance().getModelVisuals(b.getModel()).getVtkRepForObject(b);
-                if (visuals instanceof BodyRep){
-                    BodyRep rep = (BodyRep) visuals;
+                if (visuals instanceof BodyDisplayer){
+                    BodyDisplayer rep = (BodyDisplayer) visuals;
                     rep.setShowAxes(newState);
                 }
             }

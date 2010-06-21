@@ -197,13 +197,13 @@ public class SingleModelVisuals {
             Body body = bodies.get(bodyNum);
 
             // Body actor
-            vtkAssembly bodyRep = new BodyRep(modelAssembly, body, modelFilePath);
+            vtkAssembly bodyRep = new BodyDisplayer(modelAssembly, body, modelFilePath);
 
             if(bodyRep!=null) {
                // Fill the maps between objects and display to support picking, highlighting, etc..
                // The reverse map takes an actor to an Object and is filled as actors are created.
                mapObject2VtkObjects.put(body, bodyRep);
-               // Picker picks Actors only, put those in reverseMap instead of BodyRep
+               // Picker picks Actors only, put those in reverseMap instead of BodyDisplayer
                vtkProp3DCollection props = bodyRep.GetParts();
                props.InitTraversal();
                ArrayList<vtkActor> actors = new ArrayList<vtkActor>();
