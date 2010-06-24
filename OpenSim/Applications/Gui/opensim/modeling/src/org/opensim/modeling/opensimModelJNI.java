@@ -12,7 +12,7 @@ public class opensimModelJNI {
 
   static {
       try{
-        System.loadLibrary("osimJavaJNI_d");		// All OpenSim classes required for GUI operation.
+        System.loadLibrary("osimJavaJNI");		// All OpenSim classes required for GUI operation.
       }
       catch(UnsatisfiedLinkError e){
            TheApp.exitApp("Required library failed to load. Check that the dynamic library osimJavaJNI is in your PATH\n"+e);
