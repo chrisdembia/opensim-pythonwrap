@@ -89,55 +89,80 @@
     <file name="J2EE_hidden"/>
     <folder name="Menu">
     <folder name="File">
-            <file name="Separator2.instance_hidden"/>
+            <file name="org-opensim-view-FileExportSIMMModelAction.shadow">
+                <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-FileExportSIMMModelAction.instance"/>
+            </file>
+            <attr name="org-opensim-view-FileExportSIMMModelAction.shadow/org-opensim-view-FileSaveAsModelAction.shadow" boolvalue="false"/>
+            <file name="org-opensim-view-FileSaveAsModelAction.shadow">
+                <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-FileSaveAsModelAction.instance"/>
+            </file>
+            <attr name="org-opensim-view-FileSaveAsModelAction.shadow/org-opensim-view-OpenOsimModel.shadow" boolvalue="false"/>
+            <file name="org-opensim-view-OpenOsimModel.shadow">
+                <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-FileOpenOsimModelAction.instance"/>
+            </file>
+            <attr name="org-opensim-view-OpenOsimModel.shadow/org-opensim-view-motions.FileLoadMotionAction.instance" boolvalue="true"/>
+            <file name="org-opensim-view-motions.FileLoadMotionAction.instance" url="org-opensim-view-motions.FileLoadMotionAction.instance">
+                <attr name="position" intvalue="200"/>
+            </file>
+            <attr name="org-opensim-view-motions.FileLoadMotionAction.instance/org-opensim-view-SaveModelAction.shadow" boolvalue="true"/>
+            <file name="org-opensim-view-SaveModelAction.shadow">
+                <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-FileSaveModelAction.instance"/>
+            </file>
+            <attr name="org-opensim-view-SaveModelAction.shadow/org-opensim-view-actions-FileCloseAction.shadow" boolvalue="false"/>
+            <file name="org-opensim-view-actions-FileCloseAction.shadow">
+                <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-actions-FileCloseAction.instance"/>
+            </file>
+            <attr name="org-opensim-view-actions-FileCloseAction.shadow/org-opensim-view-actions-FileImportSIMMAction.shadow" boolvalue="true"/>
+            <file name="org-opensim-view-actions-FileImportSIMMAction.shadow">
+                <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-actions-FileImportSIMMAction.instance"/>
+            </file>
+            <attr name="org-opensim-view-actions-FileImportSIMMAction.shadow/org-opensim-view-actions-separatorBefore.instance" boolvalue="false"/>
+            <attr name="org-opensim-view-actions-FileCloseAction.shadow/org-opensim-view-actions-separatorBefore.instance" boolvalue="true"/>
+            <file name="org-opensim-view-actions-separatorBefore.instance">
+                <attr name="instanceClass" stringvalue="javax.swing.JSeparator"/>
+            </file>
+            <attr name="org-opensim-view-actions-separatorBefore.instance/org-opensim-view-editors-separatorAfter.instance" boolvalue="true"/>
+            <file name="org-opensim-view-editors-separatorAfter.instance">
+                <attr name="instanceClass" stringvalue="javax.swing.JSeparator"/>
+            </file>
+            <attr name="org-opensim-view-editors-separatorAfter.instance/org-opensim-view-editors-separatorAfter_1.instance" boolvalue="true"/>
+            <file name="org-opensim-view-editors-separatorAfter_1.instance" url="org-opensim-view-editors-separatorAfter_1.instance">
+                <attr name="instanceClass" stringvalue="javax.swing.JSeparator"/>
+            </file>
+            <attr name="org-opensim-view-editors-separatorAfter_1.instance/org-opensim-view-motions-FileLoadDataAction.instance" boolvalue="true"/>
+            <file name="org-opensim-view-motions-FileLoadDataAction.instance" url="org-opensim-view-motions-FileLoadDataAction.instance">
+                <attr name="position" intvalue="1200"/>
+            </file>
+            <attr name="org-opensim-view-motions-FileLoadDataAction.instance/org-opensim-view-separator1.instance" boolvalue="true"/>
+            <file name="org-opensim-view-separator1.instance">
+                <attr name="instanceClass" stringvalue="javax.swing.JSeparator"/>
+            </file>
+                <file name="Separator2.instance_hidden"/>
             <file name="Separator3.instance_hidden"/>
             <file name="Separator4.instance_hidden"/>
             <file name="org-netbeans-modules-print-action-PageSetupAction.shadow_hidden"/>
             <file name="org-netbeans-modules-print-action-PrintAction.shadow_hidden"/>
-            <file name="org-openide-actions-SaveAction.shadow_hidden"/>
-            <file name="org-openide-actions-SaveAllAction.shadow_hidden"/>
-            <file name="org-openide-actions-SaveAsAction.shadow_hidden"/>
-            <file name="org-opensim-view-OpenOsimModel.shadow">
-                <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-FileOpenOsimModelAction.instance"/>
-            </file>
-            <file name="org-opensim-view-actions-FileCloseAction.shadow">
-                <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-actions-FileCloseAction.instance"/>
-            </file>
-            <file name="org-opensim-view-editors-separatorAfter.instance">
-                <attr name="instanceClass" stringvalue="javax.swing.JSeparator"/>
-            </file>
-            <file name="org-opensim-view-SaveModelAction.shadow">
-                <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-FileSaveModelAction.instance"/>
-            </file>
-            <file name="org-opensim-view-FileSaveAsModelAction.shadow">
-                <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-FileSaveAsModelAction.instance"/>
-            </file>
-            <file name="org-opensim-view-editors-separatorAfter_1.instance" url="org-opensim-view-editors-separatorAfter_1.instance">
-                <attr name="instanceClass" stringvalue="javax.swing.JSeparator"/>
-            </file>
-            <file name="org-opensim-view-separator1.instance">
-                <attr name="instanceClass" stringvalue="javax.swing.JSeparator"/>
-            </file>
-            <file name="org-opensim-view-actions-FileImportSIMMAction.shadow">
-                <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-actions-FileImportSIMMAction.instance"/>
-            </file>
-            <file name="org-opensim-view-motions-FileLoadDataAction.instance" url="org-opensim-view-motions-FileLoadDataAction.instance">
-                <attr name="position" intvalue="1200"/>
-            </file>
-            <file name="org-opensim-view-motions.FileLoadMotionAction.instance" url="org-opensim-view-motions.FileLoadMotionAction.instance">
-                <attr name="position" intvalue="200"/>
-            </file>
-            <file name="org-opensim-view-FileExportSIMMModelAction.shadow">
-                <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-FileExportSIMMModelAction.instance"/>
-            </file>
-            <file name="org-opensim-view-actions-separatorBefore.instance">
-                <attr name="instanceClass" stringvalue="javax.swing.JSeparator"/>
-            </file>
             <file name="org-openide-actions-PageSetupAction.instance_hidden"/>
             <file name="org-openide-actions-PrintAction.instance_hidden"/>
             <file name="org-openide-actions-SaveAction.instance_hidden"/>
+            <file name="org-openide-actions-SaveAction.shadow_hidden"/>
             <file name="org-openide-actions-SaveAllAction.instance_hidden"/>
-            </folder>
+            <file name="org-openide-actions-SaveAllAction.shadow_hidden"/>
+            <file name="org-openide-actions-SaveAsAction.shadow_hidden"/>
+            <attr name="org-opensim-view-actions-separatorBefore.instance/org-opensim-view-actions-FileImportSIMMAction.shadow" boolvalue="false"/>
+            <attr name="org-opensim-view-actions-FileImportSIMMAction.shadow/org-opensim-view-editors-separatorAfter.instance" boolvalue="false"/>
+            <attr name="org-opensim-view-motions.FileLoadMotionAction.instance/org-opensim-view-actions-FileCloseAction.shadow" boolvalue="true"/>
+            <attr name="org-opensim-view-actions-separatorBefore.instance/org-opensim-view-SaveModelAction.shadow" boolvalue="true"/>
+            <attr name="org-opensim-view-SaveModelAction.shadow/org-opensim-view-editors-separatorAfter.instance" boolvalue="true"/>
+            <attr name="org-opensim-view-FileExportSIMMModelAction.shadow/org-opensim-view-OpenOsimModel.shadow" boolvalue="false"/>
+            <attr name="org-opensim-view-SaveModelAction.shadow/org-opensim-view-FileSaveAsModelAction.shadow" boolvalue="true"/>
+            <attr name="org-opensim-view-FileSaveAsModelAction.shadow/org-opensim-view-editors-separatorAfter.instance" boolvalue="true"/>
+            <attr name="org-opensim-view-editors-separatorAfter.instance/org-opensim-view-actions-FileImportSIMMAction.shadow" boolvalue="true"/>
+            <attr name="org-opensim-view-actions-FileImportSIMMAction.shadow/org-opensim-view-editors-separatorAfter_1.instance" boolvalue="true"/>
+            <attr name="org-opensim-view-actions-FileImportSIMMAction.shadow/org-opensim-view-FileExportSIMMModelAction.shadow" boolvalue="true"/>
+            <attr name="org-opensim-view-FileExportSIMMModelAction.shadow/org-opensim-view-editors-separatorAfter_1.instance" boolvalue="true"/>
+            <attr name="org-opensim-view-separator1.instance/org-netbeans-core-actions-SystemExit.instance" boolvalue="true"/>
+        </folder>
         <folder name="Edit">
             <file name="Separator1.instance_hidden"/>
             <file name="org-openide-actions-CopyAction.shadow_hidden"/>
