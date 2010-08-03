@@ -118,6 +118,7 @@ public class XMLExternalFileChooser extends javax.swing.JPanel {
 
    public String getItemExternalFileName(int i) {
       String fileName=((XMLExternalFileChooser.Item)jPanel1.getComponent(i)).getExternalFileName();
+      if (fileName == null) return null;
       return FileUtils.addExtensionIfNeeded(fileName,".xml");
    }
 

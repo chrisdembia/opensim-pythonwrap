@@ -74,13 +74,13 @@ import org.opensim.modeling.SetWrapObject;
 import org.opensim.modeling.Muscle;
 import org.opensim.modeling.ForceSet;
 import org.opensim.modeling.Constant;
+import org.opensim.modeling.DisplayGeometry;
 import org.opensim.view.Selectable;
-import org.opensim.view.experimentaldata.ModelForExperimentalData;
 import org.opensim.modeling.MovingPathPoint;
 import org.opensim.modeling.PathPoint;
 import org.opensim.modeling.PathPointSet;
 import org.opensim.modeling.Units;
-import org.opensim.modeling.VisibleProperties.DisplayPreference;
+import org.opensim.modeling.DisplayGeometry.DisplayPreference;
 import org.opensim.view.ClearSelectedObjectsEvent;
 import org.opensim.view.DragObjectsEvent;
 import org.opensim.view.ExplorerTopComponent;
@@ -556,7 +556,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(model);
       
       // Save the display preference of the old muscle.
-      DisplayPreference dp = currentAct.getDisplayer().getVisibleProperties().getDisplayPreference();
+      DisplayPreference dp = currentAct.getDisplayer().getDisplayPreference();
 
       // Fire an event to announce the actuator switch. TODO: this code should
       // really fire an ObjectsReplacedEvent. And ViewDB should pick up this
@@ -574,15 +574,14 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       pendingChanges.remove(currentAct);
       savedActs.remove(currentAct);
       // Replace the actuator with the saved one.
-      //OpenSim20 model.getActuatorSet().replaceActuator(currentAct, savedAct);
-      currentAct = savedAct; // currentAct now points to the actuator in the model's actuator set.
+       currentAct = savedAct; // currentAct now points to the actuator in the model's actuator set.
       // Make a new backup copy of the actuator.
       savedAct = Muscle.safeDownCast(currentAct.copy());
       // Put the new current actuator in the pendingChanges and savedActs hash tables.
       pendingChanges.put(currentAct, true); // old state must have been true for restore to be called
       savedActs.put(currentAct, savedAct);
       // Set the display preference of the new muscle to the same as the old.
-      currentAct.getDisplayer().getVisibleProperties().setDisplayPreference(dp);
+      currentAct.getDisplayer().setDisplayPreference(dp);
       vis.addActuatorGeometry(currentAct, true);
 
       // Once the proper ObjectsReplacedEvent is implemented, this ObjectsRenamedEvent
@@ -1132,33 +1131,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       vis.updateActuatorGeometry(asm, true);
       ViewDB.getInstance().repaintAll();
    }
-   
-   private void MuscleTypeComboBoxActionPerformed(javax.swing.JComboBox muscleTypeComboBox) {
-      //Property.PropertyType newType = (Property.PropertyType)muscleTypeComboBox.getSelectedIndex();
-      int newType = muscleTypeComboBox.getSelectedIndex();
-      Model model = currentAct.getModel();
-      SingleModelGuiElements guiElem = ViewDB.getInstance().getModelGuiElements(model);
-      String newTypeName = guiElem.getActuatorClassNames()[newType];
-      String oldTypeName = currentAct.getType();
-      if (newTypeName.equals(oldTypeName) == false) {
-         SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(model);
-         // Store the display preference of the muscle before it is deleted.
-         DisplayPreference dp = currentAct.getDisplayer().getVisibleProperties().getDisplayPreference();
-         vis.removeActuatorGeometry(currentAct);
-         boolean oldState = pendingChanges.get(currentAct);
-         pendingChanges.remove(currentAct);
-         //OpenSim20 currentAct = model.getActuatorSet().changeActuatorType(currentAct, newTypeName);
-         pendingChanges.put(currentAct, oldState);
-         // Set the display preference of the new muscle to the same as the old.
-         currentAct.getDisplayer().getVisibleProperties().setDisplayPreference(dp);
-         setPendingChanges(true, currentAct, true);
-         setupComponent(currentAct);
-         // tell the ViewDB to redraw the model
-         vis.addActuatorGeometry(currentAct, true);
-         ViewDB.getInstance().repaintAll();
-      }
-   }
-   
+      
    public void DoublePropertyEntered(javax.swing.JTextField field, int propertyNum) {
       Property prop = null;
       try {
@@ -2264,14 +2237,6 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
          //BackupAllButton.setEnabled(true);
          MuscleComboBox.setSelectedIndex(findElement(guiElem.getActuatorNames(), currentAct.getName()));
       }
-      
-      //MuscleTypeComboBox.setModel(new javax.swing.DefaultComboBoxModel(guiElem.getActuatorClassNames()));
-      //MuscleTypeComboBox.setSelectedIndex(findElement(guiElem.getActuatorClassNames(), act.getType()));
-      //MuscleTypeComboBox.addActionListener(new java.awt.event.ActionListener() {
-      //   public void actionPerformed(java.awt.event.ActionEvent evt) {
-      //      MuscleTypeComboBoxActionPerformed(MuscleTypeComboBox);
-      //   }
-      //});
       
       // Add the attachment panel first so it will always have index=0
       Muscle asm = Muscle.safeDownCast(currentAct);

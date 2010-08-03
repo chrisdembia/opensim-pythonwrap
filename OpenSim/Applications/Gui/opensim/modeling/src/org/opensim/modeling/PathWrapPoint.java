@@ -50,8 +50,8 @@ public class PathWrapPoint extends PathPoint {
     opensimModelJNI.PathWrapPoint_copyData(swigCPtr, this, PathWrapPoint.getCPtr(aPoint), aPoint);
   }
 
-  public SWIGTYPE_p_OpenSim__ArrayTOpenSim__SimmPoint_t getWrapPath() {
-    return new SWIGTYPE_p_OpenSim__ArrayTOpenSim__SimmPoint_t(opensimModelJNI.PathWrapPoint_getWrapPath(swigCPtr, this), false);
+  public SWIGTYPE_p_OpenSim__ArrayTSimTK__Vec3_t getWrapPath() {
+    return new SWIGTYPE_p_OpenSim__ArrayTSimTK__Vec3_t(opensimModelJNI.PathWrapPoint_getWrapPath(swigCPtr, this), false);
   }
 
   public double getWrapLength() {

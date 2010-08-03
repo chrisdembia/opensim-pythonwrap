@@ -44,6 +44,7 @@ import org.opensim.modeling.Force;
 import org.opensim.modeling.Actuator;
 import org.opensim.modeling.Body;
 import org.opensim.modeling.ForceSet;
+import org.opensim.modeling.GeometrySet;
 import org.opensim.modeling.Marker;
 import org.opensim.modeling.Muscle;
 import org.opensim.modeling.Model;
@@ -51,6 +52,7 @@ import org.opensim.modeling.AnalyticGeometry;
 import org.opensim.modeling.BodySet;
 import org.opensim.modeling.ConditionalPathPoint;
 import org.opensim.modeling.Geometry;
+import org.opensim.modeling.DisplayGeometry;
 import org.opensim.modeling.MarkerSet;
 import org.opensim.modeling.OpenSimContext;
 import org.opensim.modeling.OpenSimObject;
@@ -58,10 +60,10 @@ import org.opensim.modeling.PathPoint;
 import org.opensim.modeling.PolyhedralGeometry;
 import org.opensim.modeling.SimbodyEngine;
 import org.opensim.modeling.VisibleObject;
-import org.opensim.modeling.VisibleProperties;
 import org.opensim.view.pub.GeometryFileLocator;
 import org.opensim.view.pub.OpenSimDB;
 import org.opensim.view.pub.ViewDB;
+import vtk.FrameActor;
 import vtk.vtkActor;
 import vtk.vtkAssembly;
 import vtk.vtkAssemblyNode;
@@ -69,7 +71,6 @@ import vtk.vtkAssemblyPath;
 import vtk.vtkCylinderSource;
 import vtk.vtkLinearTransform;
 import vtk.vtkMatrix4x4;
-import vtk.vtkPointData;
 import vtk.vtkPolyData;
 import vtk.vtkPolyDataAlgorithm;
 import vtk.vtkPolyDataMapper;
@@ -207,15 +208,18 @@ public class SingleModelVisuals {
                vtkProp3DCollection props = bodyRep.GetParts();
                props.InitTraversal();
                ArrayList<vtkActor> actors = new ArrayList<vtkActor>();
+               int idx=0;
+               GeometrySet gSet = body.getDisplayer().getGeometrySet();
                for(int act=0; act < props.GetNumberOfItems(); act++){
                     vtkProp3D nextActor = props.GetNextProp3D();
                     mapVtkObjects2Objects.put(nextActor, body);
                     if (nextActor instanceof vtkActor)
                         actors.add((vtkActor)nextActor);
+                    if (nextActor instanceof FrameActor) continue;
+                    mapObject2VtkObjects.put(gSet.get(idx), nextActor);
+                    idx++;
                }
                bodyToActors.put(body.getName(), actors);
-               //////applyDisplayPrefs(body.getDisplayer(), bodyRep);
-
             }
 
             // Bodies have things attached to them as handled by the
@@ -269,71 +273,7 @@ public class SingleModelVisuals {
         return modelAssembly;
     }
 
-   /**
-     * Create actor for a single Body
-     * 
-     *   private vtkProp3D createAndAddBodyActor(vtkAssembly bodyAssembly, Body body, String modelFilePath)
-     *   {
-     *      vtkActor bodyRep = new vtkActor();
-     * 
-     *      VisibleObject bodyDisplayer = body.getDisplayer();
-     * 
-     *      vtkAppendPolyData bodyPolyData = new vtkAppendPolyData();
-     *      // For each bone in the current body.
-     *      for (int k = 0; k < bodyDisplayer.getNumGeometryFiles(); ++k) {
-     *          String boneFile = GeometryFileLocator.getInstance().getFullname(modelFilePath,bodyDisplayer.getGeometryFileName(k), debug);
-     *          if (boneFile==null)
-     *             continue;
-     *          if (boneFile.toLowerCase().endsWith(".vtp")){
-     *              vtkXMLPolyDataReader polyReader = new vtkXMLPolyDataReader();
-     *              polyReader.SetFileName(boneFile);
-     * 
-     *              vtkPolyData poly = polyReader.GetOutput();
-     *              // Create polyData and append it to one common polyData object
-     *              bodyPolyData.AddInput(poly);
-     *              polyReader.GetOutput().ReleaseDataFlagOn();
-     *          }
-     *          else if (boneFile.toLowerCase().endsWith(".stl")){
-     *              vtkSTLReader polyReader = new vtkSTLReader();
-     *              polyReader.SetFileName(boneFile);
-     * 
-     *              vtkPolyData poly = polyReader.GetOutput();
-     *              // Create polyData and append it to one common polyData object
-     *              bodyPolyData.AddInput(poly);
-     *              polyReader.GetOutput().ReleaseDataFlagOn();             
-     *          }
-     *          else if (boneFile.toLowerCase().endsWith(".obj")){
-     *              vtkOBJReader polyReader = new vtkOBJReader();
-     *              polyReader.SetFileName(boneFile);
-     * 
-     *              vtkPolyData poly = polyReader.GetOutput();
-     *              // Create polyData and append it to one common polyData object
-     *              bodyPolyData.AddInput(poly);
-     *              polyReader.GetOutput().ReleaseDataFlagOn();             
-     *          }
-     *          else
-     *              System.out.println("Unexpected extension for geometry file"+boneFile+"while processing body "+body.getName());
-     *      }
-     *      // Mapper
-     *      vtkPolyDataMapper bodyMapper = new vtkPolyDataMapper();
-     *      bodyMapper.SetInput(bodyPolyData.GetOutput());  bodyPolyData=null;
-     *      bodyRep.SetMapper(bodyMapper);
-     *      
-     *      // Scale
-     *      double[] scales = new double[3];
-     *      bodyDisplayer.getScaleFactors(scales);
-     *      bodyRep.SetScale(scales);
-     * 
-     *      // Add to assembly only if populated to avoid artificially big bounding box
-     *      if (bodyDisplayer.getNumGeometryFiles()>0) {
-     *         bodiesCollection.AddItem(bodyRep);
-     *         bodyAssembly.AddPart(bodyRep);
-     *      }
-     *      applyDisplayPrefs(bodyDisplayer, bodyRep);
-     *      return bodyRep;
-     *   }
-     * 
-     *   /**
+    /**
      * Create actor for wrap object(s)
      * TODO: Does this really handle multiple geometries under the visibleObject?
      */
@@ -931,24 +871,23 @@ public class SingleModelVisuals {
         muscleSegmentsRep=null;
         
     }
-	/**
-	 * Apply user display preference (None, wireframe, shading)
-	 */
+    /**
+     * Apply user display preference (None, wireframe, shading)
+     */
     private void applyDisplayPrefs(VisibleObject objectDisplayer, vtkActor objectRep) {
+
         if (objectRep==null) return;
-        VisibleProperties props = objectDisplayer.getVisibleProperties();
-        int vl = props.getDisplayPreference().swigValue();
         // Show vs. Hide
-        if (props.getDisplayPreference() == VisibleProperties.DisplayPreference.None){
+        if (objectDisplayer.getDisplayPreference() == DisplayGeometry.DisplayPreference.None){
             objectRep.SetVisibility(0);
             return;
         }
         objectRep.SetVisibility(1);
-        if (props.getDisplayPreference().swigValue()==VisibleProperties.DisplayPreference.WireFrame.swigValue())
+        if (objectDisplayer.getDisplayPreference().swigValue()==DisplayGeometry.DisplayPreference.WireFrame.swigValue())
             objectRep.GetProperty().SetRepresentationToWireframe();
         else {
 
-            if (props.getDisplayPreference() == VisibleProperties.DisplayPreference.FlatShaded)
+            if (objectDisplayer.getDisplayPreference() == DisplayGeometry.DisplayPreference.FlatShaded)
                 objectRep.GetProperty().SetInterpolationToFlat();
             else
                 objectRep.GetProperty().SetRepresentationToSurface();

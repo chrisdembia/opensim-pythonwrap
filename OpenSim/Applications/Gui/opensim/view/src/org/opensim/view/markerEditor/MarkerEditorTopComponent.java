@@ -967,8 +967,7 @@ final public class MarkerEditorTopComponent extends TopComponent implements Obse
             markerset.remove(marker);
             if (sendEvent)
                objs.add(marker);
-            marker.removeSelfFromDisplay();
-            numMarkersDeleted++;
+             numMarkersDeleted++;
          }
       }
 

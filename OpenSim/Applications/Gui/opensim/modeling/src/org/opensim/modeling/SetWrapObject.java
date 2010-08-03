@@ -119,7 +119,7 @@ public class SetWrapObject extends OpenSimObject {
   }
 
   public boolean append(WrapObject aObject) {
-    return opensimModelJNI.SetWrapObject_append__SWIG_0(swigCPtr, this, WrapObject.getCPtr(aObject), aObject);
+    return opensimModelJNI.SetWrapObject_append(swigCPtr, this, WrapObject.getCPtr(aObject), aObject);
   }
 
   public boolean insert(int aIndex, WrapObject aObject) {

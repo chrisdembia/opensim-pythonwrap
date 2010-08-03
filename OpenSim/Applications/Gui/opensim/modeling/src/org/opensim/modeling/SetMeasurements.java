@@ -119,7 +119,7 @@ public class SetMeasurements extends OpenSimObject {
   }
 
   public boolean append(Measurement aObject) {
-    return opensimModelJNI.SetMeasurements_append__SWIG_0(swigCPtr, this, Measurement.getCPtr(aObject), aObject);
+    return opensimModelJNI.SetMeasurements_append(swigCPtr, this, Measurement.getCPtr(aObject), aObject);
   }
 
   public boolean insert(int aIndex, Measurement aObject) {

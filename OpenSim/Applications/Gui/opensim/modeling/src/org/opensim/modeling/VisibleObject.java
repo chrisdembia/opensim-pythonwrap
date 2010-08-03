@@ -75,12 +75,20 @@ public class VisibleObject extends OpenSimObject {
     return opensimModelJNI.VisibleObject_getGeometryFileName(swigCPtr, this, i);
   }
 
-  public void setVisibleProperties(VisibleProperties aVisibleProperties) {
-    opensimModelJNI.VisibleObject_setVisibleProperties(swigCPtr, this, VisibleProperties.getCPtr(aVisibleProperties), aVisibleProperties);
+  public GeometrySet getGeometrySet() {
+    return new GeometrySet(opensimModelJNI.VisibleObject_getGeometrySet(swigCPtr, this), false);
   }
 
-  public VisibleProperties getVisibleProperties() {
-    return new VisibleProperties(opensimModelJNI.VisibleObject_getVisibleProperties(swigCPtr, this), false);
+  public SWIGTYPE_p_SimTK__Transform getTransform() {
+    return new SWIGTYPE_p_SimTK__Transform(opensimModelJNI.VisibleObject_getTransform(swigCPtr, this), false);
+  }
+
+  public SWIGTYPE_p_SimTK__Transform updTransform() {
+    return new SWIGTYPE_p_SimTK__Transform(opensimModelJNI.VisibleObject_updTransform(swigCPtr, this), false);
+  }
+
+  public void getRotationsAndTranslationsAsArray6(double[] aArray) {
+    opensimModelJNI.VisibleObject_getRotationsAndTranslationsAsArray6(swigCPtr, this, aArray);
   }
 
   public void getTransformAsDouble16(double[] flatList) {
@@ -109,6 +117,22 @@ public class VisibleObject extends OpenSimObject {
 
   public void getScaleFactors(double[] aScaleFactors) {
     opensimModelJNI.VisibleObject_getScaleFactors__SWIG_1(swigCPtr, this, aScaleFactors);
+  }
+
+  public boolean getShowAxes() {
+    return opensimModelJNI.VisibleObject_getShowAxes(swigCPtr, this);
+  }
+
+  public void setShowAxes(boolean showAxes) {
+    opensimModelJNI.VisibleObject_setShowAxes(swigCPtr, this, showAxes);
+  }
+
+  public DisplayGeometry.DisplayPreference getDisplayPreference() {
+    return DisplayGeometry.DisplayPreference.swigToEnum(opensimModelJNI.VisibleObject_getDisplayPreference(swigCPtr, this));
+  }
+
+  public void setDisplayPreference(DisplayGeometry.DisplayPreference aPreference) {
+    opensimModelJNI.VisibleObject_setDisplayPreference(swigCPtr, this, aPreference.swigValue());
   }
 
   public void addDependent(VisibleObject aChild) {
@@ -160,6 +184,10 @@ public class VisibleObject extends OpenSimObject {
 
   public void setupProperties() {
     opensimModelJNI.VisibleObject_setupProperties(swigCPtr, this);
+  }
+
+  public void updateFromXMLNode() {
+    opensimModelJNI.VisibleObject_updateFromXMLNode(swigCPtr, this);
   }
 
 }

@@ -250,22 +250,6 @@ public class SingleModelGuiElements {
    }
  
    /**
-    * Get names of actuator classes
-    */
-   public String[] getActuatorClassNames()
-   {
-      if (actuatorClassNames==null) {
-         actuatorClassNames = new String[5];
-         actuatorClassNames[0] = new String("Schutte1993Muscle");
-         actuatorClassNames[1] = new String("Thelen2003Muscle");
-         actuatorClassNames[2] = new String("Force");
-         actuatorClassNames[3] = new String("Torque");
-         actuatorClassNames[4] = new String("GeneralizedForce");
-      }
-      return actuatorClassNames;
-   }
-
-   /**
     * Get names of actuators
     */
    public String[] getActuatorNames()

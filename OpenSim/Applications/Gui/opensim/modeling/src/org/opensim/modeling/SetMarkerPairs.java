@@ -119,7 +119,7 @@ public class SetMarkerPairs extends OpenSimObject {
   }
 
   public boolean append(MarkerPair aObject) {
-    return opensimModelJNI.SetMarkerPairs_append__SWIG_0(swigCPtr, this, MarkerPair.getCPtr(aObject), aObject);
+    return opensimModelJNI.SetMarkerPairs_append(swigCPtr, this, MarkerPair.getCPtr(aObject), aObject);
   }
 
   public boolean insert(int aIndex, MarkerPair aObject) {

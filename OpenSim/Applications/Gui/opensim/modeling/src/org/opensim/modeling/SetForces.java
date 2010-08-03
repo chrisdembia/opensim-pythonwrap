@@ -119,7 +119,7 @@ public class SetForces extends OpenSimObject {
   }
 
   public boolean append(Force aObject) {
-    return opensimModelJNI.SetForces_append__SWIG_0(swigCPtr, this, Force.getCPtr(aObject), aObject);
+    return opensimModelJNI.SetForces_append(swigCPtr, this, Force.getCPtr(aObject), aObject);
   }
 
   public boolean insert(int aIndex, Force aObject) {

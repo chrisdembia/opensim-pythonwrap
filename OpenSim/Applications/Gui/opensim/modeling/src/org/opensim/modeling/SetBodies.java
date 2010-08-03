@@ -119,7 +119,7 @@ public class SetBodies extends OpenSimObject {
   }
 
   public boolean append(Body aObject) {
-    return opensimModelJNI.SetBodies_append__SWIG_0(swigCPtr, this, Body.getCPtr(aObject), aObject);
+    return opensimModelJNI.SetBodies_append(swigCPtr, this, Body.getCPtr(aObject), aObject);
   }
 
   public boolean insert(int aIndex, Body aObject) {

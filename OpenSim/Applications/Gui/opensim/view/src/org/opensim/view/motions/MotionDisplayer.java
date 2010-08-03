@@ -186,8 +186,8 @@ public class MotionDisplayer implements SelectionListener {
         mapIndicesToDofs.clear();
 
         stateNames = new ArrayStr();
-        stateNames.append("time");
         model.getStateNames(stateNames);
+        stateNames.insert(0, "time");
 
         if(colNames.arrayEquals(stateNames)) {
            // This is a states file
@@ -273,6 +273,7 @@ public class MotionDisplayer implements SelectionListener {
         markersRep.setShape(MotionObjectsDB.getInstance().getShape("marker"));
         markersRep.setColor(new double[]{0.0, 0.0, 1.0}); //Scale , scaleBy
         markersRep.scaleByVectorComponents();
+        markersRep.setScaleFactor(ViewDB.getInstance().getExperimentalMarkerDisplayScale());
         
         ViewDB.getInstance().addUserObjectToModel(model, groundForcesRep.getVtkActor());
         ViewDB.getInstance().addUserObjectToModel(model, bodyForcesRep.getVtkActor());

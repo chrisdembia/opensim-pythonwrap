@@ -162,4 +162,8 @@ public class Body extends ModelComponent {
     return new SWIGTYPE_p_SimTK__MassProperties(opensimModelJNI.Body_getMassProperties(swigCPtr, this), true);
   }
 
+  public int getNumStateVariables() {
+    return opensimModelJNI.Body_getNumStateVariables(swigCPtr, this);
+  }
+
 }

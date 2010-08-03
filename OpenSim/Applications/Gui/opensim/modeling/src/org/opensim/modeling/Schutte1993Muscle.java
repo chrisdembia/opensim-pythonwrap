@@ -141,6 +141,10 @@ public class Schutte1993Muscle extends Muscle {
     return opensimModelJNI.Schutte1993Muscle_setTendonForceLengthCurve(swigCPtr, this, Function.getCPtr(aTendonForceLengthCurve), aTendonForceLengthCurve);
   }
 
+  public int getStateVariableYIndex(int index) {
+    return opensimModelJNI.Schutte1993Muscle_getStateVariableYIndex(swigCPtr, this, index);
+  }
+
   public static boolean isKindOf(String type) {
     return opensimModelJNI.Schutte1993Muscle_isKindOf(type);
   }

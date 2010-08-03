@@ -119,7 +119,7 @@ public class SetPathPoint extends OpenSimObject {
   }
 
   public boolean append(PathPoint aObject) {
-    return opensimModelJNI.SetPathPoint_append__SWIG_0(swigCPtr, this, PathPoint.getCPtr(aObject), aObject);
+    return opensimModelJNI.SetPathPoint_append(swigCPtr, this, PathPoint.getCPtr(aObject), aObject);
   }
 
   public boolean insert(int aIndex, PathPoint aObject) {

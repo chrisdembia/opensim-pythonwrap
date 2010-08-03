@@ -11,30 +11,21 @@ package org.opensim.view.nodes;
 
 
 import java.awt.Image;
-import java.awt.datatransfer.DataFlavor;
-import java.awt.datatransfer.Transferable;
-import java.awt.dnd.DnDConstants;
 import java.io.IOException;
-import java.lang.Class;
-import java.lang.String;
 import java.net.URL;
 import java.util.Hashtable;
-import java.util.List;
 import javax.swing.ImageIcon;
 import org.openide.nodes.AbstractNode;
 import org.openide.nodes.Children;
 import org.openide.nodes.Node;
-import org.openide.nodes.NodeTransfer;
 import org.openide.nodes.PropertySupport;
 import org.openide.nodes.Sheet;
 //import org.openide.util.Exceptions;
 import org.openide.util.Lookup;
-import org.openide.util.datatransfer.NewType;
-import org.openide.util.datatransfer.PasteType;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.OpenSimObject;
+import org.opensim.modeling.Property;
 import org.opensim.modeling.Property.PropertyType;
-import org.opensim.view.editors.ObjectEditDialogMaker;
 
 /**
  * 
@@ -211,6 +202,10 @@ public class OpenSimNode extends AbstractNode {
                         // Need Class, functionToGet, functioToSet // Editor
                         PropertySupport.Reflection nextNodeProp = new PropertySupport.Reflection(prop, mapPropertyEnumToClass.get(prop.getType()), mapPropertyEnumToGetters.get(prop.getType()), null);
                         nextNodeProp.setName(prop.getName());
+                        if (prop.getType()==PropertyType.Str){
+                            ((Node.Property)nextNodeProp).setValue("oneline", Boolean.TRUE); 
+                            ((Node.Property)nextNodeProp).setValue("suppressCustomEditor", Boolean.TRUE); 
+                        }
                         set.put(nextNodeProp);
                     }
                 } catch (NoSuchMethodException ex) {

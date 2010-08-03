@@ -72,8 +72,7 @@ public class MarkerData extends OpenSimObject {
   }
 
   public SWIGTYPE_p_MarkerFrame getFrame(int aIndex) {
-    long cPtr = opensimModelJNI.MarkerData_getFrame(swigCPtr, this, aIndex);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_MarkerFrame(cPtr, false);
+    return new SWIGTYPE_p_MarkerFrame(opensimModelJNI.MarkerData_getFrame(swigCPtr, this, aIndex), false);
   }
 
   public int getMarkerIndex(String aName) {

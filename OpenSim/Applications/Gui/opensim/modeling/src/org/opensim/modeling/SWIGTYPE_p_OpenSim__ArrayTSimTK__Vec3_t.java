@@ -8,16 +8,16 @@
 
 package org.opensim.modeling;
 
-public class SWIGTYPE_p_SimTK__Force__UniformGravity {
+public class SWIGTYPE_p_OpenSim__ArrayTSimTK__Vec3_t {
   private long swigCPtr;
   protected boolean swigCMemOwn;
 
-  public SWIGTYPE_p_SimTK__Force__UniformGravity(long cPtr, boolean cMemoryOwn) {
+  public SWIGTYPE_p_OpenSim__ArrayTSimTK__Vec3_t(long cPtr, boolean cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
   }
 
-  public static long getCPtr(SWIGTYPE_p_SimTK__Force__UniformGravity obj) {
+  public static long getCPtr(SWIGTYPE_p_OpenSim__ArrayTSimTK__Vec3_t obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 }

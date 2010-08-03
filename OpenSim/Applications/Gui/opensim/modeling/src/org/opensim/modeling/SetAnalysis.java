@@ -119,7 +119,7 @@ public class SetAnalysis extends OpenSimObject {
   }
 
   public boolean append(Analysis aObject) {
-    return opensimModelJNI.SetAnalysis_append__SWIG_0(swigCPtr, this, Analysis.getCPtr(aObject), aObject);
+    return opensimModelJNI.SetAnalysis_append(swigCPtr, this, Analysis.getCPtr(aObject), aObject);
   }
 
   public boolean insert(int aIndex, Analysis aObject) {

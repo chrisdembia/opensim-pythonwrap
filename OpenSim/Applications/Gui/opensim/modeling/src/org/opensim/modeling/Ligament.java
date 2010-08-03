@@ -107,6 +107,15 @@ public class Ligament extends CustomForce {
     opensimModelJNI.Ligament_postScale(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), ScaleSet.getCPtr(aScaleSet), aScaleSet);
   }
 
+  public VisibleObject getDisplayer() {
+    long cPtr = opensimModelJNI.Ligament_getDisplayer(swigCPtr, this);
+    return (cPtr == 0) ? null : new VisibleObject(cPtr, false);
+  }
+
+  public void updateDisplayer(SWIGTYPE_p_SimTK__State s) {
+    opensimModelJNI.Ligament_updateDisplayer(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s));
+  }
+
   public static boolean isKindOf(String type) {
     return opensimModelJNI.Ligament_isKindOf(type);
   }

@@ -41,4 +41,24 @@ public class ModelComponent extends OpenSimObject {
     return new Model(opensimModelJNI.ModelComponent_updModel(swigCPtr, this), false);
   }
 
+  public int getNumStateVariables() {
+    return opensimModelJNI.ModelComponent_getNumStateVariables(swigCPtr, this);
+  }
+
+  public String getStateVariableName(int index) {
+    return opensimModelJNI.ModelComponent_getStateVariableName(swigCPtr, this, index);
+  }
+
+  public int getStateVariableYIndex(int index) {
+    return opensimModelJNI.ModelComponent_getStateVariableYIndex(swigCPtr, this, index);
+  }
+
+  public double getStateVariable(SWIGTYPE_p_SimTK__State state, int index) {
+    return opensimModelJNI.ModelComponent_getStateVariable(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(state), index);
+  }
+
+  public void setStateVariable(SWIGTYPE_p_SimTK__State state, int index, double value) {
+    opensimModelJNI.ModelComponent_setStateVariable(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(state), index, value);
+  }
+
 }

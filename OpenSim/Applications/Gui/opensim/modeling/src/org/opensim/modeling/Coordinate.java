@@ -247,6 +247,14 @@ public class Coordinate extends ModelComponent {
     return new SWIGTYPE_p_SimTK__MobilizedBodyIndex(opensimModelJNI.Coordinate_getBodyIndex(swigCPtr, this), true);
   }
 
+  public String getStateVariableName(int index) {
+    return opensimModelJNI.Coordinate_getStateVariableName(swigCPtr, this, index);
+  }
+
+  public int getStateVariableYIndex(int index) {
+    return opensimModelJNI.Coordinate_getStateVariableYIndex(swigCPtr, this, index);
+  }
+
   public static boolean isKindOf(String type) {
     return opensimModelJNI.Coordinate_isKindOf(type);
   }

@@ -71,7 +71,7 @@ public class Installer extends ModuleInstall {
 
     public void restored() {
         super.restored();
-        System.setProperty ("netbeans.buildnumber", "2.0.2"); // Should get that from JNI but sometimes doesn't work'
+        System.setProperty ("netbeans.buildnumber", "2.1.0_b2"); // Should get that from JNI but sometimes doesn't work'
         try {
              // Put your startup code here.
             UIManager.setLookAndFeel( UIManager.getSystemLookAndFeelClassName() );
@@ -165,6 +165,10 @@ public class Installer extends ModuleInstall {
          saved = Preferences.userNodeForPackage(TheApp.class).get("Markers Color", markerColor);
          Preferences.userNodeForPackage(TheApp.class).put("Markers Color", saved);
 
+         String experimentalMarkerDisplayScaleStr="1.0";
+         saved=Preferences.userNodeForPackage(TheApp.class).get("Experimental Marker Size", experimentalMarkerDisplayScaleStr);
+         Preferences.userNodeForPackage(TheApp.class).put("Experimental Marker Size", saved);
+         
          String persistModels = "On";        
          saved = Preferences.userNodeForPackage(TheApp.class).get("Persist Models", persistModels);
          Preferences.userNodeForPackage(TheApp.class).put("Persist Models", saved);

@@ -152,6 +152,10 @@ public class Model extends ModelComponent {
     return new SWIGTYPE_p_SimTK__GeneralForceSubsystem(opensimModelJNI.Model_updUserForceSubsystem(swigCPtr, this), false);
   }
 
+  public int getNumStateVariables() {
+    return opensimModelJNI.Model_getNumStateVariables(swigCPtr, this);
+  }
+
   public void addBody(Body aBody) {
     opensimModelJNI.Model_addBody(swigCPtr, this, Body.getCPtr(aBody), aBody);
   }
@@ -166,6 +170,10 @@ public class Model extends ModelComponent {
 
   public void addContactGeometry(ContactGeometry aContactGeometry) {
     opensimModelJNI.Model_addContactGeometry(swigCPtr, this, ContactGeometry.getCPtr(aContactGeometry), aContactGeometry);
+  }
+
+  public void addModelComponent(ModelComponent aComponent) {
+    opensimModelJNI.Model_addModelComponent(swigCPtr, this, ModelComponent.getCPtr(aComponent), aComponent);
   }
 
   public String getInputFileName() {
@@ -232,8 +240,12 @@ public class Model extends ModelComponent {
     return opensimModelJNI.Model_setGravity(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(aGrav));
   }
 
+  public int getNumStates(boolean includeSimTKStates) {
+    return opensimModelJNI.Model_getNumStates__SWIG_0(swigCPtr, this, includeSimTKStates);
+  }
+
   public int getNumStates() {
-    return opensimModelJNI.Model_getNumStates(swigCPtr, this);
+    return opensimModelJNI.Model_getNumStates__SWIG_1(swigCPtr, this);
   }
 
   public int getNumMarkers() {
@@ -344,8 +356,20 @@ public class Model extends ModelComponent {
     return opensimModelJNI.Model_getTimeNormConstant(swigCPtr, this);
   }
 
+  public void getStateNames(ArrayStr rStateNames, boolean includeInternalStates) {
+    opensimModelJNI.Model_getStateNames__SWIG_0(swigCPtr, this, ArrayStr.getCPtr(rStateNames), rStateNames, includeInternalStates);
+  }
+
   public void getStateNames(ArrayStr rStateNames) {
-    opensimModelJNI.Model_getStateNames(swigCPtr, this, ArrayStr.getCPtr(rStateNames), rStateNames);
+    opensimModelJNI.Model_getStateNames__SWIG_1(swigCPtr, this, ArrayStr.getCPtr(rStateNames), rStateNames);
+  }
+
+  public void getStateValues(SWIGTYPE_p_SimTK__State s, ArrayDouble rStateValues) {
+    opensimModelJNI.Model_getStateValues(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), ArrayDouble.getCPtr(rStateValues), rStateValues);
+  }
+
+  public void setStateValues(SWIGTYPE_p_SimTK__State s, SWIGTYPE_p_double aStateValues) {
+    opensimModelJNI.Model_setStateValues(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), SWIGTYPE_p_double.getCPtr(aStateValues));
   }
 
   public int getNumMuscleStates() {

@@ -1866,7 +1866,7 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
     }//GEN-LAST:event_coordinatesFileName1StateChanged
 
     private void statesFileName1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_statesFileName1StateChanged
-      analyzeToolModel().setCoordinatesFileName(statesFileName1.getFileName());
+      analyzeToolModel().setStatesFileName(statesFileName1.getFileName());
     }//GEN-LAST:event_statesFileName1StateChanged
 
     private void inputSourceRadioButtonActionPerformed1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputSourceRadioButtonActionPerformed1

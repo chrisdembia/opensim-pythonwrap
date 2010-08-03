@@ -35,7 +35,7 @@ public class StorageInterface extends OpenSimObject {
 
   public OpenSimObject copy() {
     long cPtr = opensimModelJNI.StorageInterface_copy(swigCPtr, this);
-    return (cPtr == 0) ? null : new StorageInterface(cPtr, false);
+    return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
   public int getSize() {

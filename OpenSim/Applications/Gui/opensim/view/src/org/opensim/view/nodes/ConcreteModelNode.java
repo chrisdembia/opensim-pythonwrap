@@ -21,6 +21,7 @@ public class ConcreteModelNode extends OpenSimObjectNode {
 		{   // Data Import model has no engine or Actuators
         getChildren().add(new Node[] {new BodiesNode(m.getBodySet())});
         getChildren().add(new Node[] {new JointsNode(m.getJointSet())});
+        getChildren().add(new Node[] {new ConstraintsNode(m.getConstraintSet())});        
         getChildren().add(new Node[] {new ContactGeometriesNode(m.getContactGeometrySet())});
         getChildren().add(new Node[] {new AllForcesNode(m.getForceSet())});
         getChildren().add(new Node[] {new MarkersNode(m.getMarkerSet())});

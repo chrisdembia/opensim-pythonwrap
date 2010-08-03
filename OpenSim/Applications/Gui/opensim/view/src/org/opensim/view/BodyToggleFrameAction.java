@@ -54,7 +54,7 @@ public final class BodyToggleFrameAction extends BooleanStateAction {
         if (selected[0] instanceof OneBodyNode){
             OneBodyNode dNode = (OneBodyNode)selected[0];
             Body b = Body.safeDownCast(dNode.getOpenSimObject());
-            setBooleanState(b.getDisplayer().getVisibleProperties().getShowAxes());
+            setBooleanState(b.getDisplayer().getShowAxes());
             return true;
         }
         return false;

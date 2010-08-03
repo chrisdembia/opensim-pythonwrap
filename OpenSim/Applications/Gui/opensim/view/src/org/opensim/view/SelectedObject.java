@@ -114,13 +114,13 @@ public class SelectedObject implements Selectable {
              Body b=(Body)object;
              vtkProp3DCollection props =asm.GetParts();
              double[] currentColor = ((vtkActor)props.GetLastProp3D()).GetProperty().GetColor();
-             b.getDisplayer().getVisibleProperties().setColor(currentColor);
+             //OpenSim211 b.getDisplayer().getVisibleProperties().setColor(currentColor);
              ViewDB.getInstance().applyColor(defaultSelectedColor, asm);
          }
          else{
             Body b=(Body)object;
             double[] actualColor = new double[3];
-            b.getDisplayer().getVisibleProperties().getColor(actualColor);
+            //OpenSim211 b.getDisplayer().getVisibleProperties().getColor(actualColor);
             ViewDB.getInstance().applyColor(actualColor, asm);
          }
       }

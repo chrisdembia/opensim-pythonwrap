@@ -119,7 +119,7 @@ public class SetModelComponents extends OpenSimObject {
   }
 
   public boolean append(ModelComponent aObject) {
-    return opensimModelJNI.SetModelComponents_append__SWIG_0(swigCPtr, this, ModelComponent.getCPtr(aObject), aObject);
+    return opensimModelJNI.SetModelComponents_append(swigCPtr, this, ModelComponent.getCPtr(aObject), aObject);
   }
 
   public boolean insert(int aIndex, ModelComponent aObject) {

@@ -119,7 +119,7 @@ public class SetScales extends OpenSimObject {
   }
 
   public boolean append(Scale aObject) {
-    return opensimModelJNI.SetScales_append__SWIG_0(swigCPtr, this, Scale.getCPtr(aObject), aObject);
+    return opensimModelJNI.SetScales_append(swigCPtr, this, Scale.getCPtr(aObject), aObject);
   }
 
   public boolean insert(int aIndex, Scale aObject) {

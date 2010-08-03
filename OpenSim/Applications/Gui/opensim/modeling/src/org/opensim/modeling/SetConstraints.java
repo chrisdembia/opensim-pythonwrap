@@ -119,7 +119,7 @@ public class SetConstraints extends OpenSimObject {
   }
 
   public boolean append(Constraint aObject) {
-    return opensimModelJNI.SetConstraints_append__SWIG_0(swigCPtr, this, Constraint.getCPtr(aObject), aObject);
+    return opensimModelJNI.SetConstraints_append(swigCPtr, this, Constraint.getCPtr(aObject), aObject);
   }
 
   public boolean insert(int aIndex, Constraint aObject) {

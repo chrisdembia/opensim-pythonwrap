@@ -181,6 +181,10 @@ public class GeometryPath extends ModelComponent {
     opensimModelJNI.GeometryPath_initState(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s));
   }
 
+  public int getNumStateVariables() {
+    return opensimModelJNI.GeometryPath_getNumStateVariables(swigCPtr, this);
+  }
+
   public VisibleObject getDisplayer() {
     long cPtr = opensimModelJNI.GeometryPath_getDisplayer(swigCPtr, this);
     return (cPtr == 0) ? null : new VisibleObject(cPtr, false);

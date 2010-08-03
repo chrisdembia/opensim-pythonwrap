@@ -30,13 +30,14 @@ import java.util.Vector;
 import org.opensim.modeling.Muscle;
 import org.opensim.modeling.ArrayPathPoint;
 import org.opensim.modeling.Geometry;
+import org.opensim.modeling.DisplayGeometry;
 import org.opensim.modeling.LineGeometry;
 import org.opensim.modeling.PathPoint;
 import org.opensim.modeling.PathPointSet;
 import org.opensim.modeling.PathWrapPoint;
 import org.opensim.modeling.OpenSimContext;
 import org.opensim.modeling.VisibleObject;
-import org.opensim.modeling.VisibleProperties.DisplayPreference;
+import org.opensim.modeling.DisplayGeometry.DisplayPreference;
 import org.opensim.view.pub.OpenSimDB;
 import vtk.vtkMatrix4x4;
 
@@ -155,7 +156,7 @@ public class LineSegmentMuscleDisplayer {
       VisibleObject actuatorDisplayer = act.getDisplayer();
       if (actuatorDisplayer == null) return;
 
-      DisplayPreference dp = actuatorDisplayer.getVisibleProperties().getDisplayPreference();
+      DisplayPreference dp = actuatorDisplayer.getDisplayPreference();
 
       // Account for possible increase in number of muscle segments
       updateGlyphIds();
@@ -257,7 +258,7 @@ public class LineSegmentMuscleDisplayer {
    {
       freeGlyphIds();
       VisibleObject actuatorDisplayer = act.getDisplayer();
-      if(actuatorDisplayer!=null) actuatorDisplayer.getVisibleProperties().setDisplayPreference(DisplayPreference.None);
+      if(actuatorDisplayer!=null) actuatorDisplayer.setDisplayPreference(DisplayPreference.None);
    }
 
     /**

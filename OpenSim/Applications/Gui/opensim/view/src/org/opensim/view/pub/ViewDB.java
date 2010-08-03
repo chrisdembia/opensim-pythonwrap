@@ -31,7 +31,6 @@ package org.opensim.view.pub;
 import java.awt.Dialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.lang.reflect.InvocationTargetException;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -44,24 +43,23 @@ import java.util.Set;
 import java.util.Vector;
 import java.util.prefs.Preferences;
 import javax.swing.SwingUtilities;
-//import javax.swing.plaf.basic.BasicFileChooserUI.SelectionListener;
 import org.openide.DialogDescriptor;
 import org.openide.DialogDisplayer;
 import org.openide.awt.StatusDisplayer;
 import org.openide.util.NbBundle;
 import org.opensim.modeling.Actuator;
+import org.opensim.modeling.DisplayGeometry;
 import org.opensim.modeling.Marker;
 import org.opensim.modeling.Muscle;
 import org.opensim.modeling.ArrayObjPtr;
+import org.opensim.modeling.Body;
 import org.opensim.modeling.Model;
 import org.opensim.view.experimentaldata.ModelForExperimentalData;
-import org.opensim.modeling.PathPoint;
 import org.opensim.modeling.ObjectGroup;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.modeling.PathPoint;
 import org.opensim.modeling.VisibleObject;
-import org.opensim.modeling.VisibleProperties;
-import org.opensim.modeling.VisibleProperties.DisplayPreference;
+import org.opensim.modeling.DisplayGeometry.DisplayPreference;
 import org.opensim.utils.Prefs;
 import org.opensim.utils.TheApp;
 import org.opensim.view.*;
@@ -220,7 +218,7 @@ public final class ViewDB extends Observable implements Observer {
                         vis.setPickable(true);
                         //displayText("Model Name:"+next.getName(),16);
                      } else {
-                        setObjectOpacity(next, getNonCurrentModelOpacity()*nominalOpacity);
+                        //OpenSim211 setObjectOpacity(next, getNonCurrentModelOpacity()*nominalOpacity);
                         vis.setPickable(false);
                      }
                   }
@@ -605,15 +603,24 @@ public final class ViewDB extends Observable implements Observer {
          vtkProp3D asm = ViewDB.getInstance().getVtkRepForObject(object);
          /** make sure the object is not selected, if so change only in database */
          if (ViewDB.getInstance().findObjectInSelectedList(object)!=-1){
-             if (object.getDisplayer()!=null)
-                object.getDisplayer().getVisibleProperties().setColor(colorComponents);
+             //OpenSim211 if (object.getDisplayer()!=null)
+             //   object.getDisplayer().setColor(colorComponents);
          }
          else
-            if(asm!=null) applyColor(colorComponents, asm);
+            if(asm!=null) {
+                applyColor(colorComponents, asm);
+                if (object instanceof Body){
+                    ((BodyDisplayer) asm).setPersistentColor(colorComponents);
+                }
+                else if (object instanceof DisplayGeometry)
+                    ((DisplayGeometry)object).setColor(colorComponents);
+            }
+         
       }
    }
 
    public void applyColor(final double[] colorComponents, final vtkProp3D asm) {
+         
       ApplyFunctionToActors(asm, new ActorFunctionApplier() {
          public void apply(vtkActor actor) { 
              if (!(actor instanceof FrameActor))
@@ -646,6 +653,12 @@ public final class ViewDB extends Observable implements Observer {
    public void setObjectOpacity(OpenSimObject object, double newOpacity) {
       vtkProp3D asm = ViewDB.getInstance().getVtkRepForObject(object);
       applyOpacity(newOpacity, asm);
+      if (asm instanceof BodyDisplayer){
+          ((BodyDisplayer) asm).setOpacity(newOpacity);
+      }
+      else if (object instanceof DisplayGeometry){
+          ((DisplayGeometry)object).setOpacity(newOpacity);
+      }
    }
    
    private void applyOpacity(final double newOpacity, final vtkProp3D asm) {
@@ -1084,14 +1097,17 @@ public final class ViewDB extends Observable implements Observer {
       //System.out.println("Toggle object "+openSimObject.getName()+" "+ (visible?"On":"Off"));
       VisibleObject vo = openSimObject.getDisplayer();
       if (vo != null) {
-         VisibleProperties vp = vo.getVisibleProperties();
-         DisplayPreference dp = vp.getDisplayPreference();
+         DisplayPreference dp = vo.getDisplayPreference();
          if (visible == true)
-            vp.setDisplayPreference(DisplayPreference.GouraudShaded); // TODO: assumes gouraud is the default
+            vo.setDisplayPreference(DisplayPreference.GouraudShaded); // TODO: assumes gouraud is the default
          else
-            vp.setDisplayPreference(DisplayPreference.None);
+            vo.setDisplayPreference(DisplayPreference.None);
       }
-
+      else if (openSimObject instanceof DisplayGeometry){
+          ((DisplayGeometry)openSimObject).setDisplayPreference(visible? DisplayPreference.GouraudShaded:
+              DisplayPreference.None); // TODO: assumes gouraud is the default
+         
+      }
       Marker marker = Marker.safeDownCast(openSimObject);
       if (marker != null) {
          SingleModelVisuals vis = getModelVisuals(marker.getBody().getModel());
@@ -1137,7 +1153,7 @@ public final class ViewDB extends Observable implements Observer {
          for (int i = 0; i < members.getSize(); i++) {
             VisibleObject vo = members.get(i).getDisplayer();
             if (vo != null) {
-               DisplayPreference dp = vo.getVisibleProperties().getDisplayPreference();
+               DisplayPreference dp = vo.getDisplayPreference();
                if (dp == DisplayPreference.None)
                   foundHidden = true;
                else
@@ -1156,8 +1172,12 @@ public final class ViewDB extends Observable implements Observer {
       } else {
          VisibleObject vo = openSimObject.getDisplayer();
          if (vo != null) {
-            DisplayPreference dp = vo.getVisibleProperties().getDisplayPreference();
+            DisplayPreference dp = vo.getDisplayPreference();
             if (dp != DisplayPreference.None)
+               visible = 1;
+         }
+         else if (openSimObject instanceof DisplayGeometry){
+             if (((DisplayGeometry)openSimObject).getDisplayPreference() != DisplayPreference.None)
                visible = 1;
          }
       }
@@ -1178,11 +1198,13 @@ public final class ViewDB extends Observable implements Observer {
     */
    public void setObjectRepresentation(OpenSimObject object, final int rep, final int newShading) {
       // Set new rep in model so that it's persistent.'
-      VisibleProperties.DisplayPreference newPref = VisibleProperties.DisplayPreference.GouraudShaded;
-      if (rep==1)  newPref = VisibleProperties.DisplayPreference.WireFrame;
-      else if (rep==2 && newShading==0 ) newPref = VisibleProperties.DisplayPreference.FlatShaded;
+      DisplayGeometry.DisplayPreference newPref = DisplayGeometry.DisplayPreference.GouraudShaded;
+      if (rep==1)  newPref = DisplayGeometry.DisplayPreference.WireFrame;
+      else if (rep==2 && newShading==0 ) newPref = DisplayGeometry.DisplayPreference.FlatShaded;
       if (object.getDisplayer()!=null)
-        object.getDisplayer().getVisibleProperties().setDisplayPreference(newPref);
+        object.getDisplayer().setDisplayPreference(newPref);
+      else if (object instanceof DisplayGeometry)
+          ((DisplayGeometry)object).setDisplayPreference(newPref);
       
       vtkProp3D asm = ViewDB.getInstance().getVtkRepForObject(object);
       ApplyFunctionToActors(asm, new ActorFunctionApplier() {
@@ -1400,6 +1422,14 @@ public final class ViewDB extends Observable implements Observer {
         this.markerDisplayRadius = markerDisplayRadius;
     }
     
+    public double getExperimentalMarkerDisplayScale() {
+         String experimentalMarkerDisplayScaleStr="1.0";
+         String saved=Preferences.userNodeForPackage(TheApp.class).get("Experimental Marker Size", experimentalMarkerDisplayScaleStr);
+         if (saved != null) 
+             return (Double.parseDouble(saved));
+         else 
+             return 1.0;     
+    }
     public Object[] getOpenWindows() {
         return openWindows.toArray();
     }

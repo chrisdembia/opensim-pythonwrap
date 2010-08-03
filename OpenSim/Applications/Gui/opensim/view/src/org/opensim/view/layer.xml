@@ -222,9 +222,6 @@
             </file>
         </folder>
          <folder name="Window">
-            <file name="org-netbeans-core-actions-GlobalPropertiesAction.instance">
-                <attr name="instanceClass" stringvalue="org.netbeans.core.actions.GlobalPropertiesAction"/>
-            </file>
             <file name="org-opensim-view-actions-ViewAddNewAction.shadow">
                 <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-actions-ViewAddNewAction.instance"/>
             </file>

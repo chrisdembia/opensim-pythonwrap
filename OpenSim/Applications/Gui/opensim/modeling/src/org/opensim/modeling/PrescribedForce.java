@@ -54,6 +54,10 @@ public class PrescribedForce extends CustomForce {
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
+  public void updateFromXMLNode() {
+    opensimModelJNI.PrescribedForce_updateFromXMLNode(swigCPtr, this);
+  }
+
   public void setup(Model model) {
     opensimModelJNI.PrescribedForce_setup(swigCPtr, this, Model.getCPtr(model), model);
   }

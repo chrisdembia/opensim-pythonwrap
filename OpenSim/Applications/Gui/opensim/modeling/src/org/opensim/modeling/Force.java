@@ -42,22 +42,6 @@ public class Force extends ModelComponent {
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
-  public int getNumStateVariables() {
-    return opensimModelJNI.Force_getNumStateVariables(swigCPtr, this);
-  }
-
-  public String getStateVariableName(int index) {
-    return opensimModelJNI.Force_getStateVariableName(swigCPtr, this, index);
-  }
-
-  public double getStateVariable(SWIGTYPE_p_SimTK__State state, int index) {
-    return opensimModelJNI.Force_getStateVariable(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(state), index);
-  }
-
-  public void setStateVariable(SWIGTYPE_p_SimTK__State state, int index, double value) {
-    opensimModelJNI.Force_setStateVariable(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(state), index, value);
-  }
-
   public ArrayStr getRecordLabels() {
     return new ArrayStr(opensimModelJNI.Force_getRecordLabels(swigCPtr, this), true);
   }
@@ -72,6 +56,10 @@ public class Force extends ModelComponent {
 
   public void setDisabled(SWIGTYPE_p_SimTK__State s, boolean disabled) {
     opensimModelJNI.Force_setDisabled(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), disabled);
+  }
+
+  public int getNumStateVariables() {
+    return opensimModelJNI.Force_getNumStateVariables(swigCPtr, this);
   }
 
 }

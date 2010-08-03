@@ -63,7 +63,7 @@ public class PropertyTransform extends Property {
   }
 
   public SWIGTYPE_p_SimTK__Transform getValueTransform() {
-    return new SWIGTYPE_p_SimTK__Transform(opensimModelJNI.PropertyTransform_getValueTransform__SWIG_0(swigCPtr, this), false);
+    return new SWIGTYPE_p_SimTK__Transform(opensimModelJNI.PropertyTransform_getValueTransform(swigCPtr, this), false);
   }
 
   public void setValue(int aSize, double[] aArray) {
