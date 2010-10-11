@@ -8,7 +8,7 @@
 
 package org.opensim.modeling;
 
-public class Ligament extends CustomForce {
+public class Ligament extends Force {
   private long swigCPtr;
 
   public Ligament(long cPtr, boolean cMemoryOwn) {
@@ -48,10 +48,6 @@ public class Ligament extends CustomForce {
 
   public void copyData(Ligament aLigament) {
     opensimModelJNI.Ligament_copyData(swigCPtr, this, Ligament.getCPtr(aLigament), aLigament);
-  }
-
-  public void initStateCache(SWIGTYPE_p_SimTK__State s, SWIGTYPE_p_SimTK__SubsystemIndex subsystemIndex, Model model) {
-    opensimModelJNI.Ligament_initStateCache(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), SWIGTYPE_p_SimTK__SubsystemIndex.getCPtr(subsystemIndex), Model.getCPtr(model), model);
   }
 
   public GeometryPath getGeometryPath() {

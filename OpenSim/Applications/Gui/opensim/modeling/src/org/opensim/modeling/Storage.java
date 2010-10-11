@@ -496,12 +496,12 @@ public class Storage extends StorageInterface {
     return opensimModelJNI.Storage_resampleLinear(swigCPtr, this, aDT);
   }
 
-  public double compareColumn(Storage aOtherStorage, SWIGTYPE_p_std__string aColumnName, double startTime, double endTime) {
-    return opensimModelJNI.Storage_compareColumn__SWIG_0(swigCPtr, this, Storage.getCPtr(aOtherStorage), aOtherStorage, SWIGTYPE_p_std__string.getCPtr(aColumnName), startTime, endTime);
+  public double compareColumn(Storage aOtherStorage, String aColumnName, double startTime, double endTime) {
+    return opensimModelJNI.Storage_compareColumn__SWIG_0(swigCPtr, this, Storage.getCPtr(aOtherStorage), aOtherStorage, aColumnName, startTime, endTime);
   }
 
-  public double compareColumn(Storage aOtherStorage, SWIGTYPE_p_std__string aColumnName, double startTime) {
-    return opensimModelJNI.Storage_compareColumn__SWIG_1(swigCPtr, this, Storage.getCPtr(aOtherStorage), aOtherStorage, SWIGTYPE_p_std__string.getCPtr(aColumnName), startTime);
+  public double compareColumn(Storage aOtherStorage, String aColumnName, double startTime) {
+    return opensimModelJNI.Storage_compareColumn__SWIG_1(swigCPtr, this, Storage.getCPtr(aOtherStorage), aOtherStorage, aColumnName, startTime);
   }
 
   public boolean makeStorageLabelsUnique() {

@@ -8,7 +8,7 @@
 
 package org.opensim.modeling;
 
-public class CoordinateActuator extends CustomActuator {
+public class CoordinateActuator extends Actuator {
   private long swigCPtr;
 
   public CoordinateActuator(long cPtr, boolean cMemoryOwn) {

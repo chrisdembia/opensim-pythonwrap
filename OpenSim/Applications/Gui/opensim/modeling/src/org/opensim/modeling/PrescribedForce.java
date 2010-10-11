@@ -8,7 +8,7 @@
 
 package org.opensim.modeling;
 
-public class PrescribedForce extends CustomForce {
+public class PrescribedForce extends Force {
   private long swigCPtr;
 
   public PrescribedForce(long cPtr, boolean cMemoryOwn) {
@@ -140,10 +140,6 @@ public class PrescribedForce extends CustomForce {
 
   public void clearTorqueFunctions() {
     opensimModelJNI.PrescribedForce_clearTorqueFunctions(swigCPtr, this);
-  }
-
-  public void setFunctionsFromFile(String anExternalLoadsFileName) {
-    opensimModelJNI.PrescribedForce_setFunctionsFromFile(swigCPtr, this, anExternalLoadsFileName);
   }
 
   public boolean getForceIsInGlobalFrame() {

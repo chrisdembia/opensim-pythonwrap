@@ -110,10 +110,6 @@ public class Schutte1993Muscle extends Muscle {
     return opensimModelJNI.Schutte1993Muscle_setDamping(swigCPtr, this, aDamping);
   }
 
-  public void setup(Model aModel) {
-    opensimModelJNI.Schutte1993Muscle_setup(swigCPtr, this, Model.getCPtr(aModel), aModel);
-  }
-
   public Function getActiveForceLengthCurve() {
     long cPtr = opensimModelJNI.Schutte1993Muscle_getActiveForceLengthCurve(swigCPtr, this);
     return (cPtr == 0) ? null : new Function(cPtr, false);

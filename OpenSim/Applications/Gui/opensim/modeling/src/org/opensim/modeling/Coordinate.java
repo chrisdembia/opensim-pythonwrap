@@ -235,8 +235,12 @@ public class Coordinate extends ModelComponent {
     opensimModelJNI.Coordinate_setMotionType(swigCPtr, this, aMotionType.swigValue());
   }
 
-  public boolean isConstrained() {
-    return opensimModelJNI.Coordinate_isConstrained(swigCPtr, this);
+  public boolean isDependent(SWIGTYPE_p_SimTK__State s) {
+    return opensimModelJNI.Coordinate_isDependent(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s));
+  }
+
+  public boolean isConstrained(SWIGTYPE_p_SimTK__State s) {
+    return opensimModelJNI.Coordinate_isConstrained(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s));
   }
 
   public int getMobilityIndex() {

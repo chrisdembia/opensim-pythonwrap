@@ -66,10 +66,6 @@ public class GeometryPath extends ModelComponent {
     return new PathWrapSet(opensimModelJNI.GeometryPath_getWrapSet(swigCPtr, this), false);
   }
 
-  public void initStateCache(SWIGTYPE_p_SimTK__State s, SWIGTYPE_p_SimTK__SubsystemIndex subsystemIndex, Model model) {
-    opensimModelJNI.GeometryPath_initStateCache(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), SWIGTYPE_p_SimTK__SubsystemIndex.getCPtr(subsystemIndex), Model.getCPtr(model), model);
-  }
-
   public PathPoint addPathPoint(SWIGTYPE_p_SimTK__State s, int aIndex, Body aBody) {
     long cPtr = opensimModelJNI.GeometryPath_addPathPoint(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), aIndex, Body.getCPtr(aBody), aBody);
     return (cPtr == 0) ? null : new PathPoint(cPtr, false);
@@ -171,14 +167,6 @@ public class GeometryPath extends ModelComponent {
 
   public void postScale(SWIGTYPE_p_SimTK__State s, ScaleSet aScaleSet) {
     opensimModelJNI.GeometryPath_postScale(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), ScaleSet.getCPtr(aScaleSet), aScaleSet);
-  }
-
-  public void setup(Model aModel) {
-    opensimModelJNI.GeometryPath_setup(swigCPtr, this, Model.getCPtr(aModel), aModel);
-  }
-
-  public void initState(SWIGTYPE_p_SimTK__State s) {
-    opensimModelJNI.GeometryPath_initState(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s));
   }
 
   public int getNumStateVariables() {

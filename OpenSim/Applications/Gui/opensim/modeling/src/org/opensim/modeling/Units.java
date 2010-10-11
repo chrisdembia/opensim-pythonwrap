@@ -41,8 +41,8 @@ public class Units {
     this(opensimModelJNI.new_Units__SWIG_1(Units.getCPtr(aUnits), aUnits), true);
   }
 
-  public Units(SWIGTYPE_p_std__string aString) {
-    this(opensimModelJNI.new_Units__SWIG_2(SWIGTYPE_p_std__string.getCPtr(aString)), true);
+  public Units(String aString) {
+    this(opensimModelJNI.new_Units__SWIG_2(aString), true);
   }
 
   public Units(Units.UnitType aType) {

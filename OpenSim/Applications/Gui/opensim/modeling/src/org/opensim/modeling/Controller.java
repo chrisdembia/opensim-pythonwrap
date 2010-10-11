@@ -33,6 +33,10 @@ public class Controller extends ModelComponent {
     super.delete();
   }
 
+  public int getNumStateVariables() {
+    return opensimModelJNI.Controller_getNumStateVariables(swigCPtr, this);
+  }
+
   public boolean getIsEnabled() {
     return opensimModelJNI.Controller_getIsEnabled(swigCPtr, this);
   }
@@ -49,24 +53,28 @@ public class Controller extends ModelComponent {
     opensimModelJNI.Controller_setActuators(swigCPtr, this, SetActuators.getCPtr(actuators), actuators);
   }
 
-  public double getFirstTime() {
-    return opensimModelJNI.Controller_getFirstTime(swigCPtr, this);
-  }
-
-  public double getLastTime() {
-    return opensimModelJNI.Controller_getLastTime(swigCPtr, this);
-  }
-
-  public SetActuators updActuators() {
-    return new SetActuators(opensimModelJNI.Controller_updActuators(swigCPtr, this), false);
+  public void addActuator(Actuator actuator) {
+    opensimModelJNI.Controller_addActuator(swigCPtr, this, Actuator.getCPtr(actuator), actuator);
   }
 
   public SetActuators getActuatorSet() {
     return new SetActuators(opensimModelJNI.Controller_getActuatorSet(swigCPtr, this), false);
   }
 
-  public ArrayStr getActuatorList() {
-    return new ArrayStr(opensimModelJNI.Controller_getActuatorList(swigCPtr, this), false);
+  public SetActuators updActuators() {
+    return new SetActuators(opensimModelJNI.Controller_updActuators(swigCPtr, this), false);
+  }
+
+  public ArrayStr getActuatorNames() {
+    return new ArrayStr(opensimModelJNI.Controller_getActuatorNames(swigCPtr, this), false);
+  }
+
+  public double getFirstTime() {
+    return opensimModelJNI.Controller_getFirstTime(swigCPtr, this);
+  }
+
+  public double getLastTime() {
+    return opensimModelJNI.Controller_getLastTime(swigCPtr, this);
   }
 
 }

@@ -33,10 +33,6 @@ public class Actuator extends Force {
     super.delete();
   }
 
-  public static double getLARGE() {
-    return opensimModelJNI.Actuator_LARGE_get();
-  }
-
   public OpenSimObject copy() {
     long cPtr = opensimModelJNI.Actuator_copy__SWIG_0(swigCPtr, this);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
@@ -48,10 +44,6 @@ public class Actuator extends Force {
 
   public static void deleteActuator(Actuator aActuator) {
     opensimModelJNI.Actuator_deleteActuator(Actuator.getCPtr(aActuator), aActuator);
-  }
-
-  public void initStateCache(SWIGTYPE_p_SimTK__State s, SWIGTYPE_p_SimTK__SubsystemIndex subsystemIndex, Model model) {
-    opensimModelJNI.Actuator_initStateCache(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), SWIGTYPE_p_SimTK__SubsystemIndex.getCPtr(subsystemIndex), Model.getCPtr(model), model);
   }
 
   public Model getModel() {
@@ -76,50 +68,6 @@ public class Actuator extends Force {
 
   public double getControl(SWIGTYPE_p_SimTK__State s) {
     return opensimModelJNI.Actuator_getControl(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s));
-  }
-
-  public String getStateVariableName(int aIndex) {
-    return opensimModelJNI.Actuator_getStateVariableName(swigCPtr, this, aIndex);
-  }
-
-  public int getStateVariableIndex(String aName) {
-    return opensimModelJNI.Actuator_getStateVariableIndex(swigCPtr, this, aName);
-  }
-
-  public void setStateVariable(SWIGTYPE_p_SimTK__State s, int aIndex, double aValue) {
-    opensimModelJNI.Actuator_setStateVariable(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), aIndex, aValue);
-  }
-
-  public void setStateVariables(SWIGTYPE_p_SimTK__State s, double[] aY) {
-    opensimModelJNI.Actuator_setStateVariables(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), aY);
-  }
-
-  public double getStateVariable(SWIGTYPE_p_SimTK__State s, int aIndex) {
-    return opensimModelJNI.Actuator_getStateVariable(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), aIndex);
-  }
-
-  public void getStateVariables(SWIGTYPE_p_SimTK__State s, double[] rY) {
-    opensimModelJNI.Actuator_getStateVariables(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), rY);
-  }
-
-  public int getNumStateVariables() {
-    return opensimModelJNI.Actuator_getNumStateVariables(swigCPtr, this);
-  }
-
-  public void setStateVariableDeriv(SWIGTYPE_p_SimTK__State s, int aIndex, double aValue) {
-    opensimModelJNI.Actuator_setStateVariableDeriv(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), aIndex, aValue);
-  }
-
-  public void setStateVariableDerivs(SWIGTYPE_p_SimTK__State s, double[] aY) {
-    opensimModelJNI.Actuator_setStateVariableDerivs(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), aY);
-  }
-
-  public double getStateVariableDeriv(SWIGTYPE_p_SimTK__State s, int aIndex) {
-    return opensimModelJNI.Actuator_getStateVariableDeriv(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), aIndex);
-  }
-
-  public void getStateVariableDerivs(SWIGTYPE_p_SimTK__State s, double[] rY) {
-    opensimModelJNI.Actuator_getStateVariableDerivs(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), rY);
   }
 
   public void updateDisplayer(SWIGTYPE_p_SimTK__State s) {
@@ -147,20 +95,12 @@ public class Actuator extends Force {
     opensimModelJNI.Actuator_copy__SWIG_1(swigCPtr, this, OpenSimObject.getCPtr(aObject), aObject);
   }
 
-  public boolean getAppliesForce() {
-    return opensimModelJNI.Actuator_getAppliesForce(swigCPtr, this);
-  }
-
   public void setForce(SWIGTYPE_p_SimTK__State s, double aForce) {
     opensimModelJNI.Actuator_setForce(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), aForce);
   }
 
   public double getForce(SWIGTYPE_p_SimTK__State s) {
     return opensimModelJNI.Actuator_getForce(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s));
-  }
-
-  public double getAppliedForce(SWIGTYPE_p_SimTK__State s) {
-    return opensimModelJNI.Actuator_getAppliedForce(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s));
   }
 
   public void setSpeed(SWIGTYPE_p_SimTK__State s, double aspeed) {
@@ -191,16 +131,8 @@ public class Actuator extends Force {
     return opensimModelJNI.Actuator_isControlled(swigCPtr, this);
   }
 
-  public void promoteControlsToStates(SWIGTYPE_p_SimTK__State s, int index) {
-    opensimModelJNI.Actuator_promoteControlsToStates(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), index);
-  }
-
   public double computeActuation(SWIGTYPE_p_SimTK__State s) {
     return opensimModelJNI.Actuator_computeActuation(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s));
-  }
-
-  public void computeStateDerivatives(SWIGTYPE_p_SimTK__State s) {
-    opensimModelJNI.Actuator_computeStateDerivatives(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s));
   }
 
   public void computeEquilibrium(SWIGTYPE_p_SimTK__State s) {

@@ -91,6 +91,10 @@ public class MarkerData extends OpenSimObject {
     return new ArrayStr(opensimModelJNI.MarkerData_getMarkerNames(swigCPtr, this), false);
   }
 
+  public int getNumMarkers() {
+    return opensimModelJNI.MarkerData_getNumMarkers(swigCPtr, this);
+  }
+
   public int getNumFrames() {
     return opensimModelJNI.MarkerData_getNumFrames(swigCPtr, this);
   }

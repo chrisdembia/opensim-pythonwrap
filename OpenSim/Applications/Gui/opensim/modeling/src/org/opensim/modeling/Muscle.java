@@ -8,7 +8,7 @@
 
 package org.opensim.modeling;
 
-public class Muscle extends CustomActuator {
+public class Muscle extends Actuator {
   private long swigCPtr;
 
   public Muscle(long cPtr, boolean cMemoryOwn) {
@@ -54,8 +54,8 @@ public class Muscle extends CustomActuator {
     opensimModelJNI.Muscle_equilibrate(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(state));
   }
 
-  public static void deleteMuscle(Muscle aMuscle) {
-    opensimModelJNI.Muscle_deleteMuscle(Muscle.getCPtr(aMuscle), aMuscle);
+  public int getNumStateVariables() {
+    return opensimModelJNI.Muscle_getNumStateVariables(swigCPtr, this);
   }
 
   public double getPennationAngleAtOptimalFiberLength() {

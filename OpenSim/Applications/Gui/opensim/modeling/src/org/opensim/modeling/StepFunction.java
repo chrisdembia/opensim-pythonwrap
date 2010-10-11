@@ -37,16 +37,20 @@ public class StepFunction extends Function {
     this(opensimModelJNI.new_StepFunction__SWIG_0(), true);
   }
 
-  public StepFunction(int aN, SWIGTYPE_p_double aTimes, SWIGTYPE_p_double aValues, String aName) {
-    this(opensimModelJNI.new_StepFunction__SWIG_1(aN, SWIGTYPE_p_double.getCPtr(aTimes), SWIGTYPE_p_double.getCPtr(aValues), aName), true);
+  public StepFunction(double startTime, double endTime, double startValue, double endValue) {
+    this(opensimModelJNI.new_StepFunction__SWIG_1(startTime, endTime, startValue, endValue), true);
   }
 
-  public StepFunction(int aN, SWIGTYPE_p_double aTimes, SWIGTYPE_p_double aValues) {
-    this(opensimModelJNI.new_StepFunction__SWIG_2(aN, SWIGTYPE_p_double.getCPtr(aTimes), SWIGTYPE_p_double.getCPtr(aValues)), true);
+  public StepFunction(double startTime, double endTime, double startValue) {
+    this(opensimModelJNI.new_StepFunction__SWIG_2(startTime, endTime, startValue), true);
   }
 
-  public StepFunction(StepFunction aFunction) {
-    this(opensimModelJNI.new_StepFunction__SWIG_3(StepFunction.getCPtr(aFunction), aFunction), true);
+  public StepFunction(double startTime, double endTime) {
+    this(opensimModelJNI.new_StepFunction__SWIG_3(startTime, endTime), true);
+  }
+
+  public StepFunction(StepFunction aSpline) {
+    this(opensimModelJNI.new_StepFunction__SWIG_4(StepFunction.getCPtr(aSpline), aSpline), true);
   }
 
   public OpenSimObject copy() {
@@ -54,99 +58,41 @@ public class StepFunction extends Function {
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
-  public void init(Function aFunction) {
-    opensimModelJNI.StepFunction_init(swigCPtr, this, Function.getCPtr(aFunction), aFunction);
+  public void setStartTime(double time) {
+    opensimModelJNI.StepFunction_setStartTime(swigCPtr, this, time);
   }
 
-  public int getSize() {
-    return opensimModelJNI.StepFunction_getSize(swigCPtr, this);
+  public double getStartTime() {
+    return opensimModelJNI.StepFunction_getStartTime(swigCPtr, this);
   }
 
-  public ArrayDouble getX() {
-    return new ArrayDouble(opensimModelJNI.StepFunction_getX__SWIG_0(swigCPtr, this), false);
+  public void setEndTime(double time) {
+    opensimModelJNI.StepFunction_setEndTime(swigCPtr, this, time);
   }
 
-  public ArrayDouble getY() {
-    return new ArrayDouble(opensimModelJNI.StepFunction_getY__SWIG_0(swigCPtr, this), false);
+  public double getEndTime() {
+    return opensimModelJNI.StepFunction_getEndTime(swigCPtr, this);
   }
 
-  public SWIGTYPE_p_double getXValues() {
-    long cPtr = opensimModelJNI.StepFunction_getXValues(swigCPtr, this);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_double(cPtr, false);
+  public void setStartValue(double start) {
+    opensimModelJNI.StepFunction_setStartValue(swigCPtr, this, start);
   }
 
-  public SWIGTYPE_p_double getYValues() {
-    long cPtr = opensimModelJNI.StepFunction_getYValues(swigCPtr, this);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_double(cPtr, false);
+  public double getStartValue() {
+    return opensimModelJNI.StepFunction_getStartValue(swigCPtr, this);
   }
 
-  public int getNumberOfPoints() {
-    return opensimModelJNI.StepFunction_getNumberOfPoints(swigCPtr, this);
+  public void setEndValue(double end) {
+    opensimModelJNI.StepFunction_setEndValue(swigCPtr, this, end);
   }
 
-  public double getX(int aIndex) {
-    return opensimModelJNI.StepFunction_getX__SWIG_1(swigCPtr, this, aIndex);
-  }
-
-  public double getY(int aIndex) {
-    return opensimModelJNI.StepFunction_getY__SWIG_1(swigCPtr, this, aIndex);
-  }
-
-  public double getZ(int aIndex) {
-    return opensimModelJNI.StepFunction_getZ(swigCPtr, this, aIndex);
-  }
-
-  public void setX(int aIndex, double aValue) {
-    opensimModelJNI.StepFunction_setX(swigCPtr, this, aIndex, aValue);
-  }
-
-  public void setY(int aIndex, double aValue) {
-    opensimModelJNI.StepFunction_setY(swigCPtr, this, aIndex, aValue);
-  }
-
-  public boolean deletePoint(int aIndex) {
-    return opensimModelJNI.StepFunction_deletePoint(swigCPtr, this, aIndex);
-  }
-
-  public boolean deletePoints(ArrayInt indices) {
-    return opensimModelJNI.StepFunction_deletePoints(swigCPtr, this, ArrayInt.getCPtr(indices), indices);
-  }
-
-  public int addPoint(double aX, double aY) {
-    return opensimModelJNI.StepFunction_addPoint(swigCPtr, this, aX, aY);
-  }
-
-  public double evaluateTotalFirstDerivative(double aX, double aDxdt) {
-    return opensimModelJNI.StepFunction_evaluateTotalFirstDerivative(swigCPtr, this, aX, aDxdt);
-  }
-
-  public double evaluateTotalSecondDerivative(double aX, double aDxdt, double aD2xdt2) {
-    return opensimModelJNI.StepFunction_evaluateTotalSecondDerivative(swigCPtr, this, aX, aDxdt, aD2xdt2);
-  }
-
-  public double calcValue(SWIGTYPE_p_SimTK__Vector x) {
-    return opensimModelJNI.StepFunction_calcValue(swigCPtr, this, SWIGTYPE_p_SimTK__Vector.getCPtr(x));
-  }
-
-  public double calcDerivative(SWIGTYPE_p_std__vectorTint_t derivComponents, SWIGTYPE_p_SimTK__Vector x) {
-    return opensimModelJNI.StepFunction_calcDerivative(swigCPtr, this, SWIGTYPE_p_std__vectorTint_t.getCPtr(derivComponents), SWIGTYPE_p_SimTK__Vector.getCPtr(x));
-  }
-
-  public int getArgumentSize() {
-    return opensimModelJNI.StepFunction_getArgumentSize(swigCPtr, this);
-  }
-
-  public int getMaxDerivativeOrder() {
-    return opensimModelJNI.StepFunction_getMaxDerivativeOrder(swigCPtr, this);
+  public double getEndValue() {
+    return opensimModelJNI.StepFunction_getEndValue(swigCPtr, this);
   }
 
   public SWIGTYPE_p_SimTK__Function createSimTKFunction() {
     long cPtr = opensimModelJNI.StepFunction_createSimTKFunction(swigCPtr, this);
     return (cPtr == 0) ? null : new SWIGTYPE_p_SimTK__Function(cPtr, false);
-  }
-
-  public void updateFromXMLNode() {
-    opensimModelJNI.StepFunction_updateFromXMLNode(swigCPtr, this);
   }
 
   public static boolean isKindOf(String type) {
