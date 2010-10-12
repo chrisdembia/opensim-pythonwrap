@@ -167,9 +167,11 @@ public class SingleModelGuiElements {
          Vector<String> coordinateNamesVec = new Vector<String>();
          for (int i = 0; i < coordinates.getSize(); i++){
             Coordinate coord = coordinates.get(i);
+            //OpenSim23
+            /*
             boolean constrained = coord.isConstrained();
             if (!constrained)
-                coordinateNamesVec.add(coord.getName());
+                coordinateNamesVec.add(coord.getName());*/
          }
          unconstrainedCoordinateNames= new String[coordinateNamesVec.size()];
          coordinateNamesVec.toArray(unconstrainedCoordinateNames);

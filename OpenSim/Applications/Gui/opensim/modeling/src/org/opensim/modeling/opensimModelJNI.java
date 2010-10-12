@@ -1173,15 +1173,6 @@ public class opensimModelJNI {
   public final static native double MarkerData_getDataRate(long jarg1, MarkerData jarg1_);
   public final static native double MarkerData_getCameraRate(long jarg1, MarkerData jarg1_);
   public final static native int ModelComponentRep_getNumStateVariablesAddedByModelComponent(long jarg1, ModelComponentRep jarg1_);
-  public final static native void ModelComponentRep_realizeTopology(long jarg1, ModelComponentRep jarg1_, long jarg2);
-  public final static native void ModelComponentRep_realizeModel(long jarg1, ModelComponentRep jarg1_, long jarg2);
-  public final static native void ModelComponentRep_realizeInstance(long jarg1, ModelComponentRep jarg1_, long jarg2);
-  public final static native void ModelComponentRep_realizeTime(long jarg1, ModelComponentRep jarg1_, long jarg2);
-  public final static native void ModelComponentRep_realizePosition(long jarg1, ModelComponentRep jarg1_, long jarg2);
-  public final static native void ModelComponentRep_realizeVelocity(long jarg1, ModelComponentRep jarg1_, long jarg2);
-  public final static native void ModelComponentRep_realizeDynamics(long jarg1, ModelComponentRep jarg1_, long jarg2);
-  public final static native void ModelComponentRep_realizeAcceleration(long jarg1, ModelComponentRep jarg1_, long jarg2);
-  public final static native void ModelComponentRep_realizeReport(long jarg1, ModelComponentRep jarg1_, long jarg2);
   public final static native void delete_ModelComponentRep(long jarg1);
   public final static native void delete_ModelComponent(long jarg1);
   public final static native long ModelComponent_getModel(long jarg1, ModelComponent jarg1_);

@@ -523,7 +523,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       Iterator<Muscle> actIter = savedActs.values().iterator();
       while(actIter.hasNext()) {
          Muscle m = actIter.next();
-         Muscle.deleteMuscle(m);
+         //OpenSim23 Muscle.deleteMuscle(m);
       }
       savedActs.clear();
 

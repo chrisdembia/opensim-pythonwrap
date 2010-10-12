@@ -8,15 +8,16 @@
 
 package org.opensim.modeling;
 
-public class CustomForce extends Force {
+public class ModelComponentRep {
   private long swigCPtr;
+  protected boolean swigCMemOwn;
 
-  public CustomForce(long cPtr, boolean cMemoryOwn) {
-    super(opensimModelJNI.SWIGStorageUpcast(cPtr), cMemoryOwn);
+  public ModelComponentRep(long cPtr, boolean cMemoryOwn) {
+    swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
   }
 
-  public static long getCPtr(CustomForce obj) {
+  public static long getCPtr(ModelComponentRep obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 
@@ -27,10 +28,13 @@ public class CustomForce extends Force {
   public synchronized void delete() {
     if(swigCPtr != 0 && swigCMemOwn) {
       swigCMemOwn = false;
-      opensimModelJNI.delete_CustomForce(swigCPtr);
+      opensimModelJNI.delete_ModelComponentRep(swigCPtr);
     }
     swigCPtr = 0;
-    super.delete();
+  }
+
+  public int getNumStateVariablesAddedByModelComponent() {
+    return opensimModelJNI.ModelComponentRep_getNumStateVariablesAddedByModelComponent(swigCPtr, this);
   }
 
 }
