@@ -101,6 +101,10 @@ public class OpenSimContext extends OpenSimObject {
     opensimModelJNI.OpenSimContext_setLocked(swigCPtr, this, Coordinate.getCPtr(coord), coord, newValue);
   }
 
+  public boolean isConstrained(Coordinate coord) {
+    return opensimModelJNI.OpenSimContext_isConstrained(swigCPtr, this, Coordinate.getCPtr(coord), coord);
+  }
+
   public double getActivation(Muscle act) {
     return opensimModelJNI.OpenSimContext_getActivation(swigCPtr, this, Muscle.getCPtr(act), act);
   }

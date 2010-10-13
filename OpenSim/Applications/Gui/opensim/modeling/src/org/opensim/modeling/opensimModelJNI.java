@@ -4044,6 +4044,7 @@ public class opensimModelJNI {
   public final static native void OpenSimContext_setClamped(long jarg1, OpenSimContext jarg1_, long jarg2, Coordinate jarg2_, boolean jarg3);
   public final static native boolean OpenSimContext_getClamped(long jarg1, OpenSimContext jarg1_, long jarg2, Coordinate jarg2_);
   public final static native void OpenSimContext_setLocked(long jarg1, OpenSimContext jarg1_, long jarg2, Coordinate jarg2_, boolean jarg3);
+  public final static native boolean OpenSimContext_isConstrained(long jarg1, OpenSimContext jarg1_, long jarg2, Coordinate jarg2_);
   public final static native double OpenSimContext_getActivation(long jarg1, OpenSimContext jarg1_, long jarg2, Muscle jarg2_);
   public final static native double OpenSimContext_getMuscleLength(long jarg1, OpenSimContext jarg1_, long jarg2, Muscle jarg2_);
   public final static native long OpenSimContext_getCurrentPath(long jarg1, OpenSimContext jarg1_, long jarg2, Muscle jarg2_);
