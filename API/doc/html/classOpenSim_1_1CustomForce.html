@@ -38,14 +38,15 @@ Inheritance diagram for OpenSim::CustomForce:</div>
  <div class="center">
   <img src="classOpenSim_1_1CustomForce.gif" usemap="#OpenSim::CustomForce_map" alt=""/>
   <map id="OpenSim::CustomForce_map" name="OpenSim::CustomForce_map">
-<area href="classOpenSim_1_1Force.html" alt="OpenSim::Force" shape="rect" coords="436,112,644,136"/>
-<area href="classOpenSim_1_1ModelComponent.html" alt="OpenSim::ModelComponent" shape="rect" coords="436,56,644,80"/>
-<area href="classOpenSim_1_1Object.html" alt="OpenSim::Object" shape="rect" coords="436,0,644,24"/>
-<area href="classOpenSim_1_1Ligament.html" alt="OpenSim::Ligament" shape="rect" coords="0,224,208,248"/>
-<area href="classOpenSim_1_1LinearSpring.html" alt="OpenSim::LinearSpring" shape="rect" coords="218,224,426,248"/>
-<area href="classOpenSim_1_1PrescribedForce.html" alt="OpenSim::PrescribedForce" shape="rect" coords="436,224,644,248"/>
-<area href="classOpenSim_1_1SpringGeneralizedForce.html" alt="OpenSim::SpringGeneralizedForce" shape="rect" coords="654,224,862,248"/>
-<area href="classOpenSim_1_1TorsionalSpring.html" alt="OpenSim::TorsionalSpring" shape="rect" coords="872,224,1080,248"/>
+<area href="classOpenSim_1_1Force.html" alt="OpenSim::Force" shape="rect" coords="545,112,753,136"/>
+<area href="classOpenSim_1_1ModelComponent.html" alt="OpenSim::ModelComponent" shape="rect" coords="545,56,753,80"/>
+<area href="classOpenSim_1_1Object.html" alt="OpenSim::Object" shape="rect" coords="545,0,753,24"/>
+<area href="classOpenSim_1_1CoordinateLimitForce.html" alt="OpenSim::CoordinateLimitForce" shape="rect" coords="0,224,208,248"/>
+<area href="classOpenSim_1_1Ligament.html" alt="OpenSim::Ligament" shape="rect" coords="218,224,426,248"/>
+<area href="classOpenSim_1_1LinearSpring.html" alt="OpenSim::LinearSpring" shape="rect" coords="436,224,644,248"/>
+<area href="classOpenSim_1_1PrescribedForce.html" alt="OpenSim::PrescribedForce" shape="rect" coords="654,224,862,248"/>
+<area href="classOpenSim_1_1SpringGeneralizedForce.html" alt="OpenSim::SpringGeneralizedForce" shape="rect" coords="872,224,1080,248"/>
+<area href="classOpenSim_1_1TorsionalSpring.html" alt="OpenSim::TorsionalSpring" shape="rect" coords="1090,224,1298,248"/>
 </map>
  </div>
 </div>
@@ -56,24 +57,22 @@ Inheritance diagram for OpenSim::CustomForce:</div>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CustomForce.html#a9967e20bb0114699022d541683b31315">CustomForce</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CustomForce.html#a4684b6faa8354d7068fb1be0584e9a10">CustomForce</a> (const <a class="el" href="classOpenSim_1_1CustomForce.html">CustomForce</a> &amp;aForce)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Copy constructor.  <a href="#a4684b6faa8354d7068fb1be0584e9a10"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CustomForce.html#ae4599bdee3cae4c7d5a3095c8be800d2">createSystem</a> (SimTK::MultibodySystem &amp;system) const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Create a SimTK::Force which implements this <a class="el" href="classOpenSim_1_1CustomForce.html" title="This is an abstract subclass of Force which allows you to define new Force types...">CustomForce</a>.  <a href="#ae4599bdee3cae4c7d5a3095c8be800d2"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CustomForce.html#a63bfa66b4e13f86755ca7e5669eb58d3">CustomForce</a> (DOMElement *aNode)</td></tr>
 <tr><td colspan="2"><h2>Protected Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CustomForce.html#ab0adbbc82e9aea8b9e369156a1483c73">computeForce</a> (const SimTK::State &amp;state) const =0</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Subclasses must implement this method to compute the forces that should be applied to bodies and generalized speeds.  <a href="#ab0adbbc82e9aea8b9e369156a1483c73"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CustomForce.html#ae4599bdee3cae4c7d5a3095c8be800d2">createSystem</a> (SimTK::MultibodySystem &amp;system) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Create a SimTK::Force which implements this <a class="el" href="classOpenSim_1_1CustomForce.html" title="This is an abstract subclass of Force which allows you to define new Force types...">CustomForce</a>.  <a href="#ae4599bdee3cae4c7d5a3095c8be800d2"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CustomForce.html#abdc00ab9c7428ae228ded1a56aa40d9d">computeForce</a> (const SimTK::State &amp;state, SimTK::Vector_&lt; SimTK::SpatialVec &gt; &amp;bodyForces, SimTK::Vector &amp;generalizedForces) const =0</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Subclasses must implement this method to compute the forces that should be applied to bodies and generalized speeds.  <a href="#abdc00ab9c7428ae228ded1a56aa40d9d"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CustomForce.html#abf2921af48748590f729e2d1bdca22da">computePotentialEnergy</a> (const SimTK::State &amp;state) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Subclasses may optionally override this method to compute a contribution to the potential energy of the system.  <a href="#abf2921af48748590f729e2d1bdca22da"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CustomForce.html#a3591ff3eaf34f650a1aaec4a409626ca">applyForce</a> (const <a class="el" href="classOpenSim_1_1Body.html">OpenSim::Body</a> &amp;aBody, const SimTK::Vec3 &amp;aForce) const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Apply a force to a particular body.  <a href="#a3591ff3eaf34f650a1aaec4a409626ca"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CustomForce.html#a59f9c23a38a1466463ec86023fb12d06">applyForceToPoint</a> (const <a class="el" href="classOpenSim_1_1Body.html">OpenSim::Body</a> &amp;aBody, const SimTK::Vec3 &amp;aPoint, const SimTK::Vec3 &amp;aForce) const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Apply a force to a particular body.  <a href="#a59f9c23a38a1466463ec86023fb12d06"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CustomForce.html#a77621534422ad045dddb4f38c27bcddb">applyTorque</a> (const <a class="el" href="classOpenSim_1_1Body.html">OpenSim::Body</a> &amp;aBody, const SimTK::Vec3 &amp;aTorque) const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Apply a torque to a particular body.  <a href="#a77621534422ad045dddb4f38c27bcddb"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CustomForce.html#a6e058893c88120c75cef6162946d7386">applyGeneralizedForce</a> (const <a class="el" href="classOpenSim_1_1Coordinate.html">Coordinate</a> &amp;aCoord, double aForce) const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Apply a force to a generalized coordinate.  <a href="#a6e058893c88120c75cef6162946d7386"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CustomForce.html#ab451d4eb045bf81b17d0e6c73c69c131">computeForce</a> (const <a class="el" href="classOpenSim_1_1SimbodyEngine.html">SimbodyEngine</a> &amp;engine, const SimTK::State &amp;state, SimTK::Vector_&lt; SimTK::SpatialVec &gt; &amp;bodyForces, SimTK::Vector &amp;mobilityForces) const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This is invoked by <a class="el" href="classOpenSim_1_1ForceAdapter.html" title="This acts as an adapter to allow a CustomForce or CustomActuator to be used as a...">ForceAdapter</a> to perform the force computation.  <a href="#ab451d4eb045bf81b17d0e6c73c69c131"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CustomForce.html#a5497f3012e16805f7245abb160d726e7">applyForce</a> (const SimTK::State &amp;s, const <a class="el" href="classOpenSim_1_1Body.html">OpenSim::Body</a> &amp;aBody, const SimTK::Vec3 &amp;aForce, SimTK::Vector_&lt; SimTK::SpatialVec &gt; &amp;bodyForces) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Apply a force to a particular body.  <a href="#a5497f3012e16805f7245abb160d726e7"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CustomForce.html#a68de75a0980822fec4a98e9177468ab4">applyForceToPoint</a> (const SimTK::State &amp;s, const <a class="el" href="classOpenSim_1_1Body.html">OpenSim::Body</a> &amp;aBody, const SimTK::Vec3 &amp;aPoint, const SimTK::Vec3 &amp;aForce, SimTK::Vector_&lt; SimTK::SpatialVec &gt; &amp;bodyForces) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Apply a force to a particular body.  <a href="#a68de75a0980822fec4a98e9177468ab4"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CustomForce.html#aa078cb7c3c779edb5aaabbc69f71da6e">applyTorque</a> (const SimTK::State &amp;s, const <a class="el" href="classOpenSim_1_1Body.html">OpenSim::Body</a> &amp;aBody, const SimTK::Vec3 &amp;aTorque, SimTK::Vector_&lt; SimTK::SpatialVec &gt; &amp;bodyForces) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Apply a torque to a particular body.  <a href="#aa078cb7c3c779edb5aaabbc69f71da6e"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CustomForce.html#a0a2630b6d944b60764911c64bbda8dbe">applyGeneralizedForce</a> (const SimTK::State &amp;s, const <a class="el" href="classOpenSim_1_1Coordinate.html">Coordinate</a> &amp;aCoord, double aForce, SimTK::Vector &amp;generalizedForces) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Apply a generalized force.  <a href="#a0a2630b6d944b60764911c64bbda8dbe"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Friends</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CustomForce.html#ac85e58ba897f0a89d4c0ff3c54a4991a">ForceAdapter</a></td></tr>
 </table>
@@ -142,13 +141,19 @@ Inheritance diagram for OpenSim::CustomForce:</div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="a3591ff3eaf34f650a1aaec4a409626ca"></a><!-- doxytag: member="OpenSim::CustomForce::applyForce" ref="a3591ff3eaf34f650a1aaec4a409626ca" args="(const OpenSim::Body &amp;aBody, const SimTK::Vec3 &amp;aForce) const " -->
+<a class="anchor" id="a5497f3012e16805f7245abb160d726e7"></a><!-- doxytag: member="OpenSim::CustomForce::applyForce" ref="a5497f3012e16805f7245abb160d726e7" args="(const SimTK::State &amp;s, const OpenSim::Body &amp;aBody, const SimTK::Vec3 &amp;aForce, SimTK::Vector_&lt; SimTK::SpatialVec &gt; &amp;bodyForces) const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">void OpenSim::CustomForce::applyForce </td>
           <td>(</td>
+          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
+          <td class="paramname"> <em>s</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">const <a class="el" href="classOpenSim_1_1Body.html">OpenSim::Body</a> &amp;&nbsp;</td>
           <td class="paramname"> <em>aBody</em>, </td>
         </tr>
@@ -156,7 +161,13 @@ Inheritance diagram for OpenSim::CustomForce:</div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const SimTK::Vec3 &amp;&nbsp;</td>
-          <td class="paramname"> <em>aForce</em></td><td>&nbsp;</td>
+          <td class="paramname"> <em>aForce</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SimTK::Vector_&lt; SimTK::SpatialVec &gt; &amp;&nbsp;</td>
+          <td class="paramname"> <em>bodyForces</em></td><td>&nbsp;</td>
         </tr>
         <tr>
           <td></td>
@@ -169,24 +180,39 @@ Inheritance diagram for OpenSim::CustomForce:</div>
 
 <p>Apply a force to a particular body. </p>
 <p>This method applies only a force, not a torque, which is equivalent to applying the force at the body's center of mass.</p>
-<p>This method may only be called from inside <a class="el" href="classOpenSim_1_1CustomForce.html#ab0adbbc82e9aea8b9e369156a1483c73" title="Subclasses must implement this method to compute the forces that should be applied...">computeForce()</a>. Invoking it at any other time will produce an exception.</p>
+<p>This method may only be called from inside <a class="el" href="classOpenSim_1_1CustomForce.html#abdc00ab9c7428ae228ded1a56aa40d9d" title="Subclasses must implement this method to compute the forces that should be applied...">computeForce()</a>. Invoking it at any other time will produce an exception.</p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>aBody</em>&nbsp;</td><td>the body to apply the force to </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>aForce</em>&nbsp;</td><td>the force to apply, specified in the inertial frame Apply a force to a particular body. This method applies only a force, not a torque, which is equivalent to applying the force at the body's center of mass.</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>This method may only be called from inside <a class="el" href="classOpenSim_1_1CustomForce.html#abdc00ab9c7428ae228ded1a56aa40d9d" title="Subclasses must implement this method to compute the forces that should be applied...">computeForce()</a>. Invoking it at any other time will produce an exception.</p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>aBody</em>&nbsp;</td><td>the body to apply the force to </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>aForce</em>&nbsp;</td><td>the force to apply, specified in the inertial frame </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>bodyForces</em>&nbsp;</td><td>the current set of system bodyForces this force is added to </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a class="anchor" id="a59f9c23a38a1466463ec86023fb12d06"></a><!-- doxytag: member="OpenSim::CustomForce::applyForceToPoint" ref="a59f9c23a38a1466463ec86023fb12d06" args="(const OpenSim::Body &amp;aBody, const SimTK::Vec3 &amp;aPoint, const SimTK::Vec3 &amp;aForce) const " -->
+<a class="anchor" id="a68de75a0980822fec4a98e9177468ab4"></a><!-- doxytag: member="OpenSim::CustomForce::applyForceToPoint" ref="a68de75a0980822fec4a98e9177468ab4" args="(const SimTK::State &amp;s, const OpenSim::Body &amp;aBody, const SimTK::Vec3 &amp;aPoint, const SimTK::Vec3 &amp;aForce, SimTK::Vector_&lt; SimTK::SpatialVec &gt; &amp;bodyForces) const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">void OpenSim::CustomForce::applyForceToPoint </td>
           <td>(</td>
+          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
+          <td class="paramname"> <em>s</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">const <a class="el" href="classOpenSim_1_1Body.html">OpenSim::Body</a> &amp;&nbsp;</td>
           <td class="paramname"> <em>aBody</em>, </td>
         </tr>
@@ -200,7 +226,13 @@ Inheritance diagram for OpenSim::CustomForce:</div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const SimTK::Vec3 &amp;&nbsp;</td>
-          <td class="paramname"> <em>aForce</em></td><td>&nbsp;</td>
+          <td class="paramname"> <em>aForce</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SimTK::Vector_&lt; SimTK::SpatialVec &gt; &amp;&nbsp;</td>
+          <td class="paramname"> <em>bodyForces</em></td><td>&nbsp;</td>
         </tr>
         <tr>
           <td></td>
@@ -213,25 +245,32 @@ Inheritance diagram for OpenSim::CustomForce:</div>
 
 <p>Apply a force to a particular body. </p>
 <p>Based on what point the force is applied at, this method automatically determines the torque produced by the force and applies that as well.</p>
-<p>This method may only be called from inside <a class="el" href="classOpenSim_1_1CustomForce.html#ab0adbbc82e9aea8b9e369156a1483c73" title="Subclasses must implement this method to compute the forces that should be applied...">computeForce()</a>. Invoking it at any other time will produce an exception.</p>
+<p>This method may only be called from inside <a class="el" href="classOpenSim_1_1CustomForce.html#abdc00ab9c7428ae228ded1a56aa40d9d" title="Subclasses must implement this method to compute the forces that should be applied...">computeForce()</a>. Invoking it at any other time will produce an exception.</p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>aBody</em>&nbsp;</td><td>the body to apply the force to </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>aPoint</em>&nbsp;</td><td>the point at which to apply the force, specifieid in the inertial frame </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>aForce</em>&nbsp;</td><td>the force to apply, specified in the body's frame </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>bodyForces</em>&nbsp;</td><td>the current set of system bodyForces this force is added to </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a class="anchor" id="a6e058893c88120c75cef6162946d7386"></a><!-- doxytag: member="OpenSim::CustomForce::applyGeneralizedForce" ref="a6e058893c88120c75cef6162946d7386" args="(const Coordinate &amp;aCoord, double aForce) const " -->
+<a class="anchor" id="a0a2630b6d944b60764911c64bbda8dbe"></a><!-- doxytag: member="OpenSim::CustomForce::applyGeneralizedForce" ref="a0a2630b6d944b60764911c64bbda8dbe" args="(const SimTK::State &amp;s, const Coordinate &amp;aCoord, double aForce, SimTK::Vector &amp;generalizedForces) const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void CustomForce::applyGeneralizedForce </td>
+          <td class="memname">void OpenSim::CustomForce::applyGeneralizedForce </td>
           <td>(</td>
+          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
+          <td class="paramname"> <em>s</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">const <a class="el" href="classOpenSim_1_1Coordinate.html">Coordinate</a> &amp;&nbsp;</td>
           <td class="paramname"> <em>aCoord</em>, </td>
         </tr>
@@ -239,7 +278,13 @@ Inheritance diagram for OpenSim::CustomForce:</div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">double&nbsp;</td>
-          <td class="paramname"> <em>aForce</em></td><td>&nbsp;</td>
+          <td class="paramname"> <em>aForce</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SimTK::Vector &amp;&nbsp;</td>
+          <td class="paramname"> <em>generalizedForces</em></td><td>&nbsp;</td>
         </tr>
         <tr>
           <td></td>
@@ -250,25 +295,32 @@ Inheritance diagram for OpenSim::CustomForce:</div>
 </div>
 <div class="memdoc">
 
-<p>Apply a force to a generalized coordinate. </p>
-<p>This method may only be called from inside <a class="el" href="classOpenSim_1_1CustomForce.html#ab0adbbc82e9aea8b9e369156a1483c73" title="Subclasses must implement this method to compute the forces that should be applied...">computeForce()</a>. Invoking it at any other time will produce an exception.</p>
+<p>Apply a generalized force. </p>
+<p>This method may only be called from inside <a class="el" href="classOpenSim_1_1CustomForce.html#abdc00ab9c7428ae228ded1a56aa40d9d" title="Subclasses must implement this method to compute the forces that should be applied...">computeForce()</a>. Invoking it at any other time will produce an exception.</p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>aU</em>&nbsp;</td><td>the generalized speed to apply the force to </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>aCoord</em>&nbsp;</td><td>the generalized coordinate to apply the force to </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>aForce</em>&nbsp;</td><td>the force to apply </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>generalizedForces</em>&nbsp;</td><td>the current set of system generalizedForces this force is added to </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a class="anchor" id="a77621534422ad045dddb4f38c27bcddb"></a><!-- doxytag: member="OpenSim::CustomForce::applyTorque" ref="a77621534422ad045dddb4f38c27bcddb" args="(const OpenSim::Body &amp;aBody, const SimTK::Vec3 &amp;aTorque) const " -->
+<a class="anchor" id="aa078cb7c3c779edb5aaabbc69f71da6e"></a><!-- doxytag: member="OpenSim::CustomForce::applyTorque" ref="aa078cb7c3c779edb5aaabbc69f71da6e" args="(const SimTK::State &amp;s, const OpenSim::Body &amp;aBody, const SimTK::Vec3 &amp;aTorque, SimTK::Vector_&lt; SimTK::SpatialVec &gt; &amp;bodyForces) const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">void OpenSim::CustomForce::applyTorque </td>
           <td>(</td>
+          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
+          <td class="paramname"> <em>s</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">const <a class="el" href="classOpenSim_1_1Body.html">OpenSim::Body</a> &amp;&nbsp;</td>
           <td class="paramname"> <em>aBody</em>, </td>
         </tr>
@@ -276,7 +328,13 @@ Inheritance diagram for OpenSim::CustomForce:</div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const SimTK::Vec3 &amp;&nbsp;</td>
-          <td class="paramname"> <em>aTorque</em></td><td>&nbsp;</td>
+          <td class="paramname"> <em>aTorque</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SimTK::Vector_&lt; SimTK::SpatialVec &gt; &amp;&nbsp;</td>
+          <td class="paramname"> <em>bodyForces</em></td><td>&nbsp;</td>
         </tr>
         <tr>
           <td></td>
@@ -288,30 +346,25 @@ Inheritance diagram for OpenSim::CustomForce:</div>
 <div class="memdoc">
 
 <p>Apply a torque to a particular body. </p>
-<p>This method may only be called from inside <a class="el" href="classOpenSim_1_1CustomForce.html#ab0adbbc82e9aea8b9e369156a1483c73" title="Subclasses must implement this method to compute the forces that should be applied...">computeForce()</a>. Invoking it at any other time will produce an exception.</p>
+<p>This method may only be called from inside <a class="el" href="classOpenSim_1_1CustomForce.html#abdc00ab9c7428ae228ded1a56aa40d9d" title="Subclasses must implement this method to compute the forces that should be applied...">computeForce()</a>. Invoking it at any other time will produce an exception.</p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>aBody</em>&nbsp;</td><td>the body to apply the force to </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>aTorque</em>&nbsp;</td><td>the torque to apply, specified in the inertial frame </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>bodyForces</em>&nbsp;</td><td>the current set of system bodyForces this force is added to </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a class="anchor" id="ab451d4eb045bf81b17d0e6c73c69c131"></a><!-- doxytag: member="OpenSim::CustomForce::computeForce" ref="ab451d4eb045bf81b17d0e6c73c69c131" args="(const SimbodyEngine &amp;engine, const SimTK::State &amp;state, SimTK::Vector_&lt; SimTK::SpatialVec &gt; &amp;bodyForces, SimTK::Vector &amp;mobilityForces) const " -->
+<a class="anchor" id="abdc00ab9c7428ae228ded1a56aa40d9d"></a><!-- doxytag: member="OpenSim::CustomForce::computeForce" ref="abdc00ab9c7428ae228ded1a56aa40d9d" args="(const SimTK::State &amp;state, SimTK::Vector_&lt; SimTK::SpatialVec &gt; &amp;bodyForces, SimTK::Vector &amp;generalizedForces) const =0" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void CustomForce::computeForce </td>
+          <td class="memname">virtual void OpenSim::CustomForce::computeForce </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classOpenSim_1_1SimbodyEngine.html">SimbodyEngine</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>engine</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
           <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
           <td class="paramname"> <em>state</em>, </td>
         </tr>
@@ -325,40 +378,21 @@ Inheritance diagram for OpenSim::CustomForce:</div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">SimTK::Vector &amp;&nbsp;</td>
-          <td class="paramname"> <em>mobilityForces</em></td><td>&nbsp;</td>
+          <td class="paramname"> <em>generalizedForces</em></td><td>&nbsp;</td>
         </tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td><td> const<code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>This is invoked by <a class="el" href="classOpenSim_1_1ForceAdapter.html" title="This acts as an adapter to allow a CustomForce or CustomActuator to be used as a...">ForceAdapter</a> to perform the force computation. </p>
-
-</div>
-</div>
-<a class="anchor" id="ab0adbbc82e9aea8b9e369156a1483c73"></a><!-- doxytag: member="OpenSim::CustomForce::computeForce" ref="ab0adbbc82e9aea8b9e369156a1483c73" args="(const SimTK::State &amp;state) const =0" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void OpenSim::CustomForce::computeForce </td>
-          <td>(</td>
-          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
-          <td class="paramname"> <em>state</em></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td> const<code> [protected, pure virtual]</code></td>
+          <td></td><td></td><td> const<code> [protected, pure virtual]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
 <p>Subclasses must implement this method to compute the forces that should be applied to bodies and generalized speeds. </p>
+<p>This is invoked by <a class="el" href="classOpenSim_1_1ForceAdapter.html" title="This acts as an adapter to allow a CustomForce or CustomActuator to be used as a...">ForceAdapter</a> to perform the force computation. </p>
 
-<p>Implemented in <a class="el" href="classOpenSim_1_1SpringGeneralizedForce.html#ad550e6053edffa51bf86a8c8c1355353">OpenSim::SpringGeneralizedForce</a>, <a class="el" href="classOpenSim_1_1Ligament.html#a5bcd6e6e960e98576821cbdf1a607b6d">OpenSim::Ligament</a>, <a class="el" href="classOpenSim_1_1LinearSpring.html#a65ff7379e6ff98df9688cb84038e04b6">OpenSim::LinearSpring</a>, <a class="el" href="classOpenSim_1_1PrescribedForce.html#a0bbd9fb657011c28c4510d7a4ae7ee2f">OpenSim::PrescribedForce</a>, and <a class="el" href="classOpenSim_1_1TorsionalSpring.html#ae2b2457e5f0b4313f3221ddc140215ac">OpenSim::TorsionalSpring</a>.</p>
+<p>Implemented in <a class="el" href="classOpenSim_1_1CoordinateLimitForce.html#afea69fdd7ec78721d76aa83198bab00f">OpenSim::CoordinateLimitForce</a>, <a class="el" href="classOpenSim_1_1SpringGeneralizedForce.html#a265c61917ce1521a4e46037b8b615f40">OpenSim::SpringGeneralizedForce</a>, <a class="el" href="classOpenSim_1_1Ligament.html#a4b9a586b79fcbcbb89d6e084dfa56802">OpenSim::Ligament</a>, <a class="el" href="classOpenSim_1_1LinearSpring.html#a0ec6318947e9002dcd321b2f65d3b5de">OpenSim::LinearSpring</a>, <a class="el" href="classOpenSim_1_1PrescribedForce.html#ae3903abb78c25cd35cf48eb7895c4dda">OpenSim::PrescribedForce</a>, and <a class="el" href="classOpenSim_1_1TorsionalSpring.html#adc981d76e8725da160cde2bd51e9af39">OpenSim::TorsionalSpring</a>.</p>
 
 </div>
 </div>
@@ -393,7 +427,7 @@ Inheritance diagram for OpenSim::CustomForce:</div>
           <td class="paramtype">SimTK::MultibodySystem &amp;&nbsp;</td>
           <td class="paramname"> <em>system</em></td>
           <td>&nbsp;)&nbsp;</td>
-          <td> const<code> [virtual]</code></td>
+          <td> const<code> [protected, virtual]</code></td>
         </tr>
       </table>
 </div>
@@ -401,7 +435,9 @@ Inheritance diagram for OpenSim::CustomForce:</div>
 
 <p>Create a SimTK::Force which implements this <a class="el" href="classOpenSim_1_1CustomForce.html" title="This is an abstract subclass of Force which allows you to define new Force types...">CustomForce</a>. </p>
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1ModelComponent.html#a8cecde2c81b7645a5daea70050884881">OpenSim::ModelComponent</a>.</p>
+<p>Implements <a class="el" href="classOpenSim_1_1ModelComponent.html#a85757ad4645e4066f72ce4d0411a49b8">OpenSim::ModelComponent</a>.</p>
+
+<p>Reimplemented in <a class="el" href="classOpenSim_1_1SpringGeneralizedForce.html#a9e2efa3b53e4626623f51072e032e7cf">OpenSim::SpringGeneralizedForce</a>.</p>
 
 </div>
 </div>
@@ -424,7 +460,7 @@ Inheritance diagram for OpenSim::CustomForce:</div>
 <li>OpenSim/Simulation/Model/CustomForce.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Feb 7 02:15:17 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:37:09 2010 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

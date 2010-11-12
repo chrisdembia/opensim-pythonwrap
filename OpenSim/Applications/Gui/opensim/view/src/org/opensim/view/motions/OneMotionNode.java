@@ -81,14 +81,6 @@ public class OneMotionNode extends OpenSimObjectNode{
 //      retValue = super.getIcon(i);
 //      return retValue;
    }
-
-   public Image getOpenedIcon(int i) {
-       return getIcon(i);
-//      Image retValue;
-//      
-//      retValue = super.getOpenedIcon(i);
-//      return retValue;
-   }
    
    public Model getModel()
    {

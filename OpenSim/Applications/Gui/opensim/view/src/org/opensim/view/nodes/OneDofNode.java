@@ -77,8 +77,5 @@ public class OneDofNode extends OpenSimObjectNode{
             return null;
         }
     }
-   public Image getOpenedIcon(int i) {
-        return getIcon(i);
-    }
 
 }

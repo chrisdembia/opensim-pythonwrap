@@ -142,6 +142,10 @@ public class Muscle extends Actuator {
     return opensimModelJNI.Muscle_getMaxIsometricForce(swigCPtr, this);
   }
 
+  public double getTendonForce(SWIGTYPE_p_SimTK__State s) {
+    return opensimModelJNI.Muscle_getTendonForce(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s));
+  }
+
   public double getActivation(SWIGTYPE_p_SimTK__State s) {
     return opensimModelJNI.Muscle_getActivation(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s));
   }

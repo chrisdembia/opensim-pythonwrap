@@ -85,12 +85,12 @@ Inheritance diagram for OpenSim::PointKinematics:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the velocity storage.  <a href="#aaf3dc41c2bf85ff8d9bcbcb803b13d76"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Storage.html">Storage</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PointKinematics.html#ae866c5ee30a78e845e81918589f0f030">getPositionStorage</a> ()</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the position storage.  <a href="#ae866c5ee30a78e845e81918589f0f030"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PointKinematics.html#a25e2a555bb415ef9ec23834924690e95">begin</a> (const SimTK::State &amp;s)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This method is called at the beginning of an analysis so that any necessary initializations may be performed.  <a href="#a25e2a555bb415ef9ec23834924690e95"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PointKinematics.html#a3a51ac6e18c9fbaa257f84c2779a0553">begin</a> (SimTK::State &amp;s)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This method is called at the beginning of an analysis so that any necessary initializations may be performed.  <a href="#a3a51ac6e18c9fbaa257f84c2779a0553"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PointKinematics.html#a0142974b7227a4d93da5cac0204dd087">step</a> (const SimTK::State &amp;s, int setNumber)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This method is called to perform the analysis.  <a href="#a0142974b7227a4d93da5cac0204dd087"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PointKinematics.html#a6f9821269cc5a8c3db38a5ea944a2aa0">end</a> (const SimTK::State &amp;s)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This method is called at the end of an analysis so that any necessary finalizations may be performed.  <a href="#a6f9821269cc5a8c3db38a5ea944a2aa0"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PointKinematics.html#a94a2dfd18a5a927da8b6bdea66652e1c">end</a> (SimTK::State &amp;s)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This method is called at the end of an analysis so that any necessary finalizations may be performed.  <a href="#a94a2dfd18a5a927da8b6bdea66652e1c"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PointKinematics.html#a26cee42b740640d42225d012601c2130">printResults</a> (const std::string &amp;aBaseName, const std::string &amp;aDir=&quot;&quot;, double aDT=-1.0, const std::string &amp;aExtension=&quot;.sto&quot;)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Print the results of the analysis.  <a href="#a26cee42b740640d42225d012601c2130"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Static Public Attributes</h2></td></tr>
@@ -139,7 +139,7 @@ Inheritance diagram for OpenSim::PointKinematics:</div>
 <p>Also serves as a default constructor</p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>aModel</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Model.html" title="A base class that specifies the interface for a musculoskeletal model.">Model</a> for which the analyses are to be recorded. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>aModel</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a> for which the analyses are to be recorded. </td></tr>
   </table>
   </dd>
 </dl>
@@ -213,14 +213,14 @@ Inheritance diagram for OpenSim::PointKinematics:</div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="a25e2a555bb415ef9ec23834924690e95"></a><!-- doxytag: member="OpenSim::PointKinematics::begin" ref="a25e2a555bb415ef9ec23834924690e95" args="(const SimTK::State &amp;s)" -->
+<a class="anchor" id="a3a51ac6e18c9fbaa257f84c2779a0553"></a><!-- doxytag: member="OpenSim::PointKinematics::begin" ref="a3a51ac6e18c9fbaa257f84c2779a0553" args="(SimTK::State &amp;s)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">int PointKinematics::begin </td>
           <td>(</td>
-          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
+          <td class="paramtype">SimTK::State &amp;&nbsp;</td>
           <td class="paramname"> <em>s</em></td>
           <td>&nbsp;)&nbsp;</td>
           <td><code> [virtual]</code></td>
@@ -241,7 +241,7 @@ Inheritance diagram for OpenSim::PointKinematics:</div>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>-1 on error, 0 otherwise. </dd></dl>
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Analysis.html#af3cad0d2e51c92cf94696a790b306a93">OpenSim::Analysis</a>.</p>
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1Analysis.html#a619cf0a86bfb520befa533b5a71ce3f6">OpenSim::Analysis</a>.</p>
 
 </div>
 </div>
@@ -266,14 +266,14 @@ Inheritance diagram for OpenSim::PointKinematics:</div>
 
 </div>
 </div>
-<a class="anchor" id="a6f9821269cc5a8c3db38a5ea944a2aa0"></a><!-- doxytag: member="OpenSim::PointKinematics::end" ref="a6f9821269cc5a8c3db38a5ea944a2aa0" args="(const SimTK::State &amp;s)" -->
+<a class="anchor" id="a94a2dfd18a5a927da8b6bdea66652e1c"></a><!-- doxytag: member="OpenSim::PointKinematics::end" ref="a94a2dfd18a5a927da8b6bdea66652e1c" args="(SimTK::State &amp;s)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">int PointKinematics::end </td>
           <td>(</td>
-          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
+          <td class="paramtype">SimTK::State &amp;&nbsp;</td>
           <td class="paramname"> <em>s</em></td>
           <td>&nbsp;)&nbsp;</td>
           <td><code> [virtual]</code></td>
@@ -294,7 +294,7 @@ Inheritance diagram for OpenSim::PointKinematics:</div>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>-1 on error, 0 otherwise. </dd></dl>
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Analysis.html#a34d1fd1b3235e9d60a905d34b49e5314">OpenSim::Analysis</a>.</p>
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1Analysis.html#aec904a247f8d4254ee31f0b17b3b0acc">OpenSim::Analysis</a>.</p>
 
 </div>
 </div>
@@ -334,7 +334,7 @@ Inheritance diagram for OpenSim::PointKinematics:</div>
 <div class="memdoc">
 
 <p>Get the body for which the induced accelerations are to be computed. </p>
-<dl class="return"><dt><b>Returns:</b></dt><dd><a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody body segment.">Body</a> pointer </dd></dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd><a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody rigid body.">Body</a> pointer </dd></dl>
 
 </div>
 </div>
@@ -559,7 +559,7 @@ Inheritance diagram for OpenSim::PointKinematics:</div>
 <p><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the body for which the induced accelerations are to be computed. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>aBody</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody body segment.">Body</a> ID </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>aBody</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody rigid body.">Body</a> ID </td></tr>
   </table>
   </dd>
 </dl>
@@ -595,7 +595,7 @@ Inheritance diagram for OpenSim::PointKinematics:</div>
 <p>Both params are required to avoid the limbo state where either body or point are undefined..</p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>aBody</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody body segment.">Body</a> name [3] aPoint point coordinates </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>aBody</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody rigid body.">Body</a> name [3] aPoint point coordinates </td></tr>
   </table>
   </dd>
 </dl>
@@ -621,7 +621,7 @@ Inheritance diagram for OpenSim::PointKinematics:</div>
 <p><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the model for which the point kinematics are to be computed. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>aModel</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Model.html" title="A base class that specifies the interface for a musculoskeletal model.">Model</a> pointer </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>aModel</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a> pointer </td></tr>
   </table>
   </dd>
 </dl>
@@ -971,7 +971,7 @@ Inheritance diagram for OpenSim::PointKinematics:</div>
 <li>OpenSim/Analyses/PointKinematics.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Feb 7 02:15:12 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:37:01 2010 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

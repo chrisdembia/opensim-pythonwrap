@@ -50,6 +50,8 @@ Inheritance diagram for OpenSim::WeldConstraint:</div>
 <tr><td colspan="2"><h2>Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1WeldConstraint.html#a231b39da7528dab88b12350321981aa9">WeldConstraint</a> ()</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Default constructor.  <a href="#a231b39da7528dab88b12350321981aa9"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1WeldConstraint.html#ae8f1e8791fce1b2603dcc1dd1d97ba82">WeldConstraint</a> (const std::string &amp;name, <a class="el" href="classOpenSim_1_1Body.html">OpenSim::Body</a> &amp;body1, SimTK::Vec3 locationInBody1, SimTK::Vec3 orientationInBody1, <a class="el" href="classOpenSim_1_1Body.html">OpenSim::Body</a> &amp;body2, SimTK::Vec3 locationInBody2, SimTK::Vec3 orientationInBody2)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1WeldConstraint.html#a969e17c484a5346454ace237d9c9c820">WeldConstraint</a> (const std::string &amp;name, <a class="el" href="classOpenSim_1_1Body.html">OpenSim::Body</a> &amp;body1, SimTK::Transform transformInBody1, <a class="el" href="classOpenSim_1_1Body.html">OpenSim::Body</a> &amp;body2, SimTK::Transform transformInBody2)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1WeldConstraint.html#ab5ddb3425f35d691f9367c54daa6243d">WeldConstraint</a> (const <a class="el" href="classOpenSim_1_1WeldConstraint.html">WeldConstraint</a> &amp;aConstraint)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Copy constructor.  <a href="#ab5ddb3425f35d691f9367c54daa6243d"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1WeldConstraint.html#abff8b1c422ed733d162d91d2a6966f0a">~WeldConstraint</a> ()</td></tr>
@@ -60,15 +62,16 @@ Inheritance diagram for OpenSim::WeldConstraint:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Assignment operator.  <a href="#ae0e7995c789f33437f2074f010c8ec32"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1WeldConstraint.html#af7bca8ab9f0e0314817df77cfcafc585">copyData</a> (const <a class="el" href="classOpenSim_1_1WeldConstraint.html">WeldConstraint</a> &amp;aConstraint)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Copy data members from one <a class="el" href="classOpenSim_1_1WeldConstraint.html" title="A class implementing a Weld Constraint.">WeldConstraint</a> to another.  <a href="#af7bca8ab9f0e0314817df77cfcafc585"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1WeldConstraint.html#ab4d0d223ebed573aca15ce18dbfd8414">setup</a> (<a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;aModel)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Perform some set up functions that happen after the object has been deserialized or copied.  <a href="#ab4d0d223ebed573aca15ce18dbfd8414"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1WeldConstraint.html#a0b34fc9fdccd92b2d25a74f73fe28fcd">createSystem</a> (SimTK::MultibodySystem &amp;system) const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Create a SimTK::Constraint::Weld which implements this Weld.  <a href="#a0b34fc9fdccd92b2d25a74f73fe28fcd"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1WeldConstraint.html#ae2902d74a90448f9adbd63207c3bbbf1">setBody1ByName</a> (std::string aBodyName)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Following methods set attributes of the weld constraint.  <a href="#ae2902d74a90448f9adbd63207c3bbbf1"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1WeldConstraint.html#a5e0beb2679b43cccc4960a9c22333075">setBody1WeldLocation</a> (SimTK::Vec3 location, SimTK::Vec3 orientation=SimTK::Vec3(0))</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1WeldConstraint.html#af31541d5d0308010c59ea3cac5894abd">setBody2ByName</a> (std::string aBodyName)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1WeldConstraint.html#a04c1de649217e72257543903bec4c1e5">setBody2WeldLocation</a> (SimTK::Vec3 location, SimTK::Vec3 orientation=SimTK::Vec3(0))</td></tr>
+<tr><td colspan="2"><h2>Protected Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1WeldConstraint.html#ab4d0d223ebed573aca15ce18dbfd8414">setup</a> (<a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;aModel)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Perform some set up functions that happen after the object has been deserialized or copied.  <a href="#ab4d0d223ebed573aca15ce18dbfd8414"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1WeldConstraint.html#a0b34fc9fdccd92b2d25a74f73fe28fcd">createSystem</a> (SimTK::MultibodySystem &amp;system) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Create a SimTK::Constraint::Weld which implements this Weld.  <a href="#a0b34fc9fdccd92b2d25a74f73fe28fcd"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyStr.html">PropertyStr</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1WeldConstraint.html#a3300efc69b9797ab4043d82e8339aa01">_body1NameProp</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Specify first of two bodies welded together by the constraint.  <a href="#a3300efc69b9797ab4043d82e8339aa01"></a><br/></td></tr>
@@ -117,6 +120,108 @@ Inheritance diagram for OpenSim::WeldConstraint:</div>
 <div class="memdoc">
 
 <p>Default constructor. </p>
+
+</div>
+</div>
+<a class="anchor" id="ae8f1e8791fce1b2603dcc1dd1d97ba82"></a><!-- doxytag: member="OpenSim::WeldConstraint::WeldConstraint" ref="ae8f1e8791fce1b2603dcc1dd1d97ba82" args="(const std::string &amp;name, OpenSim::Body &amp;body1, SimTK::Vec3 locationInBody1, SimTK::Vec3 orientationInBody1, OpenSim::Body &amp;body2, SimTK::Vec3 locationInBody2, SimTK::Vec3 orientationInBody2)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">WeldConstraint::WeldConstraint </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&nbsp;</td>
+          <td class="paramname"> <em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classOpenSim_1_1Body.html">OpenSim::Body</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>body1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SimTK::Vec3&nbsp;</td>
+          <td class="paramname"> <em>locationInBody1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SimTK::Vec3&nbsp;</td>
+          <td class="paramname"> <em>orientationInBody1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classOpenSim_1_1Body.html">OpenSim::Body</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>body2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SimTK::Vec3&nbsp;</td>
+          <td class="paramname"> <em>locationInBody2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SimTK::Vec3&nbsp;</td>
+          <td class="paramname"> <em>orientationInBody2</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a969e17c484a5346454ace237d9c9c820"></a><!-- doxytag: member="OpenSim::WeldConstraint::WeldConstraint" ref="a969e17c484a5346454ace237d9c9c820" args="(const std::string &amp;name, OpenSim::Body &amp;body1, SimTK::Transform transformInBody1, OpenSim::Body &amp;body2, SimTK::Transform transformInBody2)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">WeldConstraint::WeldConstraint </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&nbsp;</td>
+          <td class="paramname"> <em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classOpenSim_1_1Body.html">OpenSim::Body</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>body1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SimTK::Transform&nbsp;</td>
+          <td class="paramname"> <em>transformInBody1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classOpenSim_1_1Body.html">OpenSim::Body</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>body2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SimTK::Transform&nbsp;</td>
+          <td class="paramname"> <em>transformInBody2</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
 
 </div>
 </div>
@@ -183,9 +288,9 @@ Inheritance diagram for OpenSim::WeldConstraint:</div>
 
 <p>Copy this body and return a pointer to the copy. </p>
 <p>The copy constructor for this class is used.</p>
-<dl class="return"><dt><b>Returns:</b></dt><dd>Pointer to a copy of this <a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody body segment.">OpenSim::Body</a>. </dd></dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>Pointer to a copy of this <a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody rigid body.">OpenSim::Body</a>. </dd></dl>
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Constraint.html#ad7b51b94a4a4ae178578c92ebd3b6506">OpenSim::Constraint</a>.</p>
+<p>Implements <a class="el" href="classOpenSim_1_1Constraint.html#a81bcf32edba229b2566cf42bfacaeaf3">OpenSim::Constraint</a>.</p>
 
 </div>
 </div>
@@ -227,7 +332,7 @@ Inheritance diagram for OpenSim::WeldConstraint:</div>
           <td class="paramtype">SimTK::MultibodySystem &amp;&nbsp;</td>
           <td class="paramname"> <em>system</em></td>
           <td>&nbsp;)&nbsp;</td>
-          <td> const<code> [virtual]</code></td>
+          <td> const<code> [protected, virtual]</code></td>
         </tr>
       </table>
 </div>
@@ -235,7 +340,7 @@ Inheritance diagram for OpenSim::WeldConstraint:</div>
 
 <p>Create a SimTK::Constraint::Weld which implements this Weld. </p>
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1ModelComponent.html#a8cecde2c81b7645a5daea70050884881">OpenSim::ModelComponent</a>.</p>
+<p>Implements <a class="el" href="classOpenSim_1_1ModelComponent.html#a85757ad4645e4066f72ce4d0411a49b8">OpenSim::ModelComponent</a>.</p>
 
 </div>
 </div>
@@ -364,7 +469,7 @@ Inheritance diagram for OpenSim::WeldConstraint:</div>
           <td class="paramtype"><a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;&nbsp;</td>
           <td class="paramname"> <em>aModel</em></td>
           <td>&nbsp;)&nbsp;</td>
-          <td><code> [virtual]</code></td>
+          <td><code> [protected, virtual]</code></td>
         </tr>
       </table>
 </div>
@@ -604,7 +709,7 @@ Inheritance diagram for OpenSim::WeldConstraint:</div>
 <li>OpenSim/Simulation/SimbodyEngine/WeldConstraint.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Feb 7 02:15:19 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:37:13 2010 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

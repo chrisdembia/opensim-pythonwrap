@@ -170,7 +170,7 @@ public class IKToolModel extends Observable implements Observer {
    // END IKToolWorker
    //========================================================================
 
-   enum Operation { AllDataChanged, IKTrialNameChanged, IKTaskSetChanged, ExecutionStateChanged };
+   public enum Operation { AllDataChanged, IKTrialNameChanged, IKTaskSetChanged, ExecutionStateChanged };
 
    private IKTool ikTool = null;
    private Model originalModel = null;

@@ -32,6 +32,7 @@ import org.netbeans.api.progress.ProgressHandleFactory;
 import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
 import org.openide.util.Cancellable;
+import org.opensim.modeling.Analysis;
 import org.opensim.modeling.ForwardTool;
 import org.opensim.modeling.InterruptCallback;
 import org.opensim.modeling.Kinematics;
@@ -108,7 +109,7 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
          // it would then later try to delete it yet again)
          interruptingCallback = new InterruptCallback(getModel());
          getModel().addAnalysis(interruptingCallback);
-
+         addResultDisplayers(getModel());   // Create all analyses that need to be created on analysis model
          setExecuting(true);
       }
 
@@ -169,6 +170,17 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
 
          worker = null;
       }
+        private void addResultDisplayers(Model model) {
+            for(ResultDisplayerInterface nextDisplayer:resultDisplayers){
+                Analysis nextAnalysis = nextDisplayer.createAnalysis(model);
+            }
+        }
+        
+        private void removeResultDisplayers(Model model) {
+            for(ResultDisplayerInterface nextDisplayer:resultDisplayers){
+                nextDisplayer.removeAnalysis(model);
+            }           
+        }
    }
    private ForwardToolWorker worker = null;
    //========================================================================

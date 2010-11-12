@@ -56,10 +56,13 @@ Inheritance diagram for OpenSim::ActuatorPerturbationIndependent:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get a pointer to the <a class="el" href="classOpenSim_1_1Storage.html">Storage</a> containing the perturbed forces.  <a href="#a2309c686c423c1acfb241d06c7eb6e44"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActuatorPerturbationIndependent.html#ad655a0c0e0a1ab1496fe8e2f733c2af7">reset</a> (const SimTK::State &amp;s)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the step counter to zero and reset the perturbed force storage.  <a href="#ad655a0c0e0a1ab1496fe8e2f733c2af7"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActuatorPerturbationIndependent.html#a74f43d97d6cabed0a7314560693f823b">getStep</a> ()</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the current value of the step counter.  <a href="#a74f43d97d6cabed0a7314560693f823b"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActuatorPerturbationIndependent.html#aa2541d2cb1026befc618335eca23f7a2">setForces</a> (const SimTK::State &amp;s)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">called right after actuation has been computed by the model.  <a href="#aa2541d2cb1026befc618335eca23f7a2"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActuatorPerturbationIndependent.html#ae49f48b3fb8be52382512db7ce64b3d8">getAllowNegForce</a> () const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get whether negative force is allowed.  <a href="#ae49f48b3fb8be52382512db7ce64b3d8"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActuatorPerturbationIndependent.html#a845292ac1118a63b3a7d501cfe5a1f85">setActuator</a> (<a class="el" href="classOpenSim_1_1Actuator.html">Actuator</a> *act)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> which actuator has its force perturbed.  <a href="#a845292ac1118a63b3a7d501cfe5a1f85"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActuatorPerturbationIndependent.html#a4956f95201c3631e73a55c1c31164ddd">initalizeOverrideForces</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActuatorPerturbationIndependent.html#a887bbd43f909690d481e9d8705db0888">record</a> (const SimTK::State &amp;s)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The nominal actuator force is recorded so that it can be restored.  <a href="#a887bbd43f909690d481e9d8705db0888"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1GCVSplineSet.html">GCVSplineSet</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActuatorPerturbationIndependent.html#ab749cd11ac9eeb024b677a6a289219a2">_unperturbedForceSplines</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Splines used to fit the unperturbed forces.  <a href="#ab749cd11ac9eeb024b677a6a289219a2"></a><br/></td></tr>
@@ -67,8 +70,8 @@ Inheritance diagram for OpenSim::ActuatorPerturbationIndependent:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Storage.html">Storage</a> for holding unperturbed forces.  <a href="#ae09338287861f3da2f8e01689b018069"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Storage.html">Storage</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActuatorPerturbationIndependent.html#a0f31c278bf25a9d8439970de8c766513">_perturbedForceStorage</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Storage.html">Storage</a> for holding perturbed forces.  <a href="#a0f31c278bf25a9d8439970de8c766513"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActuatorPerturbationIndependent.html#a2284170f78ca0137a27670e695bde0a2">_step</a></td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Counter to track the number of integration steps.  <a href="#a2284170f78ca0137a27670e695bde0a2"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Set.html">Set</a>&lt; <a class="el" href="classOpenSim_1_1ForcePerturbationFunction.html">ForcePerturbationFunction</a> &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActuatorPerturbationIndependent.html#a9f5f4622643c2fe28fc0c96005d982d7">_overrideFunctions</a></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">set of functions to compute the override forces for actuators  <a href="#a9f5f4622643c2fe28fc0c96005d982d7"></a><br/></td></tr>
 </table>
 <hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="ab34faa171a6709c5822a908ac153fff5"></a><!-- doxytag: member="OpenSim::ActuatorPerturbationIndependent::ActuatorPerturbationIndependent" ref="ab34faa171a6709c5822a908ac153fff5" args="(Model *aModel)" -->
@@ -90,7 +93,7 @@ Inheritance diagram for OpenSim::ActuatorPerturbationIndependent:</div>
 <p>Construct an instance for perturbing actuator forces during an integration while forcing all other muscles to exert their nominal force. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>aModel</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Model.html" title="A base class that specifies the interface for a musculoskeletal model.">Model</a> for which actuator forces are to be perturbed. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>aModel</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a> for which actuator forces are to be perturbed. </td></tr>
   </table>
   </dd>
 </dl>
@@ -117,6 +120,29 @@ Inheritance diagram for OpenSim::ActuatorPerturbationIndependent:</div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="ae49f48b3fb8be52382512db7ce64b3d8"></a><!-- doxytag: member="OpenSim::ActuatorPerturbationIndependent::getAllowNegForce" ref="ae49f48b3fb8be52382512db7ce64b3d8" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OpenSim::ActuatorPerturbationIndependent::getAllowNegForce </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Get whether negative force is allowed. </p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>allowNegForce Flag </dd></dl>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="classOpenSim_1_1ActuatorPerturbation.html#a2ef0f1b43f53b759ef27c77e3e88fba5" title="Set whether it is permissable that a perturbation produces a negative force.">setAllowNegForce()</a> </dd></dl>
+
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1ActuatorPerturbation.html#aa06b046e47504d244b1e077f8cdd4c1d">OpenSim::ActuatorPerturbation</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a2309c686c423c1acfb241d06c7eb6e44"></a><!-- doxytag: member="OpenSim::ActuatorPerturbationIndependent::getPerturbedForceStorage" ref="a2309c686c423c1acfb241d06c7eb6e44" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -137,26 +163,6 @@ Inheritance diagram for OpenSim::ActuatorPerturbationIndependent:</div>
 
 </div>
 </div>
-<a class="anchor" id="a74f43d97d6cabed0a7314560693f823b"></a><!-- doxytag: member="OpenSim::ActuatorPerturbationIndependent::getStep" ref="a74f43d97d6cabed0a7314560693f823b" args="()" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int ActuatorPerturbationIndependent::getStep </td>
-          <td>(</td>
-          <td class="paramname"></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Get the current value of the step counter. </p>
-<dl class="return"><dt><b>Returns:</b></dt><dd>The current integrator step value. </dd></dl>
-
-</div>
-</div>
 <a class="anchor" id="a8ddb8e9ae004eed3b71397228ecd1946"></a><!-- doxytag: member="OpenSim::ActuatorPerturbationIndependent::getUnperturbedForceSplineSet" ref="a8ddb8e9ae004eed3b71397228ecd1946" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -174,6 +180,43 @@ Inheritance diagram for OpenSim::ActuatorPerturbationIndependent:</div>
 
 <p>Get a pointer to the spline set used to fit the unperturbed actuator forces. </p>
 <dl class="return"><dt><b>Returns:</b></dt><dd>Spline set containing the unperturbed actuator force curves. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a4956f95201c3631e73a55c1c31164ddd"></a><!-- doxytag: member="OpenSim::ActuatorPerturbationIndependent::initalizeOverrideForces" ref="a4956f95201c3631e73a55c1c31164ddd" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ActuatorPerturbationIndependent::initalizeOverrideForces </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a887bbd43f909690d481e9d8705db0888"></a><!-- doxytag: member="OpenSim::ActuatorPerturbationIndependent::record" ref="a887bbd43f909690d481e9d8705db0888" args="(const SimTK::State &amp;s)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ActuatorPerturbationIndependent::record </td>
+          <td>(</td>
+          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
+          <td class="paramname"> <em>s</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>The nominal actuator force is recorded so that it can be restored. </p>
 
 </div>
 </div>
@@ -199,34 +242,31 @@ Inheritance diagram for OpenSim::ActuatorPerturbationIndependent:</div>
 
 </div>
 </div>
-<a class="anchor" id="aa2541d2cb1026befc618335eca23f7a2"></a><!-- doxytag: member="OpenSim::ActuatorPerturbationIndependent::setForces" ref="aa2541d2cb1026befc618335eca23f7a2" args="(const SimTK::State &amp;s)" -->
+<a class="anchor" id="a845292ac1118a63b3a7d501cfe5a1f85"></a><!-- doxytag: member="OpenSim::ActuatorPerturbationIndependent::setActuator" ref="a845292ac1118a63b3a7d501cfe5a1f85" args="(Actuator *act)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void ActuatorPerturbationIndependent::setForces </td>
+          <td class="memname">void ActuatorPerturbationIndependent::setActuator </td>
           <td>(</td>
-          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
-          <td class="paramname"> <em>s</em></td>
+          <td class="paramtype"><a class="el" href="classOpenSim_1_1Actuator.html">Actuator</a> *&nbsp;</td>
+          <td class="paramname"> <em>act</em></td>
           <td>&nbsp;)&nbsp;</td>
-          <td><code> [virtual]</code></td>
+          <td></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
-<p>called right after actuation has been computed by the model. </p>
-<p>The nominal actuator force is recorded so that it can be restored, and the actuator force is replaced by its perturbed value.</p>
+<p><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> which actuator has its force perturbed. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>aT</em>&nbsp;</td><td>Real time. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>aX</em>&nbsp;</td><td>Controls. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>aY</em>&nbsp;</td><td>States. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>aAct</em>&nbsp;</td><td>Pointer to the actuator. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1ActuatorPerturbation.html#a597964668756951521d5467b2e15c224">OpenSim::ActuatorPerturbation</a>.</p>
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1ActuatorPerturbation.html#a46675b9bd2fd32112340e95c60e93911">OpenSim::ActuatorPerturbation</a>.</p>
 
 </div>
 </div>
@@ -259,6 +299,21 @@ Inheritance diagram for OpenSim::ActuatorPerturbationIndependent:</div>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
+<a class="anchor" id="a9f5f4622643c2fe28fc0c96005d982d7"></a><!-- doxytag: member="OpenSim::ActuatorPerturbationIndependent::_overrideFunctions" ref="a9f5f4622643c2fe28fc0c96005d982d7" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classOpenSim_1_1Set.html">Set</a>&lt;<a class="el" href="classOpenSim_1_1ForcePerturbationFunction.html">ForcePerturbationFunction</a>&gt; <a class="el" href="classOpenSim_1_1ActuatorPerturbationIndependent.html#a9f5f4622643c2fe28fc0c96005d982d7">OpenSim::ActuatorPerturbationIndependent::_overrideFunctions</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>set of functions to compute the override forces for actuators </p>
+
+</div>
+</div>
 <a class="anchor" id="a0f31c278bf25a9d8439970de8c766513"></a><!-- doxytag: member="OpenSim::ActuatorPerturbationIndependent::_perturbedForceStorage" ref="a0f31c278bf25a9d8439970de8c766513" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -271,21 +326,6 @@ Inheritance diagram for OpenSim::ActuatorPerturbationIndependent:</div>
 <div class="memdoc">
 
 <p><a class="el" href="classOpenSim_1_1Storage.html">Storage</a> for holding perturbed forces. </p>
-
-</div>
-</div>
-<a class="anchor" id="a2284170f78ca0137a27670e695bde0a2"></a><!-- doxytag: member="OpenSim::ActuatorPerturbationIndependent::_step" ref="a2284170f78ca0137a27670e695bde0a2" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int <a class="el" href="classOpenSim_1_1ActuatorPerturbationIndependent.html#a2284170f78ca0137a27670e695bde0a2">OpenSim::ActuatorPerturbationIndependent::_step</a><code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Counter to track the number of integration steps. </p>
 
 </div>
 </div>
@@ -324,7 +364,7 @@ Inheritance diagram for OpenSim::ActuatorPerturbationIndependent:</div>
 <li>OpenSim/Analyses/ActuatorPerturbationIndependent.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Feb 7 02:15:12 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:36:59 2010 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

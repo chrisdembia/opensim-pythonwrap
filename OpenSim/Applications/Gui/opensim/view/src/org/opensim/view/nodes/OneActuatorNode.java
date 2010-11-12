@@ -43,7 +43,7 @@ import org.opensim.view.editors.MuscleEditorAction;
  *
  * @author Ayman Habib
  */
-public class OneActuatorNode extends OpenSimObjectNode{
+public class OneActuatorNode extends OneForceNode{
     
     private static ResourceBundle bundle = NbBundle.getBundle(OneActuatorNode.class);
     /**
@@ -57,15 +57,16 @@ public class OneActuatorNode extends OpenSimObjectNode{
         addDisplayOption(displayOption.Isolatable);
     }
     public Image getIcon(int i) {
-        URL imageURL = this.getClass().getResource("icons/muscleNode.png");
+        URL imageURL;
+        if (disabled)
+            imageURL = this.getClass().getResource("icons/disabledNode.png");
+        else
+            imageURL = this.getClass().getResource("icons/muscleNode.png");
         if (imageURL != null) {
             return new ImageIcon(imageURL, "Actuator").getImage();
         } else {
             return null;
         }
-    }
-   public Image getOpenedIcon(int i) {
-        return getIcon(i);
     }
 
     public Action[] getActions(boolean b) {

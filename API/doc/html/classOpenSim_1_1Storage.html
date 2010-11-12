@@ -27,7 +27,7 @@
   </div>
 </div>
 <div class="contents">
-<h1>OpenSim::Storage Class Reference</h1><!-- doxytag: class="OpenSim::Storage" --><!-- doxytag: inherits="OpenSim::Object" -->
+<h1>OpenSim::Storage Class Reference</h1><!-- doxytag: class="OpenSim::Storage" --><!-- doxytag: inherits="OpenSim::StorageInterface" -->
 <p><code>#include &lt;Storage.h&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for OpenSim::Storage:</div>
@@ -35,7 +35,8 @@ Inheritance diagram for OpenSim::Storage:</div>
  <div class="center">
   <img src="classOpenSim_1_1Storage.gif" usemap="#OpenSim::Storage_map" alt=""/>
   <map id="OpenSim::Storage_map" name="OpenSim::Storage_map">
-<area href="classOpenSim_1_1Object.html" alt="OpenSim::Object" shape="rect" coords="0,0,113,24"/>
+<area href="classOpenSim_1_1StorageInterface.html" alt="OpenSim::StorageInterface" shape="rect" coords="0,56,163,80"/>
+<area href="classOpenSim_1_1Object.html" alt="OpenSim::Object" shape="rect" coords="0,0,163,24"/>
 </map>
  </div>
 </div>
@@ -53,25 +54,31 @@ Inheritance diagram for OpenSim::Storage:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Copy this object.  <a href="#aa2b677ca5e2fda582fce8d70c36777c9"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#a73cf30f0a34250396f9eabee7dc5c93d">~Storage</a> ()</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Destructor.  <a href="#a73cf30f0a34250396f9eabee7dc5c93d"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#a92e14e5f122eedcd04486604f41ff6db">getSize</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const std::string &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#a79779c85dc6bfa2528f9eab945e522f8">getName</a> () const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the name of this object.  <a href="#a79779c85dc6bfa2528f9eab945e522f8"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const std::string &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#ab3ad6289a019b30526c830994d9f3acb">getDescription</a> () const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the description of this object.  <a href="#ab3ad6289a019b30526c830994d9f3acb"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#a4cd5760e04c721afe581f25cface572e">setName</a> (const std::string &amp;aName)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#ae7cb45aa2c24af1754e9afba280a190a">setDescription</a> (const std::string &amp;aDescription)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#aeeadf5347ea3d0355518cb4d9c506e24">getSize</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#a1d6190784783c6c615776e10125ecf78">getSmallestNumberOfStates</a> () const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the smallest number of states.  <a href="#a1d6190784783c6c615776e10125ecf78"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1StateVector.html">StateVector</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#abb09ca2050be7a8cb926910f532a2611">getStateVector</a> (int aTimeIndex) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classOpenSim_1_1StateVector.html">StateVector</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#abb09ca2050be7a8cb926910f532a2611">getStateVector</a> (int aTimeIndex) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the <a class="el" href="classOpenSim_1_1StateVector.html" title="A class which stores a vector of states or data at a specified time.">StateVector</a> at a spcified time index.  <a href="#abb09ca2050be7a8cb926910f532a2611"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1StateVector.html">StateVector</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#a1d90debbb39fc006ca9cb483e28bac0b">getLastStateVector</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classOpenSim_1_1StateVector.html">StateVector</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#a1d90debbb39fc006ca9cb483e28bac0b">getLastStateVector</a> () const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the last states stored.  <a href="#a1d90debbb39fc006ca9cb483e28bac0b"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#a2d982e0afcd82e77d7e39442bc581b3f">getFirstTime</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#a2d982e0afcd82e77d7e39442bc581b3f">getFirstTime</a> () const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the time of the first stored states.  <a href="#a2d982e0afcd82e77d7e39442bc581b3f"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#a64cb85afa3a41c5b80404deb2f9d56dc">getLastTime</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#a64cb85afa3a41c5b80404deb2f9d56dc">getLastTime</a> () const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the time of the last states.  <a href="#a64cb85afa3a41c5b80404deb2f9d56dc"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#aad15c7586320e6c3b98e6b3119f91490">getMinTimeStep</a> () const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the smallest time step.  <a href="#aad15c7586320e6c3b98e6b3119f91490"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#a0a586d3e04d9803450ff848f7fe7a052">getTime</a> (int aTimeIndex, double &amp;rTime, int aStateIndex=-1) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the time at a specified time index for a specified state.  <a href="#a0a586d3e04d9803450ff848f7fe7a052"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#a671b617e6323316980e7064d3b9c090c">getTimeColumn</a> (double *&amp;rTimes, int aStateIndex=-1) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#a671b617e6323316980e7064d3b9c090c">getTimeColumn</a> (double *&amp;rTimes, int aStateIndex=-1) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the times for a specified state.  <a href="#a671b617e6323316980e7064d3b9c090c"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#ac23ded50b157c9310989b3a0b317ae8d">getTimeColumn</a> (<a class="el" href="classOpenSim_1_1Array.html">Array</a>&lt; double &gt; &amp;rTimes, int aStateIndex=-1) const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#ae3251a8522b1fe633849def4b691ba14">getTimeColumnWithStartTime</a> (<a class="el" href="classOpenSim_1_1Array.html">Array</a>&lt; double &gt; &amp;rTimes, double startTime=0.0) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#ac23ded50b157c9310989b3a0b317ae8d">getTimeColumn</a> (<a class="el" href="classOpenSim_1_1Array.html">Array</a>&lt; double &gt; &amp;rTimes, int aStateIndex=-1) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#ae3251a8522b1fe633849def4b691ba14">getTimeColumnWithStartTime</a> (<a class="el" href="classOpenSim_1_1Array.html">Array</a>&lt; double &gt; &amp;rTimes, double startTime=0.0) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the time column starting at aTime.  <a href="#ae3251a8522b1fe633849def4b691ba14"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#a78b4672a61156732695cf5a3a57e2380">addKeyValuePair</a> (const std::string &amp;aKey, const std::string &amp;aValue)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Processing of special reserved words used by SIMM and corresponding values The keys and their corresponding values are maintained in _keyValueMap.  <a href="#a78b4672a61156732695cf5a3a57e2380"></a><br/></td></tr>
@@ -136,7 +143,9 @@ Inheritance diagram for OpenSim::Storage:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Append copies of all state vectors in an <a class="el" href="classOpenSim_1_1Storage.html">Storage</a> object.  <a href="#a42dc67004b5160cf9f3ef21b3c2d7510"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#a827bdc891ac03b5153f0cc5097e2821a">append</a> (double aT, int aN, const double *aY, bool aCheckForDuplicateTime=true)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Append an array of data that occured at a specified time.  <a href="#a827bdc891ac03b5153f0cc5097e2821a"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#a7f176603275ff3d34d20ba9cec53e26f">append</a> (double aT, const SimTK::Vec3 &amp;aY, bool aCheckForDuplicateTime=true)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#abd9998faa53ee76c1dae716b9d737b21">append</a> (double aT, const SimTK::Vector &amp;aY, bool aCheckForDuplicateTime=true)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Append an array of data that occured at a specified time.  <a href="#abd9998faa53ee76c1dae716b9d737b21"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#abdcb681ccdd3b49c25232cf85ab8ae5c">append</a> (double aT, const SimTK::Vec3 &amp;aY, bool aCheckForDuplicateTime=true)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#ad7c2ae9160a2833c8faa4417de6768d8">store</a> (int aStep, double aT, int aN, const double *aY)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Store a simulation vector.  <a href="#ad7c2ae9160a2833c8faa4417de6768d8"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#aa8261da0c0a09c0a9716cee047426350">shiftTime</a> (double aValue)</td></tr>
@@ -200,9 +209,9 @@ Inheritance diagram for OpenSim::Storage:</div>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#ae3049bf6dcd620208572654c1ad3ad9b">lowpassFIR</a> (int aOrder, double aCutoffFequency)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Lowpass filter each of the columns in the storage.  <a href="#ae3049bf6dcd620208572654c1ad3ad9b"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#a7222665f1d58da6a7756d081ad7f97b8">addToRdStorage</a> (<a class="el" href="classOpenSim_1_1Storage.html">Storage</a> &amp;rStorage, double aStartTime, double aEndTime)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#a2b2611013561cbc0a96922ad6da05d15">findIndex</a> (double aT) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#a2b2611013561cbc0a96922ad6da05d15">findIndex</a> (double aT) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Find the index of the storage element that occured immediately before or at a specified time ( getTime(index) &lt;= aT ).  <a href="#a2b2611013561cbc0a96922ad6da05d15"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#aaaa55ca6f6f65717badecda31791804c">findIndex</a> (int aI, double aT) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#aaaa55ca6f6f65717badecda31791804c">findIndex</a> (int aI, double aT) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Find the index of the storage element that occured immediately before or at time aT ( aT &lt;= getTime(index) ).  <a href="#aaaa55ca6f6f65717badecda31791804c"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#a5a6ac5e5597cd330d558aa4a234e8ece">findFrameRange</a> (double aStartTime, double aEndTime, int &amp;oStartFrame, int &amp;oEndFrame) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Find the range of frames that is between start time and end time (inclusive).  <a href="#a5a6ac5e5597cd330d558aa4a234e8ece"></a><br/></td></tr>
@@ -212,19 +221,19 @@ Inheritance diagram for OpenSim::Storage:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Resample using linear interpolation.  <a href="#a3e7347ae928c68129b416e2fb8ca9227"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#a1449c7ff95a05fa5ed87271b09f53286">compareColumn</a> (<a class="el" href="classOpenSim_1_1Storage.html">Storage</a> &amp;aOtherStorage, std::string &amp;aColumnName, double startTime, double endTime=-1.0)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Compare column named "aColumnName" in two storage objects If endTime is not specified the comparison goes to the end of the file.  <a href="#a1449c7ff95a05fa5ed87271b09f53286"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#a2d9a9e61784736668e2784475d01998a">makeStorageLabelsUnique</a> ()</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Force.html" title="This abstract class represents a force applied to bodies or generalized coordinates...">Force</a> column labels for a <a class="el" href="classOpenSim_1_1Storage.html">Storage</a> object to become unique.  <a href="#a2d9a9e61784736668e2784475d01998a"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#abd01fa11849b97cf7e888c25acd1dffd">print</a> () const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Print the contents of this storage instance to standard output.  <a href="#abd01fa11849b97cf7e888c25acd1dffd"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#a22abd314e0e07069d0eaaa54b9645d61">print</a> (const std::string &amp;aFileName, const std::string &amp;aMode=&quot;w&quot;, const std::string &amp;aComment=&quot;&quot;) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#a6593f8074ece310fe51a09f0c79548db">print</a> (const std::string &amp;aFileName, double aDT, const std::string &amp;aMode=&quot;w&quot;) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#ac675bbd9d8e8db518ed84204757c9256">setOutputFileName</a> (const std::string &amp;aFileName)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> name of output file to be written into.  <a href="#ac675bbd9d8e8db518ed84204757c9256"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#aaf9d072bc4c4046e039050e8768c4408">interpolateAt</a> (const <a class="el" href="classOpenSim_1_1Array.html">Array</a>&lt; double &gt; &amp;targetTimes)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">interpolateAt passed in list of time values.  <a href="#aaf9d072bc4c4046e039050e8768c4408"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#a9d0cbcb6c4e6ecf207a0ad8c6fe11a47">printResult</a> (const <a class="el" href="classOpenSim_1_1Storage.html">Storage</a> *aStorage, const std::string &amp;aName, const std::string &amp;aDir, double aDT, const std::string &amp;aExtension)</td></tr>
 <tr><td colspan="2"><h2>Static Public Attributes</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static const double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#a85b26d6f759ea841a03c11882d5d11b9">LARGE_NEGATIVE</a> = -1.0e-30</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Large negative number.  <a href="#a85b26d6f759ea841a03c11882d5d11b9"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static const double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#a6a1db29a5de8281e8fcf5e5e2dc76b7c">LARGE_POSITIVE</a> = 1.0e-30</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Large positive number.  <a href="#a6a1db29a5de8281e8fcf5e5e2dc76b7c"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static const char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#ae58dd0c88d6e40845142ea5c1f27abc8">DEFAULT_HEADER_TOKEN</a> = &quot;endheader&quot;</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Default token used to mark the end of the storage description in a file.  <a href="#ae58dd0c88d6e40845142ea5c1f27abc8"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static const char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#ab66065724f81afd76dc9360694a9f82d">DEFAULT_HEADER_SEPARATOR</a> = &quot; \t\r\n&quot;</td></tr>
@@ -246,6 +255,13 @@ Inheritance diagram for OpenSim::Storage:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Units.html" title="A class implementing various units for measuring quantities.">Units</a> in which the data is represented.  <a href="#a465e44061bc8b343bb505089d6716048"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">MapKeysToValues&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#aac082a43ac237c03ccbab990aefbf3a9">_keyValueMap</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Map between keys in file header and values.  <a href="#aac082a43ac237c03ccbab990aefbf3a9"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::string&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#aea1c769d45399c5be0c455ab149d359f">_fileName</a></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Cache for fileName and file pointer when the file is opened so we can flush and write intermediate files if needed.  <a href="#aea1c769d45399c5be0c455ab149d359f"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">FILE *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#a55e8a172ee5db206cbed4733c0a21f60">_fp</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::string&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#ab3769ffec960c64a6623a374acb2dae9">_name</a></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Name and Description.  <a href="#ab3769ffec960c64a6623a374acb2dae9"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::string&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#a59d6d892194a8f55b03a1ffd39989971">_description</a></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">A description of the object.  <a href="#a59d6d892194a8f55b03a1ffd39989971"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Static Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static std::string&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#a6348da7e089075920caf7d40e38b5ca4">simmReservedKeys</a> []</td></tr>
 </table>
@@ -613,12 +629,12 @@ Inheritance diagram for OpenSim::Storage:</div>
 
 </div>
 </div>
-<a class="anchor" id="a7f176603275ff3d34d20ba9cec53e26f"></a><!-- doxytag: member="OpenSim::Storage::append" ref="a7f176603275ff3d34d20ba9cec53e26f" args="(double aT, const SimTK::Vec3 &amp;aY, bool aCheckForDuplicateTime=true)" -->
+<a class="anchor" id="abdcb681ccdd3b49c25232cf85ab8ae5c"></a><!-- doxytag: member="OpenSim::Storage::append" ref="abdcb681ccdd3b49c25232cf85ab8ae5c" args="(double aT, const SimTK::Vec3 &amp;aY, bool aCheckForDuplicateTime=true)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int OpenSim::Storage::append </td>
+          <td class="memname">virtual int OpenSim::Storage::append </td>
           <td>(</td>
           <td class="paramtype">double&nbsp;</td>
           <td class="paramname"> <em>aT</em>, </td>
@@ -638,11 +654,58 @@ Inheritance diagram for OpenSim::Storage:</div>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td><td><code> [inline]</code></td>
+          <td></td><td></td><td><code> [inline, virtual]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1StorageInterface.html#ad8f1ec797aabdd6d0d3d315cff4ec2fb">OpenSim::StorageInterface</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="abd9998faa53ee76c1dae716b9d737b21"></a><!-- doxytag: member="OpenSim::Storage::append" ref="abd9998faa53ee76c1dae716b9d737b21" args="(double aT, const SimTK::Vector &amp;aY, bool aCheckForDuplicateTime=true)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Storage::append </td>
+          <td>(</td>
+          <td class="paramtype">double&nbsp;</td>
+          <td class="paramname"> <em>aT</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const SimTK::Vector &amp;&nbsp;</td>
+          <td class="paramname"> <em>aY</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&nbsp;</td>
+          <td class="paramname"> <em>aCheckForDuplicateTime</em> = <code>true</code></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td><code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Append an array of data that occured at a specified time. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>aT</em>&nbsp;</td><td>Time stamp of the data. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>aY</em>&nbsp;</td><td>Vector. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>Index of the first empty storage element. </dd></dl>
+
+<p>Implements <a class="el" href="classOpenSim_1_1StorageInterface.html#a6df90f9605aed3a8b10cf7e3602d892d">OpenSim::StorageInterface</a>.</p>
 
 </div>
 </div>
@@ -694,6 +757,8 @@ Inheritance diagram for OpenSim::Storage:</div>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>Index of the first empty storage element. </dd></dl>
 
+<p>Implements <a class="el" href="classOpenSim_1_1StorageInterface.html#ae638d1ff032b9e39862edbb04669bde6">OpenSim::StorageInterface</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a42dc67004b5160cf9f3ef21b3c2d7510"></a><!-- doxytag: member="OpenSim::Storage::append" ref="a42dc67004b5160cf9f3ef21b3c2d7510" args="(const Array&lt; StateVector &gt; &amp;aArray)" -->
@@ -721,6 +786,8 @@ Inheritance diagram for OpenSim::Storage:</div>
   </dd>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>The index of the first empty storage element. </dd></dl>
+
+<p>Implements <a class="el" href="classOpenSim_1_1StorageInterface.html#a6c6a474f6fd75b7901cc25c73a2ae07d">OpenSim::StorageInterface</a>.</p>
 
 </div>
 </div>
@@ -757,6 +824,8 @@ Inheritance diagram for OpenSim::Storage:</div>
   </dd>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>Size of the storage after the append. </dd></dl>
+
+<p>Implements <a class="el" href="classOpenSim_1_1StorageInterface.html#a16c92aaae96d9f954c47d5fef1b1772c">OpenSim::StorageInterface</a>.</p>
 
 </div>
 </div>
@@ -973,7 +1042,7 @@ Inheritance diagram for OpenSim::Storage:</div>
 <p>Copy this object. </p>
 <dl class="return"><dt><b>Returns:</b></dt><dd>Pointer to a copy of this object. </dd></dl>
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Object.html#a2000b12522f6f79a8918991b819a4bb7">OpenSim::Object</a>.</p>
+<p>Implements <a class="el" href="classOpenSim_1_1StorageInterface.html#ac46b2338b7276d013da2c93932287529">OpenSim::StorageInterface</a>.</p>
 
 </div>
 </div>
@@ -1183,7 +1252,7 @@ Inheritance diagram for OpenSim::Storage:</div>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td><td> const</td>
+          <td></td><td></td><td> const<code> [virtual]</code></td>
         </tr>
       </table>
 </div>
@@ -1200,6 +1269,8 @@ Inheritance diagram for OpenSim::Storage:</div>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>Index preceding or at time aT. If aT is less than the earliest time, 0 is returned. </dd></dl>
 
+<p>Implements <a class="el" href="classOpenSim_1_1StorageInterface.html#a41d5c2394c66796d64d370f5ed5fb4b4">OpenSim::StorageInterface</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a2b2611013561cbc0a96922ad6da05d15"></a><!-- doxytag: member="OpenSim::Storage::findIndex" ref="a2b2611013561cbc0a96922ad6da05d15" args="(double aT) const " -->
@@ -1212,7 +1283,7 @@ Inheritance diagram for OpenSim::Storage:</div>
           <td class="paramtype">double&nbsp;</td>
           <td class="paramname"> <em>aT</em></td>
           <td>&nbsp;)&nbsp;</td>
-          <td> const</td>
+          <td> const<code> [virtual]</code></td>
         </tr>
       </table>
 </div>
@@ -1227,6 +1298,8 @@ Inheritance diagram for OpenSim::Storage:</div>
   </dd>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>Index preceding or at time aT. If aT is less than the earliest time, 0 is returned. </dd></dl>
+
+<p>Implements <a class="el" href="classOpenSim_1_1StorageInterface.html#a87840a54c34a8134ec23840f740c7ebe">OpenSim::StorageInterface</a>.</p>
 
 </div>
 </div>
@@ -1522,11 +1595,13 @@ Inheritance diagram for OpenSim::Storage:</div>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td><td> const</td>
+          <td></td><td></td><td> const<code> [virtual]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Implements <a class="el" href="classOpenSim_1_1StorageInterface.html#a7adac2006928c42529d6d266f5a9334f">OpenSim::StorageInterface</a>.</p>
 
 </div>
 </div>
@@ -1645,7 +1720,7 @@ Inheritance diagram for OpenSim::Storage:</div>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td><td></td>
+          <td></td><td></td><td><code> [virtual]</code></td>
         </tr>
       </table>
 </div>
@@ -1653,6 +1728,8 @@ Inheritance diagram for OpenSim::Storage:</div>
 
 <p>Get the data column starting at aTime. </p>
 <p>Return it in rData rData is preallocated by the caller. </p>
+
+<p>Implements <a class="el" href="classOpenSim_1_1StorageInterface.html#a2d1e575dab4900138620c812e5fafe88">OpenSim::StorageInterface</a>.</p>
 
 </div>
 </div>
@@ -1686,11 +1763,11 @@ Inheritance diagram for OpenSim::Storage:</div>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>aColumnName</em>&nbsp;</td><td>name in header of column for which to get the data. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>rData</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Array.html">Array</a> containing the desired data. If rData is sent in as NULL, memory is allocated. However, if rData is sent in as a non-NULL, it is assumed that rData points to a memory block that is large enough to hold <a class="el" href="classOpenSim_1_1Storage.html#a92e14e5f122eedcd04486604f41ff6db">getSize()</a> doubles. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>rData</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Array.html">Array</a> containing the desired data. If rData is sent in as NULL, memory is allocated. However, if rData is sent in as a non-NULL, it is assumed that rData points to a memory block that is large enough to hold <a class="el" href="classOpenSim_1_1Storage.html#aeeadf5347ea3d0355518cb4d9c506e24">getSize()</a> doubles. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="return"><dt><b>Returns:</b></dt><dd>Number of values set in rData. The number of values set may be less than <a class="el" href="classOpenSim_1_1Storage.html#a92e14e5f122eedcd04486604f41ff6db">getSize()</a> because not all stored state vectors are required to have the same number of states. </dd></dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>Number of values set in rData. The number of values set may be less than <a class="el" href="classOpenSim_1_1Storage.html#aeeadf5347ea3d0355518cb4d9c506e24">getSize()</a> because not all stored state vectors are required to have the same number of states. </dd></dl>
 
 </div>
 </div>
@@ -1751,11 +1828,32 @@ Inheritance diagram for OpenSim::Storage:</div>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>aStateIndex</em>&nbsp;</td><td>Index of the state (column) for which to get the data. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>rData</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Array.html">Array</a> containing the desired data. If rData is sent in as NULL, memory is allocated. However, if rData is sent in as a non-NULL, it is assumed that rData points to a memory block that is large enough to hold <a class="el" href="classOpenSim_1_1Storage.html#a92e14e5f122eedcd04486604f41ff6db">getSize()</a> doubles. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>rData</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Array.html">Array</a> containing the desired data. If rData is sent in as NULL, memory is allocated. However, if rData is sent in as a non-NULL, it is assumed that rData points to a memory block that is large enough to hold <a class="el" href="classOpenSim_1_1Storage.html#aeeadf5347ea3d0355518cb4d9c506e24">getSize()</a> doubles. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="return"><dt><b>Returns:</b></dt><dd>Number of values set in rData. The number of values set may be less than <a class="el" href="classOpenSim_1_1Storage.html#a92e14e5f122eedcd04486604f41ff6db">getSize()</a> because not all stored state vectors are required to have the same number of states. </dd></dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>Number of values set in rData. The number of values set may be less than <a class="el" href="classOpenSim_1_1Storage.html#aeeadf5347ea3d0355518cb4d9c506e24">getSize()</a> because not all stored state vectors are required to have the same number of states. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ab3ad6289a019b30526c830994d9f3acb"></a><!-- doxytag: member="OpenSim::Storage::getDescription" ref="ab3ad6289a019b30526c830994d9f3acb" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string&amp; OpenSim::Storage::getDescription </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Get the description of this object. </p>
+
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1Object.html#ab9362b31ab977b334072eab7794123ec">OpenSim::Object</a>.</p>
 
 </div>
 </div>
@@ -1768,7 +1866,7 @@ Inheritance diagram for OpenSim::Storage:</div>
           <td>(</td>
           <td class="paramname"></td>
           <td>&nbsp;)&nbsp;</td>
-          <td> const</td>
+          <td> const<code> [virtual]</code></td>
         </tr>
       </table>
 </div>
@@ -1776,6 +1874,8 @@ Inheritance diagram for OpenSim::Storage:</div>
 
 <p>Get the time of the first stored states. </p>
 <dl class="return"><dt><b>Returns:</b></dt><dd>Time of the first stored states. If there is no stored state, the constant SimTK::NaN (not a number) is returned. </dd></dl>
+
+<p>Implements <a class="el" href="classOpenSim_1_1StorageInterface.html#a92e20435cf7f9edaaf52e750981bfa15">OpenSim::StorageInterface</a>.</p>
 
 </div>
 </div>
@@ -1809,7 +1909,7 @@ Inheritance diagram for OpenSim::Storage:</div>
           <td>(</td>
           <td class="paramname"></td>
           <td>&nbsp;)&nbsp;</td>
-          <td> const</td>
+          <td> const<code> [virtual]</code></td>
         </tr>
       </table>
 </div>
@@ -1817,6 +1917,8 @@ Inheritance diagram for OpenSim::Storage:</div>
 
 <p>Get the last states stored. </p>
 <dl class="return"><dt><b>Returns:</b></dt><dd>Statevector. If no state vector is stored, NULL is returned. </dd></dl>
+
+<p>Implements <a class="el" href="classOpenSim_1_1StorageInterface.html#a7e5b9f8526547ac461eac4fd8cfd91b0">OpenSim::StorageInterface</a>.</p>
 
 </div>
 </div>
@@ -1829,7 +1931,7 @@ Inheritance diagram for OpenSim::Storage:</div>
           <td>(</td>
           <td class="paramname"></td>
           <td>&nbsp;)&nbsp;</td>
-          <td> const</td>
+          <td> const<code> [virtual]</code></td>
         </tr>
       </table>
 </div>
@@ -1837,6 +1939,8 @@ Inheritance diagram for OpenSim::Storage:</div>
 
 <p>Get the time of the last states. </p>
 <dl class="return"><dt><b>Returns:</b></dt><dd>Time of the first stored states. If there is no stored state, the constant SimTK::NaN (not a number) is returned. </dd></dl>
+
+<p>Implements <a class="el" href="classOpenSim_1_1StorageInterface.html#ad134b28527ca3f3c84865817aa53f5d3">OpenSim::StorageInterface</a>.</p>
 
 </div>
 </div>
@@ -1860,12 +1964,12 @@ Inheritance diagram for OpenSim::Storage:</div>
 
 </div>
 </div>
-<a class="anchor" id="a92e14e5f122eedcd04486604f41ff6db"></a><!-- doxytag: member="OpenSim::Storage::getSize" ref="a92e14e5f122eedcd04486604f41ff6db" args="() const " -->
+<a class="anchor" id="a79779c85dc6bfa2528f9eab945e522f8"></a><!-- doxytag: member="OpenSim::Storage::getName" ref="a79779c85dc6bfa2528f9eab945e522f8" args="() const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int OpenSim::Storage::getSize </td>
+          <td class="memname">const std::string&amp; OpenSim::Storage::getName </td>
           <td>(</td>
           <td class="paramname"></td>
           <td>&nbsp;)&nbsp;</td>
@@ -1874,6 +1978,29 @@ Inheritance diagram for OpenSim::Storage:</div>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Get the name of this object. </p>
+
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1Object.html#a40651ab63aba5bfb7ddc6f495d5d4b60">OpenSim::Object</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aeeadf5347ea3d0355518cb4d9c506e24"></a><!-- doxytag: member="OpenSim::Storage::getSize" ref="aeeadf5347ea3d0355518cb4d9c506e24" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual int OpenSim::Storage::getSize </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [inline, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Implements <a class="el" href="classOpenSim_1_1StorageInterface.html#ab8ecb61b7610df992fc5daf6180bc61c">OpenSim::StorageInterface</a>.</p>
 
 </div>
 </div>
@@ -1939,7 +2066,7 @@ Inheritance diagram for OpenSim::Storage:</div>
           <td class="paramtype">int&nbsp;</td>
           <td class="paramname"> <em>aTimeIndex</em></td>
           <td>&nbsp;)&nbsp;</td>
-          <td> const</td>
+          <td> const<code> [virtual]</code></td>
         </tr>
       </table>
 </div>
@@ -1953,6 +2080,8 @@ Inheritance diagram for OpenSim::Storage:</div>
   </dd>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>Statevector. If no valid statevector exists at aTimeIndex, NULL is returned. </dd></dl>
+
+<p>Implements <a class="el" href="classOpenSim_1_1StorageInterface.html#a828a3999b8fc8c4c2170af32720b5991">OpenSim::StorageInterface</a>.</p>
 
 </div>
 </div>
@@ -2038,11 +2167,13 @@ Inheritance diagram for OpenSim::Storage:</div>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td><td> const</td>
+          <td></td><td></td><td> const<code> [virtual]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Implements <a class="el" href="classOpenSim_1_1StorageInterface.html#a953d669cfb42e657271fd2d17ffe3b2a">OpenSim::StorageInterface</a>.</p>
 
 </div>
 </div>
@@ -2065,7 +2196,7 @@ Inheritance diagram for OpenSim::Storage:</div>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td><td> const</td>
+          <td></td><td></td><td> const<code> [virtual]</code></td>
         </tr>
       </table>
 </div>
@@ -2102,7 +2233,7 @@ Inheritance diagram for OpenSim::Storage:</div>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td><td> const</td>
+          <td></td><td></td><td> const<code> [virtual]</code></td>
         </tr>
       </table>
 </div>
@@ -2110,6 +2241,8 @@ Inheritance diagram for OpenSim::Storage:</div>
 
 <p>Get the time column starting at aTime. </p>
 <p>Return it in rTimes rTimes is preallocated by the caller. </p>
+
+<p>Implements <a class="el" href="classOpenSim_1_1StorageInterface.html#ac760e9c05171d548861a7ebc77c6b6d0">OpenSim::StorageInterface</a>.</p>
 
 </div>
 </div>
@@ -2345,6 +2478,27 @@ Inheritance diagram for OpenSim::Storage:</div>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a class="anchor" id="a2d9a9e61784736668e2784475d01998a"></a><!-- doxytag: member="OpenSim::Storage::makeStorageLabelsUnique" ref="a2d9a9e61784736668e2784475d01998a" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Storage::makeStorageLabelsUnique </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p><a class="el" href="classOpenSim_1_1Force.html" title="This abstract class represents a force applied to bodies or generalized coordinates...">Force</a> column labels for a <a class="el" href="classOpenSim_1_1Storage.html">Storage</a> object to become unique. </p>
+<p>This is done by appenging the string (n) as needed where n=1, 2, ...</p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>true if labels were changed false otherwise. </dd></dl>
 
 </div>
 </div>
@@ -2900,7 +3054,27 @@ Inheritance diagram for OpenSim::Storage:</div>
   </table>
   </dd>
 </dl>
-<dl class="return"><dt><b>Returns:</b></dt><dd>Number of values set in rData. The number of values set may be less than <a class="el" href="classOpenSim_1_1Storage.html#a92e14e5f122eedcd04486604f41ff6db">getSize()</a> because not all stored state vectors are required to have the same number of states. </dd></dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>Number of values set in rData. The number of values set may be less than <a class="el" href="classOpenSim_1_1Storage.html#aeeadf5347ea3d0355518cb4d9c506e24">getSize()</a> because not all stored state vectors are required to have the same number of states. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ae7cb45aa2c24af1754e9afba280a190a"></a><!-- doxytag: member="OpenSim::Storage::setDescription" ref="ae7cb45aa2c24af1754e9afba280a190a" args="(const std::string &amp;aDescription)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenSim::Storage::setDescription </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&nbsp;</td>
+          <td class="paramname"> <em>aDescription</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1Object.html#a8121d7c3d138ca194e75554888eb5d43">OpenSim::Object</a>.</p>
 
 </div>
 </div>
@@ -2929,6 +3103,49 @@ Inheritance diagram for OpenSim::Storage:</div>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a class="anchor" id="a4cd5760e04c721afe581f25cface572e"></a><!-- doxytag: member="OpenSim::Storage::setName" ref="a4cd5760e04c721afe581f25cface572e" args="(const std::string &amp;aName)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenSim::Storage::setName </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&nbsp;</td>
+          <td class="paramname"> <em>aName</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1Object.html#a8308f41560dae2d55f358129ae00bf52">OpenSim::Object</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac675bbd9d8e8db518ed84204757c9256"></a><!-- doxytag: member="OpenSim::Storage::setOutputFileName" ref="ac675bbd9d8e8db518ed84204757c9256" args="(const std::string &amp;aFileName)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Storage::setOutputFileName </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&nbsp;</td>
+          <td class="paramname"> <em>aFileName</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> name of output file to be written into. </p>
+<p>This has the side effect of openning the file for writing. The header will not have the correct number of rows but this may not be an issue for ersion 2 of the <a class="el" href="classOpenSim_1_1Storage.html">Storage</a> class </p>
+
+<p>Implements <a class="el" href="classOpenSim_1_1StorageInterface.html#a0cedfaa0faddaa7a5967a6de5ed11710">OpenSim::StorageInterface</a>.</p>
 
 </div>
 </div>
@@ -3082,6 +3299,8 @@ Inheritance diagram for OpenSim::Storage:</div>
 <p>This method differs from append in that, if the integration step of a simulation is not a multiple of the step interval of this <a class="el" href="classOpenSim_1_1Storage.html">Storage</a> class, the state is not appended. Note that if the step storage interval is 0, storage is turned off.</p>
 <p>The first empty storage location is returned. </p>
 
+<p>Implements <a class="el" href="classOpenSim_1_1StorageInterface.html#a4731af60846ca404c7cf20f8c0bacd00">OpenSim::StorageInterface</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="acc896c2b82d650d9f851d70ca2eb4d30"></a><!-- doxytag: member="OpenSim::Storage::subtract" ref="acc896c2b82d650d9f851d70ca2eb4d30" args="(Storage *aStorage)" -->
@@ -3219,6 +3438,52 @@ Inheritance diagram for OpenSim::Storage:</div>
 
 </div>
 </div>
+<a class="anchor" id="a59d6d892194a8f55b03a1ffd39989971"></a><!-- doxytag: member="OpenSim::Storage::_description" ref="a59d6d892194a8f55b03a1ffd39989971" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string <a class="el" href="classOpenSim_1_1Storage.html#a59d6d892194a8f55b03a1ffd39989971">OpenSim::Storage::_description</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>A description of the object. </p>
+<p>-&gt; rdSerializable interface </p>
+
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1Object.html#acad4529fe7b19f09e6c1ca381a2fa2f8">OpenSim::Object</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aea1c769d45399c5be0c455ab149d359f"></a><!-- doxytag: member="OpenSim::Storage::_fileName" ref="aea1c769d45399c5be0c455ab149d359f" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string <a class="el" href="classOpenSim_1_1Storage.html#aea1c769d45399c5be0c455ab149d359f">OpenSim::Storage::_fileName</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Cache for fileName and file pointer when the file is opened so we can flush and write intermediate files if needed. </p>
+
+</div>
+</div>
+<a class="anchor" id="a55e8a172ee5db206cbed4733c0a21f60"></a><!-- doxytag: member="OpenSim::Storage::_fp" ref="a55e8a172ee5db206cbed4733c0a21f60" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FILE* <a class="el" href="classOpenSim_1_1Storage.html#a55e8a172ee5db206cbed4733c0a21f60">OpenSim::Storage::_fp</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a766fbc5ee487820620ba477d29cae595"></a><!-- doxytag: member="OpenSim::Storage::_headerToken" ref="a766fbc5ee487820620ba477d29cae595" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -3261,6 +3526,23 @@ Inheritance diagram for OpenSim::Storage:</div>
 <div class="memdoc">
 
 <p>Last index at which a search was started. </p>
+
+</div>
+</div>
+<a class="anchor" id="ab3769ffec960c64a6623a374acb2dae9"></a><!-- doxytag: member="OpenSim::Storage::_name" ref="ab3769ffec960c64a6623a374acb2dae9" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string <a class="el" href="classOpenSim_1_1Storage.html#ab3769ffec960c64a6623a374acb2dae9">OpenSim::Storage::_name</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Name and Description. </p>
+
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1Object.html#a8d744cee8565c0a26412675d5f58c50e">OpenSim::Object</a>.</p>
 
 </div>
 </div>
@@ -3353,36 +3635,6 @@ Inheritance diagram for OpenSim::Storage:</div>
 
 </div>
 </div>
-<a class="anchor" id="a85b26d6f759ea841a03c11882d5d11b9"></a><!-- doxytag: member="OpenSim::Storage::LARGE_NEGATIVE" ref="a85b26d6f759ea841a03c11882d5d11b9" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const double <a class="el" href="classOpenSim_1_1Storage.html#a85b26d6f759ea841a03c11882d5d11b9">Storage::LARGE_NEGATIVE</a> = -1.0e-30<code> [static]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Large negative number. </p>
-
-</div>
-</div>
-<a class="anchor" id="a6a1db29a5de8281e8fcf5e5e2dc76b7c"></a><!-- doxytag: member="OpenSim::Storage::LARGE_POSITIVE" ref="a6a1db29a5de8281e8fcf5e5e2dc76b7c" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const double <a class="el" href="classOpenSim_1_1Storage.html#a6a1db29a5de8281e8fcf5e5e2dc76b7c">Storage::LARGE_POSITIVE</a> = 1.0e-30<code> [static]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Large positive number. </p>
-
-</div>
-</div>
 <a class="anchor" id="a165f803c99ae3e1cefa9c71b6e12d68f"></a><!-- doxytag: member="OpenSim::Storage::MAX_RESAMPLE_SIZE" ref="a165f803c99ae3e1cefa9c71b6e12d68f" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -3422,7 +3674,7 @@ Inheritance diagram for OpenSim::Storage:</div>
 <li>OpenSim/Common/Storage.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Feb 7 02:15:15 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:37:06 2010 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

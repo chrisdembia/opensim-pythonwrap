@@ -72,20 +72,6 @@ public class MotionsNode extends OpenSimNode implements Observer{
       }
    }
    
-   public Image getOpenedIcon(int i) {
-      URL imageURL=null;
-      try {
-         imageURL = Class.forName("org.opensim.view.nodes.OpenSimNode").getResource("/org/opensim/view/nodes/icons/motionsNode.png");
-      } catch (ClassNotFoundException ex) {
-         ex.printStackTrace();
-      }
-      if (imageURL != null) {
-         return new ImageIcon(imageURL, "").getImage();
-      } else {
-         return null;
-      }
-   }
-
    public void update(Observable o, Object arg) {
       if (o instanceof MotionsDB && arg instanceof MotionEvent) {
          // No matter what set the names of the naodes so that the explorer view is updated 

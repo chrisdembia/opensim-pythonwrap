@@ -134,8 +134,6 @@ Inheritance diagram for OpenSim::Delp1990Muscle:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Perform computations that need to happen after the muscle is scaled.  <a href="#a49c5a975f7a6f3f778ff38360b27b0d8"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#a9737e0b9a1037b66685cb7a23cfa2083">scale</a> (const SimTK::State &amp;s, const <a class="el" href="classOpenSim_1_1ScaleSet.html">ScaleSet</a> &amp;aScaleSet)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Scale.html">Scale</a> the muscle.  <a href="#a9737e0b9a1037b66685cb7a23cfa2083"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#afce1ac256305ba725c7ed9a08f0b5785">setup</a> (<a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;aModel)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Perform some set up functions that happen after the object has been deserialized or copied.  <a href="#afce1ac256305ba725c7ed9a08f0b5785"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classOpenSim_1_1Function.html">Function</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#ac51be8e6f189564de39ac2b6727966d1">getActiveForceLengthCurve</a> () const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the active force-length curve.  <a href="#ac51be8e6f189564de39ac2b6727966d1"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#a1cb6611e111fd67f4b3eb77c5ec1defe">setActiveForceLengthCurve</a> (<a class="el" href="classOpenSim_1_1Function.html">Function</a> *aActiveForceLengthCurve)</td></tr>
@@ -153,6 +151,9 @@ Inheritance diagram for OpenSim::Delp1990Muscle:</div>
 <tr><td class="memItemLeft" align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#a679c7b1f7f54f5ee5505340744dc6154">setForceVelocityCurve</a> (<a class="el" href="classOpenSim_1_1Function.html">Function</a> *aForceVelocityCurve)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the force-velocity curve.  <a href="#a679c7b1f7f54f5ee5505340744dc6154"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#a1c039505cb1e84f3f02e84bdac0bdbb8">OPENSIM_DECLARE_DERIVED</a> (<a class="el" href="classOpenSim_1_1Delp1990Muscle.html">Delp1990Muscle</a>, <a class="el" href="classOpenSim_1_1Actuator.html">Actuator</a>)</td></tr>
+<tr><td colspan="2"><h2>Protected Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#afce1ac256305ba725c7ed9a08f0b5785">setup</a> (<a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;aModel)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Perform some set up functions that happen after the object has been deserialized or copied.  <a href="#afce1ac256305ba725c7ed9a08f0b5785"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyDbl.html">PropertyDbl</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#aa9e34626de2d6daf1e192d3979bf2489">_timeScaleProp</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Scale.html">Scale</a> factor for normalizing time.  <a href="#aa9e34626de2d6daf1e192d3979bf2489"></a><br/></td></tr>
@@ -283,7 +284,7 @@ Inheritance diagram for OpenSim::Delp1990Muscle:</div>
 <p>Compute the actuation for the muscle. </p>
 <p>This function assumes that computeDerivatives has already been called. </p>
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Muscle.html#ac5909d56aa0b35b243f726dc6e5324cc">OpenSim::Muscle</a>.</p>
+<p>Implements <a class="el" href="classOpenSim_1_1Muscle.html#a6d15b507b09619f2b78f97a9281df980">OpenSim::Muscle</a>.</p>
 
 </div>
 </div>
@@ -935,6 +936,8 @@ Inheritance diagram for OpenSim::Delp1990Muscle:</div>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Implements <a class="el" href="classOpenSim_1_1Muscle.html#a0e56a24521b0205c3035825054152e73">OpenSim::Muscle</a>.</p>
 
 </div>
 </div>
@@ -1765,7 +1768,7 @@ Inheritance diagram for OpenSim::Delp1990Muscle:</div>
           <td class="paramtype"><a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;&nbsp;</td>
           <td class="paramname"> <em>aModel</em></td>
           <td>&nbsp;)&nbsp;</td>
-          <td><code> [virtual]</code></td>
+          <td><code> [protected, virtual]</code></td>
         </tr>
       </table>
 </div>
@@ -2184,7 +2187,7 @@ Inheritance diagram for OpenSim::Delp1990Muscle:</div>
 <li>OpenSim/Actuators/Delp1990Muscle.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Feb 7 02:15:11 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:36:59 2010 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

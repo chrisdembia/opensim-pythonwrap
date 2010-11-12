@@ -53,10 +53,10 @@ Inheritance diagram for OpenSim::SpringGeneralizedForce:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Destructor.  <a href="#a912025e9ac853df437c3a731e1774503"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classOpenSim_1_1Object.html">Object</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1SpringGeneralizedForce.html#acb97c0b680d54c3608bf45ec70db0133">copy</a> () const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Copy this force and return a pointer to the copy.  <a href="#acb97c0b680d54c3608bf45ec70db0133"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1SpringGeneralizedForce.html#a9e2efa3b53e4626623f51072e032e7cf">createSystem</a> (SimTK::MultibodySystem &amp;system) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">setup sets the actual <a class="el" href="classOpenSim_1_1Coordinate.html" title="A class implementing a Simbody generalized coordinate.">Coordinate</a> reference _coord  <a href="#a9e2efa3b53e4626623f51072e032e7cf"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1SpringGeneralizedForce.html">SpringGeneralizedForce</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1SpringGeneralizedForce.html#a46e96dd919b7571b4ffc8dc2cd726b48">operator=</a> (const <a class="el" href="classOpenSim_1_1SpringGeneralizedForce.html">SpringGeneralizedForce</a> &amp;aForce)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Assignment operator.  <a href="#a46e96dd919b7571b4ffc8dc2cd726b48"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1SpringGeneralizedForce.html#ab20e2bee1828d95c55c33560903d472c">setup</a> (<a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;aModel)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">setup sets the actual <a class="el" href="classOpenSim_1_1Coordinate.html" title="A class implementing a Simbody generalized coordinate.">Coordinate</a> reference _coord  <a href="#ab20e2bee1828d95c55c33560903d472c"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1SpringGeneralizedForce.html#aa176063c9a72142aba0b4c4c188f605a">setCoordinate</a> (<a class="el" href="classOpenSim_1_1Coordinate.html">Coordinate</a> *aCoordinate)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Coordinate.html">Coordinate</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1SpringGeneralizedForce.html#a50cf2f2df29daef240b30bab1116143d">getCoordinate</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1SpringGeneralizedForce.html#a5bd00d09c9dc2efe8e1d240e68e1bc9b">setStiffness</a> (double aStiffness)</td></tr>
@@ -71,9 +71,16 @@ Inheritance diagram for OpenSim::SpringGeneralizedForce:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the viscosity of the spring.  <a href="#ab50f355b3607e8c76ad2030e1c8ee063"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1SpringGeneralizedForce.html#a7cf41f8c118746c6ce18787550bd35ba">getViscosity</a> () const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the viscosity of the spring.  <a href="#a7cf41f8c118746c6ce18787550bd35ba"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classOpenSim_1_1Array.html">OpenSim::Array</a><br class="typebreak"/>
+&lt; std::string &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1SpringGeneralizedForce.html#a97aa37fe18105cc80208fba68a5b2001">getRecordLabels</a> () const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Methods to query a <a class="el" href="classOpenSim_1_1Force.html" title="This abstract class represents a force applied to bodies or generalized coordinates...">Force</a> for the value actually applied during simulation The names of the quantities (column labels) is returned by this first function <a class="el" href="classOpenSim_1_1SpringGeneralizedForce.html#a97aa37fe18105cc80208fba68a5b2001" title="Methods to query a Force for the value actually applied during simulation The names...">getRecordLabels()</a>.  <a href="#a97aa37fe18105cc80208fba68a5b2001"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classOpenSim_1_1Array.html">OpenSim::Array</a>&lt; double &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1SpringGeneralizedForce.html#a9002a75fe440abbc60ae65d8ad1cc489">getRecordValues</a> (const SimTK::State &amp;state) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Given SimTK::State object extract all the values necessary to report forces, application location frame, etc.  <a href="#a9002a75fe440abbc60ae65d8ad1cc489"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Protected Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1SpringGeneralizedForce.html#ad550e6053edffa51bf86a8c8c1355353">computeForce</a> (const SimTK::State &amp;s) const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Compute all quantities necessary for applying the spring force to the model.  <a href="#ad550e6053edffa51bf86a8c8c1355353"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1SpringGeneralizedForce.html#a265c61917ce1521a4e46037b8b615f40">computeForce</a> (const SimTK::State &amp;state, SimTK::Vector_&lt; SimTK::SpatialVec &gt; &amp;bodyForces, SimTK::Vector &amp;mobilityForces) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Compute all quantities necessary for applying the spring force to the model.  <a href="#a265c61917ce1521a4e46037b8b615f40"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1SpringGeneralizedForce.html#ab20e2bee1828d95c55c33560903d472c">setup</a> (<a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;aModel)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">setup sets the _model pointer to proper value _coordinate is actually set inside _createSystem  <a href="#ab20e2bee1828d95c55c33560903d472c"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1SpringGeneralizedForce.html#af4eb863799f2b11c38dfc50c2fec457f">OPENSIM_DECLARE_DERIVED</a> (<a class="el" href="classOpenSim_1_1SpringGeneralizedForce.html">SpringGeneralizedForce</a>, <a class="el" href="classOpenSim_1_1CustomForce.html">CustomForce</a>)</td></tr>
 <tr><td colspan="2"><h2>Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyStr.html">PropertyStr</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1SpringGeneralizedForce.html#ad500728bbd72942b74d2e33b0124925b">_propCoordinateName</a></td></tr>
@@ -156,7 +163,7 @@ Inheritance diagram for OpenSim::SpringGeneralizedForce:</div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="ad550e6053edffa51bf86a8c8c1355353"></a><!-- doxytag: member="OpenSim::SpringGeneralizedForce::computeForce" ref="ad550e6053edffa51bf86a8c8c1355353" args="(const SimTK::State &amp;s) const " -->
+<a class="anchor" id="a265c61917ce1521a4e46037b8b615f40"></a><!-- doxytag: member="OpenSim::SpringGeneralizedForce::computeForce" ref="a265c61917ce1521a4e46037b8b615f40" args="(const SimTK::State &amp;state, SimTK::Vector_&lt; SimTK::SpatialVec &gt; &amp;bodyForces, SimTK::Vector &amp;mobilityForces) const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -164,17 +171,33 @@ Inheritance diagram for OpenSim::SpringGeneralizedForce:</div>
           <td class="memname">void SpringGeneralizedForce::computeForce </td>
           <td>(</td>
           <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
-          <td class="paramname"> <em>s</em></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td> const<code> [protected, virtual]</code></td>
+          <td class="paramname"> <em>s</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SimTK::Vector_&lt; SimTK::SpatialVec &gt; &amp;&nbsp;</td>
+          <td class="paramname"> <em>bodyForces</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SimTK::Vector &amp;&nbsp;</td>
+          <td class="paramname"> <em>generalizedForces</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td> const<code> [protected, virtual]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
 <p>Compute all quantities necessary for applying the spring force to the model. </p>
+<p><a class="el" href="classOpenSim_1_1Force.html" title="This abstract class represents a force applied to bodies or generalized coordinates...">Force</a> applied = -stiffness * (_coordinateValue - restLength) - viscosity * _coordinateSpeed </p>
 
-<p>Implements <a class="el" href="classOpenSim_1_1CustomForce.html#ab0adbbc82e9aea8b9e369156a1483c73">OpenSim::CustomForce</a>.</p>
+<p>Implements <a class="el" href="classOpenSim_1_1CustomForce.html#abdc00ab9c7428ae228ded1a56aa40d9d">OpenSim::CustomForce</a>.</p>
 
 </div>
 </div>
@@ -197,7 +220,29 @@ Inheritance diagram for OpenSim::SpringGeneralizedForce:</div>
 <p>The copy constructor for this class is used.</p>
 <dl class="return"><dt><b>Returns:</b></dt><dd>Pointer to a copy of this force. </dd></dl>
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Object.html#a2000b12522f6f79a8918991b819a4bb7">OpenSim::Object</a>.</p>
+<p>Implements <a class="el" href="classOpenSim_1_1Force.html#a71a62b13d80e706f70bcebb2e818257c">OpenSim::Force</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a9e2efa3b53e4626623f51072e032e7cf"></a><!-- doxytag: member="OpenSim::SpringGeneralizedForce::createSystem" ref="a9e2efa3b53e4626623f51072e032e7cf" args="(SimTK::MultibodySystem &amp;system) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SpringGeneralizedForce::createSystem </td>
+          <td>(</td>
+          <td class="paramtype">SimTK::MultibodySystem &amp;&nbsp;</td>
+          <td class="paramname"> <em>system</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>setup sets the actual <a class="el" href="classOpenSim_1_1Coordinate.html" title="A class implementing a Simbody generalized coordinate.">Coordinate</a> reference _coord </p>
+
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1CustomForce.html#ae4599bdee3cae4c7d5a3095c8be800d2">OpenSim::CustomForce</a>.</p>
 
 </div>
 </div>
@@ -215,6 +260,50 @@ Inheritance diagram for OpenSim::SpringGeneralizedForce:</div>
       </table>
 </div>
 <div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a97aa37fe18105cc80208fba68a5b2001"></a><!-- doxytag: member="OpenSim::SpringGeneralizedForce::getRecordLabels" ref="a97aa37fe18105cc80208fba68a5b2001" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classOpenSim_1_1Array.html">OpenSim::Array</a>&lt; std::string &gt; SpringGeneralizedForce::getRecordLabels </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Methods to query a <a class="el" href="classOpenSim_1_1Force.html" title="This abstract class represents a force applied to bodies or generalized coordinates...">Force</a> for the value actually applied during simulation The names of the quantities (column labels) is returned by this first function <a class="el" href="classOpenSim_1_1SpringGeneralizedForce.html#a97aa37fe18105cc80208fba68a5b2001" title="Methods to query a Force for the value actually applied during simulation The names...">getRecordLabels()</a>. </p>
+
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1Force.html#a68e82cdee70e59a51c42b2b78ed93f03">OpenSim::Force</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a9002a75fe440abbc60ae65d8ad1cc489"></a><!-- doxytag: member="OpenSim::SpringGeneralizedForce::getRecordValues" ref="a9002a75fe440abbc60ae65d8ad1cc489" args="(const SimTK::State &amp;state) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classOpenSim_1_1Array.html">OpenSim::Array</a>&lt; double &gt; SpringGeneralizedForce::getRecordValues </td>
+          <td>(</td>
+          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
+          <td class="paramname"> <em>state</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Given SimTK::State object extract all the values necessary to report forces, application location frame, etc. </p>
+<p>used in conjunction with getRecordLabels and should return same size <a class="el" href="classOpenSim_1_1Array.html">Array</a> </p>
+
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1Force.html#ac57805498131e7424d5c06c455d15737">OpenSim::Force</a>.</p>
 
 </div>
 </div>
@@ -324,7 +413,7 @@ Inheritance diagram for OpenSim::SpringGeneralizedForce:</div>
 <p>Assignment operator. </p>
 <dl class="return"><dt><b>Returns:</b></dt><dd>Reference to the altered object. </dd></dl>
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Object.html#a1a5b4bda8ca9bdc1c96ef514a15e0eef">OpenSim::Object</a>.</p>
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1Force.html#afd51620212d6656efdacdca1622bea3b">OpenSim::Force</a>.</p>
 
 </div>
 </div>
@@ -409,13 +498,13 @@ Inheritance diagram for OpenSim::SpringGeneralizedForce:</div>
           <td class="paramtype"><a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;&nbsp;</td>
           <td class="paramname"> <em>aModel</em></td>
           <td>&nbsp;)&nbsp;</td>
-          <td><code> [virtual]</code></td>
+          <td><code> [protected, virtual]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
-<p>setup sets the actual <a class="el" href="classOpenSim_1_1Coordinate.html" title="A class implementing a Simbody generalized coordinate.">Coordinate</a> reference _coord </p>
+<p>setup sets the _model pointer to proper value _coordinate is actually set inside _createSystem </p>
 
 <p>Reimplemented from <a class="el" href="classOpenSim_1_1Force.html#a31983c29e0fe68b26da4f22e96ca3e59">OpenSim::Force</a>.</p>
 
@@ -454,7 +543,7 @@ Inheritance diagram for OpenSim::SpringGeneralizedForce:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classOpenSim_1_1Coordinate.html">Coordinate</a>* <a class="el" href="classOpenSim_1_1SpringGeneralizedForce.html#a5d16771b793222cb89c58f0906a8c3a4">OpenSim::SpringGeneralizedForce::_coord</a><code> [protected]</code></td>
+          <td class="memname"><a class="el" href="classOpenSim_1_1Coordinate.html">Coordinate</a>* <a class="el" href="classOpenSim_1_1SpringGeneralizedForce.html#a5d16771b793222cb89c58f0906a8c3a4">OpenSim::SpringGeneralizedForce::_coord</a><code> [mutable, protected]</code></td>
         </tr>
       </table>
 </div>
@@ -581,7 +670,7 @@ Inheritance diagram for OpenSim::SpringGeneralizedForce:</div>
 <li>OpenSim/Actuators/SpringGeneralizedForce.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Feb 7 02:15:11 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:36:59 2010 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

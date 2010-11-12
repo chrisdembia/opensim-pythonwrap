@@ -75,12 +75,12 @@ Inheritance diagram for OpenSim::BodyKinematics:</div>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1BodyKinematics.html#a82fd96843ece243a2953e62a6baf5231">setBodiesToRecord</a> (<a class="el" href="classOpenSim_1_1Array.html">Array</a>&lt; std::string &gt; &amp;listOfBodies)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1BodyKinematics.html#abf81c6aea96983730970b716359761ee">setModel</a> (<a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;aModel)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the model for which the body kinematics are to be computed.  <a href="#abf81c6aea96983730970b716359761ee"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1BodyKinematics.html#afca2beac5df83e4d0709cd642f33e1df">begin</a> (const SimTK::State &amp;s)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This method is called at the beginning of an analysis so that any necessary initializations may be performed.  <a href="#afca2beac5df83e4d0709cd642f33e1df"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1BodyKinematics.html#af0cf22b83b125f12c6b4cc9b7e991f26">begin</a> (SimTK::State &amp;s)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This method is called at the beginning of an analysis so that any necessary initializations may be performed.  <a href="#af0cf22b83b125f12c6b4cc9b7e991f26"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1BodyKinematics.html#a1a4433e662d026f6a66c8be08fc11b22">step</a> (const SimTK::State &amp;s, int setNumber)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This method is called to perform the analysis.  <a href="#a1a4433e662d026f6a66c8be08fc11b22"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1BodyKinematics.html#ad568b5bf116097e99b32f0770631a46e">end</a> (const SimTK::State &amp;s)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This method is called at the end of an analysis so that any necessary finalizations may be performed.  <a href="#ad568b5bf116097e99b32f0770631a46e"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1BodyKinematics.html#a831886525df7e1a05cb520fa8912de79">end</a> (SimTK::State &amp;s)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This method is called at the end of an analysis so that any necessary finalizations may be performed.  <a href="#a831886525df7e1a05cb520fa8912de79"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1BodyKinematics.html#af3c3093f29334b1ec7fdfb05e378adb6">printResults</a> (const std::string &amp;aBaseName, const std::string &amp;aDir=&quot;&quot;, double aDT=-1.0, const std::string &amp;aExtension=&quot;.sto&quot;)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Print the results of the analysis.  <a href="#af3c3093f29334b1ec7fdfb05e378adb6"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Protected Member Functions</h2></td></tr>
@@ -133,7 +133,7 @@ Inheritance diagram for OpenSim::BodyKinematics:</div>
 <p>Construct an <a class="el" href="classOpenSim_1_1BodyKinematics.html" title="A class for recording the kinematics of the bodies of a model during a simulation...">BodyKinematics</a> instance for recording the kinematics of the bodies of a model during a simulation. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>aModel</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Model.html" title="A base class that specifies the interface for a musculoskeletal model.">Model</a> for which the analyses are to be recorded. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>aModel</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a> for which the analyses are to be recorded. </td></tr>
   </table>
   </dd>
 </dl>
@@ -207,14 +207,14 @@ Inheritance diagram for OpenSim::BodyKinematics:</div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="afca2beac5df83e4d0709cd642f33e1df"></a><!-- doxytag: member="OpenSim::BodyKinematics::begin" ref="afca2beac5df83e4d0709cd642f33e1df" args="(const SimTK::State &amp;s)" -->
+<a class="anchor" id="af0cf22b83b125f12c6b4cc9b7e991f26"></a><!-- doxytag: member="OpenSim::BodyKinematics::begin" ref="af0cf22b83b125f12c6b4cc9b7e991f26" args="(SimTK::State &amp;s)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">int BodyKinematics::begin </td>
           <td>(</td>
-          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
+          <td class="paramtype">SimTK::State &amp;&nbsp;</td>
           <td class="paramname"> <em>s</em></td>
           <td>&nbsp;)&nbsp;</td>
           <td><code> [virtual]</code></td>
@@ -234,7 +234,7 @@ Inheritance diagram for OpenSim::BodyKinematics:</div>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>-1 on error, 0 otherwise. </dd></dl>
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Analysis.html#af3cad0d2e51c92cf94696a790b306a93">OpenSim::Analysis</a>.</p>
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1Analysis.html#a619cf0a86bfb520befa533b5a71ce3f6">OpenSim::Analysis</a>.</p>
 
 </div>
 </div>
@@ -259,14 +259,14 @@ Inheritance diagram for OpenSim::BodyKinematics:</div>
 
 </div>
 </div>
-<a class="anchor" id="ad568b5bf116097e99b32f0770631a46e"></a><!-- doxytag: member="OpenSim::BodyKinematics::end" ref="ad568b5bf116097e99b32f0770631a46e" args="(const SimTK::State &amp;s)" -->
+<a class="anchor" id="a831886525df7e1a05cb520fa8912de79"></a><!-- doxytag: member="OpenSim::BodyKinematics::end" ref="a831886525df7e1a05cb520fa8912de79" args="(SimTK::State &amp;s)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">int BodyKinematics::end </td>
           <td>(</td>
-          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
+          <td class="paramtype">SimTK::State &amp;&nbsp;</td>
           <td class="paramname"> <em>s</em></td>
           <td>&nbsp;)&nbsp;</td>
           <td><code> [virtual]</code></td>
@@ -286,7 +286,7 @@ Inheritance diagram for OpenSim::BodyKinematics:</div>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>-1 on error, 0 otherwise. </dd></dl>
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Analysis.html#a34d1fd1b3235e9d60a905d34b49e5314">OpenSim::Analysis</a>.</p>
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1Analysis.html#aec904a247f8d4254ee31f0b17b3b0acc">OpenSim::Analysis</a>.</p>
 
 </div>
 </div>
@@ -532,7 +532,7 @@ Inheritance diagram for OpenSim::BodyKinematics:</div>
 <p><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the model for which the body kinematics are to be computed. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>aModel</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Model.html" title="A base class that specifies the interface for a musculoskeletal model.">Model</a> pointer </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>aModel</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a> pointer </td></tr>
   </table>
   </dd>
 </dl>
@@ -766,7 +766,7 @@ Inheritance diagram for OpenSim::BodyKinematics:</div>
 <li>OpenSim/Analyses/BodyKinematics.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Feb 7 02:15:12 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:37:00 2010 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

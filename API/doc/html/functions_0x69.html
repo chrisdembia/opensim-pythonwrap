@@ -102,6 +102,9 @@ Here is a list of all class members with links to the classes they belong to:
 <li>IKTrialSet()
 : <a class="el" href="classOpenSim_1_1IKTrialSet.html#abd8a1c28c31d3824d56a66c1db24d0e9">OpenSim::IKTrialSet</a>
 </li>
+<li>includeConstraintForces()
+: <a class="el" href="classOpenSim_1_1ForceReporter.html#a8d5f5ad57ef4cfbd57cc73e692cbe97e">OpenSim::ForceReporter</a>
+</li>
 <li>init()
 : <a class="el" href="classOpenSim_1_1Function.html#aaeb780fa78e97a73d8fe98442ab8dbd4">OpenSim::Function</a>
 , <a class="el" href="classOpenSim_1_1MultiplierFunction.html#a0590be69004b4f04c4a673feb8c38320">OpenSim::MultiplierFunction</a>
@@ -111,6 +114,9 @@ Here is a list of all class members with links to the classes they belong to:
 , <a class="el" href="classOpenSim_1_1ConditionalPathPoint.html#a15bb6372483148644443f62b88ddbd65">OpenSim::ConditionalPathPoint</a>
 , <a class="el" href="classOpenSim_1_1MovingPathPoint.html#a90e23a5b796450facff594199219250e">OpenSim::MovingPathPoint</a>
 , <a class="el" href="classOpenSim_1_1PathPoint.html#a26250578df70146fdf0ff26980b07d7f">OpenSim::PathPoint</a>
+</li>
+<li>initalizeOverrideForces()
+: <a class="el" href="classOpenSim_1_1ActuatorPerturbationIndependent.html#a4956f95201c3631e73a55c1c31164ddd">OpenSim::ActuatorPerturbationIndependent</a>
 </li>
 <li>initialize()
 : <a class="el" href="classOpenSim_1_1Manager.html#a40423825d50b67c2301df709c339b5e6">OpenSim::Manager</a>
@@ -128,9 +134,6 @@ Here is a list of all class members with links to the classes they belong to:
 <li>InitializeSpecifiedTimeStepping()
 : <a class="el" href="classOpenSim_1_1ForwardTool.html#ae18dc28c80a96f829257482b38a9fd7c">OpenSim::ForwardTool</a>
 </li>
-<li>initializeState()
-: <a class="el" href="classOpenSim_1_1SimbodyEngine.html#ad468ab383ced628f0945c303fb242d76">OpenSim::SimbodyEngine</a>
-</li>
 <li>initializeTrial()
 : <a class="el" href="classOpenSim_1_1IKTool.html#a9c0087fb3144a81a4c3d0281e92dacd9">OpenSim::IKTool</a>
 , <a class="el" href="classOpenSim_1_1IKTrial.html#ad884699c7438e07ea1641d55d83becb9">OpenSim::IKTrial</a>
@@ -139,48 +142,54 @@ Here is a list of all class members with links to the classes they belong to:
 : <a class="el" href="classOpenSim_1_1IKTrial.html#abfd0482dee64e7a80088cc673f1ca604">OpenSim::IKTrial</a>
 </li>
 <li>initState()
-: <a class="el" href="classOpenSim_1_1ConstantController.html#ad877feb2a62652231d2da65724fc5c66">OpenSim::ConstantController</a>
-, <a class="el" href="classOpenSim_1_1Controller.html#af333cf2cda6ed9ed9fb9b71afced0e20">OpenSim::Controller</a>
-, <a class="el" href="classOpenSim_1_1ControlSetController.html#a28c6546f5ede2331d3d35031c8f61819">OpenSim::ControlSetController</a>
-, <a class="el" href="classOpenSim_1_1GeometryPath.html#a073babb0594d739e8cda84bbb814bce0">OpenSim::GeometryPath</a>
+: <a class="el" href="classOpenSim_1_1ConstantController.html#a060e976e318f72b81147198ab351df27">OpenSim::ConstantController</a>
+, <a class="el" href="classOpenSim_1_1Controller.html#a9863ab6048c214646656b3fd4281d68b">OpenSim::Controller</a>
+, <a class="el" href="classOpenSim_1_1ControlSetController.html#a8bdd38cd8d8e9bfbc81ca82241c4546a">OpenSim::ControlSetController</a>
+, <a class="el" href="classOpenSim_1_1ContactGeometry.html#afabf53193b22ee6fd71676111a5ef005">OpenSim::ContactGeometry</a>
+, <a class="el" href="classOpenSim_1_1Force.html#aeb5732cf7d2bc68675d0d92893e89897">OpenSim::Force</a>
+, <a class="el" href="classOpenSim_1_1GeometryPath.html#aaac045353768dac8ba05beb434f3c329">OpenSim::GeometryPath</a>
 , <a class="el" href="classOpenSim_1_1Ligament.html#a92fa7940f7feee808e16384c387803bf">OpenSim::Ligament</a>
+, <a class="el" href="classOpenSim_1_1LinearSpring.html#a1199f20e9c5154a618ef97e7564f8e02">OpenSim::LinearSpring</a>
 , <a class="el" href="classOpenSim_1_1Model.html#ac8c41fbcbea66c1f76309e50b6754ff2">OpenSim::Model</a>
-, <a class="el" href="classOpenSim_1_1ModelComponent.html#ab0f23ae5578d7e988e67cf07db1e3cf7">OpenSim::ModelComponent</a>
+, <a class="el" href="classOpenSim_1_1ModelComponent.html#a2af3e8933cda56820900f0c643881434">OpenSim::ModelComponent</a>
 , <a class="el" href="classOpenSim_1_1ModelComponentSet.html#a8f7522a390889157030f079bdcd5db44">OpenSim::ModelComponentSet&lt; T &gt;</a>
 , <a class="el" href="classOpenSim_1_1Muscle.html#ac70e3f7427eff94fb4de385db34a9a46">OpenSim::Muscle</a>
 , <a class="el" href="classOpenSim_1_1BallJoint.html#a5e727bb8531304685f3b1162288e1c01">OpenSim::BallJoint</a>
-, <a class="el" href="classOpenSim_1_1Constraint.html#a4f7a6b2ca3d9baeea37505a417c3d591">OpenSim::Constraint</a>
-, <a class="el" href="classOpenSim_1_1Coordinate.html#a9140c08510063916767bb29c951571cd">OpenSim::Coordinate</a>
+, <a class="el" href="classOpenSim_1_1Body.html#a851bd28a71d3dcda3e3e4440be7b851e">OpenSim::Body</a>
+, <a class="el" href="classOpenSim_1_1Constraint.html#a91918289b14fafc6dcba7d0fdb2d2c9e">OpenSim::Constraint</a>
+, <a class="el" href="classOpenSim_1_1Coordinate.html#a474a7c52de805e64fc41a08568969c7e">OpenSim::Coordinate</a>
 , <a class="el" href="classOpenSim_1_1EllipsoidJoint.html#a974730c91819bf75f8ad89d4a9560231">OpenSim::EllipsoidJoint</a>
 , <a class="el" href="classOpenSim_1_1FreeJoint.html#a781e02c6ad8daf63ffc4da968313656f">OpenSim::FreeJoint</a>
 , <a class="el" href="classOpenSim_1_1Joint.html#a110b6874bf845567f4e24d9f39934d38">OpenSim::Joint</a>
+, <a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html#a423cc53581f48bacc6ee3aae30a2eb21">OpenSim::RollingOnSurfaceConstraint</a>
 , <a class="el" href="classOpenSim_1_1CMC.html#aa88be9cb72ac30a06906d5ca7e07bbb0">OpenSim::CMC</a>
-, <a class="el" href="classOpenSim_1_1CorrectionController.html#a10a8d40c7efb7eeefd82b18534bb2826">OpenSim::CorrectionController</a>
+, <a class="el" href="classOpenSim_1_1CorrectionController.html#a47e867c6621f2beb37a54a2eb22a9d67">OpenSim::CorrectionController</a>
 </li>
 <li>initStateCache()
-: <a class="el" href="classOpenSim_1_1PistonActuator.html#a472a12f130e1253a14dbf8f0f22b31b8">OpenSim::PistonActuator</a>
-, <a class="el" href="classOpenSim_1_1LiuThelen2003Muscle.html#a940c06189bceb8b8d72142328ee553bb">OpenSim::LiuThelen2003Muscle</a>
+: <a class="el" href="classOpenSim_1_1Delp1990Muscle.html#ae9844fff622dff2301069f023678c35e">OpenSim::Delp1990Muscle</a>
+, <a class="el" href="classOpenSim_1_1LineActuator.html#aa5598da2d13bba4d5aeb4d3deb8cb8f6">OpenSim::LineActuator</a>
+, <a class="el" href="classOpenSim_1_1PointActuator.html#a9fca55a05a18edf80c22a677923c7cc2">OpenSim::PointActuator</a>
+, <a class="el" href="classOpenSim_1_1Schutte1993Muscle.html#a6a72cdddd29667cfafe743ca2865fa7a">OpenSim::Schutte1993Muscle</a>
+, <a class="el" href="classOpenSim_1_1Thelen2003Muscle.html#a852e56e0b862d1eb9ff102436640597b">OpenSim::Thelen2003Muscle</a>
+, <a class="el" href="classOpenSim_1_1TorqueActuator.html#abb0ca4cbb7c6884cc281f42f9c0d6f59">OpenSim::TorqueActuator</a>
 , <a class="el" href="classOpenSim_1_1Actuator.html#a95b6f1caeb4f391ff2bf91de67acd371">OpenSim::Actuator</a>
 , <a class="el" href="classOpenSim_1_1GeometryPath.html#a607ca539e039afec3ba4a3cfa63b07ea">OpenSim::GeometryPath</a>
 , <a class="el" href="classOpenSim_1_1Ligament.html#aecc0bd1408e7138c6651582de73a90ba">OpenSim::Ligament</a>
 , <a class="el" href="classOpenSim_1_1Muscle.html#a67e54b95e86e42adc44a86cab74193a8">OpenSim::Muscle</a>
 , <a class="el" href="classOpenSim_1_1ContDerivMuscle.html#ad394eb365a5a14373399fcfdfd7b5804">OpenSim::ContDerivMuscle</a>
 , <a class="el" href="classOpenSim_1_1CoordinateActuator.html#a92e9cf9ea3a2a57dd4b638303b5c90ab">OpenSim::CoordinateActuator</a>
-, <a class="el" href="classOpenSim_1_1Delp1990Muscle.html#ae9844fff622dff2301069f023678c35e">OpenSim::Delp1990Muscle</a>
-, <a class="el" href="classOpenSim_1_1LineActuator.html#aa5598da2d13bba4d5aeb4d3deb8cb8f6">OpenSim::LineActuator</a>
-, <a class="el" href="classOpenSim_1_1PointActuator.html#a9fca55a05a18edf80c22a677923c7cc2">OpenSim::PointActuator</a>
-, <a class="el" href="classOpenSim_1_1Schutte1993Muscle.html#a6a72cdddd29667cfafe743ca2865fa7a">OpenSim::Schutte1993Muscle</a>
-, <a class="el" href="classOpenSim_1_1Thelen2003Muscle.html#a852e56e0b862d1eb9ff102436640597b">OpenSim::Thelen2003Muscle</a>
-, <a class="el" href="classOpenSim_1_1TorqueActuator.html#abb0ca4cbb7c6884cc281f42f9c0d6f59">OpenSim::TorqueActuator</a>
+</li>
+<li>initStateWithoutRecreatingSystem()
+: <a class="el" href="classOpenSim_1_1Model.html#ad7c29603a28cdabe423a4fc259f42e8d">OpenSim::Model</a>
 </li>
 <li>initSystem()
 : <a class="el" href="classOpenSim_1_1Model.html#add60e40e4acb855a2520293305643eb3">OpenSim::Model</a>
 </li>
 <li>insert()
-: <a class="el" href="classOpenSim_1_1ForceSet.html#a62fa4d0f09a9777797eda579266276c9">OpenSim::ForceSet</a>
-, <a class="el" href="classOpenSim_1_1Array.html#a919a732bf18326959e6aafa4f6ade5fc">OpenSim::Array&lt; T &gt;</a>
+: <a class="el" href="classOpenSim_1_1Array.html#a919a732bf18326959e6aafa4f6ade5fc">OpenSim::Array&lt; T &gt;</a>
 , <a class="el" href="classOpenSim_1_1Set.html#af1b79c16f5a9d9182a884fa96850bd4d">OpenSim::Set&lt; T &gt;</a>
 , <a class="el" href="classOpenSim_1_1ModelComponentSet.html#a37c16521420a334dd5e6ba1b00adf0e0">OpenSim::ModelComponentSet&lt; T &gt;</a>
+, <a class="el" href="classOpenSim_1_1ForceSet.html#a62fa4d0f09a9777797eda579266276c9">OpenSim::ForceSet</a>
 </li>
 <li>InsertNewElementWithComment()
 : <a class="el" href="classOpenSim_1_1XMLNode.html#af7911ace780756c4042651c8999bb8e6">OpenSim::XMLNode</a>
@@ -208,16 +217,17 @@ Here is a list of all class members with links to the classes they belong to:
 , <a class="el" href="classOpenSim_1_1Manager.html#ad4ad49ceefd8e4b19b8be2b4f2db6c1e">OpenSim::Manager</a>
 </li>
 <li>Interpolate()
-: <a class="el" href="classOpenSim_1_1ControlLinear.html#ae35d20b13b3335d1e354e8b7def66b69">OpenSim::ControlLinear</a>
-, <a class="el" href="classOpenSim_1_1Mtx.html#a29291590ff292de2dfd877bd609a8a5d">OpenSim::Mtx</a>
+: <a class="el" href="classOpenSim_1_1Mtx.html#a29291590ff292de2dfd877bd609a8a5d">OpenSim::Mtx</a>
+, <a class="el" href="classOpenSim_1_1ControlLinear.html#ae35d20b13b3335d1e354e8b7def66b69">OpenSim::ControlLinear</a>
+, <a class="el" href="classOpenSim_1_1Mtx.html#a19cff909fc23ce8082a8baf36b6d9acd">OpenSim::Mtx</a>
 </li>
 <li>interpolateAt()
 : <a class="el" href="classOpenSim_1_1Storage.html#aaf9d072bc4c4046e039050e8768c4408">OpenSim::Storage</a>
 </li>
 <li>interrupt()
-: <a class="el" href="classOpenSim_1_1IKTarget.html#ae13c1cbe064c080f8e6c87eebe02c2d4">OpenSim::IKTarget</a>
+: <a class="el" href="classOpenSim_1_1IKSolverInterface.html#a9001f65174e17ad77db3913fb8eb0389">OpenSim::IKSolverInterface</a>
+, <a class="el" href="classOpenSim_1_1IKTarget.html#ae13c1cbe064c080f8e6c87eebe02c2d4">OpenSim::IKTarget</a>
 , <a class="el" href="classOpenSim_1_1IKTrial.html#a927d543f618849c49dd500fdd34a6ee4">OpenSim::IKTrial</a>
-, <a class="el" href="classOpenSim_1_1IKSolverInterface.html#a9001f65174e17ad77db3913fb8eb0389">OpenSim::IKSolverInterface</a>
 , <a class="el" href="classOpenSim_1_1IKSolverImpl.html#ac8426e937653724c7cdf07a5961e7005">OpenSim::IKSolverImpl</a>
 </li>
 <li>InterruptedException()
@@ -245,9 +255,9 @@ Here is a list of all class members with links to the classes they belong to:
 : <a class="el" href="classOpenSim_1_1Object.html#a126f1d87df28a081c7b1c99bb477cb3b">OpenSim::Object</a>
 </li>
 <li>isActive()
-: <a class="el" href="classOpenSim_1_1MovingPathPoint.html#a7d818bc4cbf487a2e8cda40e7dad9f29">OpenSim::MovingPathPoint</a>
+: <a class="el" href="classOpenSim_1_1ConditionalPathPoint.html#a5f751e05a72b3b096687d3020f4aada0">OpenSim::ConditionalPathPoint</a>
+, <a class="el" href="classOpenSim_1_1MovingPathPoint.html#a7d818bc4cbf487a2e8cda40e7dad9f29">OpenSim::MovingPathPoint</a>
 , <a class="el" href="classOpenSim_1_1PathPoint.html#a950ce9f3fa2cf863860f6b80fa4dff69">OpenSim::PathPoint</a>
-, <a class="el" href="classOpenSim_1_1ConditionalPathPoint.html#a5f751e05a72b3b096687d3020f4aada0">OpenSim::ConditionalPathPoint</a>
 </li>
 <li>isAnalytic()
 : <a class="el" href="classOpenSim_1_1Geometry.html#a2c3ac69ba3fcc1275dfba2ea9af2ffb6">OpenSim::Geometry</a>
@@ -274,8 +284,17 @@ Here is a list of all class members with links to the classes they belong to:
 <li>isDefaultModelScaler()
 : <a class="el" href="classOpenSim_1_1ScaleTool.html#a9744938cb41db648932271f0b9a7865c">OpenSim::ScaleTool</a>
 </li>
+<li>isDisabled()
+: <a class="el" href="classOpenSim_1_1Constraint.html#a040812cf22816682c1dbf25ff1124b2e">OpenSim::Constraint</a>
+, <a class="el" href="classOpenSim_1_1Force.html#a4692c9810a8fe7da5f325aeed3022d0c">OpenSim::Force</a>
+, <a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html#aee19c74ab04440b3d453c5cf9b1cf928">OpenSim::RollingOnSurfaceConstraint</a>
+, <a class="el" href="classOpenSim_1_1Condition.html#a1581b29be69057e242d8c5001c274ea8">OpenSim::Condition</a>
+</li>
 <li>isEmpty()
 : <a class="el" href="classOpenSim_1_1PropertySet.html#a4e63078ac63a47dba066a3c516ea1d34">OpenSim::PropertySet</a>
+</li>
+<li>isForceOverriden()
+: <a class="el" href="classOpenSim_1_1Actuator.html#a019e3190efa1fede6d9129bc006bdd0d">OpenSim::Actuator</a>
 </li>
 <li>isKindOf()
 : <a class="el" href="classOpenSim_1_1Object.html#a9debf9775f9e8c0b517654cb19669518">OpenSim::Object</a>
@@ -287,17 +306,16 @@ Here is a list of all class members with links to the classes they belong to:
 : <a class="el" href="classOpenSim_1_1Coordinate.html#a00d560c859113bf0cbaeceb22d3589c2">OpenSim::Coordinate</a>
 </li>
 <li>isValidDefaultType()
-: <a class="el" href="classOpenSim_1_1rdSerializableObject.html#aa90c264875a6a75a623b64efbb7b453d">OpenSim::rdSerializableObject</a>
-, <a class="el" href="classOpenSim_1_1Object.html#a727620b2290d0c69d9c0c105bda068e7">OpenSim::Object</a>
+: <a class="el" href="classOpenSim_1_1Object.html#a727620b2290d0c69d9c0c105bda068e7">OpenSim::Object</a>
 </li>
 <li>isValidFileName()
 : <a class="el" href="classOpenSim_1_1PropertyStr.html#a896d7b9c1c179d3479ee240147abefda">OpenSim::PropertyStr</a>
 </li>
 <li>isValidObject()
-: <a class="el" href="classOpenSim_1_1PropertyObjArray.html#a41be0fe28cecf4632d95a1eb437a7d11">OpenSim::PropertyObjArray&lt; T &gt;</a>
-, <a class="el" href="classOpenSim_1_1Property.html#a5477196d4a97b78eefd41315ce58f92e">OpenSim::Property</a>
+: <a class="el" href="classOpenSim_1_1PropertyObjPtr.html#a9dd43f9d3db087f4e58263d0b21912cd">OpenSim::PropertyObjPtr&lt; T &gt;</a>
 , <a class="el" href="classOpenSim_1_1PropertyObj.html#aa6383aaf3f9fa05dfc27dce2ce5d3bf2">OpenSim::PropertyObj</a>
-, <a class="el" href="classOpenSim_1_1PropertyObjPtr.html#a9dd43f9d3db087f4e58263d0b21912cd">OpenSim::PropertyObjPtr&lt; T &gt;</a>
+, <a class="el" href="classOpenSim_1_1PropertyObjArray.html#a41be0fe28cecf4632d95a1eb437a7d11">OpenSim::PropertyObjArray&lt; T &gt;</a>
+, <a class="el" href="classOpenSim_1_1Property.html#a5477196d4a97b78eefd41315ce58f92e">OpenSim::Property</a>
 </li>
 <li>isVirtual()
 : <a class="el" href="classOpenSim_1_1Marker.html#a4a3de54731876ad8bbd841bac3b5a0a7">OpenSim::Marker</a>
@@ -310,7 +328,7 @@ Here is a list of all class members with links to the classes they belong to:
 </li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Feb 7 02:15:10 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:36:58 2010 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

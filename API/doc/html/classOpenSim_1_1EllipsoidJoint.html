@@ -62,18 +62,18 @@ Inheritance diagram for OpenSim::EllipsoidJoint:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Assignment operator.  <a href="#a05b1c9b6ab2d974a9d9c8b07b584ee7d"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1EllipsoidJoint.html#a3c03a74bf674f33eaedaf63080d1cb0b">copyData</a> (const <a class="el" href="classOpenSim_1_1EllipsoidJoint.html">EllipsoidJoint</a> &amp;aJoint)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Copy data members from one <a class="el" href="classOpenSim_1_1EllipsoidJoint.html" title="A class implementing an Ellipsoid joint.">EllipsoidJoint</a> to another.  <a href="#a3c03a74bf674f33eaedaf63080d1cb0b"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1EllipsoidJoint.html#a36b63f6cf590df2b638288365158a7f6">setup</a> (<a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;aModel)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Perform some set up functions that happen after the object has been deserialized or copied.  <a href="#a36b63f6cf590df2b638288365158a7f6"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1EllipsoidJoint.html#a3631dfe436c76f3819da4777737d078f">numCoordinates</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1EllipsoidJoint.html#a82d78a5ec4c60005d31c82625e82830d">setEllipsoidRadii</a> (SimTK::Vec3 radii)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1EllipsoidJoint.html#a54c81fa9853879f6fcdd46c75ea2d8cd">scale</a> (const <a class="el" href="classOpenSim_1_1ScaleSet.html">ScaleSet</a> &amp;aScaleSet)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Scale.html">Scale</a> a joint based on XYZ scale factors for the bodies.  <a href="#a54c81fa9853879f6fcdd46c75ea2d8cd"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Protected Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1EllipsoidJoint.html#afb32799d27756a856d0056c79ad7f58a">createSystem</a> (SimTK::MultibodySystem &amp;system) const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This is called when a SimTK System is being created for the <a class="el" href="classOpenSim_1_1Model.html" title="A base class that specifies the interface for a musculoskeletal model.">Model</a>.  <a href="#afb32799d27756a856d0056c79ad7f58a"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1EllipsoidJoint.html#a974730c91819bf75f8ad89d4a9560231">initState</a> (SimTK::State &amp;s) const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This is called after a SimTK System and State have been created for the <a class="el" href="classOpenSim_1_1Model.html" title="A base class that specifies the interface for a musculoskeletal model.">Model</a>.  <a href="#a974730c91819bf75f8ad89d4a9560231"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1EllipsoidJoint.html#aa72d41fb6a978f82dfc5f71a36758731">setDefaultsFromState</a> (const SimTK::State &amp;state)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1EllipsoidJoint.html#a36b63f6cf590df2b638288365158a7f6">setup</a> (<a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;aModel)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Perform some set up functions that happen after the object has been deserialized or copied.  <a href="#a36b63f6cf590df2b638288365158a7f6"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1EllipsoidJoint.html#afb32799d27756a856d0056c79ad7f58a">createSystem</a> (SimTK::MultibodySystem &amp;system) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This is called when a SimTK System is being created for the <a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a>.  <a href="#afb32799d27756a856d0056c79ad7f58a"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1EllipsoidJoint.html#a974730c91819bf75f8ad89d4a9560231">initState</a> (SimTK::State &amp;s) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This is called after a SimTK System and State have been created for the <a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a>.  <a href="#a974730c91819bf75f8ad89d4a9560231"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1EllipsoidJoint.html#aa72d41fb6a978f82dfc5f71a36758731">setDefaultsFromState</a> (const SimTK::State &amp;state)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> all default values for this object to match those in a specified State.  <a href="#aa72d41fb6a978f82dfc5f71a36758731"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyDblVec3.html">PropertyDblVec3</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1EllipsoidJoint.html#a4451d7214e82be3b5f47dba5000d5967">_ellipsoidRadiiProp</a></td></tr>
@@ -239,7 +239,7 @@ Inheritance diagram for OpenSim::EllipsoidJoint:</div>
 
 <p>Copy this body and return a pointer to the copy. </p>
 <p>The copy constructor for this class is used.</p>
-<dl class="return"><dt><b>Returns:</b></dt><dd>Pointer to a copy of this <a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody body segment.">OpenSim::Body</a>. </dd></dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>Pointer to a copy of this <a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody rigid body.">OpenSim::Body</a>. </dd></dl>
 
 <p>Implements <a class="el" href="classOpenSim_1_1Joint.html#ae5d6960ec7346df1c64a79a95c06a828">OpenSim::Joint</a>.</p>
 
@@ -289,8 +289,8 @@ Inheritance diagram for OpenSim::EllipsoidJoint:</div>
 </div>
 <div class="memdoc">
 
-<p>This is called when a SimTK System is being created for the <a class="el" href="classOpenSim_1_1Model.html" title="A base class that specifies the interface for a musculoskeletal model.">Model</a>. </p>
-<p>It should be overridden to add appropriate elements to the System corresponding to this object.</p>
+<p>This is called when a SimTK System is being created for the <a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a>. </p>
+<p>It must be implemented to add appropriate elements to the System corresponding to this object.</p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>system</em>&nbsp;</td><td>the System being created </td></tr>
@@ -318,8 +318,8 @@ Inheritance diagram for OpenSim::EllipsoidJoint:</div>
 </div>
 <div class="memdoc">
 
-<p>This is called after a SimTK System and State have been created for the <a class="el" href="classOpenSim_1_1Model.html" title="A base class that specifies the interface for a musculoskeletal model.">Model</a>. </p>
-<p>It may be overridden to set initial values of state variables.</p>
+<p>This is called after a SimTK System and State have been created for the <a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a>. </p>
+<p>It must be implementd to set initial values of state variables.</p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>state</em>&nbsp;</td><td>the State to initialize </td></tr>
@@ -418,7 +418,7 @@ Inheritance diagram for OpenSim::EllipsoidJoint:</div>
 <div class="memdoc">
 
 <p><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> all default values for this object to match those in a specified State. </p>
-<p>It should be overridden to set any default values defined by each subclass.</p>
+<p>It must be implemented/overriden to set any default values defined by each subclass.</p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>state</em>&nbsp;</td><td>the State from which to take values that should become the defaults for this object </td></tr>
@@ -458,7 +458,7 @@ Inheritance diagram for OpenSim::EllipsoidJoint:</div>
           <td class="paramtype"><a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;&nbsp;</td>
           <td class="paramname"> <em>aModel</em></td>
           <td>&nbsp;)&nbsp;</td>
-          <td><code> [virtual]</code></td>
+          <td><code> [protected, virtual]</code></td>
         </tr>
       </table>
 </div>
@@ -510,7 +510,7 @@ Inheritance diagram for OpenSim::EllipsoidJoint:</div>
 <li>OpenSim/Simulation/SimbodyEngine/EllipsoidJoint.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Feb 7 02:15:18 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:37:12 2010 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

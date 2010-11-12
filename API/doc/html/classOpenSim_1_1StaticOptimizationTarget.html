@@ -56,8 +56,8 @@
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the derivative perturbation size.  <a href="#a861902df2ff587e309cceda4e2f5bce8"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">double *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1StaticOptimizationTarget.html#a4df32793f5eca1ab3a20c239ebb5e4dc">getDXArray</a> ()</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get a pointer to the vector of derivative perturbation sizes.  <a href="#a4df32793f5eca1ab3a20c239ebb5e4dc"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1StaticOptimizationTarget.html#a523210e95f345c597f72be59212b84c1">getActuation</a> (const SimTK::State &amp;s, const SimTK::Vector &amp;parameters, SimTK::Vector &amp;forces)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get an optimal force.  <a href="#a523210e95f345c597f72be59212b84c1"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1StaticOptimizationTarget.html#a8f8b108c9b10fc828388afa79f1a971b">getActuation</a> (SimTK::State &amp;s, const SimTK::Vector &amp;parameters, SimTK::Vector &amp;forces)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get an optimal force.  <a href="#a8f8b108c9b10fc828388afa79f1a971b"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1StaticOptimizationTarget.html#a60cc674126f96743ccf2c612c2337c0b">setActivationExponent</a> (double aActivationExponent)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1StaticOptimizationTarget.html#a5a9190711dc6096266911218f3599918">getActivationExponent</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1StaticOptimizationTarget.html#a5d17ae06101a1fd1fd45dfaebe78177d">setCurrentState</a> (const SimTK::State *state)</td></tr>
@@ -66,7 +66,7 @@
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Ensure that a derivative perturbation is a valid size.  <a href="#afce40fb919541e54ce8657dca8037aa1"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1StaticOptimizationTarget.html#a21073f76ce7d9a7883706c2820965e2d">printPerformance</a> (const SimTK::State &amp;s, double *x)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1StaticOptimizationTarget.html#a518e38b6ed072a2eeee5d5fe79165e8b">computeActuatorAreas</a> (const SimTK::State &amp;s)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1StaticOptimizationTarget.html#a0d7fca4b57daafca37d59a2c812e7558">prepareToOptimize</a> (const SimTK::State &amp;s, double *x)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1StaticOptimizationTarget.html#a1d8894898f82bc7ce3d4f2e931c33c5c">prepareToOptimize</a> (SimTK::State &amp;s, double *x)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1StaticOptimizationTarget.html#af00b46e1bf1869e7f9dff2391b8a28f9">objectiveFunc</a> (const SimTK::Vector &amp;x, const bool new_coefficients, SimTK::Real &amp;rP) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1StaticOptimizationTarget.html#a2bdd8066dc0001531a8b01d3f8990972">gradientFunc</a> (const SimTK::Vector &amp;x, const bool new_coefficients, SimTK::Vector &amp;gradient) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1StaticOptimizationTarget.html#ad9bad8158060b6dccb4cf28c38de2428">constraintFunc</a> (const SimTK::Vector &amp;x, const bool new_coefficients, SimTK::Vector &amp;constraints) const </td></tr>
@@ -348,14 +348,14 @@
 
 </div>
 </div>
-<a class="anchor" id="a523210e95f345c597f72be59212b84c1"></a><!-- doxytag: member="OpenSim::StaticOptimizationTarget::getActuation" ref="a523210e95f345c597f72be59212b84c1" args="(const SimTK::State &amp;s, const SimTK::Vector &amp;parameters, SimTK::Vector &amp;forces)" -->
+<a class="anchor" id="a8f8b108c9b10fc828388afa79f1a971b"></a><!-- doxytag: member="OpenSim::StaticOptimizationTarget::getActuation" ref="a8f8b108c9b10fc828388afa79f1a971b" args="(SimTK::State &amp;s, const SimTK::Vector &amp;parameters, SimTK::Vector &amp;forces)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">void StaticOptimizationTarget::getActuation </td>
           <td>(</td>
-          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
+          <td class="paramtype">SimTK::State &amp;&nbsp;</td>
           <td class="paramname"> <em>s</em>, </td>
         </tr>
         <tr>
@@ -505,14 +505,14 @@
 
 </div>
 </div>
-<a class="anchor" id="a0d7fca4b57daafca37d59a2c812e7558"></a><!-- doxytag: member="OpenSim::StaticOptimizationTarget::prepareToOptimize" ref="a0d7fca4b57daafca37d59a2c812e7558" args="(const SimTK::State &amp;s, double *x)" -->
+<a class="anchor" id="a1d8894898f82bc7ce3d4f2e931c33c5c"></a><!-- doxytag: member="OpenSim::StaticOptimizationTarget::prepareToOptimize" ref="a1d8894898f82bc7ce3d4f2e931c33c5c" args="(SimTK::State &amp;s, double *x)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">bool StaticOptimizationTarget::prepareToOptimize </td>
           <td>(</td>
-          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
+          <td class="paramtype">SimTK::State &amp;&nbsp;</td>
           <td class="paramname"> <em>s</em>, </td>
         </tr>
         <tr>
@@ -664,7 +664,7 @@
 <p><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the model.</p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>aModel</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Model.html" title="A base class that specifies the interface for a musculoskeletal model.">Model</a>. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>aModel</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a>. </td></tr>
   </table>
   </dd>
 </dl>
@@ -876,7 +876,7 @@
 <li>OpenSim/Analyses/StaticOptimizationTarget.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Feb 7 02:15:12 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:37:01 2010 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

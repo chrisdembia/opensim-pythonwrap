@@ -71,14 +71,14 @@ Inheritance diagram for OpenSim::ControllerSet:</div>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ControllerSet.html#a42252257d079966a526eae7a5d341a00">storeControls</a> (const SimTK::State &amp;s, int step)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ControllerSet.html#acaedecadff5ae75c43996d3579efc73a">printControlStorage</a> (const std::string &amp;fileName) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ControllerSet.html#a30f0e02b4d00374703f06a44d2310e24">setActuators</a> (<a class="el" href="classOpenSim_1_1Set.html">Set</a>&lt; <a class="el" href="classOpenSim_1_1Actuator.html">Actuator</a> &gt; &amp;)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ControllerSet.html#a4062c49585b903dd462cbc4c8122d4ba">setModel</a> (<a class="el" href="classOpenSim_1_1Model.html">Model</a> *model)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ControllerSet.html#a57f6fc3460ae61fbdf00946144784c80">check</a> () const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Check that all actuators have a valid controller.  <a href="#a57f6fc3460ae61fbdf00946144784c80"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ControllerSet.html#a72c33801762479daad6e92221b4a5561">getFirstTime</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ControllerSet.html#ae053e7589a1377a9ce2668e01e59d1bf">getLastTime</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ControllerSet.html#a4ceebf6bc90388afd4f8f2e8b3b21b45">setDesiredStates</a> (<a class="el" href="classOpenSim_1_1Storage.html">Storage</a> *yStore)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ControllerSet.html#aff43666c55369184b707cdd1124613b5">setup</a> (<a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;aModel)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ControllerSet.html#a966e952a79f7c110da88724d5335d69f">setupSystem</a> (SimTK::MultibodySystem &amp;system)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the <a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a> this object is part of.  <a href="#aff43666c55369184b707cdd1124613b5"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ControllerSet.html#a8375826ec2da0aa8a17d6bf13e6e8a34">createSystem</a> (SimTK::MultibodySystem &amp;system)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ControllerSet.html#a22cdfa7f9995dbfe7ef4e435bb7a1a99">printInfo</a> () const </td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
@@ -324,6 +324,24 @@ Inheritance diagram for OpenSim::ControllerSet:</div>
 
 </div>
 </div>
+<a class="anchor" id="a8375826ec2da0aa8a17d6bf13e6e8a34"></a><!-- doxytag: member="OpenSim::ControllerSet::createSystem" ref="a8375826ec2da0aa8a17d6bf13e6e8a34" args="(SimTK::MultibodySystem &amp;system)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ControllerSet::createSystem </td>
+          <td>(</td>
+          <td class="paramtype">SimTK::MultibodySystem &amp;&nbsp;</td>
+          <td class="paramname"> <em>system</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a72c33801762479daad6e92221b4a5561"></a><!-- doxytag: member="OpenSim::ControllerSet::getFirstTime" ref="a72c33801762479daad6e92221b4a5561" args="() const " -->
 <div class="memitem">
 <div class="memproto">
@@ -491,24 +509,6 @@ Inheritance diagram for OpenSim::ControllerSet:</div>
 
 </div>
 </div>
-<a class="anchor" id="a4062c49585b903dd462cbc4c8122d4ba"></a><!-- doxytag: member="OpenSim::ControllerSet::setModel" ref="a4062c49585b903dd462cbc4c8122d4ba" args="(Model *model)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void ControllerSet::setModel </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classOpenSim_1_1Model.html">Model</a> *&nbsp;</td>
-          <td class="paramname"> <em>model</em></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td><code> [virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
 <a class="anchor" id="aff43666c55369184b707cdd1124613b5"></a><!-- doxytag: member="OpenSim::ControllerSet::setup" ref="aff43666c55369184b707cdd1124613b5" args="(Model &amp;aModel)" -->
 <div class="memitem">
 <div class="memproto">
@@ -517,7 +517,7 @@ Inheritance diagram for OpenSim::ControllerSet:</div>
           <td class="memname">void ControllerSet::setup </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>aModel</em></td>
+          <td class="paramname"> <em>model</em></td>
           <td>&nbsp;)&nbsp;</td>
           <td><code> [virtual]</code></td>
         </tr>
@@ -525,23 +525,9 @@ Inheritance diagram for OpenSim::ControllerSet:</div>
 </div>
 <div class="memdoc">
 
-</div>
-</div>
-<a class="anchor" id="a966e952a79f7c110da88724d5335d69f"></a><!-- doxytag: member="OpenSim::ControllerSet::setupSystem" ref="a966e952a79f7c110da88724d5335d69f" args="(SimTK::MultibodySystem &amp;system)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void ControllerSet::setupSystem </td>
-          <td>(</td>
-          <td class="paramtype">SimTK::MultibodySystem &amp;&nbsp;</td>
-          <td class="paramname"> <em>system</em></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td><code> [virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
+<p><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the <a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a> this object is part of. </p>
+
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1ModelComponentSet.html#ab2aafdaf3a166163572bcc40c641b21b">OpenSim::ModelComponentSet&lt; Controller &gt;</a>.</p>
 
 </div>
 </div>
@@ -577,7 +563,7 @@ Inheritance diagram for OpenSim::ControllerSet:</div>
 <li>OpenSim/Simulation/Model/ControllerSet.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Feb 7 02:15:17 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:37:09 2010 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

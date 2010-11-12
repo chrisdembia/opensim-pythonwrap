@@ -71,8 +71,8 @@ Inheritance diagram for OpenSim::ActuatorPerturbation:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> whether it is permissable that a perturbation produces a negative force.  <a href="#a2ef0f1b43f53b759ef27c77e3e88fba5"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActuatorPerturbation.html#aa06b046e47504d244b1e077f8cdd4c1d">getAllowNegForce</a> () const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get whether negative force is allowed.  <a href="#aa06b046e47504d244b1e077f8cdd4c1d"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActuatorPerturbation.html#a47968b97825b98eec64f149fbfd70c5e">setPerturbation</a> (const SimTK::State &amp;s, <a class="el" href="classOpenSim_1_1ActuatorPerturbation.html#ad0ca43640b41c650193baccc4187f27b">PertType</a> aPerturbationType, double aPerturbation)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the perturbation type and the perturbation size.  <a href="#a47968b97825b98eec64f149fbfd70c5e"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActuatorPerturbation.html#a52502dc5d98196eb456e9867bdfaaac9">setPerturbationParameters</a> (<a class="el" href="classOpenSim_1_1ActuatorPerturbation.html#ad0ca43640b41c650193baccc4187f27b">PertType</a> aPerturbationType, double aPerturbation)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the perturbation type and the perturbation size.  <a href="#a52502dc5d98196eb456e9867bdfaaac9"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActuatorPerturbation.html#a024c70f6178315912c201bfc6f21e2a1">setModel</a> (<a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> a pointer to the model for which this perturbation has been set.  <a href="#a024c70f6178315912c201bfc6f21e2a1"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Model.html">Model</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActuatorPerturbation.html#ab68009741cd9d05fa939f5cb91ecc894">getModel</a> () const </td></tr>
@@ -89,23 +89,21 @@ Inheritance diagram for OpenSim::ActuatorPerturbation:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the time at which to end executing the perturbation.  <a href="#ab6f5231529971fd26ff219439298bd76"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActuatorPerturbation.html#a038b9d83737336ae0956b3c751f21d72">getEndTime</a> () const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the time at which to end executing the perturbation, expressed in normalized time units, not real time units.  <a href="#a038b9d83737336ae0956b3c751f21d72"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActuatorPerturbation.html#ae41f0707ce39c91edc753478ff33ea8c">getPerturbation</a> () const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the size of the force perturbation that is made to the action forces.  <a href="#ae41f0707ce39c91edc753478ff33ea8c"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActuatorPerturbation.html#a0072bf55dcba9e1f9afde1edb69cd098">getPerturbationSize</a> () const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the size of the force perturbation that is made to the action forces.  <a href="#a0072bf55dcba9e1f9afde1edb69cd098"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1ActuatorPerturbation.html#ad0ca43640b41c650193baccc4187f27b">PertType</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActuatorPerturbation.html#a14457728e3172c4211f03edff6f07e9f">getPerturbationType</a> () const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the type of the force perturbation that is made to the action forces.  <a href="#a14457728e3172c4211f03edff6f07e9f"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Storage.html">Storage</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActuatorPerturbation.html#a66eab9a4a189ebf2db4490449e8bd97f">getForceStorage</a> ()</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get a pointer to the <a class="el" href="classOpenSim_1_1Storage.html">Storage</a> containing the nominal and perturbed forces.  <a href="#a66eab9a4a189ebf2db4490449e8bd97f"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActuatorPerturbation.html#afb34c15a0499b41896ec1fdb2548f91f">reset</a> (const SimTK::State &amp;s)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Reset the perturbation.  <a href="#afb34c15a0499b41896ec1fdb2548f91f"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActuatorPerturbation.html#a597964668756951521d5467b2e15c224">setForces</a> (const SimTK::State &amp;s)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1ActuatorPerturbation.html">ActuatorPerturbation</a> called right after actuation has been computed by the model.  <a href="#a597964668756951521d5467b2e15c224"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Actuator.html">Actuator</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActuatorPerturbation.html#a72c6bd5ea0146ca3099ef33663ce3489">_actuator</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Which actuator.  <a href="#a72c6bd5ea0146ca3099ef33663ce3489"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActuatorPerturbation.html#a308f7cb8593cfcc4c1b0b0451478ac78">_allowNegForce</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Negative force flag.  <a href="#a308f7cb8593cfcc4c1b0b0451478ac78"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActuatorPerturbation.html#aa0e1b926207213dd925d816c1dab1b82">_perturbation</a></td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Force.html" title="This abstract class represents a force applied to bodies or generalized coordinates...">Force</a> perturbation.  <a href="#aa0e1b926207213dd925d816c1dab1b82"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActuatorPerturbation.html#abf38fa1f62254bae89d482212446c816">_perturbationSize</a></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Force.html" title="This abstract class represents a force applied to bodies or generalized coordinates...">Force</a> perturbation.  <a href="#abf38fa1f62254bae89d482212446c816"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1ActuatorPerturbation.html#ad0ca43640b41c650193baccc4187f27b">PertType</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActuatorPerturbation.html#ad9ee49a214a36142dfa7ab391875dd17">_perturbationType</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Type of perturbation.  <a href="#ad9ee49a214a36142dfa7ab391875dd17"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActuatorPerturbation.html#a6ef56772be723fe750c6515746a541de">_force</a></td></tr>
@@ -113,7 +111,7 @@ Inheritance diagram for OpenSim::ActuatorPerturbation:</div>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Storage.html">Storage</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActuatorPerturbation.html#aa972c41db046632a57b84c90973f43e2">_forceStore</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Storage.html">Storage</a> for holding nominal and perturbed force.  <a href="#aa972c41db046632a57b84c90973f43e2"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Model.html">Model</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActuatorPerturbation.html#a1d2e452079b0d985fc1ea2488ef7031f">_model</a></td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Model.html" title="A base class that specifies the interface for a musculoskeletal model.">Model</a>.  <a href="#a1d2e452079b0d985fc1ea2488ef7031f"></a><br/></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a>.  <a href="#a1d2e452079b0d985fc1ea2488ef7031f"></a><br/></td></tr>
 </table>
 <hr/><h2>Member Enumeration Documentation</h2>
 <a class="anchor" id="ad0ca43640b41c650193baccc4187f27b"></a><!-- doxytag: member="OpenSim::ActuatorPerturbation::PertType" ref="ad0ca43640b41c650193baccc4187f27b" args="" -->
@@ -128,7 +126,7 @@ Inheritance diagram for OpenSim::ActuatorPerturbation:</div>
 <div class="memdoc">
 
 <p>Perturbation types. </p>
-<p>See <a class="el" href="classOpenSim_1_1ActuatorPerturbation.html#a47968b97825b98eec64f149fbfd70c5e" title="Set the perturbation type and the perturbation size.">setPerturbation()</a>. </p>
+<p>See setPerturbation(). </p>
 <dl><dt><b>Enumerator: </b></dt><dd><table border="0" cellspacing="2" cellpadding="0">
 <tr><td valign="top"><em><a class="anchor" id="ad0ca43640b41c650193baccc4187f27bad232405d6ab9c0840877d2e85041ed25"></a><!-- doxytag: member="SCALE" ref="ad0ca43640b41c650193baccc4187f27bad232405d6ab9c0840877d2e85041ed25" args="" -->SCALE</em>&nbsp;</td><td>
 </td></tr>
@@ -162,7 +160,7 @@ Inheritance diagram for OpenSim::ActuatorPerturbation:</div>
 <p>Construct an instance for perturbing actuator forces during an integration. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>aModel</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Model.html" title="A base class that specifies the interface for a musculoskeletal model.">Model</a> for which actuator forces are to be perturbed. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>aModel</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a> for which actuator forces are to be perturbed. </td></tr>
   </table>
   </dd>
 </dl>
@@ -311,6 +309,8 @@ Inheritance diagram for OpenSim::ActuatorPerturbation:</div>
 <dl class="return"><dt><b>Returns:</b></dt><dd>allowNegForce Flag </dd></dl>
 <dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="classOpenSim_1_1ActuatorPerturbation.html#a2ef0f1b43f53b759ef27c77e3e88fba5" title="Set whether it is permissable that a perturbation produces a negative force.">setAllowNegForce()</a> </dd></dl>
 
+<p>Reimplemented in <a class="el" href="classOpenSim_1_1ActuatorPerturbationIndependent.html#ae49f48b3fb8be52382512db7ce64b3d8">OpenSim::ActuatorPerturbationIndependent</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a038b9d83737336ae0956b3c751f21d72"></a><!-- doxytag: member="OpenSim::ActuatorPerturbation::getEndTime" ref="a038b9d83737336ae0956b3c751f21d72" args="() const " -->
@@ -393,12 +393,12 @@ Inheritance diagram for OpenSim::ActuatorPerturbation:</div>
 
 </div>
 </div>
-<a class="anchor" id="ae41f0707ce39c91edc753478ff33ea8c"></a><!-- doxytag: member="OpenSim::ActuatorPerturbation::getPerturbation" ref="ae41f0707ce39c91edc753478ff33ea8c" args="() const " -->
+<a class="anchor" id="a0072bf55dcba9e1f9afde1edb69cd098"></a><!-- doxytag: member="OpenSim::ActuatorPerturbation::getPerturbationSize" ref="a0072bf55dcba9e1f9afde1edb69cd098" args="() const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double ActuatorPerturbation::getPerturbation </td>
+          <td class="memname">double ActuatorPerturbation::getPerturbationSize </td>
           <td>(</td>
           <td class="paramname"></td>
           <td>&nbsp;)&nbsp;</td>
@@ -524,6 +524,8 @@ Inheritance diagram for OpenSim::ActuatorPerturbation:</div>
   </dd>
 </dl>
 
+<p>Reimplemented in <a class="el" href="classOpenSim_1_1ActuatorPerturbationIndependent.html#a845292ac1118a63b3a7d501cfe5a1f85">OpenSim::ActuatorPerturbationIndependent</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a2ef0f1b43f53b759ef27c77e3e88fba5"></a><!-- doxytag: member="OpenSim::ActuatorPerturbation::setAllowNegForce" ref="a2ef0f1b43f53b759ef27c77e3e88fba5" args="(bool aTrueFalse)" -->
@@ -579,35 +581,6 @@ Inheritance diagram for OpenSim::ActuatorPerturbation:</div>
 
 </div>
 </div>
-<a class="anchor" id="a597964668756951521d5467b2e15c224"></a><!-- doxytag: member="OpenSim::ActuatorPerturbation::setForces" ref="a597964668756951521d5467b2e15c224" args="(const SimTK::State &amp;s)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void ActuatorPerturbation::setForces </td>
-          <td>(</td>
-          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
-          <td class="paramname"> <em>s</em></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td><code> [virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p><a class="el" href="classOpenSim_1_1ActuatorPerturbation.html">ActuatorPerturbation</a> called right after actuation has been computed by the model. </p>
-<p>The nominal atuator force is recorded so that it can be restored, and the actuator force is replaced by its perturbed value.</p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>s</em>&nbsp;</td><td>System state </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Reimplemented in <a class="el" href="classOpenSim_1_1ActuatorPerturbationIndependent.html#aa2541d2cb1026befc618335eca23f7a2">OpenSim::ActuatorPerturbationIndependent</a>.</p>
-
-</div>
-</div>
 <a class="anchor" id="a024c70f6178315912c201bfc6f21e2a1"></a><!-- doxytag: member="OpenSim::ActuatorPerturbation::setModel" ref="a024c70f6178315912c201bfc6f21e2a1" args="(Model &amp;)" -->
 <div class="memitem">
 <div class="memproto">
@@ -654,19 +627,13 @@ Inheritance diagram for OpenSim::ActuatorPerturbation:</div>
 
 </div>
 </div>
-<a class="anchor" id="a47968b97825b98eec64f149fbfd70c5e"></a><!-- doxytag: member="OpenSim::ActuatorPerturbation::setPerturbation" ref="a47968b97825b98eec64f149fbfd70c5e" args="(const SimTK::State &amp;s, PertType aPerturbationType, double aPerturbation)" -->
+<a class="anchor" id="a52502dc5d98196eb456e9867bdfaaac9"></a><!-- doxytag: member="OpenSim::ActuatorPerturbation::setPerturbationParameters" ref="a52502dc5d98196eb456e9867bdfaaac9" args="(PertType aPerturbationType, double aPerturbation)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void ActuatorPerturbation::setPerturbation </td>
+          <td class="memname">void ActuatorPerturbation::setPerturbationParameters </td>
           <td>(</td>
-          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
-          <td class="paramname"> <em>s</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
           <td class="paramtype"><a class="el" href="classOpenSim_1_1ActuatorPerturbation.html#ad0ca43640b41c650193baccc4187f27b">PertType</a>&nbsp;</td>
           <td class="paramname"> <em>aPerturbationType</em>, </td>
         </tr>
@@ -674,7 +641,7 @@ Inheritance diagram for OpenSim::ActuatorPerturbation:</div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">double&nbsp;</td>
-          <td class="paramname"> <em>aPerturbation</em></td><td>&nbsp;</td>
+          <td class="paramname"> <em>aPerturbationSize</em></td><td>&nbsp;</td>
         </tr>
         <tr>
           <td></td>
@@ -806,16 +773,16 @@ Inheritance diagram for OpenSim::ActuatorPerturbation:</div>
 </div>
 <div class="memdoc">
 
-<p><a class="el" href="classOpenSim_1_1Model.html" title="A base class that specifies the interface for a musculoskeletal model.">Model</a>. </p>
+<p><a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a>. </p>
 
 </div>
 </div>
-<a class="anchor" id="aa0e1b926207213dd925d816c1dab1b82"></a><!-- doxytag: member="OpenSim::ActuatorPerturbation::_perturbation" ref="aa0e1b926207213dd925d816c1dab1b82" args="" -->
+<a class="anchor" id="abf38fa1f62254bae89d482212446c816"></a><!-- doxytag: member="OpenSim::ActuatorPerturbation::_perturbationSize" ref="abf38fa1f62254bae89d482212446c816" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double <a class="el" href="classOpenSim_1_1ActuatorPerturbation.html#aa0e1b926207213dd925d816c1dab1b82">OpenSim::ActuatorPerturbation::_perturbation</a><code> [protected]</code></td>
+          <td class="memname">double <a class="el" href="classOpenSim_1_1ActuatorPerturbation.html#abf38fa1f62254bae89d482212446c816">OpenSim::ActuatorPerturbation::_perturbationSize</a><code> [protected]</code></td>
         </tr>
       </table>
 </div>
@@ -845,7 +812,7 @@ Inheritance diagram for OpenSim::ActuatorPerturbation:</div>
 <li>OpenSim/Analyses/ActuatorPerturbation.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Feb 7 02:15:12 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:36:59 2010 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

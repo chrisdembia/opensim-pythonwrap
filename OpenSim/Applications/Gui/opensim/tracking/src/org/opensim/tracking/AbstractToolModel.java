@@ -27,6 +27,7 @@ package org.opensim.tracking;
 
 import java.io.File;
 import java.util.Observable;
+import java.util.Vector;
 import java.util.prefs.Preferences;
 import org.opensim.modeling.AbstractTool;
 import org.opensim.modeling.Analysis;
@@ -39,7 +40,7 @@ import org.opensim.utils.TheApp;
 
 public abstract class AbstractToolModel extends Observable {
 
-   enum Operation { AllDataChanged, InputDataChanged, OutputDataChanged, TimeRangeChanged, AnalysisDataChanged, AnalysisAddedOrRemoved, ActuatorsDataChanged, ExternalLoadsDataChanged, IntegratorSettingsChanged, ExecutionStateChanged };
+   public enum Operation { AllDataChanged, InputDataChanged, OutputDataChanged, TimeRangeChanged, AnalysisDataChanged, AnalysisAddedOrRemoved, ActuatorsDataChanged, ExternalLoadsDataChanged, IntegratorSettingsChanged, ExecutionStateChanged };
 
    private boolean modifiedSinceLastExecute = true;
    private boolean executing = false;
@@ -47,7 +48,8 @@ public abstract class AbstractToolModel extends Observable {
    protected Model originalModel = originalModel = null;
    protected Model model = null;
    protected AbstractTool tool = null;
-
+   protected Vector<ResultDisplayerInterface> resultDisplayers=new Vector<ResultDisplayerInterface>();
+   
    public AbstractToolModel(Model originalModel) {
       this.originalModel = originalModel;
    }
@@ -281,6 +283,12 @@ public abstract class AbstractToolModel extends Observable {
    protected void updateTool() {
       //tool.setAllPropertiesUseDefault(false); // To make sure we serialize all properties even after we've changed their values
    }
+
+
+    public void setAnalysisTimeFromTool(final Analysis aAnalysis) {
+        aAnalysis.setStartTime(tool.getInitialTime());
+        aAnalysis.setEndTime(tool.getFinalTime());
+    }
 }
 
 abstract class AbstractToolModelWithExternalLoads extends AbstractToolModel {
@@ -343,11 +351,18 @@ abstract class AbstractToolModelWithExternalLoads extends AbstractToolModel {
    }
 
    public boolean isValidated() {
-      return !getExternalLoadsEnabled() || ((new File(getExternalLoadsFileName()).exists()) && (new File(getExternalLoadsModelKinematicsFileName()).exists()));
+      return !getExternalLoadsEnabled() || (new File(getExternalLoadsFileName()).exists());
    }
 
    protected double[] intersectTimeRanges(double[] range1, double[] range2) {
       return new double[]{(range1[0]>range2[0])?range1[0]:range2[0], (range1[1]<range2[1])?range1[1]:range2[1]};
+   }
+   
+   public void addResultDisplayer(ResultDisplayerInterface displayer) {
+       resultDisplayers.add(displayer);
+   }
+   public boolean hasResultsDisplayer(ResultDisplayerInterface displayer) {
+       return resultDisplayers.contains(displayer);
    }
 }
 

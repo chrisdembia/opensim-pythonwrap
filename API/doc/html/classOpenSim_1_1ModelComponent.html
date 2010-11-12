@@ -28,7 +28,7 @@
 </div>
 <div class="contents">
 <h1>OpenSim::ModelComponent Class Reference</h1><!-- doxytag: class="OpenSim::ModelComponent" --><!-- doxytag: inherits="OpenSim::Object" -->
-<p>This is the base class for any object which can be added to a <a class="el" href="classOpenSim_1_1Model.html" title="A base class that specifies the interface for a musculoskeletal model.">Model</a>.  
+<p>This is the base class for any object which can be added to a <a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a>.  
 <a href="#_details">More...</a></p>
 
 <p><code>#include &lt;ModelComponent.h&gt;</code></p>
@@ -43,10 +43,11 @@ Inheritance diagram for OpenSim::ModelComponent:</div>
 <area href="classOpenSim_1_1Constraint.html" alt="OpenSim::Constraint" shape="rect" coords="177,168,344,192"/>
 <area href="classOpenSim_1_1ContactGeometry.html" alt="OpenSim::ContactGeometry" shape="rect" coords="177,224,344,248"/>
 <area href="classOpenSim_1_1Controller.html" alt="OpenSim::Controller" shape="rect" coords="177,280,344,304"/>
-<area href="classOpenSim_1_1Force.html" alt="OpenSim::Force" shape="rect" coords="177,336,344,360"/>
-<area href="classOpenSim_1_1GeometryPath.html" alt="OpenSim::GeometryPath" shape="rect" coords="177,392,344,416"/>
-<area href="classOpenSim_1_1Joint.html" alt="OpenSim::Joint" shape="rect" coords="177,448,344,472"/>
-<area href="classOpenSim_1_1Model.html" alt="OpenSim::Model" shape="rect" coords="177,504,344,528"/>
+<area href="classOpenSim_1_1Coordinate.html" alt="OpenSim::Coordinate" shape="rect" coords="177,336,344,360"/>
+<area href="classOpenSim_1_1Force.html" alt="OpenSim::Force" shape="rect" coords="177,392,344,416"/>
+<area href="classOpenSim_1_1GeometryPath.html" alt="OpenSim::GeometryPath" shape="rect" coords="177,448,344,472"/>
+<area href="classOpenSim_1_1Joint.html" alt="OpenSim::Joint" shape="rect" coords="177,504,344,528"/>
+<area href="classOpenSim_1_1Model.html" alt="OpenSim::Model" shape="rect" coords="177,560,344,584"/>
 </map>
  </div>
 </div>
@@ -61,28 +62,36 @@ Inheritance diagram for OpenSim::ModelComponent:</div>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ModelComponent.html#ab5889c94e3e95427ae2b1a2a6022d5f1">ModelComponent</a> (const <a class="el" href="classOpenSim_1_1ModelComponent.html">ModelComponent</a> &amp;copy)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ModelComponent.html#a4cb53fff79c4a66e47fc9e22548728a7">~ModelComponent</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ModelComponent.html#a859ace32c4e89b6479738c6310b97bc4">getModel</a> () const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the <a class="el" href="classOpenSim_1_1Model.html" title="A base class that specifies the interface for a musculoskeletal model.">Model</a> this object is part of.  <a href="#a859ace32c4e89b6479738c6310b97bc4"></a><br/></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the <a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a> this object is part of.  <a href="#a859ace32c4e89b6479738c6310b97bc4"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ModelComponent.html#abd05b809b3391bed5b156585d4327360">updModel</a> ()</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get a modifiable reference to the <a class="el" href="classOpenSim_1_1Model.html" title="A base class that specifies the interface for a musculoskeletal model.">Model</a> this object is part of.  <a href="#abd05b809b3391bed5b156585d4327360"></a><br/></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get a modifiable reference to the <a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a> this object is part of.  <a href="#abd05b809b3391bed5b156585d4327360"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ModelComponent.html#a1e0f42516d2b3d7fd54892ee24b80f61">getNumStateVariables</a> () const =0</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Gets the number of "Continuous" state variables maintained by the <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any object which can be added to a Model.">ModelComponent</a> If the <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any object which can be added to a Model.">ModelComponent</a> defines any that are of interest to the user, names should also be given.  <a href="#a1e0f42516d2b3d7fd54892ee24b80f61"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual std::string&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ModelComponent.html#a33ad5f2d76c735364a5d00055b39e726">getStateVariableName</a> (int index) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the name of a state variable allocated by this <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any object which can be added to a Model.">ModelComponent</a>.  <a href="#a33ad5f2d76c735364a5d00055b39e726"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ModelComponent.html#add74863ab4a9bd7742834c894b7af2a8">getStateVariableYIndex</a> (int index) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the YIndex of a state variable allocated by this <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any object which can be added to a Model.">ModelComponent</a>.  <a href="#add74863ab4a9bd7742834c894b7af2a8"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ModelComponent.html#add639bad0d7a67bf6693ba39b48b4f25">getStateVariable</a> (const SimTK::State &amp;state, int index) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the value of a state variable allocated by this <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any object which can be added to a Model.">ModelComponent</a>.  <a href="#add639bad0d7a67bf6693ba39b48b4f25"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ModelComponent.html#ad494dc59a54b476de574ee9388e771c8">setStateVariable</a> (SimTK::State &amp;state, int index, double value) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the value of a state variable allocated by this <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any object which can be added to a Model.">ModelComponent</a>.  <a href="#ad494dc59a54b476de574ee9388e771c8"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Protected Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ModelComponent.html#abc4af829ab41e910d1c8ac70f9de9713">setModel</a> (<a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;model)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the <a class="el" href="classOpenSim_1_1Model.html" title="A base class that specifies the interface for a musculoskeletal model.">Model</a> this object is part of.  <a href="#abc4af829ab41e910d1c8ac70f9de9713"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ModelComponent.html#a67713d597327cd5b6d8db6caab1a5202">setupFromXML</a> ()</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This is called after the <a class="el" href="classOpenSim_1_1Model.html" title="A base class that specifies the interface for a musculoskeletal model.">Model</a> has been constructed from an XML file.  <a href="#a67713d597327cd5b6d8db6caab1a5202"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ModelComponent.html#a8cecde2c81b7645a5daea70050884881">createSystem</a> (SimTK::MultibodySystem &amp;system) const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This is called when a SimTK System is being created for the <a class="el" href="classOpenSim_1_1Model.html" title="A base class that specifies the interface for a musculoskeletal model.">Model</a>.  <a href="#a8cecde2c81b7645a5daea70050884881"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ModelComponent.html#ab0f23ae5578d7e988e67cf07db1e3cf7">initState</a> (SimTK::State &amp;state) const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This is called after a SimTK System and State have been created for the <a class="el" href="classOpenSim_1_1Model.html" title="A base class that specifies the interface for a musculoskeletal model.">Model</a>.  <a href="#ab0f23ae5578d7e988e67cf07db1e3cf7"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ModelComponent.html#a5ddcaa711b47fe9e8e5653a5611ef8ee">setDefaultsFromState</a> (const SimTK::State &amp;state)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> all default values for this object to match those in a specified State.  <a href="#a5ddcaa711b47fe9e8e5653a5611ef8ee"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ModelComponent.html#a2b2b125ac81cae0067a87b080499b43f">setup</a> (<a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;model)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This is called after the <a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a> has been constructed from an XML file.  <a href="#a2b2b125ac81cae0067a87b080499b43f"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ModelComponent.html#a85757ad4645e4066f72ce4d0411a49b8">createSystem</a> (SimTK::MultibodySystem &amp;system) const =0</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This is called when a SimTK System is being created for the <a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a>.  <a href="#a85757ad4645e4066f72ce4d0411a49b8"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ModelComponent.html#a2af3e8933cda56820900f0c643881434">initState</a> (SimTK::State &amp;state) const =0</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This is called after a SimTK System and State have been created for the <a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a>.  <a href="#a2af3e8933cda56820900f0c643881434"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ModelComponent.html#a0e600cbcb3f90abfa53c6b7afa3cdf30">setDefaultsFromState</a> (const SimTK::State &amp;state)=0</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> all default values for this object to match those in a specified State.  <a href="#a0e600cbcb3f90abfa53c6b7afa3cdf30"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Model.html">Model</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ModelComponent.html#a7c93dfde21c0a5cb40b37d1f095c41e7">_model</a></td></tr>
 <tr><td colspan="2"><h2>Friends</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ModelComponent.html#acaa103f555d753dfdccce2d442d6a048">ModelComponentSet</a></td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
-<p>This is the base class for any object which can be added to a <a class="el" href="classOpenSim_1_1Model.html" title="A base class that specifies the interface for a musculoskeletal model.">Model</a>. </p>
-<p>It defines a set of methods which objects may optionally implement to perform certain functions when the <a class="el" href="classOpenSim_1_1Model.html" title="A base class that specifies the interface for a musculoskeletal model.">Model</a> is loaded or initialized. </p>
+<p>This is the base class for any object which can be added to a <a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a>. </p>
+<p>It defines a set of methods which objects may optionally implement to perform certain functions when the <a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a> is loaded or initialized. </p>
 <hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a5ebcaa522b055841281b9dd0955cfa59"></a><!-- doxytag: member="OpenSim::ModelComponent::ModelComponent" ref="a5ebcaa522b055841281b9dd0955cfa59" args="()" -->
 <div class="memitem">
@@ -200,24 +209,24 @@ Inheritance diagram for OpenSim::ModelComponent:</div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="a8cecde2c81b7645a5daea70050884881"></a><!-- doxytag: member="OpenSim::ModelComponent::createSystem" ref="a8cecde2c81b7645a5daea70050884881" args="(SimTK::MultibodySystem &amp;system) const " -->
+<a class="anchor" id="a85757ad4645e4066f72ce4d0411a49b8"></a><!-- doxytag: member="OpenSim::ModelComponent::createSystem" ref="a85757ad4645e4066f72ce4d0411a49b8" args="(SimTK::MultibodySystem &amp;system) const =0" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void OpenSim::ModelComponent::createSystem </td>
+          <td class="memname">virtual void OpenSim::ModelComponent::createSystem </td>
           <td>(</td>
           <td class="paramtype">SimTK::MultibodySystem &amp;&nbsp;</td>
           <td class="paramname"> <em>system</em></td>
           <td>&nbsp;)&nbsp;</td>
-          <td> const<code> [protected, virtual]</code></td>
+          <td> const<code> [protected, pure virtual]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
-<p>This is called when a SimTK System is being created for the <a class="el" href="classOpenSim_1_1Model.html" title="A base class that specifies the interface for a musculoskeletal model.">Model</a>. </p>
-<p>It should be overridden to add appropriate elements to the System corresponding to this object.</p>
+<p>This is called when a SimTK System is being created for the <a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a>. </p>
+<p>It must be implemented to add appropriate elements to the System corresponding to this object.</p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>system</em>&nbsp;</td><td>the System being created </td></tr>
@@ -225,7 +234,7 @@ Inheritance diagram for OpenSim::ModelComponent:</div>
   </dd>
 </dl>
 
-<p>Reimplemented in <a class="el" href="classOpenSim_1_1CoordinateActuator.html#af5e54a02098965d510b2c9a499123f87">OpenSim::CoordinateActuator</a>, <a class="el" href="classOpenSim_1_1CustomActuator.html#aa223e3d472409e1b8d64f251bc115ed1">OpenSim::CustomActuator</a>, <a class="el" href="classOpenSim_1_1CustomForce.html#ae4599bdee3cae4c7d5a3095c8be800d2">OpenSim::CustomForce</a>, <a class="el" href="classOpenSim_1_1ElasticFoundationForce.html#a92870660adfc9383e7d15895f3a09f6f">OpenSim::ElasticFoundationForce</a>, <a class="el" href="classOpenSim_1_1HuntCrossleyForce.html#a4c6a8492ea7433a422f5ac9a1259f5f1">OpenSim::HuntCrossleyForce</a>, <a class="el" href="classOpenSim_1_1BallJoint.html#ad073274afda8c5b73098056b18523f60">OpenSim::BallJoint</a>, <a class="el" href="classOpenSim_1_1CoordinateCouplerConstraint.html#a3cd7cef10833213890ff4a60015e278d">OpenSim::CoordinateCouplerConstraint</a>, <a class="el" href="classOpenSim_1_1CustomJoint.html#a86a4373cb2e81164e4affea1a05ae6bf">OpenSim::CustomJoint</a>, <a class="el" href="classOpenSim_1_1EllipsoidJoint.html#afb32799d27756a856d0056c79ad7f58a">OpenSim::EllipsoidJoint</a>, <a class="el" href="classOpenSim_1_1FreeJoint.html#a9f7b45ddef87e1c36fba005dff3f4fbe">OpenSim::FreeJoint</a>, <a class="el" href="classOpenSim_1_1Joint.html#a6edcc3da0a5983996f4cba8e4d76a184">OpenSim::Joint</a>, <a class="el" href="classOpenSim_1_1PinJoint.html#ae82274063860f399dcbf249a8437e6ee">OpenSim::PinJoint</a>, <a class="el" href="classOpenSim_1_1PointOnLineConstraint.html#ab7cfe27bb7fa04afc4521ab93eed9a29">OpenSim::PointOnLineConstraint</a>, <a class="el" href="classOpenSim_1_1SliderJoint.html#afdaa7c2bfe0109c02bb50e64cabe529e">OpenSim::SliderJoint</a>, <a class="el" href="classOpenSim_1_1WeldConstraint.html#a0b34fc9fdccd92b2d25a74f73fe28fcd">OpenSim::WeldConstraint</a>, and <a class="el" href="classOpenSim_1_1WeldJoint.html#a04205c42025bd1d368e2e4f710b679fd">OpenSim::WeldJoint</a>.</p>
+<p>Implemented in <a class="el" href="classOpenSim_1_1CoordinateActuator.html#af5e54a02098965d510b2c9a499123f87">OpenSim::CoordinateActuator</a>, <a class="el" href="classOpenSim_1_1SpringGeneralizedForce.html#a9e2efa3b53e4626623f51072e032e7cf">OpenSim::SpringGeneralizedForce</a>, <a class="el" href="classOpenSim_1_1ConstantController.html#a976da04f346018971aed67d0b778ac22">OpenSim::ConstantController</a>, <a class="el" href="classOpenSim_1_1Controller.html#ac9220b97788e730446f05c2bc70df183">OpenSim::Controller</a>, <a class="el" href="classOpenSim_1_1ControlSetController.html#ab7851dc75a4b9060ae84c0e69d705ffd">OpenSim::ControlSetController</a>, <a class="el" href="classOpenSim_1_1BushingForce.html#a54327169d7322b836e92c13b5b8e3306">OpenSim::BushingForce</a>, <a class="el" href="classOpenSim_1_1ContactGeometry.html#a0a890f4bd0fe68b3742923ff083e61b4">OpenSim::ContactGeometry</a>, <a class="el" href="classOpenSim_1_1CustomActuator.html#aa223e3d472409e1b8d64f251bc115ed1">OpenSim::CustomActuator</a>, <a class="el" href="classOpenSim_1_1CustomForce.html#ae4599bdee3cae4c7d5a3095c8be800d2">OpenSim::CustomForce</a>, <a class="el" href="classOpenSim_1_1ElasticFoundationForce.html#a92870660adfc9383e7d15895f3a09f6f">OpenSim::ElasticFoundationForce</a>, <a class="el" href="classOpenSim_1_1GeometryPath.html#ae06908507967e44c4c18bebef805229b">OpenSim::GeometryPath</a>, <a class="el" href="classOpenSim_1_1HuntCrossleyForce.html#a4c6a8492ea7433a422f5ac9a1259f5f1">OpenSim::HuntCrossleyForce</a>, <a class="el" href="classOpenSim_1_1Model.html#abab9b92fc9c0f9b2523e5a6efd144d48">OpenSim::Model</a>, <a class="el" href="classOpenSim_1_1PointToPointSpring.html#a1b29f3100d3af7f25ed4b8a08d0a0ad8">OpenSim::PointToPointSpring</a>, <a class="el" href="classOpenSim_1_1BallJoint.html#ad073274afda8c5b73098056b18523f60">OpenSim::BallJoint</a>, <a class="el" href="classOpenSim_1_1Body.html#a6d3af7fb21295ed30e19cd6fc332e5a5">OpenSim::Body</a>, <a class="el" href="classOpenSim_1_1Coordinate.html#abf56135652d2bad3c686169e6a3ae7e5">OpenSim::Coordinate</a>, <a class="el" href="classOpenSim_1_1CoordinateCouplerConstraint.html#acc121ed7b9658fecd3014e572f15b36a">OpenSim::CoordinateCouplerConstraint</a>, <a class="el" href="classOpenSim_1_1CustomJoint.html#a86a4373cb2e81164e4affea1a05ae6bf">OpenSim::CustomJoint</a>, <a class="el" href="classOpenSim_1_1EllipsoidJoint.html#afb32799d27756a856d0056c79ad7f58a">OpenSim::EllipsoidJoint</a>, <a class="el" href="classOpenSim_1_1FreeJoint.html#a9f7b45ddef87e1c36fba005dff3f4fbe">OpenSim::FreeJoint</a>, <a class="el" href="classOpenSim_1_1Joint.html#a6edcc3da0a5983996f4cba8e4d76a184">OpenSim::Joint</a>, <a class="el" href="classOpenSim_1_1PinJoint.html#ae82274063860f399dcbf249a8437e6ee">OpenSim::PinJoint</a>, <a class="el" href="classOpenSim_1_1PointConstraint.html#a3dff0e857eaa405b22da1aa37075f6b2">OpenSim::PointConstraint</a>, <a class="el" href="classOpenSim_1_1PointOnLineConstraint.html#ab7cfe27bb7fa04afc4521ab93eed9a29">OpenSim::PointOnLineConstraint</a>, <a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html#a0788555f87d601a7df5fa97570acfe31">OpenSim::RollingOnSurfaceConstraint</a>, <a class="el" href="classOpenSim_1_1SliderJoint.html#afdaa7c2bfe0109c02bb50e64cabe529e">OpenSim::SliderJoint</a>, <a class="el" href="classOpenSim_1_1WeldConstraint.html#a0b34fc9fdccd92b2d25a74f73fe28fcd">OpenSim::WeldConstraint</a>, <a class="el" href="classOpenSim_1_1WeldJoint.html#a04205c42025bd1d368e2e4f710b679fd">OpenSim::WeldJoint</a>, <a class="el" href="classOpenSim_1_1CMC.html#a05179197c1054acbaafc6c03dab9cfbc">OpenSim::CMC</a>, and <a class="el" href="classOpenSim_1_1CorrectionController.html#ac45d44e3fb14d8e04bcc7721560c7c4f">OpenSim::CorrectionController</a>.</p>
 
 </div>
 </div>
@@ -244,30 +253,148 @@ Inheritance diagram for OpenSim::ModelComponent:</div>
 </div>
 <div class="memdoc">
 
-<p>Get the <a class="el" href="classOpenSim_1_1Model.html" title="A base class that specifies the interface for a musculoskeletal model.">Model</a> this object is part of. </p>
+<p>Get the <a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a> this object is part of. </p>
 
-<p>Reimplemented in <a class="el" href="classOpenSim_1_1Actuator.html#a2114bc445beec73a0be06e77b7f71235">OpenSim::Actuator</a>.</p>
+<p>Reimplemented in <a class="el" href="classOpenSim_1_1Actuator.html#a2114bc445beec73a0be06e77b7f71235">OpenSim::Actuator</a>, and <a class="el" href="classOpenSim_1_1Coordinate.html#afe7885cf9a2273afabb890cf33d166b6">OpenSim::Coordinate</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="ab0f23ae5578d7e988e67cf07db1e3cf7"></a><!-- doxytag: member="OpenSim::ModelComponent::initState" ref="ab0f23ae5578d7e988e67cf07db1e3cf7" args="(SimTK::State &amp;state) const " -->
+<a class="anchor" id="a1e0f42516d2b3d7fd54892ee24b80f61"></a><!-- doxytag: member="OpenSim::ModelComponent::getNumStateVariables" ref="a1e0f42516d2b3d7fd54892ee24b80f61" args="() const =0" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void OpenSim::ModelComponent::initState </td>
+          <td class="memname">virtual int OpenSim::ModelComponent::getNumStateVariables </td>
           <td>(</td>
-          <td class="paramtype">SimTK::State &amp;&nbsp;</td>
-          <td class="paramname"> <em>state</em></td>
+          <td class="paramname"></td>
           <td>&nbsp;)&nbsp;</td>
-          <td> const<code> [protected, virtual]</code></td>
+          <td> const<code> [pure virtual]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
-<p>This is called after a SimTK System and State have been created for the <a class="el" href="classOpenSim_1_1Model.html" title="A base class that specifies the interface for a musculoskeletal model.">Model</a>. </p>
-<p>It may be overridden to set initial values of state variables.</p>
+<p>Gets the number of "Continuous" state variables maintained by the <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any object which can be added to a Model.">ModelComponent</a> If the <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any object which can be added to a Model.">ModelComponent</a> defines any that are of interest to the user, names should also be given. </p>
+
+<p>Implemented in <a class="el" href="classOpenSim_1_1Controller.html#a3b25804884367d71ded547913074c670">OpenSim::Controller</a>, <a class="el" href="classOpenSim_1_1Actuator.html#ac3805eb1e90e3c097ea9f2430fff6550">OpenSim::Actuator</a>, <a class="el" href="classOpenSim_1_1ContactGeometry.html#a9c603b17ac1965793b52179a3a799450">OpenSim::ContactGeometry</a>, <a class="el" href="classOpenSim_1_1Force.html#a8afa34941dce9ff2d043de13eb1edfcc">OpenSim::Force</a>, <a class="el" href="classOpenSim_1_1GeometryPath.html#a8b1e9b00cec5d492886c08f3d33a8cb8">OpenSim::GeometryPath</a>, <a class="el" href="classOpenSim_1_1Model.html#aadb75d06d62405945e09e5532015681f">OpenSim::Model</a>, <a class="el" href="classOpenSim_1_1Body.html#ab7cb472d967af51fb5d2be95874bfc66">OpenSim::Body</a>, <a class="el" href="classOpenSim_1_1Constraint.html#a921c9593a70bbf388bd65ef12fa29e48">OpenSim::Constraint</a>, <a class="el" href="classOpenSim_1_1Coordinate.html#a02b744e1c1450322684dda69c80ce9d8">OpenSim::Coordinate</a>, and <a class="el" href="classOpenSim_1_1Joint.html#a4026842476da0c41cb664922f0f54e1c">OpenSim::Joint</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="add639bad0d7a67bf6693ba39b48b4f25"></a><!-- doxytag: member="OpenSim::ModelComponent::getStateVariable" ref="add639bad0d7a67bf6693ba39b48b4f25" args="(const SimTK::State &amp;state, int index) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual double OpenSim::ModelComponent::getStateVariable </td>
+          <td>(</td>
+          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
+          <td class="paramname"> <em>state</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>index</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td> const<code> [inline, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Get the value of a state variable allocated by this <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any object which can be added to a Model.">ModelComponent</a>. </p>
+<p>The default implementation throws an exception, so subclasses that allocate state variables must override it.</p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>state</em>&nbsp;</td><td>the State for which to get the value </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>index</em>&nbsp;</td><td>the index of the state variable (0 to <a class="el" href="classOpenSim_1_1ModelComponent.html#a1e0f42516d2b3d7fd54892ee24b80f61" title="Gets the number of &quot;Continuous&quot; state variables maintained by the ModelComponent...">getNumStateVariables()</a>-1) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Reimplemented in <a class="el" href="classOpenSim_1_1Actuator.html#a88972d9f2c8cbfadd3dd9315adafff18">OpenSim::Actuator</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a33ad5f2d76c735364a5d00055b39e726"></a><!-- doxytag: member="OpenSim::ModelComponent::getStateVariableName" ref="a33ad5f2d76c735364a5d00055b39e726" args="(int index) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::string OpenSim::ModelComponent::getStateVariableName </td>
+          <td>(</td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>index</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [inline, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Get the name of a state variable allocated by this <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any object which can be added to a Model.">ModelComponent</a>. </p>
+<p>The default implementation throws an exception, so subclasses that allocate state variables must override it.</p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>index</em>&nbsp;</td><td>the index of the state variable (0 to <a class="el" href="classOpenSim_1_1ModelComponent.html#a1e0f42516d2b3d7fd54892ee24b80f61" title="Gets the number of &quot;Continuous&quot; state variables maintained by the ModelComponent...">getNumStateVariables()</a>-1) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Reimplemented in <a class="el" href="classOpenSim_1_1Actuator.html#add73cf6b47c6fa6f17aaa52885e74dc6">OpenSim::Actuator</a>, and <a class="el" href="classOpenSim_1_1Coordinate.html#af1bad9c30f2ffa34651bdedece621cf1">OpenSim::Coordinate</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="add74863ab4a9bd7742834c894b7af2a8"></a><!-- doxytag: member="OpenSim::ModelComponent::getStateVariableYIndex" ref="add74863ab4a9bd7742834c894b7af2a8" args="(int index) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual int OpenSim::ModelComponent::getStateVariableYIndex </td>
+          <td>(</td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>index</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [inline, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Get the YIndex of a state variable allocated by this <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any object which can be added to a Model.">ModelComponent</a>. </p>
+<p>The default implementation throws an exception, so subclasses that allocate state variables must override it.</p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>index</em>&nbsp;</td><td>the index of the state variable (0 to <a class="el" href="classOpenSim_1_1ModelComponent.html#a1e0f42516d2b3d7fd54892ee24b80f61" title="Gets the number of &quot;Continuous&quot; state variables maintained by the ModelComponent...">getNumStateVariables()</a>-1) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Reimplemented in <a class="el" href="classOpenSim_1_1Schutte1993Muscle.html#a5cdb82e19ce3d7631893429a03877778">OpenSim::Schutte1993Muscle</a>, <a class="el" href="classOpenSim_1_1Thelen2003Muscle.html#af9de495db8b7d31134fc5f00e34c30f6">OpenSim::Thelen2003Muscle</a>, and <a class="el" href="classOpenSim_1_1Coordinate.html#ac585f6ff1519c024584c299ab2936cff">OpenSim::Coordinate</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a2af3e8933cda56820900f0c643881434"></a><!-- doxytag: member="OpenSim::ModelComponent::initState" ref="a2af3e8933cda56820900f0c643881434" args="(SimTK::State &amp;state) const =0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void OpenSim::ModelComponent::initState </td>
+          <td>(</td>
+          <td class="paramtype">SimTK::State &amp;&nbsp;</td>
+          <td class="paramname"> <em>state</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [protected, pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>This is called after a SimTK System and State have been created for the <a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a>. </p>
+<p>It must be implementd to set initial values of state variables.</p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>state</em>&nbsp;</td><td>the State to initialize </td></tr>
@@ -275,28 +402,28 @@ Inheritance diagram for OpenSim::ModelComponent:</div>
   </dd>
 </dl>
 
-<p>Reimplemented in <a class="el" href="classOpenSim_1_1Ligament.html#a92fa7940f7feee808e16384c387803bf">OpenSim::Ligament</a>, <a class="el" href="classOpenSim_1_1Model.html#ac8c41fbcbea66c1f76309e50b6754ff2">OpenSim::Model</a>, <a class="el" href="classOpenSim_1_1Muscle.html#ac70e3f7427eff94fb4de385db34a9a46">OpenSim::Muscle</a>, <a class="el" href="classOpenSim_1_1BallJoint.html#a5e727bb8531304685f3b1162288e1c01">OpenSim::BallJoint</a>, <a class="el" href="classOpenSim_1_1Constraint.html#a4f7a6b2ca3d9baeea37505a417c3d591">OpenSim::Constraint</a>, <a class="el" href="classOpenSim_1_1EllipsoidJoint.html#a974730c91819bf75f8ad89d4a9560231">OpenSim::EllipsoidJoint</a>, <a class="el" href="classOpenSim_1_1FreeJoint.html#a781e02c6ad8daf63ffc4da968313656f">OpenSim::FreeJoint</a>, and <a class="el" href="classOpenSim_1_1Joint.html#a110b6874bf845567f4e24d9f39934d38">OpenSim::Joint</a>.</p>
+<p>Implemented in <a class="el" href="classOpenSim_1_1ConstantController.html#a060e976e318f72b81147198ab351df27">OpenSim::ConstantController</a>, <a class="el" href="classOpenSim_1_1Controller.html#a9863ab6048c214646656b3fd4281d68b">OpenSim::Controller</a>, <a class="el" href="classOpenSim_1_1ControlSetController.html#a8bdd38cd8d8e9bfbc81ca82241c4546a">OpenSim::ControlSetController</a>, <a class="el" href="classOpenSim_1_1ContactGeometry.html#afabf53193b22ee6fd71676111a5ef005">OpenSim::ContactGeometry</a>, <a class="el" href="classOpenSim_1_1Force.html#aeb5732cf7d2bc68675d0d92893e89897">OpenSim::Force</a>, <a class="el" href="classOpenSim_1_1GeometryPath.html#aaac045353768dac8ba05beb434f3c329">OpenSim::GeometryPath</a>, <a class="el" href="classOpenSim_1_1Ligament.html#a92fa7940f7feee808e16384c387803bf">OpenSim::Ligament</a>, <a class="el" href="classOpenSim_1_1LinearSpring.html#a1199f20e9c5154a618ef97e7564f8e02">OpenSim::LinearSpring</a>, <a class="el" href="classOpenSim_1_1Model.html#ac8c41fbcbea66c1f76309e50b6754ff2">OpenSim::Model</a>, <a class="el" href="classOpenSim_1_1Muscle.html#ac70e3f7427eff94fb4de385db34a9a46">OpenSim::Muscle</a>, <a class="el" href="classOpenSim_1_1BallJoint.html#a5e727bb8531304685f3b1162288e1c01">OpenSim::BallJoint</a>, <a class="el" href="classOpenSim_1_1Body.html#a851bd28a71d3dcda3e3e4440be7b851e">OpenSim::Body</a>, <a class="el" href="classOpenSim_1_1Constraint.html#a91918289b14fafc6dcba7d0fdb2d2c9e">OpenSim::Constraint</a>, <a class="el" href="classOpenSim_1_1Coordinate.html#a474a7c52de805e64fc41a08568969c7e">OpenSim::Coordinate</a>, <a class="el" href="classOpenSim_1_1EllipsoidJoint.html#a974730c91819bf75f8ad89d4a9560231">OpenSim::EllipsoidJoint</a>, <a class="el" href="classOpenSim_1_1FreeJoint.html#a781e02c6ad8daf63ffc4da968313656f">OpenSim::FreeJoint</a>, <a class="el" href="classOpenSim_1_1Joint.html#a110b6874bf845567f4e24d9f39934d38">OpenSim::Joint</a>, <a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html#a423cc53581f48bacc6ee3aae30a2eb21">OpenSim::RollingOnSurfaceConstraint</a>, and <a class="el" href="classOpenSim_1_1CorrectionController.html#a47e867c6621f2beb37a54a2eb22a9d67">OpenSim::CorrectionController</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a5ddcaa711b47fe9e8e5653a5611ef8ee"></a><!-- doxytag: member="OpenSim::ModelComponent::setDefaultsFromState" ref="a5ddcaa711b47fe9e8e5653a5611ef8ee" args="(const SimTK::State &amp;state)" -->
+<a class="anchor" id="a0e600cbcb3f90abfa53c6b7afa3cdf30"></a><!-- doxytag: member="OpenSim::ModelComponent::setDefaultsFromState" ref="a0e600cbcb3f90abfa53c6b7afa3cdf30" args="(const SimTK::State &amp;state)=0" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void OpenSim::ModelComponent::setDefaultsFromState </td>
+          <td class="memname">virtual void OpenSim::ModelComponent::setDefaultsFromState </td>
           <td>(</td>
           <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
           <td class="paramname"> <em>state</em></td>
           <td>&nbsp;)&nbsp;</td>
-          <td><code> [protected, virtual]</code></td>
+          <td><code> [protected, pure virtual]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
 <p><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> all default values for this object to match those in a specified State. </p>
-<p>It should be overridden to set any default values defined by each subclass.</p>
+<p>It must be implemented/overriden to set any default values defined by each subclass.</p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>state</em>&nbsp;</td><td>the State from which to take values that should become the defaults for this object </td></tr>
@@ -304,40 +431,65 @@ Inheritance diagram for OpenSim::ModelComponent:</div>
   </dd>
 </dl>
 
-<p>Reimplemented in <a class="el" href="classOpenSim_1_1Model.html#aa96b82aa9f73b89e9b3fde477174cd6a">OpenSim::Model</a>, <a class="el" href="classOpenSim_1_1Muscle.html#a587c5c301b89aa859fb3a1dc478d3384">OpenSim::Muscle</a>, <a class="el" href="classOpenSim_1_1BallJoint.html#a26f080845ba3b294a5ded50c84afc734">OpenSim::BallJoint</a>, <a class="el" href="classOpenSim_1_1Constraint.html#a6c0e00efd115ce1e2fe62c558e483462">OpenSim::Constraint</a>, <a class="el" href="classOpenSim_1_1EllipsoidJoint.html#aa72d41fb6a978f82dfc5f71a36758731">OpenSim::EllipsoidJoint</a>, <a class="el" href="classOpenSim_1_1FreeJoint.html#a9919ece40776184bc18b0c71aa068fea">OpenSim::FreeJoint</a>, and <a class="el" href="classOpenSim_1_1Joint.html#a0d996c6da5b33d2e544635e70975014a">OpenSim::Joint</a>.</p>
+<p>Implemented in <a class="el" href="classOpenSim_1_1Controller.html#aec559ad1f64e7f0e5cc6479681ea5022">OpenSim::Controller</a>, <a class="el" href="classOpenSim_1_1ContactGeometry.html#ae5a94967de73f26aadafa8b3b1422141">OpenSim::ContactGeometry</a>, <a class="el" href="classOpenSim_1_1Force.html#a03d984c26f84c5375c17f961bb64366b">OpenSim::Force</a>, <a class="el" href="classOpenSim_1_1GeometryPath.html#afa3ceb74ea7e6b94fec1b8f1674b76c9">OpenSim::GeometryPath</a>, <a class="el" href="classOpenSim_1_1Model.html#aa96b82aa9f73b89e9b3fde477174cd6a">OpenSim::Model</a>, <a class="el" href="classOpenSim_1_1Muscle.html#a587c5c301b89aa859fb3a1dc478d3384">OpenSim::Muscle</a>, <a class="el" href="classOpenSim_1_1BallJoint.html#a26f080845ba3b294a5ded50c84afc734">OpenSim::BallJoint</a>, <a class="el" href="classOpenSim_1_1Body.html#a2e34f3e9d507ff189963f54dfb837e31">OpenSim::Body</a>, <a class="el" href="classOpenSim_1_1Constraint.html#a6c0e00efd115ce1e2fe62c558e483462">OpenSim::Constraint</a>, <a class="el" href="classOpenSim_1_1Coordinate.html#aa49d1266fd7e9694e23c5e42e37d158e">OpenSim::Coordinate</a>, <a class="el" href="classOpenSim_1_1EllipsoidJoint.html#aa72d41fb6a978f82dfc5f71a36758731">OpenSim::EllipsoidJoint</a>, <a class="el" href="classOpenSim_1_1FreeJoint.html#a9919ece40776184bc18b0c71aa068fea">OpenSim::FreeJoint</a>, <a class="el" href="classOpenSim_1_1Joint.html#a0d996c6da5b33d2e544635e70975014a">OpenSim::Joint</a>, and <a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html#a031b3ada9f45472c89c79793a7490e45">OpenSim::RollingOnSurfaceConstraint</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="abc4af829ab41e910d1c8ac70f9de9713"></a><!-- doxytag: member="OpenSim::ModelComponent::setModel" ref="abc4af829ab41e910d1c8ac70f9de9713" args="(Model &amp;model)" -->
+<a class="anchor" id="ad494dc59a54b476de574ee9388e771c8"></a><!-- doxytag: member="OpenSim::ModelComponent::setStateVariable" ref="ad494dc59a54b476de574ee9388e771c8" args="(SimTK::State &amp;state, int index, double value) const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void OpenSim::ModelComponent::setModel </td>
+          <td class="memname">void OpenSim::ModelComponent::setStateVariable </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>model</em></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td><code> [protected]</code></td>
+          <td class="paramtype">SimTK::State &amp;&nbsp;</td>
+          <td class="paramname"> <em>state</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&nbsp;</td>
+          <td class="paramname"> <em>value</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td> const<code> [inline]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
-<p><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the <a class="el" href="classOpenSim_1_1Model.html" title="A base class that specifies the interface for a musculoskeletal model.">Model</a> this object is part of. </p>
+<p><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the value of a state variable allocated by this <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any object which can be added to a Model.">ModelComponent</a>. </p>
+<p>The default implementation throws an exception, so subclasses that allocate state variables must override it.</p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>state</em>&nbsp;</td><td>the State for which to set the value </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>index</em>&nbsp;</td><td>the index of the state variable (0 to <a class="el" href="classOpenSim_1_1ModelComponent.html#a1e0f42516d2b3d7fd54892ee24b80f61" title="Gets the number of &quot;Continuous&quot; state variables maintained by the ModelComponent...">getNumStateVariables()</a>-1) </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>value</em>&nbsp;</td><td>the value to set </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p>Reimplemented in <a class="el" href="classOpenSim_1_1Actuator.html#a87754808f812cb071ce25d29bb2fb91f">OpenSim::Actuator</a>.</p>
+<p>Reimplemented in <a class="el" href="classOpenSim_1_1Actuator.html#a4662fa9c964b197a4a58b0b60ca8cf6e">OpenSim::Actuator</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a67713d597327cd5b6d8db6caab1a5202"></a><!-- doxytag: member="OpenSim::ModelComponent::setupFromXML" ref="a67713d597327cd5b6d8db6caab1a5202" args="()" -->
+<a class="anchor" id="a2b2b125ac81cae0067a87b080499b43f"></a><!-- doxytag: member="OpenSim::ModelComponent::setup" ref="a2b2b125ac81cae0067a87b080499b43f" args="(Model &amp;model)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void OpenSim::ModelComponent::setupFromXML </td>
+          <td class="memname">void OpenSim::ModelComponent::setup </td>
           <td>(</td>
-          <td class="paramname"></td>
+          <td class="paramtype"><a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>model</em></td>
           <td>&nbsp;)&nbsp;</td>
           <td><code> [protected, virtual]</code></td>
         </tr>
@@ -345,10 +497,10 @@ Inheritance diagram for OpenSim::ModelComponent:</div>
 </div>
 <div class="memdoc">
 
-<p>This is called after the <a class="el" href="classOpenSim_1_1Model.html" title="A base class that specifies the interface for a musculoskeletal model.">Model</a> has been constructed from an XML file. </p>
-<p>It may be overridden to do required initialization, such as looking up references to other objects in the <a class="el" href="classOpenSim_1_1Model.html" title="A base class that specifies the interface for a musculoskeletal model.">Model</a> (which might not have existed yet when this object was created). </p>
+<p>This is called after the <a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a> has been constructed from an XML file. </p>
+<p><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the <a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a> this object is part of and then so do required initialization, such as looking up references to other objects in the <a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a> (which might not have existed yet when this object was instantiated). Override this method as necessary but always call the parent setup to ensure all members (belonging to parent and child) are initialized. </p>
 
-<p>Reimplemented in <a class="el" href="classOpenSim_1_1Model.html#a7facb795d208aa12d348a4ca84366e4c">OpenSim::Model</a>, and <a class="el" href="classOpenSim_1_1PrescribedForce.html#a62503a615cd90928906d3b6ddb383a0f">OpenSim::PrescribedForce</a>.</p>
+<p>Reimplemented in <a class="el" href="classOpenSim_1_1ContDerivMuscle.html#ab194663bf006566b0af926ea209117c3">OpenSim::ContDerivMuscle</a>, <a class="el" href="classOpenSim_1_1CoordinateActuator.html#ad0725c449b2ae6641aa03e7726a54f90">OpenSim::CoordinateActuator</a>, <a class="el" href="classOpenSim_1_1CoordinateLimitForce.html#a76ae9b1429e01938740025d530739cca">OpenSim::CoordinateLimitForce</a>, <a class="el" href="classOpenSim_1_1Delp1990Muscle.html#afce1ac256305ba725c7ed9a08f0b5785">OpenSim::Delp1990Muscle</a>, <a class="el" href="classOpenSim_1_1LineActuator.html#a38fb770e7dfd05c5cd42dd7a06148521">OpenSim::LineActuator</a>, <a class="el" href="classOpenSim_1_1PointActuator.html#af60c725e818b7d9e524e7e169f4a0761">OpenSim::PointActuator</a>, <a class="el" href="classOpenSim_1_1Schutte1993Muscle.html#a1b6aae643140fb1b672a5db8477563b1">OpenSim::Schutte1993Muscle</a>, <a class="el" href="classOpenSim_1_1SpringGeneralizedForce.html#ab20e2bee1828d95c55c33560903d472c">OpenSim::SpringGeneralizedForce</a>, <a class="el" href="classOpenSim_1_1Thelen2003Muscle.html#adbb43623aff555b1cb9acd0a7cfe7e7c">OpenSim::Thelen2003Muscle</a>, <a class="el" href="classOpenSim_1_1TorqueActuator.html#a95fccb15919ffe49b08748878f2a1bb1">OpenSim::TorqueActuator</a>, <a class="el" href="classOpenSim_1_1ConstantController.html#a76cd34badcde1ca018c84d7f0bb18296">OpenSim::ConstantController</a>, <a class="el" href="classOpenSim_1_1Controller.html#a39780e52e8c7f163e1de2058e0f371eb">OpenSim::Controller</a>, <a class="el" href="classOpenSim_1_1ControlSetController.html#ad6e88679fdd2e650c471614db27e22c1">OpenSim::ControlSetController</a>, <a class="el" href="classOpenSim_1_1Actuator.html#aede773902c72467754557f4caf853b51">OpenSim::Actuator</a>, <a class="el" href="classOpenSim_1_1BushingForce.html#a5dab74a61572f32cc6a2ad886881760d">OpenSim::BushingForce</a>, <a class="el" href="classOpenSim_1_1ContactGeometry.html#a6a07fb3ec81a3fe52981d01c180edff0">OpenSim::ContactGeometry</a>, <a class="el" href="classOpenSim_1_1Force.html#a31983c29e0fe68b26da4f22e96ca3e59">OpenSim::Force</a>, <a class="el" href="classOpenSim_1_1GeometryPath.html#a18c7c2c06a6ad3a01cf74477d37ea2c4">OpenSim::GeometryPath</a>, <a class="el" href="classOpenSim_1_1Ligament.html#aa9d9dc38bf3ce8e28b3bae184afd18f0">OpenSim::Ligament</a>, <a class="el" href="classOpenSim_1_1LinearSpring.html#ad2225c037a6dd964f057aab00d3c905f">OpenSim::LinearSpring</a>, <a class="el" href="classOpenSim_1_1Muscle.html#a9b59cc7e366739e3393b07d8e71b77a5">OpenSim::Muscle</a>, <a class="el" href="classOpenSim_1_1PointToPointSpring.html#a7f05e412b63aaf62fb852c2365c6eb98">OpenSim::PointToPointSpring</a>, <a class="el" href="classOpenSim_1_1PrescribedForce.html#ac015cdcd174dda45f7b4ee77a543d9a2">OpenSim::PrescribedForce</a>, <a class="el" href="classOpenSim_1_1BallJoint.html#a09696c67156f5a6c8c95fdb57b9a1b8b">OpenSim::BallJoint</a>, <a class="el" href="classOpenSim_1_1Body.html#a7615d14abb43145ff785a25525e82088">OpenSim::Body</a>, <a class="el" href="classOpenSim_1_1Constraint.html#aa4d4268cd1ac644033013b45cce43a48">OpenSim::Constraint</a>, <a class="el" href="classOpenSim_1_1Coordinate.html#a727fb9044179780ee5873d2c885676ba">OpenSim::Coordinate</a>, <a class="el" href="classOpenSim_1_1CoordinateCouplerConstraint.html#a51eb35fd8542216697c89aa30911ea11">OpenSim::CoordinateCouplerConstraint</a>, <a class="el" href="classOpenSim_1_1CustomJoint.html#aeb6d202dc12716c5dabdb271374d6a85">OpenSim::CustomJoint</a>, <a class="el" href="classOpenSim_1_1EllipsoidJoint.html#a36b63f6cf590df2b638288365158a7f6">OpenSim::EllipsoidJoint</a>, <a class="el" href="classOpenSim_1_1FreeJoint.html#a93014672fb59ee302e78340463928f3d">OpenSim::FreeJoint</a>, <a class="el" href="classOpenSim_1_1Joint.html#af4768ce3336606c9c33753bbb789caf5">OpenSim::Joint</a>, <a class="el" href="classOpenSim_1_1PinJoint.html#abc4baab6bc871481e328ff5ada7b9e7e">OpenSim::PinJoint</a>, <a class="el" href="classOpenSim_1_1PointConstraint.html#aed0ac9f468f2e198cf14af93ed979e5e">OpenSim::PointConstraint</a>, <a class="el" href="classOpenSim_1_1PointOnLineConstraint.html#a99663548a3ab6a56cb7e8331551deace">OpenSim::PointOnLineConstraint</a>, <a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html#af4ca60ae74304b7e1245563d967d765b">OpenSim::RollingOnSurfaceConstraint</a>, <a class="el" href="classOpenSim_1_1SliderJoint.html#aa79ef940e32ab899a5812526f2df5e7d">OpenSim::SliderJoint</a>, <a class="el" href="classOpenSim_1_1UnilateralConstraint.html#a4c4bbac65b02f075d0764adb8c9eda43">OpenSim::UnilateralConstraint</a>, <a class="el" href="classOpenSim_1_1WeldConstraint.html#ab4d0d223ebed573aca15ce18dbfd8414">OpenSim::WeldConstraint</a>, <a class="el" href="classOpenSim_1_1WeldJoint.html#ab873752be5014b64c5ff8fc01c937324">OpenSim::WeldJoint</a>, <a class="el" href="classOpenSim_1_1CMC.html#ab7fe811d7ded7514dfacece738afe11b">OpenSim::CMC</a>, and <a class="el" href="classOpenSim_1_1CorrectionController.html#ac92043170fc2fb6ca41278c2ff16be63">OpenSim::CorrectionController</a>.</p>
 
 </div>
 </div>
@@ -367,7 +519,7 @@ Inheritance diagram for OpenSim::ModelComponent:</div>
 </div>
 <div class="memdoc">
 
-<p>Get a modifiable reference to the <a class="el" href="classOpenSim_1_1Model.html" title="A base class that specifies the interface for a musculoskeletal model.">Model</a> this object is part of. </p>
+<p>Get a modifiable reference to the <a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a> this object is part of. </p>
 
 </div>
 </div>
@@ -404,7 +556,7 @@ Inheritance diagram for OpenSim::ModelComponent:</div>
 <li>OpenSim/Simulation/Model/ModelComponent.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Feb 7 02:15:18 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:37:10 2010 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

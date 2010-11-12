@@ -51,6 +51,7 @@ Inheritance diagram for OpenSim::ConstraintSet:</div>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ConstraintSet.html#a191a5d363ac763f6b77a9facbdeebce7">ConstraintSet</a> ()</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Default constructor of a <a class="el" href="classOpenSim_1_1ConstraintSet.html" title="A class for holding a set of constraints.">ConstraintSet</a>.  <a href="#a191a5d363ac763f6b77a9facbdeebce7"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ConstraintSet.html#ab2e33c9b4fde394383315920e024599e">ConstraintSet</a> (<a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;model)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ConstraintSet.html#af5c5f80539fb4848b6c48a6de89b29bf">ConstraintSet</a> (<a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;model, const std::string &amp;aFileName, bool aUpdateFromXMLNode=true)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ConstraintSet.html#a4619e564d2b7df614d9f7a0f54d3661f">ConstraintSet</a> (const <a class="el" href="classOpenSim_1_1ConstraintSet.html">ConstraintSet</a> &amp;aAbsConstraintSet)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Copy constructor of a <a class="el" href="classOpenSim_1_1ConstraintSet.html" title="A class for holding a set of constraints.">ConstraintSet</a>.  <a href="#a4619e564d2b7df614d9f7a0f54d3661f"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ConstraintSet.html#a98bc701958246a31787955d11ab2bf18">~ConstraintSet</a> (void)</td></tr>
@@ -59,8 +60,6 @@ Inheritance diagram for OpenSim::ConstraintSet:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Post construction initialization.  <a href="#a8fa8b9319163997315cf3f74b9e035c3"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1ConstraintSet.html">ConstraintSet</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ConstraintSet.html#a409be1e210399716bc941ad1c4c2150c">operator=</a> (const <a class="el" href="classOpenSim_1_1ConstraintSet.html">ConstraintSet</a> &amp;aAbsConstraintSet)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Assignment operator.  <a href="#a409be1e210399716bc941ad1c4c2150c"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1ConstraintSet.html">ConstraintSet</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ConstraintSet.html#a6c1cb567918234e8b6ff89416bf2fad0">copyFrom</a> (const <a class="el" href="classOpenSim_1_1ConstraintSet.html">ConstraintSet</a> &amp;aConstraintSet, <a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;aModel)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Functional equivalent to = operator wit the added feature of associating the resulting <a class="el" href="classOpenSim_1_1ConstraintSet.html" title="A class for holding a set of constraints.">ConstraintSet</a> with a new model.  <a href="#a6c1cb567918234e8b6ff89416bf2fad0"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ConstraintSet.html#a20229278c821510b3e316df6457c31e9">scale</a> (const <a class="el" href="classOpenSim_1_1ScaleSet.html">ScaleSet</a> &amp;aScaleSet)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Anything that will be applied to all Constraints.  <a href="#a20229278c821510b3e316df6457c31e9"></a><br/></td></tr>
 </table>
@@ -99,6 +98,39 @@ Inheritance diagram for OpenSim::ConstraintSet:</div>
           <td class="paramname"> <em>model</em></td>
           <td>&nbsp;)&nbsp;</td>
           <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="af5c5f80539fb4848b6c48a6de89b29bf"></a><!-- doxytag: member="OpenSim::ConstraintSet::ConstraintSet" ref="af5c5f80539fb4848b6c48a6de89b29bf" args="(Model &amp;model, const std::string &amp;aFileName, bool aUpdateFromXMLNode=true)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">OpenSim::ConstraintSet::ConstraintSet </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>model</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&nbsp;</td>
+          <td class="paramname"> <em>aFileName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&nbsp;</td>
+          <td class="paramname"> <em>aUpdateFromXMLNode</em> = <code>true</code></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td><code> [inline]</code></td>
         </tr>
       </table>
 </div>
@@ -147,36 +179,6 @@ Inheritance diagram for OpenSim::ConstraintSet:</div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="a6c1cb567918234e8b6ff89416bf2fad0"></a><!-- doxytag: member="OpenSim::ConstraintSet::copyFrom" ref="a6c1cb567918234e8b6ff89416bf2fad0" args="(const ConstraintSet &amp;aConstraintSet, Model &amp;aModel)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classOpenSim_1_1ConstraintSet.html">ConstraintSet</a> &amp; ConstraintSet::copyFrom </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classOpenSim_1_1ConstraintSet.html">ConstraintSet</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>aConstraintSet</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>aModel</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Functional equivalent to = operator wit the added feature of associating the resulting <a class="el" href="classOpenSim_1_1ConstraintSet.html" title="A class for holding a set of constraints.">ConstraintSet</a> with a new model. </p>
-<dl class="return"><dt><b>Returns:</b></dt><dd>Reference to this object. </dd></dl>
-
-</div>
-</div>
 <a class="anchor" id="a409be1e210399716bc941ad1c4c2150c"></a><!-- doxytag: member="OpenSim::ConstraintSet::operator=" ref="a409be1e210399716bc941ad1c4c2150c" args="(const ConstraintSet &amp;aAbsConstraintSet)" -->
 <div class="memitem">
 <div class="memproto">
@@ -185,7 +187,7 @@ Inheritance diagram for OpenSim::ConstraintSet:</div>
           <td class="memname"><a class="el" href="classOpenSim_1_1ConstraintSet.html">ConstraintSet</a> &amp; ConstraintSet::operator= </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classOpenSim_1_1ConstraintSet.html">ConstraintSet</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>aAbsConstraintSet</em></td>
+          <td class="paramname"> <em>aConstraintSet</em></td>
           <td>&nbsp;)&nbsp;</td>
           <td></td>
         </tr>
@@ -217,7 +219,7 @@ Inheritance diagram for OpenSim::ConstraintSet:</div>
 <div class="memdoc">
 
 <p>Anything that will be applied to all Constraints. </p>
-<p><a class="el" href="classOpenSim_1_1Scale.html">Scale</a> joint set by a set of scale factors </p>
+<p><a class="el" href="classOpenSim_1_1Scale.html">Scale</a> contraint set by a set of scale factors </p>
 
 </div>
 </div>
@@ -231,13 +233,15 @@ Inheritance diagram for OpenSim::ConstraintSet:</div>
           <td class="paramtype"><a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;&nbsp;</td>
           <td class="paramname"> <em>aModel</em></td>
           <td>&nbsp;)&nbsp;</td>
-          <td></td>
+          <td><code> [virtual]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
 <p>Post construction initialization. </p>
+
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1ModelComponentSet.html#ab2aafdaf3a166163572bcc40c641b21b">OpenSim::ModelComponentSet&lt; Constraint &gt;</a>.</p>
 
 </div>
 </div>
@@ -246,7 +250,7 @@ Inheritance diagram for OpenSim::ConstraintSet:</div>
 <li>OpenSim/Simulation/Model/ConstraintSet.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Feb 7 02:15:17 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:37:08 2010 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

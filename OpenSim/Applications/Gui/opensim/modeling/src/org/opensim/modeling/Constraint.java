@@ -34,7 +34,7 @@ public class Constraint extends ModelComponent {
   }
 
   public OpenSimObject copy() {
-    long cPtr = opensimModelJNI.Constraint_copy(swigCPtr, this);
+    long cPtr = opensimModelJNI.Constraint_copy__SWIG_0(swigCPtr, this);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
@@ -60,6 +60,23 @@ public class Constraint extends ModelComponent {
 
   public void scale(ScaleSet aScaleSet) {
     opensimModelJNI.Constraint_scale(swigCPtr, this, ScaleSet.getCPtr(aScaleSet), aScaleSet);
+  }
+
+  public static boolean isKindOf(String type) {
+    return opensimModelJNI.Constraint_isKindOf(type);
+  }
+
+  public boolean isA(String type) {
+    return opensimModelJNI.Constraint_isA(swigCPtr, this, type);
+  }
+
+  public static Constraint safeDownCast(OpenSimObject obj) {
+    long cPtr = opensimModelJNI.Constraint_safeDownCast(OpenSimObject.getCPtr(obj), obj);
+    return (cPtr == 0) ? null : new Constraint(cPtr, false);
+  }
+
+  public void copy(OpenSimObject aObject) {
+    opensimModelJNI.Constraint_copy__SWIG_1(swigCPtr, this, OpenSimObject.getCPtr(aObject), aObject);
   }
 
 }

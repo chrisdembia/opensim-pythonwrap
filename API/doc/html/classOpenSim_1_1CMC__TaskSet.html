@@ -27,7 +27,7 @@
   </div>
 </div>
 <div class="contents">
-<h1>OpenSim::CMC_TaskSet Class Reference</h1><!-- doxytag: class="OpenSim::CMC_TaskSet" --><!-- doxytag: inherits="Set&lt; CMC_Task &gt;" -->
+<h1>OpenSim::CMC_TaskSet Class Reference</h1><!-- doxytag: class="OpenSim::CMC_TaskSet" --><!-- doxytag: inherits="Set&lt; TrackingTask &gt;" -->
 <p>An class for holding and managing a set of tasks.  
 <a href="#_details">More...</a></p>
 
@@ -38,8 +38,8 @@ Inheritance diagram for OpenSim::CMC_TaskSet:</div>
  <div class="center">
   <img src="classOpenSim_1_1CMC__TaskSet.gif" usemap="#OpenSim::CMC_TaskSet_map" alt=""/>
   <map id="OpenSim::CMC_TaskSet_map" name="OpenSim::CMC_TaskSet_map">
-<area href="classOpenSim_1_1Set.html" alt="OpenSim::Set&lt; CMC_Task &gt;" shape="rect" coords="0,56,173,80"/>
-<area href="classOpenSim_1_1Object.html" alt="OpenSim::Object" shape="rect" coords="0,0,173,24"/>
+<area href="classOpenSim_1_1Set.html" alt="OpenSim::Set&lt; TrackingTask &gt;" shape="rect" coords="0,56,186,80"/>
+<area href="classOpenSim_1_1Object.html" alt="OpenSim::Object" shape="rect" coords="0,0,186,24"/>
 </map>
  </div>
 </div>
@@ -56,6 +56,7 @@ Inheritance diagram for OpenSim::CMC_TaskSet:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the model for which the tracking is performed.  <a href="#a1ce763e694fef989d68e2a6f553ff784"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Model.html">Model</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CMC__TaskSet.html#af79d815347209dc75556367cce46a776">getModel</a> () const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the model for which the tracking is performed.  <a href="#af79d815347209dc75556367cce46a776"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const std::string &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CMC__TaskSet.html#ac10ed2219d29a834a4d354a0e475f5b0">getDataFileName</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CMC__TaskSet.html#abd2cefa5ec16853867dc4f8e705bd16f">setFunctions</a> (<a class="el" href="classOpenSim_1_1FunctionSet.html">FunctionSet</a> &amp;aFuncSet)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the functions for the tasks.  <a href="#abd2cefa5ec16853867dc4f8e705bd16f"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CMC__TaskSet.html#a26478387af91112fc7ae697b3ca7f533">setFunctionsForVelocity</a> (<a class="el" href="classOpenSim_1_1FunctionSet.html">FunctionSet</a> &amp;aFuncSet)</td></tr>
@@ -102,7 +103,7 @@ Inheritance diagram for OpenSim::CMC_TaskSet:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Compute the acceleration(s) for each task.  <a href="#a92791f7d03be72c2f87530504fce0368"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Model.html">Model</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CMC__TaskSet.html#a11dddc55da111e8ba8d3e51f93a0e846">_model</a></td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Model.html" title="A base class that specifies the interface for a musculoskeletal model.">Model</a> for which the tracking is conducted.  <a href="#a11dddc55da111e8ba8d3e51f93a0e846"></a><br/></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a> for which the tracking is conducted.  <a href="#a11dddc55da111e8ba8d3e51f93a0e846"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Array.html">Array</a>&lt; double &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CMC__TaskSet.html#a54a346c95c5310ae32d43e108ce90fcd">_pTask</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Array.html">Array</a> of task positions.  <a href="#a54a346c95c5310ae32d43e108ce90fcd"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Array.html">Array</a>&lt; double &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CMC__TaskSet.html#ac5514b4b8d3e2fd0b4fe186493a31bed">_vTask</a></td></tr>
@@ -129,6 +130,10 @@ Inheritance diagram for OpenSim::CMC_TaskSet:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Array.html">Array</a> of desired accelerations.  <a href="#a39e454175d1f46bba83bc49ab8e86c8b"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Array.html">Array</a>&lt; double &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CMC__TaskSet.html#ab8b3552ca2476a99f5c52453d6c2c4e5">_a</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Array.html">Array</a> of accelerations.  <a href="#ab8b3552ca2476a99f5c52453d6c2c4e5"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyStr.html">PropertyStr</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CMC__TaskSet.html#a2e2eb245b81f0b5649ac3c9013e245df">_dataFileNameProp</a></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">In case there're tracking targets loaded from file, the filename goes here and the column names go into individual targets.  <a href="#a2e2eb245b81f0b5649ac3c9013e245df"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::string &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CMC__TaskSet.html#af5519253be2eacddebc4d3bbe23f69e7">_dataFileName</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1FunctionSet.html">FunctionSet</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CMC__TaskSet.html#a974af6c0403dcfba454feeaab51b678d">_functions</a></td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
 <p>An class for holding and managing a set of tasks. </p>
@@ -153,7 +158,7 @@ Inheritance diagram for OpenSim::CMC_TaskSet:</div>
 <p>Construct a default task set for a specified model. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>aModel</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Model.html" title="A base class that specifies the interface for a musculoskeletal model.">Model</a> for which tasks will be set. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>aModel</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a> for which tasks will be set. </td></tr>
   </table>
   </dd>
 </dl>
@@ -375,6 +380,23 @@ Inheritance diagram for OpenSim::CMC_TaskSet:</div>
 
 <p>Get the accelerations. </p>
 <dl class="return"><dt><b>Returns:</b></dt><dd><a class="el" href="classOpenSim_1_1Array.html">Array</a> of accelerations. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ac10ed2219d29a834a4d354a0e475f5b0"></a><!-- doxytag: member="OpenSim::CMC_TaskSet::getDataFileName" ref="ac10ed2219d29a834a4d354a0e475f5b0" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string&amp; OpenSim::CMC_TaskSet::getDataFileName </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
 
 </div>
 </div>
@@ -794,7 +816,7 @@ Inheritance diagram for OpenSim::CMC_TaskSet:</div>
 <p>The model is set for all tasks that are currently being managed by this set.</p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>aModel</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Model.html" title="A base class that specifies the interface for a musculoskeletal model.">Model</a>. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>aModel</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a>. </td></tr>
   </table>
   </dd>
 </dl>
@@ -844,6 +866,47 @@ Inheritance diagram for OpenSim::CMC_TaskSet:</div>
 <div class="memdoc">
 
 <p><a class="el" href="classOpenSim_1_1Array.html">Array</a> of task accelerations. </p>
+
+</div>
+</div>
+<a class="anchor" id="af5519253be2eacddebc4d3bbe23f69e7"></a><!-- doxytag: member="OpenSim::CMC_TaskSet::_dataFileName" ref="af5519253be2eacddebc4d3bbe23f69e7" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string&amp; <a class="el" href="classOpenSim_1_1CMC__TaskSet.html#af5519253be2eacddebc4d3bbe23f69e7">OpenSim::CMC_TaskSet::_dataFileName</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a2e2eb245b81f0b5649ac3c9013e245df"></a><!-- doxytag: member="OpenSim::CMC_TaskSet::_dataFileNameProp" ref="a2e2eb245b81f0b5649ac3c9013e245df" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classOpenSim_1_1PropertyStr.html">PropertyStr</a> <a class="el" href="classOpenSim_1_1CMC__TaskSet.html#a2e2eb245b81f0b5649ac3c9013e245df">OpenSim::CMC_TaskSet::_dataFileNameProp</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>In case there're tracking targets loaded from file, the filename goes here and the column names go into individual targets. </p>
+
+</div>
+</div>
+<a class="anchor" id="a974af6c0403dcfba454feeaab51b678d"></a><!-- doxytag: member="OpenSim::CMC_TaskSet::_functions" ref="a974af6c0403dcfba454feeaab51b678d" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classOpenSim_1_1FunctionSet.html">FunctionSet</a> <a class="el" href="classOpenSim_1_1CMC__TaskSet.html#a974af6c0403dcfba454feeaab51b678d">OpenSim::CMC_TaskSet::_functions</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
 
 </div>
 </div>
@@ -903,7 +966,7 @@ Inheritance diagram for OpenSim::CMC_TaskSet:</div>
 </div>
 <div class="memdoc">
 
-<p><a class="el" href="classOpenSim_1_1Model.html" title="A base class that specifies the interface for a musculoskeletal model.">Model</a> for which the tracking is conducted. </p>
+<p><a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a> for which the tracking is conducted. </p>
 
 </div>
 </div>
@@ -1017,7 +1080,7 @@ Inheritance diagram for OpenSim::CMC_TaskSet:</div>
 <li>OpenSim/Tools/CMC_TaskSet.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Feb 7 02:15:20 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:37:14 2010 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

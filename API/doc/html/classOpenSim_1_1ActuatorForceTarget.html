@@ -52,7 +52,7 @@ Inheritance diagram for OpenSim::ActuatorForceTarget:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Constructor.  <a href="#a6d96b5d651806c439997793fd566ab52"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActuatorForceTarget.html#ad3c6b465aa7f289b9be636714579c37b">setStressTermWeight</a> (double aWeight)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the weight of the actuator force stress term in the performance criterion.  <a href="#ad3c6b465aa7f289b9be636714579c37b"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActuatorForceTarget.html#ac63094fd0c590d73809391258f3556b9">prepareToOptimize</a> (const SimTK::State &amp;s, double *x)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActuatorForceTarget.html#aba2f68014478257b33fa782263af12d4">prepareToOptimize</a> (SimTK::State &amp;s, double *x)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActuatorForceTarget.html#a2c89dc508bc8f525fdfff7d8f39dbd4a">objectiveFunc</a> (const SimTK::Vector &amp;aF, const bool new_coefficients, SimTK::Real &amp;rP) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActuatorForceTarget.html#aa89953eec5920c3b048bbc2a23174e4e">gradientFunc</a> (const SimTK::Vector &amp;x, const bool new_coefficients, SimTK::Vector &amp;gradient) const </td></tr>
 </table>
@@ -187,14 +187,14 @@ Inheritance diagram for OpenSim::ActuatorForceTarget:</div>
 
 </div>
 </div>
-<a class="anchor" id="ac63094fd0c590d73809391258f3556b9"></a><!-- doxytag: member="OpenSim::ActuatorForceTarget::prepareToOptimize" ref="ac63094fd0c590d73809391258f3556b9" args="(const SimTK::State &amp;s, double *x)" -->
+<a class="anchor" id="aba2f68014478257b33fa782263af12d4"></a><!-- doxytag: member="OpenSim::ActuatorForceTarget::prepareToOptimize" ref="aba2f68014478257b33fa782263af12d4" args="(SimTK::State &amp;s, double *x)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">bool ActuatorForceTarget::prepareToOptimize </td>
           <td>(</td>
-          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
+          <td class="paramtype">SimTK::State &amp;&nbsp;</td>
           <td class="paramname"> <em>s</em>, </td>
         </tr>
         <tr>
@@ -212,7 +212,7 @@ Inheritance diagram for OpenSim::ActuatorForceTarget:</div>
 </div>
 <div class="memdoc">
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1OptimizationTarget.html#ad338b056ca2b72d56034eb75c4d1ad6e">OpenSim::OptimizationTarget</a>.</p>
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1OptimizationTarget.html#a50a0ba65df75d0043904a453804c8e41">OpenSim::OptimizationTarget</a>.</p>
 
 </div>
 </div>
@@ -247,7 +247,7 @@ Inheritance diagram for OpenSim::ActuatorForceTarget:</div>
 <li>OpenSim/Tools/ActuatorForceTarget.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Feb 7 02:15:20 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:37:14 2010 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

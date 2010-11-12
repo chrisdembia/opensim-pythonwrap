@@ -46,6 +46,7 @@ import javax.swing.JPanel;
 import org.jdesktop.layout.GroupLayout;
 import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
+import org.opensim.modeling.Analysis;
 import org.opensim.modeling.BodySet;
 import org.opensim.modeling.ControlSet;
 import org.opensim.modeling.Model;
@@ -53,7 +54,6 @@ import org.opensim.modeling.OpenSimObject;
 import org.opensim.modeling.Storage;
 import org.opensim.view.motions.MotionsDB;
 import org.opensim.swingui.FileTextFieldAndChooser;
-import org.opensim.tracking.AbstractToolModelWithExternalLoads;
 import org.opensim.view.FileTextFieldAndChooserWithEdit;
 import org.opensim.view.excitationEditor.ExcitationEditorJFrame;
 
@@ -145,7 +145,7 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
          coordinatesFileName1.setExtensionsAndDescription(".mot,.sto", "Motion data for "+modeName);
       } else if(mode==Mode.ForwardDynamics) {
          // Set file filters for forward tool inputs
-         controlsFileName.setExtensionsAndDescription(".xml", "Controls input data for "+modeName);
+         controlsFileName.setExtensionsAndDescription(".xml,.sto", "Controls input data for "+modeName);
          controlsFileName.setTreatEmptyStringAsValid(false);
          initialStatesFileName.setExtensionsAndDescription(".sto", "Initial states data for "+modeName);
       } else if(mode==Mode.CMC) {
@@ -268,12 +268,6 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
       else
          updateCMCToolSpecificFields(cmcToolModel());
 
-      // Analysis set summary
-      String str = "";
-      for(int i=0; i<toolModel.getAnalysisSet().getSize(); i++)
-         str += (i>0 ? ", " : "") + toolModel.getAnalysisSet().get(i).getType();
-      activeAnalyses.setText(str);
-
       // Time
       double[] range = toolModel.getAvailableTimeRange();
       if(range!=null) {
@@ -283,8 +277,19 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
          availableInitialTime.setText("");
          availableFinalTime.setText("");
       }
-      initialTime.setText(numFormat.format(toolModel.getInitialTime()));
-      finalTime.setText(numFormat.format(toolModel.getFinalTime()));
+      double initTime = toolModel.getInitialTime();
+      initialTime.setText(numFormat.format(initTime));
+      double finTime = toolModel.getFinalTime();
+      finalTime.setText(numFormat.format(finTime));
+      
+      // Analysis set summary
+      String str = "";
+      for(int i=0; i<toolModel.getAnalysisSet().getSize(); i++){
+          Analysis an = toolModel.getAnalysisSet().get(i);
+          str += (i>0 ? ", " : "") + an.getType();
+          toolModel.setAnalysisTimeFromTool(an);
+      }
+      activeAnalyses.setText(str);
 
       // Output
       outputName.setText(toolModel.getOutputPrefix());
@@ -373,6 +378,7 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
       else if(toolModel.getInputSource()==AnalyzeToolModel.InputSource.Coordinates) {
          buttonGroup3.setSelected(motionRadioButton1.getModel(),true);
          buttonGroup4.setSelected(fromFileMotionRadioButton1.getModel(),true);
+         
       } else if(toolModel.getInputSource()==AnalyzeToolModel.InputSource.Motion) {
          buttonGroup3.setSelected(motionRadioButton1.getModel(),true);
          buttonGroup4.setSelected(loadedMotionRadioButton1.getModel(),true);
@@ -1821,13 +1827,23 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
         if (!aControlsFileName.getFileIsValid()) return;
         String controlsFile=aControlsFileName.getFileName();
         if(controlsFile!=null) {
-            OpenSimObject objGeneric = OpenSimObject.makeObjectFromFile(controlsFile);
-            if (objGeneric==null || !objGeneric.getType().equalsIgnoreCase("ControlSet")){
-                DialogDisplayer.getDefault().notify(
-                        new NotifyDescriptor.Message("Could not construct excitations from the specified file."));
-                return;
+            ControlSet cs = null;
+            if (controlsFile.endsWith(".sto")){
+                try {
+                    cs = new ControlSet(new Storage(controlsFile));
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
             }
-            ControlSet cs = new ControlSet(controlsFile);
+            else {
+                OpenSimObject objGeneric = OpenSimObject.makeObjectFromFile(controlsFile);
+                if (objGeneric==null || !objGeneric.getType().equalsIgnoreCase("ControlSet")){
+                    DialogDisplayer.getDefault().notify(
+                            new NotifyDescriptor.Message("Could not construct excitations from the specified file."));
+                    return;
+                }
+                cs = new ControlSet(controlsFile);
+            }
             if (cs !=null){
                 new ExcitationEditorJFrame(cs).setVisible(true);
             }

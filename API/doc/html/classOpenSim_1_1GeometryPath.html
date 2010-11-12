@@ -55,8 +55,6 @@ Inheritance diagram for OpenSim::GeometryPath:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Destructor.  <a href="#a521d9b54a0b684d193b25633f2002ddc"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classOpenSim_1_1Object.html">Object</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1GeometryPath.html#a8a2cafbbf540ce108e46160748fd4399">copy</a> () const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Copy this path and return a pointer to the copy.  <a href="#a8a2cafbbf540ce108e46160748fd4399"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1GeometryPath.html#af3d960e491d1649ca998e50b64ed42b8">setup</a> (<a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;aModel, <a class="el" href="classOpenSim_1_1Object.html">Object</a> &amp;aOwner)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Perform set up functions after model has been deserialized or copied.  <a href="#af3d960e491d1649ca998e50b64ed42b8"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1GeometryPath.html#a91edf4263da3fed5b7b23474ccc9f5a8">setName</a> (const std::string &amp;aName)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1GeometryPath.html">GeometryPath</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1GeometryPath.html#a6e76bb3a48df540d0ccbea18dbcfdd12">operator=</a> (const <a class="el" href="classOpenSim_1_1GeometryPath.html">GeometryPath</a> &amp;aPath)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Assignment operator.  <a href="#a6e76bb3a48df540d0ccbea18dbcfdd12"></a><br/></td></tr>
@@ -65,7 +63,6 @@ Inheritance diagram for OpenSim::GeometryPath:</div>
 <tr><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classOpenSim_1_1PathPointSet.html">PathPointSet</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1GeometryPath.html#a9470d8942aca98b335e9a6a5051efd89">getPathPointSet</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PathPointSet.html">PathPointSet</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1GeometryPath.html#afd6de816097a10e27657000987fbc1e4">updPathPointSet</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PathWrapSet.html">PathWrapSet</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1GeometryPath.html#a688ce6d87726753afc4517a95e1e1026">getWrapSet</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1GeometryPath.html#a073babb0594d739e8cda84bbb814bce0">initState</a> (SimTK::State &amp;s)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1GeometryPath.html#a607ca539e039afec3ba4a3cfa63b07ea">initStateCache</a> (SimTK::State &amp;s, SimTK::SubsystemIndex subsystemIndex, <a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;model)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">allocate and initialize the SimTK state for this acuator.  <a href="#a607ca539e039afec3ba4a3cfa63b07ea"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PathPoint.html">PathPoint</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1GeometryPath.html#adef9a9e3a1c3e04567e4747c7555927b">addPathPoint</a> (const SimTK::State &amp;s, int aIndex, <a class="el" href="classOpenSim_1_1Body.html">OpenSim::Body</a> &amp;aBody)</td></tr>
@@ -86,6 +83,7 @@ Inheritance diagram for OpenSim::GeometryPath:</div>
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1GeometryPath.html#aac78a5485669942433effd5ace981ba7">replacePathPoint</a> (const SimTK::State &amp;s, <a class="el" href="classOpenSim_1_1PathPoint.html">PathPoint</a> *aOldPathPoint, <a class="el" href="classOpenSim_1_1PathPoint.html">PathPoint</a> *aNewPathPoint)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Replace a path point in the set with another point.  <a href="#aac78a5485669942433effd5ace981ba7"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Object.html">Object</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1GeometryPath.html#a4d27e3d1a936566d9956eb2f2a524d0d">getOwner</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1GeometryPath.html#ae75d26667a45e09af7bfa5ed69338c38">setOwner</a> (<a class="el" href="classOpenSim_1_1Object.html">Object</a> *anObject)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1GeometryPath.html#a7f7937bb7d92859b4cfcaeb78c45be8c">getLength</a> (const SimTK::State &amp;s) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Compute the total length of the path.  <a href="#a7f7937bb7d92859b4cfcaeb78c45be8c"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1GeometryPath.html#af7c527e23ca66b48050b0f8ecd1a44c8">setLength</a> (const SimTK::State &amp;s, double length) const </td></tr>
@@ -97,22 +95,33 @@ Inheritance diagram for OpenSim::GeometryPath:</div>
 <tr><td class="memItemLeft" align="right" valign="top">virtual const <a class="el" href="classOpenSim_1_1Array.html">Array</a>&lt; <a class="el" href="classOpenSim_1_1PathPoint.html">PathPoint</a> * &gt; &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1GeometryPath.html#aee44d088f29949f8b5c7905b6624f753">getCurrentDisplayPath</a> (const SimTK::State &amp;s)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">get the current display path of the path  <a href="#aee44d088f29949f8b5c7905b6624f753"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classOpenSim_1_1Array.html">Array</a>&lt; <a class="el" href="classOpenSim_1_1PathPoint.html">PathPoint</a> * &gt; &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1GeometryPath.html#a931c6ecdb57c3dd070f74bb45ef0bbfb">updCurrentDisplayPath</a> (const SimTK::State &amp;s) const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1GeometryPath.html#ad65ff3edd8d6c4045f1160e7658fa94c">computeMomentArm</a> (SimTK::State &amp;s, <a class="el" href="classOpenSim_1_1Coordinate.html">Coordinate</a> &amp;aCoord)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Compute the path's moment arm for a coordinate, using the dl/dtheta numerical technique.  <a href="#ad65ff3edd8d6c4045f1160e7658fa94c"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1GeometryPath.html#ace4abf00d229e8a296c900c10b3913ca">computeMomentArms</a> (SimTK::State &amp;s, <a class="el" href="classOpenSim_1_1Array.html">Array</a>&lt; double &gt; &amp;rMomentArms)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Compute the path's moment arms for all generalized coordinates.  <a href="#ace4abf00d229e8a296c900c10b3913ca"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1GeometryPath.html#ad92233c85a11a388e7436c4d86e34077">getPointForceDirections</a> (const SimTK::State &amp;s, <a class="el" href="classOpenSim_1_1Array.html">OpenSim::Array</a>&lt; <a class="el" href="classOpenSim_1_1PointForceDirection.html">PointForceDirection</a> * &gt; *rPFDs) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">get the the path as PointForceDirections directions  <a href="#ad92233c85a11a388e7436c4d86e34077"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1GeometryPath.html#a021fc4d0258ec0cf36ab3d8cb0d6fa2b">computeMomentArm</a> (const SimTK::State &amp;s, const <a class="el" href="classOpenSim_1_1Coordinate.html">Coordinate</a> &amp;aCoord)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Compute the path's moment arms for specified coordinate.  <a href="#a021fc4d0258ec0cf36ab3d8cb0d6fa2b"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1GeometryPath.html#a2647d12806a8e4ab1108733bb35e47ba">preScale</a> (const SimTK::State &amp;s, const <a class="el" href="classOpenSim_1_1ScaleSet.html">ScaleSet</a> &amp;aScaleSet)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Perform computations that need to happen before the path is scaled.  <a href="#a2647d12806a8e4ab1108733bb35e47ba"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1GeometryPath.html#a3beca6a89bbe6bccca149e97b6c909a6">scale</a> (const SimTK::State &amp;s, const <a class="el" href="classOpenSim_1_1ScaleSet.html">ScaleSet</a> &amp;aScaleSet)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Scale.html">Scale</a> the path based on XYZ scale factors for each body.  <a href="#a3beca6a89bbe6bccca149e97b6c909a6"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1GeometryPath.html#a6561a457ce8aef2f15090d3a03e2c6ef">postScale</a> (const SimTK::State &amp;s, const <a class="el" href="classOpenSim_1_1ScaleSet.html">ScaleSet</a> &amp;aScaleSet)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Perform computations that need to happen after the path is scaled.  <a href="#a6561a457ce8aef2f15090d3a03e2c6ef"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1GeometryPath.html#a18c7c2c06a6ad3a01cf74477d37ea2c4">setup</a> (<a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;aModel)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Perform set up functions after model has been deserialized or copied.  <a href="#a18c7c2c06a6ad3a01cf74477d37ea2c4"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1GeometryPath.html#aaac045353768dac8ba05beb434f3c329">initState</a> (SimTK::State &amp;s) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This is called after a SimTK System and State have been created for the <a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a>.  <a href="#aaac045353768dac8ba05beb434f3c329"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1GeometryPath.html#a8b1e9b00cec5d492886c08f3d33a8cb8">getNumStateVariables</a> () const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Gets the number of "Continuous" state variables maintained by the <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any object which can be added to a Model.">ModelComponent</a> If the <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any object which can be added to a Model.">ModelComponent</a> defines any that are of interest to the user, names should also be given.  <a href="#a8b1e9b00cec5d492886c08f3d33a8cb8"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classOpenSim_1_1VisibleObject.html">VisibleObject</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1GeometryPath.html#a9a8e9b2927da78cbeb88a3c583151108">getDisplayer</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1GeometryPath.html#af495b5201d303c04f6157f7c15755006">updateDisplayer</a> (const SimTK::State &amp;s)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Update the visible object used to represent the path.  <a href="#af495b5201d303c04f6157f7c15755006"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1GeometryPath.html#a7124f39c584bee79587651847dea8c91">OPENSIM_DECLARE_DERIVED</a> (<a class="el" href="classOpenSim_1_1GeometryPath.html">GeometryPath</a>, <a class="el" href="classOpenSim_1_1Object.html">Object</a>)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1GeometryPath.html#a54a40f5824a4cfb9909467292543edec">updateGeometry</a> (const SimTK::State &amp;s)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Update the geometric representation of the path.  <a href="#a54a40f5824a4cfb9909467292543edec"></a><br/></td></tr>
+<tr><td colspan="2"><h2>Protected Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1GeometryPath.html#ae06908507967e44c4c18bebef805229b">createSystem</a> (SimTK::MultibodySystem &amp;system) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This is called when a SimTK System is being created for the <a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a>.  <a href="#ae06908507967e44c4c18bebef805229b"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1GeometryPath.html#afa3ceb74ea7e6b94fec1b8f1674b76c9">setDefaultsFromState</a> (const SimTK::State &amp;state)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> all default values for this object to match those in a specified State.  <a href="#afa3ceb74ea7e6b94fec1b8f1674b76c9"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyObj.html">PropertyObj</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1GeometryPath.html#ac3afddc94b8b77adced4d2358cbdd81b">_pathPointSetProp</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PathPointSet.html">PathPointSet</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1GeometryPath.html#a883f6d985b1fb1f100e58593720da618">_pathPointSet</a></td></tr>
@@ -337,20 +346,20 @@ Inheritance diagram for OpenSim::GeometryPath:</div>
 
 </div>
 </div>
-<a class="anchor" id="ad65ff3edd8d6c4045f1160e7658fa94c"></a><!-- doxytag: member="OpenSim::GeometryPath::computeMomentArm" ref="ad65ff3edd8d6c4045f1160e7658fa94c" args="(SimTK::State &amp;s, Coordinate &amp;aCoord)" -->
+<a class="anchor" id="a021fc4d0258ec0cf36ab3d8cb0d6fa2b"></a><!-- doxytag: member="OpenSim::GeometryPath::computeMomentArm" ref="a021fc4d0258ec0cf36ab3d8cb0d6fa2b" args="(const SimTK::State &amp;s, const Coordinate &amp;aCoord)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">double GeometryPath::computeMomentArm </td>
           <td>(</td>
-          <td class="paramtype">SimTK::State &amp;&nbsp;</td>
+          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
           <td class="paramname"> <em>s</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classOpenSim_1_1Coordinate.html">Coordinate</a> &amp;&nbsp;</td>
+          <td class="paramtype">const <a class="el" href="classOpenSim_1_1Coordinate.html">Coordinate</a> &amp;&nbsp;</td>
           <td class="paramname"> <em>aCoord</em></td><td>&nbsp;</td>
         </tr>
         <tr>
@@ -362,47 +371,10 @@ Inheritance diagram for OpenSim::GeometryPath:</div>
 </div>
 <div class="memdoc">
 
-<p>Compute the path's moment arm for a coordinate, using the dl/dtheta numerical technique. </p>
-<p>The length of the path is found at coordinate-delta, coordinate, and coordinate+delta. A quadratic is fit to these three points, and the derivative is found at the value of the coordinate. This is equal to the negative of the moment arm. </p>
+<p>Compute the path's moment arms for specified coordinate. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>aCoord</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Coordinate.html" title="A class implementing a Simbody generalized coordinate.">Coordinate</a> for which to compute moment arm. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="return"><dt><b>Returns:</b></dt><dd>Moment arm value. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="ace4abf00d229e8a296c900c10b3913ca"></a><!-- doxytag: member="OpenSim::GeometryPath::computeMomentArms" ref="ace4abf00d229e8a296c900c10b3913ca" args="(SimTK::State &amp;s, Array&lt; double &gt; &amp;rMomentArms)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void GeometryPath::computeMomentArms </td>
-          <td>(</td>
-          <td class="paramtype">SimTK::State &amp;&nbsp;</td>
-          <td class="paramname"> <em>s</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classOpenSim_1_1Array.html">OpenSim::Array</a>&lt; double &gt; &amp;&nbsp;</td>
-          <td class="paramname"> <em>rMomentArms</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td><code> [virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Compute the path's moment arms for all generalized coordinates. </p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>rMomentArms</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Array.html">Array</a> of moments arms </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>aCoord,the</em>&nbsp;</td><td>coordinate </td></tr>
   </table>
   </dd>
 </dl>
@@ -455,6 +427,35 @@ Inheritance diagram for OpenSim::GeometryPath:</div>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a class="anchor" id="ae06908507967e44c4c18bebef805229b"></a><!-- doxytag: member="OpenSim::GeometryPath::createSystem" ref="ae06908507967e44c4c18bebef805229b" args="(SimTK::MultibodySystem &amp;system) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void OpenSim::GeometryPath::createSystem </td>
+          <td>(</td>
+          <td class="paramtype">SimTK::MultibodySystem &amp;&nbsp;</td>
+          <td class="paramname"> <em>system</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [inline, protected, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>This is called when a SimTK System is being created for the <a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a>. </p>
+<p>It must be implemented to add appropriate elements to the System corresponding to this object.</p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>system</em>&nbsp;</td><td>the System being created </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="classOpenSim_1_1ModelComponent.html#a85757ad4645e4066f72ce4d0411a49b8">OpenSim::ModelComponent</a>.</p>
 
 </div>
 </div>
@@ -611,6 +612,27 @@ Inheritance diagram for OpenSim::GeometryPath:</div>
 
 </div>
 </div>
+<a class="anchor" id="a8b1e9b00cec5d492886c08f3d33a8cb8"></a><!-- doxytag: member="OpenSim::GeometryPath::getNumStateVariables" ref="a8b1e9b00cec5d492886c08f3d33a8cb8" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual int OpenSim::GeometryPath::getNumStateVariables </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [inline, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Gets the number of "Continuous" state variables maintained by the <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any object which can be added to a Model.">ModelComponent</a> If the <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any object which can be added to a Model.">ModelComponent</a> defines any that are of interest to the user, names should also be given. </p>
+
+<p>Implements <a class="el" href="classOpenSim_1_1ModelComponent.html#a1e0f42516d2b3d7fd54892ee24b80f61">OpenSim::ModelComponent</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a4d27e3d1a936566d9956eb2f2a524d0d"></a><!-- doxytag: member="OpenSim::GeometryPath::getOwner" ref="a4d27e3d1a936566d9956eb2f2a524d0d" args="() const " -->
 <div class="memitem">
 <div class="memproto">
@@ -642,6 +664,35 @@ Inheritance diagram for OpenSim::GeometryPath:</div>
       </table>
 </div>
 <div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ad92233c85a11a388e7436c4d86e34077"></a><!-- doxytag: member="OpenSim::GeometryPath::getPointForceDirections" ref="ad92233c85a11a388e7436c4d86e34077" args="(const SimTK::State &amp;s, OpenSim::Array&lt; PointForceDirection * &gt; *rPFDs) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void GeometryPath::getPointForceDirections </td>
+          <td>(</td>
+          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
+          <td class="paramname"> <em>s</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classOpenSim_1_1Array.html">OpenSim::Array</a>&lt; <a class="el" href="classOpenSim_1_1PointForceDirection.html">PointForceDirection</a> * &gt; *&nbsp;</td>
+          <td class="paramname"> <em>rPFDs</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>get the the path as PointForceDirections directions </p>
 
 </div>
 </div>
@@ -680,7 +731,7 @@ Inheritance diagram for OpenSim::GeometryPath:</div>
 
 </div>
 </div>
-<a class="anchor" id="a073babb0594d739e8cda84bbb814bce0"></a><!-- doxytag: member="OpenSim::GeometryPath::initState" ref="a073babb0594d739e8cda84bbb814bce0" args="(SimTK::State &amp;s)" -->
+<a class="anchor" id="aaac045353768dac8ba05beb434f3c329"></a><!-- doxytag: member="OpenSim::GeometryPath::initState" ref="aaac045353768dac8ba05beb434f3c329" args="(SimTK::State &amp;s) const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -688,13 +739,24 @@ Inheritance diagram for OpenSim::GeometryPath:</div>
           <td class="memname">void GeometryPath::initState </td>
           <td>(</td>
           <td class="paramtype">SimTK::State &amp;&nbsp;</td>
-          <td class="paramname"> <em>s</em></td>
+          <td class="paramname"> <em>state</em></td>
           <td>&nbsp;)&nbsp;</td>
-          <td><code> [virtual]</code></td>
+          <td> const<code> [virtual]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>This is called after a SimTK System and State have been created for the <a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a>. </p>
+<p>It must be implementd to set initial values of state variables.</p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>state</em>&nbsp;</td><td>the State to initialize </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="classOpenSim_1_1ModelComponent.html#a2af3e8933cda56820900f0c643881434">OpenSim::ModelComponent</a>.</p>
 
 </div>
 </div>
@@ -1012,6 +1074,35 @@ Inheritance diagram for OpenSim::GeometryPath:</div>
 
 </div>
 </div>
+<a class="anchor" id="afa3ceb74ea7e6b94fec1b8f1674b76c9"></a><!-- doxytag: member="OpenSim::GeometryPath::setDefaultsFromState" ref="afa3ceb74ea7e6b94fec1b8f1674b76c9" args="(const SimTK::State &amp;state)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void OpenSim::GeometryPath::setDefaultsFromState </td>
+          <td>(</td>
+          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
+          <td class="paramname"> <em>state</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline, protected, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> all default values for this object to match those in a specified State. </p>
+<p>It must be implemented/overriden to set any default values defined by each subclass.</p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>state</em>&nbsp;</td><td>the State from which to take values that should become the defaults for this object </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="classOpenSim_1_1ModelComponent.html#a0e600cbcb3f90abfa53c6b7afa3cdf30">OpenSim::ModelComponent</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="af7c527e23ca66b48050b0f8ecd1a44c8"></a><!-- doxytag: member="OpenSim::GeometryPath::setLength" ref="af7c527e23ca66b48050b0f8ecd1a44c8" args="(const SimTK::State &amp;s, double length) const " -->
 <div class="memitem">
 <div class="memproto">
@@ -1059,6 +1150,24 @@ Inheritance diagram for OpenSim::GeometryPath:</div>
 
 </div>
 </div>
+<a class="anchor" id="ae75d26667a45e09af7bfa5ed69338c38"></a><!-- doxytag: member="OpenSim::GeometryPath::setOwner" ref="ae75d26667a45e09af7bfa5ed69338c38" args="(Object *anObject)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenSim::GeometryPath::setOwner </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classOpenSim_1_1Object.html">Object</a> *&nbsp;</td>
+          <td class="paramname"> <em>anObject</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a05d21ad746ffa6ef4b3daf55b0035ab7"></a><!-- doxytag: member="OpenSim::GeometryPath::setPreScaleLength" ref="a05d21ad746ffa6ef4b3daf55b0035ab7" args="(const SimTK::State &amp;s, double preScaleLength)" -->
 <div class="memitem">
 <div class="memproto">
@@ -1086,7 +1195,7 @@ Inheritance diagram for OpenSim::GeometryPath:</div>
 
 </div>
 </div>
-<a class="anchor" id="af3d960e491d1649ca998e50b64ed42b8"></a><!-- doxytag: member="OpenSim::GeometryPath::setup" ref="af3d960e491d1649ca998e50b64ed42b8" args="(Model &amp;aModel, Object &amp;aOwner)" -->
+<a class="anchor" id="a18c7c2c06a6ad3a01cf74477d37ea2c4"></a><!-- doxytag: member="OpenSim::GeometryPath::setup" ref="a18c7c2c06a6ad3a01cf74477d37ea2c4" args="(Model &amp;aModel)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1094,18 +1203,9 @@ Inheritance diagram for OpenSim::GeometryPath:</div>
           <td class="memname">void GeometryPath::setup </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>aModel</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classOpenSim_1_1Object.html">Object</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>aOwner</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td><code> [virtual]</code></td>
+          <td class="paramname"> <em>aModel</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [virtual]</code></td>
         </tr>
       </table>
 </div>
@@ -1118,6 +1218,8 @@ Inheritance diagram for OpenSim::GeometryPath:</div>
   </table>
   </dd>
 </dl>
+
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1ModelComponent.html#a2b2b125ac81cae0067a87b080499b43f">OpenSim::ModelComponent</a>.</p>
 
 </div>
 </div>
@@ -1377,7 +1479,7 @@ Inheritance diagram for OpenSim::GeometryPath:</div>
 <li>OpenSim/Simulation/Model/GeometryPath.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Feb 7 02:15:17 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:37:09 2010 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

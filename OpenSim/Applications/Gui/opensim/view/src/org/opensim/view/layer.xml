@@ -25,12 +25,6 @@
             <file name="org-opensim-view-actions-EditPreferencesAction.instance"/>
             <file name="org-opensim-view-actions-FileCloseAction.instance"/>
             <file name="org-opensim-view-actions-FileImportSIMMAction.instance"/>
-            <file name="org-opensim-view-actions-RedoAction.instance">
-                <attr name="name" stringvalue="org-opensim-view-MyRedoAction"/>
-            </file>
-            <file name="org-opensim-view-MyUndoAction.instance">
-                <attr name="name" stringvalue="org-opensim-view-MyUndoAction"/>
-            </file>
             <file name="org-opensim-view-actions-ViewAddNewAction.instance"/>
             <file name="org-opensim-view-base-SelectCameraAction.instance"/>
             <file name="org-opensim-view-base-ToggleAxesAction.instance">
@@ -49,7 +43,8 @@
             <file name="org-opensim-view-FileSaveAsModelAction.instance"/>
             <file name="org-opensim-view-motions-ShowMotionSliderAction.instance"/>
             <file name="org-opensim-view-motions-FileLoadDataAction.instance"/>
-            </folder>
+                <file name="org-opensim-view-nodes-ToggleEnabledStateAction.instance"/>
+        </folder>
         <folder name="Help">
             <file name="org-opensim-view-HelpAboutAction.instance"/>
             <file name="org-opensim-view-HelpTutorialsAction.instance"/>
@@ -302,8 +297,6 @@
             <file name="org-openide-actions-CutAction.instance_hidden"/>
             <file name="org-openide-actions-FindAction.instance_hidden"/>
             <file name="org-openide-actions-PasteAction.instance_hidden"/>
-            <file name="org-openide-actions-RedoAction.instance_hidden"/>
-            <file name="org-openide-actions-UndoAction.instance_hidden"/>
             <file name="org-opensim-view-motions-ShowMotionSliderAction.instance" url="org-opensim-view-motions-ShowMotionSliderAction.instance"/>
         </folder>
         <file name="File_hidden"/>

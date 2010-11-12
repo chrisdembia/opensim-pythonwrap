@@ -68,12 +68,12 @@ Inheritance diagram for OpenSim::Analysis:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">virtual copy constructor  <a href="#a06dc651b4d96bae564cf61f00b2b5236"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Analysis.html">Analysis</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Analysis.html#a362d147a254fc5855ce60659be20fdda">operator=</a> (const <a class="el" href="classOpenSim_1_1Analysis.html">Analysis</a> &amp;aAnalysis)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Assignment operator.  <a href="#a362d147a254fc5855ce60659be20fdda"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Analysis.html#af3cad0d2e51c92cf94696a790b306a93">begin</a> (const SimTK::State &amp;s)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This method is called at the beginning of an integration and is intended to be used for any initializations that are necessary.  <a href="#af3cad0d2e51c92cf94696a790b306a93"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Analysis.html#a619cf0a86bfb520befa533b5a71ce3f6">begin</a> (SimTK::State &amp;s)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This method is called at the beginning of an integration and is intended to be used for any initializations that are necessary.  <a href="#a619cf0a86bfb520befa533b5a71ce3f6"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Analysis.html#a40abe84dbb4dd9279a385771510c2245">step</a> (const SimTK::State &amp;s, int stepNumber)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This method is called after each successful integration time step and is intended to be used for conducting analyses, driving animations, etc.  <a href="#a40abe84dbb4dd9279a385771510c2245"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Analysis.html#a34d1fd1b3235e9d60a905d34b49e5314">end</a> (const SimTK::State &amp;s)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This method is called after an integration has been completed and is intended to be used for performing any finalizations necessary.  <a href="#a34d1fd1b3235e9d60a905d34b49e5314"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Analysis.html#aec904a247f8d4254ee31f0b17b3b0acc">end</a> (SimTK::State &amp;s)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This method is called after an integration has been completed and is intended to be used for performing any finalizations necessary.  <a href="#aec904a247f8d4254ee31f0b17b3b0acc"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Analysis.html#a317af631bcb76bff0321feae4cd5a02c">setModel</a> (<a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;aModel)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">set pointer to model to be analyzed.  <a href="#a317af631bcb76bff0321feae4cd5a02c"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Analysis.html#a4200f5fc0ac72c7675f3564ebb9aa009">setStatesStore</a> (const <a class="el" href="classOpenSim_1_1Storage.html">Storage</a> &amp;aStatesStore)</td></tr>
@@ -154,7 +154,7 @@ Inheritance diagram for OpenSim::Analysis:</div>
 <p>Default constructor. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>aModel</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Model.html" title="A base class that specifies the interface for a musculoskeletal model.">Model</a> on which the analysis is to be performed. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>aModel</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a> on which the analysis is to be performed. </td></tr>
   </table>
   </dd>
 </dl>
@@ -265,14 +265,14 @@ generateXMLDocument() </dd></dl>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="af3cad0d2e51c92cf94696a790b306a93"></a><!-- doxytag: member="OpenSim::Analysis::begin" ref="af3cad0d2e51c92cf94696a790b306a93" args="(const SimTK::State &amp;s)" -->
+<a class="anchor" id="a619cf0a86bfb520befa533b5a71ce3f6"></a><!-- doxytag: member="OpenSim::Analysis::begin" ref="a619cf0a86bfb520befa533b5a71ce3f6" args="(SimTK::State &amp;s)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">int Analysis::begin </td>
           <td>(</td>
-          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
+          <td class="paramtype">SimTK::State &amp;&nbsp;</td>
           <td class="paramname"> <em>s</em></td>
           <td>&nbsp;)&nbsp;</td>
           <td><code> [virtual]</code></td>
@@ -291,7 +291,7 @@ generateXMLDocument() </dd></dl>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>-1 on error, 0 otherwise. </dd></dl>
 
-<p>Reimplemented in <a class="el" href="classOpenSim_1_1Actuation.html#ab89f55e1a84394c05466c0b8a959c86a">OpenSim::Actuation</a>, <a class="el" href="classOpenSim_1_1BodyKinematics.html#afca2beac5df83e4d0709cd642f33e1df">OpenSim::BodyKinematics</a>, <a class="el" href="classOpenSim_1_1ForceReporter.html#a8e1aeb07c116fdc5e224782b3c6ce9df">OpenSim::ForceReporter</a>, <a class="el" href="classOpenSim_1_1InverseDynamics.html#a91114a6de3acad1df3d51ac3704cc269">OpenSim::InverseDynamics</a>, <a class="el" href="classOpenSim_1_1JointReaction.html#a2bcb5ce8c279e44a047a44edff14dd5e">OpenSim::JointReaction</a>, <a class="el" href="classOpenSim_1_1Kinematics.html#ab12059e05439a5640fb6406efb6b2a4e">OpenSim::Kinematics</a>, <a class="el" href="classOpenSim_1_1MuscleAnalysis.html#a9e40388c9ac319d37c9922fafc3b757e">OpenSim::MuscleAnalysis</a>, <a class="el" href="classOpenSim_1_1PointKinematics.html#a25e2a555bb415ef9ec23834924690e95">OpenSim::PointKinematics</a>, <a class="el" href="classOpenSim_1_1StatesReporter.html#a672408fc2cb6957c41749cf52936aca3">OpenSim::StatesReporter</a>, and <a class="el" href="classOpenSim_1_1StaticOptimization.html#ac5961b2737a0f5312d8fa32f51f910dd">OpenSim::StaticOptimization</a>.</p>
+<p>Reimplemented in <a class="el" href="classOpenSim_1_1Actuation.html#a1250e2533f4d6e540d93156eb46916aa">OpenSim::Actuation</a>, <a class="el" href="classOpenSim_1_1BodyKinematics.html#af0cf22b83b125f12c6b4cc9b7e991f26">OpenSim::BodyKinematics</a>, <a class="el" href="classOpenSim_1_1ForceReporter.html#ab784c548accefca8f1f4d18423ac1d3d">OpenSim::ForceReporter</a>, <a class="el" href="classOpenSim_1_1InverseDynamics.html#abd4e1f5cb734e1f090a3092e8bebb0e4">OpenSim::InverseDynamics</a>, <a class="el" href="classOpenSim_1_1JointReaction.html#af9e1a034f3ffea7e899aa7bbfaf4967c">OpenSim::JointReaction</a>, <a class="el" href="classOpenSim_1_1Kinematics.html#aeb3a42420c1b2cfefce945253056c984">OpenSim::Kinematics</a>, <a class="el" href="classOpenSim_1_1MuscleAnalysis.html#a821a71d2a81fe68e46a5ce336aedbdfe">OpenSim::MuscleAnalysis</a>, <a class="el" href="classOpenSim_1_1PointKinematics.html#a3a51ac6e18c9fbaa257f84c2779a0553">OpenSim::PointKinematics</a>, <a class="el" href="classOpenSim_1_1StatesReporter.html#a1b9eb9e8140edd7c5566f1641554eda9">OpenSim::StatesReporter</a>, and <a class="el" href="classOpenSim_1_1StaticOptimization.html#abdc7c505c0e915d1db60fe31d55a6fc3">OpenSim::StaticOptimization</a>.</p>
 
 </div>
 </div>
@@ -318,14 +318,14 @@ generateXMLDocument() </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="a34d1fd1b3235e9d60a905d34b49e5314"></a><!-- doxytag: member="OpenSim::Analysis::end" ref="a34d1fd1b3235e9d60a905d34b49e5314" args="(const SimTK::State &amp;s)" -->
+<a class="anchor" id="aec904a247f8d4254ee31f0b17b3b0acc"></a><!-- doxytag: member="OpenSim::Analysis::end" ref="aec904a247f8d4254ee31f0b17b3b0acc" args="(SimTK::State &amp;s)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">int Analysis::end </td>
           <td>(</td>
-          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
+          <td class="paramtype">SimTK::State &amp;&nbsp;</td>
           <td class="paramname"> <em>s</em></td>
           <td>&nbsp;)&nbsp;</td>
           <td><code> [virtual]</code></td>
@@ -344,7 +344,7 @@ generateXMLDocument() </dd></dl>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>-1 on error, 0 otherwise. </dd></dl>
 
-<p>Reimplemented in <a class="el" href="classOpenSim_1_1Actuation.html#aa4e03f2841bfdbef3f7e53b4e4ed2ad4">OpenSim::Actuation</a>, <a class="el" href="classOpenSim_1_1BodyKinematics.html#ad568b5bf116097e99b32f0770631a46e">OpenSim::BodyKinematics</a>, <a class="el" href="classOpenSim_1_1ForceReporter.html#a9d5bb852c0c04b2e6546c26a4caad116">OpenSim::ForceReporter</a>, <a class="el" href="classOpenSim_1_1InverseDynamics.html#a63d99e9e8406b33667a3aba486b23651">OpenSim::InverseDynamics</a>, <a class="el" href="classOpenSim_1_1JointReaction.html#a7a2f0ecc3bb157ca0747b3f1f0c78cc6">OpenSim::JointReaction</a>, <a class="el" href="classOpenSim_1_1Kinematics.html#a817ec1a539ad051b60fb0c72e924a52c">OpenSim::Kinematics</a>, <a class="el" href="classOpenSim_1_1MuscleAnalysis.html#a5740a327f6a037aeeaa1d1a9b7b3184e">OpenSim::MuscleAnalysis</a>, <a class="el" href="classOpenSim_1_1PointKinematics.html#a6f9821269cc5a8c3db38a5ea944a2aa0">OpenSim::PointKinematics</a>, <a class="el" href="classOpenSim_1_1StatesReporter.html#a9f7591097edcb5bee1e378720e956a61">OpenSim::StatesReporter</a>, and <a class="el" href="classOpenSim_1_1StaticOptimization.html#a86e75be63200346b1da3a678db914f2f">OpenSim::StaticOptimization</a>.</p>
+<p>Reimplemented in <a class="el" href="classOpenSim_1_1Actuation.html#abcc09628939412a7410baf1a563054cf">OpenSim::Actuation</a>, <a class="el" href="classOpenSim_1_1BodyKinematics.html#a831886525df7e1a05cb520fa8912de79">OpenSim::BodyKinematics</a>, <a class="el" href="classOpenSim_1_1ForceReporter.html#acc5e307a5f5ec0379d65d150c614f975">OpenSim::ForceReporter</a>, <a class="el" href="classOpenSim_1_1InverseDynamics.html#ad3cc0528d7c71fac0575d282fd5f0e84">OpenSim::InverseDynamics</a>, <a class="el" href="classOpenSim_1_1JointReaction.html#a61e4127426e686d33c1e9abc69b280c1">OpenSim::JointReaction</a>, <a class="el" href="classOpenSim_1_1Kinematics.html#ae8bb6aa8cae4e9e616df1b92586197fa">OpenSim::Kinematics</a>, <a class="el" href="classOpenSim_1_1MuscleAnalysis.html#a30cb27de5f5b0e27dedee10619971ef5">OpenSim::MuscleAnalysis</a>, <a class="el" href="classOpenSim_1_1PointKinematics.html#a94a2dfd18a5a927da8b6bdea66652e1c">OpenSim::PointKinematics</a>, <a class="el" href="classOpenSim_1_1StatesReporter.html#ae7396f7cfbef3b17fd124aad6ba691f5">OpenSim::StatesReporter</a>, and <a class="el" href="classOpenSim_1_1StaticOptimization.html#ad787c6d0a7ccb15977c7859aed483c65">OpenSim::StaticOptimization</a>.</p>
 
 </div>
 </div>
@@ -1081,7 +1081,7 @@ generateXMLDocument() </dd></dl>
 <li>OpenSim/Simulation/Model/Analysis.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Feb 7 02:15:16 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:37:08 2010 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

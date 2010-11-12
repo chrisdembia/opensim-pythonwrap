@@ -75,9 +75,6 @@ public class OneJointNode extends OpenSimObjectNode {
 			return null;
 		}
 	}
-	public Image getOpenedIcon(int i) {
-		return getIcon(i);
-	}
 
     public Action[] getActions(boolean b) {
         Action[] superActions = (Action[]) super.getActions(b);        

@@ -50,6 +50,8 @@ Inheritance diagram for OpenSim::TorsionalSpring:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Construct a derivative callback instance for applying external torques during an integration.  <a href="#ae156fddad3e6f7d83e1772b71d8a01c1"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1TorsionalSpring.html#a0edd7594fc608fcfae57d4c39b5df30f">~TorsionalSpring</a> ()</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Destructor.  <a href="#a0edd7594fc608fcfae57d4c39b5df30f"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classOpenSim_1_1Object.html">Object</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1TorsionalSpring.html#abf174364e5dbda0f14fd613a6a23fb4a">copy</a> () const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Construct and return a copy of this object.  <a href="#abf174364e5dbda0f14fd613a6a23fb4a"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1TorsionalSpring.html#ace9fdefd345285b770614180773aed2b">setTargetPosition</a> (<a class="el" href="classOpenSim_1_1VectorFunction.html">VectorFunction</a> *aPosFunction)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the vetor function containing the nominal angular postion of the body.  <a href="#ace9fdefd345285b770614180773aed2b"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1VectorFunction.html">VectorFunction</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1TorsionalSpring.html#aa67943615d83290284299170e1f5d722">getTargetPosition</a> () const </td></tr>
@@ -78,12 +80,10 @@ Inheritance diagram for OpenSim::TorsionalSpring:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the magnitude theshold below which no torque is applied.  <a href="#a4a87ac4f9697e2756799d11265a31a74"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1TorsionalSpring.html#ab5eaf66b8d53e931f5604d87d886c5ec">getThreshold</a> () const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the magnitude theshold below which no torque is applied.  <a href="#ab5eaf66b8d53e931f5604d87d886c5ec"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1TorsionalSpring.html#a533ed24cf7b89f3c76ef9fcc9fce0ae5">setOn</a> (bool on_off)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1TorsionalSpring.html#a2ac8314aa40084648bf61e167018a452">getOn</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1TorsionalSpring.html#ab0a321643b2ce12f197dfae0b8db6733">computeTargetFunctions</a> (SimTK::State &amp;s, const <a class="el" href="classOpenSim_1_1Storage.html">Storage</a> &amp;aQStore, const <a class="el" href="classOpenSim_1_1Storage.html">Storage</a> &amp;aUStore)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Compute the target orientation and angular velocity of the body.  <a href="#ab0a321643b2ce12f197dfae0b8db6733"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1TorsionalSpring.html#ae2b2457e5f0b4313f3221ddc140215ac">computeForce</a> (const SimTK::State &amp;s) const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Implement the <a class="el" href="classOpenSim_1_1Force.html" title="This abstract class represents a force applied to bodies or generalized coordinates...">Force</a>.  <a href="#ae2b2457e5f0b4313f3221ddc140215ac"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1TorsionalSpring.html#adc981d76e8725da160cde2bd51e9af39">computeForce</a> (const SimTK::State &amp;state, SimTK::Vector_&lt; SimTK::SpatialVec &gt; &amp;bodyForces, SimTK::Vector &amp;generalizedForces) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Implement the <a class="el" href="classOpenSim_1_1Force.html" title="This abstract class represents a force applied to bodies or generalized coordinates...">Force</a>.  <a href="#adc981d76e8725da160cde2bd51e9af39"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1VectorFunction.html">VectorFunction</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1TorsionalSpring.html#a8b94a846f3a6fe251f87ea79985d47d3">_targetPosition</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Vector function containing target orientation of the body.  <a href="#a8b94a846f3a6fe251f87ea79985d47d3"></a><br/></td></tr>
@@ -100,8 +100,6 @@ Inheritance diagram for OpenSim::TorsionalSpring:</div>
 <tr><td class="memItemLeft" align="right" valign="top">double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1TorsionalSpring.html#a9bf54052f532497d3539fcf9311f805d">_threshold</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">If the magnitude of the torque is below this threshold, no torque is applied.  <a href="#a9bf54052f532497d3539fcf9311f805d"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classOpenSim_1_1Body.html">Body</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1TorsionalSpring.html#a066c476ba7b44367944bb6195308dcc1">_body</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1TorsionalSpring.html#a68333f6c1449d0dbe26a67c814c82a40">_on</a></td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">On, off flag.  <a href="#a68333f6c1449d0dbe26a67c814c82a40"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1TorsionalSpring.html#a4c14b0543c68e5ae598bd5c39cb06f5a">_startTime</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Start time for the force.  <a href="#a4c14b0543c68e5ae598bd5c39cb06f5a"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1TorsionalSpring.html#a8d34d755455e3efe0a881ffde6268107">_endTime</a></td></tr>
@@ -142,8 +140,8 @@ Inheritance diagram for OpenSim::TorsionalSpring:</div>
 <p>Construct a derivative callback instance for applying external torques during an integration. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>aModel</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Model.html" title="A base class that specifies the interface for a musculoskeletal model.">Model</a> for which external torques are to be applied. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>aBody</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody body segment.">Body</a> to which external torques are to be applied. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>aModel</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a> for which external torques are to be applied. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>aBody</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody rigid body.">Body</a> to which external torques are to be applied. </td></tr>
   </table>
   </dd>
 </dl>
@@ -170,7 +168,7 @@ Inheritance diagram for OpenSim::TorsionalSpring:</div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="ae2b2457e5f0b4313f3221ddc140215ac"></a><!-- doxytag: member="OpenSim::TorsionalSpring::computeForce" ref="ae2b2457e5f0b4313f3221ddc140215ac" args="(const SimTK::State &amp;s) const " -->
+<a class="anchor" id="adc981d76e8725da160cde2bd51e9af39"></a><!-- doxytag: member="OpenSim::TorsionalSpring::computeForce" ref="adc981d76e8725da160cde2bd51e9af39" args="(const SimTK::State &amp;state, SimTK::Vector_&lt; SimTK::SpatialVec &gt; &amp;bodyForces, SimTK::Vector &amp;generalizedForces) const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -178,9 +176,24 @@ Inheritance diagram for OpenSim::TorsionalSpring:</div>
           <td class="memname">void TorsionalSpring::computeForce </td>
           <td>(</td>
           <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
-          <td class="paramname"> <em>s</em></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td> const<code> [virtual]</code></td>
+          <td class="paramname"> <em>s</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SimTK::Vector_&lt; SimTK::SpatialVec &gt; &amp;&nbsp;</td>
+          <td class="paramname"> <em>bodyForces</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SimTK::Vector &amp;&nbsp;</td>
+          <td class="paramname"> <em>generalizedForces</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td> const<code> [virtual]</code></td>
         </tr>
       </table>
 </div>
@@ -194,7 +207,7 @@ Inheritance diagram for OpenSim::TorsionalSpring:</div>
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="classOpenSim_1_1CustomForce.html#ab0adbbc82e9aea8b9e369156a1483c73">OpenSim::CustomForce</a>.</p>
+<p>Implements <a class="el" href="classOpenSim_1_1CustomForce.html#abdc00ab9c7428ae228ded1a56aa40d9d">OpenSim::CustomForce</a>.</p>
 
 </div>
 </div>
@@ -241,6 +254,29 @@ Inheritance diagram for OpenSim::TorsionalSpring:</div>
 
 </div>
 </div>
+<a class="anchor" id="abf174364e5dbda0f14fd613a6a23fb4a"></a><!-- doxytag: member="OpenSim::TorsionalSpring::copy" ref="abf174364e5dbda0f14fd613a6a23fb4a" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="classOpenSim_1_1Object.html">Object</a>* OpenSim::TorsionalSpring::copy </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [inline, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Construct and return a copy of this object. </p>
+<p>The object is allocated using the new operator, so the caller is responsible for deleting the returned object.</p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>Copy of this object. </dd></dl>
+
+<p>Implements <a class="el" href="classOpenSim_1_1Force.html#a71a62b13d80e706f70bcebb2e818257c">OpenSim::Force</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a82edc397473ce852d9245b94d862ab9d"></a><!-- doxytag: member="OpenSim::TorsionalSpring::getBValue" ref="a82edc397473ce852d9245b94d862ab9d" args="(SimTK::Vec3 &amp;aB)" -->
 <div class="memitem">
 <div class="memproto">
@@ -280,23 +316,6 @@ Inheritance diagram for OpenSim::TorsionalSpring:</div>
 
 <p>Get the spring constant, k. </p>
 <dl class="return"><dt><b>Returns:</b></dt><dd>aK. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a2ac8314aa40084648bf61e167018a452"></a><!-- doxytag: member="OpenSim::TorsionalSpring::getOn" ref="a2ac8314aa40084648bf61e167018a452" args="() const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool OpenSim::TorsionalSpring::getOn </td>
-          <td>(</td>
-          <td class="paramname"></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td> const<code> [inline]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
 
 </div>
 </div>
@@ -454,24 +473,6 @@ Inheritance diagram for OpenSim::TorsionalSpring:</div>
   </table>
   </dd>
 </dl>
-
-</div>
-</div>
-<a class="anchor" id="a533ed24cf7b89f3c76ef9fcc9fce0ae5"></a><!-- doxytag: member="OpenSim::TorsionalSpring::setOn" ref="a533ed24cf7b89f3c76ef9fcc9fce0ae5" args="(bool on_off)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void OpenSim::TorsionalSpring::setOn </td>
-          <td>(</td>
-          <td class="paramtype">bool&nbsp;</td>
-          <td class="paramname"> <em>on_off</em></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td><code> [inline]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
 
 </div>
 </div>
@@ -664,21 +665,6 @@ Inheritance diagram for OpenSim::TorsionalSpring:</div>
 
 </div>
 </div>
-<a class="anchor" id="a68333f6c1449d0dbe26a67c814c82a40"></a><!-- doxytag: member="OpenSim::TorsionalSpring::_on" ref="a68333f6c1449d0dbe26a67c814c82a40" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool <a class="el" href="classOpenSim_1_1TorsionalSpring.html#a68333f6c1449d0dbe26a67c814c82a40">OpenSim::TorsionalSpring::_on</a><code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>On, off flag. </p>
-
-</div>
-</div>
 <a class="anchor" id="a06c377137c98c4daa34a06085c9e89b9"></a><!-- doxytag: member="OpenSim::TorsionalSpring::_scaleFactor" ref="a06c377137c98c4daa34a06085c9e89b9" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -774,7 +760,7 @@ Inheritance diagram for OpenSim::TorsionalSpring:</div>
 <li>OpenSim/Simulation/Model/TorsionalSpring.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Feb 7 02:15:18 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:37:11 2010 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

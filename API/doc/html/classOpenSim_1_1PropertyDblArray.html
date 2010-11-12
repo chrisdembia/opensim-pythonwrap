@@ -35,7 +35,8 @@ Inheritance diagram for OpenSim::PropertyDblArray:</div>
  <div class="center">
   <img src="classOpenSim_1_1PropertyDblArray.gif" usemap="#OpenSim::PropertyDblArray_map" alt=""/>
   <map id="OpenSim::PropertyDblArray_map" name="OpenSim::PropertyDblArray_map">
-<area href="classOpenSim_1_1Property.html" alt="OpenSim::Property" shape="rect" coords="0,0,170,24"/>
+<area href="classOpenSim_1_1Property.html" alt="OpenSim::Property" shape="rect" coords="0,0,175,24"/>
+<area href="classOpenSim_1_1PropertyTransform.html" alt="OpenSim::PropertyTransform" shape="rect" coords="0,112,175,136"/>
 </map>
  </div>
 </div>
@@ -67,6 +68,9 @@ Inheritance diagram for OpenSim::PropertyDblArray:</div>
 <tr><td class="memItemLeft" align="right" valign="top">virtual const std::string &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PropertyDblArray.html#a50ef954f2e0b7fb8faa8653330731df6">toString</a> ()</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get a constant String represeting the value of this property.  <a href="#a50ef954f2e0b7fb8faa8653330731df6"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PropertyDblArray.html#ae08130bd922f7c889852c136f5fc2b74">getArraySize</a> () const </td></tr>
+<tr><td colspan="2"><h2>Protected Attributes</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Array.html">Array</a>&lt; double &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PropertyDblArray.html#a6743debf70f8723a4045b38bec3b1c93">_array</a></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Array.html">Array</a> of integers.  <a href="#a6743debf70f8723a4045b38bec3b1c93"></a><br/></td></tr>
 </table>
 <hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="af58d0421470bf3687a6419a3a71ba544"></a><!-- doxytag: member="OpenSim::PropertyDblArray::PropertyDblArray" ref="af58d0421470bf3687a6419a3a71ba544" args="()" -->
@@ -213,6 +217,8 @@ Inheritance diagram for OpenSim::PropertyDblArray:</div>
 
 <p>Implements <a class="el" href="classOpenSim_1_1Property.html#a45a498440b1f6dceb737b0930e9260f5">OpenSim::Property</a>.</p>
 
+<p>Reimplemented in <a class="el" href="classOpenSim_1_1PropertyTransform.html#a8d00451c95d52ef33d5aec7b0bf77630">OpenSim::PropertyTransform</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="ae08130bd922f7c889852c136f5fc2b74"></a><!-- doxytag: member="OpenSim::PropertyDblArray::getArraySize" ref="ae08130bd922f7c889852c136f5fc2b74" args="() const " -->
@@ -253,6 +259,8 @@ Inheritance diagram for OpenSim::PropertyDblArray:</div>
 <dl class="return"><dt><b>Returns:</b></dt><dd>Type of the property. </dd></dl>
 
 <p>Reimplemented from <a class="el" href="classOpenSim_1_1Property.html#a6f8eb7ca25fafd88d4c436eb8312ce26">OpenSim::Property</a>.</p>
+
+<p>Reimplemented in <a class="el" href="classOpenSim_1_1PropertyTransform.html#a2ee8ae490366c9f605d74852637d4591">OpenSim::PropertyTransform</a>.</p>
 
 </div>
 </div>
@@ -328,6 +336,8 @@ Inheritance diagram for OpenSim::PropertyDblArray:</div>
 
 <p>Reimplemented from <a class="el" href="classOpenSim_1_1Property.html#ae704476212426fe6747a8a4508a49c94">OpenSim::Property</a>.</p>
 
+<p>Reimplemented in <a class="el" href="classOpenSim_1_1PropertyTransform.html#a372e2c29fa41840625280339e0edea5e">OpenSim::PropertyTransform</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="ac04260811f8426152af7065486f39656"></a><!-- doxytag: member="OpenSim::PropertyDblArray::setValue" ref="ac04260811f8426152af7065486f39656" args="(int aSize, const double aArray[])" -->
@@ -365,6 +375,8 @@ Inheritance diagram for OpenSim::PropertyDblArray:</div>
 </dl>
 
 <p>Reimplemented from <a class="el" href="classOpenSim_1_1Property.html#a37a06ccecfbfa3674ecff4f3547f5d6c">OpenSim::Property</a>.</p>
+
+<p>Reimplemented in <a class="el" href="classOpenSim_1_1PropertyTransform.html#ade757403f79787eb1e708009dab2a9ea">OpenSim::PropertyTransform</a>.</p>
 
 </div>
 </div>
@@ -416,6 +428,24 @@ Inheritance diagram for OpenSim::PropertyDblArray:</div>
 
 <p>Implements <a class="el" href="classOpenSim_1_1Property.html#a12e224a7d4a12eda6af64374b5cd5674">OpenSim::Property</a>.</p>
 
+<p>Reimplemented in <a class="el" href="classOpenSim_1_1PropertyTransform.html#a9a233bf43a414268d90afdec9369c3ab">OpenSim::PropertyTransform</a>.</p>
+
+</div>
+</div>
+<hr/><h2>Member Data Documentation</h2>
+<a class="anchor" id="a6743debf70f8723a4045b38bec3b1c93"></a><!-- doxytag: member="OpenSim::PropertyDblArray::_array" ref="a6743debf70f8723a4045b38bec3b1c93" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classOpenSim_1_1Array.html">Array</a>&lt;double&gt; <a class="el" href="classOpenSim_1_1PropertyDblArray.html#a6743debf70f8723a4045b38bec3b1c93">OpenSim::PropertyDblArray::_array</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p><a class="el" href="classOpenSim_1_1Array.html">Array</a> of integers. </p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
@@ -423,7 +453,7 @@ Inheritance diagram for OpenSim::PropertyDblArray:</div>
 <li>OpenSim/Common/PropertyDblArray.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Feb 7 02:15:14 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:37:04 2010 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

@@ -36,14 +36,18 @@ import javax.swing.Action;
 import javax.swing.ImageIcon;
 import org.openide.nodes.Children;
 import org.openide.util.NbBundle;
+import org.opensim.modeling.Force;
+import org.opensim.modeling.OpenSimContext;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.view.editors.MuscleEditorAction;
+import org.opensim.view.nodes.OpenSimObjectNode.displayOption;
+import org.opensim.view.pub.OpenSimDB;
 
 /**
  *
  * @author Ayman Habib
  */
-public class OneMuscleNode extends OpenSimObjectNode{
+public class OneMuscleNode extends OneForceNode {
     
     private static ResourceBundle bundle = NbBundle.getBundle(OneMuscleNode.class);
     /** Creates a new instance of OneMuscleNode */
@@ -55,8 +59,12 @@ public class OneMuscleNode extends OpenSimObjectNode{
         addDisplayOption(displayOption.Isolatable);
     }
     public Image getIcon(int i) {
-        URL imageURL = this.getClass().getResource("icons/muscleNode.png");
-        if (imageURL != null) {
+        URL imageURL;
+        if (disabled)
+            imageURL = this.getClass().getResource("icons/disabledNode.png");
+        else
+            imageURL = this.getClass().getResource("icons/muscleNode.png");
+        if (imageURL != null) { 
             return new ImageIcon(imageURL, "Actuator").getImage();
         } else {
             return null;
@@ -78,4 +86,5 @@ public class OneMuscleNode extends OpenSimObjectNode{
         retActions[actions.size()] = new MuscleEditorAction();
         return retActions;
     }
+
 }

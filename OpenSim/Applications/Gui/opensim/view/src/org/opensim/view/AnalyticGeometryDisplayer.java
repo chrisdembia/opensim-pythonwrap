@@ -31,6 +31,7 @@ import org.opensim.modeling.AnalyticGeometry;
 import org.opensim.modeling.AnalyticSphere;
 import org.opensim.modeling.AnalyticTorus;
 import org.opensim.modeling.Geometry;
+import vtk.vtkActor;
 import vtk.vtkClipPolyData;
 import vtk.vtkCylinderSource;
 import vtk.vtkParametricFunctionSource;
@@ -42,7 +43,7 @@ import vtk.vtkSphereSource;
 import vtk.vtkTransform;
 import vtk.vtkTransformPolyDataFilter;
 
-public class AnalyticGeometryDisplayer {
+public class AnalyticGeometryDisplayer extends vtkActor {
     private static int RESOLUTION_PHI=32;
     private static int RESOLUTION_THETA=32;
     private static int CYL_RESOLUTION=32;

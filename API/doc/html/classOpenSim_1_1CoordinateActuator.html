@@ -40,7 +40,6 @@ Inheritance diagram for OpenSim::CoordinateActuator:</div>
 <area href="classOpenSim_1_1Force.html" alt="OpenSim::Force" shape="rect" coords="0,112,179,136"/>
 <area href="classOpenSim_1_1ModelComponent.html" alt="OpenSim::ModelComponent" shape="rect" coords="0,56,179,80"/>
 <area href="classOpenSim_1_1Object.html" alt="OpenSim::Object" shape="rect" coords="0,0,179,24"/>
-<area href="classOpenSim_1_1PassiveJointTorque.html" alt="OpenSim::PassiveJointTorque" shape="rect" coords="0,336,179,360"/>
 </map>
  </div>
 </div>
@@ -70,26 +69,31 @@ Inheritance diagram for OpenSim::CoordinateActuator:</div>
 <tr><td class="memItemLeft" align="right" valign="top">double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CoordinateActuator.html#abc8b56e3b3eb2aefbed56a4151c2cae3">getStress</a> (const SimTK::State &amp;s) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the stress of the force.  <a href="#abc8b56e3b3eb2aefbed56a4151c2cae3"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CoordinateActuator.html#a92e9cf9ea3a2a57dd4b638303b5c90ab">initStateCache</a> (SimTK::State &amp;s, SimTK::SubsystemIndex subsystemIndex, <a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;model)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CoordinateActuator.html#a9bd22f2f543bb44cd72ed1007d10304f">computeForce</a> (const SimTK::State &amp;s) const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Apply the actuator force to BodyA and BodyB.  <a href="#a9bd22f2f543bb44cd72ed1007d10304f"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CoordinateActuator.html#a75cc538c2547b1f432f07a902d1aab61">computeForce</a> (const SimTK::State &amp;state, SimTK::Vector_&lt; SimTK::SpatialVec &gt; &amp;bodyForces, SimTK::Vector &amp;mobilityForces) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Apply the actuator force to BodyA and BodyB.  <a href="#a75cc538c2547b1f432f07a902d1aab61"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CoordinateActuator.html#a17064a476cf66267d50955081e659bce">computeActuation</a> (const SimTK::State &amp;s) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Compute all quantities necessary for applying the actuator force to the model.  <a href="#a17064a476cf66267d50955081e659bce"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CoordinateActuator.html#a421d1aee53f06c729da540d1087f98b1">check</a> () const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Check that this coordinate actuator actuator is valid.  <a href="#a421d1aee53f06c729da540d1087f98b1"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CoordinateActuator.html#abf072bcd857dadf90512eadbc71785ea">isCoordinateValid</a> () const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Is the.  <a href="#abf072bcd857dadf90512eadbc71785ea"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CoordinateActuator.html#af5e54a02098965d510b2c9a499123f87">createSystem</a> (SimTK::MultibodySystem &amp;system) const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">setup sets the actual <a class="el" href="classOpenSim_1_1Coordinate.html" title="A class implementing a Simbody generalized coordinate.">Coordinate</a> reference _coord  <a href="#af5e54a02098965d510b2c9a499123f87"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classOpenSim_1_1Array.html">OpenSim::Array</a><br class="typebreak"/>
 &lt; std::string &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CoordinateActuator.html#a200ae512f5ff8a2711c00c1cdb72fa08">getRecordLabels</a> () const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Methods to query a <a class="el" href="classOpenSim_1_1Force.html" title="This abstract class represents a force applied to bodies or generalized coordinates...">Force</a> for the value actually applied during simulation The names of the quantities (column labels) is returned by this first function <a class="el" href="classOpenSim_1_1CoordinateActuator.html#a200ae512f5ff8a2711c00c1cdb72fa08" title="Methods to query a Force for the value actually applied during simulation The names...">getRecordLabels()</a>.  <a href="#a200ae512f5ff8a2711c00c1cdb72fa08"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classOpenSim_1_1Array.html">OpenSim::Array</a>&lt; double &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CoordinateActuator.html#a164fbcf97079287421fea2d01ca6b22b">getRecordValues</a> (const SimTK::State &amp;state) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Given SimTK::State object extract all the values necessary to report forces, application location frame, etc.  <a href="#a164fbcf97079287421fea2d01ca6b22b"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CoordinateActuator.html#a63b6e73be59dd00c6ebbccf909515b35">getSpeed</a> (const SimTK::State &amp;s) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">For a CooridnateActuator, the speed is really the speed of the coordinate underneath it this overrides the default behavior (bug ).  <a href="#a63b6e73be59dd00c6ebbccf909515b35"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CoordinateActuator.html#a72e53d7df3b32d4d918701ee1254f19c">updateFromXMLNode</a> ()</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Update this object based on its XML node.  <a href="#a72e53d7df3b32d4d918701ee1254f19c"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CoordinateActuator.html#a9553cde46addce2bf28d16580749f471">OPENSIM_DECLARE_DERIVED</a> (<a class="el" href="classOpenSim_1_1CoordinateActuator.html">CoordinateActuator</a>, <a class="el" href="classOpenSim_1_1Actuator.html">Actuator</a>)</td></tr>
 <tr><td colspan="2"><h2>Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classOpenSim_1_1ForceSet.html">ForceSet</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CoordinateActuator.html#a159c77456469046976fe53d4a6ccff27">CreateForceSetOfCoordinateActuatorsForModel</a> (const SimTK::State &amp;s, <a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;aModel, double aOptimalForce=1, bool aIncludeLockedAndConstrainedCoordinates=true)</td></tr>
+<tr><td colspan="2"><h2>Protected Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CoordinateActuator.html#ad0725c449b2ae6641aa03e7726a54f90">setup</a> (<a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;aModel)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Perform some setup functions that happen after the object has been deserialized or copied.  <a href="#ad0725c449b2ae6641aa03e7726a54f90"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CoordinateActuator.html#af5e54a02098965d510b2c9a499123f87">createSystem</a> (SimTK::MultibodySystem &amp;system) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Create underlying SimTK::Force.  <a href="#af5e54a02098965d510b2c9a499123f87"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyStr.html">PropertyStr</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CoordinateActuator.html#a57dd352e14215c2f751622988a418b9a">_propCoordinateName</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Name of coordinate to which the coordinate actuator is applied.  <a href="#a57dd352e14215c2f751622988a418b9a"></a><br/></td></tr>
@@ -209,7 +213,7 @@ Inheritance diagram for OpenSim::CoordinateActuator:</div>
 
 </div>
 </div>
-<a class="anchor" id="a9bd22f2f543bb44cd72ed1007d10304f"></a><!-- doxytag: member="OpenSim::CoordinateActuator::computeForce" ref="a9bd22f2f543bb44cd72ed1007d10304f" args="(const SimTK::State &amp;s) const " -->
+<a class="anchor" id="a75cc538c2547b1f432f07a902d1aab61"></a><!-- doxytag: member="OpenSim::CoordinateActuator::computeForce" ref="a75cc538c2547b1f432f07a902d1aab61" args="(const SimTK::State &amp;state, SimTK::Vector_&lt; SimTK::SpatialVec &gt; &amp;bodyForces, SimTK::Vector &amp;mobilityForces) const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -217,9 +221,24 @@ Inheritance diagram for OpenSim::CoordinateActuator:</div>
           <td class="memname">void CoordinateActuator::computeForce </td>
           <td>(</td>
           <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
-          <td class="paramname"> <em>s</em></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td> const<code> [virtual]</code></td>
+          <td class="paramname"> <em>state</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SimTK::Vector_&lt; SimTK::SpatialVec &gt; &amp;&nbsp;</td>
+          <td class="paramname"> <em>bodyForces</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SimTK::Vector &amp;&nbsp;</td>
+          <td class="paramname"> <em>mobilityForces</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td> const<code> [virtual]</code></td>
         </tr>
       </table>
 </div>
@@ -227,7 +246,7 @@ Inheritance diagram for OpenSim::CoordinateActuator:</div>
 
 <p>Apply the actuator force to BodyA and BodyB. </p>
 
-<p>Implements <a class="el" href="classOpenSim_1_1CustomActuator.html#a456ade00ad449621e7dd34293baa920a">OpenSim::CustomActuator</a>.</p>
+<p>Implements <a class="el" href="classOpenSim_1_1CustomActuator.html#afdfb511fb33a855430124c856dc7390e">OpenSim::CustomActuator</a>.</p>
 
 </div>
 </div>
@@ -252,8 +271,6 @@ Inheritance diagram for OpenSim::CoordinateActuator:</div>
 
 <p>Implements <a class="el" href="classOpenSim_1_1Actuator.html#acbe9a727308222e52d6a8e4f2dc59ff5">OpenSim::Actuator</a>.</p>
 
-<p>Reimplemented in <a class="el" href="classOpenSim_1_1PassiveJointTorque.html#a3c039686eb51fee6de4ac5ff81e14f8e">OpenSim::PassiveJointTorque</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a78daab6e8edd265197de8fd213f7e1d2"></a><!-- doxytag: member="OpenSim::CoordinateActuator::copyData" ref="a78daab6e8edd265197de8fd213f7e1d2" args="(const CoordinateActuator &amp;aGenForce)" -->
@@ -273,6 +290,8 @@ Inheritance diagram for OpenSim::CoordinateActuator:</div>
 <div class="memdoc">
 
 <p>Copy the member data of the specified actuator. </p>
+
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1Force.html#a3d0364bb0f23b0c14ac5ad37b6c7310c">OpenSim::Force</a>.</p>
 
 </div>
 </div>
@@ -325,13 +344,13 @@ Inheritance diagram for OpenSim::CoordinateActuator:</div>
           <td class="paramtype">SimTK::MultibodySystem &amp;&nbsp;</td>
           <td class="paramname"> <em>system</em></td>
           <td>&nbsp;)&nbsp;</td>
-          <td> const<code> [virtual]</code></td>
+          <td> const<code> [protected, virtual]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
-<p>setup sets the actual <a class="el" href="classOpenSim_1_1Coordinate.html" title="A class implementing a Simbody generalized coordinate.">Coordinate</a> reference _coord </p>
+<p>Create underlying SimTK::Force. </p>
 
 <p>Reimplemented from <a class="el" href="classOpenSim_1_1CustomActuator.html#aa223e3d472409e1b8d64f251bc115ed1">OpenSim::CustomActuator</a>.</p>
 
@@ -420,6 +439,28 @@ Inheritance diagram for OpenSim::CoordinateActuator:</div>
 <p>used in conjunction with getRecordLabels and should return same size <a class="el" href="classOpenSim_1_1Array.html">Array</a> </p>
 
 <p>Reimplemented from <a class="el" href="classOpenSim_1_1Force.html#ac57805498131e7424d5c06c455d15737">OpenSim::Force</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a63b6e73be59dd00c6ebbccf909515b35"></a><!-- doxytag: member="OpenSim::CoordinateActuator::getSpeed" ref="a63b6e73be59dd00c6ebbccf909515b35" args="(const SimTK::State &amp;s) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double CoordinateActuator::getSpeed </td>
+          <td>(</td>
+          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
+          <td class="paramname"> <em>s</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>For a CooridnateActuator, the speed is really the speed of the coordinate underneath it this overrides the default behavior (bug ). </p>
+
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1Actuator.html#aa29b82e752882fa7616a9f41f0a0bdfd">OpenSim::Actuator</a>.</p>
 
 </div>
 </div>
@@ -527,8 +568,6 @@ Inheritance diagram for OpenSim::CoordinateActuator:</div>
 
 <p>Reimplemented from <a class="el" href="classOpenSim_1_1CustomActuator.html#a71010b039e1b291fd45460bb0d68223b">OpenSim::CustomActuator</a>.</p>
 
-<p>Reimplemented in <a class="el" href="classOpenSim_1_1PassiveJointTorque.html#a1df4c8cf552e2ee4bcffadb9ab3b0aa9">OpenSim::PassiveJointTorque</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="ac67c2184ea0782c7f2855dc74056d87d"></a><!-- doxytag: member="OpenSim::CoordinateActuator::operator=" ref="ac67c2184ea0782c7f2855dc74056d87d" args="(const CoordinateActuator &amp;aGenForce)" -->
@@ -551,8 +590,6 @@ Inheritance diagram for OpenSim::CoordinateActuator:</div>
 <dl class="return"><dt><b>Returns:</b></dt><dd>aCoordinateID ID (or number, or index) of the generalized coordinate. </dd></dl>
 
 <p>Reimplemented from <a class="el" href="classOpenSim_1_1Actuator.html#a0673fdb7ce75e906947e6bc9cd818387">OpenSim::Actuator</a>.</p>
-
-<p>Reimplemented in <a class="el" href="classOpenSim_1_1PassiveJointTorque.html#a458b00d87fedfa7613547aa5280ba1f7">OpenSim::PassiveJointTorque</a>.</p>
 
 </div>
 </div>
@@ -608,6 +645,34 @@ Inheritance diagram for OpenSim::CoordinateActuator:</div>
 
 </div>
 </div>
+<a class="anchor" id="ad0725c449b2ae6641aa03e7726a54f90"></a><!-- doxytag: member="OpenSim::CoordinateActuator::setup" ref="ad0725c449b2ae6641aa03e7726a54f90" args="(Model &amp;aModel)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CoordinateActuator::setup </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>aModel</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [protected, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Perform some setup functions that happen after the object has been deserialized or copied. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>aModel</em>&nbsp;</td><td>OpenSim model containing this <a class="el" href="classOpenSim_1_1CoordinateActuator.html">CoordinateActuator</a>. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1Actuator.html#aede773902c72467754557f4caf853b51">OpenSim::Actuator</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a72e53d7df3b32d4d918701ee1254f19c"></a><!-- doxytag: member="OpenSim::CoordinateActuator::updateFromXMLNode" ref="a72e53d7df3b32d4d918701ee1254f19c" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -626,7 +691,7 @@ Inheritance diagram for OpenSim::CoordinateActuator:</div>
 <p>Update this object based on its XML node. </p>
 <p>This method simply calls <a class="el" href="classOpenSim_1_1Object.html#a3426934773f3803309b0a360d3262de0" title="Update this object based on its XML node.">Object::updateFromXMLNode()</a> and then calls a few methods in this class to ensure that variable members have been set in a consistent manner. </p>
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Object.html#a3426934773f3803309b0a360d3262de0">OpenSim::Object</a>.</p>
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1Actuator.html#a4033b3f725dbd2bc43922e9ff7630faf">OpenSim::Actuator</a>.</p>
 
 </div>
 </div>
@@ -707,7 +772,7 @@ Inheritance diagram for OpenSim::CoordinateActuator:</div>
 <li>OpenSim/Actuators/CoordinateActuator.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Feb 7 02:15:11 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:36:58 2010 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

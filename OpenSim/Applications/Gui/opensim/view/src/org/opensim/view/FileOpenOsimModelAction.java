@@ -47,7 +47,7 @@ import org.opensim.view.pub.OpenSimDB;
 
 public class FileOpenOsimModelAction extends CallableSystemAction {
     
-    protected String fileName;
+    //protected String fileName;
     
     public void performAction() {
         // TODO implement action body
@@ -111,11 +111,6 @@ public class FileOpenOsimModelAction extends CallableSystemAction {
     
     public boolean loadModel(final Model aModel, boolean loadInForground) throws IOException {
         boolean retValue = false;
-        /*boolean isOk = aModel.builtOK();
-        if (!isOk){
-            OpenSimLogger.logMessage("Failed to construct model from file "+fileName+"\n", OpenSimLogger.ERROR);
-            return retValue;            
-        }*/
         if (OpenSimDB.getInstance().hasModel(aModel)){   // If model is already loaded, complain and return.
             OpenSimLogger.logMessage("Model is already loaded\n", OpenSimLogger.ERROR);
             return retValue;            
@@ -155,71 +150,10 @@ public class FileOpenOsimModelAction extends CallableSystemAction {
              OpenSimLogger.logMessage("Failed to construct model from file "+fileName+"\n", OpenSimLogger.ERROR);
             return retValue;
         }
-        ///aModel.initSystem();        // Call 1 to initSystem is it needed?
 
-        // Check if the model uses a SimmKinematicsEngine. If it does,
-        // ask the user if he wants to migrate it to a SimbodyEngine.
-        // If yes, also check to see if any inertial properties are zero.
-        /*
-        AbstractDynamicsEngine oldEngine = aModel.getDynamicsEngine();
-        SimmKinematicsEngine simmKE = SimmKinematicsEngine.safeDownCast(oldEngine);
-        if (simmKE != null) {
-           Object userAnswer = DialogDisplayer.getDefault().notify(
-              new NotifyDescriptor.Confirmation("The model " + aModel.getName() + " uses a SimmKinematicsEngine, which has been deprecated."
-                   + " Also, it cannot be used in dynamic simulations." +
-                   " Do you want to convert it to a SimbodyEngine?",
-                   NotifyDescriptor.YES_NO_CANCEL_OPTION));
-           if (userAnswer == NotifyDescriptor.CANCEL_OPTION)
-              return false;
-           if (userAnswer == NotifyDescriptor.YES_OPTION) {
-               if (aModel.getDynamicsEngine().getBodySet().get("ground")==null){
-                   DialogDisplayer.getDefault().notify(
-              new NotifyDescriptor.Message("The model " + aModel.getName() + " has no segment with name ground."
-                   + " Please rename your base segment to 'ground' and retry."));
-                   return false;
-               }
-              String backupFilename = FileUtils.addSuffix(fileName, "_save");
-              aModel.copy().print(backupFilename); 
-              OpenSimLogger.logMessage("Backing up model to file "+
-                      backupFilename+"\n", OpenSimLogger.INFO);
-
-              AbstractDynamicsEngine newEngine = org.opensim.modeling.opensimModel.makeSimbodyEngine(aModel, simmKE);
-              aModel.replaceEngine(newEngine);
-              // Now check for zero mass.
-              if (hasZeroMasses(aModel) == true) {
-                 DialogDisplayer.getDefault().notify(
-                    new NotifyDescriptor.Message("The model " + aModel.getName() + " contains one or more bodies with zero mass or inertia." +
-                         " This may prevent dynamic simulations from running properly." +
-                         " Please use the Property Viewer to check the inertial properties of the bodies before running dynamic simulations.",
-                       NotifyDescriptor.WARNING_MESSAGE));
-              }
-              aModel.copy().print(fileName);  //So user is not prompted again
-           }
-        }
-*/
         return loadModel(aModel, loadInForground);
     }
-/*
-    // Check the model to see if any of its bodies have zero mass or inertia.
-    private boolean hasZeroMasses(Model aModel) {
-       AbstractDynamicsEngine engine = aModel.getDynamicsEngine();
-       BodySet bodies = engine.getBodySet();
-       Body groundBody = engine.getGroundBody();
-       double[] inertia = new double[9];
-       for (int i=0; i<bodies.getSize(); i++) {
-          Body body = bodies.get(i);
-          if (Body.getCPtr(body) != Body.getCPtr(groundBody)) {
-             if (body.getMass() <= 0.0)
-                return true;
-             body.getInertia(inertia);
-             if (inertia[0] <= 0.0 || inertia[4] <= 0.0 || inertia[8] <= 0.0)
-                return true;
-          }
-       }
- 
-       return false;
-    }
-*/
+
     public String getName() {
         return NbBundle.getMessage(FileOpenOsimModelAction.class, "CTL_OpenOsimModel");
     }
@@ -235,28 +169,7 @@ public class FileOpenOsimModelAction extends CallableSystemAction {
     protected boolean asynchronous() {
         return true;
     }
-    /**
-     * Bean pattern to support serialization
-     */
-    public String getFileName()
-    {
-        return fileName;
-    }
     
-    public void setFileName(String filename)
-    {
-        fileName=filename;
-    }
-    
-    public void writeExternal(ObjectOutput out) throws IOException {
-       //SerializationHelper.getCommandEncoder().writeObject(this);
-       //SerializationHelper.getCommandEncoder().flush();
-    }
-
-    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-        
-    }
-
     void openModelFile(String string) throws IOException {
         loadModel(string);
     }

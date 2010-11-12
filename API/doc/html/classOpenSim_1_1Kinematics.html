@@ -70,12 +70,12 @@ Inheritance diagram for OpenSim::Kinematics:</div>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Kinematics.html#a043dff5709c65e35f58a8681b6bd5d7a">setModel</a> (<a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;aModel)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the model pointer for analyzing kinematics.  <a href="#a043dff5709c65e35f58a8681b6bd5d7a"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Kinematics.html#a2a1d0b66ff90de85102485c25a8e6095">setRecordAccelerations</a> (bool aRecordAccelerations)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Kinematics.html#ab12059e05439a5640fb6406efb6b2a4e">begin</a> (const SimTK::State &amp;s)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This method is called at the beginning of an analysis so that any necessary initializations may be performed.  <a href="#ab12059e05439a5640fb6406efb6b2a4e"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Kinematics.html#aeb3a42420c1b2cfefce945253056c984">begin</a> (SimTK::State &amp;s)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This method is called at the beginning of an analysis so that any necessary initializations may be performed.  <a href="#aeb3a42420c1b2cfefce945253056c984"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Kinematics.html#a17cd17f2fe0d02fae38cb22d59a0fe43">step</a> (const SimTK::State &amp;s, int setNumber)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This method is called to perform the analysis.  <a href="#a17cd17f2fe0d02fae38cb22d59a0fe43"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Kinematics.html#a817ec1a539ad051b60fb0c72e924a52c">end</a> (const SimTK::State &amp;s)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This method is called at the end of an analysis so that any necessary finalizations may be performed.  <a href="#a817ec1a539ad051b60fb0c72e924a52c"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Kinematics.html#ae8bb6aa8cae4e9e616df1b92586197fa">end</a> (SimTK::State &amp;s)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This method is called at the end of an analysis so that any necessary finalizations may be performed.  <a href="#ae8bb6aa8cae4e9e616df1b92586197fa"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Kinematics.html#ad6851c9a8e485795f3d059470dbffcb6">printResults</a> (const std::string &amp;aBaseName, const std::string &amp;aDir=&quot;&quot;, double aDT=-1.0, const std::string &amp;aExtension=&quot;.sto&quot;)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Print the results of the analysis.  <a href="#ad6851c9a8e485795f3d059470dbffcb6"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Protected Member Functions</h2></td></tr>
@@ -119,7 +119,7 @@ Inheritance diagram for OpenSim::Kinematics:</div>
 <p>Construct an <a class="el" href="classOpenSim_1_1Kinematics.html" title="A class for recording the kinematics of the generalized coordinates of a model during...">Kinematics</a> object for recording the kinematics of a model's generalized coodinates during a simulation. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>aModel</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Model.html" title="A base class that specifies the interface for a musculoskeletal model.">Model</a> for which the kinematics are to be recorded. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>aModel</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a> for which the kinematics are to be recorded. </td></tr>
   </table>
   </dd>
 </dl>
@@ -193,14 +193,14 @@ Inheritance diagram for OpenSim::Kinematics:</div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="ab12059e05439a5640fb6406efb6b2a4e"></a><!-- doxytag: member="OpenSim::Kinematics::begin" ref="ab12059e05439a5640fb6406efb6b2a4e" args="(const SimTK::State &amp;s)" -->
+<a class="anchor" id="aeb3a42420c1b2cfefce945253056c984"></a><!-- doxytag: member="OpenSim::Kinematics::begin" ref="aeb3a42420c1b2cfefce945253056c984" args="(SimTK::State &amp;s)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">int Kinematics::begin </td>
           <td>(</td>
-          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
+          <td class="paramtype">SimTK::State &amp;&nbsp;</td>
           <td class="paramname"> <em>s</em></td>
           <td>&nbsp;)&nbsp;</td>
           <td><code> [virtual]</code></td>
@@ -219,7 +219,7 @@ Inheritance diagram for OpenSim::Kinematics:</div>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>-1 on error, 0 otherwise. </dd></dl>
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Analysis.html#af3cad0d2e51c92cf94696a790b306a93">OpenSim::Analysis</a>.</p>
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1Analysis.html#a619cf0a86bfb520befa533b5a71ce3f6">OpenSim::Analysis</a>.</p>
 
 </div>
 </div>
@@ -244,14 +244,14 @@ Inheritance diagram for OpenSim::Kinematics:</div>
 
 </div>
 </div>
-<a class="anchor" id="a817ec1a539ad051b60fb0c72e924a52c"></a><!-- doxytag: member="OpenSim::Kinematics::end" ref="a817ec1a539ad051b60fb0c72e924a52c" args="(const SimTK::State &amp;s)" -->
+<a class="anchor" id="ae8bb6aa8cae4e9e616df1b92586197fa"></a><!-- doxytag: member="OpenSim::Kinematics::end" ref="ae8bb6aa8cae4e9e616df1b92586197fa" args="(SimTK::State &amp;s)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">int Kinematics::end </td>
           <td>(</td>
-          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
+          <td class="paramtype">SimTK::State &amp;&nbsp;</td>
           <td class="paramname"> <em>s</em></td>
           <td>&nbsp;)&nbsp;</td>
           <td><code> [virtual]</code></td>
@@ -271,7 +271,7 @@ Inheritance diagram for OpenSim::Kinematics:</div>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>-1 on error, 0 otherwise. </dd></dl>
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Analysis.html#a34d1fd1b3235e9d60a905d34b49e5314">OpenSim::Analysis</a>.</p>
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1Analysis.html#aec904a247f8d4254ee31f0b17b3b0acc">OpenSim::Analysis</a>.</p>
 
 </div>
 </div>
@@ -688,7 +688,7 @@ Inheritance diagram for OpenSim::Kinematics:</div>
 <li>OpenSim/Analyses/Kinematics.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Feb 7 02:15:12 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:37:00 2010 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

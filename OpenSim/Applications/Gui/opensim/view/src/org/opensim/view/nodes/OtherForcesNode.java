@@ -69,7 +69,7 @@ public class OtherForcesNode extends OpenSimObjectSetNode {
             Actuator act = Actuator.safeDownCast(nextForce);
             if (act != null)
                continue;
-            OneOtherForceNode node = new OneOtherForceNode(nextForce);
+            OneForceNode node = new OneForceNode(nextForce);
             Node[] arrNodes = new Node[1];
             arrNodes[0] = node;
             children.add(arrNodes);

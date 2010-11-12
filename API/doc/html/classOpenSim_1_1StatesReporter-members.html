@@ -51,7 +51,7 @@
   <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Analysis.html#a602b317ac6d17337622849227618e8ff">Analysis</a>(Model *aModel=0)</td><td><a class="el" href="classOpenSim_1_1Analysis.html">OpenSim::Analysis</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Analysis.html#a0f4e8dc27bf96b267b3ac6916151a23b">Analysis</a>(const std::string &amp;aFileName, bool aUpdateFromXMLNode=true)</td><td><a class="el" href="classOpenSim_1_1Analysis.html">OpenSim::Analysis</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Analysis.html#a9b3e54fbeedcbc907e1e67163d57bb23">Analysis</a>(const Analysis &amp;aAnalysis)</td><td><a class="el" href="classOpenSim_1_1Analysis.html">OpenSim::Analysis</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="classOpenSim_1_1StatesReporter.html#a672408fc2cb6957c41749cf52936aca3">begin</a>(const SimTK::State &amp;s)</td><td><a class="el" href="classOpenSim_1_1StatesReporter.html">OpenSim::StatesReporter</a></td><td><code> [virtual]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classOpenSim_1_1StatesReporter.html#a1b9eb9e8140edd7c5566f1641554eda9">begin</a>(SimTK::State &amp;s)</td><td><a class="el" href="classOpenSim_1_1StatesReporter.html">OpenSim::StatesReporter</a></td><td><code> [virtual]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Object.html#a82549ce31636f26c0f4e4b592a58b8a0">clearChanged</a>()</td><td><a class="el" href="classOpenSim_1_1Object.html">OpenSim::Object</a></td><td><code> [inline, protected]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Object.html#a5b460035064bddcb55b31ccaaad290f2">clearXMLStructures</a>()</td><td><a class="el" href="classOpenSim_1_1Object.html">OpenSim::Object</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="classOpenSim_1_1StatesReporter.html#a5b36e6a8ca728ae5bb7ec75a85da006e">copy</a>() const </td><td><a class="el" href="classOpenSim_1_1StatesReporter.html">OpenSim::StatesReporter</a></td><td><code> [virtual]</code></td></tr>
@@ -60,7 +60,7 @@
   <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Object.html#a4686d418622afa68c2cad31975b6efed">DEFAULT_NAME</a></td><td><a class="el" href="classOpenSim_1_1Object.html">OpenSim::Object</a></td><td><code> [static]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Object.html#aea6d52f298156e259af78d4caa69f3e8">deleteObserver</a>(Object &amp;aObserver)</td><td><a class="el" href="classOpenSim_1_1Object.html">OpenSim::Object</a></td><td><code> [inline]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Object.html#abb58105d192646e08528e23b01732ee5">deleteObservers</a>()</td><td><a class="el" href="classOpenSim_1_1Object.html">OpenSim::Object</a></td><td><code> [inline]</code></td></tr>
-  <tr class="memlist"><td><a class="el" href="classOpenSim_1_1StatesReporter.html#a9f7591097edcb5bee1e378720e956a61">end</a>(const SimTK::State &amp;s)</td><td><a class="el" href="classOpenSim_1_1StatesReporter.html">OpenSim::StatesReporter</a></td><td><code> [virtual]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classOpenSim_1_1StatesReporter.html#ae7396f7cfbef3b17fd124aad6ba691f5">end</a>(SimTK::State &amp;s)</td><td><a class="el" href="classOpenSim_1_1StatesReporter.html">OpenSim::StatesReporter</a></td><td><code> [virtual]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Object.html#a182b628ae6fa1bd16bbe439abc8c2faf">generateXMLNode</a>(DOMElement *aParent, int aNodeIndex=0)</td><td><a class="el" href="classOpenSim_1_1Object.html">OpenSim::Object</a></td><td><code> [virtual]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Analysis.html#aa97e0a25c0bbcd2c63d80c8c85b23740">getColumnLabels</a>() const </td><td><a class="el" href="classOpenSim_1_1Analysis.html">OpenSim::Analysis</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Object.html#a96486fa12910478db9b65384546d9e97">getDebugLevel</a>()</td><td><a class="el" href="classOpenSim_1_1Object.html">OpenSim::Object</a></td><td><code> [inline, static]</code></td></tr>
@@ -72,7 +72,6 @@
   <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Analysis.html#a1df40d88d4f5df6f49a0c6ba2a0f8f2a">getInDegrees</a>() const </td><td><a class="el" href="classOpenSim_1_1Analysis.html">OpenSim::Analysis</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Object.html#ab4a43cd0350e37bbd00451fd01513d01">getInlined</a>() const </td><td><a class="el" href="classOpenSim_1_1Object.html">OpenSim::Object</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Object.html#a40651ab63aba5bfb7ddc6f495d5d4b60">getName</a>() const </td><td><a class="el" href="classOpenSim_1_1Object.html">OpenSim::Object</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Object.html#a6c0b24ea13f28178d9e677c98529386d">getNewType</a>() const </td><td><a class="el" href="classOpenSim_1_1Object.html">OpenSim::Object</a></td><td><code> [inline, virtual]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Analysis.html#abe7532f209921d68da8b68358d6ad7cf">getOn</a>() const </td><td><a class="el" href="classOpenSim_1_1Analysis.html">OpenSim::Analysis</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Analysis.html#a89de6d6782bdb1128f3afde738c8e314">getPrintResultFiles</a>() const </td><td><a class="el" href="classOpenSim_1_1Analysis.html">OpenSim::Analysis</a></td><td><code> [inline]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Object.html#accf9602cb1075775f01243618e8cf57b">getPropertySet</a>()</td><td><a class="el" href="classOpenSim_1_1Object.html">OpenSim::Object</a></td><td><code> [inline]</code></td></tr>
@@ -149,7 +148,7 @@
   <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Object.html#ae8f5483f459e46687bd01e6f9977afd3">~Object</a>()</td><td><a class="el" href="classOpenSim_1_1Object.html">OpenSim::Object</a></td><td><code> [virtual]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classOpenSim_1_1StatesReporter.html#a1c095bcadcd96e2b803f8afc5d95c338">~StatesReporter</a>()</td><td><a class="el" href="classOpenSim_1_1StatesReporter.html">OpenSim::StatesReporter</a></td><td><code> [virtual]</code></td></tr>
 </table></div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Feb 7 02:15:12 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:37:01 2010 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

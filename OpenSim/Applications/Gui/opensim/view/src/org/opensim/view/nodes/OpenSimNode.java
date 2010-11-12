@@ -96,12 +96,7 @@ public class OpenSimNode extends AbstractNode {
     }
 
     public Image getOpenedIcon(int i) {
-        URL imageURL = this.getClass().getResource("/org/opensim/view/nodes/icons/osimNode.png");
-        if (imageURL != null) {
-            return new ImageIcon(imageURL, "").getImage();
-        } else {
-            return null;
-        }
+        return getIcon(i);
     }
     public OpenSimObjectNode findChild(Object objectToMatch){
        if (this instanceof OpenSimObjectNode){

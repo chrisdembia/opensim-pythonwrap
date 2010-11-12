@@ -31,11 +31,13 @@
 package org.opensim.view.motions;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.TimerTask;
+import java.util.prefs.Preferences;
 import javax.swing.SwingUtilities;
 import org.netbeans.api.progress.ProgressHandle;
 import org.opensim.modeling.*;
+import org.opensim.utils.TheApp;
 import org.opensim.view.SingleModelVisuals;
-import org.opensim.view.motions.MotionDisplayer;
 import org.opensim.view.pub.OpenSimDB;
 import org.opensim.view.pub.ViewDB;
 
@@ -43,7 +45,7 @@ import org.opensim.view.pub.ViewDB;
  *
  * @author Ayman Habib
  */
-public class JavaMotionDisplayerCallback extends AnalysisWrapper {
+public class JavaMotionDisplayerCallback extends AnalysisWrapperWithTimer {
    Storage storage = null;
    MotionDisplayer motionDisplayer = null;
    ProgressHandle progressHandle = null;
@@ -86,6 +88,7 @@ public class JavaMotionDisplayerCallback extends AnalysisWrapper {
       
       motionDisplayer = new MotionDisplayer(storage, getModelForDisplay());
       this.progressHandle = progressHandle;
+      setRefreshRateInMillis(getRefreshRatePreference());
    }
 
     private void createResultStorage() {
@@ -111,6 +114,7 @@ public class JavaMotionDisplayerCallback extends AnalysisWrapper {
           createResultStorage();
       motionDisplayer = new MotionDisplayer(storage, getModelForDisplay());
       this.progressHandle = progressHandle;
+      setRefreshRateInMillis(getRefreshRatePreference());
    }
 
    // In seconds
@@ -192,7 +196,10 @@ public class JavaMotionDisplayerCallback extends AnalysisWrapper {
           nextResult.setStates(currentSimTime, numStates, statesBuffer);
           storage.append(nextResult);
       }
-      if(true) {
+      if (!isInitialized()){
+         initializeTimer();
+      }
+      if(isUpdateDisplay()) {
           stopIKTime = getCurrentRealTime(); // Stop timing of ik computations
           startDisplayTime = getCurrentRealTime(); // Start timing of display update
           updateDisplaySynchronously();
@@ -201,8 +208,9 @@ public class JavaMotionDisplayerCallback extends AnalysisWrapper {
               minSimTime = currentSimTime+(stopDisplayTime-startDisplayTime)+(stopIKTime-startIKTime);  // Set minimum simulation time for next display update 
           }
           //System.out.println("minSimTime = "+currentSimTime+" + "+(stopDisplayTime-startDisplayTime)+" + "+(stopIKTime-startIKTime)+" = "+minSimTime);
-          //System.out.println(optimizerAlgorithm);
+          System.out.println("Updating Display");
           startIKTime = getCurrentRealTime(); // Start timing of ik computations
+          setUpdateDisplay(false);
       }
       stepNumber++;
    }
@@ -211,6 +219,8 @@ public class JavaMotionDisplayerCallback extends AnalysisWrapper {
       setRenderMuscleActivations(false);
       if(motionDisplayer!=null) motionDisplayer.cleanupDisplay();
       ViewDB.getInstance().repaintAll();
+      if (getTimer()!=null)
+          getTimer().cancel();
    }
 
    protected void finalize() {
@@ -234,7 +244,9 @@ public class JavaMotionDisplayerCallback extends AnalysisWrapper {
 
     public int begin(SWIGTYPE_p_SimTK__State s) {
         int retValue=0;
-        
+        if (!isInitialized()){
+			initializeTimer();
+        }
         //retValue = super.begin(s);
         return retValue;
     }
@@ -246,6 +258,11 @@ public class JavaMotionDisplayerCallback extends AnalysisWrapper {
     public Storage getStateStorage() {
         return storage;
     }
-    
-    
+
+    static public long getRefreshRatePreference() {
+         String refreshRateInMS = "100";        
+         String saved = Preferences.userNodeForPackage(TheApp.class).get("Refresh Rate (ms.)", refreshRateInMS);
+         Long savedLong = Long.parseLong(saved);
+         return savedLong;
+    }    
 }

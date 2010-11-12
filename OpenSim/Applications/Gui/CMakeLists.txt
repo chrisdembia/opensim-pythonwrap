@@ -16,6 +16,8 @@ INSTALL(DIRECTORY opensim/build/cluster/ DESTINATION opensim)
 FILE(GLOB VTK_LIBS ${VTK_LIB_DIR}/*.dll)
 INSTALL_FILES(/bin/ FILES  ${VTK_LIBS})
 
+INSTALL(DIRECTORY opensim/Models/ DESTINATION Models PATTERN ".svn" EXCLUDE)
+
 # Find Java and create a jdk/jre directory and copy jre to it
 INCLUDE(${CMAKE_ROOT}/Modules/FindJava.cmake)
 INSTALL(DIRECTORY ${JRE_TO_PACKAGE} DESTINATION jdk)

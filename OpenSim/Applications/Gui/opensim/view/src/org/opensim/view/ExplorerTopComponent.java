@@ -38,6 +38,7 @@ import javax.swing.AbstractAction;
 import javax.swing.JComponent;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
+import javax.swing.undo.AbstractUndoableEdit;
 import javax.swing.undo.CannotRedoException;
 import javax.swing.undo.CannotUndoException;
 import org.openide.ErrorManager;
@@ -468,5 +469,14 @@ final public class ExplorerTopComponent extends TopComponent
                     }
                 }
             }
+        }
+        
+        public static void addUndoableEdit(AbstractUndoableEdit aUndoableEdit)
+        {
+            getDefault().getUndoRedoManager().addEdit(aUndoableEdit);
+        }
+        public static void addFinalEdit()
+        {
+            getDefault().getUndoRedoManager().discardAllEdits();
         }
 }

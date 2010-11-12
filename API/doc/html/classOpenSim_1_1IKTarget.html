@@ -75,7 +75,7 @@ Inheritance diagram for OpenSim::IKTarget:</div>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1IKTarget.html#afaca0c944e77d4385614a03ad28a9ed4">objectiveFunc</a> (const SimTK::Vector &amp;parameters, const bool new_parameters, SimTK::Real &amp;f) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Compute objective function (sum of squared errors in marker positions) using current values (x) for controls.  <a href="#afaca0c944e77d4385614a03ad28a9ed4"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1IKTarget.html#a6c71e5f9c0b7b2c28b4c714d5e468b21">gradientFunc</a> (const SimTK::Vector &amp;parameters, const bool new_parameters, SimTK::Vector &amp;gradient) const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Compute derivative of objective function using finite differences.  <a href="#a6c71e5f9c0b7b2c28b4c714d5e468b21"></a><br/></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Compute derivative of objective function using forward difference.  <a href="#a6c71e5f9c0b7b2c28b4c714d5e468b21"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1IKTarget.html#a599112cb20f0206cd8d29d9366de73e2">iterativeOptimization</a> (SimTK::State &amp;s, SimTK::Vector &amp;results)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Compute derivative of objective function using finite differences.  <a href="#a599112cb20f0206cd8d29d9366de73e2"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">const double &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1IKTarget.html#ac85448dd2f2e3bc19d5fe6dc99b077cc">getWorstMarkerError</a> () const </td></tr>
@@ -128,7 +128,7 @@ Inheritance diagram for OpenSim::IKTarget:</div>
 </div>
 <div class="memdoc">
 
-<p><p>Number of controls -- also allocates _dx. </p>
+<p><p>Number of coordinates to determine -- also allocates _dx. </p>
 </p>
 
 </div>
@@ -462,7 +462,7 @@ Inheritance diagram for OpenSim::IKTarget:</div>
 </div>
 <div class="memdoc">
 
-<p>Compute derivative of objective function using finite differences. </p>
+<p>Compute derivative of objective function using forward difference. </p>
 
 </div>
 </div>
@@ -658,7 +658,7 @@ Inheritance diagram for OpenSim::IKTarget:</div>
 <li>OpenSim/Tools/IKTarget.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Feb 7 02:15:21 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:37:15 2010 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

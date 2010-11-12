@@ -69,12 +69,12 @@ Inheritance diagram for OpenSim::Actuation:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the power storage.  <a href="#a54639768e6a71b3758b5a1c10c60bdd5"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Actuation.html#a1e754c6fb76dacc18c8cd375231f3525">setModel</a> (<a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;aModel)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the model pointer for analysis.  <a href="#a1e754c6fb76dacc18c8cd375231f3525"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Actuation.html#ab89f55e1a84394c05466c0b8a959c86a">begin</a> (const SimTK::State &amp;s)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This method is called at the beginning of an analysis so that any necessary initializations may be performed.  <a href="#ab89f55e1a84394c05466c0b8a959c86a"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Actuation.html#a1250e2533f4d6e540d93156eb46916aa">begin</a> (SimTK::State &amp;s)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This method is called at the beginning of an analysis so that any necessary initializations may be performed.  <a href="#a1250e2533f4d6e540d93156eb46916aa"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Actuation.html#ae1450261ce429103e1105ac0eb5f14b6">step</a> (const SimTK::State &amp;s, int setNumber)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This method is called to perform the analysis.  <a href="#ae1450261ce429103e1105ac0eb5f14b6"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Actuation.html#aa4e03f2841bfdbef3f7e53b4e4ed2ad4">end</a> (const SimTK::State &amp;s)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This method is called at the end of an analysis so that any necessary finalizations may be performed.  <a href="#aa4e03f2841bfdbef3f7e53b4e4ed2ad4"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Actuation.html#abcc09628939412a7410baf1a563054cf">end</a> (SimTK::State &amp;s)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This method is called at the end of an analysis so that any necessary finalizations may be performed.  <a href="#abcc09628939412a7410baf1a563054cf"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Actuation.html#ad048afd95315bcee54aa9c16a112c335">printResults</a> (const std::string &amp;aBaseName, const std::string &amp;aDir=&quot;&quot;, double aDT=-1.0, const std::string &amp;aExtension=&quot;.sto&quot;)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Print the results of the analysis.  <a href="#ad048afd95315bcee54aa9c16a112c335"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Protected Member Functions</h2></td></tr>
@@ -116,7 +116,7 @@ Inheritance diagram for OpenSim::Actuation:</div>
 <p>Construct an <a class="el" href="classOpenSim_1_1Actuation.html" title="A class for recording the basic actuator information for a model during a simulation...">Actuation</a> object for recording the <a class="el" href="classOpenSim_1_1Actuation.html" title="A class for recording the basic actuator information for a model during a simulation...">Actuation</a> of a model's generalized coodinates during a simulation. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>aModel</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Model.html" title="A base class that specifies the interface for a musculoskeletal model.">Model</a> for which the <a class="el" href="classOpenSim_1_1Actuation.html" title="A class for recording the basic actuator information for a model during a simulation...">Actuation</a> are to be recorded. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>aModel</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a> for which the <a class="el" href="classOpenSim_1_1Actuation.html" title="A class for recording the basic actuator information for a model during a simulation...">Actuation</a> are to be recorded. </td></tr>
   </table>
   </dd>
 </dl>
@@ -190,14 +190,14 @@ Inheritance diagram for OpenSim::Actuation:</div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="ab89f55e1a84394c05466c0b8a959c86a"></a><!-- doxytag: member="OpenSim::Actuation::begin" ref="ab89f55e1a84394c05466c0b8a959c86a" args="(const SimTK::State &amp;s)" -->
+<a class="anchor" id="a1250e2533f4d6e540d93156eb46916aa"></a><!-- doxytag: member="OpenSim::Actuation::begin" ref="a1250e2533f4d6e540d93156eb46916aa" args="(SimTK::State &amp;s)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">int Actuation::begin </td>
           <td>(</td>
-          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
+          <td class="paramtype">SimTK::State &amp;&nbsp;</td>
           <td class="paramname"> <em>s</em></td>
           <td>&nbsp;)&nbsp;</td>
           <td><code> [virtual]</code></td>
@@ -218,7 +218,7 @@ Inheritance diagram for OpenSim::Actuation:</div>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>-1 on error, 0 otherwise. </dd></dl>
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Analysis.html#af3cad0d2e51c92cf94696a790b306a93">OpenSim::Analysis</a>.</p>
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1Analysis.html#a619cf0a86bfb520befa533b5a71ce3f6">OpenSim::Analysis</a>.</p>
 
 </div>
 </div>
@@ -243,14 +243,14 @@ Inheritance diagram for OpenSim::Actuation:</div>
 
 </div>
 </div>
-<a class="anchor" id="aa4e03f2841bfdbef3f7e53b4e4ed2ad4"></a><!-- doxytag: member="OpenSim::Actuation::end" ref="aa4e03f2841bfdbef3f7e53b4e4ed2ad4" args="(const SimTK::State &amp;s)" -->
+<a class="anchor" id="abcc09628939412a7410baf1a563054cf"></a><!-- doxytag: member="OpenSim::Actuation::end" ref="abcc09628939412a7410baf1a563054cf" args="(SimTK::State &amp;s)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">int Actuation::end </td>
           <td>(</td>
-          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
+          <td class="paramtype">SimTK::State &amp;&nbsp;</td>
           <td class="paramname"> <em>s</em></td>
           <td>&nbsp;)&nbsp;</td>
           <td><code> [virtual]</code></td>
@@ -270,7 +270,7 @@ Inheritance diagram for OpenSim::Actuation:</div>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>-1 on error, 0 otherwise. </dd></dl>
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Analysis.html#a34d1fd1b3235e9d60a905d34b49e5314">OpenSim::Analysis</a>.</p>
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1Analysis.html#aec904a247f8d4254ee31f0b17b3b0acc">OpenSim::Analysis</a>.</p>
 
 </div>
 </div>
@@ -598,7 +598,7 @@ Inheritance diagram for OpenSim::Actuation:</div>
 <li>OpenSim/Analyses/Actuation.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Feb 7 02:15:12 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:36:59 2010 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

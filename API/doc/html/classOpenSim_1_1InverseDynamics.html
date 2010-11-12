@@ -64,12 +64,12 @@ Inheritance diagram for OpenSim::InverseDynamics:</div>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1InverseDynamics.html#a058b256e0a9dde21d5a73d5dbfebf73a">setUseModelForceSet</a> (bool aUseModelForceSet)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1InverseDynamics.html#a406e6d1d168c73142b09ea013ea79a79">setModel</a> (<a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;aModel)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the model for which the inverse dynamics are to be computed.  <a href="#a406e6d1d168c73142b09ea013ea79a79"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1InverseDynamics.html#a91114a6de3acad1df3d51ac3704cc269">begin</a> (const SimTK::State &amp;s)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This method is called at the beginning of an analysis so that any necessary initializations may be performed.  <a href="#a91114a6de3acad1df3d51ac3704cc269"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1InverseDynamics.html#abd4e1f5cb734e1f090a3092e8bebb0e4">begin</a> (SimTK::State &amp;s)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This method is called at the beginning of an analysis so that any necessary initializations may be performed.  <a href="#abd4e1f5cb734e1f090a3092e8bebb0e4"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1InverseDynamics.html#a7c1a72d01b3dd15e9e9538b33027ae78">step</a> (const SimTK::State &amp;s, int setNumber)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This method is called to perform the analysis.  <a href="#a7c1a72d01b3dd15e9e9538b33027ae78"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1InverseDynamics.html#a63d99e9e8406b33667a3aba486b23651">end</a> (const SimTK::State &amp;s)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This method is called at the end of an analysis so that any necessary finalizations may be performed.  <a href="#a63d99e9e8406b33667a3aba486b23651"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1InverseDynamics.html#ad3cc0528d7c71fac0575d282fd5f0e84">end</a> (SimTK::State &amp;s)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This method is called at the end of an analysis so that any necessary finalizations may be performed.  <a href="#ad3cc0528d7c71fac0575d282fd5f0e84"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1InverseDynamics.html#a78a0811ee2bb899e2cf99143ef0a7c61">printResults</a> (const std::string &amp;aBaseName, const std::string &amp;aDir=&quot;&quot;, double aDT=-1.0, const std::string &amp;aExtension=&quot;.sto&quot;)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Print the results of the analysis.  <a href="#a78a0811ee2bb899e2cf99143ef0a7c61"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Protected Member Functions</h2></td></tr>
@@ -154,14 +154,14 @@ Inheritance diagram for OpenSim::InverseDynamics:</div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="a91114a6de3acad1df3d51ac3704cc269"></a><!-- doxytag: member="OpenSim::InverseDynamics::begin" ref="a91114a6de3acad1df3d51ac3704cc269" args="(const SimTK::State &amp;s)" -->
+<a class="anchor" id="abd4e1f5cb734e1f090a3092e8bebb0e4"></a><!-- doxytag: member="OpenSim::InverseDynamics::begin" ref="abd4e1f5cb734e1f090a3092e8bebb0e4" args="(SimTK::State &amp;s)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">int InverseDynamics::begin </td>
           <td>(</td>
-          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
+          <td class="paramtype">SimTK::State &amp;&nbsp;</td>
           <td class="paramname"> <em>s</em></td>
           <td>&nbsp;)&nbsp;</td>
           <td><code> [virtual]</code></td>
@@ -180,7 +180,7 @@ Inheritance diagram for OpenSim::InverseDynamics:</div>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>-1 on error, 0 otherwise. </dd></dl>
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Analysis.html#af3cad0d2e51c92cf94696a790b306a93">OpenSim::Analysis</a>.</p>
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1Analysis.html#a619cf0a86bfb520befa533b5a71ce3f6">OpenSim::Analysis</a>.</p>
 
 </div>
 </div>
@@ -205,14 +205,14 @@ Inheritance diagram for OpenSim::InverseDynamics:</div>
 
 </div>
 </div>
-<a class="anchor" id="a63d99e9e8406b33667a3aba486b23651"></a><!-- doxytag: member="OpenSim::InverseDynamics::end" ref="a63d99e9e8406b33667a3aba486b23651" args="(const SimTK::State &amp;s)" -->
+<a class="anchor" id="ad3cc0528d7c71fac0575d282fd5f0e84"></a><!-- doxytag: member="OpenSim::InverseDynamics::end" ref="ad3cc0528d7c71fac0575d282fd5f0e84" args="(SimTK::State &amp;s)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">int InverseDynamics::end </td>
           <td>(</td>
-          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
+          <td class="paramtype">SimTK::State &amp;&nbsp;</td>
           <td class="paramname"> <em>s</em></td>
           <td>&nbsp;)&nbsp;</td>
           <td><code> [virtual]</code></td>
@@ -231,7 +231,7 @@ Inheritance diagram for OpenSim::InverseDynamics:</div>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>-1 on error, 0 otherwise. </dd></dl>
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Analysis.html#a34d1fd1b3235e9d60a905d34b49e5314">OpenSim::Analysis</a>.</p>
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1Analysis.html#aec904a247f8d4254ee31f0b17b3b0acc">OpenSim::Analysis</a>.</p>
 
 </div>
 </div>
@@ -385,7 +385,7 @@ Inheritance diagram for OpenSim::InverseDynamics:</div>
 <p><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the model for which the inverse dynamics are to be computed. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>aModel</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Model.html" title="A base class that specifies the interface for a musculoskeletal model.">Model</a> pointer </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>aModel</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a> pointer </td></tr>
   </table>
   </dd>
 </dl>
@@ -668,7 +668,7 @@ Inheritance diagram for OpenSim::InverseDynamics:</div>
 <li>OpenSim/Analyses/InverseDynamics.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Feb 7 02:15:12 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:37:00 2010 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

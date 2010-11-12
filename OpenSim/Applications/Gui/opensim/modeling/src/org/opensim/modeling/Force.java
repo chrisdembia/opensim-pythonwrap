@@ -38,7 +38,7 @@ public class Force extends ModelComponent {
   }
 
   public OpenSimObject copy() {
-    long cPtr = opensimModelJNI.Force_copy(swigCPtr, this);
+    long cPtr = opensimModelJNI.Force_copy__SWIG_0(swigCPtr, this);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
@@ -60,6 +60,27 @@ public class Force extends ModelComponent {
 
   public int getNumStateVariables() {
     return opensimModelJNI.Force_getNumStateVariables(swigCPtr, this);
+  }
+
+  public boolean hasGeometryPath() {
+    return opensimModelJNI.Force_hasGeometryPath(swigCPtr, this);
+  }
+
+  public static boolean isKindOf(String type) {
+    return opensimModelJNI.Force_isKindOf(type);
+  }
+
+  public boolean isA(String type) {
+    return opensimModelJNI.Force_isA(swigCPtr, this, type);
+  }
+
+  public static Force safeDownCast(OpenSimObject obj) {
+    long cPtr = opensimModelJNI.Force_safeDownCast(OpenSimObject.getCPtr(obj), obj);
+    return (cPtr == 0) ? null : new Force(cPtr, false);
+  }
+
+  public void copy(OpenSimObject aObject) {
+    opensimModelJNI.Force_copy__SWIG_1(swigCPtr, this, OpenSimObject.getCPtr(aObject), aObject);
   }
 
 }

@@ -52,6 +52,7 @@ Inheritance diagram for OpenSim::ElasticFoundationForce:</div>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ElasticFoundationForce.html#a8a9e242e2cb37e11a59f678a8d3c0f31">ElasticFoundationForce</a> (const <a class="el" href="classOpenSim_1_1ElasticFoundationForce.html">ElasticFoundationForce</a> &amp;copy)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ElasticFoundationForce.html#a13ae1e3b2940026c8925d26c40ceccf9">ElasticFoundationForce</a> (ContactParameters *params)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ElasticFoundationForce.html#a02869a9e4515eaca512024a1baef2c50">copyData</a> (const <a class="el" href="classOpenSim_1_1ElasticFoundationForce.html">ElasticFoundationForce</a> &amp;copy)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Copy data members from one <a class="el" href="classOpenSim_1_1Force.html" title="This abstract class represents a force applied to bodies or generalized coordinates...">Force</a> to another.  <a href="#a02869a9e4515eaca512024a1baef2c50"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Object.html">Object</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ElasticFoundationForce.html#a9837408e1f1ba169dc1886916a6ffcf3">copy</a> () const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Copy this force and return a pointer to the copy.  <a href="#a9837408e1f1ba169dc1886916a6ffcf3"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ElasticFoundationForce.html#a92870660adfc9383e7d15895f3a09f6f">createSystem</a> (SimTK::MultibodySystem &amp;system) const </td></tr>
@@ -63,6 +64,11 @@ Inheritance diagram for OpenSim::ElasticFoundationForce:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the transition velocity for switching between static and dynamic friction.  <a href="#af840e4ca753e266915121570770eceda"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ElasticFoundationForce.html#a0a2268eaf76560a3b289db16ce9c7719">setTransitionVelocity</a> (double velocity)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the transition velocity for switching between static and dynamic friction.  <a href="#a0a2268eaf76560a3b289db16ce9c7719"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classOpenSim_1_1Array.html">OpenSim::Array</a><br class="typebreak"/>
+&lt; std::string &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ElasticFoundationForce.html#a432d9216598009d36029f668c1b02f2d">getRecordLabels</a> () const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Provide name(s) of the quantities (column labels) of the force value(s) to be reported.  <a href="#a432d9216598009d36029f668c1b02f2d"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classOpenSim_1_1Array.html">OpenSim::Array</a>&lt; double &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ElasticFoundationForce.html#aa48ea9816603478fa9050a83d6a41a15">getRecordValues</a> (const SimTK::State &amp;state) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Provide the value(s) to be reported that correspond to the labels.  <a href="#aa48ea9816603478fa9050a83d6a41a15"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ElasticFoundationForce.html#a181278785b3db06f391aafe40e8de381">ContactParameters</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ElasticFoundationForce.html#a0ed098ffeb38e03aca3f06fa3b97b600">ContactParameters</a> (const ContactParameters &amp;copy)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ElasticFoundationForce.html#a56a6a5d21d5152197a4e85951cfcce46">ContactParameters</a> (double stiffness, double dissipation, double staticFriction, double dynamicFriction, double viscousFriction)</td></tr>
@@ -341,7 +347,7 @@ Inheritance diagram for OpenSim::ElasticFoundationForce:</div>
 <p>The object is allocated using the new operator, so the caller is responsible for deleting the returned object.</p>
 <dl class="return"><dt><b>Returns:</b></dt><dd>Copy of this object. </dd></dl>
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Object.html#a2000b12522f6f79a8918991b819a4bb7">OpenSim::Object</a>.</p>
+<p>Implements <a class="el" href="classOpenSim_1_1Force.html#a71a62b13d80e706f70bcebb2e818257c">OpenSim::Force</a>.</p>
 
 </div>
 </div>
@@ -364,7 +370,7 @@ Inheritance diagram for OpenSim::ElasticFoundationForce:</div>
 <p>The object is allocated using the new operator, so the caller is responsible for deleting the returned object.</p>
 <dl class="return"><dt><b>Returns:</b></dt><dd>Copy of this object. </dd></dl>
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Object.html#a2000b12522f6f79a8918991b819a4bb7">OpenSim::Object</a>.</p>
+<p>Implements <a class="el" href="classOpenSim_1_1Force.html#a71a62b13d80e706f70bcebb2e818257c">OpenSim::Force</a>.</p>
 
 </div>
 </div>
@@ -387,7 +393,7 @@ Inheritance diagram for OpenSim::ElasticFoundationForce:</div>
 <p>The copy constructor for this class is used.</p>
 <dl class="return"><dt><b>Returns:</b></dt><dd>Pointer to a copy of this <a class="el" href="classOpenSim_1_1Force.html" title="This abstract class represents a force applied to bodies or generalized coordinates...">Force</a>. </dd></dl>
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Object.html#a2000b12522f6f79a8918991b819a4bb7">OpenSim::Object</a>.</p>
+<p>Implements <a class="el" href="classOpenSim_1_1Force.html#a71a62b13d80e706f70bcebb2e818257c">OpenSim::Force</a>.</p>
 
 </div>
 </div>
@@ -417,13 +423,23 @@ Inheritance diagram for OpenSim::ElasticFoundationForce:</div>
           <td class="memname">void OpenSim::ElasticFoundationForce::copyData </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classOpenSim_1_1ElasticFoundationForce.html">ElasticFoundationForce</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>copy</em></td>
+          <td class="paramname"> <em>aForce</em></td>
           <td>&nbsp;)&nbsp;</td>
           <td></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Copy data members from one <a class="el" href="classOpenSim_1_1Force.html" title="This abstract class represents a force applied to bodies or generalized coordinates...">Force</a> to another. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>aForce</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Force.html" title="This abstract class represents a force applied to bodies or generalized coordinates...">Force</a> to be copied. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1Force.html#a3d0364bb0f23b0c14ac5ad37b6c7310c">OpenSim::Force</a>.</p>
 
 </div>
 </div>
@@ -445,7 +461,7 @@ Inheritance diagram for OpenSim::ElasticFoundationForce:</div>
 
 <p>Create a SimTK::Force which implements this <a class="el" href="classOpenSim_1_1Force.html" title="This abstract class represents a force applied to bodies or generalized coordinates...">Force</a>. </p>
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1ModelComponent.html#a8cecde2c81b7645a5daea70050884881">OpenSim::ModelComponent</a>.</p>
+<p>Implements <a class="el" href="classOpenSim_1_1ModelComponent.html#a85757ad4645e4066f72ce4d0411a49b8">OpenSim::ModelComponent</a>.</p>
 
 </div>
 </div>
@@ -514,6 +530,50 @@ Inheritance diagram for OpenSim::ElasticFoundationForce:</div>
       </table>
 </div>
 <div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a432d9216598009d36029f668c1b02f2d"></a><!-- doxytag: member="OpenSim::ElasticFoundationForce::getRecordLabels" ref="a432d9216598009d36029f668c1b02f2d" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classOpenSim_1_1Array.html">OpenSim::Array</a>&lt; std::string &gt; OpenSim::ElasticFoundationForce::getRecordLabels </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Provide name(s) of the quantities (column labels) of the force value(s) to be reported. </p>
+<p>Provide names of the quantities (column labels) of the force value(s) reported.</p>
+
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1Force.html#a68e82cdee70e59a51c42b2b78ed93f03">OpenSim::Force</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aa48ea9816603478fa9050a83d6a41a15"></a><!-- doxytag: member="OpenSim::ElasticFoundationForce::getRecordValues" ref="aa48ea9816603478fa9050a83d6a41a15" args="(const SimTK::State &amp;state) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classOpenSim_1_1Array.html">OpenSim::Array</a>&lt; double &gt; OpenSim::ElasticFoundationForce::getRecordValues </td>
+          <td>(</td>
+          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
+          <td class="paramname"> <em>state</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Provide the value(s) to be reported that correspond to the labels. </p>
+
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1Force.html#ac57805498131e7424d5c06c455d15737">OpenSim::Force</a>.</p>
 
 </div>
 </div>
@@ -807,7 +867,7 @@ Inheritance diagram for OpenSim::ElasticFoundationForce:</div>
 <li>OpenSim/Simulation/Model/ElasticFoundationForce.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Feb 7 02:15:17 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:37:09 2010 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

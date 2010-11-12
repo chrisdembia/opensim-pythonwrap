@@ -267,7 +267,7 @@ public class PlotterModel {
       }
    }
 
-   Plot getCurrentPlot()
+   public Plot getCurrentPlot()
    {
       return availablePlots.get(currentPlotIndex);
    }

@@ -63,12 +63,12 @@ Inheritance diagram for OpenSim::JointReaction:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Assign this object to the values of another.  <a href="#a39913d5bd59f86dd62221a03fe4c5391"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1JointReaction.html#ad63291671fb2fb36590be92ad222b479">setModel</a> (<a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;aModel)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the model for which this analysis is to be run.  <a href="#ad63291671fb2fb36590be92ad222b479"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1JointReaction.html#a2bcb5ce8c279e44a047a44edff14dd5e">begin</a> (const SimTK::State &amp;s)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This method is called at the beginning of an analysis so that any necessary initializations may be performed.  <a href="#a2bcb5ce8c279e44a047a44edff14dd5e"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1JointReaction.html#af9e1a034f3ffea7e899aa7bbfaf4967c">begin</a> (SimTK::State &amp;s)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This method is called at the beginning of an analysis so that any necessary initializations may be performed.  <a href="#af9e1a034f3ffea7e899aa7bbfaf4967c"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1JointReaction.html#a376d95b7f2208dbf42d3a6839ea67d51">step</a> (const SimTK::State &amp;s, int setNumber)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This method is called to perform the analysis.  <a href="#a376d95b7f2208dbf42d3a6839ea67d51"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1JointReaction.html#a7a2f0ecc3bb157ca0747b3f1f0c78cc6">end</a> (const SimTK::State &amp;s)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This method is called at the end of an analysis so that any necessary finalizations may be performed.  <a href="#a7a2f0ecc3bb157ca0747b3f1f0c78cc6"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1JointReaction.html#a61e4127426e686d33c1e9abc69b280c1">end</a> (SimTK::State &amp;s)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This method is called at the end of an analysis so that any necessary finalizations may be performed.  <a href="#a61e4127426e686d33c1e9abc69b280c1"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1JointReaction.html#a61a71e081a402ce702d28d8cabf85c43">printResults</a> (const std::string &amp;aBaseName, const std::string &amp;aDir=&quot;&quot;, double aDT=-1.0, const std::string &amp;aExtension=&quot;.sto&quot;)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Print the results of the analysis.  <a href="#a61a71e081a402ce702d28d8cabf85c43"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Protected Member Functions</h2></td></tr>
@@ -156,7 +156,7 @@ Inheritance diagram for OpenSim::JointReaction:</div>
 <p>Construct a <a class="el" href="classOpenSim_1_1JointReaction.html" title="An analysis for reporting the joint reaction loads from a model.">JointReaction</a> instance. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>aModel</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Model.html" title="A base class that specifies the interface for a musculoskeletal model.">Model</a> for which the analysis is to be run. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>aModel</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a> for which the analysis is to be run. </td></tr>
   </table>
   </dd>
 </dl>
@@ -211,14 +211,14 @@ Inheritance diagram for OpenSim::JointReaction:</div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="a2bcb5ce8c279e44a047a44edff14dd5e"></a><!-- doxytag: member="OpenSim::JointReaction::begin" ref="a2bcb5ce8c279e44a047a44edff14dd5e" args="(const SimTK::State &amp;s)" -->
+<a class="anchor" id="af9e1a034f3ffea7e899aa7bbfaf4967c"></a><!-- doxytag: member="OpenSim::JointReaction::begin" ref="af9e1a034f3ffea7e899aa7bbfaf4967c" args="(SimTK::State &amp;s)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">int JointReaction::begin </td>
           <td>(</td>
-          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
+          <td class="paramtype">SimTK::State &amp;&nbsp;</td>
           <td class="paramname"> <em>s</em></td>
           <td>&nbsp;)&nbsp;</td>
           <td><code> [virtual]</code></td>
@@ -237,7 +237,7 @@ Inheritance diagram for OpenSim::JointReaction:</div>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>-1 on error, 0 otherwise. </dd></dl>
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Analysis.html#af3cad0d2e51c92cf94696a790b306a93">OpenSim::Analysis</a>.</p>
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1Analysis.html#a619cf0a86bfb520befa533b5a71ce3f6">OpenSim::Analysis</a>.</p>
 
 </div>
 </div>
@@ -302,14 +302,14 @@ Inheritance diagram for OpenSim::JointReaction:</div>
 
 </div>
 </div>
-<a class="anchor" id="a7a2f0ecc3bb157ca0747b3f1f0c78cc6"></a><!-- doxytag: member="OpenSim::JointReaction::end" ref="a7a2f0ecc3bb157ca0747b3f1f0c78cc6" args="(const SimTK::State &amp;s)" -->
+<a class="anchor" id="a61e4127426e686d33c1e9abc69b280c1"></a><!-- doxytag: member="OpenSim::JointReaction::end" ref="a61e4127426e686d33c1e9abc69b280c1" args="(SimTK::State &amp;s)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">int JointReaction::end </td>
           <td>(</td>
-          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
+          <td class="paramtype">SimTK::State &amp;&nbsp;</td>
           <td class="paramname"> <em>s</em></td>
           <td>&nbsp;)&nbsp;</td>
           <td><code> [virtual]</code></td>
@@ -327,7 +327,7 @@ Inheritance diagram for OpenSim::JointReaction:</div>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>-1 on error, 0 otherwise. </dd></dl>
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Analysis.html#a34d1fd1b3235e9d60a905d34b49e5314">OpenSim::Analysis</a>.</p>
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1Analysis.html#aec904a247f8d4254ee31f0b17b3b0acc">OpenSim::Analysis</a>.</p>
 
 </div>
 </div>
@@ -478,7 +478,7 @@ Inheritance diagram for OpenSim::JointReaction:</div>
 <p>Sometimes the model on which an analysis should be run is not available at the time an analysis is created. Or, you might want to change the model. This method is used to set the model on which the analysis is to be run.</p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>aModel</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Model.html" title="A base class that specifies the interface for a musculoskeletal model.">Model</a> pointer </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>aModel</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a> pointer </td></tr>
   </table>
   </dd>
 </dl>
@@ -786,7 +786,7 @@ Inheritance diagram for OpenSim::JointReaction:</div>
 <li>OpenSim/Analyses/JointReaction.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Feb 7 02:15:12 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:37:00 2010 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

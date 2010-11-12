@@ -59,27 +59,35 @@ Inheritance diagram for OpenSim::Constraint:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Copy constructor.  <a href="#a2f3e82d447d9a2c2dd4efc3f700ce844"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Constraint.html#ae827fc88061ee544aca1cbe95a2c8389">~Constraint</a> ()</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Destructor.  <a href="#ae827fc88061ee544aca1cbe95a2c8389"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classOpenSim_1_1Object.html">Object</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Constraint.html#ad7b51b94a4a4ae178578c92ebd3b6506">copy</a> () const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Copy this <a class="el" href="classOpenSim_1_1Constraint.html" title="A parent class for implementing a Simbody Constraint.">Constraint</a> and return a pointer to the copy.  <a href="#ad7b51b94a4a4ae178578c92ebd3b6506"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classOpenSim_1_1Object.html">Object</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Constraint.html#a81bcf32edba229b2566cf42bfacaeaf3">copy</a> () const =0</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Construct and return a copy of this object.  <a href="#a81bcf32edba229b2566cf42bfacaeaf3"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Constraint.html">Constraint</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Constraint.html#a4c1a94cf0abe30ea6dcb381765a0deae">operator=</a> (const <a class="el" href="classOpenSim_1_1Constraint.html">Constraint</a> &amp;aConstraint)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Assignment operator.  <a href="#a4c1a94cf0abe30ea6dcb381765a0deae"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Constraint.html#a2aaa05ecf0c60476dfc6a9dc4035d3bd">copyData</a> (const <a class="el" href="classOpenSim_1_1Constraint.html">Constraint</a> &amp;aConstraint)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Copy data members from one <a class="el" href="classOpenSim_1_1Constraint.html" title="A parent class for implementing a Simbody Constraint.">Constraint</a> to another.  <a href="#a2aaa05ecf0c60476dfc6a9dc4035d3bd"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Constraint.html#aa4d4268cd1ac644033013b45cce43a48">setup</a> (<a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;aModel)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Perform some set up functions that happen after the object has been deserialized or copied.  <a href="#aa4d4268cd1ac644033013b45cce43a48"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Constraint.html#a4f7a6b2ca3d9baeea37505a417c3d591">initState</a> (SimTK::State &amp;completeState) const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This is called after a SimTK System and State have been created for the <a class="el" href="classOpenSim_1_1Model.html" title="A base class that specifies the interface for a musculoskeletal model.">Model</a>.  <a href="#a4f7a6b2ca3d9baeea37505a417c3d591"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Constraint.html#a6c0e00efd115ce1e2fe62c558e483462">setDefaultsFromState</a> (const SimTK::State &amp;state)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> all default values for this object to match those in a specified State.  <a href="#a6c0e00efd115ce1e2fe62c558e483462"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Constraint.html#afa889a7ca2e083ccf5f6532f7f3699eb">updateFromConstraint</a> (SimTK::State &amp;s, const <a class="el" href="classOpenSim_1_1Constraint.html">Constraint</a> &amp;aConstraint)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Update an existing <a class="el" href="classOpenSim_1_1Constraint.html" title="A parent class for implementing a Simbody Constraint.">Constraint</a> with parameter values from a new one, but only for the parameters that were explicitly specified in the XML node.  <a href="#afa889a7ca2e083ccf5f6532f7f3699eb"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Constraint.html#a7759027e55840e6dd6a1c4f87e6493a7">getIsDisabled</a> (const SimTK::State &amp;s) const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get whether or not this <a class="el" href="classOpenSim_1_1Constraint.html" title="A parent class for implementing a Simbody Constraint.">Constraint</a> is disabled.  <a href="#a7759027e55840e6dd6a1c4f87e6493a7"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Constraint.html#a9955538a9fc8518a2a3010aa54010667">setIsDisabled</a> (SimTK::State &amp;s, bool isDisabled) const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> whether or not this <a class="el" href="classOpenSim_1_1Constraint.html" title="A parent class for implementing a Simbody Constraint.">Constraint</a> is disabled.  <a href="#a9955538a9fc8518a2a3010aa54010667"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Constraint.html#a040812cf22816682c1dbf25ff1124b2e">isDisabled</a> (const SimTK::State &amp;s) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get whether or not this <a class="el" href="classOpenSim_1_1Constraint.html" title="A parent class for implementing a Simbody Constraint.">Constraint</a> is disabled.  <a href="#a040812cf22816682c1dbf25ff1124b2e"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Constraint.html#a193c4c8fe3d8dcaaaa4e63870c2dcb15">setDisabled</a> (SimTK::State &amp;s, bool isDisabled)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> whether or not this <a class="el" href="classOpenSim_1_1Constraint.html" title="A parent class for implementing a Simbody Constraint.">Constraint</a> is disabled.  <a href="#a193c4c8fe3d8dcaaaa4e63870c2dcb15"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Constraint.html#addc2ea60972944c4366007f0878f3017">calcConstraintForces</a> (const SimTK::State &amp;s, SimTK::Vector_&lt; SimTK::SpatialVec &gt; &amp;bodyForcesInParent, SimTK::Vector &amp;mobilityForces)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Ask the constraint for the forces it is imposing on the system Simbody multibody system must be realized to at least position Returns: the bodyForces on those bodies being constrained (constrainedBodies) a SpatialVec (6 components) describing resulting torque and force mobilityForces acting along constrained mobilities.  <a href="#addc2ea60972944c4366007f0878f3017"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classOpenSim_1_1Array.html">Array</a>&lt; std::string &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Constraint.html#a975c77446e48e9b33226bd93896b444d">getRecordLabels</a> () const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Methods to query a <a class="el" href="classOpenSim_1_1Constraint.html" title="A parent class for implementing a Simbody Constraint.">Constraint</a> forces (defaults to the Lagrange mulipliers) applied The names of the quantities (column labels) is returned by this first function <a class="el" href="classOpenSim_1_1Constraint.html#a975c77446e48e9b33226bd93896b444d" title="Methods to query a Constraint forces (defaults to the Lagrange mulipliers) applied...">getRecordLabels()</a>.  <a href="#a975c77446e48e9b33226bd93896b444d"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classOpenSim_1_1Array.html">Array</a>&lt; double &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Constraint.html#a7dd3c3e71d3679ecf975ffb83e770e66">getRecordValues</a> (const SimTK::State &amp;state) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Given SimTK::State object extract all the values necessary to report constraint forces (multipliers) Subclasses can override to report force, application location frame, etc.  <a href="#a7dd3c3e71d3679ecf975ffb83e770e66"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Constraint.html#af56a7dde9a2639d8c0ac50d6e9a3dd64">scale</a> (const <a class="el" href="classOpenSim_1_1ScaleSet.html">ScaleSet</a> &amp;aScaleSet)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Constraint.html#afec2ae54b701d283739f530e0e2e9f2a">OPENSIM_DECLARE_DERIVED</a> (<a class="el" href="classOpenSim_1_1Constraint.html">Constraint</a>, <a class="el" href="classOpenSim_1_1Object.html">Object</a>)</td></tr>
+<tr><td colspan="2"><h2>Protected Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Constraint.html#aa4d4268cd1ac644033013b45cce43a48">setup</a> (<a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;aModel)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Perform some set up functions that happen after the object has been deserialized or copied.  <a href="#aa4d4268cd1ac644033013b45cce43a48"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Constraint.html#a91918289b14fafc6dcba7d0fdb2d2c9e">initState</a> (SimTK::State &amp;state) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This is called after a SimTK System and State have been created for the <a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a>.  <a href="#a91918289b14fafc6dcba7d0fdb2d2c9e"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Constraint.html#a6c0e00efd115ce1e2fe62c558e483462">setDefaultsFromState</a> (const SimTK::State &amp;state)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> all default values for this object to match those in a specified State.  <a href="#a6c0e00efd115ce1e2fe62c558e483462"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Constraint.html#a921c9593a70bbf388bd65ef12fa29e48">getNumStateVariables</a> () const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Gets the number of "Continuous" state variables maintained by the <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any object which can be added to a Model.">ModelComponent</a> If the <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any object which can be added to a Model.">ModelComponent</a> defines any that are of interest to the user, names should also be given.  <a href="#a921c9593a70bbf388bd65ef12fa29e48"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyBool.html">PropertyBool</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Constraint.html#a836d0a9d89c30a99316f0f2fdda48e0c">_isDisabledProp</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Flag indicating whether the constraint is disabled or not.  <a href="#a836d0a9d89c30a99316f0f2fdda48e0c"></a><br/></td></tr>
@@ -206,28 +214,28 @@ Ajay Seth </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="ad7b51b94a4a4ae178578c92ebd3b6506"></a><!-- doxytag: member="OpenSim::Constraint::copy" ref="ad7b51b94a4a4ae178578c92ebd3b6506" args="() const " -->
+<a class="anchor" id="a81bcf32edba229b2566cf42bfacaeaf3"></a><!-- doxytag: member="OpenSim::Constraint::copy" ref="a81bcf32edba229b2566cf42bfacaeaf3" args="() const =0" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classOpenSim_1_1Object.html">Object</a> * Constraint::copy </td>
+          <td class="memname">virtual <a class="el" href="classOpenSim_1_1Object.html">Object</a>* OpenSim::Constraint::copy </td>
           <td>(</td>
           <td class="paramname"></td>
           <td>&nbsp;)&nbsp;</td>
-          <td> const<code> [virtual]</code></td>
+          <td> const<code> [pure virtual]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
-<p>Copy this <a class="el" href="classOpenSim_1_1Constraint.html" title="A parent class for implementing a Simbody Constraint.">Constraint</a> and return a pointer to the copy. </p>
-<p>The copy constructor for this class is used.</p>
-<dl class="return"><dt><b>Returns:</b></dt><dd>Pointer to a copy of this <a class="el" href="classOpenSim_1_1Constraint.html" title="A parent class for implementing a Simbody Constraint.">Constraint</a>. </dd></dl>
+<p>Construct and return a copy of this object. </p>
+<p>The object is allocated using the new operator, so the caller is responsible for deleting the returned object.</p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>Copy of this object. </dd></dl>
 
 <p>Reimplemented from <a class="el" href="classOpenSim_1_1Object.html#a2000b12522f6f79a8918991b819a4bb7">OpenSim::Object</a>.</p>
 
-<p>Reimplemented in <a class="el" href="classOpenSim_1_1CoordinateCouplerConstraint.html#a640fb32d6c09ec6b35d56b7d060aeb58">OpenSim::CoordinateCouplerConstraint</a>, <a class="el" href="classOpenSim_1_1PointConstraint.html#a1a27cc7d098fd6df9c0557d4c883f5df">OpenSim::PointConstraint</a>, <a class="el" href="classOpenSim_1_1PointOnLineConstraint.html#a47af2f00cc688224d21124f0a9034b11">OpenSim::PointOnLineConstraint</a>, <a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html#a348900762584ab59d31855c2a3345e6e">OpenSim::RollingOnSurfaceConstraint</a>, <a class="el" href="classOpenSim_1_1UnilateralConstraint.html#a1c7ea5f65b47fbe5b83d37af7cf159ae">OpenSim::UnilateralConstraint</a>, and <a class="el" href="classOpenSim_1_1WeldConstraint.html#ab94e764ac4678544bce72c5311cb4162">OpenSim::WeldConstraint</a>.</p>
+<p>Implemented in <a class="el" href="classOpenSim_1_1CoordinateCouplerConstraint.html#a640fb32d6c09ec6b35d56b7d060aeb58">OpenSim::CoordinateCouplerConstraint</a>, <a class="el" href="classOpenSim_1_1PointConstraint.html#a1a27cc7d098fd6df9c0557d4c883f5df">OpenSim::PointConstraint</a>, <a class="el" href="classOpenSim_1_1PointOnLineConstraint.html#a47af2f00cc688224d21124f0a9034b11">OpenSim::PointOnLineConstraint</a>, <a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html#a348900762584ab59d31855c2a3345e6e">OpenSim::RollingOnSurfaceConstraint</a>, <a class="el" href="classOpenSim_1_1UnilateralConstraint.html#a23b434fe4dbdfcbbbd87388176d3ed5d">OpenSim::UnilateralConstraint</a>, and <a class="el" href="classOpenSim_1_1WeldConstraint.html#ab94e764ac4678544bce72c5311cb4162">OpenSim::WeldConstraint</a>.</p>
 
 </div>
 </div>
@@ -259,12 +267,106 @@ Ajay Seth </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="a7759027e55840e6dd6a1c4f87e6493a7"></a><!-- doxytag: member="OpenSim::Constraint::getIsDisabled" ref="a7759027e55840e6dd6a1c4f87e6493a7" args="(const SimTK::State &amp;s) const " -->
+<a class="anchor" id="a921c9593a70bbf388bd65ef12fa29e48"></a><!-- doxytag: member="OpenSim::Constraint::getNumStateVariables" ref="a921c9593a70bbf388bd65ef12fa29e48" args="() const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool Constraint::getIsDisabled </td>
+          <td class="memname">virtual int OpenSim::Constraint::getNumStateVariables </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [inline, protected, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Gets the number of "Continuous" state variables maintained by the <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any object which can be added to a Model.">ModelComponent</a> If the <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any object which can be added to a Model.">ModelComponent</a> defines any that are of interest to the user, names should also be given. </p>
+
+<p>Implements <a class="el" href="classOpenSim_1_1ModelComponent.html#a1e0f42516d2b3d7fd54892ee24b80f61">OpenSim::ModelComponent</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a975c77446e48e9b33226bd93896b444d"></a><!-- doxytag: member="OpenSim::Constraint::getRecordLabels" ref="a975c77446e48e9b33226bd93896b444d" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classOpenSim_1_1Array.html">Array</a>&lt; std::string &gt; Constraint::getRecordLabels </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Methods to query a <a class="el" href="classOpenSim_1_1Constraint.html" title="A parent class for implementing a Simbody Constraint.">Constraint</a> forces (defaults to the Lagrange mulipliers) applied The names of the quantities (column labels) is returned by this first function <a class="el" href="classOpenSim_1_1Constraint.html#a975c77446e48e9b33226bd93896b444d" title="Methods to query a Constraint forces (defaults to the Lagrange mulipliers) applied...">getRecordLabels()</a>. </p>
+<p>Methods to query a <a class="el" href="classOpenSim_1_1Constraint.html" title="A parent class for implementing a Simbody Constraint.">Constraint</a> forces for the value actually applied during simulation The names of the quantities (column labels) is returned by this first function <a class="el" href="classOpenSim_1_1Constraint.html#a975c77446e48e9b33226bd93896b444d" title="Methods to query a Constraint forces (defaults to the Lagrange mulipliers) applied...">getRecordLabels()</a>. </p>
+
+</div>
+</div>
+<a class="anchor" id="a7dd3c3e71d3679ecf975ffb83e770e66"></a><!-- doxytag: member="OpenSim::Constraint::getRecordValues" ref="a7dd3c3e71d3679ecf975ffb83e770e66" args="(const SimTK::State &amp;state) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classOpenSim_1_1Array.html">Array</a>&lt; double &gt; Constraint::getRecordValues </td>
+          <td>(</td>
+          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
+          <td class="paramname"> <em>state</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Given SimTK::State object extract all the values necessary to report constraint forces (multipliers) Subclasses can override to report force, application location frame, etc. </p>
+<p>Given SimTK::State object extract all the values necessary to report constraint forces, application location frame, etc.</p>
+<p>used in conjunction with getRecordLabels and should return same size <a class="el" href="classOpenSim_1_1Array.html">Array</a> </p>
+
+</div>
+</div>
+<a class="anchor" id="a91918289b14fafc6dcba7d0fdb2d2c9e"></a><!-- doxytag: member="OpenSim::Constraint::initState" ref="a91918289b14fafc6dcba7d0fdb2d2c9e" args="(SimTK::State &amp;state) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Constraint::initState </td>
+          <td>(</td>
+          <td class="paramtype">SimTK::State &amp;&nbsp;</td>
+          <td class="paramname"> <em>state</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [protected, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>This is called after a SimTK System and State have been created for the <a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a>. </p>
+<p>It must be implementd to set initial values of state variables.</p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>state</em>&nbsp;</td><td>the State to initialize </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="classOpenSim_1_1ModelComponent.html#a2af3e8933cda56820900f0c643881434">OpenSim::ModelComponent</a>.</p>
+
+<p>Reimplemented in <a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html#a423cc53581f48bacc6ee3aae30a2eb21">OpenSim::RollingOnSurfaceConstraint</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a040812cf22816682c1dbf25ff1124b2e"></a><!-- doxytag: member="OpenSim::Constraint::isDisabled" ref="a040812cf22816682c1dbf25ff1124b2e" args="(const SimTK::State &amp;s) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Constraint::isDisabled </td>
           <td>(</td>
           <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
           <td class="paramname"> <em>s</em></td>
@@ -284,36 +386,34 @@ Ajay Seth </dd></dl>
   </dd>
 </dl>
 
-<p>Reimplemented in <a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html#abbd3dc98cbed7de05c93ee0ae922f9a6">OpenSim::RollingOnSurfaceConstraint</a>.</p>
+<p>Reimplemented in <a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html#aee19c74ab04440b3d453c5cf9b1cf928">OpenSim::RollingOnSurfaceConstraint</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a4f7a6b2ca3d9baeea37505a417c3d591"></a><!-- doxytag: member="OpenSim::Constraint::initState" ref="a4f7a6b2ca3d9baeea37505a417c3d591" args="(SimTK::State &amp;completeState) const " -->
+<a class="anchor" id="afec2ae54b701d283739f530e0e2e9f2a"></a><!-- doxytag: member="OpenSim::Constraint::OPENSIM_DECLARE_DERIVED" ref="afec2ae54b701d283739f530e0e2e9f2a" args="(Constraint, Object)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Constraint::initState </td>
+          <td class="memname">OpenSim::Constraint::OPENSIM_DECLARE_DERIVED </td>
           <td>(</td>
-          <td class="paramtype">SimTK::State &amp;&nbsp;</td>
-          <td class="paramname"> <em>state</em></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td> const<code> [virtual]</code></td>
+          <td class="paramtype"><a class="el" href="classOpenSim_1_1Constraint.html">Constraint</a>&nbsp;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classOpenSim_1_1Object.html">Object</a>&nbsp;</td>
+          <td class="paramname"></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
-
-<p>This is called after a SimTK System and State have been created for the <a class="el" href="classOpenSim_1_1Model.html" title="A base class that specifies the interface for a musculoskeletal model.">Model</a>. </p>
-<p>It may be overridden to set initial values of state variables.</p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>state</em>&nbsp;</td><td>the State to initialize </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1ModelComponent.html#ab0f23ae5578d7e988e67cf07db1e3cf7">OpenSim::ModelComponent</a>.</p>
 
 </div>
 </div>
@@ -372,14 +472,14 @@ Ajay Seth </dd></dl>
           <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
           <td class="paramname"> <em>state</em></td>
           <td>&nbsp;)&nbsp;</td>
-          <td><code> [virtual]</code></td>
+          <td><code> [protected, virtual]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
 <p><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> all default values for this object to match those in a specified State. </p>
-<p>It should be overridden to set any default values defined by each subclass.</p>
+<p>It must be implemented/overriden to set any default values defined by each subclass.</p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>state</em>&nbsp;</td><td>the State from which to take values that should become the defaults for this object </td></tr>
@@ -387,16 +487,18 @@ Ajay Seth </dd></dl>
   </dd>
 </dl>
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1ModelComponent.html#a5ddcaa711b47fe9e8e5653a5611ef8ee">OpenSim::ModelComponent</a>.</p>
+<p>Implements <a class="el" href="classOpenSim_1_1ModelComponent.html#a0e600cbcb3f90abfa53c6b7afa3cdf30">OpenSim::ModelComponent</a>.</p>
+
+<p>Reimplemented in <a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html#a031b3ada9f45472c89c79793a7490e45">OpenSim::RollingOnSurfaceConstraint</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a9955538a9fc8518a2a3010aa54010667"></a><!-- doxytag: member="OpenSim::Constraint::setIsDisabled" ref="a9955538a9fc8518a2a3010aa54010667" args="(SimTK::State &amp;s, bool isDisabled) const " -->
+<a class="anchor" id="a193c4c8fe3d8dcaaaa4e63870c2dcb15"></a><!-- doxytag: member="OpenSim::Constraint::setDisabled" ref="a193c4c8fe3d8dcaaaa4e63870c2dcb15" args="(SimTK::State &amp;s, bool isDisabled)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool Constraint::setIsDisabled </td>
+          <td class="memname">bool Constraint::setDisabled </td>
           <td>(</td>
           <td class="paramtype">SimTK::State &amp;&nbsp;</td>
           <td class="paramname"> <em>s</em>, </td>
@@ -410,7 +512,7 @@ Ajay Seth </dd></dl>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td><td> const<code> [virtual]</code></td>
+          <td></td><td></td><td><code> [virtual]</code></td>
         </tr>
       </table>
 </div>
@@ -425,6 +527,8 @@ Ajay Seth </dd></dl>
   </dd>
 </dl>
 
+<p>Reimplemented in <a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html#aaf6fbfbb2571fa41b8bd7ec5ab388e46">OpenSim::RollingOnSurfaceConstraint</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="aa4d4268cd1ac644033013b45cce43a48"></a><!-- doxytag: member="OpenSim::Constraint::setup" ref="aa4d4268cd1ac644033013b45cce43a48" args="(Model &amp;aModel)" -->
@@ -437,7 +541,7 @@ Ajay Seth </dd></dl>
           <td class="paramtype"><a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;&nbsp;</td>
           <td class="paramname"> <em>aModel</em></td>
           <td>&nbsp;)&nbsp;</td>
-          <td><code> [virtual]</code></td>
+          <td><code> [protected, virtual]</code></td>
         </tr>
       </table>
 </div>
@@ -451,7 +555,9 @@ Ajay Seth </dd></dl>
   </dd>
 </dl>
 
-<p>Reimplemented in <a class="el" href="classOpenSim_1_1CoordinateCouplerConstraint.html#a51eb35fd8542216697c89aa30911ea11">OpenSim::CoordinateCouplerConstraint</a>, <a class="el" href="classOpenSim_1_1PointOnLineConstraint.html#a99663548a3ab6a56cb7e8331551deace">OpenSim::PointOnLineConstraint</a>, <a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html#af4ca60ae74304b7e1245563d967d765b">OpenSim::RollingOnSurfaceConstraint</a>, <a class="el" href="classOpenSim_1_1UnilateralConstraint.html#a4c4bbac65b02f075d0764adb8c9eda43">OpenSim::UnilateralConstraint</a>, and <a class="el" href="classOpenSim_1_1WeldConstraint.html#ab4d0d223ebed573aca15ce18dbfd8414">OpenSim::WeldConstraint</a>.</p>
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1ModelComponent.html#a2b2b125ac81cae0067a87b080499b43f">OpenSim::ModelComponent</a>.</p>
+
+<p>Reimplemented in <a class="el" href="classOpenSim_1_1CoordinateCouplerConstraint.html#a51eb35fd8542216697c89aa30911ea11">OpenSim::CoordinateCouplerConstraint</a>, <a class="el" href="classOpenSim_1_1PointConstraint.html#aed0ac9f468f2e198cf14af93ed979e5e">OpenSim::PointConstraint</a>, <a class="el" href="classOpenSim_1_1PointOnLineConstraint.html#a99663548a3ab6a56cb7e8331551deace">OpenSim::PointOnLineConstraint</a>, <a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html#af4ca60ae74304b7e1245563d967d765b">OpenSim::RollingOnSurfaceConstraint</a>, <a class="el" href="classOpenSim_1_1UnilateralConstraint.html#a4c4bbac65b02f075d0764adb8c9eda43">OpenSim::UnilateralConstraint</a>, and <a class="el" href="classOpenSim_1_1WeldConstraint.html#ab4d0d223ebed573aca15ce18dbfd8414">OpenSim::WeldConstraint</a>.</p>
 
 </div>
 </div>
@@ -543,7 +649,7 @@ Ajay Seth </dd></dl>
 <li>OpenSim/Simulation/SimbodyEngine/Constraint.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Feb 7 02:15:18 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:37:11 2010 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

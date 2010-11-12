@@ -68,19 +68,20 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
          MotionsDB.getInstance().clearCurrent();
 
          // Re-initialize our copy of the model
-         Model model = new Model(getOriginalModel());
+         Model workersModel = new Model(getOriginalModel());
+         workersModel.setName("workerModel");
          String tempFileName=getOriginalModel().getInputFileName();
          //int loc = tempFileName.lastIndexOf(".");
-         model.setInputFileName(tempFileName);
+         workersModel.setInputFileName(tempFileName);
 
  
          // Update actuator set and contact force set based on settings in the tool, then call setup() and setModel()
          // setModel() will call addAnalysisSetToModel
-         tool.updateModelForces(model, "");
-         tool.setModel(model);
-         context = new OpenSimContext(model.initSystem(), model); // Has side effect of calling setup
+         tool.updateModelForces(workersModel, "");
+         tool.setModel(workersModel);
+         context = new OpenSimContext(workersModel.initSystem(), workersModel); // Has side effect of calling setup
         
-         model.setInputFileName("");
+         workersModel.setInputFileName("");
          
          if(getInputSource()==InputSource.Motion && getInputMotion()!=null)
             context.setStatesFromMotion(analyzeTool(), getInputMotion(),false); // false == motion is in radians
@@ -90,8 +91,8 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
          //opensim20 analyzeTool().loadPseudoStatesFromFile();
 
          // We don't need to add model to the 3D view... just using it to dump analyses result files
-         setModel(model);
-         model.initSystem();
+         setModel(workersModel);
+         workersModel.initSystem();
        
          // Initialize progress bar, given we know the number of frames to process
          double ti = getInitialTime();
@@ -116,7 +117,7 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
          // it would then later try to delete it yet again)
          interruptingCallback = new InterruptCallback(getModel());
          getModel().addAnalysis(interruptingCallback);
-
+         addResultDisplayers(getModel());   // Create all analyses that need to be created on analysis model
          setExecuting(true);
       }
 
@@ -178,6 +179,18 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
               
           }
       }
+
+        private void addResultDisplayers(Model model) {
+            for(ResultDisplayerInterface nextDisplayer:resultDisplayers){
+                Analysis nextAnalysis = nextDisplayer.createAnalysis(model);
+            }
+        }
+        
+        private void removeResultDisplayers(Model model) {
+            for(ResultDisplayerInterface nextDisplayer:resultDisplayers){
+                nextDisplayer.removeAnalysis(model);
+            }           
+        }
    }
    private AnalyzeToolWorker worker = null;
    //========================================================================
@@ -262,7 +275,8 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
               }
           }
           if(inverseDynamicsAnalysis==null) {
-              inverseDynamicsAnalysis = InverseDynamics.safeDownCast(new InverseDynamics().copy()); // C++-side copy
+              inverseDynamicsAnalysis = InverseDynamics.safeDownCast(new InverseDynamics().copy());
+              setAnalysisTimeFromTool(inverseDynamicsAnalysis);
               analyzeTool().getAnalysisSet().append(inverseDynamicsAnalysis);
           }
           inverseDynamicsAnalysis.setOn(true);
@@ -391,6 +405,7 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
    void setCoordinatesFileName(String coordinatesFileName) {
       if(!getCoordinatesFileName().equals(coordinatesFileName)) {
          analyzeTool().setCoordinatesFileName(coordinatesFileName);
+         setInputSource(InputSource.Coordinates);
          setModified(AbstractToolModel.Operation.InputDataChanged);
       }
    }
@@ -549,8 +564,8 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
       if(inputSource != InputSource.States) {
          analyzeTool().setStatesFileName("");
       }
-
       setModified(AbstractToolModel.Operation.AllDataChanged);
+      
    }
 
    protected void relativeToAbsolutePaths(String parentFileName) {

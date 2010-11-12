@@ -82,12 +82,12 @@ Inheritance diagram for OpenSim::MuscleAnalysis:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the list of coordinates.  <a href="#a4031dc43dbc368c09aa6c5ce3529f104"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1MuscleAnalysis.html#a4c70049e31462d45af4b4ef9b4e6fa13">setComputeMoments</a> (bool aTrueFalse)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1MuscleAnalysis.html#a649721f5a2ac3490028357364c191b14">getComputeMoments</a> () const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1MuscleAnalysis.html#a9e40388c9ac319d37c9922fafc3b757e">begin</a> (const SimTK::State &amp;s)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This method is called at the beginning of an analysis so that any necessary initializations may be performed.  <a href="#a9e40388c9ac319d37c9922fafc3b757e"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1MuscleAnalysis.html#a821a71d2a81fe68e46a5ce336aedbdfe">begin</a> (SimTK::State &amp;s)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This method is called at the beginning of an analysis so that any necessary initializations may be performed.  <a href="#a821a71d2a81fe68e46a5ce336aedbdfe"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1MuscleAnalysis.html#a6919608b6619f45fec6586e20d06eb3a">step</a> (const SimTK::State &amp;s, int setNumber)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This method is called to perform the analysis.  <a href="#a6919608b6619f45fec6586e20d06eb3a"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1MuscleAnalysis.html#a5740a327f6a037aeeaa1d1a9b7b3184e">end</a> (const SimTK::State &amp;s)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This method is called at the end of an analysis so that any necessary finalizations may be performed.  <a href="#a5740a327f6a037aeeaa1d1a9b7b3184e"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1MuscleAnalysis.html#a30cb27de5f5b0e27dedee10619971ef5">end</a> (SimTK::State &amp;s)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This method is called at the end of an analysis so that any necessary finalizations may be performed.  <a href="#a30cb27de5f5b0e27dedee10619971ef5"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1MuscleAnalysis.html#a9b887fc2d05fd9edf478e19c42a24034">printResults</a> (const std::string &amp;aBaseName, const std::string &amp;aDir=&quot;&quot;, double aDT=-1.0, const std::string &amp;aExtension=&quot;.sto&quot;)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Print the results of the analysis.  <a href="#a9b887fc2d05fd9edf478e19c42a24034"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Public Attributes</h2></td></tr>
@@ -155,7 +155,7 @@ Inheritance diagram for OpenSim::MuscleAnalysis:</div>
 <p>Construct a <a class="el" href="classOpenSim_1_1MuscleAnalysis.html" title="A class for recording and computting basic quantities (length, shortening velocity...">MuscleAnalysis</a> object for recording the <a class="el" href="classOpenSim_1_1MuscleAnalysis.html" title="A class for recording and computting basic quantities (length, shortening velocity...">MuscleAnalysis</a> of a model's generalized coodinates during a simulation. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>aModel</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Model.html" title="A base class that specifies the interface for a musculoskeletal model.">Model</a> for which the <a class="el" href="classOpenSim_1_1MuscleAnalysis.html" title="A class for recording and computting basic quantities (length, shortening velocity...">MuscleAnalysis</a> are to be recorded. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>aModel</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a> for which the <a class="el" href="classOpenSim_1_1MuscleAnalysis.html" title="A class for recording and computting basic quantities (length, shortening velocity...">MuscleAnalysis</a> are to be recorded. </td></tr>
   </table>
   </dd>
 </dl>
@@ -229,14 +229,14 @@ Inheritance diagram for OpenSim::MuscleAnalysis:</div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="a9e40388c9ac319d37c9922fafc3b757e"></a><!-- doxytag: member="OpenSim::MuscleAnalysis::begin" ref="a9e40388c9ac319d37c9922fafc3b757e" args="(const SimTK::State &amp;s)" -->
+<a class="anchor" id="a821a71d2a81fe68e46a5ce336aedbdfe"></a><!-- doxytag: member="OpenSim::MuscleAnalysis::begin" ref="a821a71d2a81fe68e46a5ce336aedbdfe" args="(SimTK::State &amp;s)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">int MuscleAnalysis::begin </td>
           <td>(</td>
-          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
+          <td class="paramtype">SimTK::State &amp;&nbsp;</td>
           <td class="paramname"> <em>s</em></td>
           <td>&nbsp;)&nbsp;</td>
           <td><code> [virtual]</code></td>
@@ -256,7 +256,7 @@ Inheritance diagram for OpenSim::MuscleAnalysis:</div>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>-1 on error, 0 otherwise. </dd></dl>
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Analysis.html#af3cad0d2e51c92cf94696a790b306a93">OpenSim::Analysis</a>.</p>
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1Analysis.html#a619cf0a86bfb520befa533b5a71ce3f6">OpenSim::Analysis</a>.</p>
 
 </div>
 </div>
@@ -281,14 +281,14 @@ Inheritance diagram for OpenSim::MuscleAnalysis:</div>
 
 </div>
 </div>
-<a class="anchor" id="a5740a327f6a037aeeaa1d1a9b7b3184e"></a><!-- doxytag: member="OpenSim::MuscleAnalysis::end" ref="a5740a327f6a037aeeaa1d1a9b7b3184e" args="(const SimTK::State &amp;s)" -->
+<a class="anchor" id="a30cb27de5f5b0e27dedee10619971ef5"></a><!-- doxytag: member="OpenSim::MuscleAnalysis::end" ref="a30cb27de5f5b0e27dedee10619971ef5" args="(SimTK::State &amp;s)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">int MuscleAnalysis::end </td>
           <td>(</td>
-          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
+          <td class="paramtype">SimTK::State &amp;&nbsp;</td>
           <td class="paramname"> <em>s</em></td>
           <td>&nbsp;)&nbsp;</td>
           <td><code> [virtual]</code></td>
@@ -308,7 +308,7 @@ Inheritance diagram for OpenSim::MuscleAnalysis:</div>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>-1 on error, 0 otherwise. </dd></dl>
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Analysis.html#a34d1fd1b3235e9d60a905d34b49e5314">OpenSim::Analysis</a>.</p>
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1Analysis.html#aec904a247f8d4254ee31f0b17b3b0acc">OpenSim::Analysis</a>.</p>
 
 </div>
 </div>
@@ -1044,7 +1044,7 @@ Inheritance diagram for OpenSim::MuscleAnalysis:</div>
 <li>OpenSim/Analyses/MuscleAnalysis.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Feb 7 02:15:12 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:37:01 2010 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

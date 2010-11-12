@@ -34,7 +34,7 @@ public final class MyUndoAction extends CallableSystemAction {
     
     public void performAction() {
         // TODO implement action body
-        OpenSimDB.getInstance().undo();
+        //OpenSimDB.getInstance().undo();
     }
     
     public String getName() {
@@ -56,9 +56,9 @@ public final class MyUndoAction extends CallableSystemAction {
     }
 
     public boolean isEnabled() {
-        boolean retValue;
+        boolean retValue=false;
         
-        retValue = OpenSimDB.getInstance().canUndo();
+        //retValue = OpenSimDB.getInstance().canUndo();
         return retValue;
     }
 

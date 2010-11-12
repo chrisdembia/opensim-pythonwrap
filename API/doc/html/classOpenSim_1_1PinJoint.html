@@ -62,14 +62,14 @@ Inheritance diagram for OpenSim::PinJoint:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Assignment operator.  <a href="#a5804cede82ab8881151f315b830b883a"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PinJoint.html#ae778ebac73e2e7be3595114a6de3f982">copyData</a> (const <a class="el" href="classOpenSim_1_1PinJoint.html">PinJoint</a> &amp;aJoint)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Copy data members from one <a class="el" href="classOpenSim_1_1PinJoint.html" title="A class implementing an Pin joint.">PinJoint</a> to another.  <a href="#ae778ebac73e2e7be3595114a6de3f982"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PinJoint.html#abc4baab6bc871481e328ff5ada7b9e7e">setup</a> (<a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;aModel)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Perform some set up functions that happen after the object has been deserialized or copied.  <a href="#abc4baab6bc871481e328ff5ada7b9e7e"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PinJoint.html#ad213dd70715fd21f1aa750fcec295331">numCoordinates</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PinJoint.html#a3fdb1243ff8fd669ce0dfe519f4a0f19">scale</a> (const <a class="el" href="classOpenSim_1_1ScaleSet.html">ScaleSet</a> &amp;aScaleSet)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Scale.html">Scale</a> a joint based on XYZ scale factors for the bodies.  <a href="#a3fdb1243ff8fd669ce0dfe519f4a0f19"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Protected Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PinJoint.html#ae82274063860f399dcbf249a8437e6ee">createSystem</a> (SimTK::MultibodySystem &amp;system) const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This is called when a SimTK System is being created for the <a class="el" href="classOpenSim_1_1Model.html" title="A base class that specifies the interface for a musculoskeletal model.">Model</a>.  <a href="#ae82274063860f399dcbf249a8437e6ee"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PinJoint.html#abc4baab6bc871481e328ff5ada7b9e7e">setup</a> (<a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;aModel)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Perform some set up functions that happen after the object has been deserialized or copied.  <a href="#abc4baab6bc871481e328ff5ada7b9e7e"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PinJoint.html#ae82274063860f399dcbf249a8437e6ee">createSystem</a> (SimTK::MultibodySystem &amp;system) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This is called when a SimTK System is being created for the <a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a>.  <a href="#ae82274063860f399dcbf249a8437e6ee"></a><br/></td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
 <p>A class implementing an Pin joint. </p>
@@ -225,7 +225,7 @@ Inheritance diagram for OpenSim::PinJoint:</div>
 
 <p>Copy this body and return a pointer to the copy. </p>
 <p>The copy constructor for this class is used.</p>
-<dl class="return"><dt><b>Returns:</b></dt><dd>Pointer to a copy of this <a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody body segment.">OpenSim::Body</a>. </dd></dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>Pointer to a copy of this <a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody rigid body.">OpenSim::Body</a>. </dd></dl>
 
 <p>Implements <a class="el" href="classOpenSim_1_1Joint.html#ae5d6960ec7346df1c64a79a95c06a828">OpenSim::Joint</a>.</p>
 
@@ -275,8 +275,8 @@ Inheritance diagram for OpenSim::PinJoint:</div>
 </div>
 <div class="memdoc">
 
-<p>This is called when a SimTK System is being created for the <a class="el" href="classOpenSim_1_1Model.html" title="A base class that specifies the interface for a musculoskeletal model.">Model</a>. </p>
-<p>It should be overridden to add appropriate elements to the System corresponding to this object.</p>
+<p>This is called when a SimTK System is being created for the <a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a>. </p>
+<p>It must be implemented to add appropriate elements to the System corresponding to this object.</p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>system</em>&nbsp;</td><td>the System being created </td></tr>
@@ -368,7 +368,7 @@ Inheritance diagram for OpenSim::PinJoint:</div>
           <td class="paramtype"><a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;&nbsp;</td>
           <td class="paramname"> <em>aModel</em></td>
           <td>&nbsp;)&nbsp;</td>
-          <td><code> [virtual]</code></td>
+          <td><code> [protected, virtual]</code></td>
         </tr>
       </table>
 </div>
@@ -391,7 +391,7 @@ Inheritance diagram for OpenSim::PinJoint:</div>
 <li>OpenSim/Simulation/SimbodyEngine/PinJoint.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Feb 7 02:15:19 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:37:12 2010 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

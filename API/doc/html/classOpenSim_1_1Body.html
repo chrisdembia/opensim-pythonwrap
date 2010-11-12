@@ -28,7 +28,7 @@
 </div>
 <div class="contents">
 <h1>OpenSim::Body Class Reference</h1><!-- doxytag: class="OpenSim::Body" --><!-- doxytag: inherits="OpenSim::ModelComponent" -->
-<p>A class implementing a Simbody body segment.  
+<p>A class implementing a Simbody rigid body.  
 <a href="#_details">More...</a></p>
 
 <p><code>#include &lt;Body.h&gt;</code></p>
@@ -60,9 +60,7 @@ Inheritance diagram for OpenSim::Body:</div>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Body.html">Body</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Body.html#a187cbf8f4a21bc835ee12f169379efc0">operator=</a> (const <a class="el" href="classOpenSim_1_1Body.html">Body</a> &amp;aBody)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Assignment operator.  <a href="#a187cbf8f4a21bc835ee12f169379efc0"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Body.html#a1f9f29e8af1e7e18ca95b0f3627bd963">copyData</a> (const <a class="el" href="classOpenSim_1_1Body.html">Body</a> &amp;aBody)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Copy data members from one <a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody body segment.">Body</a> to another.  <a href="#a1f9f29e8af1e7e18ca95b0f3627bd963"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Body.html#a7615d14abb43145ff785a25525e82088">setup</a> (<a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;aModel)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Perform some set up functions that happen after the object has been deserialized or copied.  <a href="#a7615d14abb43145ff785a25525e82088"></a><br/></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Copy data members from one <a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody rigid body.">Body</a> to another.  <a href="#a1f9f29e8af1e7e18ca95b0f3627bd963"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Body.html#a400d142b28aa375c31f6ea07ac2a56f0">addDisplayGeometry</a> (const std::string &amp;aGeometryFileName)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Add display geometry to body.  <a href="#a400d142b28aa375c31f6ea07ac2a56f0"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Body.html#a0b3164e5d7ec1e557fb583bb04d7063e">getMass</a> () const </td></tr>
@@ -97,6 +95,17 @@ SimTK::MobilizedBodyIndex&nbsp;</td><td class="memItemRight" valign="bottom"><a 
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Body.html#ab59b1e73a4ad0ad88a175cc737210efc">OPENSIM_DECLARE_DERIVED</a> (<a class="el" href="classOpenSim_1_1Body.html">Body</a>, <a class="el" href="classOpenSim_1_1Object.html">Object</a>)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">SimTK::MassProperties&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Body.html#a11ceccc99ab7b5d7b245ba9d91611c0a">getMassProperties</a> ()</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Assemble body interial properties: mass, center of mass location, moment of inertia about the origin of the body and return as a SimTK::MassProperties.  <a href="#a11ceccc99ab7b5d7b245ba9d91611c0a"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Body.html#ab7cb472d967af51fb5d2be95874bfc66">getNumStateVariables</a> () const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Gets the number of "Continuous" state variables maintained by the <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any object which can be added to a Model.">ModelComponent</a> If the <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any object which can be added to a Model.">ModelComponent</a> defines any that are of interest to the user, names should also be given.  <a href="#ab7cb472d967af51fb5d2be95874bfc66"></a><br/></td></tr>
+<tr><td colspan="2"><h2>Protected Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Body.html#a7615d14abb43145ff785a25525e82088">setup</a> (<a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;aModel)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Perform some set up functions that happen after the object has been deserialized or copied.  <a href="#a7615d14abb43145ff785a25525e82088"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Body.html#a6d3af7fb21295ed30e19cd6fc332e5a5">createSystem</a> (SimTK::MultibodySystem &amp;system) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This is called when a SimTK System is being created for the <a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a>.  <a href="#a6d3af7fb21295ed30e19cd6fc332e5a5"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Body.html#a851bd28a71d3dcda3e3e4440be7b851e">initState</a> (SimTK::State &amp;state) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This is called after a SimTK System and State have been created for the <a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a>.  <a href="#a851bd28a71d3dcda3e3e4440be7b851e"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Body.html#a2e34f3e9d507ff189963f54dfb837e31">setDefaultsFromState</a> (const SimTK::State &amp;state)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> all default values for this object to match those in a specified State.  <a href="#a2e34f3e9d507ff189963f54dfb837e31"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyDbl.html">PropertyDbl</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Body.html#a47b3ec5b7a3f074818f1874a9114515a">_massProp</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Mass of the body.  <a href="#a47b3ec5b7a3f074818f1874a9114515a"></a><br/></td></tr>
@@ -134,14 +143,11 @@ SimTK::MobilizedBodyIndex&nbsp;</td><td class="memItemRight" valign="bottom"><a 
 <tr><td class="memItemLeft" align="right" valign="top">SimTK::MobilizedBodyIndex&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Body.html#addf82bab70e75d396b46bb8a969c3074">_index</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">ID for the body in Simbody.  <a href="#addf82bab70e75d396b46bb8a969c3074"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Friends</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">class&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Body.html#a2bf2a0e9b454c55aa5dcb5aa4698697b">Model</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">class&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Body.html#a53c55c23727a4e0f756d836780044d04">SimbodyEngine</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Body.html#a2b27269e818d7b63995be0e0f812bf54">Joint</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">class&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Body.html#abb408e102322ca67b28d6386c622f3fe">WeldConstraint</a></td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
-<p>A class implementing a Simbody body segment. </p>
-<dl class="author"><dt><b>Author:</b></dt><dd>Frank C. Anderson </dd></dl>
+<p>A class implementing a Simbody rigid body. </p>
+<dl class="author"><dt><b>Author:</b></dt><dd>Frank C. Anderson, Ajay Seth </dd></dl>
 <dl class="version"><dt><b>Version:</b></dt><dd>1.0 </dd></dl>
 <hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="abe1c4da65568cf7978b6247affc461e3"></a><!-- doxytag: member="OpenSim::Body::~Body" ref="abe1c4da65568cf7978b6247affc461e3" args="()" -->
@@ -242,7 +248,7 @@ SimTK::MobilizedBodyIndex&nbsp;</td><td class="memItemRight" valign="bottom"><a 
 <p>Copy constructor. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>aBody</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody body segment.">Body</a> to be copied. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>aBody</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody rigid body.">Body</a> to be copied. </td></tr>
   </table>
   </dd>
 </dl>
@@ -294,13 +300,12 @@ SimTK::MobilizedBodyIndex&nbsp;</td><td class="memItemRight" valign="bottom"><a 
 <p>Copy constructor from an AbstractBody. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>aBody</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody body segment.">Body</a> to be copied.</td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>aBody</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody rigid body.">Body</a> to be copied.</td></tr>
   </table>
   </dd>
 </dl>
-<p>Body::Body(const AbstractBody &amp;aBody) : AbstractBody(aBody), _mass(_massProp.getValueDbl()), _massCenter(_massCenterProp.getValueDblVec3()), _inertiaXX(_inertiaXXProp.getValueDbl()), _inertiaYY(_inertiaYYProp.getValueDbl()), _inertiaZZ(_inertiaZZProp.getValueDbl()), _inertiaXY(_inertiaXYProp.getValueDbl()), _inertiaXZ(_inertiaXZProp.getValueDbl()), _inertiaYZ(_inertiaYZProp.getValueDbl()), _joint(_jointProp.getValueObjPtrRef()), _displayerProp(<a class="el" href="classOpenSim_1_1PropertyObj.html">PropertyObj</a>("", VisibleObject())), _displayer((<a class="el" href="classOpenSim_1_1VisibleObject.html" title="Class VisibleObject is intended to be used as the base class for all Visible objects...">VisibleObject</a>&amp;)_displayerProp.getValueObj()) { setNull(); setupProperties(); copyData(aBody); }</p>
-<p>_____________________________________________________________________________ /** Copy this body and return a pointer to the copy. The copy constructor for this class is used.</p>
-<dl class="return"><dt><b>Returns:</b></dt><dd>Pointer to a copy of this <a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody body segment.">Body</a>. </dd></dl>
+<p>Body::Body(const AbstractBody &amp;aBody) : AbstractBody(aBody), _mass(_massProp.getValueDbl()), _massCenter(_massCenterProp.getValueDblVec3()), _inertiaXX(_inertiaXXProp.getValueDbl()), _inertiaYY(_inertiaYYProp.getValueDbl()), _inertiaZZ(_inertiaZZProp.getValueDbl()), _inertiaXY(_inertiaXYProp.getValueDbl()), _inertiaXZ(_inertiaXZProp.getValueDbl()), _inertiaYZ(_inertiaYZProp.getValueDbl()), _joint(_jointProp.getValueObjPtrRef()), _displayerProp(<a class="el" href="classOpenSim_1_1PropertyObj.html">PropertyObj</a>("", VisibleObject())), _displayer((<a class="el" href="classOpenSim_1_1VisibleObject.html" title="Class VisibleObject is intended to be used as the base class for all Visible objects...">VisibleObject</a>&amp;)_displayerProp.getValueObj()) { setNull(); setupProperties(); copyData(aBody); } Copy this body and return a pointer to the copy. The copy constructor for this class is used.</p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>Pointer to a copy of this <a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody rigid body.">Body</a>. </dd></dl>
 
 <p>Reimplemented from <a class="el" href="classOpenSim_1_1Object.html#a2000b12522f6f79a8918991b819a4bb7">OpenSim::Object</a>.</p>
 
@@ -322,13 +327,42 @@ SimTK::MobilizedBodyIndex&nbsp;</td><td class="memItemRight" valign="bottom"><a 
 </div>
 <div class="memdoc">
 
-<p>Copy data members from one <a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody body segment.">Body</a> to another. </p>
+<p>Copy data members from one <a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody rigid body.">Body</a> to another. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>aBody</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody body segment.">Body</a> to be copied. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>aBody</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody rigid body.">Body</a> to be copied. </td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a class="anchor" id="a6d3af7fb21295ed30e19cd6fc332e5a5"></a><!-- doxytag: member="OpenSim::Body::createSystem" ref="a6d3af7fb21295ed30e19cd6fc332e5a5" args="(SimTK::MultibodySystem &amp;system) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Body::createSystem </td>
+          <td>(</td>
+          <td class="paramtype">SimTK::MultibodySystem &amp;&nbsp;</td>
+          <td class="paramname"> <em>system</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [protected, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>This is called when a SimTK System is being created for the <a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a>. </p>
+<p>It must be implemented to add appropriate elements to the System corresponding to this object.</p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>system</em>&nbsp;</td><td>the System being created </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="classOpenSim_1_1ModelComponent.html#a85757ad4645e4066f72ce4d0411a49b8">OpenSim::ModelComponent</a>.</p>
 
 </div>
 </div>
@@ -476,6 +510,27 @@ SimTK::MobilizedBodyIndex&nbsp;</td><td class="memItemRight" valign="bottom"><a 
 
 </div>
 </div>
+<a class="anchor" id="ab7cb472d967af51fb5d2be95874bfc66"></a><!-- doxytag: member="OpenSim::Body::getNumStateVariables" ref="ab7cb472d967af51fb5d2be95874bfc66" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual int OpenSim::Body::getNumStateVariables </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [inline, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Gets the number of "Continuous" state variables maintained by the <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any object which can be added to a Model.">ModelComponent</a> If the <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any object which can be added to a Model.">ModelComponent</a> defines any that are of interest to the user, names should also be given. </p>
+
+<p>Implements <a class="el" href="classOpenSim_1_1ModelComponent.html#a1e0f42516d2b3d7fd54892ee24b80f61">OpenSim::ModelComponent</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a7d4ff53e686554d19ac415ee5e1d33ac"></a><!-- doxytag: member="OpenSim::Body::getScaleFactors" ref="a7d4ff53e686554d19ac415ee5e1d33ac" args="(SimTK::Vec3 &amp;aScaleFactors) const " -->
 <div class="memitem">
 <div class="memproto">
@@ -543,6 +598,35 @@ SimTK::MobilizedBodyIndex&nbsp;</td><td class="memItemRight" valign="bottom"><a 
       </table>
 </div>
 <div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a851bd28a71d3dcda3e3e4440be7b851e"></a><!-- doxytag: member="OpenSim::Body::initState" ref="a851bd28a71d3dcda3e3e4440be7b851e" args="(SimTK::State &amp;state) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void OpenSim::Body::initState </td>
+          <td>(</td>
+          <td class="paramtype">SimTK::State &amp;&nbsp;</td>
+          <td class="paramname"> <em>state</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [inline, protected, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>This is called after a SimTK System and State have been created for the <a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a>. </p>
+<p>It must be implementd to set initial values of state variables.</p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>state</em>&nbsp;</td><td>the State to initialize </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="classOpenSim_1_1ModelComponent.html#a2af3e8933cda56820900f0c643881434">OpenSim::ModelComponent</a>.</p>
 
 </div>
 </div>
@@ -694,6 +778,35 @@ SimTK::MobilizedBodyIndex&nbsp;</td><td class="memItemRight" valign="bottom"><a 
 
 </div>
 </div>
+<a class="anchor" id="a2e34f3e9d507ff189963f54dfb837e31"></a><!-- doxytag: member="OpenSim::Body::setDefaultsFromState" ref="a2e34f3e9d507ff189963f54dfb837e31" args="(const SimTK::State &amp;state)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void OpenSim::Body::setDefaultsFromState </td>
+          <td>(</td>
+          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
+          <td class="paramname"> <em>state</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline, protected, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> all default values for this object to match those in a specified State. </p>
+<p>It must be implemented/overriden to set any default values defined by each subclass.</p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>state</em>&nbsp;</td><td>the State from which to take values that should become the defaults for this object </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="classOpenSim_1_1ModelComponent.html#a0e600cbcb3f90abfa53c6b7afa3cdf30">OpenSim::ModelComponent</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="aadcfdf8d277ed658ab89cbf9b71acc86"></a><!-- doxytag: member="OpenSim::Body::setInertia" ref="aadcfdf8d277ed658ab89cbf9b71acc86" args="(const SimTK::Inertia &amp;aInertia)" -->
 <div class="memitem">
 <div class="memproto">
@@ -811,7 +924,7 @@ SimTK::MobilizedBodyIndex&nbsp;</td><td class="memItemRight" valign="bottom"><a 
           <td class="paramtype"><a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;&nbsp;</td>
           <td class="paramname"> <em>aModel</em></td>
           <td>&nbsp;)&nbsp;</td>
-          <td><code> [virtual]</code></td>
+          <td><code> [protected, virtual]</code></td>
         </tr>
       </table>
 </div>
@@ -820,10 +933,12 @@ SimTK::MobilizedBodyIndex&nbsp;</td><td class="memItemRight" valign="bottom"><a 
 <p>Perform some set up functions that happen after the object has been deserialized or copied. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>aModel</em>&nbsp;</td><td>OpenSim model containing this <a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody body segment.">Body</a>. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>aModel</em>&nbsp;</td><td>OpenSim model containing this <a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody rigid body.">Body</a>. </td></tr>
   </table>
   </dd>
 </dl>
+
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1ModelComponent.html#a2b2b125ac81cae0067a87b080499b43f">OpenSim::ModelComponent</a>.</p>
 
 </div>
 </div>
@@ -853,45 +968,6 @@ SimTK::MobilizedBodyIndex&nbsp;</td><td class="memItemRight" valign="bottom"><a 
       <table class="memname">
         <tr>
           <td class="memname">friend class <a class="el" href="classOpenSim_1_1Joint.html">Joint</a><code> [friend]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a2bf2a0e9b454c55aa5dcb5aa4698697b"></a><!-- doxytag: member="OpenSim::Body::Model" ref="a2bf2a0e9b454c55aa5dcb5aa4698697b" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">friend class <a class="el" href="classOpenSim_1_1Model.html">Model</a><code> [friend]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a53c55c23727a4e0f756d836780044d04"></a><!-- doxytag: member="OpenSim::Body::SimbodyEngine" ref="a53c55c23727a4e0f756d836780044d04" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">friend class <a class="el" href="classOpenSim_1_1SimbodyEngine.html">SimbodyEngine</a><code> [friend]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="abb408e102322ca67b28d6386c622f3fe"></a><!-- doxytag: member="OpenSim::Body::WeldConstraint" ref="abb408e102322ca67b28d6386c622f3fe" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">friend class <a class="el" href="classOpenSim_1_1WeldConstraint.html">WeldConstraint</a><code> [friend]</code></td>
         </tr>
       </table>
 </div>
@@ -1228,7 +1304,7 @@ SimTK::MobilizedBodyIndex&nbsp;</td><td class="memItemRight" valign="bottom"><a 
 <li>OpenSim/Simulation/SimbodyEngine/Body.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Feb 7 02:15:18 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:37:11 2010 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

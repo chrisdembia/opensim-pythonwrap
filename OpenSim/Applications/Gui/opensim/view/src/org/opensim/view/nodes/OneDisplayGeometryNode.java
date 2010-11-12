@@ -63,7 +63,7 @@ public class OneDisplayGeometryNode extends OpenSimObjectNode{
         addDisplayOption(displayOption.Showable);
     }
     public Image getIcon(int i) {
-        URL imageURL = this.getClass().getResource("icons/muscleNode.png");
+        URL imageURL = this.getClass().getResource("icons/displayGeometryNode.png");
         if (imageURL != null) {
             return new ImageIcon(imageURL, "Display Geometry").getImage();
         } else {

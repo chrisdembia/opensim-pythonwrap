@@ -50,6 +50,8 @@ Inheritance diagram for OpenSim::LinearSpring:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Construct a Linear Spring.  <a href="#ad3c3670f0970c9e08409e6d69eb6ea83"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1LinearSpring.html#aeb103b481a9418c4f29e208882a6483a">~LinearSpring</a> ()</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Destructor.  <a href="#aeb103b481a9418c4f29e208882a6483a"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classOpenSim_1_1Object.html">Object</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1LinearSpring.html#ac50be1f8e6587556debc5800f048fbcc">copy</a> () const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Construct and return a copy of this object.  <a href="#ac50be1f8e6587556debc5800f048fbcc"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1LinearSpring.html#a37c4383a56eb27c12938559c742dd451">setTargetPosition</a> (<a class="el" href="classOpenSim_1_1VectorFunction.html">VectorFunction</a> *aTargetVelocity)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the vector function containing the (t,x,y,z) of the position that the point should be corrected towards, expressed in the global ref frame.  <a href="#a37c4383a56eb27c12938559c742dd451"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1VectorFunction.html">VectorFunction</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1LinearSpring.html#a5ab1be11c1352f8e8939eedde9f9c2ee">getTargetPosition</a> () const </td></tr>
@@ -80,15 +82,18 @@ Inheritance diagram for OpenSim::LinearSpring:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the magnitude theshold below which no force is applied.  <a href="#aa6d4c7b2e1eab33448bd696a3f649b77"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1LinearSpring.html#a4ee4d5f4e02a9fd9f3d18decea530021">getThreshold</a> () const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the magnitude theshold below which no force is applied.  <a href="#a4ee4d5f4e02a9fd9f3d18decea530021"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1LinearSpring.html#ae33153dbdff0654fb1202bf523e6b5f3">setOn</a> (bool on_off)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1LinearSpring.html#aaaccc41d86c1d90c6a2edb4e1d1b6c56">getOn</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1LinearSpring.html#ac8b795f1af4b3e5c21d2e0b23740614b">computePointAndTargetFunctions</a> (SimTK::State &amp;s, const <a class="el" href="classOpenSim_1_1Storage.html">Storage</a> &amp;aQStore, const <a class="el" href="classOpenSim_1_1Storage.html">Storage</a> &amp;aUStore, <a class="el" href="classOpenSim_1_1VectorFunction.html">VectorFunction</a> &amp;aPGlobal)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Compute the local point on a body and the point's target position and velocity in space that it should track.  <a href="#ac8b795f1af4b3e5c21d2e0b23740614b"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1LinearSpring.html#a5d33c2c03aca0d55cf5e6178cc4ffa91">computePointFunction</a> (SimTK::State &amp;s, const <a class="el" href="classOpenSim_1_1Storage.html">Storage</a> &amp;aQStore, const <a class="el" href="classOpenSim_1_1Storage.html">Storage</a> &amp;aUStore, <a class="el" href="classOpenSim_1_1VectorFunction.html">VectorFunction</a> &amp;aPGlobal)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Compute the position and velocity functions that set the position and velocity of the point at which the linear spring applies its force.  <a href="#a5d33c2c03aca0d55cf5e6178cc4ffa91"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1LinearSpring.html#af6ef1b29859b0baa33ff779cd6ce4343">computeTargetFunctions</a> (SimTK::State &amp;s, const <a class="el" href="classOpenSim_1_1Storage.html">Storage</a> &amp;aQStoreForTarget, const <a class="el" href="classOpenSim_1_1Storage.html">Storage</a> &amp;aUStoreForTarget)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1LinearSpring.html#a65ff7379e6ff98df9688cb84038e04b6">computeForce</a> (const SimTK::State &amp;s) const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Callback called right after actuation has been applied by the model.  <a href="#a65ff7379e6ff98df9688cb84038e04b6"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1LinearSpring.html#a0ec6318947e9002dcd321b2f65d3b5de">computeForce</a> (const SimTK::State &amp;state, SimTK::Vector_&lt; SimTK::SpatialVec &gt; &amp;bodyForces, SimTK::Vector &amp;generalizedForces) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Callback called right after actuation has been applied by the model.  <a href="#a0ec6318947e9002dcd321b2f65d3b5de"></a><br/></td></tr>
+<tr><td colspan="2"><h2>Protected Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1LinearSpring.html#ad2225c037a6dd964f057aab00d3c905f">setup</a> (<a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;aModel)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Subclasses may optionally override this method to perform setup.  <a href="#ad2225c037a6dd964f057aab00d3c905f"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1LinearSpring.html#a1199f20e9c5154a618ef97e7564f8e02">initState</a> (SimTK::State &amp;state) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This is called after a SimTK System and State have been created for the <a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a>.  <a href="#a1199f20e9c5154a618ef97e7564f8e02"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1VectorFunction.html">VectorFunction</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1LinearSpring.html#aea5cfdb779a707d2a9a3b6a1eb09aa2d">_pointFunction</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1VectorFunction.html">VectorFunction</a> containing points of force application (t,x,y,z).  <a href="#aea5cfdb779a707d2a9a3b6a1eb09aa2d"></a><br/></td></tr>
@@ -109,8 +114,6 @@ Inheritance diagram for OpenSim::LinearSpring:</div>
 <tr><td class="memItemLeft" align="right" valign="top">double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1LinearSpring.html#a71376795ce6753c7dd9b0a0a26531899">_threshold</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">If the magnitude of the spring force is below this threshold, no spring force is applied.  <a href="#a71376795ce6753c7dd9b0a0a26531899"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classOpenSim_1_1Body.html">Body</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1LinearSpring.html#aa0126746521683fc96875de241d9996c">_body</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1LinearSpring.html#abc626563d0f11ed16fb32204f3f66d83">_on</a></td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">On, off flag.  <a href="#abc626563d0f11ed16fb32204f3f66d83"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1LinearSpring.html#a25c357d43a20d757e7212b321acca029">_startTime</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Start time for the force.  <a href="#a25c357d43a20d757e7212b321acca029"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1LinearSpring.html#a5c5ed2e3fc24c9bffcfd8410b67d3a72">_endTime</a></td></tr>
@@ -151,7 +154,7 @@ Inheritance diagram for OpenSim::LinearSpring:</div>
 <p>Construct a Linear Spring. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>aBody</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody body segment.">Body</a> upon which spring forces are to be applied. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>aBody</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody rigid body.">Body</a> upon which spring forces are to be applied. </td></tr>
   </table>
   </dd>
 </dl>
@@ -178,7 +181,7 @@ Inheritance diagram for OpenSim::LinearSpring:</div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="a65ff7379e6ff98df9688cb84038e04b6"></a><!-- doxytag: member="OpenSim::LinearSpring::computeForce" ref="a65ff7379e6ff98df9688cb84038e04b6" args="(const SimTK::State &amp;s) const " -->
+<a class="anchor" id="a0ec6318947e9002dcd321b2f65d3b5de"></a><!-- doxytag: member="OpenSim::LinearSpring::computeForce" ref="a0ec6318947e9002dcd321b2f65d3b5de" args="(const SimTK::State &amp;state, SimTK::Vector_&lt; SimTK::SpatialVec &gt; &amp;bodyForces, SimTK::Vector &amp;generalizedForces) const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -186,9 +189,24 @@ Inheritance diagram for OpenSim::LinearSpring:</div>
           <td class="memname">void LinearSpring::computeForce </td>
           <td>(</td>
           <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
-          <td class="paramname"> <em>s</em></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td> const<code> [virtual]</code></td>
+          <td class="paramname"> <em>s</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SimTK::Vector_&lt; SimTK::SpatialVec &gt; &amp;&nbsp;</td>
+          <td class="paramname"> <em>bodyForces</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SimTK::Vector &amp;&nbsp;</td>
+          <td class="paramname"> <em>generalizedForces</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td> const<code> [virtual]</code></td>
         </tr>
       </table>
 </div>
@@ -205,7 +223,7 @@ Inheritance diagram for OpenSim::LinearSpring:</div>
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="classOpenSim_1_1CustomForce.html#ab0adbbc82e9aea8b9e369156a1483c73">OpenSim::CustomForce</a>.</p>
+<p>Implements <a class="el" href="classOpenSim_1_1CustomForce.html#abdc00ab9c7428ae228ded1a56aa40d9d">OpenSim::CustomForce</a>.</p>
 
 </div>
 </div>
@@ -342,6 +360,29 @@ Inheritance diagram for OpenSim::LinearSpring:</div>
 
 </div>
 </div>
+<a class="anchor" id="ac50be1f8e6587556debc5800f048fbcc"></a><!-- doxytag: member="OpenSim::LinearSpring::copy" ref="ac50be1f8e6587556debc5800f048fbcc" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="classOpenSim_1_1Object.html">Object</a>* OpenSim::LinearSpring::copy </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [inline, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Construct and return a copy of this object. </p>
+<p>The object is allocated using the new operator, so the caller is responsible for deleting the returned object.</p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>Copy of this object. </dd></dl>
+
+<p>Implements <a class="el" href="classOpenSim_1_1Force.html#a71a62b13d80e706f70bcebb2e818257c">OpenSim::Force</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a805e260ca4a0b4f2b00425d636561976"></a><!-- doxytag: member="OpenSim::LinearSpring::getBValue" ref="a805e260ca4a0b4f2b00425d636561976" args="(SimTK::Vec3 &amp;aB) const " -->
 <div class="memitem">
 <div class="memproto">
@@ -381,23 +422,6 @@ Inheritance diagram for OpenSim::LinearSpring:</div>
 
 <p>Get the spring constant, k. </p>
 <dl class="return"><dt><b>Returns:</b></dt><dd>aK. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="aaaccc41d86c1d90c6a2edb4e1d1b6c56"></a><!-- doxytag: member="OpenSim::LinearSpring::getOn" ref="aaaccc41d86c1d90c6a2edb4e1d1b6c56" args="() const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool OpenSim::LinearSpring::getOn </td>
-          <td>(</td>
-          <td class="paramname"></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td> const<code> [inline]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
 
 </div>
 </div>
@@ -506,6 +530,35 @@ Inheritance diagram for OpenSim::LinearSpring:</div>
 
 </div>
 </div>
+<a class="anchor" id="a1199f20e9c5154a618ef97e7564f8e02"></a><!-- doxytag: member="OpenSim::LinearSpring::initState" ref="a1199f20e9c5154a618ef97e7564f8e02" args="(SimTK::State &amp;state) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void OpenSim::LinearSpring::initState </td>
+          <td>(</td>
+          <td class="paramtype">SimTK::State &amp;&nbsp;</td>
+          <td class="paramname"> <em>state</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [inline, protected, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>This is called after a SimTK System and State have been created for the <a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a>. </p>
+<p>It must be implementd to set initial values of state variables.</p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>state</em>&nbsp;</td><td>the State to initialize </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1Force.html#aeb5732cf7d2bc68675d0d92893e89897">OpenSim::Force</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="aed2a2ba4c10636e5a5c0ba75dccf6c68"></a><!-- doxytag: member="OpenSim::LinearSpring::setBValue" ref="aed2a2ba4c10636e5a5c0ba75dccf6c68" args="(const SimTK::Vec3 &amp;aB)" -->
 <div class="memitem">
 <div class="memproto">
@@ -555,24 +608,6 @@ Inheritance diagram for OpenSim::LinearSpring:</div>
   </table>
   </dd>
 </dl>
-
-</div>
-</div>
-<a class="anchor" id="ae33153dbdff0654fb1202bf523e6b5f3"></a><!-- doxytag: member="OpenSim::LinearSpring::setOn" ref="ae33153dbdff0654fb1202bf523e6b5f3" args="(bool on_off)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void OpenSim::LinearSpring::setOn </td>
-          <td>(</td>
-          <td class="paramtype">bool&nbsp;</td>
-          <td class="paramname"> <em>on_off</em></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td><code> [inline]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
 
 </div>
 </div>
@@ -732,6 +767,28 @@ Inheritance diagram for OpenSim::LinearSpring:</div>
 
 </div>
 </div>
+<a class="anchor" id="ad2225c037a6dd964f057aab00d3c905f"></a><!-- doxytag: member="OpenSim::LinearSpring::setup" ref="ad2225c037a6dd964f057aab00d3c905f" args="(Model &amp;aModel)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void OpenSim::LinearSpring::setup </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>model</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline, protected, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Subclasses may optionally override this method to perform setup. </p>
+
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1Force.html#a31983c29e0fe68b26da4f22e96ca3e59">OpenSim::Force</a>.</p>
+
+</div>
+</div>
 <hr/><h2>Member Data Documentation</h2>
 <a class="anchor" id="a06f6efa328dbe178244bb9811a4eac8a"></a><!-- doxytag: member="OpenSim::LinearSpring::_b" ref="a06f6efa328dbe178244bb9811a4eac8a" args="" -->
 <div class="memitem">
@@ -803,21 +860,6 @@ Inheritance diagram for OpenSim::LinearSpring:</div>
 <div class="memdoc">
 
 <p>Stiffness. </p>
-
-</div>
-</div>
-<a class="anchor" id="abc626563d0f11ed16fb32204f3f66d83"></a><!-- doxytag: member="OpenSim::LinearSpring::_on" ref="abc626563d0f11ed16fb32204f3f66d83" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool <a class="el" href="classOpenSim_1_1LinearSpring.html#abc626563d0f11ed16fb32204f3f66d83">OpenSim::LinearSpring::_on</a><code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>On, off flag. </p>
 
 </div>
 </div>
@@ -931,7 +973,7 @@ Inheritance diagram for OpenSim::LinearSpring:</div>
 <li>OpenSim/Simulation/Model/LinearSpring.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Feb 7 02:15:17 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:37:10 2010 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

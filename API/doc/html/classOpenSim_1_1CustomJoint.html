@@ -64,8 +64,6 @@ Inheritance diagram for OpenSim::CustomJoint:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Assignment operator.  <a href="#a49572d92166bc4687ad46b0cc344c026"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CustomJoint.html#aa8eae0be908abdb4edf5e330ef3bdaa5">copyData</a> (const <a class="el" href="classOpenSim_1_1CustomJoint.html">CustomJoint</a> &amp;aJoint)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Copy data members from one <a class="el" href="classOpenSim_1_1CustomJoint.html" title="A class implementing a custom joint.">CustomJoint</a> to another.  <a href="#aa8eae0be908abdb4edf5e330ef3bdaa5"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CustomJoint.html#aeb6d202dc12716c5dabdb271374d6a85">setup</a> (<a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;aModel)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Perform some set up functions that happen after the object has been deserialized or copied.  <a href="#aeb6d202dc12716c5dabdb271374d6a85"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CustomJoint.html#ad62e73fb5d4fc9a3d884f537d860d376">numCoordinates</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classOpenSim_1_1SpatialTransform.html">SpatialTransform</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CustomJoint.html#aa9d67c7638704cf53cb587a6fa2a3b68">getSpatialTransform</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CustomJoint.html#adaff577975507a8cefd7e3420a190821">scale</a> (const <a class="el" href="classOpenSim_1_1ScaleSet.html">ScaleSet</a> &amp;aScaleSet)</td></tr>
@@ -76,15 +74,14 @@ Inheritance diagram for OpenSim::CustomJoint:</div>
 <tr><td colspan="2"><h2>Protected Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CustomJoint.html#a39f12766a7256c9d222f528e5fd7246d">constructCoordinates</a> ()</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Construct coordinates according to the mobilities of the <a class="el" href="classOpenSim_1_1Joint.html" title="A class implementing an OpenSim Joint.">Joint</a>.  <a href="#a39f12766a7256c9d222f528e5fd7246d"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CustomJoint.html#a86a4373cb2e81164e4affea1a05ae6bf">createSystem</a> (SimTK::MultibodySystem &amp;system) const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This is called when a SimTK System is being created for the <a class="el" href="classOpenSim_1_1Model.html" title="A base class that specifies the interface for a musculoskeletal model.">Model</a>.  <a href="#a86a4373cb2e81164e4affea1a05ae6bf"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CustomJoint.html#aeb6d202dc12716c5dabdb271374d6a85">setup</a> (<a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;aModel)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Perform some set up functions that happen after the object has been deserialized or copied.  <a href="#aeb6d202dc12716c5dabdb271374d6a85"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CustomJoint.html#a86a4373cb2e81164e4affea1a05ae6bf">createSystem</a> (SimTK::MultibodySystem &amp;system) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This is called when a SimTK System is being created for the <a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a>.  <a href="#a86a4373cb2e81164e4affea1a05ae6bf"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyObj.html">PropertyObj</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CustomJoint.html#a223e78a50989633225331aeac8b89992">_spatialTransformProp</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Spatial transform defining how the child body moves with respect to the parent body as a function of the generalized coordinates.  <a href="#a223e78a50989633225331aeac8b89992"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1SpatialTransform.html">SpatialTransform</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CustomJoint.html#ae28e89b85940a142a78cedff91e721d3">_spatialTransform</a></td></tr>
-<tr><td colspan="2"><h2>Friends</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">class&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CustomJoint.html#a53c55c23727a4e0f756d836780044d04">SimbodyEngine</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">class&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CustomJoint.html#ac1b1217996ce38b69ad59c3b5152c566">CoordinateCouplerConstraint</a></td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
 <p>A class implementing a custom joint. </p>
@@ -331,7 +328,7 @@ Inheritance diagram for OpenSim::CustomJoint:</div>
 
 <p>Copy this body and return a pointer to the copy. </p>
 <p>The copy constructor for this class is used.</p>
-<dl class="return"><dt><b>Returns:</b></dt><dd>Pointer to a copy of this <a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody body segment.">OpenSim::Body</a>. </dd></dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>Pointer to a copy of this <a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody rigid body.">OpenSim::Body</a>. </dd></dl>
 
 <p>Implements <a class="el" href="classOpenSim_1_1Joint.html#ae5d6960ec7346df1c64a79a95c06a828">OpenSim::Joint</a>.</p>
 
@@ -381,8 +378,8 @@ Inheritance diagram for OpenSim::CustomJoint:</div>
 </div>
 <div class="memdoc">
 
-<p>This is called when a SimTK System is being created for the <a class="el" href="classOpenSim_1_1Model.html" title="A base class that specifies the interface for a musculoskeletal model.">Model</a>. </p>
-<p>It should be overridden to add appropriate elements to the System corresponding to this object.</p>
+<p>This is called when a SimTK System is being created for the <a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a>. </p>
+<p>It must be implemented to add appropriate elements to the System corresponding to this object.</p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>system</em>&nbsp;</td><td>the System being created </td></tr>
@@ -518,7 +515,7 @@ Inheritance diagram for OpenSim::CustomJoint:</div>
           <td class="paramtype"><a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;&nbsp;</td>
           <td class="paramname"> <em>aModel</em></td>
           <td>&nbsp;)&nbsp;</td>
-          <td><code> [virtual]</code></td>
+          <td><code> [protected, virtual]</code></td>
         </tr>
       </table>
 </div>
@@ -557,35 +554,6 @@ Inheritance diagram for OpenSim::CustomJoint:</div>
 
 </div>
 </div>
-<hr/><h2>Friends And Related Function Documentation</h2>
-<a class="anchor" id="ac1b1217996ce38b69ad59c3b5152c566"></a><!-- doxytag: member="OpenSim::CustomJoint::CoordinateCouplerConstraint" ref="ac1b1217996ce38b69ad59c3b5152c566" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">friend class <a class="el" href="classOpenSim_1_1CoordinateCouplerConstraint.html">CoordinateCouplerConstraint</a><code> [friend]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a53c55c23727a4e0f756d836780044d04"></a><!-- doxytag: member="OpenSim::CustomJoint::SimbodyEngine" ref="a53c55c23727a4e0f756d836780044d04" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">friend class <a class="el" href="classOpenSim_1_1SimbodyEngine.html">SimbodyEngine</a><code> [friend]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Joint.html#a53c55c23727a4e0f756d836780044d04">OpenSim::Joint</a>.</p>
-
-</div>
-</div>
 <hr/><h2>Member Data Documentation</h2>
 <a class="anchor" id="ae28e89b85940a142a78cedff91e721d3"></a><!-- doxytag: member="OpenSim::CustomJoint::_spatialTransform" ref="ae28e89b85940a142a78cedff91e721d3" args="" -->
 <div class="memitem">
@@ -621,7 +589,7 @@ Inheritance diagram for OpenSim::CustomJoint:</div>
 <li>OpenSim/Simulation/SimbodyEngine/CustomJoint.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Feb 7 02:15:18 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:37:12 2010 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

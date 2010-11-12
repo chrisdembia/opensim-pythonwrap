@@ -70,7 +70,11 @@ public class MotionsDB extends Observable // Observed by other entities in motio
    // Map model to an ArrayList of Motions linked with it
    Hashtable<Model, ArrayList<Storage>> mapModels2Motions =
            new Hashtable<Model, ArrayList<Storage>>(4);
-
+   // Remember for each storage object, the file name it came from. Useful for saving/restoring application state
+   // Caveats: many motions are created on the fly and have no files associated with them
+   //        : If a file name is reused this info may not be current
+   Hashtable<Storage, String> storageFilenames = new Hashtable<Storage, String>(4);
+   
    // Map motion to a BitSet for storing dirty bit, etc.
    Hashtable<Storage, BitSet> mapMotion2BitSet = new Hashtable<Storage, BitSet>(1);
    private final static int numBits = 4;
@@ -120,6 +124,7 @@ public class MotionsDB extends Observable // Observed by other entities in motio
          // user selected a model, try to associate it
          if(MotionsDB.getInstance().motionAssociationPossible(modelForMotion, newMotion)){
             addMotion(modelForMotion, newMotion, true);
+            saveStorageFileName(newMotion, fileName);
             StatusDisplayer.getDefault().setStatusText("Associated motion: "+newMotion.getName()+" to model: "+modelForMotion.getName());
             associated = true;
          } else { // Show error that motion couldn't be associated and repeat'
@@ -261,6 +266,7 @@ public class MotionsDB extends Observable // Observed by other entities in motio
          String fileName = FileUtils.getInstance().browseForFilenameToSave(FileUtils.MotionFileFilter, true, "");
          if (fileName != null) {
             MotionsSaveAsAction.saveMotion((model), simmMotionData, fileName);
+            saveStorageFileName(simmMotionData, fileName);
             return true;
          } else {
             // The user cancelled out of saving the file, which we interpret as wanting to cancel
@@ -426,5 +432,27 @@ public class MotionsDB extends Observable // Observed by other entities in motio
     {
         double currentTime = MotionControlJPanel.getInstance().getMasterMotion().getCurrentTime();
         setCurrentTime(currentTime);
+    }
+
+    public void saveStorageFileName(Storage newMotion, String fileName) {
+        storageFilenames.put(newMotion, fileName);
+    }
+    public String getStorageFileName(Storage aMotion){
+        return storageFilenames.get(aMotion);
+    }
+
+    public void rebuild(MotionsDBDescriptor motionsDBDescriptor) {
+        clearCurrentMotions();
+        ArrayList<String> modelFiles = motionsDBDescriptor.getModelFileNames();
+        ArrayList<String> motionFiles = motionsDBDescriptor.getMotionFileNames();
+        Object[] models =OpenSimDB.getInstance().getAllModels();
+        for(int i=0; i< models.length; i++){
+            Model candidateModel = ((Model)models[i]);
+            int index=0;
+            if (candidateModel.getInputFileName().equalsIgnoreCase(modelFiles.get(index))){
+                // Create motion from corresponding motionFiles[index]
+                MotionsDB.getInstance().loadMotionFile(motionFiles.get(index));
+            }
+        }
     }
 }

@@ -50,7 +50,7 @@ Inheritance diagram for OpenSim::ActuatorForceTargetFast:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Destructor.  <a href="#a467103e53c4eb9491412fb8ebdcceed5"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActuatorForceTargetFast.html#aba2d1403fe6b424d8b57432eff4f0187">ActuatorForceTargetFast</a> (SimTK::State &amp;s, int aNX, <a class="el" href="classOpenSim_1_1CMC.html">CMC</a> *aController)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Constructor.  <a href="#aba2d1403fe6b424d8b57432eff4f0187"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActuatorForceTargetFast.html#aff913ec9333f24ef3aebc8cbaabf75a5">prepareToOptimize</a> (const SimTK::State &amp;s, double *x)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActuatorForceTargetFast.html#a69524d4b00264a7459a3f2aa27c4723b">prepareToOptimize</a> (SimTK::State &amp;s, double *x)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActuatorForceTargetFast.html#a730efd1b5883ae8347acb02b87383eff">objectiveFunc</a> (const SimTK::Vector &amp;aF, const bool new_coefficients, SimTK::Real &amp;rP) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActuatorForceTargetFast.html#a2cd5f48581b6b5da164c36a738b79bb2">gradientFunc</a> (const SimTK::Vector &amp;x, const bool new_coefficients, SimTK::Vector &amp;gradient) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActuatorForceTargetFast.html#a578f2be3b4621491d90114bcc8c56754">constraintFunc</a> (const SimTK::Vector &amp;x, const bool new_coefficients, SimTK::Vector &amp;constraints) const </td></tr>
@@ -300,14 +300,14 @@ Inheritance diagram for OpenSim::ActuatorForceTargetFast:</div>
 
 </div>
 </div>
-<a class="anchor" id="aff913ec9333f24ef3aebc8cbaabf75a5"></a><!-- doxytag: member="OpenSim::ActuatorForceTargetFast::prepareToOptimize" ref="aff913ec9333f24ef3aebc8cbaabf75a5" args="(const SimTK::State &amp;s, double *x)" -->
+<a class="anchor" id="a69524d4b00264a7459a3f2aa27c4723b"></a><!-- doxytag: member="OpenSim::ActuatorForceTargetFast::prepareToOptimize" ref="a69524d4b00264a7459a3f2aa27c4723b" args="(SimTK::State &amp;s, double *x)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">bool ActuatorForceTargetFast::prepareToOptimize </td>
           <td>(</td>
-          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
+          <td class="paramtype">SimTK::State &amp;&nbsp;</td>
           <td class="paramname"> <em>s</em>, </td>
         </tr>
         <tr>
@@ -325,7 +325,7 @@ Inheritance diagram for OpenSim::ActuatorForceTargetFast:</div>
 </div>
 <div class="memdoc">
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1OptimizationTarget.html#ad338b056ca2b72d56034eb75c4d1ad6e">OpenSim::OptimizationTarget</a>.</p>
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1OptimizationTarget.html#a50a0ba65df75d0043904a453804c8e41">OpenSim::OptimizationTarget</a>.</p>
 
 </div>
 </div>
@@ -334,7 +334,7 @@ Inheritance diagram for OpenSim::ActuatorForceTargetFast:</div>
 <li>OpenSim/Tools/ActuatorForceTargetFast.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Feb 7 02:15:20 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:37:14 2010 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

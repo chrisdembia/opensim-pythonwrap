@@ -84,34 +84,6 @@ public class SimbodyEngine extends OpenSimObject {
     return opensimModelJNI.SimbodyEngine_getMass(swigCPtr, this);
   }
 
-  public void formMassMatrix(SWIGTYPE_p_double rI) {
-    opensimModelJNI.SimbodyEngine_formMassMatrix(swigCPtr, this, SWIGTYPE_p_double.getCPtr(rI));
-  }
-
-  public void formJacobianTranslation(Body aBody, SWIGTYPE_p_SimTK__Vec3 aPoint, SWIGTYPE_p_double rJ, Body aRefBody) {
-    opensimModelJNI.SimbodyEngine_formJacobianTranslation__SWIG_0(swigCPtr, this, Body.getCPtr(aBody), aBody, SWIGTYPE_p_SimTK__Vec3.getCPtr(aPoint), SWIGTYPE_p_double.getCPtr(rJ), Body.getCPtr(aRefBody), aRefBody);
-  }
-
-  public void formJacobianTranslation(Body aBody, SWIGTYPE_p_SimTK__Vec3 aPoint, SWIGTYPE_p_double rJ) {
-    opensimModelJNI.SimbodyEngine_formJacobianTranslation__SWIG_1(swigCPtr, this, Body.getCPtr(aBody), aBody, SWIGTYPE_p_SimTK__Vec3.getCPtr(aPoint), SWIGTYPE_p_double.getCPtr(rJ));
-  }
-
-  public void formJacobianOrientation(Body aBody, SWIGTYPE_p_double rJ0, Body aRefBody) {
-    opensimModelJNI.SimbodyEngine_formJacobianOrientation__SWIG_0(swigCPtr, this, Body.getCPtr(aBody), aBody, SWIGTYPE_p_double.getCPtr(rJ0), Body.getCPtr(aRefBody), aRefBody);
-  }
-
-  public void formJacobianOrientation(Body aBody, SWIGTYPE_p_double rJ0) {
-    opensimModelJNI.SimbodyEngine_formJacobianOrientation__SWIG_1(swigCPtr, this, Body.getCPtr(aBody), aBody, SWIGTYPE_p_double.getCPtr(rJ0));
-  }
-
-  public void formJacobianEuler(Body aBody, SWIGTYPE_p_double rJE, Body aRefBody) {
-    opensimModelJNI.SimbodyEngine_formJacobianEuler__SWIG_0(swigCPtr, this, Body.getCPtr(aBody), aBody, SWIGTYPE_p_double.getCPtr(rJE), Body.getCPtr(aRefBody), aRefBody);
-  }
-
-  public void formJacobianEuler(Body aBody, SWIGTYPE_p_double rJE) {
-    opensimModelJNI.SimbodyEngine_formJacobianEuler__SWIG_1(swigCPtr, this, Body.getCPtr(aBody), aBody, SWIGTYPE_p_double.getCPtr(rJE));
-  }
-
   public void computeDerivatives(SWIGTYPE_p_SimTK__State s, SWIGTYPE_p_double dqdt, SWIGTYPE_p_double dudt) {
     opensimModelJNI.SimbodyEngine_computeDerivatives(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), SWIGTYPE_p_double.getCPtr(dqdt), SWIGTYPE_p_double.getCPtr(dudt));
   }

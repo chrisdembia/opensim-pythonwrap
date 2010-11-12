@@ -57,6 +57,7 @@ public final class MotionsSaveAsAction extends CallableSystemAction {
          motionCopy.setWriteSIMMHeader(true); // Write SIMM header for SIMM compatibility
       // TODO: set precision?
       motionCopy.print(fileName);
+      MotionsDB.getInstance().saveStorageFileName(motion, fileName);
       MotionsDB.getInstance().setMotionModified(motion,false); 
       }
       StatusDisplayer.getDefault().setStatusText("Saved motion "+motion.getName()+" to "+fileName);

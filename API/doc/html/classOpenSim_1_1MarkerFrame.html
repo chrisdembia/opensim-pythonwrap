@@ -56,12 +56,15 @@ Inheritance diagram for OpenSim::MarkerFrame:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Destructor.  <a href="#a694625d78327cdaa29c9831ef23867df"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1MarkerFrame.html#a31ec9c5d7ad59f2a74c2ea95c5f4749a">addMarker</a> (const SimTK::Vec3 &amp;aCoords)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Add a marker to the frame.  <a href="#a31ec9c5d7ad59f2a74c2ea95c5f4749a"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1SimmPoint.html">SimmPoint</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1MarkerFrame.html#a267702855b23a0568318fd4189205805">getMarker</a> (int aIndex)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">SimTK::Vec3&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1MarkerFrame.html#ad6ad564a53a76f6e78c21d153c4baa28">getMarker</a> (int aIndex) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">SimTK::Vec3 &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1MarkerFrame.html#a53dc8b7bc5b298710f0626184648b5ee">updMarker</a> (int aIndex)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1MarkerFrame.html#a1763bb087407ba346e144272695d2f5f">getFrameNumber</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1MarkerFrame.html#a6086ffc02473ed656514d766fec21def">setFrameNumber</a> (int aNumber)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1MarkerFrame.html#abef25854ea5d576d86e05169843c2ed7">getFrameTime</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1MarkerFrame.html#aaf4c63b09699a067b85b521cfefb18aa">scale</a> (double aScaleFactor)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Scale.html">Scale</a> the XYZ coordinates of all markers in the frame.  <a href="#aaf4c63b09699a067b85b521cfefb18aa"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const SimTK::Array_<br class="typebreak"/>
+&lt; SimTK::Vec3 &gt; &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1MarkerFrame.html#a5ba489028b0e5af35a22aa12a81910c5">getMarkers</a> () const </td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
 <p>A class implementing a frame of marker data from a TRC/TRB file. </p>
@@ -237,17 +240,34 @@ Inheritance diagram for OpenSim::MarkerFrame:</div>
 
 </div>
 </div>
-<a class="anchor" id="a267702855b23a0568318fd4189205805"></a><!-- doxytag: member="OpenSim::MarkerFrame::getMarker" ref="a267702855b23a0568318fd4189205805" args="(int aIndex)" -->
+<a class="anchor" id="ad6ad564a53a76f6e78c21d153c4baa28"></a><!-- doxytag: member="OpenSim::MarkerFrame::getMarker" ref="ad6ad564a53a76f6e78c21d153c4baa28" args="(int aIndex) const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classOpenSim_1_1SimmPoint.html">SimmPoint</a>&amp; OpenSim::MarkerFrame::getMarker </td>
+          <td class="memname">SimTK::Vec3 OpenSim::MarkerFrame::getMarker </td>
           <td>(</td>
           <td class="paramtype">int&nbsp;</td>
           <td class="paramname"> <em>aIndex</em></td>
           <td>&nbsp;)&nbsp;</td>
-          <td><code> [inline]</code></td>
+          <td> const<code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a5ba489028b0e5af35a22aa12a81910c5"></a><!-- doxytag: member="OpenSim::MarkerFrame::getMarkers" ref="a5ba489028b0e5af35a22aa12a81910c5" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const SimTK::Array_&lt;SimTK::Vec3&gt;&amp; OpenSim::MarkerFrame::getMarkers </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [inline]</code></td>
         </tr>
       </table>
 </div>
@@ -299,12 +319,30 @@ Inheritance diagram for OpenSim::MarkerFrame:</div>
 
 </div>
 </div>
+<a class="anchor" id="a53dc8b7bc5b298710f0626184648b5ee"></a><!-- doxytag: member="OpenSim::MarkerFrame::updMarker" ref="a53dc8b7bc5b298710f0626184648b5ee" args="(int aIndex)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SimTK::Vec3&amp; OpenSim::MarkerFrame::updMarker </td>
+          <td>(</td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>aIndex</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>OpenSim/Common/MarkerFrame.h</li>
 <li>OpenSim/Common/MarkerFrame.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Feb 7 02:15:13 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:37:02 2010 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

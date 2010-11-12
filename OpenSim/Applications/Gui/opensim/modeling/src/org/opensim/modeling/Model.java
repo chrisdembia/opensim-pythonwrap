@@ -488,4 +488,8 @@ public class Model extends ModelComponent {
     opensimModelJNI.Model_clearValidationLog(swigCPtr, this);
   }
 
+  public OpenSimObject getObjectByTypeAndName(String typeString, String nameString) throws java.io.IOException {
+    return new OpenSimObject(opensimModelJNI.Model_getObjectByTypeAndName(swigCPtr, this, typeString, nameString), false);
+  }
+
 }

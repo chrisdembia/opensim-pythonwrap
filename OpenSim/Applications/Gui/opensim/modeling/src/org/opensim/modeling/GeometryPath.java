@@ -153,10 +153,6 @@ public class GeometryPath extends ModelComponent {
     return opensimModelJNI.GeometryPath_computeMomentArm(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), Coordinate.getCPtr(aCoord), aCoord);
   }
 
-  public SWIGTYPE_p_SimTK__Vector computeMomentArms(SWIGTYPE_p_SimTK__State s) {
-    return new SWIGTYPE_p_SimTK__Vector(opensimModelJNI.GeometryPath_computeMomentArms(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s)), true);
-  }
-
   public void preScale(SWIGTYPE_p_SimTK__State s, ScaleSet aScaleSet) {
     opensimModelJNI.GeometryPath_preScale(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), ScaleSet.getCPtr(aScaleSet), aScaleSet);
   }

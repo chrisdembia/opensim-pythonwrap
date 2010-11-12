@@ -68,7 +68,8 @@ public static boolean closeModel(Model model) {
    if (!(model instanceof ModelForExperimentalData)){
        // Write settings to persistent storage
        ModelSettingsSerializer ser = ViewDB.getInstance().getModelSavedSettings(model);
-       if (ser.confirmAndWrite(model)==NotifyDescriptor.CANCEL_OPTION)
+       boolean promptToSaveSettings = false;
+       if (promptToSaveSettings && ser.confirmAndWrite(model)==NotifyDescriptor.CANCEL_OPTION)
           return false;
    }
    OpenSimDB.getInstance().removeModel(model);

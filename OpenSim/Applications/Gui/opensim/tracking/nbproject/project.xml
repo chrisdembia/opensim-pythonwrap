@@ -115,6 +115,7 @@
                 </dependency>
             </module-dependencies>
             <public-packages>
+                <package>org.opensim.tools.serializers</package>
                 <package>org.opensim.tracking</package>
             </public-packages>
         </data>

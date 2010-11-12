@@ -62,7 +62,7 @@
   <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Analysis.html#a602b317ac6d17337622849227618e8ff">Analysis</a>(Model *aModel=0)</td><td><a class="el" href="classOpenSim_1_1Analysis.html">OpenSim::Analysis</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Analysis.html#a0f4e8dc27bf96b267b3ac6916151a23b">Analysis</a>(const std::string &amp;aFileName, bool aUpdateFromXMLNode=true)</td><td><a class="el" href="classOpenSim_1_1Analysis.html">OpenSim::Analysis</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Analysis.html#a9b3e54fbeedcbc907e1e67163d57bb23">Analysis</a>(const Analysis &amp;aAnalysis)</td><td><a class="el" href="classOpenSim_1_1Analysis.html">OpenSim::Analysis</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Kinematics.html#ab12059e05439a5640fb6406efb6b2a4e">begin</a>(const SimTK::State &amp;s)</td><td><a class="el" href="classOpenSim_1_1Kinematics.html">OpenSim::Kinematics</a></td><td><code> [virtual]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Kinematics.html#aeb3a42420c1b2cfefce945253056c984">begin</a>(SimTK::State &amp;s)</td><td><a class="el" href="classOpenSim_1_1Kinematics.html">OpenSim::Kinematics</a></td><td><code> [virtual]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Object.html#a82549ce31636f26c0f4e4b592a58b8a0">clearChanged</a>()</td><td><a class="el" href="classOpenSim_1_1Object.html">OpenSim::Object</a></td><td><code> [inline, protected]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Object.html#a5b460035064bddcb55b31ccaaad290f2">clearXMLStructures</a>()</td><td><a class="el" href="classOpenSim_1_1Object.html">OpenSim::Object</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Kinematics.html#a5dfcd3a04961ac3155ba21d1975e9968">copy</a>() const </td><td><a class="el" href="classOpenSim_1_1Kinematics.html">OpenSim::Kinematics</a></td><td><code> [virtual]</code></td></tr>
@@ -71,7 +71,7 @@
   <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Object.html#a4686d418622afa68c2cad31975b6efed">DEFAULT_NAME</a></td><td><a class="el" href="classOpenSim_1_1Object.html">OpenSim::Object</a></td><td><code> [static]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Object.html#aea6d52f298156e259af78d4caa69f3e8">deleteObserver</a>(Object &amp;aObserver)</td><td><a class="el" href="classOpenSim_1_1Object.html">OpenSim::Object</a></td><td><code> [inline]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Object.html#abb58105d192646e08528e23b01732ee5">deleteObservers</a>()</td><td><a class="el" href="classOpenSim_1_1Object.html">OpenSim::Object</a></td><td><code> [inline]</code></td></tr>
-  <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Kinematics.html#a817ec1a539ad051b60fb0c72e924a52c">end</a>(const SimTK::State &amp;s)</td><td><a class="el" href="classOpenSim_1_1Kinematics.html">OpenSim::Kinematics</a></td><td><code> [virtual]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Kinematics.html#ae8bb6aa8cae4e9e616df1b92586197fa">end</a>(SimTK::State &amp;s)</td><td><a class="el" href="classOpenSim_1_1Kinematics.html">OpenSim::Kinematics</a></td><td><code> [virtual]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Object.html#a182b628ae6fa1bd16bbe439abc8c2faf">generateXMLNode</a>(DOMElement *aParent, int aNodeIndex=0)</td><td><a class="el" href="classOpenSim_1_1Object.html">OpenSim::Object</a></td><td><code> [virtual]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Kinematics.html#ad0034585c4221c1ce7004dc30246da8e">getAccelerationStorage</a>()</td><td><a class="el" href="classOpenSim_1_1Kinematics.html">OpenSim::Kinematics</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Analysis.html#aa97e0a25c0bbcd2c63d80c8c85b23740">getColumnLabels</a>() const </td><td><a class="el" href="classOpenSim_1_1Analysis.html">OpenSim::Analysis</a></td><td></td></tr>
@@ -84,7 +84,6 @@
   <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Analysis.html#a1df40d88d4f5df6f49a0c6ba2a0f8f2a">getInDegrees</a>() const </td><td><a class="el" href="classOpenSim_1_1Analysis.html">OpenSim::Analysis</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Object.html#ab4a43cd0350e37bbd00451fd01513d01">getInlined</a>() const </td><td><a class="el" href="classOpenSim_1_1Object.html">OpenSim::Object</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Object.html#a40651ab63aba5bfb7ddc6f495d5d4b60">getName</a>() const </td><td><a class="el" href="classOpenSim_1_1Object.html">OpenSim::Object</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Object.html#a6c0b24ea13f28178d9e677c98529386d">getNewType</a>() const </td><td><a class="el" href="classOpenSim_1_1Object.html">OpenSim::Object</a></td><td><code> [inline, virtual]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Analysis.html#abe7532f209921d68da8b68358d6ad7cf">getOn</a>() const </td><td><a class="el" href="classOpenSim_1_1Analysis.html">OpenSim::Analysis</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Kinematics.html#af36e27252dce59f2b4de45b093fe1b11">getPositionStorage</a>()</td><td><a class="el" href="classOpenSim_1_1Kinematics.html">OpenSim::Kinematics</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Analysis.html#a89de6d6782bdb1128f3afde738c8e314">getPrintResultFiles</a>() const </td><td><a class="el" href="classOpenSim_1_1Analysis.html">OpenSim::Analysis</a></td><td><code> [inline]</code></td></tr>
@@ -163,7 +162,7 @@
   <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Kinematics.html#a5d2fb2f14148cc371b80e572c33ecb4d">~Kinematics</a>()</td><td><a class="el" href="classOpenSim_1_1Kinematics.html">OpenSim::Kinematics</a></td><td><code> [virtual]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Object.html#ae8f5483f459e46687bd01e6f9977afd3">~Object</a>()</td><td><a class="el" href="classOpenSim_1_1Object.html">OpenSim::Object</a></td><td><code> [virtual]</code></td></tr>
 </table></div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Feb 7 02:15:12 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:37:00 2010 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

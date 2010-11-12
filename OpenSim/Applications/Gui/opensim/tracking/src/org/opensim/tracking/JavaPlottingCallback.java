@@ -30,21 +30,16 @@
 
 package org.opensim.tracking;
 
-import javax.swing.SwingUtilities;
 import org.openide.DialogDescriptor;
 import org.openide.DialogDisplayer;
-import org.opensim.modeling.AnalysisWrapper;
+import org.opensim.modeling.AnalysisWrapperWithTimer;
 import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.CMCTool;
 import org.opensim.modeling.Model;
-import org.opensim.modeling.OpenSimContext;
 import org.opensim.modeling.SWIGTYPE_p_SimTK__State;
-import org.opensim.modeling.SWIGTYPE_p_double;
-import org.opensim.modeling.Analysis;
 import org.opensim.modeling.Storage;
 import org.opensim.plotter.JPlotterPanel;
 import org.opensim.plotter.PlotCurve;
-import org.opensim.view.pub.OpenSimDB;
 
 /**
  *
@@ -55,7 +50,7 @@ import org.opensim.view.pub.OpenSimDB;
  * - In RRA1 should display the residuals
  * - In CMC should probably show pre and post tracking quantities
  */
-public class JavaPlottingCallback extends AnalysisWrapper{
+public class JavaPlottingCallback extends AnalysisWrapperWithTimer{
     
     CMCTool cmcRraTool;
     JPlotterPanel plotter;
@@ -66,7 +61,6 @@ public class JavaPlottingCallback extends AnalysisWrapper{
     int errorsIndexInStorage=-1;
     private String[] qtyNames=null;
     int[] qtyIndices=null;   // Keep indices to qtys for quick access in step
-    boolean plotterInitialized=false;
     //OpenSimContext context=null;
     
     /** Creates a new instance of JavaPlottingCallback */
@@ -84,10 +78,11 @@ public class JavaPlottingCallback extends AnalysisWrapper{
    private void processStep(final double aT) {
        // begin should have been called first but actully it is not!
        synchronized(this){ // Make sure nothing happens to this object until we're done.
-           if (!plotterInitialized){
+           if (!isInitialized()){
                setupPlotter();
+               initializeTimer();
            }
-           if (plotterInitialized){
+           if (isUpdateDisplay()){
                // update Plotter if it's up'
                timeIndex = s.findIndex(aT);
                System.out.println("JavaPlottingCallback:time="+aT+" index="+timeIndex);
@@ -137,7 +132,6 @@ public class JavaPlottingCallback extends AnalysisWrapper{
                          );
             qtyIndices[i]=s.getStateIndex(getQtyNames()[i]);
         }
-        plotterInitialized=true;
        
     }
 

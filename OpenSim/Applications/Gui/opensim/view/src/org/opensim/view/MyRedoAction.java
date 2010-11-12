@@ -34,7 +34,7 @@ public final class MyRedoAction extends CallableSystemAction {
     
     public void performAction() {
         // TODO implement action body
-        OpenSimDB.getInstance().redo();
+        //OpenSimDB.getInstance().redo();
     }
     
     public String getName() {
@@ -56,9 +56,9 @@ public final class MyRedoAction extends CallableSystemAction {
     }
     
     public boolean isEnabled() {
-        boolean retValue;
+        boolean retValue=false;
         
-        retValue = OpenSimDB.getInstance().canRedo();
+        //retValue = OpenSimDB.getInstance().canRedo();
         return retValue;
     }
     

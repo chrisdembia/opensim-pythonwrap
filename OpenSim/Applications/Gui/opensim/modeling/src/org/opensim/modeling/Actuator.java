@@ -42,8 +42,28 @@ public class Actuator extends Force {
     opensimModelJNI.Actuator_copyPropertyValues(swigCPtr, this, Actuator.getCPtr(aActuator), aActuator);
   }
 
+  public void updateFromXMLNode() {
+    opensimModelJNI.Actuator_updateFromXMLNode(swigCPtr, this);
+  }
+
   public static void deleteActuator(Actuator aActuator) {
     opensimModelJNI.Actuator_deleteActuator(Actuator.getCPtr(aActuator), aActuator);
+  }
+
+  public void setMinControl(double aMinControl) {
+    opensimModelJNI.Actuator_setMinControl(swigCPtr, this, aMinControl);
+  }
+
+  public double getMinControl() {
+    return opensimModelJNI.Actuator_getMinControl(swigCPtr, this);
+  }
+
+  public void setMaxControl(double aMaxControl) {
+    opensimModelJNI.Actuator_setMaxControl(swigCPtr, this, aMaxControl);
+  }
+
+  public double getMaxControl() {
+    return opensimModelJNI.Actuator_getMaxControl(swigCPtr, this);
   }
 
   public Model getModel() {

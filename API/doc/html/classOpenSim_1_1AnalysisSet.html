@@ -64,19 +64,19 @@ Inheritance diagram for OpenSim::AnalysisSet:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> all the callbacks either on or off.  <a href="#a450cd1cb4cf0cddadb8447de4869e231"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1AnalysisSet.html#a1f9ff4ca105280f118c080fb9033556f">setOn</a> (const <a class="el" href="classOpenSim_1_1Array.html">Array</a>&lt; bool &gt; &amp;aOn)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Array.html">Array</a>&lt; bool &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1AnalysisSet.html#a252d7f94f78d148fff612bde26611ab6">getOn</a> () const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1AnalysisSet.html#a6170509cb738366337237a2b37b71031">begin</a> (const SimTK::State &amp;s)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Call the begin method for all integration callbacks.  <a href="#a6170509cb738366337237a2b37b71031"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1AnalysisSet.html#a525c8c714a8e0a6e9244911f5d6aee98">begin</a> (SimTK::State &amp;s)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Call the begin method for all integration callbacks.  <a href="#a525c8c714a8e0a6e9244911f5d6aee98"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1AnalysisSet.html#aaa30119bd5add2bfb6a844bb74353f1d">step</a> (const SimTK::State &amp;s, int stepNumber)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Call the step method for all integration callbacks.  <a href="#aaa30119bd5add2bfb6a844bb74353f1d"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1AnalysisSet.html#acef286e16f36ac751f248b80acfecf52">end</a> (const SimTK::State &amp;s)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Call the end method for all integration callbacks.  <a href="#acef286e16f36ac751f248b80acfecf52"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1AnalysisSet.html#a8ef7906618ab41e5b4f2b75d3216cf9c">end</a> (SimTK::State &amp;s)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Call the end method for all integration callbacks.  <a href="#a8ef7906618ab41e5b4f2b75d3216cf9c"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1AnalysisSet.html#a72cc9ab935ac8381f35597650579eb90">printResults</a> (const std::string &amp;aBaseName, const std::string &amp;aPath=&quot;&quot;, double aDT=-1.0, const std::string &amp;aExtension=&quot;.sto&quot;)</td></tr>
 <tr><td colspan="2"><h2>Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1AnalysisSet.html#adf029de7f3a34b1c2002975bb18cdc7b">getAvailableAnalyses</a> (<a class="el" href="classOpenSim_1_1AnalysisSet.html">AnalysisSet</a> &amp;as)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Fills the passed in analysis set with all available (i.e.  <a href="#adf029de7f3a34b1c2002975bb18cdc7b"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Model.html">Model</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1AnalysisSet.html#a7e6a4abe3ed750c5386668c501ea9003">_model</a></td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Model.html" title="A base class that specifies the interface for a musculoskeletal model.">Model</a> on which the callbacks have been set.  <a href="#a7e6a4abe3ed750c5386668c501ea9003"></a><br/></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a> on which the callbacks have been set.  <a href="#a7e6a4abe3ed750c5386668c501ea9003"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyBool.html">OpenSim::PropertyBool</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1AnalysisSet.html#ac6dd7b8c6f4a0c019314d58b8b838ed6">_enableProp</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1AnalysisSet.html#ae702b31618370a97249669e9f1cb1dbf">_enable</a></td></tr>
 </table>
@@ -117,7 +117,7 @@ Inheritance diagram for OpenSim::AnalysisSet:</div>
 <p>Construct an empty analysis set. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>aModel</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Model.html" title="A base class that specifies the interface for a musculoskeletal model.">Model</a> for the analysis set. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>aModel</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a> for the analysis set. </td></tr>
   </table>
   </dd>
 </dl>
@@ -189,14 +189,14 @@ Inheritance diagram for OpenSim::AnalysisSet:</div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="a6170509cb738366337237a2b37b71031"></a><!-- doxytag: member="OpenSim::AnalysisSet::begin" ref="a6170509cb738366337237a2b37b71031" args="(const SimTK::State &amp;s)" -->
+<a class="anchor" id="a525c8c714a8e0a6e9244911f5d6aee98"></a><!-- doxytag: member="OpenSim::AnalysisSet::begin" ref="a525c8c714a8e0a6e9244911f5d6aee98" args="(SimTK::State &amp;s)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">void AnalysisSet::begin </td>
           <td>(</td>
-          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
+          <td class="paramtype">SimTK::State &amp;&nbsp;</td>
           <td class="paramname"> <em>s</em></td>
           <td>&nbsp;)&nbsp;</td>
           <td><code> [virtual]</code></td>
@@ -238,14 +238,14 @@ Inheritance diagram for OpenSim::AnalysisSet:</div>
 
 </div>
 </div>
-<a class="anchor" id="acef286e16f36ac751f248b80acfecf52"></a><!-- doxytag: member="OpenSim::AnalysisSet::end" ref="acef286e16f36ac751f248b80acfecf52" args="(const SimTK::State &amp;s)" -->
+<a class="anchor" id="a8ef7906618ab41e5b4f2b75d3216cf9c"></a><!-- doxytag: member="OpenSim::AnalysisSet::end" ref="a8ef7906618ab41e5b4f2b75d3216cf9c" args="(SimTK::State &amp;s)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">void AnalysisSet::end </td>
           <td>(</td>
-          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
+          <td class="paramtype">SimTK::State &amp;&nbsp;</td>
           <td class="paramname"> <em>s</em></td>
           <td>&nbsp;)&nbsp;</td>
           <td><code> [virtual]</code></td>
@@ -533,7 +533,7 @@ Inheritance diagram for OpenSim::AnalysisSet:</div>
 </div>
 <div class="memdoc">
 
-<p><a class="el" href="classOpenSim_1_1Model.html" title="A base class that specifies the interface for a musculoskeletal model.">Model</a> on which the callbacks have been set. </p>
+<p><a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a> on which the callbacks have been set. </p>
 
 </div>
 </div>
@@ -542,7 +542,7 @@ Inheritance diagram for OpenSim::AnalysisSet:</div>
 <li>OpenSim/Simulation/Model/AnalysisSet.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Feb 7 02:15:16 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:37:08 2010 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

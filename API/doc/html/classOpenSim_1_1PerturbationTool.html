@@ -63,8 +63,8 @@ Inheritance diagram for OpenSim::PerturbationTool:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Override default implementation by object to intercept and fix the XML node underneath the tool to match current version.  <a href="#a7991f1b5ba9ee4bca8c11db4af0071a8"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PerturbationTool.html#a225954c19b9d5f9271c15f1a323a8bb8">run</a> () SWIG_DECLARE_EXCEPTION</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Run the investigation.  <a href="#a225954c19b9d5f9271c15f1a323a8bb8"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PerturbationTool.html#a024ec9578b935a14e1f0e17610c9f9d7">printResults</a> (const std::string &amp;aBaseName, const std::string &amp;aDir=&quot;&quot;, double aDT=-1.0, const std::string &amp;aExtension=&quot;.sto&quot;)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Print the results of the analysis.  <a href="#a024ec9578b935a14e1f0e17610c9f9d7"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PerturbationTool.html#a09346e398860d54f7b999cc641577ff4">printResults</a> ()</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Print the results of the perturbation analysis.  <a href="#a09346e398860d54f7b999cc641577ff4"></a><br/></td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
 <p>An abstract class for specifying the interface for an investigation. </p>
@@ -224,54 +224,24 @@ generateXMLDocument() </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="a024ec9578b935a14e1f0e17610c9f9d7"></a><!-- doxytag: member="OpenSim::PerturbationTool::printResults" ref="a024ec9578b935a14e1f0e17610c9f9d7" args="(const std::string &amp;aBaseName, const std::string &amp;aDir=&quot;&quot;, double aDT=&#45;1.0, const std::string &amp;aExtension=&quot;.sto&quot;)" -->
+<a class="anchor" id="a09346e398860d54f7b999cc641577ff4"></a><!-- doxytag: member="OpenSim::PerturbationTool::printResults" ref="a09346e398860d54f7b999cc641577ff4" args="()" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void OpenSim::PerturbationTool::printResults </td>
+          <td class="memname">void PerturbationTool::printResults </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&nbsp;</td>
-          <td class="paramname"> <em>aBaseName</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&nbsp;</td>
-          <td class="paramname"> <em>aDir</em> = <code>&quot;&quot;</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&nbsp;</td>
-          <td class="paramname"> <em>aDT</em> = <code>-1.0</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&nbsp;</td>
-          <td class="paramname"> <em>aExtension</em> = <code>&quot;.sto&quot;</code></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td><code> [virtual]</code></td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [virtual]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
-<p>Print the results of the analysis. </p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>aFileName</em>&nbsp;</td><td>File to which to print the data. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>aDT</em>&nbsp;</td><td>Time interval between results (linear interpolation is used). If not included as an argument or negative, all time steps are printed without interpolation. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>aExtension</em>&nbsp;</td><td>Extension for written files. </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Print the results of the perturbation analysis. </p>
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1AbstractTool.html#add0272ed1563d18f6865922d46b76430">OpenSim::AbstractTool</a>.</p>
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1ForwardTool.html#ad90d11a572c6a4e9749aba44eeba99d8">OpenSim::ForwardTool</a>.</p>
 
 </div>
 </div>
@@ -322,7 +292,7 @@ generateXMLDocument() </dd></dl>
 <li>OpenSim/Tools/PerturbationTool.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Feb 7 02:15:21 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:37:15 2010 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

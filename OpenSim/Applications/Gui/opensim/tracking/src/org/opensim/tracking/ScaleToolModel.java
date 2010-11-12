@@ -356,7 +356,6 @@ public class ScaleToolModel extends Observable implements Observer {
          if(result) {
             OpenSimDB.getInstance().replaceModel(scaledModel, processedModel, processedModelContext);
             scaledModel = processedModel;
-            /*
             if(ViewDB.getInstance().getModelGuiElements(scaledModel)!=null)
                ViewDB.getInstance().getModelGuiElements(scaledModel).setUnsavedChangesFlag(true);
 
@@ -365,7 +364,7 @@ public class ScaleToolModel extends Observable implements Observer {
                motion.setName("static pose");
                MotionsDB.getInstance().addMotion(scaledModel, motion);
             }
-            resetModified(); */
+            resetModified();
          }
 
          setExecuting(false);
@@ -442,7 +441,7 @@ public class ScaleToolModel extends Observable implements Observer {
    //------------------------------------------------------------------------
    
    private void updateScaleTool() {
-      scaleTool.setPrintResultFiles(false);
+      scaleTool.setPrintResultFiles((scaleTool.getMarkerPlacer().getOutputModelFileName()!=""));
       scaleTool.getGenericModelMaker().setMarkerSetFileName(extraMarkerSetFile.toProperty());
       scaleTool.getModelScaler().setMarkerFileName(measurementTrialFile.toProperty());
       bodySetScaleFactors.toModelScaler();

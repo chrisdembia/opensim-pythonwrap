@@ -60,8 +60,6 @@ Inheritance diagram for OpenSim::SimbodyEngine:</div>
 <tr><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1SimbodyEngine.html#a5cd070652c1058ad23d01d38cb6f1d00">getModel</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1SimbodyEngine.html#acdf45ef492085cbfe7132835d53035a2">getModel</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1SimbodyEngine.html#ab42e07e9fd048b04e8082d915e9e668b">setModel</a> (<a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;aModel)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1SimbodyEngine.html#ad468ab383ced628f0945c303fb242d76">initializeState</a> (SimTK::State &amp;s)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Go through the coordinate set and make sure the locking flags and coordinate values are in the state.  <a href="#ad468ab383ced628f0945c303fb242d76"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1SimbodyEngine.html#aa6406b74024b52256a5d73393ffcca0e">setup</a> (<a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;aModel)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Perform some set up functions that happen after the object has been deserialized or copied.  <a href="#aa6406b74024b52256a5d73393ffcca0e"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1SimbodyEngine.html#a7de1058259bbc26d23a8ae339b69457b">updateCoordinateSet</a> (<a class="el" href="classOpenSim_1_1CoordinateSet.html">CoordinateSet</a> &amp;aCoordinateSet)</td></tr>
@@ -97,10 +95,6 @@ Inheritance diagram for OpenSim::SimbodyEngine:</div>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1SimbodyEngine.html#a0b8328e7bbd64ccf63015ac96eaf6ade">formCompleteStorages</a> (const SimTK::State &amp;s, const <a class="el" href="classOpenSim_1_1Storage.html">OpenSim::Storage</a> &amp;aQIn, <a class="el" href="classOpenSim_1_1Storage.html">OpenSim::Storage</a> *&amp;rQComplete, <a class="el" href="classOpenSim_1_1Storage.html">OpenSim::Storage</a> *&amp;rUComplete) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">From a potentially partial specification of the generalized coordinates, form a complete storage of the generalized coordinates (q's) and generalized speeds (u's).  <a href="#a0b8328e7bbd64ccf63015ac96eaf6ade"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1SimbodyEngine.html#a9dd1bb3ddc53a2621c700aa9d67ce39c">formEulerTransform</a> (const SimTK::State &amp;s, const <a class="el" href="classOpenSim_1_1Body.html">OpenSim::Body</a> &amp;aBody, double *rE) const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1SimbodyEngine.html#ab80aa0b6041d05a3f0518cb541fcd373">formMassMatrix</a> (double *rI)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1SimbodyEngine.html#a711491b48bf44ae841f0e3f759eadc5f">formJacobianTranslation</a> (const <a class="el" href="classOpenSim_1_1Body.html">OpenSim::Body</a> &amp;aBody, const SimTK::Vec3 &amp;aPoint, double *rJ, const <a class="el" href="classOpenSim_1_1Body.html">OpenSim::Body</a> *aRefBody=NULL) const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1SimbodyEngine.html#ae3860fcaeada3a85b297322490fcb8e9">formJacobianOrientation</a> (const <a class="el" href="classOpenSim_1_1Body.html">OpenSim::Body</a> &amp;aBody, double *rJ0, const <a class="el" href="classOpenSim_1_1Body.html">OpenSim::Body</a> *aRefBody=NULL) const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1SimbodyEngine.html#af7b8d0bd82e14646953c9a55ce38dcde">formJacobianEuler</a> (const <a class="el" href="classOpenSim_1_1Body.html">OpenSim::Body</a> &amp;aBody, double *rJE, const <a class="el" href="classOpenSim_1_1Body.html">OpenSim::Body</a> *aRefBody=NULL) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1SimbodyEngine.html#a735dae3094a65ee716bff945b76e4ae9">computeDerivatives</a> (const SimTK::State &amp;s, double *dqdt, double *dudt)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Compute the derivatives of the generalized coordinates and speeds.  <a href="#a735dae3094a65ee716bff945b76e4ae9"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1SimbodyEngine.html#ad2ba47234560291278bf9a726e86f702">transform</a> (const SimTK::State &amp;s, const <a class="el" href="classOpenSim_1_1Body.html">OpenSim::Body</a> &amp;aBodyFrom, const double aVec[3], const <a class="el" href="classOpenSim_1_1Body.html">OpenSim::Body</a> &amp;aBodyTo, double rVec[3]) const </td></tr>
@@ -144,7 +138,7 @@ Inheritance diagram for OpenSim::SimbodyEngine:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Pointer to the model that owns this dynamics engine.  <a href="#acccf212cceb27c27c2673ecbcc355273"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Body.html">Body</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1SimbodyEngine.html#a6f793c6fef7244f18f17ecbe29fb062b">_groundBody</a></td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody body segment.">Body</a> used for ground, the inertial frame.  <a href="#a6f793c6fef7244f18f17ecbe29fb062b"></a><br/></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody rigid body.">Body</a> used for ground, the inertial frame.  <a href="#a6f793c6fef7244f18f17ecbe29fb062b"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Friends</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1SimbodyEngine.html#a8858f397a273114ddc1443880bb5540e">Body</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1SimbodyEngine.html#aaaa73a54d509bbec9f672b233cc9c086">Coordinate</a></td></tr>
@@ -1074,129 +1068,6 @@ Inheritance diagram for OpenSim::SimbodyEngine:</div>
 
 </div>
 </div>
-<a class="anchor" id="af7b8d0bd82e14646953c9a55ce38dcde"></a><!-- doxytag: member="OpenSim::SimbodyEngine::formJacobianEuler" ref="af7b8d0bd82e14646953c9a55ce38dcde" args="(const OpenSim::Body &amp;aBody, double *rJE, const OpenSim::Body *aRefBody=NULL) const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void OpenSim::SimbodyEngine::formJacobianEuler </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classOpenSim_1_1Body.html">OpenSim::Body</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>aBody</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double *&nbsp;</td>
-          <td class="paramname"> <em>rJE</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classOpenSim_1_1Body.html">OpenSim::Body</a> *&nbsp;</td>
-          <td class="paramname"> <em>aRefBody</em> = <code>NULL</code></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td> const<code> [inline, virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="ae3860fcaeada3a85b297322490fcb8e9"></a><!-- doxytag: member="OpenSim::SimbodyEngine::formJacobianOrientation" ref="ae3860fcaeada3a85b297322490fcb8e9" args="(const OpenSim::Body &amp;aBody, double *rJ0, const OpenSim::Body *aRefBody=NULL) const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void OpenSim::SimbodyEngine::formJacobianOrientation </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classOpenSim_1_1Body.html">OpenSim::Body</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>aBody</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double *&nbsp;</td>
-          <td class="paramname"> <em>rJ0</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classOpenSim_1_1Body.html">OpenSim::Body</a> *&nbsp;</td>
-          <td class="paramname"> <em>aRefBody</em> = <code>NULL</code></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td> const<code> [inline, virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a711491b48bf44ae841f0e3f759eadc5f"></a><!-- doxytag: member="OpenSim::SimbodyEngine::formJacobianTranslation" ref="a711491b48bf44ae841f0e3f759eadc5f" args="(const OpenSim::Body &amp;aBody, const SimTK::Vec3 &amp;aPoint, double *rJ, const OpenSim::Body *aRefBody=NULL) const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void OpenSim::SimbodyEngine::formJacobianTranslation </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classOpenSim_1_1Body.html">OpenSim::Body</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>aBody</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const SimTK::Vec3 &amp;&nbsp;</td>
-          <td class="paramname"> <em>aPoint</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double *&nbsp;</td>
-          <td class="paramname"> <em>rJ</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classOpenSim_1_1Body.html">OpenSim::Body</a> *&nbsp;</td>
-          <td class="paramname"> <em>aRefBody</em> = <code>NULL</code></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td> const<code> [inline, virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="ab80aa0b6041d05a3f0518cb541fcd373"></a><!-- doxytag: member="OpenSim::SimbodyEngine::formMassMatrix" ref="ab80aa0b6041d05a3f0518cb541fcd373" args="(double *rI)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void OpenSim::SimbodyEngine::formMassMatrix </td>
-          <td>(</td>
-          <td class="paramtype">double *&nbsp;</td>
-          <td class="paramname"> <em>rI</em></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td><code> [inline, virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
 <a class="anchor" id="ab224a2bf55f783e76a905a6c29e3b925"></a><!-- doxytag: member="OpenSim::SimbodyEngine::getAcceleration" ref="ab224a2bf55f783e76a905a6c29e3b925" args="(const SimTK::State &amp;s, const OpenSim::Body &amp;aBody, const SimTK::Vec3 &amp;aPoint, SimTK::Vec3 &amp;rAcc) const " -->
 <div class="memitem">
 <div class="memproto">
@@ -1781,32 +1652,6 @@ Inheritance diagram for OpenSim::SimbodyEngine:</div>
 
 </div>
 </div>
-<a class="anchor" id="ad468ab383ced628f0945c303fb242d76"></a><!-- doxytag: member="OpenSim::SimbodyEngine::initializeState" ref="ad468ab383ced628f0945c303fb242d76" args="(SimTK::State &amp;s)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void SimbodyEngine::initializeState </td>
-          <td>(</td>
-          <td class="paramtype">SimTK::State &amp;&nbsp;</td>
-          <td class="paramname"> <em>s</em></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Go through the coordinate set and make sure the locking flags and coordinate values are in the state. </p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>s</em>&nbsp;</td><td>current SimTK state </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
 <a class="anchor" id="acb4a5d8ac2421373caf4427f43bd9496"></a><!-- doxytag: member="OpenSim::SimbodyEngine::operator=" ref="acb4a5d8ac2421373caf4427f43bd9496" args="(const SimbodyEngine &amp;aEngine)" -->
 <div class="memitem">
 <div class="memproto">
@@ -2369,7 +2214,7 @@ Inheritance diagram for OpenSim::SimbodyEngine:</div>
 </div>
 <div class="memdoc">
 
-<p><a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody body segment.">Body</a> used for ground, the inertial frame. </p>
+<p><a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody rigid body.">Body</a> used for ground, the inertial frame. </p>
 
 </div>
 </div>
@@ -2393,7 +2238,7 @@ Inheritance diagram for OpenSim::SimbodyEngine:</div>
 <li>OpenSim/Simulation/SimbodyEngine/SimbodyEngine.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Feb 7 02:15:19 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:37:12 2010 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

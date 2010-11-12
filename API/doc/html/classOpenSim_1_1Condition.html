@@ -61,8 +61,8 @@ Inheritance diagram for OpenSim::Condition:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Copy data members from one <a class="el" href="classOpenSim_1_1Condition.html" title="A parent class for implementing an OpenSim Condition.">Condition</a> to another.  <a href="#a74946ed0ed274d257b35ef9869837fe6"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Condition.html#ae1022f437cd392179d8e2253e38b28ee">setup</a> (<a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;aModel)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Perform some set up functions that happen after the object has been deserialized or copied.  <a href="#ae1022f437cd392179d8e2253e38b28ee"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Condition.html#a50160f377b5dfe49066545442827be65">getIsDisabled</a> () const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Condition.html#a8c048cc558f7b33a5c2232c022929a42">setIsDisabled</a> (bool isDisabled)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Condition.html#a1581b29be69057e242d8c5001c274ea8">isDisabled</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Condition.html#a1fd1f456826b639991382bb9bf2f58d8">setDisabled</a> (bool isDisabled)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Condition.html#a233aaa4af6521cd3fe7892d4d3d479d8">calcCondition</a> (const SimTK::State &amp;s) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The defining condition method that subclasses must override.  <a href="#a233aaa4af6521cd3fe7892d4d3d479d8"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Protected Attributes</h2></td></tr>
@@ -218,12 +218,12 @@ Inheritance diagram for OpenSim::Condition:</div>
 
 </div>
 </div>
-<a class="anchor" id="a50160f377b5dfe49066545442827be65"></a><!-- doxytag: member="OpenSim::Condition::getIsDisabled" ref="a50160f377b5dfe49066545442827be65" args="() const " -->
+<a class="anchor" id="a1581b29be69057e242d8c5001c274ea8"></a><!-- doxytag: member="OpenSim::Condition::isDisabled" ref="a1581b29be69057e242d8c5001c274ea8" args="() const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">virtual bool OpenSim::Condition::getIsDisabled </td>
+          <td class="memname">virtual bool OpenSim::Condition::isDisabled </td>
           <td>(</td>
           <td class="paramname"></td>
           <td>&nbsp;)&nbsp;</td>
@@ -260,12 +260,12 @@ Inheritance diagram for OpenSim::Condition:</div>
 
 </div>
 </div>
-<a class="anchor" id="a8c048cc558f7b33a5c2232c022929a42"></a><!-- doxytag: member="OpenSim::Condition::setIsDisabled" ref="a8c048cc558f7b33a5c2232c022929a42" args="(bool isDisabled)" -->
+<a class="anchor" id="a1fd1f456826b639991382bb9bf2f58d8"></a><!-- doxytag: member="OpenSim::Condition::setDisabled" ref="a1fd1f456826b639991382bb9bf2f58d8" args="(bool isDisabled)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void OpenSim::Condition::setIsDisabled </td>
+          <td class="memname">virtual void OpenSim::Condition::setDisabled </td>
           <td>(</td>
           <td class="paramtype">bool&nbsp;</td>
           <td class="paramname"> <em>isDisabled</em></td>
@@ -354,7 +354,7 @@ Inheritance diagram for OpenSim::Condition:</div>
 <li>OpenSim/Simulation/Model/Condition.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Feb 7 02:15:17 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:37:08 2010 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

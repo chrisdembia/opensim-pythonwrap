@@ -60,6 +60,7 @@ import org.opensim.modeling.PathPoint;
 import org.opensim.modeling.PolyhedralGeometry;
 import org.opensim.modeling.SimbodyEngine;
 import org.opensim.modeling.VisibleObject;
+import org.opensim.view.DisplayGeometryFactory;
 import org.opensim.view.pub.GeometryFileLocator;
 import org.opensim.view.pub.OpenSimDB;
 import org.opensim.view.pub.ViewDB;
@@ -242,11 +243,13 @@ public class SingleModelVisuals {
                 } else if (PathPoint.safeDownCast(owner)!=null||
                            ConditionalPathPoint.safeDownCast(owner)!=null){
                    // Muscle points are handled in addActuatorsGeometry
-                } else {
-                   vtkActor attachmentRep = createAndAddDependentObjectActor(bodyRep, Dependent, modelFilePath);
+                } else { // WrapObjects, and any other geometry attached to body
+                   vtkActor attachmentRep = DisplayGeometryFactory.createGeometryDisplayer(Dependent, modelFilePath);
                    if(attachmentRep!=null) {
                       mapObject2VtkObjects.put(Dependent.getOwner(), attachmentRep);
                       mapVtkObjects2Objects.put(attachmentRep, Dependent.getOwner());
+                      bodyRep.AddPart(attachmentRep);
+
                    }
                 }
             }
@@ -272,74 +275,6 @@ public class SingleModelVisuals {
 
         return modelAssembly;
     }
-
-    /**
-     * Create actor for wrap object(s)
-     * TODO: Does this really handle multiple geometries under the visibleObject?
-     */
-   private vtkActor createAndAddDependentObjectActor(vtkAssembly bodyAssembly, VisibleObject visibleObject, String modelPath)
-   {
-      vtkActor attachmentRep = new vtkActor();
-      for(int gc=0; gc<visibleObject.countGeometry(); gc++){
-         Geometry g = visibleObject.getGeometry(gc);
-         AnalyticGeometry ag=null;
-         ag = AnalyticGeometry.dynamic_cast(g);
-         if (ag != null){  
-            vtkPolyData analyticPolyData = AnalyticGeometryDisplayer.getPolyData(ag);
-
-            // Move rep to proper location 
-            vtkTransformPolyDataFilter mover = new vtkTransformPolyDataFilter();
-            vtkTransform moverTransform = new vtkTransform();
-            double[] matRows = new double[16];
-            visibleObject.getTransformAsDouble16(matRows);
-            moverTransform.SetMatrix(convertTransformToVtkMatrix4x4(matRows));
-            mover.SetInput(analyticPolyData);
-            mover.SetTransform(moverTransform);
-            
-            // Mapper
-            vtkPolyDataMapper mapper = new vtkPolyDataMapper();
-            mapper.SetInput(mover.GetOutput());
-            attachmentRep.SetMapper(mapper);
-
-            // Color/shading
-            attachmentRep.GetProperty().SetColor(defaultWrapObjectColor);
-            applyDisplayPrefs(visibleObject, attachmentRep);
-            //attachmentRep.GetProperty().SetRepresentationToWireframe();
-         } else {  // General geometry
-             PolyhedralGeometry pg = PolyhedralGeometry.dynamic_cast(g);
-             if (pg !=null){
-                 String geometryFile = pg.getGeometryFilename();
-                 String meshFile = GeometryFileLocator.getInstance().getFullname(modelPath,geometryFile, debug);
-                 if (meshFile==null || (!meshFile.endsWith(".obj")))
-                     continue;
-                 vtkOBJReader polyReader = new vtkOBJReader();
-                 polyReader.SetFileName(meshFile);
-                 vtkPolyData meshPoly = polyReader.GetOutput();                 
-                 // Move rep to proper location
-                 vtkTransformPolyDataFilter mover = new vtkTransformPolyDataFilter();
-                 vtkTransform moverTransform = new vtkTransform();
-                 double[] matRows = new double[16];
-                 visibleObject.getTransformAsDouble16(matRows);
-                 moverTransform.SetMatrix(convertTransformToVtkMatrix4x4(matRows));
-                 mover.SetInput(meshPoly);
-                 mover.SetTransform(moverTransform);
-                 
-                 // Mapper
-                 vtkPolyDataMapper mapper = new vtkPolyDataMapper();
-                 mapper.SetInput(mover.GetOutput());
-                 attachmentRep.SetMapper(mapper);
-                 
-                 // Color/shading
-                 attachmentRep.GetProperty().SetColor(defaultWrapObjectColor);
-                 attachmentRep.GetProperty().SetRepresentationToWireframe();
-             }
-         }
-      }
-
-      if(attachmentRep!=null) bodyAssembly.AddPart(attachmentRep);
-      applyDisplayPrefs(visibleObject,attachmentRep);
-      return attachmentRep;
-   }
 
     /**
      * updateModelDisplay with new transforms cached in animationCallback.
@@ -443,10 +378,16 @@ public class SingleModelVisuals {
     * Functions for dealing with actuator geometry
     */
     private void addActuatorsGeometry(Model mdl, vtkAssembly modelAssembly) {
-        ForceSet acts = mdl.getForceSet();
-        if (acts==null) return;
-        for(int actNumber=0; actNumber < acts.getSize(); actNumber++){
-           addActuatorGeometry(acts.get(actNumber), false);
+        ForceSet forces = mdl.getForceSet();
+        if (forces==null) return;
+        for(int fNumber=0; fNumber < forces.getSize(); fNumber++){
+           OpenSimObject f = forces.get(fNumber);
+           Force force = Force.safeDownCast(f);
+           Actuator a = Actuator.safeDownCast(force);
+           if (a!= null) 
+               addActuatorGeometry(a, false);
+           else
+               addForceGeometry(force);
         }
         modelAssembly.AddPart(getMuscleSegmentsRep().getVtkActor());
         getMuscleSegmentsRep().setModified();
@@ -459,6 +400,8 @@ public class SingleModelVisuals {
     public void addActuatorGeometry(Force act, boolean callSetModified) {
        Muscle muscle = Muscle.safeDownCast(act);
        if(muscle == null) return;   // Could be just a force, in this case add and mark modified
+       OpenSimContext context=OpenSimDB.getInstance().getContext(muscle.getModel());
+       if (context.isDisabled(act)) return; // Skip over disabled. 
        LineSegmentMuscleDisplayer disp = new LineSegmentMuscleDisplayer(muscle, getMusclePointsRep(), getMuscleSegmentsRep());
        mapActuator2Displayer.put(act, disp);
        disp.addGeometry();
@@ -723,7 +666,7 @@ public class SingleModelVisuals {
    /**
     * Utility to convert Transform as defined by OpenSim to the form used by vtk
     */
-   private vtkMatrix4x4 convertTransformToVtkMatrix4x4(double[] xformAsVector) {
+   static vtkMatrix4x4 convertTransformToVtkMatrix4x4(double[] xformAsVector) {
       vtkMatrix4x4 m = new vtkMatrix4x4();    // This should be moved out for performance
       // Transpose the rotation part of the matrix per Pete!!
       for (int row = 0; row < 3; row++){
@@ -774,48 +717,9 @@ public class SingleModelVisuals {
        strip1.SetInput(marker.GetOutput());
        getMarkersRep().setShape(strip1.GetOutput());
        getMarkersRep().scaleByVectorComponents();
-       markerLineActor.GetProperty().SetColor(SelectedObject.defaultSelectedColor); // marker lines are displayed only when markers are selected
-
-       // Muscle points
-       vtkSphereSource viaPoint=new vtkSphereSource();
-       viaPoint.SetRadius(ViewDB.getInstance().getMuscleDisplayRadius());
-       viaPoint.SetCenter(0., 0., 0.);
-       //getMusclePointsRep().setColors(defaultMusclePointColor, SelectedObject.defaultSelectedColor);
-       getMusclePointsRep().setColorRange(inactiveMuscleColor, defaultMusclePointColor);
-//Jeff       double[] zeroMusclePointColor = new double[]{0.0, 1.0, 0.0};
-//Jeff       getMusclePointsRep().set3ColorRange(inactiveMuscleColor, zeroMusclePointColor, defaultMusclePointColor);
-       getMusclePointsRep().setSelectedColor(SelectedObject.defaultSelectedColor);
-       vtkStripper strip2 = new vtkStripper();
-       strip2.SetInput(viaPoint.GetOutput());
-       getMusclePointsRep().setShape(strip2.GetOutput());
-       getMusclePointsRep().scaleByVectorComponents();
-      
-       // Muscle segments 
-       vtkPolyDataAlgorithm muscleSgt;  //Either cylinder or ellipsoid for now
-       if (useCylinderMuscles) {
-       vtkCylinderSource muscleSegment=new vtkCylinderSource();
-       muscleSegment.SetRadius(ViewDB.getInstance().getMuscleDisplayRadius());
-       muscleSegment.SetHeight(1.0);
-       muscleSegment.SetCenter(0.0, 0.0, 0.0);
-       muscleSegment.CappingOff();
-       getMuscleSegmentsRep().setShape(muscleSegment.GetOutput());
-    }
-       else {
-            vtkSphereSource muscleSegment=new vtkSphereSource();
-            muscleSegment.SetRadius(ViewDB.getInstance().getMuscleDisplayRadius());
-            vtkTransformPolyDataFilter stretcher = new vtkTransformPolyDataFilter();
-            vtkTransform stretcherTransform = new vtkTransform();
-            stretcherTransform.Scale(20.0, 0.5/ViewDB.getInstance().getMuscleDisplayRadius(), 20.0);
-            muscleSegment.SetCenter(0.0, 0.0, 0.0);
-            stretcher.SetInput(muscleSegment.GetOutput());
-            stretcher.SetTransform(stretcherTransform);
-            getMuscleSegmentsRep().setShape(stretcher.GetOutput());
-       }
-       //getMuscleSegmentsRep().setColor(defaultMuscleColor);
-       getMuscleSegmentsRep().setColorRange(inactiveMuscleColor, defaultMuscleColor);
-//Jeff       double[] zeroMuscleColor = new double[]{0.0, 1.0, 0.0};
-//Jeff       getMuscleSegmentsRep().set3ColorRange(inactiveMuscleColor, zeroMuscleColor, defaultMuscleColor);
-
+       markerLineActor.GetProperty().SetColor(SelectedObject.defaultSelectedColor);
+       createMusclePointRep(musclePointsRep);
+       createMuscleSegmentRep(muscleSegmentsRep);
        // Arbitrary forces
        vtkArrowSource aForceDisplay=new vtkArrowSource();
        aForceDisplay.SetShaftRadius(0.02);
@@ -825,6 +729,47 @@ public class SingleModelVisuals {
        strip3.SetInput(aForceDisplay.GetOutput());
        getForcesRep().setShape(strip3.GetOutput());
        
+    }
+
+    private void createMuscleSegmentRep(OpenSimvtkOrientedGlyphCloud aMuscleSegmentsRep) {
+      
+        // Muscle segments 
+        vtkPolyDataAlgorithm muscleSgt;  //Either cylinder or ellipsoid for now
+        if (useCylinderMuscles) {
+            vtkCylinderSource muscleSegment=new vtkCylinderSource();
+            muscleSegment.SetRadius(ViewDB.getInstance().getMuscleDisplayRadius());
+            muscleSegment.SetHeight(1.0);
+            muscleSegment.SetCenter(0.0, 0.0, 0.0);
+            muscleSegment.CappingOff();
+            aMuscleSegmentsRep.setShape(muscleSegment.GetOutput());
+        }
+        else {
+             vtkSphereSource muscleSegment=new vtkSphereSource();
+             muscleSegment.SetRadius(ViewDB.getInstance().getMuscleDisplayRadius());
+             vtkTransformPolyDataFilter stretcher = new vtkTransformPolyDataFilter();
+             vtkTransform stretcherTransform = new vtkTransform();
+             stretcherTransform.Scale(20.0, 0.5/ViewDB.getInstance().getMuscleDisplayRadius(), 20.0);
+             muscleSegment.SetCenter(0.0, 0.0, 0.0);
+             stretcher.SetInput(muscleSegment.GetOutput());
+             stretcher.SetTransform(stretcherTransform);
+             aMuscleSegmentsRep.setShape(stretcher.GetOutput());
+        }
+        aMuscleSegmentsRep.setColorRange(inactiveMuscleColor, defaultMuscleColor);
+    }
+
+    private void createMusclePointRep(OpenSimvtkGlyphCloud aMusclePointsRep) {
+
+        // Muscle points
+        vtkSphereSource viaPoint=new vtkSphereSource();
+        viaPoint.SetRadius(ViewDB.getInstance().getMuscleDisplayRadius());
+        viaPoint.SetCenter(0., 0., 0.);
+        //getMusclePointsRep().setColors(defaultMusclePointColor, SelectedObject.defaultSelectedColor);
+        aMusclePointsRep.setColorRange(inactiveMuscleColor, defaultMusclePointColor);
+        aMusclePointsRep.setSelectedColor(SelectedObject.defaultSelectedColor);
+        vtkStripper strip2 = new vtkStripper();
+        strip2.SetInput(viaPoint.GetOutput());
+        aMusclePointsRep.setShape(strip2.GetOutput());
+        aMusclePointsRep.scaleByVectorComponents();
     }
 
     public OpenSimvtkGlyphCloud getGlyphObjectForActor(vtkActor act) {
@@ -871,35 +816,16 @@ public class SingleModelVisuals {
         muscleSegmentsRep=null;
         
     }
-    /**
-     * Apply user display preference (None, wireframe, shading)
-     */
-    private void applyDisplayPrefs(VisibleObject objectDisplayer, vtkActor objectRep) {
-
-        if (objectRep==null) return;
-        // Show vs. Hide
-        if (objectDisplayer.getDisplayPreference() == DisplayGeometry.DisplayPreference.None){
-            objectRep.SetVisibility(0);
-            return;
-        }
-        objectRep.SetVisibility(1);
-        if (objectDisplayer.getDisplayPreference().swigValue()==DisplayGeometry.DisplayPreference.WireFrame.swigValue())
-            objectRep.GetProperty().SetRepresentationToWireframe();
-        else {
-
-            if (objectDisplayer.getDisplayPreference() == DisplayGeometry.DisplayPreference.FlatShaded)
-                objectRep.GetProperty().SetInterpolationToFlat();
-            else
-                objectRep.GetProperty().SetRepresentationToSurface();
-        }
-    }
-
     public vtkProp3DCollection getUserObjects() {
         return userObjects;
     }
 
     public List<vtkActor> getMeshesForBody(String bodyName) {
         return bodyToActors.get(bodyName);
+    }
+
+    private void addForceGeometry(OpenSimObject f) {
+        //if (f.getDisplayer()!=null)
     }
     
 }

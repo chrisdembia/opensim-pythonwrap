@@ -45,6 +45,8 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import javax.swing.JOptionPane;
 import org.opensim.utils.ApplicationState;
+import org.opensim.view.motions.MotionsDB;
+import org.opensim.view.motions.MotionsDBDescriptor;
 import org.opensim.view.pub.OpenSimDB;
 import org.opensim.modeling.Model;
 import org.opensim.view.pub.OpenSimDBDescriptor;
@@ -91,6 +93,7 @@ public class ApplicationExit extends WindowAdapter
           state.addObject("ViewDB", vudbDesc);
           //release 1.8 remember plugins
           state.addObject("Plugins", PluginsDB.getInstance());
+          state.addObject("MotionsDB", new MotionsDBDescriptor(MotionsDB.getInstance()));
           XMLEncoder e = new XMLEncoder(new BufferedOutputStream(
 					new FileOutputStream("AppState.xml")));
           

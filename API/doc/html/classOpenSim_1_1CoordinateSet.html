@@ -27,7 +27,7 @@
   </div>
 </div>
 <div class="contents">
-<h1>OpenSim::CoordinateSet Class Reference</h1><!-- doxytag: class="OpenSim::CoordinateSet" --><!-- doxytag: inherits="Set&lt; Coordinate &gt;" -->
+<h1>OpenSim::CoordinateSet Class Reference</h1><!-- doxytag: class="OpenSim::CoordinateSet" --><!-- doxytag: inherits="ModelComponentSet&lt; Coordinate &gt;" -->
 <p>A class for holding a set of coordinates.  
 <a href="#_details">More...</a></p>
 
@@ -38,8 +38,9 @@ Inheritance diagram for OpenSim::CoordinateSet:</div>
  <div class="center">
   <img src="classOpenSim_1_1CoordinateSet.gif" usemap="#OpenSim::CoordinateSet_map" alt=""/>
   <map id="OpenSim::CoordinateSet_map" name="OpenSim::CoordinateSet_map">
-<area href="classOpenSim_1_1Set.html" alt="OpenSim::Set&lt; Coordinate &gt;" shape="rect" coords="0,56,173,80"/>
-<area href="classOpenSim_1_1Object.html" alt="OpenSim::Object" shape="rect" coords="0,0,173,24"/>
+<area href="classOpenSim_1_1ModelComponentSet.html" alt="OpenSim::ModelComponentSet&lt; Coordinate &gt;" shape="rect" coords="0,112,271,136"/>
+<area href="classOpenSim_1_1Set.html" alt="OpenSim::Set&lt; Coordinate &gt;" shape="rect" coords="0,56,271,80"/>
+<area href="classOpenSim_1_1Object.html" alt="OpenSim::Object" shape="rect" coords="0,0,271,24"/>
 </map>
  </div>
 </div>
@@ -49,20 +50,24 @@ Inheritance diagram for OpenSim::CoordinateSet:</div>
 <tr><td colspan="2"><h2>Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CoordinateSet.html#a0b171c4aef68d5d7af314f684bd1bbdb">CoordinateSet</a> ()</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Default constructor of a <a class="el" href="classOpenSim_1_1CoordinateSet.html" title="A class for holding a set of coordinates.">CoordinateSet</a>.  <a href="#a0b171c4aef68d5d7af314f684bd1bbdb"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CoordinateSet.html#afc22d9c483223fd20d8d9a3fb0d02fd2">CoordinateSet</a> (<a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;model)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CoordinateSet.html#a0c4e98a41ac705fc8632d40f97275d67">CoordinateSet</a> (<a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;model, const std::string &amp;aFileName, bool aUpdateFromXMLNode=true)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CoordinateSet.html#a1f7f823d8545b043f4884bc820d2b413">CoordinateSet</a> (const <a class="el" href="classOpenSim_1_1CoordinateSet.html">CoordinateSet</a> &amp;aCoordinateSet)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Copy constructor of a <a class="el" href="classOpenSim_1_1CoordinateSet.html" title="A class for holding a set of coordinates.">CoordinateSet</a>.  <a href="#a1f7f823d8545b043f4884bc820d2b413"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CoordinateSet.html#aafedbdfa8d8c6b9ed41c3d201042d5fd">~CoordinateSet</a> (void)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Destructor.  <a href="#aafedbdfa8d8c6b9ed41c3d201042d5fd"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CoordinateSet.html#a7891ebf5e2dc2947a8ac1bfeac425067">setup</a> (<a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;aModel)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Post construction initialization.  <a href="#a7891ebf5e2dc2947a8ac1bfeac425067"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CoordinateSet.html#a8477015cfa4617cc8f75a05b7ce13973">populate</a> (<a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;model)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Populate this flat list of Coordinates given a <a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a> that has been setup.  <a href="#a8477015cfa4617cc8f75a05b7ce13973"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CoordinateSet.html#a8b877f61bfa8b7a5c63d1e075500b7ce">setup</a> (<a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;model)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Perform any setup on all of the Coordinates contained in this set.  <a href="#a8b877f61bfa8b7a5c63d1e075500b7ce"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1CoordinateSet.html">CoordinateSet</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CoordinateSet.html#a2a5bbbb06b0f1d8b998a77712e3b3d04">operator=</a> (const <a class="el" href="classOpenSim_1_1CoordinateSet.html">CoordinateSet</a> &amp;aCoordinateSet)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Assignment operator.  <a href="#a2a5bbbb06b0f1d8b998a77712e3b3d04"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CoordinateSet.html#a3faa0526b6d23cbbd51c9dd681e35c1c">getSpeedNames</a> (<a class="el" href="classOpenSim_1_1Array.html">OpenSim::Array</a>&lt; std::string &gt; &amp;rNames) const </td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
 <p>A class for holding a set of coordinates. </p>
-<dl class="author"><dt><b>Authors:</b></dt><dd>Peter Loan </dd></dl>
-<dl class="version"><dt><b>Version:</b></dt><dd>1.0 </dd></dl>
+<dl class="author"><dt><b>Authors:</b></dt><dd>Peter Loan, Ajay Seth </dd></dl>
+<dl class="version"><dt><b>Version:</b></dt><dd>2.0 </dd></dl>
 <hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a0b171c4aef68d5d7af314f684bd1bbdb"></a><!-- doxytag: member="OpenSim::CoordinateSet::CoordinateSet" ref="a0b171c4aef68d5d7af314f684bd1bbdb" args="()" -->
 <div class="memitem">
@@ -80,6 +85,57 @@ Inheritance diagram for OpenSim::CoordinateSet:</div>
 <div class="memdoc">
 
 <p>Default constructor of a <a class="el" href="classOpenSim_1_1CoordinateSet.html" title="A class for holding a set of coordinates.">CoordinateSet</a>. </p>
+
+</div>
+</div>
+<a class="anchor" id="afc22d9c483223fd20d8d9a3fb0d02fd2"></a><!-- doxytag: member="OpenSim::CoordinateSet::CoordinateSet" ref="afc22d9c483223fd20d8d9a3fb0d02fd2" args="(Model &amp;model)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">OpenSim::CoordinateSet::CoordinateSet </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>model</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a0c4e98a41ac705fc8632d40f97275d67"></a><!-- doxytag: member="OpenSim::CoordinateSet::CoordinateSet" ref="a0c4e98a41ac705fc8632d40f97275d67" args="(Model &amp;model, const std::string &amp;aFileName, bool aUpdateFromXMLNode=true)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">OpenSim::CoordinateSet::CoordinateSet </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>model</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&nbsp;</td>
+          <td class="paramname"> <em>aFileName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&nbsp;</td>
+          <td class="paramname"> <em>aUpdateFromXMLNode</em> = <code>true</code></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
 
 </div>
 </div>
@@ -165,15 +221,15 @@ Inheritance diagram for OpenSim::CoordinateSet:</div>
 
 </div>
 </div>
-<a class="anchor" id="a7891ebf5e2dc2947a8ac1bfeac425067"></a><!-- doxytag: member="OpenSim::CoordinateSet::setup" ref="a7891ebf5e2dc2947a8ac1bfeac425067" args="(Model &amp;aModel)" -->
+<a class="anchor" id="a8477015cfa4617cc8f75a05b7ce13973"></a><!-- doxytag: member="OpenSim::CoordinateSet::populate" ref="a8477015cfa4617cc8f75a05b7ce13973" args="(Model &amp;model)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void CoordinateSet::setup </td>
+          <td class="memname">void CoordinateSet::populate </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>aModel</em></td>
+          <td class="paramname"> <em>model</em></td>
           <td>&nbsp;)&nbsp;</td>
           <td></td>
         </tr>
@@ -181,7 +237,30 @@ Inheritance diagram for OpenSim::CoordinateSet:</div>
 </div>
 <div class="memdoc">
 
-<p>Post construction initialization. </p>
+<p>Populate this flat list of Coordinates given a <a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a> that has been setup. </p>
+
+</div>
+</div>
+<a class="anchor" id="a8b877f61bfa8b7a5c63d1e075500b7ce"></a><!-- doxytag: member="OpenSim::CoordinateSet::setup" ref="a8b877f61bfa8b7a5c63d1e075500b7ce" args="(Model &amp;model)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CoordinateSet::setup </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>model</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Perform any setup on all of the Coordinates contained in this set. </p>
+<p>Populate this flat list of Coordinates given a <a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a> that has been setup.</p>
+
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1ModelComponentSet.html#ab2aafdaf3a166163572bcc40c641b21b">OpenSim::ModelComponentSet&lt; Coordinate &gt;</a>.</p>
 
 </div>
 </div>
@@ -190,7 +269,7 @@ Inheritance diagram for OpenSim::CoordinateSet:</div>
 <li>OpenSim/Simulation/Model/CoordinateSet.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Feb 7 02:15:17 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:37:09 2010 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

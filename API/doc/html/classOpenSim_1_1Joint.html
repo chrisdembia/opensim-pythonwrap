@@ -97,10 +97,14 @@ Inheritance diagram for OpenSim::Joint:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the orientation of this joint in its parent body.  <a href="#a436a6117657973d578b4bef9eeb99217"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Joint.html#afd2646d82651a60e01774f6ddc47139a">getOrientationInParent</a> (SimTK::Vec3 &amp;rOrientation) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the orientation of this joint in its parent body.  <a href="#afd2646d82651a60e01774f6ddc47139a"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Joint.html#a1c2d239a16fe91d3047425ccb9645d7f">getOrientationInChild</a> (double rOrientation[]) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Joint.html#a0f498904afa909933db92f42ec4f324d">getOrientationInParent</a> (double rOrientation[]) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Joint.html#ad1decf2a2c8120ccb82b47ef9c192ad4">getLocationInChild</a> (double rLocation[]) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Joint.html#a930b8b4ab408db99bd7e0b5a623d9db2">getLocationInParent</a> (double rLocation[]) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Joint.html#a31c62844581954325685bad6c2661279">setLocationInChild</a> (const SimTK::Vec3 &amp;aLocation)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Joint.html#ad1decf2a2c8120ccb82b47ef9c192ad4">getLocationInChild</a> (double rLocation[]) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Joint.html#a0a0d46715c4cd7d65f75f9a5970f6ec7">getLocationInChild</a> (SimTK::Vec3 &amp;rLocation) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const double &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Joint.html#ae8297b002a9e9b730e73ce484280779d">getLocationInParent</a> (int aXYZ) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const double &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Joint.html#af27b30b73586509ce2a32df4bc132ba5">getLocationInChild</a> (int aXYZ) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classOpenSim_1_1CoordinateSet.html">CoordinateSet</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Joint.html#a7771fc2e4e12adb5130359828fa8e1f9">getCoordinateSet</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Joint.html#a87d7d5e87eb7ab528fecec9f15188ae2">getReverse</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Joint.html#aaf3f32bf41b664207ae30856a4d14ed2">numCoordinates</a> () const =0</td></tr>
@@ -120,13 +124,14 @@ Inheritance diagram for OpenSim::Joint:</div>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Joint.html#a84daafabc3f915e20dd6adcdd6389088">setCoordinateMobilizedBodyIndex</a> (<a class="el" href="classOpenSim_1_1Coordinate.html">Coordinate</a> *aCoord, SimTK::MobilizedBodyIndex index) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Joint.html#a7496b40258d2510bf16cbb438b3fb2d9">setCoordinateMobilityIndex</a> (<a class="el" href="classOpenSim_1_1Coordinate.html">Coordinate</a> *aCoord, int index) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Joint.html#af08d566469df0f6896dff8d69ef5027a">setCoordinateModel</a> (<a class="el" href="classOpenSim_1_1Coordinate.html">Coordinate</a> *aCoord, <a class="el" href="classOpenSim_1_1Model.html">Model</a> *aModel) const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">SimTK::MultibodySystem &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Joint.html#ae238a4c3cbc73c540e9c32c295e191af">getMultibodySystem</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Joint.html#a6edcc3da0a5983996f4cba8e4d76a184">createSystem</a> (SimTK::MultibodySystem &amp;system) const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This is called when a SimTK System is being created for the <a class="el" href="classOpenSim_1_1Model.html" title="A base class that specifies the interface for a musculoskeletal model.">Model</a>.  <a href="#a6edcc3da0a5983996f4cba8e4d76a184"></a><br/></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This is called when a SimTK System is being created for the <a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a>.  <a href="#a6edcc3da0a5983996f4cba8e4d76a184"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Joint.html#a110b6874bf845567f4e24d9f39934d38">initState</a> (SimTK::State &amp;s) const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This is called after a SimTK System and State have been created for the <a class="el" href="classOpenSim_1_1Model.html" title="A base class that specifies the interface for a musculoskeletal model.">Model</a>.  <a href="#a110b6874bf845567f4e24d9f39934d38"></a><br/></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This is called after a SimTK System and State have been created for the <a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a>.  <a href="#a110b6874bf845567f4e24d9f39934d38"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Joint.html#a0d996c6da5b33d2e544635e70975014a">setDefaultsFromState</a> (const SimTK::State &amp;state)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> all default values for this object to match those in a specified State.  <a href="#a0d996c6da5b33d2e544635e70975014a"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Joint.html#a4026842476da0c41cb664922f0f54e1c">getNumStateVariables</a> () const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Gets the number of "Continuous" state variables maintained by the <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any object which can be added to a Model.">ModelComponent</a> If the <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any object which can be added to a Model.">ModelComponent</a> defines any that are of interest to the user, names should also be given.  <a href="#a4026842476da0c41cb664922f0f54e1c"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyStr.html">PropertyStr</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Joint.html#acde52c28ae4f59ae0c4fe7f7c1b7efb4">_parentNameProp</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Name of the parent body to which this joint connects its owner body.  <a href="#acde52c28ae4f59ae0c4fe7f7c1b7efb4"></a><br/></td></tr>
@@ -152,12 +157,10 @@ Inheritance diagram for OpenSim::Joint:</div>
 <tr><td class="memItemLeft" align="right" valign="top">SimTK::MobilizedBodyIndex&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Joint.html#a9eb0c21fe71211b873cbcd9dec94591f">_bodyId</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Simbody ID of the body to which this joint belongs.  <a href="#a9eb0c21fe71211b873cbcd9dec94591f"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Body.html">Body</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Joint.html#a512a1b272279c5c3273dbdca11651c75">_body</a></td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody body segment.">Body</a> to which this joint belongs.  <a href="#a512a1b272279c5c3273dbdca11651c75"></a><br/></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody rigid body.">Body</a> to which this joint belongs.  <a href="#a512a1b272279c5c3273dbdca11651c75"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Body.html">Body</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Joint.html#a4bb592ad2c55e5dbed35d4378fcd17e1">_parentBody</a></td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody body segment.">Body</a> to which this body is attached.  <a href="#a4bb592ad2c55e5dbed35d4378fcd17e1"></a><br/></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody rigid body.">Body</a> to which this body is attached.  <a href="#a4bb592ad2c55e5dbed35d4378fcd17e1"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Friends</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">class&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Joint.html#a53c55c23727a4e0f756d836780044d04">SimbodyEngine</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">class&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Joint.html#a2bf2a0e9b454c55aa5dcb5aa4698697b">Model</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Joint.html#a91dead072ffba35d6f69e342800237ad">JointSet</a></td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
@@ -406,8 +409,8 @@ Inheritance diagram for OpenSim::Joint:</div>
 </div>
 <div class="memdoc">
 
-<p>This is called when a SimTK System is being created for the <a class="el" href="classOpenSim_1_1Model.html" title="A base class that specifies the interface for a musculoskeletal model.">Model</a>. </p>
-<p>It should be overridden to add appropriate elements to the System corresponding to this object.</p>
+<p>This is called when a SimTK System is being created for the <a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a>. </p>
+<p>It must be implemented to add appropriate elements to the System corresponding to this object.</p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>system</em>&nbsp;</td><td>the System being created </td></tr>
@@ -415,7 +418,7 @@ Inheritance diagram for OpenSim::Joint:</div>
   </dd>
 </dl>
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1ModelComponent.html#a8cecde2c81b7645a5daea70050884881">OpenSim::ModelComponent</a>.</p>
+<p>Implements <a class="el" href="classOpenSim_1_1ModelComponent.html#a85757ad4645e4066f72ce4d0411a49b8">OpenSim::ModelComponent</a>.</p>
 
 <p>Reimplemented in <a class="el" href="classOpenSim_1_1BallJoint.html#ad073274afda8c5b73098056b18523f60">OpenSim::BallJoint</a>, <a class="el" href="classOpenSim_1_1CustomJoint.html#a86a4373cb2e81164e4affea1a05ae6bf">OpenSim::CustomJoint</a>, <a class="el" href="classOpenSim_1_1EllipsoidJoint.html#afb32799d27756a856d0056c79ad7f58a">OpenSim::EllipsoidJoint</a>, <a class="el" href="classOpenSim_1_1FreeJoint.html#a9f7b45ddef87e1c36fba005dff3f4fbe">OpenSim::FreeJoint</a>, <a class="el" href="classOpenSim_1_1PinJoint.html#ae82274063860f399dcbf249a8437e6ee">OpenSim::PinJoint</a>, <a class="el" href="classOpenSim_1_1SliderJoint.html#afdaa7c2bfe0109c02bb50e64cabe529e">OpenSim::SliderJoint</a>, and <a class="el" href="classOpenSim_1_1WeldJoint.html#a04205c42025bd1d368e2e4f710b679fd">OpenSim::WeldJoint</a>.</p>
 
@@ -437,7 +440,7 @@ Inheritance diagram for OpenSim::Joint:</div>
 <div class="memdoc">
 
 <p>Get the body to which this joint belongs. </p>
-<dl class="return"><dt><b>Returns:</b></dt><dd><a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody body segment.">Body</a> to which this joint belongs. </dd></dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd><a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody rigid body.">Body</a> to which this joint belongs. </dd></dl>
 
 </div>
 </div>
@@ -484,6 +487,24 @@ Inheritance diagram for OpenSim::Joint:</div>
 
 </div>
 </div>
+<a class="anchor" id="af27b30b73586509ce2a32df4bc132ba5"></a><!-- doxytag: member="OpenSim::Joint::getLocationInChild" ref="af27b30b73586509ce2a32df4bc132ba5" args="(int aXYZ) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const double&amp; OpenSim::Joint::getLocationInChild </td>
+          <td>(</td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>aXYZ</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a0a0d46715c4cd7d65f75f9a5970f6ec7"></a><!-- doxytag: member="OpenSim::Joint::getLocationInChild" ref="a0a0d46715c4cd7d65f75f9a5970f6ec7" args="(SimTK::Vec3 &amp;rLocation) const " -->
 <div class="memitem">
 <div class="memproto">
@@ -513,6 +534,24 @@ Inheritance diagram for OpenSim::Joint:</div>
           <td class="paramname"> <em>rLocation</em>[]</td>
           <td>&nbsp;)&nbsp;</td>
           <td> const<code> [inline, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ae8297b002a9e9b730e73ce484280779d"></a><!-- doxytag: member="OpenSim::Joint::getLocationInParent" ref="ae8297b002a9e9b730e73ce484280779d" args="(int aXYZ) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const double&amp; OpenSim::Joint::getLocationInParent </td>
+          <td>(</td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>aXYZ</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [inline]</code></td>
         </tr>
       </table>
 </div>
@@ -582,20 +621,24 @@ Inheritance diagram for OpenSim::Joint:</div>
 
 </div>
 </div>
-<a class="anchor" id="ae238a4c3cbc73c540e9c32c295e191af"></a><!-- doxytag: member="OpenSim::Joint::getMultibodySystem" ref="ae238a4c3cbc73c540e9c32c295e191af" args="() const " -->
+<a class="anchor" id="a4026842476da0c41cb664922f0f54e1c"></a><!-- doxytag: member="OpenSim::Joint::getNumStateVariables" ref="a4026842476da0c41cb664922f0f54e1c" args="() const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">SimTK::MultibodySystem &amp; Joint::getMultibodySystem </td>
+          <td class="memname">virtual int OpenSim::Joint::getNumStateVariables </td>
           <td>(</td>
           <td class="paramname"></td>
           <td>&nbsp;)&nbsp;</td>
-          <td> const<code> [protected]</code></td>
+          <td> const<code> [inline, protected, virtual]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Gets the number of "Continuous" state variables maintained by the <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any object which can be added to a Model.">ModelComponent</a> If the <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any object which can be added to a Model.">ModelComponent</a> defines any that are of interest to the user, names should also be given. </p>
+
+<p>Implements <a class="el" href="classOpenSim_1_1ModelComponent.html#a1e0f42516d2b3d7fd54892ee24b80f61">OpenSim::ModelComponent</a>.</p>
 
 </div>
 </div>
@@ -622,6 +665,42 @@ Inheritance diagram for OpenSim::Joint:</div>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a class="anchor" id="a1c2d239a16fe91d3047425ccb9645d7f"></a><!-- doxytag: member="OpenSim::Joint::getOrientationInChild" ref="a1c2d239a16fe91d3047425ccb9645d7f" args="(double rOrientation[]) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void OpenSim::Joint::getOrientationInChild </td>
+          <td>(</td>
+          <td class="paramtype">double&nbsp;</td>
+          <td class="paramname"> <em>rOrientation</em>[]</td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [inline, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a0f498904afa909933db92f42ec4f324d"></a><!-- doxytag: member="OpenSim::Joint::getOrientationInParent" ref="a0f498904afa909933db92f42ec4f324d" args="(double rOrientation[]) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void OpenSim::Joint::getOrientationInParent </td>
+          <td>(</td>
+          <td class="paramtype">double&nbsp;</td>
+          <td class="paramname"> <em>rOrientation</em>[]</td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [inline, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
 
 </div>
 </div>
@@ -724,8 +803,8 @@ Inheritance diagram for OpenSim::Joint:</div>
 </div>
 <div class="memdoc">
 
-<p>This is called after a SimTK System and State have been created for the <a class="el" href="classOpenSim_1_1Model.html" title="A base class that specifies the interface for a musculoskeletal model.">Model</a>. </p>
-<p>It may be overridden to set initial values of state variables.</p>
+<p>This is called after a SimTK System and State have been created for the <a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a>. </p>
+<p>It must be implementd to set initial values of state variables.</p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>state</em>&nbsp;</td><td>the State to initialize </td></tr>
@@ -733,7 +812,7 @@ Inheritance diagram for OpenSim::Joint:</div>
   </dd>
 </dl>
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1ModelComponent.html#ab0f23ae5578d7e988e67cf07db1e3cf7">OpenSim::ModelComponent</a>.</p>
+<p>Implements <a class="el" href="classOpenSim_1_1ModelComponent.html#a2af3e8933cda56820900f0c643881434">OpenSim::ModelComponent</a>.</p>
 
 <p>Reimplemented in <a class="el" href="classOpenSim_1_1BallJoint.html#a5e727bb8531304685f3b1162288e1c01">OpenSim::BallJoint</a>, <a class="el" href="classOpenSim_1_1EllipsoidJoint.html#a974730c91819bf75f8ad89d4a9560231">OpenSim::EllipsoidJoint</a>, and <a class="el" href="classOpenSim_1_1FreeJoint.html#a781e02c6ad8daf63ffc4da968313656f">OpenSim::FreeJoint</a>.</p>
 
@@ -886,7 +965,7 @@ Inheritance diagram for OpenSim::Joint:</div>
 <p><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the body to which this joint belongs. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>aBody</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody body segment.">Body</a> to which this joint should belong. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>aBody</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody rigid body.">Body</a> to which this joint should belong. </td></tr>
   </table>
   </dd>
 </dl>
@@ -991,7 +1070,7 @@ Inheritance diagram for OpenSim::Joint:</div>
 <div class="memdoc">
 
 <p><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> all default values for this object to match those in a specified State. </p>
-<p>It should be overridden to set any default values defined by each subclass.</p>
+<p>It must be implemented/overriden to set any default values defined by each subclass.</p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>state</em>&nbsp;</td><td>the State from which to take values that should become the defaults for this object </td></tr>
@@ -999,7 +1078,7 @@ Inheritance diagram for OpenSim::Joint:</div>
   </dd>
 </dl>
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1ModelComponent.html#a5ddcaa711b47fe9e8e5653a5611ef8ee">OpenSim::ModelComponent</a>.</p>
+<p>Implements <a class="el" href="classOpenSim_1_1ModelComponent.html#a0e600cbcb3f90abfa53c6b7afa3cdf30">OpenSim::ModelComponent</a>.</p>
 
 <p>Reimplemented in <a class="el" href="classOpenSim_1_1BallJoint.html#a26f080845ba3b294a5ded50c84afc734">OpenSim::BallJoint</a>, <a class="el" href="classOpenSim_1_1EllipsoidJoint.html#aa72d41fb6a978f82dfc5f71a36758731">OpenSim::EllipsoidJoint</a>, and <a class="el" href="classOpenSim_1_1FreeJoint.html#a9919ece40776184bc18b0c71aa068fea">OpenSim::FreeJoint</a>.</p>
 
@@ -1222,6 +1301,8 @@ Inheritance diagram for OpenSim::Joint:</div>
   </dd>
 </dl>
 
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1ModelComponent.html#a2b2b125ac81cae0067a87b080499b43f">OpenSim::ModelComponent</a>.</p>
+
 <p>Reimplemented in <a class="el" href="classOpenSim_1_1BallJoint.html#a09696c67156f5a6c8c95fdb57b9a1b8b">OpenSim::BallJoint</a>, <a class="el" href="classOpenSim_1_1CustomJoint.html#aeb6d202dc12716c5dabdb271374d6a85">OpenSim::CustomJoint</a>, <a class="el" href="classOpenSim_1_1EllipsoidJoint.html#a36b63f6cf590df2b638288365158a7f6">OpenSim::EllipsoidJoint</a>, <a class="el" href="classOpenSim_1_1FreeJoint.html#a93014672fb59ee302e78340463928f3d">OpenSim::FreeJoint</a>, <a class="el" href="classOpenSim_1_1PinJoint.html#abc4baab6bc871481e328ff5ada7b9e7e">OpenSim::PinJoint</a>, <a class="el" href="classOpenSim_1_1SliderJoint.html#aa79ef940e32ab899a5812526f2df5e7d">OpenSim::SliderJoint</a>, and <a class="el" href="classOpenSim_1_1WeldJoint.html#ab873752be5014b64c5ff8fc01c937324">OpenSim::WeldJoint</a>.</p>
 
 </div>
@@ -1258,34 +1339,6 @@ Inheritance diagram for OpenSim::Joint:</div>
 
 </div>
 </div>
-<a class="anchor" id="a2bf2a0e9b454c55aa5dcb5aa4698697b"></a><!-- doxytag: member="OpenSim::Joint::Model" ref="a2bf2a0e9b454c55aa5dcb5aa4698697b" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">friend class <a class="el" href="classOpenSim_1_1Model.html">Model</a><code> [friend]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a53c55c23727a4e0f756d836780044d04"></a><!-- doxytag: member="OpenSim::Joint::SimbodyEngine" ref="a53c55c23727a4e0f756d836780044d04" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">friend class <a class="el" href="classOpenSim_1_1SimbodyEngine.html">SimbodyEngine</a><code> [friend]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Reimplemented in <a class="el" href="classOpenSim_1_1CustomJoint.html#a53c55c23727a4e0f756d836780044d04">OpenSim::CustomJoint</a>.</p>
-
-</div>
-</div>
 <hr/><h2>Member Data Documentation</h2>
 <a class="anchor" id="a512a1b272279c5c3273dbdca11651c75"></a><!-- doxytag: member="OpenSim::Joint::_body" ref="a512a1b272279c5c3273dbdca11651c75" args="" -->
 <div class="memitem">
@@ -1298,7 +1351,7 @@ Inheritance diagram for OpenSim::Joint:</div>
 </div>
 <div class="memdoc">
 
-<p><a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody body segment.">Body</a> to which this joint belongs. </p>
+<p><a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody rigid body.">Body</a> to which this joint belongs. </p>
 
 </div>
 </div>
@@ -1471,7 +1524,7 @@ Inheritance diagram for OpenSim::Joint:</div>
 </div>
 <div class="memdoc">
 
-<p><a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody body segment.">Body</a> to which this body is attached. </p>
+<p><a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody rigid body.">Body</a> to which this body is attached. </p>
 
 </div>
 </div>
@@ -1536,7 +1589,7 @@ Inheritance diagram for OpenSim::Joint:</div>
 <li>OpenSim/Simulation/SimbodyEngine/Joint.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Feb 7 02:15:19 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:37:12 2010 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

@@ -27,7 +27,7 @@
   </div>
 </div>
 <div class="contents">
-<h1>OpenSim::CMC_Task Class Reference</h1><!-- doxytag: class="OpenSim::CMC_Task" --><!-- doxytag: inherits="OpenSim::Object" -->
+<h1>OpenSim::CMC_Task Class Reference</h1><!-- doxytag: class="OpenSim::CMC_Task" --><!-- doxytag: inherits="OpenSim::TrackingTask" -->
 <p>An abstract base class for specifying a task objective for a dynamic simulation.  
 <a href="#_details">More...</a></p>
 
@@ -38,11 +38,12 @@ Inheritance diagram for OpenSim::CMC_Task:</div>
  <div class="center">
   <img src="classOpenSim_1_1CMC__Task.gif" usemap="#OpenSim::CMC_Task_map" alt=""/>
   <map id="OpenSim::CMC_Task_map" name="OpenSim::CMC_Task_map">
+<area href="classOpenSim_1_1TrackingTask.html" alt="OpenSim::TrackingTask" shape="rect" coords="177,56,344,80"/>
 <area href="classOpenSim_1_1Object.html" alt="OpenSim::Object" shape="rect" coords="177,0,344,24"/>
-<area href="classOpenSim_1_1CMC__Joint.html" alt="OpenSim::CMC_Joint" shape="rect" coords="0,112,167,136"/>
-<area href="classOpenSim_1_1CMC__Orientation.html" alt="OpenSim::CMC_Orientation" shape="rect" coords="177,112,344,136"/>
-<area href="classOpenSim_1_1CMC__Point.html" alt="OpenSim::CMC_Point" shape="rect" coords="354,112,521,136"/>
-<area href="classOpenSim_1_1SMC__Joint.html" alt="OpenSim::SMC_Joint" shape="rect" coords="0,168,167,192"/>
+<area href="classOpenSim_1_1CMC__Joint.html" alt="OpenSim::CMC_Joint" shape="rect" coords="0,168,167,192"/>
+<area href="classOpenSim_1_1CMC__Orientation.html" alt="OpenSim::CMC_Orientation" shape="rect" coords="177,168,344,192"/>
+<area href="classOpenSim_1_1CMC__Point.html" alt="OpenSim::CMC_Point" shape="rect" coords="354,168,521,192"/>
+<area href="classOpenSim_1_1SMC__Joint.html" alt="OpenSim::SMC_Joint" shape="rect" coords="0,224,167,248"/>
 </map>
  </div>
 </div>
@@ -60,14 +61,6 @@ Inheritance diagram for OpenSim::CMC_Task:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Construct and return a copy of this object.  <a href="#a4ecffc0eac78ffa9b829f1a49bf29ce3"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1CMC__Task.html">CMC_Task</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CMC__Task.html#a4e51fdd43a2281f8135648d496dc2815">operator=</a> (const <a class="el" href="classOpenSim_1_1CMC__Task.html">CMC_Task</a> &amp;aTaskObject)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Assignment operator.  <a href="#a4e51fdd43a2281f8135648d496dc2815"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CMC__Task.html#aa7b33ece112e4ce28847d7064ec11641">setModel</a> (<a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;aModel)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the model to which this track object applies.  <a href="#aa7b33ece112e4ce28847d7064ec11641"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Model.html">Model</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CMC__Task.html#a538bf976330d1e9c73a4146069d689ee">getModel</a> () const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the model to which this track object applies.  <a href="#a538bf976330d1e9c73a4146069d689ee"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CMC__Task.html#a9205c146729fc0a185554005af7709de">setOn</a> (bool aTrueFalse)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Turn this track object on or off.  <a href="#a9205c146729fc0a185554005af7709de"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CMC__Task.html#a05f36f0a33805eaaee3f57a94ff536e3">getOn</a> () const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get whether or not this track object is on.  <a href="#a05f36f0a33805eaaee3f57a94ff536e3"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CMC__Task.html#aa1f1a85a590ebf7b983c145a1d2ac63c">setWRTBodyName</a> (std::string aBodyName)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the body with respect to (WRT) which the track goals are specified.  <a href="#aa1f1a85a590ebf7b983c145a1d2ac63c"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::string&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CMC__Task.html#a4b36e1c3fa47dc34710ddb0166dc76df">getWRTBodyName</a> () const </td></tr>
@@ -108,10 +101,6 @@ Inheritance diagram for OpenSim::CMC_Task:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the direction of track goal 2.  <a href="#a4dcc947cff1d5969732905cec17dd5bb"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CMC__Task.html#aec5dc89f7b767f7935bc7b4736a18fcb">getDirection_2</a> (SimTK::Vec3 &amp;rR) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the direction of track goal 2.  <a href="#aec5dc89f7b767f7935bc7b4736a18fcb"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CMC__Task.html#a90e078939a7c9bdb74713b9d671b538d">getNumTaskFunctions</a> () const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the number of position track functions.  <a href="#a90e078939a7c9bdb74713b9d671b538d"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CMC__Task.html#ad67dacae56ffa2c395aa9f6946584e94">setTaskFunctions</a> (<a class="el" href="classOpenSim_1_1Function.html">Function</a> *aF0, <a class="el" href="classOpenSim_1_1Function.html">Function</a> *aF1=NULL, <a class="el" href="classOpenSim_1_1Function.html">Function</a> *aF2=NULL)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the track functions.  <a href="#ad67dacae56ffa2c395aa9f6946584e94"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Function.html">Function</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CMC__Task.html#abc20db8f5f7c4d2938f67e6c2d46d647">getTaskFunction</a> (int aWhich) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get a specified track function.  <a href="#abc20db8f5f7c4d2938f67e6c2d46d647"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CMC__Task.html#adbf27a75a56e03fd43d4b91e9f646426">setTaskFunctionsForVelocity</a> (<a class="el" href="classOpenSim_1_1Function.html">Function</a> *aF0, <a class="el" href="classOpenSim_1_1Function.html">Function</a> *aF1=NULL, <a class="el" href="classOpenSim_1_1Function.html">Function</a> *aF2=NULL)</td></tr>
@@ -155,16 +144,12 @@ Inheritance diagram for OpenSim::CMC_Task:</div>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CMC__Task.html#afac44a5af54b760d10bef591b7e91c44">updateFromXMLNode</a> ()</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Update this object based on its XML node.  <a href="#afac44a5af54b760d10bef591b7e91c44"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Protected Attributes</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyBool.html">PropertyBool</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CMC__Task.html#a48a91c794a175fdc8b8c52cf9bc5ff56">_propOn</a></td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Property.html">Property</a> to indicate on or off state.  <a href="#a48a91c794a175fdc8b8c52cf9bc5ff56"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyStr.html">PropertyStr</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CMC__Task.html#a9c653b9815927739d856c24b9d130413">_propWRTBodyName</a></td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody body segment.">Body</a> with respect to which the task goals are specified.  <a href="#a9c653b9815927739d856c24b9d130413"></a><br/></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody rigid body.">Body</a> with respect to which the task goals are specified.  <a href="#a9c653b9815927739d856c24b9d130413"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyStr.html">PropertyStr</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CMC__Task.html#a9ca4aeabf38c765272f75ea8bc350345">_propExpressBodyName</a></td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody body segment.">Body</a> frame in which the task goals are expressed.  <a href="#a9ca4aeabf38c765272f75ea8bc350345"></a><br/></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody rigid body.">Body</a> frame in which the task goals are expressed.  <a href="#a9ca4aeabf38c765272f75ea8bc350345"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyBoolArray.html">PropertyBoolArray</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CMC__Task.html#aa99d3f06cbec1f4e6ef7048280de2154">_propActive</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Property.html">Property</a> to specify the active task goals.  <a href="#aa99d3f06cbec1f4e6ef7048280de2154"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyDblArray.html">PropertyDblArray</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CMC__Task.html#ab6f6fb1d1ba8cb3fd67b88f63d20e463">_propW</a></td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Weights of the task goals.  <a href="#ab6f6fb1d1ba8cb3fd67b88f63d20e463"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyDblArray.html">PropertyDblArray</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CMC__Task.html#a1d1fcfee5f4fcd839a84ac1ae29cc028">_propKP</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Position error feedback gain.  <a href="#a1d1fcfee5f4fcd839a84ac1ae29cc028"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyDblArray.html">PropertyDblArray</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CMC__Task.html#aa6037a2cf6b2d8e515892a73373f2f71">_propKV</a></td></tr>
@@ -177,16 +162,12 @@ Inheritance diagram for OpenSim::CMC_Task:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Directions of the task goal 1.  <a href="#a14b679306ad509f6da85713a3da58e47"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyDblVec3.html">PropertyDblVec3</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CMC__Task.html#a13f1afd11edb49fccb34e046713989d4">_propR2</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Directions of the task goal 2.  <a href="#a13f1afd11edb49fccb34e046713989d4"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CMC__Task.html#a2b6e4e92fb828ab3bf9cbbf220885e91">_on</a></td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Reference to the value of the on property.  <a href="#a2b6e4e92fb828ab3bf9cbbf220885e91"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::string &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CMC__Task.html#a51dd9e4fe06059337f01b70ea1fbb530">_wrtBodyName</a></td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Reference to the value of the WRTBody property.  <a href="#a51dd9e4fe06059337f01b70ea1fbb530"></a><br/></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Reference to the value of the on property.  <a href="#a51dd9e4fe06059337f01b70ea1fbb530"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::string &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CMC__Task.html#a3dc7b37fabd9baae205307a3361772a2">_expressBodyName</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Reference to the value of the ExpressBody property.  <a href="#a3dc7b37fabd9baae205307a3361772a2"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Array.html">Array</a>&lt; bool &gt; &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CMC__Task.html#ab318158eebe086a5cfb8f5948a18145a">_active</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Reference to the value of the Active property.  <a href="#ab318158eebe086a5cfb8f5948a18145a"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Array.html">Array</a>&lt; double &gt; &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CMC__Task.html#ac48d195d7bda192582613ffa5a470c01">_w</a></td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Reference to the value of the Weight property.  <a href="#ac48d195d7bda192582613ffa5a470c01"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Array.html">Array</a>&lt; double &gt; &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CMC__Task.html#aebceadb4a0e84e7e1773571ebe877c98">_kp</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Reference to the value of the KP property.  <a href="#aebceadb4a0e84e7e1773571ebe877c98"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Array.html">Array</a>&lt; double &gt; &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CMC__Task.html#a20b2d7a23fba75deaac27b49496c68a6">_kv</a></td></tr>
@@ -199,16 +180,6 @@ Inheritance diagram for OpenSim::CMC_Task:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Reference to the value of the R1 property.  <a href="#a5208744ac26b065ee2f4add20fccc65a"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">SimTK::Vec3 &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CMC__Task.html#a61892afc418cce23b2f55a3c8fa4138c">_r2</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Reference to the value of the R2 property.  <a href="#a61892afc418cce23b2f55a3c8fa4138c"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Model.html">Model</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CMC__Task.html#a81edb76fbb6f2c3641a9aba81eff95bb">_model</a></td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Model.html" title="A base class that specifies the interface for a musculoskeletal model.">Model</a>.  <a href="#a81edb76fbb6f2c3641a9aba81eff95bb"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CMC__Task.html#a2086e24a856acaf61327de1303ebb511">_nTrk</a></td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Number of task functions.  <a href="#a2086e24a856acaf61327de1303ebb511"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Function.html">Function</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CMC__Task.html#ae7b9d52b3e76e9f30e83ccaf8e8b00a8">_pTrk</a> [3]</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Position task functions.  <a href="#ae7b9d52b3e76e9f30e83ccaf8e8b00a8"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Function.html">Function</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CMC__Task.html#a44b895ada6dfcfbcb1874942db8cbba6">_vTrk</a> [3]</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Velocity task functions.  <a href="#a44b895ada6dfcfbcb1874942db8cbba6"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Function.html">Function</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CMC__Task.html#ad5e680ae67eeb9fb4788b9b7efdd4223">_aTrk</a> [3]</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Acceleration task functions.  <a href="#ad5e680ae67eeb9fb4788b9b7efdd4223"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">SimTK::Vec3&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CMC__Task.html#a45364800121bb03e80a9f685ea03617b">_pErrLast</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Last position error.  <a href="#a45364800121bb03e80a9f685ea03617b"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">SimTK::Vec3&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CMC__Task.html#a9ada07797ed4d2bcba50474f09ef3b82">_pErr</a></td></tr>
@@ -471,7 +442,7 @@ Inheritance diagram for OpenSim::CMC_Task:</div>
 <p>The object is allocated using the new operator, so the caller is responsible for deleting the returned object.</p>
 <dl class="return"><dt><b>Returns:</b></dt><dd>Copy of this object. </dd></dl>
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Object.html#a2000b12522f6f79a8918991b819a4bb7">OpenSim::Object</a>.</p>
+<p>Implements <a class="el" href="classOpenSim_1_1TrackingTask.html#ab0298bd3b3fbd829b3c6faf6816260fe">OpenSim::TrackingTask</a>.</p>
 
 <p>Implemented in <a class="el" href="classOpenSim_1_1CMC__Joint.html#a469713504262b3c7ae6e837c79599836">OpenSim::CMC_Joint</a>, <a class="el" href="classOpenSim_1_1CMC__Point.html#a57856af1661211702a5f92d55fad98e7">OpenSim::CMC_Point</a>, and <a class="el" href="classOpenSim_1_1SMC__Joint.html#ab38608037c118e745bd498e1ff5d8399">OpenSim::SMC_Joint</a>.</p>
 
@@ -655,7 +626,7 @@ Inheritance diagram for OpenSim::CMC_Task:</div>
 <div class="memdoc">
 
 <p>Get the body in which the track goals are expressed. </p>
-<dl class="return"><dt><b>Returns:</b></dt><dd><a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody body segment.">Body</a> ID. </dd></dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd><a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody rigid body.">Body</a> ID. </dd></dl>
 
 </div>
 </div>
@@ -737,66 +708,6 @@ Inheritance diagram for OpenSim::CMC_Task:</div>
   </dd>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>Velocity gain. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a538bf976330d1e9c73a4146069d689ee"></a><!-- doxytag: member="OpenSim::CMC_Task::getModel" ref="a538bf976330d1e9c73a4146069d689ee" args="() const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classOpenSim_1_1Model.html">Model</a> * CMC_Task::getModel </td>
-          <td>(</td>
-          <td class="paramname"></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Get the model to which this track object applies. </p>
-<dl class="return"><dt><b>Returns:</b></dt><dd>Pointer to the model. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a90e078939a7c9bdb74713b9d671b538d"></a><!-- doxytag: member="OpenSim::CMC_Task::getNumTaskFunctions" ref="a90e078939a7c9bdb74713b9d671b538d" args="() const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int CMC_Task::getNumTaskFunctions </td>
-          <td>(</td>
-          <td class="paramname"></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Get the number of position track functions. </p>
-<dl class="return"><dt><b>Returns:</b></dt><dd>Number of position track functions. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a05f36f0a33805eaaee3f57a94ff536e3"></a><!-- doxytag: member="OpenSim::CMC_Task::getOn" ref="a05f36f0a33805eaaee3f57a94ff536e3" args="() const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool CMC_Task::getOn </td>
-          <td>(</td>
-          <td class="paramname"></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Get whether or not this track object is on. </p>
-<dl class="return"><dt><b>Returns:</b></dt><dd>True if on, false if off. </dd></dl>
 
 </div>
 </div>
@@ -1145,6 +1056,8 @@ Inheritance diagram for OpenSim::CMC_Task:</div>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>Weight. </dd></dl>
 
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1TrackingTask.html#a7097e1b89696fe77c91dc1433518fd09">OpenSim::TrackingTask</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a4b36e1c3fa47dc34710ddb0166dc76df"></a><!-- doxytag: member="OpenSim::CMC_Task::getWRTBodyName" ref="a4b36e1c3fa47dc34710ddb0166dc76df" args="() const " -->
@@ -1163,7 +1076,7 @@ Inheritance diagram for OpenSim::CMC_Task:</div>
 <div class="memdoc">
 
 <p>Get the body with respect to (WRT) which the track goals are specified. </p>
-<dl class="return"><dt><b>Returns:</b></dt><dd><a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody body segment.">Body</a> ID. </dd></dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd><a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody rigid body.">Body</a> ID. </dd></dl>
 
 </div>
 </div>
@@ -1186,7 +1099,7 @@ Inheritance diagram for OpenSim::CMC_Task:</div>
 <p>Assignment operator. </p>
 <dl class="return"><dt><b>Returns:</b></dt><dd>Reference to the altered object. </dd></dl>
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Object.html#a1a5b4bda8ca9bdc1c96ef514a15e0eef">OpenSim::Object</a>.</p>
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1TrackingTask.html#a806becf81a6df8160ab5eee4072c9bc4">OpenSim::TrackingTask</a>.</p>
 
 <p>Reimplemented in <a class="el" href="classOpenSim_1_1CMC__Joint.html#acf39a246abce86866583a13917fe0d5e">OpenSim::CMC_Joint</a>, <a class="el" href="classOpenSim_1_1CMC__Point.html#a454584563e3e0ce6ae88ca9f821bc8a7">OpenSim::CMC_Point</a>, and <a class="el" href="classOpenSim_1_1SMC__Joint.html#ad2e53b57213d530b9585faedb88b3cc5">OpenSim::SMC_Joint</a>.</p>
 
@@ -1332,7 +1245,7 @@ Inheritance diagram for OpenSim::CMC_Task:</div>
 <p><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the body in which the track goals are expressed. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>aBody</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody body segment.">Body</a> ID. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>aBody</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody rigid body.">Body</a> ID. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1468,60 +1381,6 @@ Inheritance diagram for OpenSim::CMC_Task:</div>
 
 </div>
 </div>
-<a class="anchor" id="aa7b33ece112e4ce28847d7064ec11641"></a><!-- doxytag: member="OpenSim::CMC_Task::setModel" ref="aa7b33ece112e4ce28847d7064ec11641" args="(Model &amp;aModel)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void CMC_Task::setModel </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>aModel</em></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td><code> [virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the model to which this track object applies. </p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>aModel</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Model.html" title="A base class that specifies the interface for a musculoskeletal model.">Model</a>. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Reimplemented in <a class="el" href="classOpenSim_1_1CMC__Joint.html#a11eac5ef029a18c2cbfc62de17ed9713">OpenSim::CMC_Joint</a>, and <a class="el" href="classOpenSim_1_1CMC__Point.html#abcb7c442fdc493726baa0447d808de45">OpenSim::CMC_Point</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a9205c146729fc0a185554005af7709de"></a><!-- doxytag: member="OpenSim::CMC_Task::setOn" ref="a9205c146729fc0a185554005af7709de" args="(bool aTrueFalse)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void CMC_Task::setOn </td>
-          <td>(</td>
-          <td class="paramtype">bool&nbsp;</td>
-          <td class="paramname"> <em>aTrueFalse</em></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Turn this track object on or off. </p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>aTureFalse</em>&nbsp;</td><td>Turns analysis on if "true" and off if "false". </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
 <a class="anchor" id="a43831715a19b36d2d09af3fedf3c3f64"></a><!-- doxytag: member="OpenSim::CMC_Task::setPositionErrorLast" ref="a43831715a19b36d2d09af3fedf3c3f64" args="(double aE0, double aE1=0.0, double aE2=0.0)" -->
 <div class="memitem">
 <div class="memproto">
@@ -1560,50 +1419,6 @@ Inheritance diagram for OpenSim::CMC_Task:</div>
     <tr><td valign="top"></td><td valign="top"><em>aE0</em>&nbsp;</td><td>Last position error for track goal 0. </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>aE1</em>&nbsp;</td><td>Last position error for track goal 1. </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>aE2</em>&nbsp;</td><td>Last position error for track goal 2. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="ad67dacae56ffa2c395aa9f6946584e94"></a><!-- doxytag: member="OpenSim::CMC_Task::setTaskFunctions" ref="ad67dacae56ffa2c395aa9f6946584e94" args="(Function *aF0, Function *aF1=NULL, Function *aF2=NULL)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void CMC_Task::setTaskFunctions </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classOpenSim_1_1Function.html">OpenSim::Function</a> *&nbsp;</td>
-          <td class="paramname"> <em>aF0</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classOpenSim_1_1Function.html">OpenSim::Function</a> *&nbsp;</td>
-          <td class="paramname"> <em>aF1</em> = <code>NULL</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classOpenSim_1_1Function.html">OpenSim::Function</a> *&nbsp;</td>
-          <td class="paramname"> <em>aF2</em> = <code>NULL</code></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the track functions. </p>
-<p>Note that this method makes copies of the specified track functions, so the caller may use the specified functions for whatever purposes.</p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>aF0</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Function.html">Function</a> for track goal 0. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>aF1</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Function.html">Function</a> for track goal 1. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>aF2</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Function.html">Function</a> for track goal 2. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1783,6 +1598,8 @@ Inheritance diagram for OpenSim::CMC_Task:</div>
   </dd>
 </dl>
 
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1TrackingTask.html#abbb82656ddc0f977b374b10c0f4f6162">OpenSim::TrackingTask</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="aa1f1a85a590ebf7b983c145a1d2ac63c"></a><!-- doxytag: member="OpenSim::CMC_Task::setWRTBodyName" ref="aa1f1a85a590ebf7b983c145a1d2ac63c" args="(std::string aBodyName)" -->
@@ -1804,7 +1621,7 @@ Inheritance diagram for OpenSim::CMC_Task:</div>
 <p><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the body with respect to (WRT) which the track goals are specified. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>aBody</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody body segment.">Body</a> ID. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>aBody</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody rigid body.">Body</a> ID. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1877,22 +1694,6 @@ Inheritance diagram for OpenSim::CMC_Task:</div>
 <div class="memdoc">
 
 <p>Desired accelerations. </p>
-
-</div>
-</div>
-<a class="anchor" id="ad5e680ae67eeb9fb4788b9b7efdd4223"></a><!-- doxytag: member="OpenSim::CMC_Task::_aTrk" ref="ad5e680ae67eeb9fb4788b9b7efdd4223" args="[3]" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classOpenSim_1_1Function.html">Function</a>* <a class="el" href="classOpenSim_1_1CMC__Task.html#ad5e680ae67eeb9fb4788b9b7efdd4223">OpenSim::CMC_Task::_aTrk</a>[3]<code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Acceleration task functions. </p>
-<p>If acceleration task functions are not specified, derivatives of the position task function are used. </p>
 
 </div>
 </div>
@@ -1986,51 +1787,6 @@ Inheritance diagram for OpenSim::CMC_Task:</div>
 
 </div>
 </div>
-<a class="anchor" id="a81edb76fbb6f2c3641a9aba81eff95bb"></a><!-- doxytag: member="OpenSim::CMC_Task::_model" ref="a81edb76fbb6f2c3641a9aba81eff95bb" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classOpenSim_1_1Model.html">Model</a>* <a class="el" href="classOpenSim_1_1CMC__Task.html#a81edb76fbb6f2c3641a9aba81eff95bb">OpenSim::CMC_Task::_model</a><code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p><a class="el" href="classOpenSim_1_1Model.html" title="A base class that specifies the interface for a musculoskeletal model.">Model</a>. </p>
-
-</div>
-</div>
-<a class="anchor" id="a2086e24a856acaf61327de1303ebb511"></a><!-- doxytag: member="OpenSim::CMC_Task::_nTrk" ref="a2086e24a856acaf61327de1303ebb511" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int <a class="el" href="classOpenSim_1_1CMC__Task.html#a2086e24a856acaf61327de1303ebb511">OpenSim::CMC_Task::_nTrk</a><code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Number of task functions. </p>
-
-</div>
-</div>
-<a class="anchor" id="a2b6e4e92fb828ab3bf9cbbf220885e91"></a><!-- doxytag: member="OpenSim::CMC_Task::_on" ref="a2b6e4e92fb828ab3bf9cbbf220885e91" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool&amp; <a class="el" href="classOpenSim_1_1CMC__Task.html#a2b6e4e92fb828ab3bf9cbbf220885e91">OpenSim::CMC_Task::_on</a><code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Reference to the value of the on property. </p>
-
-</div>
-</div>
 <a class="anchor" id="a9ada07797ed4d2bcba50474f09ef3b82"></a><!-- doxytag: member="OpenSim::CMC_Task::_pErr" ref="a9ada07797ed4d2bcba50474f09ef3b82" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -2087,7 +1843,7 @@ Inheritance diagram for OpenSim::CMC_Task:</div>
 </div>
 <div class="memdoc">
 
-<p><a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody body segment.">Body</a> frame in which the task goals are expressed. </p>
+<p><a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody rigid body.">Body</a> frame in which the task goals are expressed. </p>
 
 </div>
 </div>
@@ -2136,21 +1892,6 @@ Inheritance diagram for OpenSim::CMC_Task:</div>
 
 </div>
 </div>
-<a class="anchor" id="a48a91c794a175fdc8b8c52cf9bc5ff56"></a><!-- doxytag: member="OpenSim::CMC_Task::_propOn" ref="a48a91c794a175fdc8b8c52cf9bc5ff56" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classOpenSim_1_1PropertyBool.html">PropertyBool</a> <a class="el" href="classOpenSim_1_1CMC__Task.html#a48a91c794a175fdc8b8c52cf9bc5ff56">OpenSim::CMC_Task::_propOn</a><code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p><a class="el" href="classOpenSim_1_1Property.html">Property</a> to indicate on or off state. </p>
-
-</div>
-</div>
 <a class="anchor" id="a5078c4441e867d016a9d371bee12426e"></a><!-- doxytag: member="OpenSim::CMC_Task::_propR0" ref="a5078c4441e867d016a9d371bee12426e" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -2196,21 +1937,6 @@ Inheritance diagram for OpenSim::CMC_Task:</div>
 
 </div>
 </div>
-<a class="anchor" id="ab6f6fb1d1ba8cb3fd67b88f63d20e463"></a><!-- doxytag: member="OpenSim::CMC_Task::_propW" ref="ab6f6fb1d1ba8cb3fd67b88f63d20e463" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classOpenSim_1_1PropertyDblArray.html">PropertyDblArray</a> <a class="el" href="classOpenSim_1_1CMC__Task.html#ab6f6fb1d1ba8cb3fd67b88f63d20e463">OpenSim::CMC_Task::_propW</a><code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Weights of the task goals. </p>
-
-</div>
-</div>
 <a class="anchor" id="a9c653b9815927739d856c24b9d130413"></a><!-- doxytag: member="OpenSim::CMC_Task::_propWRTBodyName" ref="a9c653b9815927739d856c24b9d130413" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -2222,23 +1948,7 @@ Inheritance diagram for OpenSim::CMC_Task:</div>
 </div>
 <div class="memdoc">
 
-<p><a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody body segment.">Body</a> with respect to which the task goals are specified. </p>
-
-</div>
-</div>
-<a class="anchor" id="ae7b9d52b3e76e9f30e83ccaf8e8b00a8"></a><!-- doxytag: member="OpenSim::CMC_Task::_pTrk" ref="ae7b9d52b3e76e9f30e83ccaf8e8b00a8" args="[3]" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classOpenSim_1_1Function.html">Function</a>* <a class="el" href="classOpenSim_1_1CMC__Task.html#ae7b9d52b3e76e9f30e83ccaf8e8b00a8">OpenSim::CMC_Task::_pTrk</a>[3]<code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Position task functions. </p>
-<p>Different types of tasks can require different numbers of task functions. For example, to track a joint angle, only one task function is needed. However, to track a position, up to three task functions may be needed. </p>
+<p><a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody rigid body.">Body</a> with respect to which the task goals are specified. </p>
 
 </div>
 </div>
@@ -2317,37 +2027,6 @@ Inheritance diagram for OpenSim::CMC_Task:</div>
 
 </div>
 </div>
-<a class="anchor" id="a44b895ada6dfcfbcb1874942db8cbba6"></a><!-- doxytag: member="OpenSim::CMC_Task::_vTrk" ref="a44b895ada6dfcfbcb1874942db8cbba6" args="[3]" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classOpenSim_1_1Function.html">Function</a>* <a class="el" href="classOpenSim_1_1CMC__Task.html#a44b895ada6dfcfbcb1874942db8cbba6">OpenSim::CMC_Task::_vTrk</a>[3]<code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Velocity task functions. </p>
-<p>If velocity task functions are not specified, derivatives of the position task function are used. </p>
-
-</div>
-</div>
-<a class="anchor" id="ac48d195d7bda192582613ffa5a470c01"></a><!-- doxytag: member="OpenSim::CMC_Task::_w" ref="ac48d195d7bda192582613ffa5a470c01" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classOpenSim_1_1Array.html">Array</a>&lt;double&gt;&amp; <a class="el" href="classOpenSim_1_1CMC__Task.html#ac48d195d7bda192582613ffa5a470c01">OpenSim::CMC_Task::_w</a><code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Reference to the value of the Weight property. </p>
-
-</div>
-</div>
 <a class="anchor" id="a51dd9e4fe06059337f01b70ea1fbb530"></a><!-- doxytag: member="OpenSim::CMC_Task::_wrtBodyName" ref="a51dd9e4fe06059337f01b70ea1fbb530" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -2359,6 +2038,7 @@ Inheritance diagram for OpenSim::CMC_Task:</div>
 </div>
 <div class="memdoc">
 
+<p>Reference to the value of the on property. </p>
 <p>Reference to the value of the WRTBody property. </p>
 
 </div>
@@ -2368,7 +2048,7 @@ Inheritance diagram for OpenSim::CMC_Task:</div>
 <li>OpenSim/Tools/CMC_Task.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Feb 7 02:15:20 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:37:14 2010 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

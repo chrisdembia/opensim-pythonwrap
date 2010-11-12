@@ -109,8 +109,8 @@ Inheritance diagram for OpenSim::ContDerivMuscle:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Compute the derivatives of the muscle states.  <a href="#a178efa28b8df9739c960dfdd7c045eaa"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ContDerivMuscle.html#a08c68a2ece8f0b1790b3ad1e067dbdf9">computeEquilibrium</a> (SimTK::State &amp;s) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Compute the equilibrium states.  <a href="#a08c68a2ece8f0b1790b3ad1e067dbdf9"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ContDerivMuscle.html#ae350be2c963846c4407143a9347f6ee3">computeActuation</a> (const SimTK::State &amp;s)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Compute the actuation for the muscle.  <a href="#ae350be2c963846c4407143a9347f6ee3"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ContDerivMuscle.html#a26d5cd5b2eb9a4c6ee5a8135ce8c63b9">computeActuation</a> (const SimTK::State &amp;s) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Compute the actuation for the muscle.  <a href="#a26d5cd5b2eb9a4c6ee5a8135ce8c63b9"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ContDerivMuscle.html#abb2f30afbf278464870a7df61d233ccc">calcTendonForce</a> (const SimTK::State &amp;s, double aNormTendonLength) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Tendon force is calculated by an integral-of-sigmoid function - zero for most negative inputs, linear for most positive inputs, and a toe region that's continuous and smooth with both linear regions.  <a href="#abb2f30afbf278464870a7df61d233ccc"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ContDerivMuscle.html#a51c0b573d60964ec014283b37784e201">calcPassiveForce</a> (const SimTK::State &amp;s, double aNormFiberLength) const </td></tr>
@@ -127,10 +127,11 @@ Inheritance diagram for OpenSim::ContDerivMuscle:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Perform computations that need to happen after the muscle is scaled.  <a href="#ac7572eb98530bc280e7584b83974d5a1"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ContDerivMuscle.html#a6e281d48882c0209eb45cce8a5963dbd">scale</a> (const SimTK::State &amp;s, const <a class="el" href="classOpenSim_1_1ScaleSet.html">ScaleSet</a> &amp;aScaleSet)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Scale.html">Scale</a> the muscle.  <a href="#a6e281d48882c0209eb45cce8a5963dbd"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ContDerivMuscle.html#ab194663bf006566b0af926ea209117c3">setup</a> (<a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;aModel)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Perform some set up functions that happen after the object has been deserialized or copied.  <a href="#ab194663bf006566b0af926ea209117c3"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ContDerivMuscle.html#a0d5aaf3d3df059a48096760d28bf3630">equilibrate</a> (SimTK::State &amp;state) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ContDerivMuscle.html#ad23d1b98397c5907df599440d6d02b9b">OPENSIM_DECLARE_DERIVED</a> (<a class="el" href="classOpenSim_1_1ContDerivMuscle.html">ContDerivMuscle</a>, <a class="el" href="classOpenSim_1_1Actuator.html">Actuator</a>)</td></tr>
+<tr><td colspan="2"><h2>Protected Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ContDerivMuscle.html#ab194663bf006566b0af926ea209117c3">setup</a> (<a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;aModel)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Perform some set up functions that happen after the object has been deserialized or copied.  <a href="#ab194663bf006566b0af926ea209117c3"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyDbl.html">PropertyDbl</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ContDerivMuscle.html#ae6b2467cd8781dc6af74cb904d8b5f4f">_maxIsometricForceProp</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Maximum isometric force that the fibers can generate.  <a href="#ae6b2467cd8781dc6af74cb904d8b5f4f"></a><br/></td></tr>
@@ -420,7 +421,7 @@ Inheritance diagram for OpenSim::ContDerivMuscle:</div>
 
 </div>
 </div>
-<a class="anchor" id="ae350be2c963846c4407143a9347f6ee3"></a><!-- doxytag: member="OpenSim::ContDerivMuscle::computeActuation" ref="ae350be2c963846c4407143a9347f6ee3" args="(const SimTK::State &amp;s)" -->
+<a class="anchor" id="a26d5cd5b2eb9a4c6ee5a8135ce8c63b9"></a><!-- doxytag: member="OpenSim::ContDerivMuscle::computeActuation" ref="a26d5cd5b2eb9a4c6ee5a8135ce8c63b9" args="(const SimTK::State &amp;s) const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -430,7 +431,7 @@ Inheritance diagram for OpenSim::ContDerivMuscle:</div>
           <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
           <td class="paramname"> <em>s</em></td>
           <td>&nbsp;)&nbsp;</td>
-          <td><code> [virtual]</code></td>
+          <td> const<code> [virtual]</code></td>
         </tr>
       </table>
 </div>
@@ -439,6 +440,8 @@ Inheritance diagram for OpenSim::ContDerivMuscle:</div>
 <p>Compute the actuation for the muscle. </p>
 <p>This function assumes that computeDerivatives has already been called.</p>
 <p>This function is based on muscle_deriv_func9 from derivs.c (old pipeline code) </p>
+
+<p>Implements <a class="el" href="classOpenSim_1_1Muscle.html#a6d15b507b09619f2b78f97a9281df980">OpenSim::Muscle</a>.</p>
 
 </div>
 </div>
@@ -1114,6 +1117,8 @@ Inheritance diagram for OpenSim::ContDerivMuscle:</div>
 </div>
 <div class="memdoc">
 
+<p>Implements <a class="el" href="classOpenSim_1_1Muscle.html#a0e56a24521b0205c3035825054152e73">OpenSim::Muscle</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="abbf3e6eca6279575cab3d868fa13cd31"></a><!-- doxytag: member="OpenSim::ContDerivMuscle::getTendonSlackLength" ref="abbf3e6eca6279575cab3d868fa13cd31" args="() const " -->
@@ -1535,7 +1540,7 @@ Inheritance diagram for OpenSim::ContDerivMuscle:</div>
           <td class="paramtype"><a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;&nbsp;</td>
           <td class="paramname"> <em>aModel</em></td>
           <td>&nbsp;)&nbsp;</td>
-          <td><code> [virtual]</code></td>
+          <td><code> [protected, virtual]</code></td>
         </tr>
       </table>
 </div>
@@ -2020,7 +2025,7 @@ Inheritance diagram for OpenSim::ContDerivMuscle:</div>
 <li>OpenSim/Actuators/ContDerivMuscle.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Feb 7 02:15:11 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:36:58 2010 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

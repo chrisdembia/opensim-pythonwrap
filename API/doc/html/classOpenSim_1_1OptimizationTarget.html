@@ -62,7 +62,7 @@ Inheritance diagram for OpenSim::OptimizationTarget:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get a pointer to the vector of derivative perturbation sizes.  <a href="#a21a2145f4154bb5b7e5fc2093c45e902"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1OptimizationTarget.html#a616742517b63f3072d942108ee99d460">validatePerturbationSize</a> (double &amp;aSize)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Ensure that a derivative perturbation is a valid size.  <a href="#a616742517b63f3072d942108ee99d460"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1OptimizationTarget.html#ad338b056ca2b72d56034eb75c4d1ad6e">prepareToOptimize</a> (const SimTK::State &amp;s, double *x)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1OptimizationTarget.html#a50a0ba65df75d0043904a453804c8e41">prepareToOptimize</a> (SimTK::State &amp;s, double *x)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1OptimizationTarget.html#a31ac52e9a472dbbf92208242628e6341">printPerformance</a> (double *x)</td></tr>
 <tr><td colspan="2"><h2>Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1OptimizationTarget.html#a7f08da8292776b2cb834409c2a2b68c9">CentralDifferencesConstraint</a> (const <a class="el" href="classOpenSim_1_1OptimizationTarget.html">OptimizationTarget</a> *aTarget, double *dx, const SimTK::Vector &amp;x, SimTK::Matrix &amp;jacobian)</td></tr>
@@ -263,14 +263,14 @@ Inheritance diagram for OpenSim::OptimizationTarget:</div>
 
 </div>
 </div>
-<a class="anchor" id="ad338b056ca2b72d56034eb75c4d1ad6e"></a><!-- doxytag: member="OpenSim::OptimizationTarget::prepareToOptimize" ref="ad338b056ca2b72d56034eb75c4d1ad6e" args="(const SimTK::State &amp;s, double *x)" -->
+<a class="anchor" id="a50a0ba65df75d0043904a453804c8e41"></a><!-- doxytag: member="OpenSim::OptimizationTarget::prepareToOptimize" ref="a50a0ba65df75d0043904a453804c8e41" args="(SimTK::State &amp;s, double *x)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">virtual bool OpenSim::OptimizationTarget::prepareToOptimize </td>
           <td>(</td>
-          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
+          <td class="paramtype">SimTK::State &amp;&nbsp;</td>
           <td class="paramname"> <em>s</em>, </td>
         </tr>
         <tr>
@@ -288,7 +288,7 @@ Inheritance diagram for OpenSim::OptimizationTarget:</div>
 </div>
 <div class="memdoc">
 
-<p>Reimplemented in <a class="el" href="classOpenSim_1_1ActuatorForceTarget.html#ac63094fd0c590d73809391258f3556b9">OpenSim::ActuatorForceTarget</a>, and <a class="el" href="classOpenSim_1_1ActuatorForceTargetFast.html#aff913ec9333f24ef3aebc8cbaabf75a5">OpenSim::ActuatorForceTargetFast</a>.</p>
+<p>Reimplemented in <a class="el" href="classOpenSim_1_1ActuatorForceTarget.html#aba2f68014478257b33fa782263af12d4">OpenSim::ActuatorForceTarget</a>, and <a class="el" href="classOpenSim_1_1ActuatorForceTargetFast.html#a69524d4b00264a7459a3f2aa27c4723b">OpenSim::ActuatorForceTargetFast</a>.</p>
 
 </div>
 </div>
@@ -446,7 +446,7 @@ Inheritance diagram for OpenSim::OptimizationTarget:</div>
 <li>OpenSim/Common/OptimizationTarget.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Feb 7 02:15:13 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:37:03 2010 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

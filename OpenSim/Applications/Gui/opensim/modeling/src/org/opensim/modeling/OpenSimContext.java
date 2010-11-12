@@ -105,6 +105,22 @@ public class OpenSimContext extends OpenSimObject {
     return opensimModelJNI.OpenSimContext_isConstrained(swigCPtr, this, Coordinate.getCPtr(coord), coord);
   }
 
+  public boolean isDisabled(Constraint constraint) {
+    return opensimModelJNI.OpenSimContext_isDisabled__SWIG_0(swigCPtr, this, Constraint.getCPtr(constraint), constraint);
+  }
+
+  public void setDisabled(Constraint constraint, boolean disable) {
+    opensimModelJNI.OpenSimContext_setDisabled__SWIG_0(swigCPtr, this, Constraint.getCPtr(constraint), constraint, disable);
+  }
+
+  public boolean isDisabled(Force force) {
+    return opensimModelJNI.OpenSimContext_isDisabled__SWIG_1(swigCPtr, this, Force.getCPtr(force), force);
+  }
+
+  public void setDisabled(Force force, boolean disable) {
+    opensimModelJNI.OpenSimContext_setDisabled__SWIG_1(swigCPtr, this, Force.getCPtr(force), force, disable);
+  }
+
   public double getActivation(Muscle act) {
     return opensimModelJNI.OpenSimContext_getActivation(swigCPtr, this, Muscle.getCPtr(act), act);
   }
@@ -283,6 +299,14 @@ public class OpenSimContext extends OpenSimObject {
 
   public void setDefaultsFromState() {
     opensimModelJNI.OpenSimContext_setDefaultsFromState(swigCPtr, this);
+  }
+
+  public void realizePosition() {
+    opensimModelJNI.OpenSimContext_realizePosition(swigCPtr, this);
+}
+
+  public void realizeVelocity() {
+    opensimModelJNI.OpenSimContext_realizeVelocity(swigCPtr, this);
   }
 
 }

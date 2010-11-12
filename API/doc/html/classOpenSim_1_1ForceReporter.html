@@ -64,20 +64,22 @@ Inheritance diagram for OpenSim::ForceReporter:</div>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Storage.html">Storage</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ForceReporter.html#a34f6e79d34525573f55031374d490baa">updForceStorage</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ForceReporter.html#ad57836690e81e70ce7431302c1754b15">setModel</a> (<a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;aModel)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the model pointer for analysis.  <a href="#ad57836690e81e70ce7431302c1754b15"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ForceReporter.html#a8e1aeb07c116fdc5e224782b3c6ce9df">begin</a> (const SimTK::State &amp;s)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This method is called at the beginning of an analysis so that any necessary initializations may be performed.  <a href="#a8e1aeb07c116fdc5e224782b3c6ce9df"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ForceReporter.html#a8d5f5ad57ef4cfbd57cc73e692cbe97e">includeConstraintForces</a> (bool flag)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ForceReporter.html#ab784c548accefca8f1f4d18423ac1d3d">begin</a> (SimTK::State &amp;s)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This method is called at the beginning of an analysis so that any necessary initializations may be performed.  <a href="#ab784c548accefca8f1f4d18423ac1d3d"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ForceReporter.html#a8f0c609353d3b3761c890d6e76585578">step</a> (const SimTK::State &amp;s, int setNumber)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This method is called to perform the analysis.  <a href="#a8f0c609353d3b3761c890d6e76585578"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ForceReporter.html#a9d5bb852c0c04b2e6546c26a4caad116">end</a> (const SimTK::State &amp;s)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This method is called at the end of an analysis so that any necessary finalizations may be performed.  <a href="#a9d5bb852c0c04b2e6546c26a4caad116"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ForceReporter.html#acc5e307a5f5ec0379d65d150c614f975">end</a> (SimTK::State &amp;s)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This method is called at the end of an analysis so that any necessary finalizations may be performed.  <a href="#acc5e307a5f5ec0379d65d150c614f975"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ForceReporter.html#a61a7090aa428f22f89888928ae1704db">printResults</a> (const std::string &amp;aBaseName, const std::string &amp;aDir=&quot;&quot;, double aDT=-1.0, const std::string &amp;aExtension=&quot;.sto&quot;)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Print the results of the analysis.  <a href="#a61a7090aa428f22f89888928ae1704db"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Protected Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ForceReporter.html#a793cc7ebc76e89906f349d50b0117ff3">record</a> (const SimTK::State &amp;s)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Record the <a class="el" href="classOpenSim_1_1ForceReporter.html" title="A class for recording the Forces applied to a model during a simulation.">ForceReporter</a> quantities.  <a href="#a793cc7ebc76e89906f349d50b0117ff3"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Protected Attributes</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ForceReporter.html#a1b62fc14de1b35d9f487628a531e7d78">_na</a></td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Number of actuators.  <a href="#a1b62fc14de1b35d9f487628a531e7d78"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyBool.html">PropertyBool</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ForceReporter.html#a7807c7c6c92c58714336fc614b736b0c">_includeConstraintForcesProp</a></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Include constraint forces?  <a href="#a7807c7c6c92c58714336fc614b736b0c"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ForceReporter.html#a1aa4e93553adc54bd87177dc8dbe5643">_includeConstraintForces</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Storage.html">Storage</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ForceReporter.html#a0fed19d355c83ffb1c125cb458eaccaa">_forceStore</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Force.html" title="This abstract class represents a force applied to bodies or generalized coordinates...">Force</a> storage.  <a href="#a0fed19d355c83ffb1c125cb458eaccaa"></a><br/></td></tr>
 </table>
@@ -105,7 +107,7 @@ Inheritance diagram for OpenSim::ForceReporter:</div>
 <p>Construct an <a class="el" href="classOpenSim_1_1ForceReporter.html" title="A class for recording the Forces applied to a model during a simulation.">ForceReporter</a> object for recording the Forces exerted on a model during a simulation. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>aModel</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Model.html" title="A base class that specifies the interface for a musculoskeletal model.">Model</a> for which the Forces are to be recorded. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>aModel</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a> for which the Forces are to be recorded. </td></tr>
   </table>
   </dd>
 </dl>
@@ -179,14 +181,14 @@ Inheritance diagram for OpenSim::ForceReporter:</div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="a8e1aeb07c116fdc5e224782b3c6ce9df"></a><!-- doxytag: member="OpenSim::ForceReporter::begin" ref="a8e1aeb07c116fdc5e224782b3c6ce9df" args="(const SimTK::State &amp;s)" -->
+<a class="anchor" id="ab784c548accefca8f1f4d18423ac1d3d"></a><!-- doxytag: member="OpenSim::ForceReporter::begin" ref="ab784c548accefca8f1f4d18423ac1d3d" args="(SimTK::State &amp;s)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">int ForceReporter::begin </td>
           <td>(</td>
-          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
+          <td class="paramtype">SimTK::State &amp;&nbsp;</td>
           <td class="paramname"> <em>s</em></td>
           <td>&nbsp;)&nbsp;</td>
           <td><code> [virtual]</code></td>
@@ -206,7 +208,7 @@ Inheritance diagram for OpenSim::ForceReporter:</div>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>-1 on error, 0 otherwise. </dd></dl>
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Analysis.html#af3cad0d2e51c92cf94696a790b306a93">OpenSim::Analysis</a>.</p>
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1Analysis.html#a619cf0a86bfb520befa533b5a71ce3f6">OpenSim::Analysis</a>.</p>
 
 </div>
 </div>
@@ -231,14 +233,14 @@ Inheritance diagram for OpenSim::ForceReporter:</div>
 
 </div>
 </div>
-<a class="anchor" id="a9d5bb852c0c04b2e6546c26a4caad116"></a><!-- doxytag: member="OpenSim::ForceReporter::end" ref="a9d5bb852c0c04b2e6546c26a4caad116" args="(const SimTK::State &amp;s)" -->
+<a class="anchor" id="acc5e307a5f5ec0379d65d150c614f975"></a><!-- doxytag: member="OpenSim::ForceReporter::end" ref="acc5e307a5f5ec0379d65d150c614f975" args="(SimTK::State &amp;s)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">int ForceReporter::end </td>
           <td>(</td>
-          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
+          <td class="paramtype">SimTK::State &amp;&nbsp;</td>
           <td class="paramname"> <em>s</em></td>
           <td>&nbsp;)&nbsp;</td>
           <td><code> [virtual]</code></td>
@@ -258,7 +260,7 @@ Inheritance diagram for OpenSim::ForceReporter:</div>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>-1 on error, 0 otherwise. </dd></dl>
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Analysis.html#a34d1fd1b3235e9d60a905d34b49e5314">OpenSim::Analysis</a>.</p>
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1Analysis.html#aec904a247f8d4254ee31f0b17b3b0acc">OpenSim::Analysis</a>.</p>
 
 </div>
 </div>
@@ -272,6 +274,24 @@ Inheritance diagram for OpenSim::ForceReporter:</div>
           <td class="paramname"></td>
           <td>&nbsp;)&nbsp;</td>
           <td> const<code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a8d5f5ad57ef4cfbd57cc73e692cbe97e"></a><!-- doxytag: member="OpenSim::ForceReporter::includeConstraintForces" ref="a8d5f5ad57ef4cfbd57cc73e692cbe97e" args="(bool flag)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenSim::ForceReporter::includeConstraintForces </td>
+          <td>(</td>
+          <td class="paramtype">bool&nbsp;</td>
+          <td class="paramname"> <em>flag</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline]</code></td>
         </tr>
       </table>
 </div>
@@ -487,18 +507,31 @@ Inheritance diagram for OpenSim::ForceReporter:</div>
 
 </div>
 </div>
-<a class="anchor" id="a1b62fc14de1b35d9f487628a531e7d78"></a><!-- doxytag: member="OpenSim::ForceReporter::_na" ref="a1b62fc14de1b35d9f487628a531e7d78" args="" -->
+<a class="anchor" id="a1aa4e93553adc54bd87177dc8dbe5643"></a><!-- doxytag: member="OpenSim::ForceReporter::_includeConstraintForces" ref="a1aa4e93553adc54bd87177dc8dbe5643" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int <a class="el" href="classOpenSim_1_1ForceReporter.html#a1b62fc14de1b35d9f487628a531e7d78">OpenSim::ForceReporter::_na</a><code> [protected]</code></td>
+          <td class="memname">bool&amp; <a class="el" href="classOpenSim_1_1ForceReporter.html#a1aa4e93553adc54bd87177dc8dbe5643">OpenSim::ForceReporter::_includeConstraintForces</a><code> [protected]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
-<p>Number of actuators. </p>
+</div>
+</div>
+<a class="anchor" id="a7807c7c6c92c58714336fc614b736b0c"></a><!-- doxytag: member="OpenSim::ForceReporter::_includeConstraintForcesProp" ref="a7807c7c6c92c58714336fc614b736b0c" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classOpenSim_1_1PropertyBool.html">PropertyBool</a> <a class="el" href="classOpenSim_1_1ForceReporter.html#a7807c7c6c92c58714336fc614b736b0c">OpenSim::ForceReporter::_includeConstraintForcesProp</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Include constraint forces? </p>
 
 </div>
 </div>
@@ -507,7 +540,7 @@ Inheritance diagram for OpenSim::ForceReporter:</div>
 <li>OpenSim/Analyses/ForceReporter.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Feb 7 02:15:12 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:37:00 2010 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

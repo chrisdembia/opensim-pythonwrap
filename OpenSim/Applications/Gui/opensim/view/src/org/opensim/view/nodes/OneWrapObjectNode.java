@@ -40,8 +40,4 @@ public class OneWrapObjectNode extends OpenSimObjectNode{
         }
     }
 
-    public Image getOpenedIcon(int i) {
-        return getIcon(i);
-    }
-
 }

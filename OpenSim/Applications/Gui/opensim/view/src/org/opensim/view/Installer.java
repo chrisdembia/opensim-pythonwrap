@@ -46,9 +46,10 @@ import org.opensim.view.pub.ViewDB;
 import org.opensim.view.editors.MuscleEditorTopComponent;
 import org.opensim.view.markerEditor.MarkerEditorTopComponent;
 import javax.swing.JPopupMenu;
-import org.opensim.modeling.opensimModelJNI;
 import org.opensim.utils.ApplicationState;
 import org.opensim.view.actions.ApplicationExit;
+import org.opensim.view.motions.MotionsDB;
+import org.opensim.view.motions.MotionsDBDescriptor;
 import org.opensim.view.pub.ViewDBDescriptor;
 
 /**
@@ -71,7 +72,7 @@ public class Installer extends ModuleInstall {
 
     public void restored() {
         super.restored();
-        System.setProperty ("netbeans.buildnumber", "2.1.0_b2"); // Should get that from JNI but sometimes doesn't work'
+        System.setProperty ("netbeans.buildnumber", "2.2.0"); // Should get that from JNI but sometimes doesn't work'
         try {
              // Put your startup code here.
             UIManager.setLookAndFeel( UIManager.getSystemLookAndFeelClassName() );
@@ -122,6 +123,7 @@ public class Installer extends ModuleInstall {
                 as.addObject("ViewDB", new ViewDBDescriptor(ViewDB.getInstance()));
                 //ex.printStackTrace();
                 as.addObject("PluginsDB", PluginsDB.getInstance());
+                as.addObject("MotionsDB", new MotionsDBDescriptor(MotionsDB.getInstance()));
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
@@ -173,12 +175,20 @@ public class Installer extends ModuleInstall {
          saved = Preferences.userNodeForPackage(TheApp.class).get("Persist Models", persistModels);
          Preferences.userNodeForPackage(TheApp.class).put("Persist Models", saved);
 
+         String refreshRateInMS = "100";        
+         saved = Preferences.userNodeForPackage(TheApp.class).get("Refresh Rate (ms.)", refreshRateInMS);
+         Preferences.userNodeForPackage(TheApp.class).put("Refresh Rate (ms.)", saved);
+
          String debugLevel = "0";        
          saved = Preferences.userNodeForPackage(TheApp.class).get("Debug", debugLevel);
          if (saved.equalsIgnoreCase("Off")) saved="0";
          Preferences.userNodeForPackage(TheApp.class).put("Debug", saved);
          int debugLevelInt = Integer.parseInt(saved);
          OpenSimObject.setDebugLevel(debugLevelInt);
+         
+         String defaultJointFrameSize = "1.0";
+         saved = Preferences.userNodeForPackage(TheApp.class).get("Joint Frame Scale", defaultJointFrameSize);
+         Preferences.userNodeForPackage(TheApp.class).put("Joint Frame Scale", saved);
 
     }
 }

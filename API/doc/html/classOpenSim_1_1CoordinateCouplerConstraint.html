@@ -49,22 +49,25 @@ Inheritance diagram for OpenSim::CoordinateCouplerConstraint:</div>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CoordinateCouplerConstraint.html#aa280a6c1320f89eac44c60c66198c619">CoordinateCouplerConstraint</a> (const <a class="el" href="classOpenSim_1_1CoordinateCouplerConstraint.html">CoordinateCouplerConstraint</a> &amp;aConstraint)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CoordinateCouplerConstraint.html#a889c70b4fef8d0edadf3799471e28ab2">~CoordinateCouplerConstraint</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classOpenSim_1_1Object.html">Object</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CoordinateCouplerConstraint.html#a640fb32d6c09ec6b35d56b7d060aeb58">copy</a> () const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Copy this <a class="el" href="classOpenSim_1_1Constraint.html" title="A parent class for implementing a Simbody Constraint.">Constraint</a> and return a pointer to the copy.  <a href="#a640fb32d6c09ec6b35d56b7d060aeb58"></a><br/></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Construct and return a copy of this object.  <a href="#a640fb32d6c09ec6b35d56b7d060aeb58"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1CoordinateCouplerConstraint.html">CoordinateCouplerConstraint</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CoordinateCouplerConstraint.html#a636405a17d1cbf570e829a21461c8f9d">operator=</a> (const <a class="el" href="classOpenSim_1_1CoordinateCouplerConstraint.html">CoordinateCouplerConstraint</a> &amp;aConstraint)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Assignment operator.  <a href="#a636405a17d1cbf570e829a21461c8f9d"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CoordinateCouplerConstraint.html#a09c73b1c93eeaf1dd6f6a6dd243c9b86">copyData</a> (const <a class="el" href="classOpenSim_1_1CoordinateCouplerConstraint.html">CoordinateCouplerConstraint</a> &amp;aConstraint)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Copy data members from one <a class="el" href="classOpenSim_1_1Constraint.html" title="A parent class for implementing a Simbody Constraint.">Constraint</a> to another.  <a href="#a09c73b1c93eeaf1dd6f6a6dd243c9b86"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CoordinateCouplerConstraint.html#a51eb35fd8542216697c89aa30911ea11">setup</a> (<a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;aModel)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Perform some set up functions that happen after the object has been deserialized or copied.  <a href="#a51eb35fd8542216697c89aa30911ea11"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CoordinateCouplerConstraint.html#a3cd7cef10833213890ff4a60015e278d">createSystem</a> (SimTK::MultibodySystem &amp;system) const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Create a SimTK::Constraint::CoordinateCooupler which implements this constraint.  <a href="#a3cd7cef10833213890ff4a60015e278d"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CoordinateCouplerConstraint.html#a86b18fcdfb11c07075b3f673481dc70d">setIndependentCoordinateNames</a> (const <a class="el" href="classOpenSim_1_1Array.html">Array</a>&lt; std::string &gt; &amp;aCoordNames)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classOpenSim_1_1Array.html">Array</a>&lt; std::string &gt; &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CoordinateCouplerConstraint.html#abe0b43d14727f38ab52c22724435867a">getIndependentCoordinateNames</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CoordinateCouplerConstraint.html#acf47342c0162231acc8f112c925ff34e">setDependentCoordinateName</a> (const std::string &amp;aCoordName)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">const std::string &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CoordinateCouplerConstraint.html#a8ab135513fc5a6bfc2846058de3b49f1">getDependentCoordinateName</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Function.html">Function</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CoordinateCouplerConstraint.html#ac697c4fba8cf392267a61fe4f197963c">getFunction</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CoordinateCouplerConstraint.html#ab66481db2f5f645c2cb388c602e29c4c">setFunction</a> (const <a class="el" href="classOpenSim_1_1Function.html">Function</a> &amp;aFunction)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CoordinateCouplerConstraint.html#a6210a3d088143f1a7cc635568b6be905">setFunction</a> (<a class="el" href="classOpenSim_1_1Function.html">Function</a> *aFunction)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CoordinateCouplerConstraint.html#a02acc1c259db9560a697676959908e30">scale</a> (const <a class="el" href="classOpenSim_1_1ScaleSet.html">ScaleSet</a> &amp;aScaleSet)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CoordinateCouplerConstraint.html#abbcb3caf5384cf7f7035f55ab1de53d6">OPENSIM_DECLARE_DERIVED</a> (<a class="el" href="classOpenSim_1_1CoordinateCouplerConstraint.html">CoordinateCouplerConstraint</a>, <a class="el" href="classOpenSim_1_1Constraint.html">Constraint</a>)</td></tr>
+<tr><td colspan="2"><h2>Protected Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CoordinateCouplerConstraint.html#a51eb35fd8542216697c89aa30911ea11">setup</a> (<a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;aModel)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Perform some set up functions that happen after the object has been deserialized or copied.  <a href="#a51eb35fd8542216697c89aa30911ea11"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CoordinateCouplerConstraint.html#acc121ed7b9658fecd3014e572f15b36a">createSystem</a> (SimTK::MultibodySystem &amp;system) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Create a SimTK::Constraint::CoordinateCooupler which implements this constraint.  <a href="#acc121ed7b9658fecd3014e572f15b36a"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyObjPtr.html">PropertyObjPtr</a>&lt; <a class="el" href="classOpenSim_1_1Function.html">Function</a> &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CoordinateCouplerConstraint.html#a025b246a7183e31779b6e5d43b312345">_functionProp</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Constraint.html" title="A parent class for implementing a Simbody Constraint.">Constraint</a> function of generalized coordinates (to be specified) used to evaluate the constraint errors and their derivatives, and must valid to at least 2nd order.  <a href="#a025b246a7183e31779b6e5d43b312345"></a><br/></td></tr>
@@ -149,11 +152,11 @@ Inheritance diagram for OpenSim::CoordinateCouplerConstraint:</div>
 </div>
 <div class="memdoc">
 
-<p>Copy this <a class="el" href="classOpenSim_1_1Constraint.html" title="A parent class for implementing a Simbody Constraint.">Constraint</a> and return a pointer to the copy. </p>
-<p>The copy constructor for this class is used.</p>
-<dl class="return"><dt><b>Returns:</b></dt><dd>Pointer to a copy of this <a class="el" href="classOpenSim_1_1Constraint.html" title="A parent class for implementing a Simbody Constraint.">Constraint</a>. </dd></dl>
+<p>Construct and return a copy of this object. </p>
+<p>The object is allocated using the new operator, so the caller is responsible for deleting the returned object.</p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>Copy of this object. </dd></dl>
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Constraint.html#ad7b51b94a4a4ae178578c92ebd3b6506">OpenSim::Constraint</a>.</p>
+<p>Implements <a class="el" href="classOpenSim_1_1Constraint.html#a81bcf32edba229b2566cf42bfacaeaf3">OpenSim::Constraint</a>.</p>
 
 </div>
 </div>
@@ -185,17 +188,17 @@ Inheritance diagram for OpenSim::CoordinateCouplerConstraint:</div>
 
 </div>
 </div>
-<a class="anchor" id="a3cd7cef10833213890ff4a60015e278d"></a><!-- doxytag: member="OpenSim::CoordinateCouplerConstraint::createSystem" ref="a3cd7cef10833213890ff4a60015e278d" args="(SimTK::MultibodySystem &amp;system) const " -->
+<a class="anchor" id="acc121ed7b9658fecd3014e572f15b36a"></a><!-- doxytag: member="OpenSim::CoordinateCouplerConstraint::createSystem" ref="acc121ed7b9658fecd3014e572f15b36a" args="(SimTK::MultibodySystem &amp;system) const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void OpenSim::CoordinateCouplerConstraint::createSystem </td>
+          <td class="memname">virtual void OpenSim::CoordinateCouplerConstraint::createSystem </td>
           <td>(</td>
           <td class="paramtype">SimTK::MultibodySystem &amp;&nbsp;</td>
           <td class="paramname"> <em>system</em></td>
           <td>&nbsp;)&nbsp;</td>
-          <td> const<code> [virtual]</code></td>
+          <td> const<code> [protected, virtual]</code></td>
         </tr>
       </table>
 </div>
@@ -203,7 +206,7 @@ Inheritance diagram for OpenSim::CoordinateCouplerConstraint:</div>
 
 <p>Create a SimTK::Constraint::CoordinateCooupler which implements this constraint. </p>
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1ModelComponent.html#a8cecde2c81b7645a5daea70050884881">OpenSim::ModelComponent</a>.</p>
+<p>Implements <a class="el" href="classOpenSim_1_1ModelComponent.html#a85757ad4645e4066f72ce4d0411a49b8">OpenSim::ModelComponent</a>.</p>
 
 </div>
 </div>
@@ -346,6 +349,42 @@ Inheritance diagram for OpenSim::CoordinateCouplerConstraint:</div>
 
 </div>
 </div>
+<a class="anchor" id="a6210a3d088143f1a7cc635568b6be905"></a><!-- doxytag: member="OpenSim::CoordinateCouplerConstraint::setFunction" ref="a6210a3d088143f1a7cc635568b6be905" args="(Function *aFunction)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenSim::CoordinateCouplerConstraint::setFunction </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classOpenSim_1_1Function.html">Function</a> *&nbsp;</td>
+          <td class="paramname"> <em>aFunction</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ab66481db2f5f645c2cb388c602e29c4c"></a><!-- doxytag: member="OpenSim::CoordinateCouplerConstraint::setFunction" ref="ab66481db2f5f645c2cb388c602e29c4c" args="(const Function &amp;aFunction)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenSim::CoordinateCouplerConstraint::setFunction </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classOpenSim_1_1Function.html">Function</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>aFunction</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a86b18fcdfb11c07075b3f673481dc70d"></a><!-- doxytag: member="OpenSim::CoordinateCouplerConstraint::setIndependentCoordinateNames" ref="a86b18fcdfb11c07075b3f673481dc70d" args="(const Array&lt; std::string &gt; &amp;aCoordNames)" -->
 <div class="memitem">
 <div class="memproto">
@@ -374,7 +413,7 @@ Inheritance diagram for OpenSim::CoordinateCouplerConstraint:</div>
           <td class="paramtype"><a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;&nbsp;</td>
           <td class="paramname"> <em>aModel</em></td>
           <td>&nbsp;)&nbsp;</td>
-          <td><code> [virtual]</code></td>
+          <td><code> [protected, virtual]</code></td>
         </tr>
       </table>
 </div>
@@ -524,7 +563,7 @@ Inheritance diagram for OpenSim::CoordinateCouplerConstraint:</div>
 <li>OpenSim/Simulation/SimbodyEngine/CoordinateCouplerConstraint.h</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Feb 7 02:15:18 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:37:12 2010 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

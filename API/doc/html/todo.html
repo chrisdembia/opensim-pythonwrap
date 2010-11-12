@@ -20,24 +20,17 @@
 <div class="contents">
 
 
-<h1><a class="anchor" id="todo">Todo List </a></h1><p><a class="anchor" id="_todo000006"></a> </p>
+<h1><a class="anchor" id="todo">Todo List </a></h1><p><a class="anchor" id="_todo000005"></a> </p>
 <dl>
 <dt>Namespace <a class="el" href="namespaceOpenSim.html">OpenSim</a>  </dt>
 <dd>Make the manager a global static variable so that any class can get the manager and query it for information. For example, this class would like to know whether the integrator has been set to use a specified set of time steps. If the manager were available, the integrator could be gotten and queried for this information. </dd>
 </dl>
-<p><a class="anchor" id="_todo000005"></a> </p>
-<dl>
-<dt>Member <a class="el" href="classOpenSim_1_1ActuatorPerturbationIndependent.html#aa2541d2cb1026befc618335eca23f7a2">OpenSim::ActuatorPerturbationIndependent::setForces</a> (const SimTK::State &amp;s) </dt>
-<dd><p class="startdd">Fix output of perturbed forces. </p>
-<p class="enddd">Reset perturbed forces storage object for use in multiple integrations. For now, appending to this storage is disabled. </p>
-</dd>
-</dl>
-<p><a class="anchor" id="_todo000014"></a> </p>
+<p><a class="anchor" id="_todo000013"></a> </p>
 <dl>
 <dt>Member <a class="el" href="classOpenSim_1_1BallJoint.html#a22d196d23f829419f322196657a88cd7">OpenSim::BallJoint::scale</a> (const ScaleSet &amp;aScaleSet) </dt>
 <dd>Need to scale transforms appropriately, given an arbitrary axis. </dd>
 </dl>
-<p><a class="anchor" id="_todo000022"></a> </p>
+<p><a class="anchor" id="_todo000021"></a> </p>
 <dl>
 <dt>Member <a class="el" href="classOpenSim_1_1CMCTool.html#a39cfe4d1a11edbd6c5d3ce2ba8af8654">OpenSim::CMCTool::initializeControlSetUsingConstraints</a> (const ControlSet *aRRAControlSet, const ControlSet *aControlConstraints, ControlSet &amp;rControlSet) </dt>
 <dd>The residuals are assumed to be the first 6 actuators. This needs to be made more general. And, the control bounds need to be set elsewhere, preferably in a file. </dd>
@@ -47,24 +40,24 @@
 <dt>Member <a class="el" href="classOpenSim_1_1ContDerivMuscle.html#ab07f1334e9228c28d51b55f9180de3d4">OpenSim::ContDerivMuscle::computeIsokineticForceAssumingInfinitelyStiffTendon</a> (SimTK::State &amp;s, double aActivation) </dt>
 <dd>Reimplement this methods with more accurate representation of the force-velocity curve. </dd>
 </dl>
-<p><a class="anchor" id="_todo000010"></a> </p>
+<p><a class="anchor" id="_todo000009"></a> </p>
 <dl>
 <dt>Member <a class="el" href="classOpenSim_1_1ControlLinearNode.html#a39b8e771d8a384328d1807e5ee9dd517">OpenSim::ControlLinearNode::toString</a> () </dt>
 <dd>Alter this method so that a string value is returned. It is too complicated to have to remember to delete the returned string. </dd>
 </dl>
-<p><a class="anchor" id="_todo000013"></a> </p>
+<p><a class="anchor" id="_todo000012"></a> </p>
 <dl>
 <dt>Member <a class="el" href="classOpenSim_1_1ControlSet.html#a3ed63df398c174e0b4b0954d76a26d05">OpenSim::ControlSet::setControlValues</a> (double aT, const <a class="el" href="classOpenSim_1_1Array.html">Array&lt; double &gt;</a> &amp;aX, bool aForModelControls=true) </dt>
 <dd><p class="startdd">New controls do not appear to be inserting at the correct location in the XML file. Is this a problem? </p>
 <p class="enddd">New controls do not appear to be inserting at the correct location in the XML file. Is this a problem? </p>
 </dd>
 </dl>
-<p><a class="anchor" id="_todo000011"></a> </p>
+<p><a class="anchor" id="_todo000010"></a> </p>
 <dl>
 <dt>Member <a class="el" href="classOpenSim_1_1ControlSet.html#ab50e358fe5f555fc4c7cf18e458b6067">OpenSim::ControlSet::~ControlSet</a> () </dt>
 <dd>Figure out why the default controls can't be deleted. </dd>
 </dl>
-<p><a class="anchor" id="_todo000015"></a> </p>
+<p><a class="anchor" id="_todo000014"></a> </p>
 <dl>
 <dt>Member <a class="el" href="classOpenSim_1_1CustomJoint.html#adaff577975507a8cefd7e3420a190821">OpenSim::CustomJoint::scale</a> (const ScaleSet &amp;aScaleSet) </dt>
 <dd>Need to scale transforms appropriately, given an arbitrary axis. </dd>
@@ -74,22 +67,22 @@
 <dt>Member <a class="el" href="classOpenSim_1_1Delp1990Muscle.html#a3bcbd560a43e08271bde41f1967a07a0">OpenSim::Delp1990Muscle::computeIsokineticForceAssumingInfinitelyStiffTendon</a> (SimTK::State &amp;s, double aActivation) </dt>
 <dd>Reimplement this methods with more accurate representation of the force-velocity curve. </dd>
 </dl>
-<p><a class="anchor" id="_todo000016"></a> </p>
+<p><a class="anchor" id="_todo000015"></a> </p>
 <dl>
 <dt>Member <a class="el" href="classOpenSim_1_1EllipsoidJoint.html#a54c81fa9853879f6fcdd46c75ea2d8cd">OpenSim::EllipsoidJoint::scale</a> (const ScaleSet &amp;aScaleSet) </dt>
 <dd>Need to scale transforms appropriately, given an arbitrary axis. </dd>
 </dl>
-<p><a class="anchor" id="_todo000017"></a> </p>
+<p><a class="anchor" id="_todo000016"></a> </p>
 <dl>
 <dt>Member <a class="el" href="classOpenSim_1_1FreeJoint.html#ae6f060086f424a850a5f3a77abae8019">OpenSim::FreeJoint::scale</a> (const ScaleSet &amp;aScaleSet) </dt>
 <dd>Need to scale transforms appropriately, given an arbitrary axis. </dd>
 </dl>
-<p><a class="anchor" id="_todo000007"></a> </p>
+<p><a class="anchor" id="_todo000006"></a> </p>
 <dl>
 <dt>Class <a class="el" href="classOpenSim_1_1Object.html">OpenSim::Object</a>  </dt>
 <dd>Use a hash table to store registered object types. </dd>
 </dl>
-<p><a class="anchor" id="_todo000018"></a> </p>
+<p><a class="anchor" id="_todo000017"></a> </p>
 <dl>
 <dt>Member <a class="el" href="classOpenSim_1_1PinJoint.html#a3fdb1243ff8fd669ce0dfe519f4a0f19">OpenSim::PinJoint::scale</a> (const ScaleSet &amp;aScaleSet) </dt>
 <dd>Need to scale transforms appropriately, given an arbitrary axis. </dd>
@@ -99,12 +92,12 @@
 <dt>Member <a class="el" href="classOpenSim_1_1Schutte1993Muscle.html#abac5688ffdb119e0015522457465b236">OpenSim::Schutte1993Muscle::computeIsokineticForceAssumingInfinitelyStiffTendon</a> (SimTK::State &amp;s, double aActivation) </dt>
 <dd>Reimplement this methods with more accurate representation of the force-velocity curve. </dd>
 </dl>
-<p><a class="anchor" id="_todo000019"></a> </p>
+<p><a class="anchor" id="_todo000018"></a> </p>
 <dl>
 <dt>Member <a class="el" href="classOpenSim_1_1SliderJoint.html#ae7e094aaa017f93f2d7e4e8cf1caf22b">OpenSim::SliderJoint::scale</a> (const ScaleSet &amp;aScaleSet) </dt>
 <dd>Need to scale transforms appropriately, given an arbitrary axis. </dd>
 </dl>
-<p><a class="anchor" id="_todo000009"></a> </p>
+<p><a class="anchor" id="_todo000008"></a> </p>
 <dl>
 <dt>Member <a class="el" href="classOpenSim_1_1Storage.html#a2c0ea41be1f45fa359e7ab5b2f3701a1">OpenSim::Storage::getStateIndex</a> (const std::string &amp;aColumnName, int startIndex=0) const  </dt>
 <dd><p class="startdd">Rename this method getStateIndex()</p>
@@ -116,13 +109,13 @@
 <dt>Member <a class="el" href="classOpenSim_1_1Thelen2003Muscle.html#a6481758c1c0516f04c6e2834c349aa3e">OpenSim::Thelen2003Muscle::computeIsokineticForceAssumingInfinitelyStiffTendon</a> (SimTK::State &amp;s, double aActivation) </dt>
 <dd>Reimplement this methods with more accurate representation of the force-velocity curve. </dd>
 </dl>
-<p><a class="anchor" id="_todo000020"></a> </p>
+<p><a class="anchor" id="_todo000019"></a> </p>
 <dl>
 <dt>Member <a class="el" href="classOpenSim_1_1WeldJoint.html#aeaf8ebfdb1ed6c4a30e470dca27d3d67">OpenSim::WeldJoint::scale</a> (const ScaleSet &amp;aScaleSet) </dt>
 <dd>Need to scale transforms appropriately, given an arbitrary axis. </dd>
 </dl>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Feb 7 02:15:10 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:36:57 2010 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

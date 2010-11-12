@@ -43,7 +43,7 @@ import org.opensim.view.editors.MuscleEditorAction;
  *
  * @author Ayman Habib
  */
-public class OneContactForceNode extends OpenSimObjectNode{
+public class OneContactForceNode extends OneForceNode {
     
     private static ResourceBundle bundle = NbBundle.getBundle(OneContactForceNode.class);
     /**
@@ -57,28 +57,15 @@ public class OneContactForceNode extends OpenSimObjectNode{
         //addDisplayOption(displayOption.Isolatable);
     }
     public Image getIcon(int i) {
-        URL imageURL = this.getClass().getResource("/org/opensim/view/nodes/icons/contactNode.png");
-        if (imageURL != null) {
-            return new ImageIcon(imageURL, "Actuator").getImage();
+        URL imageURL;
+        if (disabled)
+            imageURL = this.getClass().getResource("icons/disabledNode.png");
+        else
+            imageURL = this.getClass().getResource("icons/contactNode.png");
+        if (imageURL != null) { 
+            return new ImageIcon(imageURL, "Contact Force").getImage();
         } else {
             return null;
         }
     }
-   public Image getOpenedIcon(int i) {
-        return getIcon(i);
-    }
-/*
-    public Action[] getActions(boolean b) {
-        // Get actions from parent (generic object menu for review, display)
-        Action[] superActions = (Action[]) super.getActions(b);
-        // Arrays are fixed size, onvert to a List
-        List<Action> actions = java.util.Arrays.asList(superActions);
-        // Create new Array of proper size
-        Action[] retActions = new Action[actions.size()+1];
-        actions.toArray(retActions);
-        // append new command to the end of the list of actions
-        retActions[actions.size()] = new MuscleEditorAction();
-        return retActions;
-    }
- **/
 }

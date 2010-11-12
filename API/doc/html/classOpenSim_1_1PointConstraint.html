@@ -60,13 +60,16 @@ Inheritance diagram for OpenSim::PointConstraint:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Assignment operator.  <a href="#a8be4a389759e4aea5cfa3a498e8291c2"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PointConstraint.html#a1fbd151679d90fa80a8fa3ba4ebbaadb">copyData</a> (const <a class="el" href="classOpenSim_1_1PointConstraint.html">PointConstraint</a> &amp;aConstraint)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Copy data members from one <a class="el" href="classOpenSim_1_1PointConstraint.html" title="A class implementing a Point Constraint.">PointConstraint</a> to another.  <a href="#a1fbd151679d90fa80a8fa3ba4ebbaadb"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PointConstraint.html#a503405632ccffe63ddbcbb3f7d47c009">setup</a> (SimTK::State &amp;s, <a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;aModel)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Perform some set up functions that happen after the object has been deserialized or copied.  <a href="#a503405632ccffe63ddbcbb3f7d47c009"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PointConstraint.html#a419e8adc3d3e15c87af6d93cbb113be8">setBody1ByName</a> (std::string aBodyName)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Following methods set attributes of the point constraint.  <a href="#a419e8adc3d3e15c87af6d93cbb113be8"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PointConstraint.html#a7fe0678017ce77fe6433f734ea2442cd">setBody1PointLocation</a> (SimTK::Vec3 location)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PointConstraint.html#a34420a89d89d610e7de1a70b84796297">setBody2ByName</a> (std::string aBodyName)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PointConstraint.html#abed5147a67860edb127435f17b241834">setBody2PointLocation</a> (SimTK::Vec3 location)</td></tr>
+<tr><td colspan="2"><h2>Protected Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PointConstraint.html#aed0ac9f468f2e198cf14af93ed979e5e">setup</a> (<a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;aModel)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Perform some set up functions that happen after the object has been deserialized or copied.  <a href="#aed0ac9f468f2e198cf14af93ed979e5e"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PointConstraint.html#a3dff0e857eaa405b22da1aa37075f6b2">createSystem</a> (SimTK::MultibodySystem &amp;system) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Create a SimTK::Constraint::Weld which implements this Weld.  <a href="#a3dff0e857eaa405b22da1aa37075f6b2"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyStr.html">PropertyStr</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PointConstraint.html#a8f54b6d81d68044589130afc3570f775">_body1NameProp</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Specify first of two bodies connected together by the constraint.  <a href="#a8f54b6d81d68044589130afc3570f775"></a><br/></td></tr>
@@ -175,9 +178,9 @@ Inheritance diagram for OpenSim::PointConstraint:</div>
 
 <p>Copy this body and return a pointer to the copy. </p>
 <p>The copy constructor for this class is used.</p>
-<dl class="return"><dt><b>Returns:</b></dt><dd>Pointer to a copy of this <a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody body segment.">OpenSim::Body</a>. </dd></dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>Pointer to a copy of this <a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody rigid body.">OpenSim::Body</a>. </dd></dl>
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Constraint.html#ad7b51b94a4a4ae178578c92ebd3b6506">OpenSim::Constraint</a>.</p>
+<p>Implements <a class="el" href="classOpenSim_1_1Constraint.html#a81bcf32edba229b2566cf42bfacaeaf3">OpenSim::Constraint</a>.</p>
 
 </div>
 </div>
@@ -206,6 +209,28 @@ Inheritance diagram for OpenSim::PointConstraint:</div>
 </dl>
 
 <p>Reimplemented from <a class="el" href="classOpenSim_1_1Constraint.html#a2aaa05ecf0c60476dfc6a9dc4035d3bd">OpenSim::Constraint</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a3dff0e857eaa405b22da1aa37075f6b2"></a><!-- doxytag: member="OpenSim::PointConstraint::createSystem" ref="a3dff0e857eaa405b22da1aa37075f6b2" args="(SimTK::MultibodySystem &amp;system) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PointConstraint::createSystem </td>
+          <td>(</td>
+          <td class="paramtype">SimTK::MultibodySystem &amp;&nbsp;</td>
+          <td class="paramname"> <em>system</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [protected, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Create a SimTK::Constraint::Weld which implements this Weld. </p>
+
+<p>Implements <a class="el" href="classOpenSim_1_1ModelComponent.html#a85757ad4645e4066f72ce4d0411a49b8">OpenSim::ModelComponent</a>.</p>
 
 </div>
 </div>
@@ -306,26 +331,17 @@ Inheritance diagram for OpenSim::PointConstraint:</div>
 
 </div>
 </div>
-<a class="anchor" id="a503405632ccffe63ddbcbb3f7d47c009"></a><!-- doxytag: member="OpenSim::PointConstraint::setup" ref="a503405632ccffe63ddbcbb3f7d47c009" args="(SimTK::State &amp;s, Model &amp;aModel)" -->
+<a class="anchor" id="aed0ac9f468f2e198cf14af93ed979e5e"></a><!-- doxytag: member="OpenSim::PointConstraint::setup" ref="aed0ac9f468f2e198cf14af93ed979e5e" args="(Model &amp;aModel)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">void PointConstraint::setup </td>
           <td>(</td>
-          <td class="paramtype">SimTK::State &amp;&nbsp;</td>
-          <td class="paramname"> <em>s</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
           <td class="paramtype"><a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>aModel</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td></td>
+          <td class="paramname"> <em>aModel</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [protected, virtual]</code></td>
         </tr>
       </table>
 </div>
@@ -338,6 +354,8 @@ Inheritance diagram for OpenSim::PointConstraint:</div>
   </table>
   </dd>
 </dl>
+
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1Constraint.html#aa4d4268cd1ac644033013b45cce43a48">OpenSim::Constraint</a>.</p>
 
 </div>
 </div>
@@ -505,7 +523,7 @@ Inheritance diagram for OpenSim::PointConstraint:</div>
 <li>OpenSim/Simulation/SimbodyEngine/PointConstraint.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Feb 7 02:15:19 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:37:12 2010 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

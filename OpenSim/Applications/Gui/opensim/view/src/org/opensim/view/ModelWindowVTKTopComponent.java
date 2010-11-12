@@ -44,6 +44,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import org.openide.DialogDescriptor;
 import org.openide.DialogDisplayer;
+import org.openide.awt.UndoRedo;
 import org.openide.util.NbBundle;
 import org.openide.util.SharedClassObject;
 import org.openide.windows.TopComponent;
@@ -1448,5 +1449,9 @@ public class ModelWindowVTKTopComponent extends TopComponent
         //vtkLightCollection lights = getCanvas().GetRenderer().GetLights();
         //lights.RemoveAllItems();
         //getCanvas().GetRenderer().CreateLight();
+    }
+
+    public UndoRedo getUndoRedo() {
+        return ExplorerTopComponent.getDefault().getUndoRedo();
     }
 }

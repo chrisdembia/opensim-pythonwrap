@@ -44,10 +44,15 @@ import java.util.Hashtable;
 import java.util.Observable;
 import java.util.Vector;
 import java.util.regex.Pattern;
+import javax.swing.undo.AbstractUndoableEdit;
+import javax.swing.undo.CannotRedoException;
+import javax.swing.undo.CannotUndoException;
 import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
+import org.opensim.modeling.Constraint;
 import org.opensim.modeling.ForceSet;
 import org.opensim.modeling.CoordinateSet;
+import org.opensim.modeling.Force;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.OpenSimContext;
 import org.opensim.modeling.OpenSimObject;
@@ -102,6 +107,7 @@ public class OpenSimDB extends Observable implements Externalizable{
         ModelEvent evnt = new ModelEvent(aModel, ModelEvent.Operation.Open);
         notifyObservers(evnt); 
         setCurrentModel(aModel);
+        ExplorerTopComponent.addFinalEdit();
     }
     
     public void setContext(Model aModel, OpenSimContext context) {
@@ -146,6 +152,7 @@ public class OpenSimDB extends Observable implements Externalizable{
         model.cleanup();    // Cleanup after removal 
         mapModelsToContexts.remove(model);
         System.gc();
+        ExplorerTopComponent.addFinalEdit();
     }
 
    // removes old model and adds new model, but also transfers over some display properties
@@ -179,15 +186,16 @@ public class OpenSimDB extends Observable implements Externalizable{
       }
    }
    
-    public void saveModel(Model model, String fileName) {
-      model.copy().print(fileName);
-      model.setInputFileName(fileName); // update the source filename of the model
-      SingleModelGuiElements guiElem = ViewDB.getInstance().getModelGuiElements(model);
-      if(guiElem!=null) guiElem.setUnsavedChangesFlag(false);
-      setChanged();
-      ModelEvent evnt = new ModelEvent(model, ModelEvent.Operation.Save);
-      notifyObservers(evnt);
-   } 
+   public void saveModel(Model model, String fileName) {
+       model.print(fileName);
+       model.setInputFileName(fileName); // update the source filename of the model
+       SingleModelGuiElements guiElem = ViewDB.getInstance().getModelGuiElements(model);
+       if(guiElem!=null) guiElem.setUnsavedChangesFlag(false);
+       setChanged();
+       ModelEvent evnt = new ModelEvent(model, ModelEvent.Operation.Save);
+       notifyObservers(evnt);
+       ExplorerTopComponent.addFinalEdit();
+   }
 
     public void setCurrentModel(final Model aCurrentModel) {
         setCurrentModel(aCurrentModel, true);
@@ -196,7 +204,8 @@ public class OpenSimDB extends Observable implements Externalizable{
     /**
      * Set the current model to the new one and fire an event for the change.
      */
-    public void setCurrentModel(Model aCurrentModel, boolean logEdit) {
+    public void setCurrentModel(final Model aCurrentModel, boolean logEdit) {
+        final Model saveCurrentModel = currentModel;
         currentModel = aCurrentModel;
         Vector<OpenSimObject> objs = new Vector<OpenSimObject>(1);
         objs.add(aCurrentModel);
@@ -205,9 +214,9 @@ public class OpenSimDB extends Observable implements Externalizable{
         //ModelEvent evnt = new ModelEvent(aCurrentModel, ModelEvent.Operation.SetCurrent);
         notifyObservers(evnt);
         objs.clear();
-        /*
+        
         if (logEdit){
-            ExplorerTopComponent.getDefault().getUndoRedoManager().addEdit(new AbstractUndoableEdit() {
+            ExplorerTopComponent.addUndoableEdit(new AbstractUndoableEdit() {
                 public void undo() throws CannotUndoException {
                     super.undo();
                     setCurrentModel(saveCurrentModel, false);
@@ -219,34 +228,25 @@ public class OpenSimDB extends Observable implements Externalizable{
                 }
 
                 public boolean canUndo() {
-                    boolean retValue= super.canUndo();
                     return true;
                 }
 
                 public boolean canRedo() {
-                    boolean retValue = super.canRedo();
                     return true;
                 }
+
+/*
+                public String toString() {
+                    return "Current Model";
+                }
+
+                public String getPresentationName() {
+                    return "Current Model";
+                }*/
            });
-    }*/
+    }
     }
     
-    public synchronized void undo()
-    {
-        ExplorerTopComponent.getDefault().getUndoRedoManager().undo();
-    }
-    public synchronized boolean canUndo()
-    {
-        return ExplorerTopComponent.getDefault().getUndoRedoManager().canUndo();
-    }
-    public synchronized void redo()
-    {
-        ExplorerTopComponent.getDefault().getUndoRedoManager().redo();
-    }
-    public synchronized boolean canRedo()
-    {
-        return ExplorerTopComponent.getDefault().getUndoRedoManager().canRedo();
-    }
     /**
      * Get current model (as indicated by bold name in the explorer view)
      * if none then the function returns null
@@ -375,6 +375,36 @@ public class OpenSimDB extends Observable implements Externalizable{
          context = newContext;
         }
          return context;
+    }
+
+    public void disableForce(OpenSimObject openSimObject, boolean disabled) {
+        Force f = Force.safeDownCast(openSimObject);
+        OpenSimContext context = getContext(f.getModel());
+        boolean oldState = context.isDisabled(f);
+        if (oldState != disabled){
+            context.setDisabled(f, disabled);
+            // Fire an event so that other interested parties (e.g. Opened tools, view can update)
+            Vector<OpenSimObject> objs = new Vector<OpenSimObject>(1);
+            objs.add(openSimObject);
+            ObjectEnabledStateChangeEvent evnt = new ObjectEnabledStateChangeEvent(this, f.getModel(), objs);
+            setChanged();
+            notifyObservers(evnt);
+       }
+    }
+
+    public void disableConstraint(OpenSimObject openSimObject, boolean disabled) {
+        Constraint c = Constraint.safeDownCast(openSimObject);
+        OpenSimContext context = getContext(c.getModel());
+        boolean oldState = context.isDisabled(c);
+        if (oldState != disabled){
+            context.setDisabled(c, disabled);
+            // Fire an event so that other interested parties (e.g. Opened tools, view can update)
+            Vector<OpenSimObject> objs = new Vector<OpenSimObject>(1);
+            objs.add(openSimObject);
+            ObjectEnabledStateChangeEvent evnt = new ObjectEnabledStateChangeEvent(this, c.getModel(), objs);
+            setChanged();
+            notifyObservers(evnt);
+       }
     }
 
  }

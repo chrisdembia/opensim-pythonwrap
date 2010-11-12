@@ -35,20 +35,14 @@ Inheritance diagram for OpenSim::Controller:</div>
  <div class="center">
   <img src="classOpenSim_1_1Controller.gif" usemap="#OpenSim::Controller_map" alt=""/>
   <map id="OpenSim::Controller_map" name="OpenSim::Controller_map">
-<area href="classOpenSim_1_1ModelComponent.html" alt="OpenSim::ModelComponent" shape="rect" coords="788,56,975,80"/>
-<area href="classOpenSim_1_1Object.html" alt="OpenSim::Object" shape="rect" coords="788,0,975,24"/>
-<area href="classCustomController.html" alt="CustomController" shape="rect" coords="98,168,285,192"/>
-<area href="classCustomController.html" alt="CustomController" shape="rect" coords="492,168,679,192"/>
-<area href="classOpenSim_1_1ConstantController.html" alt="OpenSim::ConstantController" shape="rect" coords="689,168,876,192"/>
-<area href="classOpenSim_1_1ControlSetController.html" alt="OpenSim::ControlSetController" shape="rect" coords="886,168,1073,192"/>
-<area href="classOpenSim_1_1PrescribedController.html" alt="OpenSim::PrescribedController" shape="rect" coords="1083,168,1270,192"/>
-<area href="classOpenSim_1_1TrackingController.html" alt="OpenSim::TrackingController" shape="rect" coords="1280,168,1467,192"/>
-<area href="classTugOfWarController.html" alt="TugOfWarController" shape="rect" coords="0,224,187,248"/>
-<area href="classTugOfWarPDController.html" alt="TugOfWarPDController" shape="rect" coords="197,224,384,248"/>
-<area href="classTugOfWarController.html" alt="TugOfWarController" shape="rect" coords="394,224,581,248"/>
-<area href="classTugOfWarPDController.html" alt="TugOfWarPDController" shape="rect" coords="591,224,778,248"/>
-<area href="classOpenSim_1_1CMC.html" alt="OpenSim::CMC" shape="rect" coords="1182,224,1369,248"/>
-<area href="classOpenSim_1_1CorrectionController.html" alt="OpenSim::CorrectionController" shape="rect" coords="1379,224,1566,248"/>
+<area href="classOpenSim_1_1ModelComponent.html" alt="OpenSim::ModelComponent" shape="rect" coords="295,56,482,80"/>
+<area href="classOpenSim_1_1Object.html" alt="OpenSim::Object" shape="rect" coords="295,0,482,24"/>
+<area href="classOpenSim_1_1ConstantController.html" alt="OpenSim::ConstantController" shape="rect" coords="0,168,187,192"/>
+<area href="classOpenSim_1_1ControlSetController.html" alt="OpenSim::ControlSetController" shape="rect" coords="197,168,384,192"/>
+<area href="classOpenSim_1_1PrescribedController.html" alt="OpenSim::PrescribedController" shape="rect" coords="394,168,581,192"/>
+<area href="classOpenSim_1_1TrackingController.html" alt="OpenSim::TrackingController" shape="rect" coords="591,168,778,192"/>
+<area href="classOpenSim_1_1CMC.html" alt="OpenSim::CMC" shape="rect" coords="492,224,679,248"/>
+<area href="classOpenSim_1_1CorrectionController.html" alt="OpenSim::CorrectionController" shape="rect" coords="689,224,876,248"/>
 </map>
  </div>
 </div>
@@ -75,10 +69,6 @@ Inheritance diagram for OpenSim::Controller:</div>
 <tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Controller.html#a9ea35bd6b15197b4a8c77c67c45b9dfa">computeControl</a> (const SimTK::State &amp;s, int index) const =0</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Note that this method is "pure virtual", which means that the <a class="el" href="classOpenSim_1_1Controller.html">Controller</a> class does not implement it, and that subclasses must implement it.  <a href="#a9ea35bd6b15197b4a8c77c67c45b9dfa"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Controller.html#abb02aa96f125989b7cb3d6c0b8e4b434">setActuators</a> (<a class="el" href="classOpenSim_1_1Set.html">Set</a>&lt; <a class="el" href="classOpenSim_1_1Actuator.html">Actuator</a> &gt; &amp;actuators)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Controller.html#a30533b9464a979386905f80db9ef35dd">setupSystem</a> (SimTK::MultibodySystem &amp;system)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Controller.html#a39780e52e8c7f163e1de2058e0f371eb">setup</a> (<a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;model)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Controller.html#ae40208abda434d5bf29e571520e0f308">createSystem</a> (SimTK::MultibodySystem &amp;system)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Controller.html#af333cf2cda6ed9ed9fb9b71afced0e20">initState</a> (SimTK::State &amp;s)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Controller.html#abacb46e52b351931db07de564c078e1e">getFirstTime</a> () const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">return the min an max times that a controller knows how to supply controlls for  <a href="#abacb46e52b351931db07de564c078e1e"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Controller.html#a1181b53cceb732054991856b0f81ad30">getLastTime</a> () const </td></tr>
@@ -91,6 +81,16 @@ Inheritance diagram for OpenSim::Controller:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Connect properties to local pointers.  <a href="#afb31d20226e9820701df0a1861fd0c3a"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Controller.html#aee8908216aeead4f52943d2cca387dbf">copyData</a> (const <a class="el" href="classOpenSim_1_1Controller.html">Controller</a> &amp;aController)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Copy the member variables of the specified controller.  <a href="#aee8908216aeead4f52943d2cca387dbf"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Controller.html#a39780e52e8c7f163e1de2058e0f371eb">setup</a> (<a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;model)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This is called after the <a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a> has been constructed from an XML file.  <a href="#a39780e52e8c7f163e1de2058e0f371eb"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Controller.html#ac9220b97788e730446f05c2bc70df183">createSystem</a> (SimTK::MultibodySystem &amp;system) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This is called when a SimTK System is being created for the <a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a>.  <a href="#ac9220b97788e730446f05c2bc70df183"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Controller.html#a9863ab6048c214646656b3fd4281d68b">initState</a> (SimTK::State &amp;s) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This is called after a SimTK System and State have been created for the <a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a>.  <a href="#a9863ab6048c214646656b3fd4281d68b"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Controller.html#aec559ad1f64e7f0e5cc6479681ea5022">setDefaultsFromState</a> (const SimTK::State &amp;state)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> all default values for this object to match those in a specified State.  <a href="#aec559ad1f64e7f0e5cc6479681ea5022"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Controller.html#a3b25804884367d71ded547913074c670">getNumStateVariables</a> () const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Gets the number of "Continuous" state variables maintained by the <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any object which can be added to a Model.">ModelComponent</a> If the <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any object which can be added to a Model.">ModelComponent</a> defines any that are of interest to the user, names should also be given.  <a href="#a3b25804884367d71ded547913074c670"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyBool.html">OpenSim::PropertyBool</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Controller.html#a817400c2f3838c0f98a065ae08cb5c77">_isControllerEnabledProp</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Controller.html#a45eb64ddf51614c9a8f2fc98faf0c932">_isControllerEnabled</a></td></tr>
@@ -99,8 +99,8 @@ Inheritance diagram for OpenSim::Controller:</div>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyStrArray.html">PropertyStrArray</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Controller.html#a20f5bfd232cdb65ad34a58b0cc59fccb">_actuatorNameListProp</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">list of actuator names  <a href="#a20f5bfd232cdb65ad34a58b0cc59fccb"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Array.html">Array</a>&lt; std::string &gt; &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Controller.html#aed47bac5d0d5fab6eac8cf285d1dba15">_actuatorNameList</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Set.html">Set</a>&lt; <a class="el" href="classOpenSim_1_1Actuator.html">Actuator</a> &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Controller.html#a51725cb8b23c5e9d31c2896b6d3d9488">_actuatorSet</a></td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">set of actuators that the controller controls  <a href="#a51725cb8b23c5e9d31c2896b6d3d9488"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1ForceSet.html">ForceSet</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Controller.html#a79ce0455835d95e3be08b1be50cf64bc">_actuatorSet</a></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">set of actuators that the controller controls  <a href="#a79ce0455835d95e3be08b1be50cf64bc"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Friends</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Controller.html#a54f19f5227b6ede1edf624f1c8918132">ControlSet</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Controller.html#a3f7a76da00e5725e17cf943c1bfca710">ControllerSet</a></td></tr>
@@ -270,7 +270,7 @@ Inheritance diagram for OpenSim::Controller:</div>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="classTugOfWarController.html#a08ea4d1a98ed769429ab14b917a9be0d">TugOfWarController</a>, <a class="el" href="classTugOfWarPDController.html#a7f06af7c902814f1c4d8eef0d34941b8">TugOfWarPDController</a>, <a class="el" href="classOpenSim_1_1ConstantController.html#a80a64451b66491c0531f15cc44806aa5">OpenSim::ConstantController</a>, <a class="el" href="classOpenSim_1_1ControlSetController.html#a04684c967d8b4054c6a7d2d8e0965fe2">OpenSim::ControlSetController</a>, <a class="el" href="classOpenSim_1_1PrescribedController.html#a1cfe94347fcd1d4c874d9d3f17e283a0">OpenSim::PrescribedController</a>, <a class="el" href="classOpenSim_1_1TrackingController.html#a2e5ff67782dd8c68541150458d6a59f3">OpenSim::TrackingController</a>, <a class="el" href="classOpenSim_1_1CMC.html#a7af4e7c4f8ccbaad8171325fbe2d718c">OpenSim::CMC</a>, and <a class="el" href="classOpenSim_1_1CorrectionController.html#acbd7e1fef3fd699cc221705b42e8fcc9">OpenSim::CorrectionController</a>.</p>
+<p>Implemented in <a class="el" href="classOpenSim_1_1ConstantController.html#a80a64451b66491c0531f15cc44806aa5">OpenSim::ConstantController</a>, <a class="el" href="classOpenSim_1_1ControlSetController.html#a04684c967d8b4054c6a7d2d8e0965fe2">OpenSim::ControlSetController</a>, <a class="el" href="classOpenSim_1_1PrescribedController.html#a1cfe94347fcd1d4c874d9d3f17e283a0">OpenSim::PrescribedController</a>, <a class="el" href="classOpenSim_1_1TrackingController.html#a2e5ff67782dd8c68541150458d6a59f3">OpenSim::TrackingController</a>, <a class="el" href="classOpenSim_1_1CMC.html#a7af4e7c4f8ccbaad8171325fbe2d718c">OpenSim::CMC</a>, and <a class="el" href="classOpenSim_1_1CorrectionController.html#acbd7e1fef3fd699cc221705b42e8fcc9">OpenSim::CorrectionController</a>.</p>
 
 </div>
 </div>
@@ -303,23 +303,34 @@ Inheritance diagram for OpenSim::Controller:</div>
 
 </div>
 </div>
-<a class="anchor" id="ae40208abda434d5bf29e571520e0f308"></a><!-- doxytag: member="OpenSim::Controller::createSystem" ref="ae40208abda434d5bf29e571520e0f308" args="(SimTK::MultibodySystem &amp;system)" -->
+<a class="anchor" id="ac9220b97788e730446f05c2bc70df183"></a><!-- doxytag: member="OpenSim::Controller::createSystem" ref="ac9220b97788e730446f05c2bc70df183" args="(SimTK::MultibodySystem &amp;system) const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Controller::createSystem </td>
+          <td class="memname">virtual void OpenSim::Controller::createSystem </td>
           <td>(</td>
           <td class="paramtype">SimTK::MultibodySystem &amp;&nbsp;</td>
           <td class="paramname"> <em>system</em></td>
           <td>&nbsp;)&nbsp;</td>
-          <td><code> [virtual]</code></td>
+          <td> const<code> [inline, protected, virtual]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
-<p>Reimplemented in <a class="el" href="classOpenSim_1_1ConstantController.html#abd5a68d8388d73aa2b37f2db1752650e">OpenSim::ConstantController</a>, and <a class="el" href="classOpenSim_1_1ControlSetController.html#a58fd76e7ea51cd3e7b7b32cf54bfde6a">OpenSim::ControlSetController</a>.</p>
+<p>This is called when a SimTK System is being created for the <a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a>. </p>
+<p>It must be implemented to add appropriate elements to the System corresponding to this object.</p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>system</em>&nbsp;</td><td>the System being created </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="classOpenSim_1_1ModelComponent.html#a85757ad4645e4066f72ce4d0411a49b8">OpenSim::ModelComponent</a>.</p>
+
+<p>Reimplemented in <a class="el" href="classOpenSim_1_1ConstantController.html#a976da04f346018971aed67d0b778ac22">OpenSim::ConstantController</a>, <a class="el" href="classOpenSim_1_1ControlSetController.html#ab7851dc75a4b9060ae84c0e69d705ffd">OpenSim::ControlSetController</a>, <a class="el" href="classOpenSim_1_1CMC.html#a05179197c1054acbaafc6c03dab9cfbc">OpenSim::CMC</a>, and <a class="el" href="classOpenSim_1_1CorrectionController.html#ac45d44e3fb14d8e04bcc7721560c7c4f">OpenSim::CorrectionController</a>.</p>
 
 </div>
 </div>
@@ -417,23 +428,55 @@ Inheritance diagram for OpenSim::Controller:</div>
 
 </div>
 </div>
-<a class="anchor" id="af333cf2cda6ed9ed9fb9b71afced0e20"></a><!-- doxytag: member="OpenSim::Controller::initState" ref="af333cf2cda6ed9ed9fb9b71afced0e20" args="(SimTK::State &amp;s)" -->
+<a class="anchor" id="a3b25804884367d71ded547913074c670"></a><!-- doxytag: member="OpenSim::Controller::getNumStateVariables" ref="a3b25804884367d71ded547913074c670" args="() const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Controller::initState </td>
+          <td class="memname">virtual int OpenSim::Controller::getNumStateVariables </td>
           <td>(</td>
-          <td class="paramtype">SimTK::State &amp;&nbsp;</td>
-          <td class="paramname"> <em>s</em></td>
+          <td class="paramname"></td>
           <td>&nbsp;)&nbsp;</td>
-          <td><code> [virtual]</code></td>
+          <td> const<code> [inline, protected, virtual]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
-<p>Reimplemented in <a class="el" href="classOpenSim_1_1ConstantController.html#ad877feb2a62652231d2da65724fc5c66">OpenSim::ConstantController</a>, <a class="el" href="classOpenSim_1_1ControlSetController.html#a28c6546f5ede2331d3d35031c8f61819">OpenSim::ControlSetController</a>, <a class="el" href="classOpenSim_1_1CMC.html#aa88be9cb72ac30a06906d5ca7e07bbb0">OpenSim::CMC</a>, and <a class="el" href="classOpenSim_1_1CorrectionController.html#a10a8d40c7efb7eeefd82b18534bb2826">OpenSim::CorrectionController</a>.</p>
+<p>Gets the number of "Continuous" state variables maintained by the <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any object which can be added to a Model.">ModelComponent</a> If the <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any object which can be added to a Model.">ModelComponent</a> defines any that are of interest to the user, names should also be given. </p>
+
+<p>Implements <a class="el" href="classOpenSim_1_1ModelComponent.html#a1e0f42516d2b3d7fd54892ee24b80f61">OpenSim::ModelComponent</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a9863ab6048c214646656b3fd4281d68b"></a><!-- doxytag: member="OpenSim::Controller::initState" ref="a9863ab6048c214646656b3fd4281d68b" args="(SimTK::State &amp;s) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void OpenSim::Controller::initState </td>
+          <td>(</td>
+          <td class="paramtype">SimTK::State &amp;&nbsp;</td>
+          <td class="paramname"> <em>state</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [inline, protected, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>This is called after a SimTK System and State have been created for the <a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a>. </p>
+<p>It must be implementd to set initial values of state variables.</p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>state</em>&nbsp;</td><td>the State to initialize </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="classOpenSim_1_1ModelComponent.html#a2af3e8933cda56820900f0c643881434">OpenSim::ModelComponent</a>.</p>
+
+<p>Reimplemented in <a class="el" href="classOpenSim_1_1ConstantController.html#a060e976e318f72b81147198ab351df27">OpenSim::ConstantController</a>, <a class="el" href="classOpenSim_1_1ControlSetController.html#a8bdd38cd8d8e9bfbc81ca82241c4546a">OpenSim::ControlSetController</a>, and <a class="el" href="classOpenSim_1_1CorrectionController.html#a47e867c6621f2beb37a54a2eb22a9d67">OpenSim::CorrectionController</a>.</p>
 
 </div>
 </div>
@@ -485,7 +528,36 @@ Inheritance diagram for OpenSim::Controller:</div>
 </div>
 <div class="memdoc">
 
-<p>Reimplemented in <a class="el" href="classCustomController.html#a7c2f55017c418fd6361571265ed2dee4">CustomController</a>, <a class="el" href="classCustomController.html#a7c2f55017c418fd6361571265ed2dee4">CustomController</a>, <a class="el" href="classOpenSim_1_1ConstantController.html#a72aca2db2cc3f17e52345e1f3faf52d2">OpenSim::ConstantController</a>, <a class="el" href="classOpenSim_1_1ControlSetController.html#af51bba8ef77cf871905be342887fcad5">OpenSim::ControlSetController</a>, <a class="el" href="classOpenSim_1_1CMC.html#a3a3f4e2e2f419d746acfc173bc8fcb49">OpenSim::CMC</a>, and <a class="el" href="classOpenSim_1_1CorrectionController.html#a9b1ab5b4ed627fa1fbe23b6d2c95181b">OpenSim::CorrectionController</a>.</p>
+<p>Reimplemented in <a class="el" href="classOpenSim_1_1ConstantController.html#a72aca2db2cc3f17e52345e1f3faf52d2">OpenSim::ConstantController</a>, <a class="el" href="classOpenSim_1_1ControlSetController.html#af51bba8ef77cf871905be342887fcad5">OpenSim::ControlSetController</a>, <a class="el" href="classOpenSim_1_1CMC.html#a3a3f4e2e2f419d746acfc173bc8fcb49">OpenSim::CMC</a>, and <a class="el" href="classOpenSim_1_1CorrectionController.html#a9b1ab5b4ed627fa1fbe23b6d2c95181b">OpenSim::CorrectionController</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aec559ad1f64e7f0e5cc6479681ea5022"></a><!-- doxytag: member="OpenSim::Controller::setDefaultsFromState" ref="aec559ad1f64e7f0e5cc6479681ea5022" args="(const SimTK::State &amp;state)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void OpenSim::Controller::setDefaultsFromState </td>
+          <td>(</td>
+          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
+          <td class="paramname"> <em>state</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline, protected, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> all default values for this object to match those in a specified State. </p>
+<p>It must be implemented/overriden to set any default values defined by each subclass.</p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>state</em>&nbsp;</td><td>the State from which to take values that should become the defaults for this object </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="classOpenSim_1_1ModelComponent.html#a0e600cbcb3f90abfa53c6b7afa3cdf30">OpenSim::ModelComponent</a>.</p>
 
 </div>
 </div>
@@ -525,13 +597,18 @@ Inheritance diagram for OpenSim::Controller:</div>
           <td class="paramtype"><a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;&nbsp;</td>
           <td class="paramname"> <em>model</em></td>
           <td>&nbsp;)&nbsp;</td>
-          <td><code> [virtual]</code></td>
+          <td><code> [protected, virtual]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
-<p>Reimplemented in <a class="el" href="classCustomController.html#a4bdffa804a54c52f80b57adcd503cae9">CustomController</a>, <a class="el" href="classCustomController.html#a4bdffa804a54c52f80b57adcd503cae9">CustomController</a>, <a class="el" href="classOpenSim_1_1ConstantController.html#a76cd34badcde1ca018c84d7f0bb18296">OpenSim::ConstantController</a>, <a class="el" href="classOpenSim_1_1ControlSetController.html#ad6e88679fdd2e650c471614db27e22c1">OpenSim::ControlSetController</a>, <a class="el" href="classOpenSim_1_1CMC.html#ab7fe811d7ded7514dfacece738afe11b">OpenSim::CMC</a>, and <a class="el" href="classOpenSim_1_1CorrectionController.html#ac92043170fc2fb6ca41278c2ff16be63">OpenSim::CorrectionController</a>.</p>
+<p>This is called after the <a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a> has been constructed from an XML file. </p>
+<p><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the <a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a> this object is part of and then so do required initialization, such as looking up references to other objects in the <a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a> (which might not have existed yet when this object was instantiated). Override this method as necessary but always call the parent setup to ensure all members (belonging to parent and child) are initialized. </p>
+
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1ModelComponent.html#a2b2b125ac81cae0067a87b080499b43f">OpenSim::ModelComponent</a>.</p>
+
+<p>Reimplemented in <a class="el" href="classOpenSim_1_1ConstantController.html#a76cd34badcde1ca018c84d7f0bb18296">OpenSim::ConstantController</a>, <a class="el" href="classOpenSim_1_1ControlSetController.html#ad6e88679fdd2e650c471614db27e22c1">OpenSim::ControlSetController</a>, <a class="el" href="classOpenSim_1_1CMC.html#ab7fe811d7ded7514dfacece738afe11b">OpenSim::CMC</a>, and <a class="el" href="classOpenSim_1_1CorrectionController.html#ac92043170fc2fb6ca41278c2ff16be63">OpenSim::CorrectionController</a>.</p>
 
 </div>
 </div>
@@ -557,26 +634,6 @@ Inheritance diagram for OpenSim::Controller:</div>
 <p>Reimplemented from <a class="el" href="classOpenSim_1_1Object.html">OpenSim::Object</a>.</p>
 
 <p>Reimplemented in <a class="el" href="classOpenSim_1_1ConstantController.html#a0ec22cb60351514b46cb6bb951047050">OpenSim::ConstantController</a>, <a class="el" href="classOpenSim_1_1ControlSetController.html#a3a632193c5f4f769ee60bf0eb21cb578">OpenSim::ControlSetController</a>, <a class="el" href="classOpenSim_1_1PrescribedController.html#a6b725921a0b0184b14889e639aa05f58">OpenSim::PrescribedController</a>, <a class="el" href="classOpenSim_1_1TrackingController.html#a250a97ebe3a0a352acafa5cc16bb3847">OpenSim::TrackingController</a>, <a class="el" href="classOpenSim_1_1CMC.html#a344a15b002a5d18a16adf12b4ca23997">OpenSim::CMC</a>, and <a class="el" href="classOpenSim_1_1CorrectionController.html#a3723c532f947864a25dbca8fbb1563df">OpenSim::CorrectionController</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a30533b9464a979386905f80db9ef35dd"></a><!-- doxytag: member="OpenSim::Controller::setupSystem" ref="a30533b9464a979386905f80db9ef35dd" args="(SimTK::MultibodySystem &amp;system)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Controller::setupSystem </td>
-          <td>(</td>
-          <td class="paramtype">SimTK::MultibodySystem &amp;&nbsp;</td>
-          <td class="paramname"> <em>system</em></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td><code> [virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Reimplemented in <a class="el" href="classCustomController.html#ae278004833b3ea1162a272b5591ce46e">CustomController</a>, <a class="el" href="classCustomController.html#ae278004833b3ea1162a272b5591ce46e">CustomController</a>, <a class="el" href="classOpenSim_1_1CMC.html#a5115c7ca9287f226d7fc5aa5e625c343">OpenSim::CMC</a>, and <a class="el" href="classOpenSim_1_1CorrectionController.html#ac3c95102e699230223bc62d26e010f08">OpenSim::CorrectionController</a>.</p>
 
 </div>
 </div>
@@ -655,12 +712,12 @@ Inheritance diagram for OpenSim::Controller:</div>
 
 </div>
 </div>
-<a class="anchor" id="a51725cb8b23c5e9d31c2896b6d3d9488"></a><!-- doxytag: member="OpenSim::Controller::_actuatorSet" ref="a51725cb8b23c5e9d31c2896b6d3d9488" args="" -->
+<a class="anchor" id="a79ce0455835d95e3be08b1be50cf64bc"></a><!-- doxytag: member="OpenSim::Controller::_actuatorSet" ref="a79ce0455835d95e3be08b1be50cf64bc" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classOpenSim_1_1Set.html">Set</a>&lt;<a class="el" href="classOpenSim_1_1Actuator.html">Actuator</a>&gt; <a class="el" href="classOpenSim_1_1Controller.html#a51725cb8b23c5e9d31c2896b6d3d9488">OpenSim::Controller::_actuatorSet</a><code> [protected]</code></td>
+          <td class="memname"><a class="el" href="classOpenSim_1_1ForceSet.html">ForceSet</a> <a class="el" href="classOpenSim_1_1Controller.html#a79ce0455835d95e3be08b1be50cf64bc">OpenSim::Controller::_actuatorSet</a><code> [protected]</code></td>
         </tr>
       </table>
 </div>
@@ -716,7 +773,7 @@ Inheritance diagram for OpenSim::Controller:</div>
 <li>OpenSim/Simulation/Control/Controller.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Feb 7 02:15:16 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:37:06 2010 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

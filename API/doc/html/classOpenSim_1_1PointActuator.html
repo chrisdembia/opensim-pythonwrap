@@ -59,9 +59,9 @@ Inheritance diagram for OpenSim::PointActuator:</div>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PointActuator.html">PointActuator</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PointActuator.html#ab5fd092c357fb78d7a1b2fc3f382eb5b">operator=</a> (const <a class="el" href="classOpenSim_1_1PointActuator.html">PointActuator</a> &amp;aGenForce)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Assignment operator.  <a href="#ab5fd092c357fb78d7a1b2fc3f382eb5b"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PointActuator.html#ac689560a3224a79e48a9a1397a38881d">setBody</a> (<a class="el" href="classOpenSim_1_1Body.html">Body</a> *aBody)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the generalized <a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody body segment.">Body</a> to which the <a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody body segment.">Body</a> actuator is applied.  <a href="#ac689560a3224a79e48a9a1397a38881d"></a><br/></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the generalized <a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody rigid body.">Body</a> to which the <a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody rigid body.">Body</a> actuator is applied.  <a href="#ac689560a3224a79e48a9a1397a38881d"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Body.html">Body</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PointActuator.html#a56fa0d8601bfada0e194ce6735486457">getBody</a> () const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the generalized <a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody body segment.">Body</a> to which the <a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody body segment.">Body</a> actuator is applied.  <a href="#a56fa0d8601bfada0e194ce6735486457"></a><br/></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the generalized <a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody rigid body.">Body</a> to which the <a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody rigid body.">Body</a> actuator is applied.  <a href="#a56fa0d8601bfada0e194ce6735486457"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PointActuator.html#a22eb269a7ec7b2dd7fd7fdc9a7e08f92">setOptimalForce</a> (double aOptimalForce)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the optimal force of the force.  <a href="#a22eb269a7ec7b2dd7fd7fdc9a7e08f92"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PointActuator.html#a40713256b4758a2be62c7e232b033bdc">getOptimalForce</a> () const </td></tr>
@@ -69,14 +69,14 @@ Inheritance diagram for OpenSim::PointActuator:</div>
 <tr><td class="memItemLeft" align="right" valign="top">double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PointActuator.html#aa8bdc284cafc47214a2e3afb371b1754">getStress</a> (const SimTK::State &amp;s) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the stress of the force.  <a href="#aa8bdc284cafc47214a2e3afb371b1754"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PointActuator.html#a9fca55a05a18edf80c22a677923c7cc2">initStateCache</a> (SimTK::State &amp;s, SimTK::SubsystemIndex subsystemIndex, <a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;model)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PointActuator.html#a01413408c7e36e6a4495317991abcf12">computeForce</a> (const SimTK::State &amp;s) const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Apply the actuator force to BodyA and BodyB.  <a href="#a01413408c7e36e6a4495317991abcf12"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PointActuator.html#a3d2538739e80d8eb6101caa0f668566e">computeForce</a> (const SimTK::State &amp;state, SimTK::Vector_&lt; SimTK::SpatialVec &gt; &amp;bodyForces, SimTK::Vector &amp;mobilityForces) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Apply the actuator force to BodyA and BodyB.  <a href="#a3d2538739e80d8eb6101caa0f668566e"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PointActuator.html#a5d2f311c4cb20b08d34bbeffeb0e5041">computeActuation</a> (const SimTK::State &amp;s) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Compute all quantities necessary for applying the actuator force to the model.  <a href="#a5d2f311c4cb20b08d34bbeffeb0e5041"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PointActuator.html#abff98cc97943a03522abd3cdac737805">check</a> () const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Check that this point actuator actuator is valid.  <a href="#abff98cc97943a03522abd3cdac737805"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PointActuator.html#af60c725e818b7d9e524e7e169f4a0761">setup</a> (<a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;aModel)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">setup sets the actual <a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody body segment.">Body</a> reference _body  <a href="#af60c725e818b7d9e524e7e169f4a0761"></a><br/></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">setup sets the actual <a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody rigid body.">Body</a> reference _body  <a href="#af60c725e818b7d9e524e7e169f4a0761"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classOpenSim_1_1Array.html">OpenSim::Array</a><br class="typebreak"/>
 &lt; std::string &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PointActuator.html#ad50eb3d5ae9f12807eb8b06dd28af6d2">getRecordLabels</a> () const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Methods to query a <a class="el" href="classOpenSim_1_1Force.html" title="This abstract class represents a force applied to bodies or generalized coordinates...">Force</a> for the value actually applied during simulation The names of the quantities (column labels) is returned by this first function <a class="el" href="classOpenSim_1_1PointActuator.html#ad50eb3d5ae9f12807eb8b06dd28af6d2" title="Methods to query a Force for the value actually applied during simulation The names...">getRecordLabels()</a>.  <a href="#ad50eb3d5ae9f12807eb8b06dd28af6d2"></a><br/></td></tr>
@@ -87,7 +87,7 @@ Inheritance diagram for OpenSim::PointActuator:</div>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PointActuator.html#acf81d1f2497ab446beb0ab6e6622d479">OPENSIM_DECLARE_DERIVED</a> (<a class="el" href="classOpenSim_1_1PointActuator.html">PointActuator</a>, <a class="el" href="classOpenSim_1_1Actuator.html">Actuator</a>)</td></tr>
 <tr><td colspan="2"><h2>Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyStr.html">PropertyStr</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PointActuator.html#adf2f87cb1d5e32b420c4f29574db4015">_propBodyName</a></td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Name of <a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody body segment.">Body</a> to which the <a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody body segment.">Body</a> actuator is applied.  <a href="#adf2f87cb1d5e32b420c4f29574db4015"></a><br/></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Name of <a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody rigid body.">Body</a> to which the <a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody rigid body.">Body</a> actuator is applied.  <a href="#adf2f87cb1d5e32b420c4f29574db4015"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyDblVec3.html">PropertyDblVec3</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PointActuator.html#af548bc61168bb9bbbeab9566a3c3abfc">_propPoint</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Point.  <a href="#af548bc61168bb9bbbeab9566a3c3abfc"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyBool.html">PropertyBool</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PointActuator.html#a3c089a667fe4739425c6feb081b1fafb">_propPointIsGlobal</a></td></tr>
@@ -103,7 +103,7 @@ Inheritance diagram for OpenSim::PointActuator:</div>
 <tr><td class="memItemLeft" align="right" valign="top">bool &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PointActuator.html#aa491dd949810466cc6db0a6f32e0cca8">_forceIsGlobal</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">double &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PointActuator.html#ab2bfd0b55ee07f2052442a0653f80908">_optimalForce</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Body.html">Body</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PointActuator.html#a346d5da0eb752d10eedaa86c03543e71">_body</a></td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Corresponding <a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody body segment.">Body</a> to which the point actuator is applied.  <a href="#a346d5da0eb752d10eedaa86c03543e71"></a><br/></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Corresponding <a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody rigid body.">Body</a> to which the point actuator is applied.  <a href="#a346d5da0eb752d10eedaa86c03543e71"></a><br/></td></tr>
 </table>
 <hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a26bd5f01a3d2d082cda9723920fca501"></a><!-- doxytag: member="OpenSim::PointActuator::PointActuator" ref="a26bd5f01a3d2d082cda9723920fca501" args="(std::string aBodyName=&quot;&quot;)" -->
@@ -214,7 +214,7 @@ Inheritance diagram for OpenSim::PointActuator:</div>
 
 </div>
 </div>
-<a class="anchor" id="a01413408c7e36e6a4495317991abcf12"></a><!-- doxytag: member="OpenSim::PointActuator::computeForce" ref="a01413408c7e36e6a4495317991abcf12" args="(const SimTK::State &amp;s) const " -->
+<a class="anchor" id="a3d2538739e80d8eb6101caa0f668566e"></a><!-- doxytag: member="OpenSim::PointActuator::computeForce" ref="a3d2538739e80d8eb6101caa0f668566e" args="(const SimTK::State &amp;state, SimTK::Vector_&lt; SimTK::SpatialVec &gt; &amp;bodyForces, SimTK::Vector &amp;mobilityForces) const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -222,9 +222,24 @@ Inheritance diagram for OpenSim::PointActuator:</div>
           <td class="memname">void PointActuator::computeForce </td>
           <td>(</td>
           <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
-          <td class="paramname"> <em>s</em></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td> const<code> [virtual]</code></td>
+          <td class="paramname"> <em>state</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SimTK::Vector_&lt; SimTK::SpatialVec &gt; &amp;&nbsp;</td>
+          <td class="paramname"> <em>bodyForces</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SimTK::Vector &amp;&nbsp;</td>
+          <td class="paramname"> <em>mobilityForces</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td> const<code> [virtual]</code></td>
         </tr>
       </table>
 </div>
@@ -232,7 +247,7 @@ Inheritance diagram for OpenSim::PointActuator:</div>
 
 <p>Apply the actuator force to BodyA and BodyB. </p>
 
-<p>Implements <a class="el" href="classOpenSim_1_1CustomActuator.html#a456ade00ad449621e7dd34293baa920a">OpenSim::CustomActuator</a>.</p>
+<p>Implements <a class="el" href="classOpenSim_1_1CustomActuator.html#afdfb511fb33a855430124c856dc7390e">OpenSim::CustomActuator</a>.</p>
 
 </div>
 </div>
@@ -277,6 +292,8 @@ Inheritance diagram for OpenSim::PointActuator:</div>
 
 <p>Copy the member data of the specified actuator. </p>
 
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1Force.html#a3d0364bb0f23b0c14ac5ad37b6c7310c">OpenSim::Force</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a56fa0d8601bfada0e194ce6735486457"></a><!-- doxytag: member="OpenSim::PointActuator::getBody" ref="a56fa0d8601bfada0e194ce6735486457" args="() const " -->
@@ -294,8 +311,8 @@ Inheritance diagram for OpenSim::PointActuator:</div>
 </div>
 <div class="memdoc">
 
-<p>Get the generalized <a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody body segment.">Body</a> to which the <a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody body segment.">Body</a> actuator is applied. </p>
-<dl class="return"><dt><b>Returns:</b></dt><dd>Pointer to the <a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody body segment.">Body</a> </dd></dl>
+<p>Get the generalized <a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody rigid body.">Body</a> to which the <a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody rigid body.">Body</a> actuator is applied. </p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>Pointer to the <a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody rigid body.">Body</a> </dd></dl>
 
 </div>
 </div>
@@ -469,7 +486,7 @@ Inheritance diagram for OpenSim::PointActuator:</div>
 <div class="memdoc">
 
 <p>Assignment operator. </p>
-<dl class="return"><dt><b>Returns:</b></dt><dd>aBodyID ID (or number, or index) of the generalized <a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody body segment.">Body</a>. </dd></dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>aBodyID ID (or number, or index) of the generalized <a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody rigid body.">Body</a>. </dd></dl>
 
 <p>Reimplemented from <a class="el" href="classOpenSim_1_1Actuator.html#a0673fdb7ce75e906947e6bc9cd818387">OpenSim::Actuator</a>.</p>
 
@@ -491,10 +508,10 @@ Inheritance diagram for OpenSim::PointActuator:</div>
 </div>
 <div class="memdoc">
 
-<p><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the generalized <a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody body segment.">Body</a> to which the <a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody body segment.">Body</a> actuator is applied. </p>
+<p><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the generalized <a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody rigid body.">Body</a> to which the <a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody rigid body.">Body</a> actuator is applied. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>aBody</em>&nbsp;</td><td>Pointer to the generalized <a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody body segment.">Body</a>. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>aBody</em>&nbsp;</td><td>Pointer to the generalized <a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody rigid body.">Body</a>. </td></tr>
   </table>
   </dd>
 </dl>
@@ -543,7 +560,7 @@ Inheritance diagram for OpenSim::PointActuator:</div>
 </div>
 <div class="memdoc">
 
-<p>setup sets the actual <a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody body segment.">Body</a> reference _body </p>
+<p>setup sets the actual <a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody rigid body.">Body</a> reference _body </p>
 
 <p>Reimplemented from <a class="el" href="classOpenSim_1_1Actuator.html#aede773902c72467754557f4caf853b51">OpenSim::Actuator</a>.</p>
 
@@ -567,7 +584,7 @@ Inheritance diagram for OpenSim::PointActuator:</div>
 <p>Update this object based on its XML node. </p>
 <p>This method simply calls <a class="el" href="classOpenSim_1_1Object.html#a3426934773f3803309b0a360d3262de0" title="Update this object based on its XML node.">Object::updateFromXMLNode()</a> and then calls a few methods in this class to ensure that variable members have been set in a consistent manner. </p>
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Object.html#a3426934773f3803309b0a360d3262de0">OpenSim::Object</a>.</p>
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1Actuator.html#a4033b3f725dbd2bc43922e9ff7630faf">OpenSim::Actuator</a>.</p>
 
 </div>
 </div>
@@ -583,7 +600,7 @@ Inheritance diagram for OpenSim::PointActuator:</div>
 </div>
 <div class="memdoc">
 
-<p>Corresponding <a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody body segment.">Body</a> to which the point actuator is applied. </p>
+<p>Corresponding <a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody rigid body.">Body</a> to which the point actuator is applied. </p>
 
 </div>
 </div>
@@ -676,7 +693,7 @@ Inheritance diagram for OpenSim::PointActuator:</div>
 </div>
 <div class="memdoc">
 
-<p>Name of <a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody body segment.">Body</a> to which the <a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody body segment.">Body</a> actuator is applied. </p>
+<p>Name of <a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody rigid body.">Body</a> to which the <a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody rigid body.">Body</a> actuator is applied. </p>
 
 </div>
 </div>
@@ -756,7 +773,7 @@ Inheritance diagram for OpenSim::PointActuator:</div>
 <li>OpenSim/Actuators/PointActuator.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Feb 7 02:15:11 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:36:59 2010 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

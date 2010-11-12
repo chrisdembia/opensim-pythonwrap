@@ -140,7 +140,7 @@ Inheritance diagram for OpenSim::ContactGeometrySet:</div>
 <p>Construct an <a class="el" href="classOpenSim_1_1ContactGeometrySet.html" title="A class for holding a set of ContactGeometry objects.">ContactGeometrySet</a> set from file. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>aModel</em>&nbsp;</td><td>reference to the <a class="el" href="classOpenSim_1_1Model.html" title="A base class that specifies the interface for a musculoskeletal model.">Model</a> to add contacts to. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>aModel</em>&nbsp;</td><td>reference to the <a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a> to add contacts to. </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>aFileName</em>&nbsp;</td><td>Name of the file. </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>aUpdateFromXMLNode</em>&nbsp;</td><td>a flag indicating if UpdateFromXMLNode needs to be called. </td></tr>
   </table>
@@ -243,13 +243,15 @@ Inheritance diagram for OpenSim::ContactGeometrySet:</div>
           <td class="paramtype"><a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;&nbsp;</td>
           <td class="paramname"> <em>aModel</em></td>
           <td>&nbsp;)&nbsp;</td>
-          <td></td>
+          <td><code> [virtual]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
 <p>Post construction initialization. </p>
+
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1ModelComponentSet.html#ab2aafdaf3a166163572bcc40c641b21b">OpenSim::ModelComponentSet&lt; ContactGeometry &gt;</a>.</p>
 
 </div>
 </div>
@@ -258,7 +260,7 @@ Inheritance diagram for OpenSim::ContactGeometrySet:</div>
 <li>OpenSim/Simulation/Model/ContactGeometrySet.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Feb 7 02:15:17 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:37:08 2010 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

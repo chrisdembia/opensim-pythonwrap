@@ -38,26 +38,19 @@ Inheritance diagram for OpenSim::Actuator:</div>
  <div class="center">
   <img src="classOpenSim_1_1Actuator.gif" usemap="#OpenSim::Actuator_map" alt=""/>
   <map id="OpenSim::Actuator_map" name="OpenSim::Actuator_map">
-<area href="classOpenSim_1_1Force.html" alt="OpenSim::Force" shape="rect" coords="760,112,940,136"/>
-<area href="classOpenSim_1_1ModelComponent.html" alt="OpenSim::ModelComponent" shape="rect" coords="760,56,940,80"/>
-<area href="classOpenSim_1_1Object.html" alt="OpenSim::Object" shape="rect" coords="760,0,940,24"/>
-<area href="classOpenSim_1_1CustomActuator.html" alt="OpenSim::CustomActuator" shape="rect" coords="760,224,940,248"/>
+<area href="classOpenSim_1_1Force.html" alt="OpenSim::Force" shape="rect" coords="380,112,560,136"/>
+<area href="classOpenSim_1_1ModelComponent.html" alt="OpenSim::ModelComponent" shape="rect" coords="380,56,560,80"/>
+<area href="classOpenSim_1_1Object.html" alt="OpenSim::Object" shape="rect" coords="380,0,560,24"/>
+<area href="classOpenSim_1_1CustomActuator.html" alt="OpenSim::CustomActuator" shape="rect" coords="380,224,560,248"/>
 <area href="classOpenSim_1_1CoordinateActuator.html" alt="OpenSim::CoordinateActuator" shape="rect" coords="0,280,180,304"/>
 <area href="classOpenSim_1_1LineActuator.html" alt="OpenSim::LineActuator" shape="rect" coords="190,280,370,304"/>
 <area href="classOpenSim_1_1Muscle.html" alt="OpenSim::Muscle" shape="rect" coords="380,280,560,304"/>
-<area href="classOpenSim_1_1PistonActuator.html" alt="OpenSim::PistonActuator" shape="rect" coords="760,280,940,304"/>
-<area href="classOpenSim_1_1PistonActuator.html" alt="OpenSim::PistonActuator" shape="rect" coords="1140,280,1320,304"/>
-<area href="classOpenSim_1_1PointActuator.html" alt="OpenSim::PointActuator" shape="rect" coords="1330,280,1510,304"/>
-<area href="classOpenSim_1_1TorqueActuator.html" alt="OpenSim::TorqueActuator" shape="rect" coords="1520,280,1700,304"/>
-<area href="classOpenSim_1_1PassiveJointTorque.html" alt="OpenSim::PassiveJointTorque" shape="rect" coords="0,336,180,360"/>
-<area href="classOpenSim_1_1ContDerivMuscle.html" alt="OpenSim::ContDerivMuscle" shape="rect" coords="570,336,750,360"/>
-<area href="classOpenSim_1_1Delp1990Muscle.html" alt="OpenSim::Delp1990Muscle" shape="rect" coords="570,392,750,416"/>
-<area href="classOpenSim_1_1Schutte1993Muscle.html" alt="OpenSim::Schutte1993Muscle" shape="rect" coords="570,448,750,472"/>
-<area href="classOpenSim_1_1Thelen2003Muscle.html" alt="OpenSim::Thelen2003Muscle" shape="rect" coords="570,504,750,528"/>
-<area href="classOpenSim_1_1ControllableSpring.html" alt="OpenSim::ControllableSpring" shape="rect" coords="950,336,1130,360"/>
-<area href="classOpenSim_1_1ControllableSpring.html" alt="OpenSim::ControllableSpring" shape="rect" coords="950,392,1130,416"/>
-<area href="classOpenSim_1_1ControllableSpring.html" alt="OpenSim::ControllableSpring" shape="rect" coords="1330,336,1510,360"/>
-<area href="classOpenSim_1_1ControllableSpring.html" alt="OpenSim::ControllableSpring" shape="rect" coords="1330,392,1510,416"/>
+<area href="classOpenSim_1_1PointActuator.html" alt="OpenSim::PointActuator" shape="rect" coords="570,280,750,304"/>
+<area href="classOpenSim_1_1TorqueActuator.html" alt="OpenSim::TorqueActuator" shape="rect" coords="760,280,940,304"/>
+<area href="classOpenSim_1_1ContDerivMuscle.html" alt="OpenSim::ContDerivMuscle" shape="rect" coords="95,336,275,360"/>
+<area href="classOpenSim_1_1Delp1990Muscle.html" alt="OpenSim::Delp1990Muscle" shape="rect" coords="285,336,465,360"/>
+<area href="classOpenSim_1_1Schutte1993Muscle.html" alt="OpenSim::Schutte1993Muscle" shape="rect" coords="475,336,655,360"/>
+<area href="classOpenSim_1_1Thelen2003Muscle.html" alt="OpenSim::Thelen2003Muscle" shape="rect" coords="665,336,845,360"/>
 </map>
  </div>
 </div>
@@ -74,15 +67,17 @@ Inheritance diagram for OpenSim::Actuator:</div>
 <tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classOpenSim_1_1Object.html">Object</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Actuator.html#acbe9a727308222e52d6a8e4f2dc59ff5">copy</a> () const =0</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Construct and return a copy of this object.  <a href="#acbe9a727308222e52d6a8e4f2dc59ff5"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Actuator.html#aa5dd6844a7d7818752fed4bb05042366">copyPropertyValues</a> (<a class="el" href="classOpenSim_1_1Actuator.html">Actuator</a> &amp;aActuator)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Actuator.html#a4033b3f725dbd2bc43922e9ff7630faf">updateFromXMLNode</a> ()</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Override of the default implementation to account for versioning.  <a href="#a4033b3f725dbd2bc43922e9ff7630faf"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Actuator.html#a95b6f1caeb4f391ff2bf91de67acd371">initStateCache</a> (SimTK::State &amp;s, SimTK::SubsystemIndex subsystemIndex, <a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;model)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Actuator.html#afeab19dad41a6915f7d1139cf3f871e0">setMinControl</a> (const double &amp;aMinControl)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Actuator.html#adb4e4b1d236e0f981336016ee106267e">getMinControl</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Actuator.html#abcf602299c9580391522bdedd65858fe">setMaxControl</a> (const double &amp;aMaxControl)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Actuator.html#a38c9e4db873e45316508a7a39c8c39e2">getMaxControl</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Actuator.html">Actuator</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Actuator.html#a0673fdb7ce75e906947e6bc9cd818387">operator=</a> (const <a class="el" href="classOpenSim_1_1Actuator.html">Actuator</a> &amp;aActuator)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Assignment operator.  <a href="#a0673fdb7ce75e906947e6bc9cd818387"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Actuator.html#aede773902c72467754557f4caf853b51">setup</a> (<a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;aModel)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Perform set up functions after model has been deserialized or copied.  <a href="#aede773902c72467754557f4caf853b51"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Actuator.html#a87754808f812cb071ce25d29bb2fb91f">setModel</a> (<a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;aModel)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the <a class="el" href="classOpenSim_1_1Model.html" title="A base class that specifies the interface for a musculoskeletal model.">Model</a> this object is part of.  <a href="#a87754808f812cb071ce25d29bb2fb91f"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Actuator.html#a2114bc445beec73a0be06e77b7f71235">getModel</a> () const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the <a class="el" href="classOpenSim_1_1Model.html" title="A base class that specifies the interface for a musculoskeletal model.">Model</a> this object is part of.  <a href="#a2114bc445beec73a0be06e77b7f71235"></a><br/></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the <a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a> this object is part of.  <a href="#a2114bc445beec73a0be06e77b7f71235"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Actuator.html#a15d5a56f6f1167c5abc26ae17bd38051">getControlIndex</a> () const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the index of a control .  <a href="#a15d5a56f6f1167c5abc26ae17bd38051"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Actuator.html#ad4ef470c9140a46bee48f0a2659d84a5">setControlIndex</a> (int index)</td></tr>
@@ -114,7 +109,7 @@ Inheritance diagram for OpenSim::Actuator:</div>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Actuator.html#a5c8bc99c65750e828faaff93f88ebd11">updateDisplayer</a> (const SimTK::State &amp;s)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Actuator.html#a259dfc0149fc2ac3fcf727b292824184">replacePropertyFunction</a> (<a class="el" href="classOpenSim_1_1Function.html">Function</a> *aOldFunction, <a class="el" href="classOpenSim_1_1Function.html">Function</a> *aNewFunction)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Replace one of the actuator's functions in the property array.  <a href="#a259dfc0149fc2ac3fcf727b292824184"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Actuator.html#af73be4a61963aba44b096b1afb77a66b">OPENSIM_DECLARE_DERIVED</a> (<a class="el" href="classOpenSim_1_1Actuator.html">Actuator</a>, <a class="el" href="classOpenSim_1_1Object.html">Object</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Actuator.html#a865eef76c549fd39cbfe6dbf35cc4b66">OPENSIM_DECLARE_DERIVED</a> (<a class="el" href="classOpenSim_1_1Actuator.html">Actuator</a>, <a class="el" href="classOpenSim_1_1Force.html">Force</a>)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Actuator.html#a7ef5a266020147d274cdb66a8b178dd6">getAppliesForce</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Actuator.html#a599bc1c1c861cd3d225335c89b9e9a32">setForce</a> (const SimTK::State &amp;s, double aForce) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Actuator.html#a08f0687945c112d7a59eaff645a530e3">getForce</a> (const SimTK::State &amp;s) const </td></tr>
@@ -137,6 +132,22 @@ Inheritance diagram for OpenSim::Actuator:</div>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Actuator.html#a02d52c9ae45ed8fae62f32ff59692a45">scale</a> (const SimTK::State &amp;s, const <a class="el" href="classOpenSim_1_1ScaleSet.html">ScaleSet</a> &amp;aScaleSet)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Actuator.html#a94e947873015597ada9eaebdb3160937">postScale</a> (const SimTK::State &amp;s, const <a class="el" href="classOpenSim_1_1ScaleSet.html">ScaleSet</a> &amp;aScaleSet)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Actuator.html#aa53550f875fb4a9fca12f67e5461634e">getNumControls</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Actuator.html#a2f819dc200ecde323e7f59b2bc95e36e">overrideForce</a> (SimTK::State &amp;s, bool flag) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">-------------------------------------------------------------------------- Overriding forces -------------------------------------------------------------------------- The force normally produced by an <a class="el" href="classOpenSim_1_1Actuator.html" title="An abstract class for representing an actuator (e.g., a torque motor, muscle, .">Actuator</a> can be overriden and When the Actuator's force is overriden, the <a class="el" href="classOpenSim_1_1Actuator.html" title="An abstract class for representing an actuator (e.g., a torque motor, muscle, .">Actuator</a> will by defualt produce a constant force which can be set with <a class="el" href="classOpenSim_1_1Actuator.html#a12d31147016643bf1483ae9398efbb7e" title="set the force value used when the override is true">setOverrideForce()</a>.  <a href="#a2f819dc200ecde323e7f59b2bc95e36e"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Actuator.html#a019e3190efa1fede6d9129bc006bdd0d">isForceOverriden</a> (const SimTK::State &amp;s) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">return Actuator's override status  <a href="#a019e3190efa1fede6d9129bc006bdd0d"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Actuator.html#a12d31147016643bf1483ae9398efbb7e">setOverrideForce</a> (SimTK::State &amp;s, double value) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">set the force value used when the override is true  <a href="#a12d31147016643bf1483ae9398efbb7e"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Actuator.html#a0913978e76427b8ff75a56a3c926b9ae">getOverrideForce</a> (const SimTK::State &amp;s) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">return override force  <a href="#a0913978e76427b8ff75a56a3c926b9ae"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Actuator.html#a439b35c6d281af09cd5f84a82d11982d">setOverrideForceFunction</a> (<a class="el" href="classOpenSim_1_1StateFunction.html">StateFunction</a> *)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">set the function used to compute the override force  <a href="#a439b35c6d281af09cd5f84a82d11982d"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classOpenSim_1_1StateFunction.html">StateFunction</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Actuator.html#a7c1f04f7905fc6b666314d8ef720580f">getOverrideForceFunction</a> () const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">return a read only pointer to the function used to compute the override force  <a href="#a7c1f04f7905fc6b666314d8ef720580f"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1StateFunction.html">StateFunction</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Actuator.html#a48528ce2c8b2337ddd97adb58472abba">updOverrideForceFunction</a> ()</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">return a writable pointer to the function used to compute the override force  <a href="#a48528ce2c8b2337ddd97adb58472abba"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Actuator.html#adf36f728e92cdbd8618829dd374249da">resetOverrideForceFunction</a> ()</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">set override force function back to default (constant)  <a href="#adf36f728e92cdbd8618829dd374249da"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Actuator.html#a7752ec7d3b4befbda8f1bd92ec5c2a6a">deleteActuator</a> (<a class="el" href="classOpenSim_1_1Actuator.html">Actuator</a> *aActuator)</td></tr>
 <tr><td colspan="2"><h2>Static Public Attributes</h2></td></tr>
@@ -144,12 +155,15 @@ Inheritance diagram for OpenSim::Actuator:</div>
 <tr><td colspan="2"><h2>Protected Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Actuator.html#a22408f27518ebadff88cad643daf63ed">setNumStateVariables</a> (int aNumStateVariables)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Actuator.html#a0cd77fbb2bbc66343d6c7b48b2e2d528">bindStateVariable</a> (int aIndex, const std::string &amp;aSuffix)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Actuator.html#aede773902c72467754557f4caf853b51">setup</a> (<a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;aModel)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Perform set up functions after model has been deserialized or copied.  <a href="#aede773902c72467754557f4caf853b51"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Actuator.html#aab73b66ef003e3f813f0b4be480ab05a">setAppliesForce</a> (bool aTrueFalse)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Actuator.html#abe27d2c279c3fc360ce550ae4fc00f93">updateGeometry</a> ()</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Update the geometric representation of the <a class="el" href="classOpenSim_1_1Actuator.html" title="An abstract class for representing an actuator (e.g., a torque motor, muscle, .">Actuator</a> if any.  <a href="#abe27d2c279c3fc360ce550ae4fc00f93"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Actuator.html#ad140be125e4565be6594f5b4fc00e056">computeOverrideForce</a> (const SimTK::State &amp;s) const </td></tr>
 <tr><td colspan="2"><h2>Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Actuator.html#ad82a226a41de60e7bc05e53d489738c2">_appliesForce</a></td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Model.html" title="A base class that specifies the interface for a musculoskeletal model.">Model</a> which the actuator actuates.  <a href="#ad82a226a41de60e7bc05e53d489738c2"></a><br/></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Flag indicating whether the actuator applies a force or a torque.  <a href="#ad82a226a41de60e7bc05e53d489738c2"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Array.html">Array</a>&lt; std::string &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Actuator.html#a1b960df87c243fe42d7d82321475871c">_controlSuffixes</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Name suffixes.  <a href="#a1b960df87c243fe42d7d82321475871c"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Array.html">Array</a>&lt; std::string &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Actuator.html#adab98e1770491132582d6f9bca136b94">_stateVariableSuffixes</a></td></tr>
@@ -162,6 +176,14 @@ Inheritance diagram for OpenSim::Actuator:</div>
 <tr><td class="memItemLeft" align="right" valign="top">SimTK::CacheEntryIndex&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Actuator.html#a4349d005509cd7bb20f3efe84d758e8e">_speedIndex</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">SimTK::ZIndex&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Actuator.html#a9e3493dcd8176c4704f307a25090cfa1">_zIndex</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">SimTK::CacheEntryIndex&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Actuator.html#a0a211d5d3a55c2ba99e1cac3a6d6d5f7">_stateVariableDerivIndex</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">SimTK::DiscreteVariableIndex&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Actuator.html#aa831630935d75c28f88718f0850b93e2">_isOverridenIndex</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">SimTK::DiscreteVariableIndex&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Actuator.html#abdfb0d2f7d0e6d9ba3c1c7ee7355241f">_overrideForceIndex</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1StateFunction.html">StateFunction</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Actuator.html#a25d03d8c38a07e20909ba6836deed712">_overrideForceFunction</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyDbl.html">PropertyDbl</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Actuator.html#a12425c5c22169cd1c2d483a18a87c530">_propMinControl</a></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Bounds on control of this actuator.  <a href="#a12425c5c22169cd1c2d483a18a87c530"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyDbl.html">PropertyDbl</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Actuator.html#a5ad01aeda38263e8036719e9eb7bc5e2">_propMaxControl</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">double &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Actuator.html#a9c8d15daeb43af2426967949c4283adc">_minControl</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">double &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Actuator.html#a7d27a572192d6a274646db0f6fd3a939">_maxControl</a></td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
 <p>An abstract class for representing an actuator (e.g., a torque motor, muscle, . </p>
@@ -283,7 +305,7 @@ Inheritance diagram for OpenSim::Actuator:</div>
 </div>
 <div class="memdoc">
 
-<p>Reimplemented in <a class="el" href="classOpenSim_1_1CoordinateActuator.html#a421d1aee53f06c729da540d1087f98b1">OpenSim::CoordinateActuator</a>, <a class="el" href="classOpenSim_1_1LineActuator.html#a532c0211d26186cc6d3b8f115e9252b7">OpenSim::LineActuator</a>, <a class="el" href="classOpenSim_1_1PointActuator.html#abff98cc97943a03522abd3cdac737805">OpenSim::PointActuator</a>, <a class="el" href="classOpenSim_1_1TorqueActuator.html#a887d0277a3382d1fcce15b4f856ae470">OpenSim::TorqueActuator</a>, <a class="el" href="classOpenSim_1_1PistonActuator.html#a58518cbe802b3246e4168e2204af2ad5">OpenSim::PistonActuator</a>, and <a class="el" href="classOpenSim_1_1PistonActuator.html#a0a9acc39f2d7810879288d2b1589549c">OpenSim::PistonActuator</a>.</p>
+<p>Reimplemented in <a class="el" href="classOpenSim_1_1CoordinateActuator.html#a421d1aee53f06c729da540d1087f98b1">OpenSim::CoordinateActuator</a>, <a class="el" href="classOpenSim_1_1LineActuator.html#a532c0211d26186cc6d3b8f115e9252b7">OpenSim::LineActuator</a>, <a class="el" href="classOpenSim_1_1PointActuator.html#abff98cc97943a03522abd3cdac737805">OpenSim::PointActuator</a>, and <a class="el" href="classOpenSim_1_1TorqueActuator.html#a887d0277a3382d1fcce15b4f856ae470">OpenSim::TorqueActuator</a>.</p>
 
 </div>
 </div>
@@ -303,7 +325,7 @@ Inheritance diagram for OpenSim::Actuator:</div>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classOpenSim_1_1CoordinateActuator.html#a17064a476cf66267d50955081e659bce">OpenSim::CoordinateActuator</a>, <a class="el" href="classOpenSim_1_1Delp1990Muscle.html#a9108ad9ac697e6c1d83715ec6ba8ca78">OpenSim::Delp1990Muscle</a>, <a class="el" href="classOpenSim_1_1LineActuator.html#a19c6f4648fa3c53eb1186be93e361295">OpenSim::LineActuator</a>, <a class="el" href="classOpenSim_1_1PointActuator.html#a5d2f311c4cb20b08d34bbeffeb0e5041">OpenSim::PointActuator</a>, <a class="el" href="classOpenSim_1_1Schutte1993Muscle.html#a8c2aca2c02f54ae29eeeb7c3b9c52d1f">OpenSim::Schutte1993Muscle</a>, <a class="el" href="classOpenSim_1_1Thelen2003Muscle.html#aa7081923af2bc2e836072d139500e0df">OpenSim::Thelen2003Muscle</a>, <a class="el" href="classOpenSim_1_1TorqueActuator.html#a76847617d297aff840c3e3ca979c34c0">OpenSim::TorqueActuator</a>, <a class="el" href="classOpenSim_1_1PistonActuator.html#a250d6a32394c2b6cebd05204424fa831">OpenSim::PistonActuator</a>, <a class="el" href="classOpenSim_1_1PistonActuator.html#a1c8a3b7a230b0c255de411fc91b086e3">OpenSim::PistonActuator</a>, <a class="el" href="classOpenSim_1_1LiuThelen2003Muscle.html#a57468bc77992a7cd05463980e412bedc">OpenSim::LiuThelen2003Muscle</a>, and <a class="el" href="classOpenSim_1_1Muscle.html#ac5909d56aa0b35b243f726dc6e5324cc">OpenSim::Muscle</a>.</p>
+<p>Implemented in <a class="el" href="classOpenSim_1_1ContDerivMuscle.html#a26d5cd5b2eb9a4c6ee5a8135ce8c63b9">OpenSim::ContDerivMuscle</a>, <a class="el" href="classOpenSim_1_1CoordinateActuator.html#a17064a476cf66267d50955081e659bce">OpenSim::CoordinateActuator</a>, <a class="el" href="classOpenSim_1_1Delp1990Muscle.html#a9108ad9ac697e6c1d83715ec6ba8ca78">OpenSim::Delp1990Muscle</a>, <a class="el" href="classOpenSim_1_1LineActuator.html#a19c6f4648fa3c53eb1186be93e361295">OpenSim::LineActuator</a>, <a class="el" href="classOpenSim_1_1PointActuator.html#a5d2f311c4cb20b08d34bbeffeb0e5041">OpenSim::PointActuator</a>, <a class="el" href="classOpenSim_1_1Schutte1993Muscle.html#a8c2aca2c02f54ae29eeeb7c3b9c52d1f">OpenSim::Schutte1993Muscle</a>, <a class="el" href="classOpenSim_1_1Thelen2003Muscle.html#aa7081923af2bc2e836072d139500e0df">OpenSim::Thelen2003Muscle</a>, <a class="el" href="classOpenSim_1_1TorqueActuator.html#a76847617d297aff840c3e3ca979c34c0">OpenSim::TorqueActuator</a>, and <a class="el" href="classOpenSim_1_1Muscle.html#a6d15b507b09619f2b78f97a9281df980">OpenSim::Muscle</a>.</p>
 
 </div>
 </div>
@@ -323,7 +345,25 @@ Inheritance diagram for OpenSim::Actuator:</div>
 </div>
 <div class="memdoc">
 
-<p>Reimplemented in <a class="el" href="classOpenSim_1_1ContDerivMuscle.html#a08c68a2ece8f0b1790b3ad1e067dbdf9">OpenSim::ContDerivMuscle</a>, <a class="el" href="classOpenSim_1_1Delp1990Muscle.html#af5fa93eef17bb648f54da491f711fcb4">OpenSim::Delp1990Muscle</a>, <a class="el" href="classOpenSim_1_1Schutte1993Muscle.html#afa19c478b07552cc5483481768fc7cbb">OpenSim::Schutte1993Muscle</a>, <a class="el" href="classOpenSim_1_1Thelen2003Muscle.html#abcfe8ea194099e62994446e8d41b9f05">OpenSim::Thelen2003Muscle</a>, and <a class="el" href="classOpenSim_1_1LiuThelen2003Muscle.html#a89f0dc01a80d7427300f1a934a562b42">OpenSim::LiuThelen2003Muscle</a>.</p>
+<p>Reimplemented in <a class="el" href="classOpenSim_1_1ContDerivMuscle.html#a08c68a2ece8f0b1790b3ad1e067dbdf9">OpenSim::ContDerivMuscle</a>, <a class="el" href="classOpenSim_1_1Delp1990Muscle.html#af5fa93eef17bb648f54da491f711fcb4">OpenSim::Delp1990Muscle</a>, <a class="el" href="classOpenSim_1_1Schutte1993Muscle.html#afa19c478b07552cc5483481768fc7cbb">OpenSim::Schutte1993Muscle</a>, and <a class="el" href="classOpenSim_1_1Thelen2003Muscle.html#abcfe8ea194099e62994446e8d41b9f05">OpenSim::Thelen2003Muscle</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ad140be125e4565be6594f5b4fc00e056"></a><!-- doxytag: member="OpenSim::Actuator::computeOverrideForce" ref="ad140be125e4565be6594f5b4fc00e056" args="(const SimTK::State &amp;s) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double Actuator::computeOverrideForce </td>
+          <td>(</td>
+          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
+          <td class="paramname"> <em>s</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
 
 </div>
 </div>
@@ -343,7 +383,7 @@ Inheritance diagram for OpenSim::Actuator:</div>
 </div>
 <div class="memdoc">
 
-<p>Reimplemented in <a class="el" href="classOpenSim_1_1ContDerivMuscle.html#a178efa28b8df9739c960dfdd7c045eaa">OpenSim::ContDerivMuscle</a>, <a class="el" href="classOpenSim_1_1Delp1990Muscle.html#ab6d6cc7572a1cd7174b5f4f96c561c54">OpenSim::Delp1990Muscle</a>, <a class="el" href="classOpenSim_1_1Schutte1993Muscle.html#a34bce470071f2922a2eda3065b8362eb">OpenSim::Schutte1993Muscle</a>, <a class="el" href="classOpenSim_1_1Thelen2003Muscle.html#a80c5c2fe1c02aa0a6aad498f6b7f1f6c">OpenSim::Thelen2003Muscle</a>, and <a class="el" href="classOpenSim_1_1LiuThelen2003Muscle.html#a61c8dab0ec930373fdc894d2721f73e9">OpenSim::LiuThelen2003Muscle</a>.</p>
+<p>Reimplemented in <a class="el" href="classOpenSim_1_1ContDerivMuscle.html#a178efa28b8df9739c960dfdd7c045eaa">OpenSim::ContDerivMuscle</a>, <a class="el" href="classOpenSim_1_1Delp1990Muscle.html#ab6d6cc7572a1cd7174b5f4f96c561c54">OpenSim::Delp1990Muscle</a>, <a class="el" href="classOpenSim_1_1Schutte1993Muscle.html#a34bce470071f2922a2eda3065b8362eb">OpenSim::Schutte1993Muscle</a>, and <a class="el" href="classOpenSim_1_1Thelen2003Muscle.html#a80c5c2fe1c02aa0a6aad498f6b7f1f6c">OpenSim::Thelen2003Muscle</a>.</p>
 
 </div>
 </div>
@@ -366,9 +406,9 @@ Inheritance diagram for OpenSim::Actuator:</div>
 <p>The object is allocated using the new operator, so the caller is responsible for deleting the returned object.</p>
 <dl class="return"><dt><b>Returns:</b></dt><dd>Copy of this object. </dd></dl>
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Object.html#a2000b12522f6f79a8918991b819a4bb7">OpenSim::Object</a>.</p>
+<p>Implements <a class="el" href="classOpenSim_1_1Force.html#a71a62b13d80e706f70bcebb2e818257c">OpenSim::Force</a>.</p>
 
-<p>Implemented in <a class="el" href="classOpenSim_1_1ContDerivMuscle.html#ae60346b288b448b2a9216593e184ae71">OpenSim::ContDerivMuscle</a>, <a class="el" href="classOpenSim_1_1CoordinateActuator.html#a235585c3a7f0cc4735f51fc668778409">OpenSim::CoordinateActuator</a>, <a class="el" href="classOpenSim_1_1Delp1990Muscle.html#acb2aa8e481eb8e5dbb02cc9ef2951bae">OpenSim::Delp1990Muscle</a>, <a class="el" href="classOpenSim_1_1LineActuator.html#aa30853e4055f0a0f065d915c3f967177">OpenSim::LineActuator</a>, <a class="el" href="classOpenSim_1_1PassiveJointTorque.html#a3c039686eb51fee6de4ac5ff81e14f8e">OpenSim::PassiveJointTorque</a>, <a class="el" href="classOpenSim_1_1PointActuator.html#a1e1f4237cb68759c5a99c8560538d749">OpenSim::PointActuator</a>, <a class="el" href="classOpenSim_1_1Schutte1993Muscle.html#ab9bc0b9621f8c09bf1585423a966a480">OpenSim::Schutte1993Muscle</a>, <a class="el" href="classOpenSim_1_1Thelen2003Muscle.html#a053d38695b84b022113b4c878527a937">OpenSim::Thelen2003Muscle</a>, <a class="el" href="classOpenSim_1_1TorqueActuator.html#ae8930b269311a2292d735531809e1d1a">OpenSim::TorqueActuator</a>, <a class="el" href="classOpenSim_1_1PistonActuator.html#ae0325c4a5fedde15e3a27773bfc023c2">OpenSim::PistonActuator</a>, <a class="el" href="classOpenSim_1_1PistonActuator.html#a3dffd973e18eb05418a106f8d730856b">OpenSim::PistonActuator</a>, <a class="el" href="classOpenSim_1_1LiuThelen2003Muscle.html#a33e942388cf327e6bfc5a37cb580610a">OpenSim::LiuThelen2003Muscle</a>, and <a class="el" href="classOpenSim_1_1Muscle.html#a2e19d5e0c7f323a7469d016d4fb0a569">OpenSim::Muscle</a>.</p>
+<p>Implemented in <a class="el" href="classOpenSim_1_1ContDerivMuscle.html#ae60346b288b448b2a9216593e184ae71">OpenSim::ContDerivMuscle</a>, <a class="el" href="classOpenSim_1_1CoordinateActuator.html#a235585c3a7f0cc4735f51fc668778409">OpenSim::CoordinateActuator</a>, <a class="el" href="classOpenSim_1_1Delp1990Muscle.html#acb2aa8e481eb8e5dbb02cc9ef2951bae">OpenSim::Delp1990Muscle</a>, <a class="el" href="classOpenSim_1_1LineActuator.html#aa30853e4055f0a0f065d915c3f967177">OpenSim::LineActuator</a>, <a class="el" href="classOpenSim_1_1PointActuator.html#a1e1f4237cb68759c5a99c8560538d749">OpenSim::PointActuator</a>, <a class="el" href="classOpenSim_1_1Schutte1993Muscle.html#ab9bc0b9621f8c09bf1585423a966a480">OpenSim::Schutte1993Muscle</a>, <a class="el" href="classOpenSim_1_1Thelen2003Muscle.html#a053d38695b84b022113b4c878527a937">OpenSim::Thelen2003Muscle</a>, <a class="el" href="classOpenSim_1_1TorqueActuator.html#ae8930b269311a2292d735531809e1d1a">OpenSim::TorqueActuator</a>, and <a class="el" href="classOpenSim_1_1Muscle.html#a2e19d5e0c7f323a7469d016d4fb0a569">OpenSim::Muscle</a>.</p>
 
 </div>
 </div>
@@ -525,6 +565,40 @@ Inheritance diagram for OpenSim::Actuator:</div>
 
 </div>
 </div>
+<a class="anchor" id="a38c9e4db873e45316508a7a39c8c39e2"></a><!-- doxytag: member="OpenSim::Actuator::getMaxControl" ref="a38c9e4db873e45316508a7a39c8c39e2" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double OpenSim::Actuator::getMaxControl </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="adb4e4b1d236e0f981336016ee106267e"></a><!-- doxytag: member="OpenSim::Actuator::getMinControl" ref="adb4e4b1d236e0f981336016ee106267e" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double OpenSim::Actuator::getMinControl </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a2114bc445beec73a0be06e77b7f71235"></a><!-- doxytag: member="OpenSim::Actuator::getModel" ref="a2114bc445beec73a0be06e77b7f71235" args="() const " -->
 <div class="memitem">
 <div class="memproto">
@@ -540,7 +614,7 @@ Inheritance diagram for OpenSim::Actuator:</div>
 </div>
 <div class="memdoc">
 
-<p>Get the <a class="el" href="classOpenSim_1_1Model.html" title="A base class that specifies the interface for a musculoskeletal model.">Model</a> this object is part of. </p>
+<p>Get the <a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a> this object is part of. </p>
 
 <p>Reimplemented from <a class="el" href="classOpenSim_1_1ModelComponent.html#a859ace32c4e89b6479738c6310b97bc4">OpenSim::ModelComponent</a>.</p>
 
@@ -581,7 +655,7 @@ Inheritance diagram for OpenSim::Actuator:</div>
 <p>Get the number of state variables allocated by this force. </p>
 <p>The default implementation returns 0. Subclasses that allocate state variables must override it. </p>
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Force.html#a32debc0913d22391e15ed06d366fd265">OpenSim::Force</a>.</p>
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1Force.html#a8afa34941dce9ff2d043de13eb1edfcc">OpenSim::Force</a>.</p>
 
 </div>
 </div>
@@ -602,7 +676,46 @@ Inheritance diagram for OpenSim::Actuator:</div>
 
 <p>getOptimalForce needs to be overridden by derived classes to be usable </p>
 
-<p>Reimplemented in <a class="el" href="classOpenSim_1_1CoordinateActuator.html#a37a7e800b65dbe44fdb19cbcd18dcb27">OpenSim::CoordinateActuator</a>, <a class="el" href="classOpenSim_1_1LineActuator.html#a1a80f6461ef77aceef91da5d0677e462">OpenSim::LineActuator</a>, <a class="el" href="classOpenSim_1_1PointActuator.html#a40713256b4758a2be62c7e232b033bdc">OpenSim::PointActuator</a>, <a class="el" href="classOpenSim_1_1TorqueActuator.html#ad5823540b3862fe7c11258d37258fcd0">OpenSim::TorqueActuator</a>, <a class="el" href="classOpenSim_1_1PistonActuator.html#aa81747da05cc82531ceaa0c6126b54cc">OpenSim::PistonActuator</a>, and <a class="el" href="classOpenSim_1_1PistonActuator.html#ac0ff8ba9d4b1ecf9eb83105272f02c9a">OpenSim::PistonActuator</a>.</p>
+<p>Reimplemented in <a class="el" href="classOpenSim_1_1CoordinateActuator.html#a37a7e800b65dbe44fdb19cbcd18dcb27">OpenSim::CoordinateActuator</a>, <a class="el" href="classOpenSim_1_1LineActuator.html#a1a80f6461ef77aceef91da5d0677e462">OpenSim::LineActuator</a>, <a class="el" href="classOpenSim_1_1PointActuator.html#a40713256b4758a2be62c7e232b033bdc">OpenSim::PointActuator</a>, and <a class="el" href="classOpenSim_1_1TorqueActuator.html#ad5823540b3862fe7c11258d37258fcd0">OpenSim::TorqueActuator</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a0913978e76427b8ff75a56a3c926b9ae"></a><!-- doxytag: member="OpenSim::Actuator::getOverrideForce" ref="a0913978e76427b8ff75a56a3c926b9ae" args="(const SimTK::State &amp;s) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double Actuator::getOverrideForce </td>
+          <td>(</td>
+          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
+          <td class="paramname"> <em>s</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>return override force </p>
+
+</div>
+</div>
+<a class="anchor" id="a7c1f04f7905fc6b666314d8ef720580f"></a><!-- doxytag: member="OpenSim::Actuator::getOverrideForceFunction" ref="a7c1f04f7905fc6b666314d8ef720580f" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classOpenSim_1_1StateFunction.html">StateFunction</a> * Actuator::getOverrideForceFunction </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>return a read only pointer to the function used to compute the override force </p>
 
 </div>
 </div>
@@ -640,6 +753,8 @@ Inheritance diagram for OpenSim::Actuator:</div>
 </div>
 <div class="memdoc">
 
+<p>Reimplemented in <a class="el" href="classOpenSim_1_1CoordinateActuator.html#a63b6e73be59dd00c6ebbccf909515b35">OpenSim::CoordinateActuator</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a88972d9f2c8cbfadd3dd9315adafff18"></a><!-- doxytag: member="OpenSim::Actuator::getStateVariable" ref="a88972d9f2c8cbfadd3dd9315adafff18" args="(const SimTK::State &amp;s, int aIndex) const " -->
@@ -676,7 +791,7 @@ Inheritance diagram for OpenSim::Actuator:</div>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>The value of the state. </dd></dl>
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Force.html#a30da41293e8b41dee7ba599fe552d5b0">OpenSim::Force</a>.</p>
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1ModelComponent.html#add639bad0d7a67bf6693ba39b48b4f25">OpenSim::ModelComponent</a>.</p>
 
 </div>
 </div>
@@ -794,7 +909,7 @@ Inheritance diagram for OpenSim::Actuator:</div>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>The name of the state variable. </dd></dl>
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Force.html#a0a83b0a06c306593753a43157e393661">OpenSim::Force</a>.</p>
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1ModelComponent.html#a33ad5f2d76c735364a5d00055b39e726">OpenSim::ModelComponent</a>.</p>
 
 </div>
 </div>
@@ -851,7 +966,7 @@ Inheritance diagram for OpenSim::Actuator:</div>
 
 <p>getStress needs to be overridden by derived classes to be usable </p>
 
-<p>Reimplemented in <a class="el" href="classOpenSim_1_1ContDerivMuscle.html#a4426fdef9ee9d426f063fc97522d60a6">OpenSim::ContDerivMuscle</a>, <a class="el" href="classOpenSim_1_1CoordinateActuator.html#abc8b56e3b3eb2aefbed56a4151c2cae3">OpenSim::CoordinateActuator</a>, <a class="el" href="classOpenSim_1_1Delp1990Muscle.html#a94faa6aceb48ff7afbbe29f6bec2840e">OpenSim::Delp1990Muscle</a>, <a class="el" href="classOpenSim_1_1LineActuator.html#a12e280cc4a25b8d42190ccae3faf8fbd">OpenSim::LineActuator</a>, <a class="el" href="classOpenSim_1_1PointActuator.html#aa8bdc284cafc47214a2e3afb371b1754">OpenSim::PointActuator</a>, <a class="el" href="classOpenSim_1_1Schutte1993Muscle.html#a5fb244bb26dfc5a36f205355500ce4f4">OpenSim::Schutte1993Muscle</a>, <a class="el" href="classOpenSim_1_1Thelen2003Muscle.html#a78fd46cce2ba38c25bf90d1f311e4ba5">OpenSim::Thelen2003Muscle</a>, <a class="el" href="classOpenSim_1_1TorqueActuator.html#abd74a6293b18c8955bc41c344095c0c9">OpenSim::TorqueActuator</a>, <a class="el" href="classOpenSim_1_1PistonActuator.html#a38c603910bbdcf1ee42504c276c3a9a4">OpenSim::PistonActuator</a>, and <a class="el" href="classOpenSim_1_1PistonActuator.html#a3af57a86422dca23aefd3da9e8679fbf">OpenSim::PistonActuator</a>.</p>
+<p>Reimplemented in <a class="el" href="classOpenSim_1_1ContDerivMuscle.html#a4426fdef9ee9d426f063fc97522d60a6">OpenSim::ContDerivMuscle</a>, <a class="el" href="classOpenSim_1_1CoordinateActuator.html#abc8b56e3b3eb2aefbed56a4151c2cae3">OpenSim::CoordinateActuator</a>, <a class="el" href="classOpenSim_1_1Delp1990Muscle.html#a94faa6aceb48ff7afbbe29f6bec2840e">OpenSim::Delp1990Muscle</a>, <a class="el" href="classOpenSim_1_1LineActuator.html#a12e280cc4a25b8d42190ccae3faf8fbd">OpenSim::LineActuator</a>, <a class="el" href="classOpenSim_1_1PointActuator.html#aa8bdc284cafc47214a2e3afb371b1754">OpenSim::PointActuator</a>, <a class="el" href="classOpenSim_1_1Schutte1993Muscle.html#a5fb244bb26dfc5a36f205355500ce4f4">OpenSim::Schutte1993Muscle</a>, <a class="el" href="classOpenSim_1_1Thelen2003Muscle.html#a78fd46cce2ba38c25bf90d1f311e4ba5">OpenSim::Thelen2003Muscle</a>, and <a class="el" href="classOpenSim_1_1TorqueActuator.html#abd74a6293b18c8955bc41c344095c0c9">OpenSim::TorqueActuator</a>.</p>
 
 </div>
 </div>
@@ -886,7 +1001,7 @@ Inheritance diagram for OpenSim::Actuator:</div>
 </div>
 <div class="memdoc">
 
-<p>Reimplemented in <a class="el" href="classOpenSim_1_1ContDerivMuscle.html#ad394eb365a5a14373399fcfdfd7b5804">OpenSim::ContDerivMuscle</a>, <a class="el" href="classOpenSim_1_1CoordinateActuator.html#a92e9cf9ea3a2a57dd4b638303b5c90ab">OpenSim::CoordinateActuator</a>, <a class="el" href="classOpenSim_1_1Delp1990Muscle.html#ae9844fff622dff2301069f023678c35e">OpenSim::Delp1990Muscle</a>, <a class="el" href="classOpenSim_1_1LineActuator.html#aa5598da2d13bba4d5aeb4d3deb8cb8f6">OpenSim::LineActuator</a>, <a class="el" href="classOpenSim_1_1PointActuator.html#a9fca55a05a18edf80c22a677923c7cc2">OpenSim::PointActuator</a>, <a class="el" href="classOpenSim_1_1Schutte1993Muscle.html#a6a72cdddd29667cfafe743ca2865fa7a">OpenSim::Schutte1993Muscle</a>, <a class="el" href="classOpenSim_1_1Thelen2003Muscle.html#a852e56e0b862d1eb9ff102436640597b">OpenSim::Thelen2003Muscle</a>, <a class="el" href="classOpenSim_1_1TorqueActuator.html#abb0ca4cbb7c6884cc281f42f9c0d6f59">OpenSim::TorqueActuator</a>, <a class="el" href="classOpenSim_1_1PistonActuator.html#a472a12f130e1253a14dbf8f0f22b31b8">OpenSim::PistonActuator</a>, <a class="el" href="classOpenSim_1_1PistonActuator.html#a2a290bc26ffdf59a42c14253d5a818d6">OpenSim::PistonActuator</a>, <a class="el" href="classOpenSim_1_1LiuThelen2003Muscle.html#a940c06189bceb8b8d72142328ee553bb">OpenSim::LiuThelen2003Muscle</a>, and <a class="el" href="classOpenSim_1_1Muscle.html#a67e54b95e86e42adc44a86cab74193a8">OpenSim::Muscle</a>.</p>
+<p>Reimplemented in <a class="el" href="classOpenSim_1_1ContDerivMuscle.html#ad394eb365a5a14373399fcfdfd7b5804">OpenSim::ContDerivMuscle</a>, <a class="el" href="classOpenSim_1_1CoordinateActuator.html#a92e9cf9ea3a2a57dd4b638303b5c90ab">OpenSim::CoordinateActuator</a>, <a class="el" href="classOpenSim_1_1Delp1990Muscle.html#ae9844fff622dff2301069f023678c35e">OpenSim::Delp1990Muscle</a>, <a class="el" href="classOpenSim_1_1LineActuator.html#aa5598da2d13bba4d5aeb4d3deb8cb8f6">OpenSim::LineActuator</a>, <a class="el" href="classOpenSim_1_1PointActuator.html#a9fca55a05a18edf80c22a677923c7cc2">OpenSim::PointActuator</a>, <a class="el" href="classOpenSim_1_1Schutte1993Muscle.html#a6a72cdddd29667cfafe743ca2865fa7a">OpenSim::Schutte1993Muscle</a>, <a class="el" href="classOpenSim_1_1Thelen2003Muscle.html#a852e56e0b862d1eb9ff102436640597b">OpenSim::Thelen2003Muscle</a>, <a class="el" href="classOpenSim_1_1TorqueActuator.html#abb0ca4cbb7c6884cc281f42f9c0d6f59">OpenSim::TorqueActuator</a>, and <a class="el" href="classOpenSim_1_1Muscle.html#a67e54b95e86e42adc44a86cab74193a8">OpenSim::Muscle</a>.</p>
 
 </div>
 </div>
@@ -907,7 +1022,27 @@ Inheritance diagram for OpenSim::Actuator:</div>
 
 </div>
 </div>
-<a class="anchor" id="af73be4a61963aba44b096b1afb77a66b"></a><!-- doxytag: member="OpenSim::Actuator::OPENSIM_DECLARE_DERIVED" ref="af73be4a61963aba44b096b1afb77a66b" args="(Actuator, Object)" -->
+<a class="anchor" id="a019e3190efa1fede6d9129bc006bdd0d"></a><!-- doxytag: member="OpenSim::Actuator::isForceOverriden" ref="a019e3190efa1fede6d9129bc006bdd0d" args="(const SimTK::State &amp;s) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Actuator::isForceOverriden </td>
+          <td>(</td>
+          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
+          <td class="paramname"> <em>s</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>return Actuator's override status </p>
+
+</div>
+</div>
+<a class="anchor" id="a865eef76c549fd39cbfe6dbf35cc4b66"></a><!-- doxytag: member="OpenSim::Actuator::OPENSIM_DECLARE_DERIVED" ref="a865eef76c549fd39cbfe6dbf35cc4b66" args="(Actuator, Force)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -920,7 +1055,7 @@ Inheritance diagram for OpenSim::Actuator:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classOpenSim_1_1Object.html">Object</a>&nbsp;</td>
+          <td class="paramtype"><a class="el" href="classOpenSim_1_1Force.html">Force</a>&nbsp;</td>
           <td class="paramname"></td><td>&nbsp;</td>
         </tr>
         <tr>
@@ -953,9 +1088,47 @@ Inheritance diagram for OpenSim::Actuator:</div>
 <p>Assignment operator. </p>
 <dl class="return"><dt><b>Returns:</b></dt><dd>Reference to this object. </dd></dl>
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Object.html#a1a5b4bda8ca9bdc1c96ef514a15e0eef">OpenSim::Object</a>.</p>
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1Force.html#afd51620212d6656efdacdca1622bea3b">OpenSim::Force</a>.</p>
 
-<p>Reimplemented in <a class="el" href="classOpenSim_1_1ContDerivMuscle.html#a2cc022ffa18e31d9ed43dc71a99aa5c0">OpenSim::ContDerivMuscle</a>, <a class="el" href="classOpenSim_1_1CoordinateActuator.html#ac67c2184ea0782c7f2855dc74056d87d">OpenSim::CoordinateActuator</a>, <a class="el" href="classOpenSim_1_1Delp1990Muscle.html#af42ec681a00956366be601bde6211c83">OpenSim::Delp1990Muscle</a>, <a class="el" href="classOpenSim_1_1LineActuator.html#adfa4f39de606395fe67918d01a10120b">OpenSim::LineActuator</a>, <a class="el" href="classOpenSim_1_1PassiveJointTorque.html#a458b00d87fedfa7613547aa5280ba1f7">OpenSim::PassiveJointTorque</a>, <a class="el" href="classOpenSim_1_1PointActuator.html#ab5fd092c357fb78d7a1b2fc3f382eb5b">OpenSim::PointActuator</a>, <a class="el" href="classOpenSim_1_1Schutte1993Muscle.html#afb82f033af9b068506ad290f0b295370">OpenSim::Schutte1993Muscle</a>, <a class="el" href="classOpenSim_1_1Thelen2003Muscle.html#a1ef460682118614c610029b98075010b">OpenSim::Thelen2003Muscle</a>, <a class="el" href="classOpenSim_1_1TorqueActuator.html#a01cacf171256958bb193a75eb93c7dbb">OpenSim::TorqueActuator</a>, <a class="el" href="classOpenSim_1_1PistonActuator.html#a829e7583f9e7a3d52945227d99d51601">OpenSim::PistonActuator</a>, <a class="el" href="classOpenSim_1_1PistonActuator.html#af3788e72efb568cff4adc8716dc0ac24">OpenSim::PistonActuator</a>, <a class="el" href="classOpenSim_1_1LiuThelen2003Muscle.html#ac634045961a4073625a3cedc59093496">OpenSim::LiuThelen2003Muscle</a>, and <a class="el" href="classOpenSim_1_1Muscle.html#a980df8e9b51b3b151c6e09938981ae5d">OpenSim::Muscle</a>.</p>
+<p>Reimplemented in <a class="el" href="classOpenSim_1_1ContDerivMuscle.html#a2cc022ffa18e31d9ed43dc71a99aa5c0">OpenSim::ContDerivMuscle</a>, <a class="el" href="classOpenSim_1_1CoordinateActuator.html#ac67c2184ea0782c7f2855dc74056d87d">OpenSim::CoordinateActuator</a>, <a class="el" href="classOpenSim_1_1Delp1990Muscle.html#af42ec681a00956366be601bde6211c83">OpenSim::Delp1990Muscle</a>, <a class="el" href="classOpenSim_1_1LineActuator.html#adfa4f39de606395fe67918d01a10120b">OpenSim::LineActuator</a>, <a class="el" href="classOpenSim_1_1PointActuator.html#ab5fd092c357fb78d7a1b2fc3f382eb5b">OpenSim::PointActuator</a>, <a class="el" href="classOpenSim_1_1Schutte1993Muscle.html#afb82f033af9b068506ad290f0b295370">OpenSim::Schutte1993Muscle</a>, <a class="el" href="classOpenSim_1_1Thelen2003Muscle.html#a1ef460682118614c610029b98075010b">OpenSim::Thelen2003Muscle</a>, <a class="el" href="classOpenSim_1_1TorqueActuator.html#a01cacf171256958bb193a75eb93c7dbb">OpenSim::TorqueActuator</a>, and <a class="el" href="classOpenSim_1_1Muscle.html#a980df8e9b51b3b151c6e09938981ae5d">OpenSim::Muscle</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a2f819dc200ecde323e7f59b2bc95e36e"></a><!-- doxytag: member="OpenSim::Actuator::overrideForce" ref="a2f819dc200ecde323e7f59b2bc95e36e" args="(SimTK::State &amp;s, bool flag) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Actuator::overrideForce </td>
+          <td>(</td>
+          <td class="paramtype">SimTK::State &amp;&nbsp;</td>
+          <td class="paramname"> <em>s</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&nbsp;</td>
+          <td class="paramname"> <em>flag</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>-------------------------------------------------------------------------- Overriding forces -------------------------------------------------------------------------- The force normally produced by an <a class="el" href="classOpenSim_1_1Actuator.html" title="An abstract class for representing an actuator (e.g., a torque motor, muscle, .">Actuator</a> can be overriden and When the Actuator's force is overriden, the <a class="el" href="classOpenSim_1_1Actuator.html" title="An abstract class for representing an actuator (e.g., a torque motor, muscle, .">Actuator</a> will by defualt produce a constant force which can be set with <a class="el" href="classOpenSim_1_1Actuator.html#a12d31147016643bf1483ae9398efbb7e" title="set the force value used when the override is true">setOverrideForce()</a>. </p>
+<p>overrideForce sets flag indicating if an actuator's force compuation is overriden</p>
+<p>If the override force is not a constant, <a class="el" href="classOpenSim_1_1Actuator.html#a439b35c6d281af09cd5f84a82d11982d" title="set the function used to compute the override force">setOverrideForceFunction()</a> can be used supply a function which computes the Actuator's force. enable/disable an Actuator's override force </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>s</em>&nbsp;</td><td>current state </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>flag</em>&nbsp;</td><td>true = override Actuator's output force false = use Actuator's computed forc (normal operation) </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1077,6 +1250,25 @@ Inheritance diagram for OpenSim::Actuator:</div>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a class="anchor" id="adf36f728e92cdbd8618829dd374249da"></a><!-- doxytag: member="OpenSim::Actuator::resetOverrideForceFunction" ref="adf36f728e92cdbd8618829dd374249da" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Actuator::resetOverrideForceFunction </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>set override force function back to default (constant) </p>
 
 </div>
 </div>
@@ -1208,15 +1400,15 @@ Inheritance diagram for OpenSim::Actuator:</div>
 
 </div>
 </div>
-<a class="anchor" id="a87754808f812cb071ce25d29bb2fb91f"></a><!-- doxytag: member="OpenSim::Actuator::setModel" ref="a87754808f812cb071ce25d29bb2fb91f" args="(Model &amp;aModel)" -->
+<a class="anchor" id="abcf602299c9580391522bdedd65858fe"></a><!-- doxytag: member="OpenSim::Actuator::setMaxControl" ref="abcf602299c9580391522bdedd65858fe" args="(const double &amp;aMaxControl)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void OpenSim::Actuator::setModel </td>
+          <td class="memname">void OpenSim::Actuator::setMaxControl </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>model</em></td>
+          <td class="paramtype">const double &amp;&nbsp;</td>
+          <td class="paramname"> <em>aMaxControl</em></td>
           <td>&nbsp;)&nbsp;</td>
           <td><code> [inline]</code></td>
         </tr>
@@ -1224,9 +1416,23 @@ Inheritance diagram for OpenSim::Actuator:</div>
 </div>
 <div class="memdoc">
 
-<p><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the <a class="el" href="classOpenSim_1_1Model.html" title="A base class that specifies the interface for a musculoskeletal model.">Model</a> this object is part of. </p>
-
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1ModelComponent.html#abc4af829ab41e910d1c8ac70f9de9713">OpenSim::ModelComponent</a>.</p>
+</div>
+</div>
+<a class="anchor" id="afeab19dad41a6915f7d1139cf3f871e0"></a><!-- doxytag: member="OpenSim::Actuator::setMinControl" ref="afeab19dad41a6915f7d1139cf3f871e0" args="(const double &amp;aMinControl)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenSim::Actuator::setMinControl </td>
+          <td>(</td>
+          <td class="paramtype">const double &amp;&nbsp;</td>
+          <td class="paramname"> <em>aMinControl</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
 
 </div>
 </div>
@@ -1245,6 +1451,69 @@ Inheritance diagram for OpenSim::Actuator:</div>
       </table>
 </div>
 <div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a12d31147016643bf1483ae9398efbb7e"></a><!-- doxytag: member="OpenSim::Actuator::setOverrideForce" ref="a12d31147016643bf1483ae9398efbb7e" args="(SimTK::State &amp;s, double value) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Actuator::setOverrideForce </td>
+          <td>(</td>
+          <td class="paramtype">SimTK::State &amp;&nbsp;</td>
+          <td class="paramname"> <em>s</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&nbsp;</td>
+          <td class="paramname"> <em>value</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>set the force value used when the override is true </p>
+<p>setOverrideForce sets the value used when an actuator's force compuation is orriden</p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>s</em>&nbsp;</td><td>current state </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>value</em>&nbsp;</td><td>value of override force </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a439b35c6d281af09cd5f84a82d11982d"></a><!-- doxytag: member="OpenSim::Actuator::setOverrideForceFunction" ref="a439b35c6d281af09cd5f84a82d11982d" args="(StateFunction *)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Actuator::setOverrideForceFunction </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classOpenSim_1_1StateFunction.html">StateFunction</a> *&nbsp;</td>
+          <td class="paramname"> <em>overrideFunc</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>set the function used to compute the override force </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em><a class="el" href="classOpenSim_1_1StateFunction.html">StateFunction</a></em>&nbsp;</td><td>pointer to object used to compute the force </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1315,7 +1584,7 @@ Inheritance diagram for OpenSim::Actuator:</div>
   </dd>
 </dl>
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Force.html#a15920f983f126fcd4a46a7638d10c4b2">OpenSim::Force</a>.</p>
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1ModelComponent.html#ad494dc59a54b476de574ee9388e771c8">OpenSim::ModelComponent</a>.</p>
 
 </div>
 </div>
@@ -1441,7 +1710,7 @@ Inheritance diagram for OpenSim::Actuator:</div>
           <td class="paramtype"><a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;&nbsp;</td>
           <td class="paramname"> <em>aModel</em></td>
           <td>&nbsp;)&nbsp;</td>
-          <td><code> [virtual]</code></td>
+          <td><code> [protected, virtual]</code></td>
         </tr>
       </table>
 </div>
@@ -1457,7 +1726,7 @@ Inheritance diagram for OpenSim::Actuator:</div>
 
 <p>Reimplemented from <a class="el" href="classOpenSim_1_1Force.html#a31983c29e0fe68b26da4f22e96ca3e59">OpenSim::Force</a>.</p>
 
-<p>Reimplemented in <a class="el" href="classOpenSim_1_1ContDerivMuscle.html#ab194663bf006566b0af926ea209117c3">OpenSim::ContDerivMuscle</a>, <a class="el" href="classOpenSim_1_1Delp1990Muscle.html#afce1ac256305ba725c7ed9a08f0b5785">OpenSim::Delp1990Muscle</a>, <a class="el" href="classOpenSim_1_1LineActuator.html#a38fb770e7dfd05c5cd42dd7a06148521">OpenSim::LineActuator</a>, <a class="el" href="classOpenSim_1_1PointActuator.html#af60c725e818b7d9e524e7e169f4a0761">OpenSim::PointActuator</a>, <a class="el" href="classOpenSim_1_1Schutte1993Muscle.html#a1b6aae643140fb1b672a5db8477563b1">OpenSim::Schutte1993Muscle</a>, <a class="el" href="classOpenSim_1_1Thelen2003Muscle.html#adbb43623aff555b1cb9acd0a7cfe7e7c">OpenSim::Thelen2003Muscle</a>, <a class="el" href="classOpenSim_1_1TorqueActuator.html#a95fccb15919ffe49b08748878f2a1bb1">OpenSim::TorqueActuator</a>, <a class="el" href="classOpenSim_1_1PistonActuator.html#af639c087d6587d04e0d3aff4460ead40">OpenSim::PistonActuator</a>, <a class="el" href="classOpenSim_1_1PistonActuator.html#a8ddd9e264cc761ea08c4a97162918996">OpenSim::PistonActuator</a>, <a class="el" href="classOpenSim_1_1LiuThelen2003Muscle.html#a01d8f970e94675b6a96aec3df9d7b7a7">OpenSim::LiuThelen2003Muscle</a>, and <a class="el" href="classOpenSim_1_1Muscle.html#a9b59cc7e366739e3393b07d8e71b77a5">OpenSim::Muscle</a>.</p>
+<p>Reimplemented in <a class="el" href="classOpenSim_1_1ContDerivMuscle.html#ab194663bf006566b0af926ea209117c3">OpenSim::ContDerivMuscle</a>, <a class="el" href="classOpenSim_1_1CoordinateActuator.html#ad0725c449b2ae6641aa03e7726a54f90">OpenSim::CoordinateActuator</a>, <a class="el" href="classOpenSim_1_1Delp1990Muscle.html#afce1ac256305ba725c7ed9a08f0b5785">OpenSim::Delp1990Muscle</a>, <a class="el" href="classOpenSim_1_1LineActuator.html#a38fb770e7dfd05c5cd42dd7a06148521">OpenSim::LineActuator</a>, <a class="el" href="classOpenSim_1_1PointActuator.html#af60c725e818b7d9e524e7e169f4a0761">OpenSim::PointActuator</a>, <a class="el" href="classOpenSim_1_1Schutte1993Muscle.html#a1b6aae643140fb1b672a5db8477563b1">OpenSim::Schutte1993Muscle</a>, <a class="el" href="classOpenSim_1_1Thelen2003Muscle.html#adbb43623aff555b1cb9acd0a7cfe7e7c">OpenSim::Thelen2003Muscle</a>, <a class="el" href="classOpenSim_1_1TorqueActuator.html#a95fccb15919ffe49b08748878f2a1bb1">OpenSim::TorqueActuator</a>, and <a class="el" href="classOpenSim_1_1Muscle.html#a9b59cc7e366739e3393b07d8e71b77a5">OpenSim::Muscle</a>.</p>
 
 </div>
 </div>
@@ -1481,6 +1750,29 @@ Inheritance diagram for OpenSim::Actuator:</div>
 
 </div>
 </div>
+<a class="anchor" id="a4033b3f725dbd2bc43922e9ff7630faf"></a><!-- doxytag: member="OpenSim::Actuator::updateFromXMLNode" ref="a4033b3f725dbd2bc43922e9ff7630faf" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Actuator::updateFromXMLNode </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Override of the default implementation to account for versioning. </p>
+
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1Object.html#a3426934773f3803309b0a360d3262de0">OpenSim::Object</a>.</p>
+
+<p>Reimplemented in <a class="el" href="classOpenSim_1_1CoordinateActuator.html#a72e53d7df3b32d4d918701ee1254f19c">OpenSim::CoordinateActuator</a>, <a class="el" href="classOpenSim_1_1LineActuator.html#afb83e7920feea1af88fdad9240c03877">OpenSim::LineActuator</a>, <a class="el" href="classOpenSim_1_1PointActuator.html#a79d686a226a74b0a5e39c855ebb75bf6">OpenSim::PointActuator</a>, <a class="el" href="classOpenSim_1_1TorqueActuator.html#aa9a064ca22ac16df19bfaaecede1eb5a">OpenSim::TorqueActuator</a>, and <a class="el" href="classOpenSim_1_1Muscle.html#af70d3b4b3165f0738fc618d445081b02">OpenSim::Muscle</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="abe27d2c279c3fc360ce550ae4fc00f93"></a><!-- doxytag: member="OpenSim::Actuator::updateGeometry" ref="abe27d2c279c3fc360ce550ae4fc00f93" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -1501,6 +1793,25 @@ Inheritance diagram for OpenSim::Actuator:</div>
 
 </div>
 </div>
+<a class="anchor" id="a48528ce2c8b2337ddd97adb58472abba"></a><!-- doxytag: member="OpenSim::Actuator::updOverrideForceFunction" ref="a48528ce2c8b2337ddd97adb58472abba" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classOpenSim_1_1StateFunction.html">StateFunction</a> * Actuator::updOverrideForceFunction </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>return a writable pointer to the function used to compute the override force </p>
+
+</div>
+</div>
 <hr/><h2>Member Data Documentation</h2>
 <a class="anchor" id="ad82a226a41de60e7bc05e53d489738c2"></a><!-- doxytag: member="OpenSim::Actuator::_appliesForce" ref="ad82a226a41de60e7bc05e53d489738c2" args="" -->
 <div class="memitem">
@@ -1513,7 +1824,6 @@ Inheritance diagram for OpenSim::Actuator:</div>
 </div>
 <div class="memdoc">
 
-<p><a class="el" href="classOpenSim_1_1Model.html" title="A base class that specifies the interface for a musculoskeletal model.">Model</a> which the actuator actuates. </p>
 <p>Flag indicating whether the actuator applies a force or a torque. </p>
 
 </div>
@@ -1585,6 +1895,45 @@ Inheritance diagram for OpenSim::Actuator:</div>
 
 </div>
 </div>
+<a class="anchor" id="aa831630935d75c28f88718f0850b93e2"></a><!-- doxytag: member="OpenSim::Actuator::_isOverridenIndex" ref="aa831630935d75c28f88718f0850b93e2" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SimTK::DiscreteVariableIndex <a class="el" href="classOpenSim_1_1Actuator.html#aa831630935d75c28f88718f0850b93e2">OpenSim::Actuator::_isOverridenIndex</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a7d27a572192d6a274646db0f6fd3a939"></a><!-- doxytag: member="OpenSim::Actuator::_maxControl" ref="a7d27a572192d6a274646db0f6fd3a939" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double&amp; <a class="el" href="classOpenSim_1_1Actuator.html#a7d27a572192d6a274646db0f6fd3a939">OpenSim::Actuator::_maxControl</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a9c8d15daeb43af2426967949c4283adc"></a><!-- doxytag: member="OpenSim::Actuator::_minControl" ref="a9c8d15daeb43af2426967949c4283adc" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double&amp; <a class="el" href="classOpenSim_1_1Actuator.html#a9c8d15daeb43af2426967949c4283adc">OpenSim::Actuator::_minControl</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="aaddf19e0a71d9d82f99875cd738b95ac"></a><!-- doxytag: member="OpenSim::Actuator::_numStateVariables" ref="aaddf19e0a71d9d82f99875cd738b95ac" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -1595,6 +1944,60 @@ Inheritance diagram for OpenSim::Actuator:</div>
       </table>
 </div>
 <div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a25d03d8c38a07e20909ba6836deed712"></a><!-- doxytag: member="OpenSim::Actuator::_overrideForceFunction" ref="a25d03d8c38a07e20909ba6836deed712" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classOpenSim_1_1StateFunction.html">StateFunction</a>* <a class="el" href="classOpenSim_1_1Actuator.html#a25d03d8c38a07e20909ba6836deed712">OpenSim::Actuator::_overrideForceFunction</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="abdfb0d2f7d0e6d9ba3c1c7ee7355241f"></a><!-- doxytag: member="OpenSim::Actuator::_overrideForceIndex" ref="abdfb0d2f7d0e6d9ba3c1c7ee7355241f" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SimTK::DiscreteVariableIndex <a class="el" href="classOpenSim_1_1Actuator.html#abdfb0d2f7d0e6d9ba3c1c7ee7355241f">OpenSim::Actuator::_overrideForceIndex</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a5ad01aeda38263e8036719e9eb7bc5e2"></a><!-- doxytag: member="OpenSim::Actuator::_propMaxControl" ref="a5ad01aeda38263e8036719e9eb7bc5e2" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classOpenSim_1_1PropertyDbl.html">PropertyDbl</a> <a class="el" href="classOpenSim_1_1Actuator.html#a5ad01aeda38263e8036719e9eb7bc5e2">OpenSim::Actuator::_propMaxControl</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a12425c5c22169cd1c2d483a18a87c530"></a><!-- doxytag: member="OpenSim::Actuator::_propMinControl" ref="a12425c5c22169cd1c2d483a18a87c530" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classOpenSim_1_1PropertyDbl.html">PropertyDbl</a> <a class="el" href="classOpenSim_1_1Actuator.html#a12425c5c22169cd1c2d483a18a87c530">OpenSim::Actuator::_propMinControl</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Bounds on control of this actuator. </p>
 
 </div>
 </div>
@@ -1681,7 +2084,7 @@ Inheritance diagram for OpenSim::Actuator:</div>
 <li>OpenSim/Simulation/Model/Actuator.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Feb 7 02:15:16 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:37:08 2010 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

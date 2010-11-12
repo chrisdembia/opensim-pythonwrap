@@ -8,11 +8,12 @@
 
 package org.opensim.modeling;
 
-public class PropertyTransform extends Property {
+public class PropertyTransform {
   private long swigCPtr;
+  protected boolean swigCMemOwn;
 
   public PropertyTransform(long cPtr, boolean cMemoryOwn) {
-    super(opensimModelJNI.SWIGStorageUpcast(cPtr), cMemoryOwn);
+    swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
   }
 
@@ -30,7 +31,6 @@ public class PropertyTransform extends Property {
       opensimModelJNI.delete_PropertyTransform(swigCPtr);
     }
     swigCPtr = 0;
-    super.delete();
   }
 
   public PropertyTransform() {
@@ -76,10 +76,6 @@ public class PropertyTransform extends Property {
 
   public String toString() {
     return opensimModelJNI.PropertyTransform_toString(swigCPtr, this);
-  }
-
-  public int getArraySize() {
-    return opensimModelJNI.PropertyTransform_getArraySize(swigCPtr, this);
   }
 
 }

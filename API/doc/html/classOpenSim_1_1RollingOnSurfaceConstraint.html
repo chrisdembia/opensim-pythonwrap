@@ -63,17 +63,23 @@ Inheritance diagram for OpenSim::RollingOnSurfaceConstraint:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Copy data members from one <a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html" title="A class implementing a collection of rolling-without-slipping and non-penetration...">RollingOnSurfaceConstraint</a> to another.  <a href="#a90286c979505ab098d21b47384bcb6c2"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html#af4ca60ae74304b7e1245563d967d765b">setup</a> (<a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;aModel)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Perform some setup functions that happen after the object has been deserialized or copied.  <a href="#af4ca60ae74304b7e1245563d967d765b"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html#a0788555f87d601a7df5fa97570acfe31">createSystem</a> (SimTK::MultibodySystem &amp;system) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Create the SimTK::Constraints: which implements this <a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html" title="A class implementing a collection of rolling-without-slipping and non-penetration...">RollingOnSurfaceConstraint</a>.  <a href="#a0788555f87d601a7df5fa97570acfe31"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html#a423cc53581f48bacc6ee3aae30a2eb21">initState</a> (SimTK::State &amp;state) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Populate the the SimTK::State: with defaults for the <a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html" title="A class implementing a collection of rolling-without-slipping and non-penetration...">RollingOnSurfaceConstraint</a>.  <a href="#a423cc53581f48bacc6ee3aae30a2eb21"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html#a031b3ada9f45472c89c79793a7490e45">setDefaultsFromState</a> (const SimTK::State &amp;state)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Given an existing SimTK::State set defaults for the <a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html" title="A class implementing a collection of rolling-without-slipping and non-penetration...">RollingOnSurfaceConstraint</a>.  <a href="#a031b3ada9f45472c89c79793a7490e45"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html#a5b32dbff55f8b2768124d85f29c728f5">setRollingBodyByName</a> (std::string aBodyName)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Following methods set attributes of the weld constraint.  <a href="#a5b32dbff55f8b2768124d85f29c728f5"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html#a23cb3c4533f79dbf9d4ad6b98909e18d">setSurfaceBodyByName</a> (std::string aBodyName)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html#ae680ece6e218ddee62510b13bb9411b7">setContactPointSurfaceBody</a> (SimTK::Vec3 point)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual std::vector&lt; bool &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html#a90f39653c39153be7d5664eec7c92378">unilateralConditionsSatisfied</a> (SimTK::State &amp;state)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html#abbd3dc98cbed7de05c93ee0ae922f9a6">getIsDisabled</a> (const SimTK::State &amp;state) const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get whether or not the <a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html" title="A class implementing a collection of rolling-without-slipping and non-penetration...">RollingOnSurfaceConstraint</a> is disabled.  <a href="#abbd3dc98cbed7de05c93ee0ae922f9a6"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html#a429260ad34658916e0229461ef9f7747">setIsDisabled</a> (SimTK::State &amp;state, bool isDisabled)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> whether or not the <a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html" title="A class implementing a collection of rolling-without-slipping and non-penetration...">RollingOnSurfaceConstraint</a> is disabled.  <a href="#a429260ad34658916e0229461ef9f7747"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html#a66fe16fc1f96d06f0b15731439c42744">setIsDisabled</a> (SimTK::State &amp;state, bool isDisabled, std::vector&lt; bool &gt; shouldBeOn)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html#a41e39a5fa3ccb7c859b77d756c9643ae">setIsDisabledWithCachedUnilateralConditions</a> (bool isDisabled, SimTK::State &amp;state)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html#a4b7307b2463737c66cca93b8f99d4cf2">setContactPointOnSurfaceBody</a> (const SimTK::State &amp;s, SimTK::Vec3 point)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual std::vector&lt; bool &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html#adc486ccec65372b232bb392e23c4b733">unilateralConditionsSatisfied</a> (const SimTK::State &amp;state)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html#aee19c74ab04440b3d453c5cf9b1cf928">isDisabled</a> (const SimTK::State &amp;state) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get whether or not the <a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html" title="A class implementing a collection of rolling-without-slipping and non-penetration...">RollingOnSurfaceConstraint</a> is disabled.  <a href="#aee19c74ab04440b3d453c5cf9b1cf928"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html#aaf6fbfbb2571fa41b8bd7ec5ab388e46">setDisabled</a> (SimTK::State &amp;state, bool isDisabled)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> whether or not the <a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html" title="A class implementing a collection of rolling-without-slipping and non-penetration...">RollingOnSurfaceConstraint</a> is disabled.  <a href="#aaf6fbfbb2571fa41b8bd7ec5ab388e46"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html#a7eee5858eb0ff65dcf2ebe748d08c473">setDisabled</a> (SimTK::State &amp;state, bool isDisabled, std::vector&lt; bool &gt; shouldBeOn)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html#a6dd68a42ead84145f5d7b5ca4a86fd24">setDisabledWithCachedUnilateralConditions</a> (bool isDisabled, SimTK::State &amp;state)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html#aa065f84c32a4a7196e5c53d5e2f275c1">calcConstraintForces</a> (const SimTK::State &amp;state, SimTK::Vector_&lt; SimTK::SpatialVec &gt; &amp;bodyForcesInParent, SimTK::Vector &amp;mobilityForces)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Ask the <a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html" title="A class implementing a collection of rolling-without-slipping and non-penetration...">RollingOnSurfaceConstraint</a> for the forces it is imposing on the system Simbody multibody system must be realized to at least position Returns: the bodyForces on those bodies being constrained (constrainedBodies) a SpatialVec (6 components) describing resulting torque and force mobilityForces acting along constrained mobilities.  <a href="#aa065f84c32a4a7196e5c53d5e2f275c1"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Protected Attributes</h2></td></tr>
@@ -102,8 +108,8 @@ Inheritance diagram for OpenSim::RollingOnSurfaceConstraint:</div>
 <tr><td class="memItemLeft" align="right" valign="top">std::vector<br class="typebreak"/>
 &lt; SimTK::ConstraintIndex &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html#afc55030cc7b33a6209210434d466ffb4">_indices</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the indices of underlying constraints to access from Simbody.  <a href="#afc55030cc7b33a6209210434d466ffb4"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">std::vector&lt; bool &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html#a33bbe6b7c8b3ad6d0a07c071a4517b5b">_cachedUnilateralConditions</a></td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This cache acts a temporary hold for the constraint conditions when time has not changed.  <a href="#a33bbe6b7c8b3ad6d0a07c071a4517b5b"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::vector&lt; bool &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html#a408473940e201f10d25d2a17eb6b0b5a">_defaultUnilateralConditions</a></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This cache acts a temporary hold for the constraint conditions when time has not changed.  <a href="#a408473940e201f10d25d2a17eb6b0b5a"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Friends</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html#a53c55c23727a4e0f756d836780044d04">SimbodyEngine</a></td></tr>
 </table>
@@ -242,9 +248,9 @@ Inheritance diagram for OpenSim::RollingOnSurfaceConstraint:</div>
 
 <p>Copy this body and return a pointer to the copy. </p>
 <p>The copy constructor for this class is used.</p>
-<dl class="return"><dt><b>Returns:</b></dt><dd>Pointer to a copy of this <a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody body segment.">OpenSim::Body</a>. </dd></dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>Pointer to a copy of this <a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody rigid body.">OpenSim::Body</a>. </dd></dl>
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1UnilateralConstraint.html#a1c7ea5f65b47fbe5b83d37af7cf159ae">OpenSim::UnilateralConstraint</a>.</p>
+<p>Implements <a class="el" href="classOpenSim_1_1UnilateralConstraint.html#a23b434fe4dbdfcbbbd87388176d3ed5d">OpenSim::UnilateralConstraint</a>.</p>
 
 </div>
 </div>
@@ -276,12 +282,56 @@ Inheritance diagram for OpenSim::RollingOnSurfaceConstraint:</div>
 
 </div>
 </div>
-<a class="anchor" id="abbd3dc98cbed7de05c93ee0ae922f9a6"></a><!-- doxytag: member="OpenSim::RollingOnSurfaceConstraint::getIsDisabled" ref="abbd3dc98cbed7de05c93ee0ae922f9a6" args="(const SimTK::State &amp;state) const " -->
+<a class="anchor" id="a0788555f87d601a7df5fa97570acfe31"></a><!-- doxytag: member="OpenSim::RollingOnSurfaceConstraint::createSystem" ref="a0788555f87d601a7df5fa97570acfe31" args="(SimTK::MultibodySystem &amp;system) const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool RollingOnSurfaceConstraint::getIsDisabled </td>
+          <td class="memname">void RollingOnSurfaceConstraint::createSystem </td>
+          <td>(</td>
+          <td class="paramtype">SimTK::MultibodySystem &amp;&nbsp;</td>
+          <td class="paramname"> <em>system</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Create the SimTK::Constraints: which implements this <a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html" title="A class implementing a collection of rolling-without-slipping and non-penetration...">RollingOnSurfaceConstraint</a>. </p>
+
+<p>Implements <a class="el" href="classOpenSim_1_1ModelComponent.html#a85757ad4645e4066f72ce4d0411a49b8">OpenSim::ModelComponent</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a423cc53581f48bacc6ee3aae30a2eb21"></a><!-- doxytag: member="OpenSim::RollingOnSurfaceConstraint::initState" ref="a423cc53581f48bacc6ee3aae30a2eb21" args="(SimTK::State &amp;state) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void RollingOnSurfaceConstraint::initState </td>
+          <td>(</td>
+          <td class="paramtype">SimTK::State &amp;&nbsp;</td>
+          <td class="paramname"> <em>state</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Populate the the SimTK::State: with defaults for the <a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html" title="A class implementing a collection of rolling-without-slipping and non-penetration...">RollingOnSurfaceConstraint</a>. </p>
+
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1Constraint.html#a91918289b14fafc6dcba7d0fdb2d2c9e">OpenSim::Constraint</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aee19c74ab04440b3d453c5cf9b1cf928"></a><!-- doxytag: member="OpenSim::RollingOnSurfaceConstraint::isDisabled" ref="aee19c74ab04440b3d453c5cf9b1cf928" args="(const SimTK::State &amp;state) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool RollingOnSurfaceConstraint::isDisabled </td>
           <td>(</td>
           <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
           <td class="paramname"> <em>state</em></td>
@@ -301,7 +351,7 @@ Inheritance diagram for OpenSim::RollingOnSurfaceConstraint:</div>
   </dd>
 </dl>
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Constraint.html#a7759027e55840e6dd6a1c4f87e6493a7">OpenSim::Constraint</a>.</p>
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1Constraint.html#a040812cf22816682c1dbf25ff1124b2e">OpenSim::Constraint</a>.</p>
 
 </div>
 </div>
@@ -328,17 +378,26 @@ Inheritance diagram for OpenSim::RollingOnSurfaceConstraint:</div>
 
 </div>
 </div>
-<a class="anchor" id="ae680ece6e218ddee62510b13bb9411b7"></a><!-- doxytag: member="OpenSim::RollingOnSurfaceConstraint::setContactPointSurfaceBody" ref="ae680ece6e218ddee62510b13bb9411b7" args="(SimTK::Vec3 point)" -->
+<a class="anchor" id="a4b7307b2463737c66cca93b8f99d4cf2"></a><!-- doxytag: member="OpenSim::RollingOnSurfaceConstraint::setContactPointOnSurfaceBody" ref="a4b7307b2463737c66cca93b8f99d4cf2" args="(const SimTK::State &amp;s, SimTK::Vec3 point)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void OpenSim::RollingOnSurfaceConstraint::setContactPointSurfaceBody </td>
+          <td class="memname">void OpenSim::RollingOnSurfaceConstraint::setContactPointOnSurfaceBody </td>
           <td>(</td>
-          <td class="paramtype">SimTK::Vec3&nbsp;</td>
-          <td class="paramname"> <em>point</em></td>
-          <td>&nbsp;)&nbsp;</td>
+          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
+          <td class="paramname"> <em>s</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">SimTK::Vec3&nbsp;</td>
+          <td class="paramname"> <em>point</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
         </tr>
       </table>
 </div>
@@ -346,12 +405,34 @@ Inheritance diagram for OpenSim::RollingOnSurfaceConstraint:</div>
 
 </div>
 </div>
-<a class="anchor" id="a66fe16fc1f96d06f0b15731439c42744"></a><!-- doxytag: member="OpenSim::RollingOnSurfaceConstraint::setIsDisabled" ref="a66fe16fc1f96d06f0b15731439c42744" args="(SimTK::State &amp;state, bool isDisabled, std::vector&lt; bool &gt; shouldBeOn)" -->
+<a class="anchor" id="a031b3ada9f45472c89c79793a7490e45"></a><!-- doxytag: member="OpenSim::RollingOnSurfaceConstraint::setDefaultsFromState" ref="a031b3ada9f45472c89c79793a7490e45" args="(const SimTK::State &amp;state)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool RollingOnSurfaceConstraint::setIsDisabled </td>
+          <td class="memname">void RollingOnSurfaceConstraint::setDefaultsFromState </td>
+          <td>(</td>
+          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
+          <td class="paramname"> <em>state</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Given an existing SimTK::State set defaults for the <a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html" title="A class implementing a collection of rolling-without-slipping and non-penetration...">RollingOnSurfaceConstraint</a>. </p>
+
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1Constraint.html#a6c0e00efd115ce1e2fe62c558e483462">OpenSim::Constraint</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a7eee5858eb0ff65dcf2ebe748d08c473"></a><!-- doxytag: member="OpenSim::RollingOnSurfaceConstraint::setDisabled" ref="a7eee5858eb0ff65dcf2ebe748d08c473" args="(SimTK::State &amp;state, bool isDisabled, std::vector&lt; bool &gt; shouldBeOn)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool RollingOnSurfaceConstraint::setDisabled </td>
           <td>(</td>
           <td class="paramtype">SimTK::State &amp;&nbsp;</td>
           <td class="paramname"> <em>state</em>, </td>
@@ -379,12 +460,12 @@ Inheritance diagram for OpenSim::RollingOnSurfaceConstraint:</div>
 
 </div>
 </div>
-<a class="anchor" id="a429260ad34658916e0229461ef9f7747"></a><!-- doxytag: member="OpenSim::RollingOnSurfaceConstraint::setIsDisabled" ref="a429260ad34658916e0229461ef9f7747" args="(SimTK::State &amp;state, bool isDisabled)" -->
+<a class="anchor" id="aaf6fbfbb2571fa41b8bd7ec5ab388e46"></a><!-- doxytag: member="OpenSim::RollingOnSurfaceConstraint::setDisabled" ref="aaf6fbfbb2571fa41b8bd7ec5ab388e46" args="(SimTK::State &amp;state, bool isDisabled)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool RollingOnSurfaceConstraint::setIsDisabled </td>
+          <td class="memname">bool RollingOnSurfaceConstraint::setDisabled </td>
           <td>(</td>
           <td class="paramtype">SimTK::State &amp;&nbsp;</td>
           <td class="paramname"> <em>state</em>, </td>
@@ -413,14 +494,16 @@ Inheritance diagram for OpenSim::RollingOnSurfaceConstraint:</div>
   </dd>
 </dl>
 
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1Constraint.html#a193c4c8fe3d8dcaaaa4e63870c2dcb15">OpenSim::Constraint</a>.</p>
+
 </div>
 </div>
-<a class="anchor" id="a41e39a5fa3ccb7c859b77d756c9643ae"></a><!-- doxytag: member="OpenSim::RollingOnSurfaceConstraint::setIsDisabledWithCachedUnilateralConditions" ref="a41e39a5fa3ccb7c859b77d756c9643ae" args="(bool isDisabled, SimTK::State &amp;state)" -->
+<a class="anchor" id="a6dd68a42ead84145f5d7b5ca4a86fd24"></a><!-- doxytag: member="OpenSim::RollingOnSurfaceConstraint::setDisabledWithCachedUnilateralConditions" ref="a6dd68a42ead84145f5d7b5ca4a86fd24" args="(bool isDisabled, SimTK::State &amp;state)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool OpenSim::RollingOnSurfaceConstraint::setIsDisabledWithCachedUnilateralConditions </td>
+          <td class="memname">bool OpenSim::RollingOnSurfaceConstraint::setDisabledWithCachedUnilateralConditions </td>
           <td>(</td>
           <td class="paramtype">bool&nbsp;</td>
           <td class="paramname"> <em>isDisabled</em>, </td>
@@ -508,14 +591,14 @@ Inheritance diagram for OpenSim::RollingOnSurfaceConstraint:</div>
 
 </div>
 </div>
-<a class="anchor" id="a90f39653c39153be7d5664eec7c92378"></a><!-- doxytag: member="OpenSim::RollingOnSurfaceConstraint::unilateralConditionsSatisfied" ref="a90f39653c39153be7d5664eec7c92378" args="(SimTK::State &amp;state)" -->
+<a class="anchor" id="adc486ccec65372b232bb392e23c4b733"></a><!-- doxytag: member="OpenSim::RollingOnSurfaceConstraint::unilateralConditionsSatisfied" ref="adc486ccec65372b232bb392e23c4b733" args="(const SimTK::State &amp;state)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">std::vector&lt; bool &gt; RollingOnSurfaceConstraint::unilateralConditionsSatisfied </td>
           <td>(</td>
-          <td class="paramtype">SimTK::State &amp;&nbsp;</td>
+          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
           <td class="paramname"> <em>state</em></td>
           <td>&nbsp;)&nbsp;</td>
           <td><code> [virtual]</code></td>
@@ -523,6 +606,8 @@ Inheritance diagram for OpenSim::RollingOnSurfaceConstraint:</div>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1UnilateralConstraint.html#a8ab96e830f0aa8098093438b6883ad7d">OpenSim::UnilateralConstraint</a>.</p>
 
 </div>
 </div>
@@ -543,21 +628,6 @@ Inheritance diagram for OpenSim::RollingOnSurfaceConstraint:</div>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
-<a class="anchor" id="a33bbe6b7c8b3ad6d0a07c071a4517b5b"></a><!-- doxytag: member="OpenSim::RollingOnSurfaceConstraint::_cachedUnilateralConditions" ref="a33bbe6b7c8b3ad6d0a07c071a4517b5b" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::vector&lt;bool&gt; <a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html#a33bbe6b7c8b3ad6d0a07c071a4517b5b">OpenSim::RollingOnSurfaceConstraint::_cachedUnilateralConditions</a><code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>This cache acts a temporary hold for the constraint conditions when time has not changed. </p>
-
-</div>
-</div>
 <a class="anchor" id="ab8420bbec6cf01dba52ffdb649c2474a"></a><!-- doxytag: member="OpenSim::RollingOnSurfaceConstraint::_coulombFrictionCoefficient" ref="ab8420bbec6cf01dba52ffdb649c2474a" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -583,6 +653,21 @@ Inheritance diagram for OpenSim::RollingOnSurfaceConstraint:</div>
 <div class="memdoc">
 
 <p>Coulomb friction coefficient for rolling on the surface. </p>
+
+</div>
+</div>
+<a class="anchor" id="a408473940e201f10d25d2a17eb6b0b5a"></a><!-- doxytag: member="OpenSim::RollingOnSurfaceConstraint::_defaultUnilateralConditions" ref="a408473940e201f10d25d2a17eb6b0b5a" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;bool&gt; <a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html#a408473940e201f10d25d2a17eb6b0b5a">OpenSim::RollingOnSurfaceConstraint::_defaultUnilateralConditions</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>This cache acts a temporary hold for the constraint conditions when time has not changed. </p>
 
 </div>
 </div>
@@ -776,7 +861,7 @@ Inheritance diagram for OpenSim::RollingOnSurfaceConstraint:</div>
 <li>OpenSim/Simulation/SimbodyEngine/RollingOnSurfaceConstraint.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Feb 7 02:15:19 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:37:12 2010 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

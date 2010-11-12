@@ -144,7 +144,11 @@ public class AnalyzeTool extends AbstractTool {
   }
 
   public boolean run() throws java.io.IOException {
-    return opensimModelJNI.AnalyzeTool_run(swigCPtr, this);
+    return opensimModelJNI.AnalyzeTool_run__SWIG_0(swigCPtr, this);
+  }
+
+  public boolean run(boolean plotting) throws java.io.IOException {
+    return opensimModelJNI.AnalyzeTool_run__SWIG_1(swigCPtr, this, plotting);
   }
 
 }

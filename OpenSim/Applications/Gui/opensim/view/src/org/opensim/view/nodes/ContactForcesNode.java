@@ -87,21 +87,7 @@ public class ContactForcesNode extends OpenSimObjectSetNode {
          return null;
       }
    }
-   
-   public Image getOpenedIcon(int i) {
-      URL imageURL=null;
-      try {
-         imageURL = Class.forName("org.opensim.view.nodes.OpenSimNode").getResource("/org/opensim/view/nodes/icons/forceNode.png");
-      } catch (ClassNotFoundException ex) {
-         ex.printStackTrace();
-      }
-      if (imageURL != null) {
-         return new ImageIcon(imageURL, "").getImage();
-      } else {
-         return null;
-      }
-   }
-   
+      
    /**
     * Display name 
     */

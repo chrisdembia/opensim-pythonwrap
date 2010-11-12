@@ -44,42 +44,38 @@ import vtk.vtkXMLPolyDataReader;
  */
 public class GeometryFactory {
 
-    static vtkActor createActor(String boneFile) {
+    static void populateActorFromFile(String boneFile, vtkActor boneActor) {
         vtkPolyData poly=null;
-        vtkActor boneActor =null;
           if (boneFile.toLowerCase().endsWith(".vtp")){
               vtkXMLPolyDataReader polyReader = new vtkXMLPolyDataReader();
               polyReader.SetFileName(boneFile);
               poly = polyReader.GetOutput();
               polyReader.GetOutput().ReleaseDataFlagOn();
-              boneActor=createActorForPolyData(poly);
+              attachPolyDataToActor(poly, boneActor);
           }
           else if (boneFile.toLowerCase().endsWith(".stl")){
               vtkSTLReader polyReader = new vtkSTLReader();
               polyReader.SetFileName(boneFile);
               poly = polyReader.GetOutput();
               polyReader.GetOutput().ReleaseDataFlagOn();
-              boneActor=createActorForPolyData(poly);
+              attachPolyDataToActor(poly, boneActor);
           }
           else if (boneFile.toLowerCase().endsWith(".obj")){
               vtkOBJReader polyReader = new vtkOBJReader();
               polyReader.SetFileName(boneFile);
               poly = polyReader.GetOutput();
               polyReader.GetOutput().ReleaseDataFlagOn();
-              boneActor=createActorForPolyData(poly);
+              attachPolyDataToActor(poly, boneActor);
            }
           else
               System.out.println("Unexpected extension for geometry file"+boneFile);
-        return boneActor;
     }
 
-    private static vtkActor createActorForPolyData(vtkPolyData polyData) {
-        vtkActor boneActor = new vtkActor();
+    private static void attachPolyDataToActor(vtkPolyData polyData, vtkActor boneActor) {
         vtkPolyDataMapper boneMapper = new vtkPolyDataMapper();
         boneActor.SetMapper(boneMapper);
         // Create polyData and append it to one common polyData object
         boneMapper.SetInput(polyData);
-        return boneActor;
     }
     
 }

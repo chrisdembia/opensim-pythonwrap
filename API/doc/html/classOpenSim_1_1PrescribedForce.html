@@ -59,8 +59,10 @@ Inheritance diagram for OpenSim::PrescribedForce:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Destructor.  <a href="#aace5bba9a0dfc01932717b9b4da695f5"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classOpenSim_1_1Object.html">Object</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PrescribedForce.html#ad7c47a8224aa64beb3cdc6d927c21ac9">copy</a> () const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Copy this force and return a pointer to the copy.  <a href="#ad7c47a8224aa64beb3cdc6d927c21ac9"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PrescribedForce.html#a62503a615cd90928906d3b6ddb383a0f">setupFromXML</a> ()</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This is called after the <a class="el" href="classOpenSim_1_1Model.html" title="A base class that specifies the interface for a musculoskeletal model.">Model</a> has been constructed from an XML file.  <a href="#a62503a615cd90928906d3b6ddb383a0f"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PrescribedForce.html#a6cc8d017ed64418448524848026b2f72">updateFromXMLNode</a> ()</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Update this object based on its XML node.  <a href="#a6cc8d017ed64418448524848026b2f72"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PrescribedForce.html#ac015cdcd174dda45f7b4ee77a543d9a2">setup</a> (<a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;model)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Subclasses may optionally override this method to perform setup.  <a href="#ac015cdcd174dda45f7b4ee77a543d9a2"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PrescribedForce.html#a532a45b8dd959c4d8fa7c2d9ea178a8c">setBodyName</a> (const std::string &amp;aBodyName)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">const std::string &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PrescribedForce.html#a9da1a5ce75a4fe0f635f7d4854a263c0">getBodyName</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PrescribedForce.html#ae535c3f0dd1b687897a12e82d90aba9b">setForceFunctions</a> (<a class="el" href="classOpenSim_1_1Function.html">Function</a> *forceX, <a class="el" href="classOpenSim_1_1Function.html">Function</a> *forceY, <a class="el" href="classOpenSim_1_1Function.html">Function</a> *forceZ)</td></tr>
@@ -106,11 +108,11 @@ Inheritance diagram for OpenSim::PrescribedForce:</div>
 <tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classOpenSim_1_1Array.html">OpenSim::Array</a>&lt; double &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PrescribedForce.html#a4fe710e4973e8ecc8a5a5f66e8baf7ba">getRecordValues</a> (const SimTK::State &amp;state) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Given SimTK::State object extract all the values necessary to report forces, application location frame, etc.  <a href="#a4fe710e4973e8ecc8a5a5f66e8baf7ba"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PrescribedForce.html">PrescribedForce</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PrescribedForce.html#ae050d085b30ee3d4cff77a9eb75e60e7">operator=</a> (const <a class="el" href="classOpenSim_1_1PrescribedForce.html">PrescribedForce</a> &amp;aJoint)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Assign this object to the values of another.  <a href="#ae050d085b30ee3d4cff77a9eb75e60e7"></a><br/></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Assignment operator.  <a href="#ae050d085b30ee3d4cff77a9eb75e60e7"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PrescribedForce.html#a11434a1295558abadd6a3fc416cf8123">OPENSIM_DECLARE_DERIVED</a> (<a class="el" href="classOpenSim_1_1PrescribedForce.html">PrescribedForce</a>, <a class="el" href="classOpenSim_1_1Force.html">Force</a>)</td></tr>
 <tr><td colspan="2"><h2>Protected Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PrescribedForce.html#a0bbd9fb657011c28c4510d7a4ae7ee2f">computeForce</a> (const SimTK::State &amp;state) const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Compute the force.  <a href="#a0bbd9fb657011c28c4510d7a4ae7ee2f"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PrescribedForce.html#ae3903abb78c25cd35cf48eb7895c4dda">computeForce</a> (const SimTK::State &amp;state, SimTK::Vector_&lt; SimTK::SpatialVec &gt; &amp;bodyForces, SimTK::Vector &amp;generalizedForces) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Compute the force.  <a href="#ae3903abb78c25cd35cf48eb7895c4dda"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyStr.html">PropertyStr</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PrescribedForce.html#a349389744976f365e57be86ee6691c45">_bodyNameProp</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The body that the Prescribed force is applied to.  <a href="#a349389744976f365e57be86ee6691c45"></a><br/></td></tr>
@@ -279,7 +281,7 @@ Inheritance diagram for OpenSim::PrescribedForce:</div>
 
 </div>
 </div>
-<a class="anchor" id="a0bbd9fb657011c28c4510d7a4ae7ee2f"></a><!-- doxytag: member="OpenSim::PrescribedForce::computeForce" ref="a0bbd9fb657011c28c4510d7a4ae7ee2f" args="(const SimTK::State &amp;state) const " -->
+<a class="anchor" id="ae3903abb78c25cd35cf48eb7895c4dda"></a><!-- doxytag: member="OpenSim::PrescribedForce::computeForce" ref="ae3903abb78c25cd35cf48eb7895c4dda" args="(const SimTK::State &amp;state, SimTK::Vector_&lt; SimTK::SpatialVec &gt; &amp;bodyForces, SimTK::Vector &amp;generalizedForces) const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -287,9 +289,24 @@ Inheritance diagram for OpenSim::PrescribedForce:</div>
           <td class="memname">void PrescribedForce::computeForce </td>
           <td>(</td>
           <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
-          <td class="paramname"> <em>state</em></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td> const<code> [protected, virtual]</code></td>
+          <td class="paramname"> <em>state</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SimTK::Vector_&lt; SimTK::SpatialVec &gt; &amp;&nbsp;</td>
+          <td class="paramname"> <em>bodyForces</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SimTK::Vector &amp;&nbsp;</td>
+          <td class="paramname"> <em>generalizedForces</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td> const<code> [protected, virtual]</code></td>
         </tr>
       </table>
 </div>
@@ -297,7 +314,7 @@ Inheritance diagram for OpenSim::PrescribedForce:</div>
 
 <p>Compute the force. </p>
 
-<p>Implements <a class="el" href="classOpenSim_1_1CustomForce.html#ab0adbbc82e9aea8b9e369156a1483c73">OpenSim::CustomForce</a>.</p>
+<p>Implements <a class="el" href="classOpenSim_1_1CustomForce.html#abdc00ab9c7428ae228ded1a56aa40d9d">OpenSim::CustomForce</a>.</p>
 
 </div>
 </div>
@@ -320,7 +337,7 @@ Inheritance diagram for OpenSim::PrescribedForce:</div>
 <p>The copy constructor for this class is used.</p>
 <dl class="return"><dt><b>Returns:</b></dt><dd>Pointer to a copy of this force. </dd></dl>
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Object.html#a2000b12522f6f79a8918991b819a4bb7">OpenSim::Object</a>.</p>
+<p>Implements <a class="el" href="classOpenSim_1_1Force.html#a71a62b13d80e706f70bcebb2e818257c">OpenSim::Force</a>.</p>
 
 </div>
 </div>
@@ -638,7 +655,7 @@ Inheritance diagram for OpenSim::PrescribedForce:</div>
           <td class="memname"><a class="el" href="classOpenSim_1_1PrescribedForce.html">PrescribedForce</a> &amp; PrescribedForce::operator= </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classOpenSim_1_1PrescribedForce.html">PrescribedForce</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>aObject</em></td>
+          <td class="paramname"> <em>aForce</em></td>
           <td>&nbsp;)&nbsp;</td>
           <td></td>
         </tr>
@@ -646,14 +663,10 @@ Inheritance diagram for OpenSim::PrescribedForce:</div>
 </div>
 <div class="memdoc">
 
-<p>Assign this object to the values of another. </p>
-<p>The XML-associated variable members are not copied-- the XML nodes and/or document must be generated anew for a copied object.</p>
+<p>Assignment operator. </p>
 <dl class="return"><dt><b>Returns:</b></dt><dd>Reference to this object. </dd></dl>
-<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="classOpenSim_1_1Object.html#af7b69323f19dfd7820b365703223ecb7" title="Update the XML node that represents this object.">updateXMLNode()</a> </dd>
-<dd>
-<a class="el" href="classOpenSim_1_1Object.html#a182b628ae6fa1bd16bbe439abc8c2faf" title="Generate an XML node to represent this object.">generateXMLNode()</a> </dd></dl>
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Object.html#a1a5b4bda8ca9bdc1c96ef514a15e0eef">OpenSim::Object</a>.</p>
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1Force.html#afd51620212d6656efdacdca1622bea3b">OpenSim::Force</a>.</p>
 
 </div>
 </div>
@@ -957,12 +970,34 @@ Inheritance diagram for OpenSim::PrescribedForce:</div>
 
 </div>
 </div>
-<a class="anchor" id="a62503a615cd90928906d3b6ddb383a0f"></a><!-- doxytag: member="OpenSim::PrescribedForce::setupFromXML" ref="a62503a615cd90928906d3b6ddb383a0f" args="()" -->
+<a class="anchor" id="ac015cdcd174dda45f7b4ee77a543d9a2"></a><!-- doxytag: member="OpenSim::PrescribedForce::setup" ref="ac015cdcd174dda45f7b4ee77a543d9a2" args="(Model &amp;model)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void PrescribedForce::setupFromXML </td>
+          <td class="memname">void PrescribedForce::setup </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>model</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Subclasses may optionally override this method to perform setup. </p>
+
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1Force.html#a31983c29e0fe68b26da4f22e96ca3e59">OpenSim::Force</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a6cc8d017ed64418448524848026b2f72"></a><!-- doxytag: member="OpenSim::PrescribedForce::updateFromXMLNode" ref="a6cc8d017ed64418448524848026b2f72" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PrescribedForce::updateFromXMLNode </td>
           <td>(</td>
           <td class="paramname"></td>
           <td>&nbsp;)&nbsp;</td>
@@ -972,10 +1007,9 @@ Inheritance diagram for OpenSim::PrescribedForce:</div>
 </div>
 <div class="memdoc">
 
-<p>This is called after the <a class="el" href="classOpenSim_1_1Model.html" title="A base class that specifies the interface for a musculoskeletal model.">Model</a> has been constructed from an XML file. </p>
-<p>It may be overridden to do required initialization, such as looking up references to other objects in the <a class="el" href="classOpenSim_1_1Model.html" title="A base class that specifies the interface for a musculoskeletal model.">Model</a> (which might not have existed yet when this object was created). </p>
+<p>Update this object based on its XML node. </p>
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1ModelComponent.html#a67713d597327cd5b6d8db6caab1a5202">OpenSim::ModelComponent</a>.</p>
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1Object.html#a3426934773f3803309b0a360d3262de0">OpenSim::Object</a>.</p>
 
 </div>
 </div>
@@ -1194,7 +1228,7 @@ Inheritance diagram for OpenSim::PrescribedForce:</div>
 <li>OpenSim/Simulation/Model/PrescribedForce.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Feb 7 02:15:18 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:37:11 2010 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

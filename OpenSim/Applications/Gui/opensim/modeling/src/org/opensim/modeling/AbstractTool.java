@@ -33,6 +33,23 @@ public class AbstractTool extends OpenSimObject {
     super.delete();
   }
 
+  public static boolean isKindOf(String type) {
+    return opensimModelJNI.AbstractTool_isKindOf(type);
+  }
+
+  public boolean isA(String type) {
+    return opensimModelJNI.AbstractTool_isA(swigCPtr, this, type);
+  }
+
+  public static AbstractTool safeDownCast(OpenSimObject obj) {
+    long cPtr = opensimModelJNI.AbstractTool_safeDownCast(OpenSimObject.getCPtr(obj), obj);
+    return (cPtr == 0) ? null : new AbstractTool(cPtr, false);
+  }
+
+  public void copy(OpenSimObject aObject) {
+    opensimModelJNI.AbstractTool_copy(swigCPtr, this, OpenSimObject.getCPtr(aObject), aObject);
+  }
+
   public void setModel(Model aModel) throws java.io.IOException {
     opensimModelJNI.AbstractTool_setModel(swigCPtr, this, Model.getCPtr(aModel), aModel);
   }
