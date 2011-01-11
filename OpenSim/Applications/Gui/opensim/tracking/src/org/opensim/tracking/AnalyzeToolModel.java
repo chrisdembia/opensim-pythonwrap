@@ -277,7 +277,7 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
           if(inverseDynamicsAnalysis==null) {
               inverseDynamicsAnalysis = InverseDynamics.safeDownCast(new InverseDynamics().copy());
               setAnalysisTimeFromTool(inverseDynamicsAnalysis);
-              analyzeTool().getAnalysisSet().append(inverseDynamicsAnalysis);
+              analyzeTool().addAnalysis(inverseDynamicsAnalysis);
           }
           inverseDynamicsAnalysis.setOn(true);
           inverseDynamicsAnalysis.setUseModelForceSet(false);
@@ -304,7 +304,7 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
           }
           if(staticOptimizationAnalysis==null) {
               staticOptimizationAnalysis = StaticOptimization.safeDownCast(new StaticOptimization().copy()); // C++-side copy
-              analyzeTool().getAnalysisSet().append(staticOptimizationAnalysis);
+              analyzeTool().addAnalysis(staticOptimizationAnalysis);
           }
           staticOptimizationAnalysis.setOn(true);
           staticOptimizationAnalysis.setUseModelForceSet(true);

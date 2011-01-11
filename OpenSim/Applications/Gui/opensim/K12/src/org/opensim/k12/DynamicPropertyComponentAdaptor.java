@@ -79,8 +79,8 @@ public class DynamicPropertyComponentAdaptor extends DblBoundedRangeModel {
             assert(prop.getValueDblArray().getSize()>=(index-1));
             return prop.getValueDblArray().getitem(index);
         }
-        else if (prop.getType()==prop.getType().DblVec3){
-            assert(index <= 2);
+        else if (prop.getType()==prop.getType().DblVec){
+            assert(index <= prop.getValueDblArray().getSize()-1);
             String string = prop.toString();
             String[] valueStrings = string.substring(1, string.length()-1).split(" ");
             double[] dValues = new double[3];
@@ -101,7 +101,7 @@ public class DynamicPropertyComponentAdaptor extends DblBoundedRangeModel {
             current.setitem(index, value);
             prop.setValue(current);
         }
-        else if (prop.getType()==prop.getType().DblVec3){
+        else if (prop.getType()==prop.getType().DblVec){
             assert(index <= 2);
             String string = prop.toString();
             String[] valueStrings = string.substring(1, string.length()-1).split(" ");
