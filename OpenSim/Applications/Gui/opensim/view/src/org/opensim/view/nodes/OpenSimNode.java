@@ -39,11 +39,13 @@ public class OpenSimNode extends AbstractNode {
     
     static Hashtable<PropertyType, Class> mapPropertyEnumToClass = new Hashtable<PropertyType, Class>();
     static Hashtable<PropertyType, String> mapPropertyEnumToGetters = new Hashtable<PropertyType, String>();
+    static Hashtable<PropertyType, String> mapPropertyEnumToSetters = new Hashtable<PropertyType, String>();
     static {
         mapPropertyEnumToClass.put(PropertyType.Int, Integer.class);
         mapPropertyEnumToGetters.put(PropertyType.Int, "getValueInt");
         mapPropertyEnumToClass.put(PropertyType.Dbl, Double.class);
         mapPropertyEnumToGetters.put(PropertyType.Dbl, "getValueDbl");
+        mapPropertyEnumToSetters.put(PropertyType.Dbl, "setValue");
         mapPropertyEnumToClass.put(PropertyType.Str, String.class);
         mapPropertyEnumToGetters.put(PropertyType.Str, "getValueStr");
         mapPropertyEnumToClass.put(PropertyType.Bool, Boolean.class);
@@ -184,34 +186,9 @@ public class OpenSimNode extends AbstractNode {
     public Sheet createSheet() {
         Sheet sheet = Sheet.createDefault();
         Sheet.Set set = Sheet.createPropertiesSet();
-        //Sheet.Set setExpert = Sheet.createExpertSet();
-        if (this instanceof OpenSimObjectNode) {
-            OpenSimObject obj = ((OpenSimObjectNode) (this)).getOpenSimObject();
-            
-            org.opensim.modeling.PropertySet ps= obj.getPropertySet();
-
-            for(int i=0; i<ps.getSize(); i++){
-                try {
-                    org.opensim.modeling.Property prop = ps.get(i);
-                    if (mapPropertyEnumToClass.containsKey(prop.getType())) {
-                        // Need Class, functionToGet, functioToSet // Editor
-                        PropertySupport.Reflection nextNodeProp = new PropertySupport.Reflection(prop, mapPropertyEnumToClass.get(prop.getType()), mapPropertyEnumToGetters.get(prop.getType()), null);
-                        nextNodeProp.setName(prop.getName());
-                        if (prop.getType()==PropertyType.Str){
-                            ((Node.Property)nextNodeProp).setValue("oneline", Boolean.TRUE); 
-                            ((Node.Property)nextNodeProp).setValue("suppressCustomEditor", Boolean.TRUE); 
-                        }
-                        set.put(nextNodeProp);
-                    }
-                } catch (NoSuchMethodException ex) {
-                    ex.printStackTrace();
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
-           }
-        }
+        Sheet.Set setExpert = Sheet.createExpertSet();
         sheet.put(set);
-        //sheet.put(setExpert);
+        sheet.put(setExpert);
         return sheet;
     }
     /*

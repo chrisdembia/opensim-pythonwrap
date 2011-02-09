@@ -28,11 +28,16 @@
  */
 package org.opensim.view.nodes;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.Action;
 import org.openide.nodes.Children;
+import org.openide.nodes.Node;
+import org.openide.nodes.PropertySupport;
+import org.openide.nodes.Sheet;
 import org.openide.util.lookup.Lookups;
 import org.opensim.modeling.OpenSimObject;
+import org.opensim.modeling.Property.PropertyType;
 import org.opensim.view.ObjectDisplayHideAction;
 import org.opensim.view.ObjectDisplayMenuAction;
 import org.opensim.view.ObjectDisplayShowAction;
@@ -145,4 +150,38 @@ public class OpenSimObjectNode extends OpenSimNode {
    public ArrayList<displayOption> getValidDisplayOptions() {
       return validDisplayOptions;
    }
+
+    @Override
+    public Sheet createSheet() {
+        Sheet retValue;
+        
+        retValue = super.createSheet();
+        Sheet.Set set = retValue.get("properties");
+        OpenSimObject obj = ((OpenSimObjectNode) (this)).getOpenSimObject();
+        
+        org.opensim.modeling.PropertySet ps= obj.getPropertySet();
+        
+        for(int i=0; i<ps.getSize(); i++){
+            try {
+                org.opensim.modeling.Property prop = ps.get(i);
+                if (mapPropertyEnumToClass.containsKey(prop.getType())) {
+                    // Need Class, functionToGet, functioToSet // Editor
+                    PropertySupport.Reflection nextNodeProp = new PropertySupport.Reflection(prop, mapPropertyEnumToClass.get(prop.getType()),
+                            mapPropertyEnumToGetters.get(prop.getType()),
+                            mapPropertyEnumToSetters.get(prop.getType()));
+                    nextNodeProp.setName(prop.getName());
+                    if (prop.getType()==PropertyType.Str){
+                        ((Node.Property)nextNodeProp).setValue("oneline", Boolean.TRUE);
+                        ((Node.Property)nextNodeProp).setValue("suppressCustomEditor", Boolean.TRUE);
+                    }
+                    set.put(nextNodeProp);
+                }
+            } catch (NoSuchMethodException ex) {
+                ex.printStackTrace();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return retValue;
+    }
 }

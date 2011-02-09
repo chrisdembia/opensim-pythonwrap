@@ -28,21 +28,32 @@
  */
 package org.opensim.view.nodes;
 
+import java.awt.Color;
 import java.awt.Image;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
 import org.openide.nodes.Children;
+import org.openide.nodes.PropertySupport;
+import org.openide.nodes.Sheet;
 import org.openide.util.NbBundle;
 import org.opensim.modeling.DisplayGeometry;
+import org.opensim.utils.Vec3;
+import org.opensim.view.ColorableInterface;
+import org.opensim.view.DisplayGeometryDisplayer;
+import org.opensim.view.editors.DisplayPreferenceEditor;
+import org.opensim.view.editors.PositionEditor;
 import org.opensim.view.nodes.OpenSimObjectNode.displayOption;
+import org.opensim.view.pub.ViewDB;
 
 /**
  *
  * @author Ayman Habib
  */
-public class OneDisplayGeometryNode extends OpenSimObjectNode{
+public class OneDisplayGeometryNode extends OpenSimObjectNode implements ColorableInterface {
     
     private static ResourceBundle bundle = NbBundle.getBundle(OneDisplayGeometryNode.class);
     /**
@@ -88,5 +99,82 @@ public class OneDisplayGeometryNode extends OpenSimObjectNode{
             retValue = ((DisplayGeometry)getOpenSimObject()).getGeometryFile();
         }
         return retValue;
+    }
+    
+    @Override
+    public Sheet createSheet() {
+        Sheet sheet;
+        
+        sheet = super.createSheet();
+        Sheet.Set set = sheet.get("properties");
+        // Add property for Location
+        DisplayGeometry obj = DisplayGeometry.safeDownCast(getOpenSimObject());
+        DisplayGeometryDisplayer disp = (DisplayGeometryDisplayer) ViewDB.getInstance().getVtkRepForObject(obj);
+        if (disp==null) return sheet;
+        /*Disallow change from Navigator
+         disp.addPropertyChangeListener(new PropertyChangeListener() {
+
+            public void propertyChange(PropertyChangeEvent evt) {
+                if (evt.getPropertyName().equals("Color")){
+                    ExplorerTopComponent.getDefault().setActivatedNodes(ExplorerTopComponent.getDefault().getActivatedNodes());
+                }
+            }
+        });*/
+        try {
+            PropertySupport.Reflection nextNodeProp;
+            nextNodeProp = new PropertySupport.Reflection(disp, Color.class, "getColor", "setColorGUI");
+            nextNodeProp.setName("Color");
+            set.put(nextNodeProp);
+            PropertySupport.Reflection nextNodeProp2;
+            nextNodeProp2 = new PropertySupport.Reflection(disp, Vec3.class, "getLocation", "setLocation");
+            nextNodeProp2.setPropertyEditorClass(PositionEditor.class);
+            nextNodeProp2.setName("Location"); 
+            set.put(nextNodeProp2);
+            nextNodeProp2.getPropertyEditor().addPropertyChangeListener(new PropertyChangeListener(){
+                public void propertyChange(PropertyChangeEvent evt) {
+                    System.out.println("Change Propagated");
+                }});
+            PropertySupport.Reflection nextNodeProp3;
+            nextNodeProp3 = new PropertySupport.Reflection(disp, Vec3.class, "getOrientation", "setOrientation");
+            nextNodeProp3.setPropertyEditorClass(PositionEditor.class);
+            nextNodeProp3.setName("Orientation");        
+            set.put(nextNodeProp3);
+            
+            PropertySupport.Reflection nextNodeProp4;
+            nextNodeProp4 = new PropertySupport.Reflection(disp, DisplayGeometry.DisplayPreference.class, "getDisplayPreference", "setDisplayPreference");
+            nextNodeProp4.setPropertyEditorClass(DisplayPreferenceEditor.class);
+            nextNodeProp4.setName("Display Preference");        
+            set.put(nextNodeProp4);
+            
+        }
+        catch (NoSuchMethodException ex) {
+            ex.printStackTrace();
+        }
+        
+        return sheet;
+    }
+
+    public Color getColor() {
+        DisplayGeometry obj = DisplayGeometry.safeDownCast(getOpenSimObject());
+        DisplayGeometryDisplayer disp = (DisplayGeometryDisplayer) ViewDB.getInstance().getVtkRepForObject(obj);
+        return disp.getColor();
+    }
+
+    public void setColor(Color newColor) {
+        DisplayGeometry obj = DisplayGeometry.safeDownCast(getOpenSimObject());
+        DisplayGeometryDisplayer disp = (DisplayGeometryDisplayer) ViewDB.getInstance().getVtkRepForObject(obj);
+        disp.setColorGUI(newColor);
+    }
+
+    public DisplayGeometry.DisplayPreference getDisplayPreference() {
+        DisplayGeometry obj = DisplayGeometry.safeDownCast(getOpenSimObject());
+        DisplayGeometryDisplayer disp = (DisplayGeometryDisplayer) ViewDB.getInstance().getVtkRepForObject(obj);
+        return disp.getDisplayPreference();
+   }
+
+    public void setDisplayPreference(DisplayGeometry.DisplayPreference newPref) {
+        DisplayGeometry obj = DisplayGeometry.safeDownCast(getOpenSimObject());
+        DisplayGeometryDisplayer disp = (DisplayGeometryDisplayer) ViewDB.getInstance().getVtkRepForObject(obj);
+        disp.setDisplayPreference(newPref);
     }
 }

@@ -113,6 +113,7 @@ public final class ViewDB extends Observable implements Observer {
    private Hashtable<Model, Double> modelOpacities = new Hashtable<Model, Double>();
    
    static ViewDB instance=null;
+   private static boolean graphicsAvailable = true;
    // Window currently designated as current.
    private static ModelWindowVTKTopComponent currentModelWindow=null;
    
@@ -135,7 +136,7 @@ public final class ViewDB extends Observable implements Observer {
    private double nonCurrentModelOpacity = 0.4;
    private double muscleDisplayRadius = 0.005;
    private double markerDisplayRadius = .01;
-   private int debugLevel=0;
+   private int debugLevel=1;
    private NumberFormat numFormat = NumberFormat.getInstance();
 
    /** Creates a new instance of ViewDB */
@@ -182,6 +183,7 @@ public final class ViewDB extends Observable implements Observer {
     * Observable should be of type OpenSimDB.
     */
    public void update(Observable o, Object arg) {
+      if (!isGraphicsAvailable()) return;
       if (o instanceof OpenSimDB){
          if (arg instanceof ObjectsAddedEvent) {
             ObjectsAddedEvent ev = (ObjectsAddedEvent)arg;
@@ -259,8 +261,13 @@ public final class ViewDB extends Observable implements Observer {
                SingleModelGuiElements newModelGuiElements = new SingleModelGuiElements(model);
                processSavedSettings(model);
                mapModelsToGuiElements.put(model, newModelGuiElements);
-               
-               createNewViewWindowIfNeeded();
+               try {
+                 createNewViewWindowIfNeeded();
+               }
+               catch(UnsatisfiedLinkError e){
+                   setGraphicsAvailable(false);
+                   return;
+               }
                // Create visuals for the model
                SingleModelVisuals newModelVisual = (model instanceof ModelForExperimentalData)?
                    new ExperimentalDataVisuals(model):
@@ -419,6 +426,7 @@ public final class ViewDB extends Observable implements Observer {
     * Get the vtk object corresponding to passed in opensim object
     **/
    public vtkProp3D getVtkRepForObject(OpenSimObject obj) {
+      if (!isGraphicsAvailable()) return null;
       Iterator<SingleModelVisuals> iter = modelVisuals.iterator();
       while(iter.hasNext()){
          SingleModelVisuals nextModel = iter.next();
@@ -440,7 +448,12 @@ public final class ViewDB extends Observable implements Observer {
     * This executes in the Swing thread.
     */
    public void addViewWindow() {
-       addViewWindow(null);
+       try {
+        addViewWindow(null);
+       }
+       catch(UnsatisfiedLinkError e){
+           setGraphicsAvailable(false);
+       }
    }
    
    public ModelWindowVTKTopComponent addViewWindow(String desiredName) {
@@ -602,13 +615,6 @@ public final class ViewDB extends Observable implements Observer {
     */
    public void setObjectColor(OpenSimObject object, double[] colorComponents) {
       if(PathPoint.safeDownCast(object)!=null) {
-         // I don't think this is called from anywhere - Eran.
-         //PathPoint mp = MusclePoint.safeDownCast(object);
-         //SingleModelVisuals visuals = getModelVisuals(mp.getMuscle().getModel());
-         //OpenSimvtkGlyphCloud cloud = visuals.getMusclePointsRep();
-         //cloud.updateUnselectedColor(colorComponents);
-         //AbstractMuscle m = mp.getMuscle();
-         //visuals.updateActuatorGeometry(m, false); //TODO: perhaps overkill for getting musclepoint to update?
       } else{ // should check for body here
          vtkProp3D asm = ViewDB.getInstance().getVtkRepForObject(object);
          /** make sure the object is not selected, if so change only in database */
@@ -1104,12 +1110,14 @@ public final class ViewDB extends Observable implements Observer {
     * but that's another map search.
     */
    public void updateModelDisplay(Model aModel) {
+      if (!isGraphicsAvailable()) return;
       lockDrawingSurfaces(true);
       mapModelsToVisuals.get(aModel).updateModelDisplay(aModel);
       lockDrawingSurfaces(false);
       repaintAll();
    }
    public void updateModelDisplayNoRepaint(Model aModel) {
+      if (!isGraphicsAvailable()) return;
       lockDrawingSurfaces(true);
       mapModelsToVisuals.get(aModel).updateModelDisplay(aModel);
       lockDrawingSurfaces(false);
@@ -1721,5 +1729,14 @@ public final class ViewDB extends Observable implements Observer {
             if (nextCaption.equals(caption))
                 removeAnnotationFromViews(nextCaption);
         }
+    }
+
+    public static boolean isGraphicsAvailable() {
+        return graphicsAvailable;
+    }
+
+    public static void setGraphicsAvailable(boolean aGraphicsAvailable) {
+        graphicsAvailable = aGraphicsAvailable;
+        
     }
 }

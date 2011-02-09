@@ -1,6 +1,7 @@
 package org.opensim.view.nodes;
 
 import java.awt.Image;
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -8,8 +9,15 @@ import javax.swing.Action;
 import javax.swing.ImageIcon;
 import org.openide.nodes.Children;
 import org.openide.nodes.Node;
+import org.openide.nodes.PropertySupport;
+import org.openide.nodes.Sheet;
 import org.openide.util.NbBundle;
+import org.opensim.modeling.Marker;
+import org.opensim.modeling.Model;
 import org.opensim.modeling.OpenSimObject;
+import org.opensim.utils.Vec3;
+import org.opensim.view.editors.BodyNameEditor;
+import org.opensim.view.editors.PositionEditor;
 import org.opensim.view.markerEditor.MarkerEditorAction;
 import org.opensim.view.nodes.OpenSimObjectNode.displayOption;
 
@@ -54,5 +62,41 @@ public class OneMarkerNode extends OpenSimObjectNode{
         // append new command to the end of the list of actions
         retActions[actions.size()] = new MarkerEditorAction();
         return retActions;
+    }
+
+    @Override
+    public Sheet createSheet() {
+        Sheet sheet;
+        
+        sheet = super.createSheet();
+        Sheet.Set set = sheet.get("properties");
+        // Add property for Location
+        Marker obj = Marker.safeDownCast(getOpenSimObject());
+        
+        org.opensim.modeling.PropertySet ps= obj.getPropertySet();
+        org.opensim.modeling.Property prop;
+        try {
+            
+            /*prop = ps.get("location");
+            PropertySupport.Reflection nextNodeProp;
+            nextNodeProp = new PropertySupport.Reflection(obj, Vec3.class, "getLocation", "setLocation");
+            nextNodeProp.setPropertyEditorClass(PositionEditor.class);
+            nextNodeProp.setName("Location");*/
+            //set.put(nextNodeProp);
+            prop = ps.get("body");
+            PropertySupport.Reflection nextNodeProp2;
+            nextNodeProp2 = new PropertySupport.Reflection(obj, String.class, "getBodyName", "setBodyName");
+            nextNodeProp2.setPropertyEditorClass(BodyNameEditor.class);
+            nextNodeProp2.setName("Body Name");
+            set.put(nextNodeProp2);
+           
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        catch (NoSuchMethodException ex) {
+            ex.printStackTrace();
+        }
+        
+        return sheet;
     }
 }
