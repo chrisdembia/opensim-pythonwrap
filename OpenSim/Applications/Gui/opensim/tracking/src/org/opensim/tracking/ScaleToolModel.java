@@ -320,8 +320,8 @@ public class ScaleToolModel extends Observable implements Observer {
 
       // TODO: we can't actually interrupt model scaler / marker placer part way...
       public void interrupt() {
-         if(getMarkerPlacerEnabled() && scaleTool.getMarkerPlacer().getIKTrial()!=null)
-            scaleTool.getMarkerPlacer().getIKTrial().interrupt();
+         //OpenSim23 if(getMarkerPlacerEnabled() && scaleTool.getMarkerPlacer().getIKTrial()!=null)
+         //OpenSim23    scaleTool.getMarkerPlacer().getIKTrial().interrupt();
       }
 
       public Object construct() {
@@ -358,7 +358,7 @@ public class ScaleToolModel extends Observable implements Observer {
             scaledModel = processedModel;
             if(ViewDB.getInstance().getModelGuiElements(scaledModel)!=null)
                ViewDB.getInstance().getModelGuiElements(scaledModel).setUnsavedChangesFlag(true);
-
+               
             if(getMarkerPlacerEnabled() && scaleTool.getMarkerPlacer().getOutputStorage()!=null) {
                Storage motion = new Storage(scaleTool.getMarkerPlacer().getOutputStorage());
                motion.setName("static pose");
@@ -883,12 +883,12 @@ public class ScaleToolModel extends Observable implements Observer {
    // Marker placer enabled
    public void setMarkerPlacerEnabled(boolean enabled) {
       if(getMarkerPlacerEnabled() != enabled) {
-         scaleTool.getMarkerPlacer().setApply(enabled);
+         //OpenSim23 scaleTool.getMarkerPlacer().setApply(enabled);
          setModified(Operation.MarkerPlacerDataChanged);
       }
    }
    public boolean getMarkerPlacerEnabled() {
-      return scaleTool.getMarkerPlacer().getApply();
+      return true;  //OpenSim23
    }
 
    public boolean getMoveModelMarkers() { return scaleTool.getMarkerPlacer().getMoveModelMarkers(); }
