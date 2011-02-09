@@ -31,13 +31,14 @@
 package org.opensim.view;
 
 import java.awt.Color;
-import org.opensim.modeling.Body;
+import java.beans.PropertyChangeSupport;
+import javax.swing.undo.AbstractUndoableEdit;
+import javax.swing.undo.CannotRedoException;
+import javax.swing.undo.CannotUndoException;
 import org.opensim.modeling.DisplayGeometry;
-import org.opensim.modeling.GeometrySet;
-import org.opensim.modeling.VisibleObject;
+import org.opensim.utils.Vec3;
 import org.opensim.view.pub.GeometryFileLocator;
 import org.opensim.view.pub.ViewDB;
-import vtk.FrameActor;
 import vtk.vtkActor;
 import vtk.vtkBMPReader;
 import vtk.vtkImageReader2;
@@ -56,8 +57,9 @@ public class DisplayGeometryDisplayer extends vtkActor
 //        implements ColorableInterface, HidableInterface
 {
     DisplayGeometry displayGeometry;
-    private Color color=Color.WHITE;
+    private Color color=Color.WHITE;    // Property
     String modelFilePath;
+    //private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     /**
      * Creates a new instance of BodyDisplayer
      */
@@ -89,12 +91,45 @@ public class DisplayGeometryDisplayer extends vtkActor
         return ViewDB.getInstance().getDisplayStatus(displayGeometry);
     }
     
-    public void setColor(Color newColor) {
+    public void setColorGUI(Color newColor) {
         float[] colorComp = new float[3];
         newColor.getRGBColorComponents(colorComp);
-        double[] colorCompDbl = new double[3];
+        final double[] colorCompDbl = new double[3];
         for(int i=0;i<3;i++) colorCompDbl[i]=colorComp[i];
         ViewDB.getInstance().setObjectColor(displayGeometry, colorCompDbl);
+        float[] oldColorCompFloat = new float[]{1.f, 1.f, 1.f};
+        color.getRGBColorComponents(oldColorCompFloat);
+        final double[] oldColorCompDbl = new double[]{(double)oldColorCompFloat[0], 
+                                                      (double)oldColorCompFloat[1], (double)oldColorCompFloat[2]};
+        AbstractUndoableEdit auEdit = new AbstractUndoableEdit(){
+           public boolean canUndo() {
+               return true;
+           }
+           public boolean canRedo() {
+               return true;
+           }
+           public void undo() throws CannotUndoException {
+               super.undo();
+               ViewDB.getInstance().applyColor(oldColorCompDbl, DisplayGeometryDisplayer.this, false);
+               displayGeometry.setColor(oldColorCompDbl);
+               assignColor(oldColorCompDbl);
+           }
+
+            private void assignColor(final double[] colorComponentDbl) {
+                color = new Color((float)colorComponentDbl[0], (float)colorComponentDbl[1], (float)colorComponentDbl[2]);
+            }
+           public void redo() throws CannotRedoException {
+               super.redo();
+               ViewDB.getInstance().applyColor(colorCompDbl, DisplayGeometryDisplayer.this, false);
+               displayGeometry.setColor(colorCompDbl);
+               assignColor(colorCompDbl);
+           }
+            public String getPresentationName() {
+                return "Color Change";
+            }
+           
+       };
+        ExplorerTopComponent.getDefault().getUndoRedoManager().addEdit(auEdit);
         color = newColor;
     }
     
@@ -135,6 +170,7 @@ public class DisplayGeometryDisplayer extends vtkActor
             double[] dColor = new double[]{1., 1., 1.};
             displayGeometry.getColor(dColor);
             GetProperty().SetColor(dColor);
+            color = new Color((float)dColor[0], (float)dColor[1], (float)dColor[2]);
         }
         // Transform
         double[] rotationsAndTranslations = new double[6];
@@ -203,7 +239,107 @@ public class DisplayGeometryDisplayer extends vtkActor
     }
 
     public void setDisplayPreference(DisplayGeometry.DisplayPreference newPref) {
+        setDisplayPreferenceGUI(newPref, true);
+    }
+    public void setDisplayPreferenceGUI(final DisplayGeometry.DisplayPreference newPref, boolean allowUndo) {
+        if (allowUndo){
+            final DisplayGeometry.DisplayPreference oldPref = displayGeometry.getDisplayPreference();
+            AbstractUndoableEdit auEdit = new AbstractUndoableEdit(){
+               public boolean canUndo() {
+                   return true;
+               }
+               public boolean canRedo() {
+                   return true;
+               }
+               public void undo() throws CannotUndoException {
+                   super.undo();
+                   // Change display
+                   setDisplayPreferenceGUI(oldPref, false);
+                   // Change model
+               }
+               public void redo() throws CannotRedoException {
+                   super.redo();
+                   // Change display
+                   setDisplayPreferenceGUI(newPref, false);
+                   // Change model
+               }
+                public String getPresentationName() {
+                    return "Display Preference Change";
+                }
+
+           };
+            ExplorerTopComponent.getDefault().getUndoRedoManager().addEdit(auEdit);
+        }
         displayGeometry.setDisplayPreference(newPref);
         applyDisplayPreferenceToActor();
+        Modified();
+        ViewDB.getInstance().renderAll();
     }
+    public void setLocation(Vec3 loc){
+        System.out.println("Displayer:setLocation");
+        setLocationGUI(loc, true);
+    }
+    public void setLocationGUI(final Vec3 loc, boolean allowUndo){
+        double[] rotationsAndTranslations = new double[6];
+        displayGeometry.getRotationsAndTranslationsAsArray6(rotationsAndTranslations);
+        final Vec3 oldLoc = new Vec3(rotationsAndTranslations[3], 
+        rotationsAndTranslations[4], rotationsAndTranslations[5]);
+        for(int i=0; i<3;i++) rotationsAndTranslations[i+3]=loc.get(i);
+        displayGeometry.setRotationsAndTRanslations(rotationsAndTranslations);
+        vtkTransform xform = new vtkTransform();
+        setTransformFromArray6(rotationsAndTranslations, xform);
+        SetUserTransform(xform);
+        Modified();
+        if (allowUndo){
+            AbstractUndoableEdit auEdit = new AbstractUndoableEdit(){
+               public boolean canUndo() {
+                   return true;
+               }
+               public boolean canRedo() {
+                   return true;
+               }
+               public void undo() throws CannotUndoException {
+                   super.undo();
+                   // Change display
+                   setLocationGUI(oldLoc, false);
+                   // Change model
+               }
+               public void redo() throws CannotRedoException {
+                   super.redo();
+                   // Change display
+                   setLocationGUI(loc, false);
+                   // Change model
+               }
+                public String getPresentationName() {
+                    return "Location Change";
+                }
+
+           };
+            ExplorerTopComponent.getDefault().getUndoRedoManager().addEdit(auEdit);
+        }
+        ViewDB.getInstance().renderAll();
+    }
+    public Vec3 getLocation() {
+        double[] rotationsAndTranslations = new double[6];
+        displayGeometry.getRotationsAndTranslationsAsArray6(rotationsAndTranslations);
+        return new Vec3(rotationsAndTranslations[3], rotationsAndTranslations[4], rotationsAndTranslations[5]);
+    }
+    public void setOrientation(Vec3 loc){
+        double[] rotationsAndTranslations = new double[6];
+        displayGeometry.getRotationsAndTranslationsAsArray6(rotationsAndTranslations);
+        for(int i=0; i<3;i++) rotationsAndTranslations[i]=Math.toRadians(loc.get(i));
+        displayGeometry.setRotationsAndTRanslations(rotationsAndTranslations);
+        vtkTransform xform = new vtkTransform();
+        setTransformFromArray6(rotationsAndTranslations, xform);
+        SetUserTransform(xform);
+        Modified();
+        ViewDB.getInstance().renderAll();
+    }
+    public Vec3 getOrientation() {
+        double[] rotationsAndTranslations = new double[6];
+        displayGeometry.getRotationsAndTranslationsAsArray6(rotationsAndTranslations);
+        for(int i=0; i<3; i++) rotationsAndTranslations[i]=Math.toDegrees(rotationsAndTranslations[i]);
+        return new Vec3(rotationsAndTranslations[0], rotationsAndTranslations[1], rotationsAndTranslations[2]);
+    }
+    
 }
