@@ -46,7 +46,7 @@ import org.opensim.view.pub.ViewDB;
  * @author Ayman Habib
  */
 public class JavaMotionDisplayerCallback extends AnalysisWrapperWithTimer {
-   Storage storage = null;
+   private Storage storage = null;
    MotionDisplayer motionDisplayer = null;
    ProgressHandle progressHandle = null;
 
@@ -65,7 +65,6 @@ public class JavaMotionDisplayerCallback extends AnalysisWrapperWithTimer {
    double stopDisplayTime = 0;
    double minSimTime = -1;
    double currentSimTime = 0;
-   String optimizerAlgorithm = "";
    OpenSimContext context = null;
    OpenSimContext simulationContext = null; // Corresponding to actual model being run
    Model modelForDisplay=null;
@@ -86,18 +85,18 @@ public class JavaMotionDisplayerCallback extends AnalysisWrapperWithTimer {
       else 
             createResultStorage();
       
-      motionDisplayer = new MotionDisplayer(storage, getModelForDisplay());
+      motionDisplayer = new MotionDisplayer(getStorage(), getModelForDisplay());
       this.progressHandle = progressHandle;
       setRefreshRateInMillis(getRefreshRatePreference());
    }
 
     private void createResultStorage() {
         storage = new Storage();
-        storage.setName("Results");
+        getStorage().setName("Results");
         stateLabels = new ArrayStr();
         getModelForDisplay().getStateNames(stateLabels);
         stateLabels.insert(0, "time");
-        storage.setColumnLabels(stateLabels);
+        getStorage().setColumnLabels(stateLabels);
         numStates = getModelForDisplay().getNumStates();
         statesBuffer = new double[numStates];
         ownsStorage=true;
@@ -112,7 +111,7 @@ public class JavaMotionDisplayerCallback extends AnalysisWrapperWithTimer {
       }
       else
           createResultStorage();
-      motionDisplayer = new MotionDisplayer(storage, getModelForDisplay());
+      motionDisplayer = new MotionDisplayer(getStorage(), getModelForDisplay());
       this.progressHandle = progressHandle;
       setRefreshRateInMillis(getRefreshRatePreference());
    }
@@ -141,10 +140,6 @@ public class JavaMotionDisplayerCallback extends AnalysisWrapperWithTimer {
       if(progressHandle!=null) progressHandle.start(endStep-startStep+1);
    }
    
-   public void setOptimizerAlgorithm(String aOptimizerAlgorithm) {
-       optimizerAlgorithm = IO.Uppercase(aOptimizerAlgorithm);
-   }
-
    private double getCurrentRealTime() {
       return 1e-9*System.nanoTime();
    }
@@ -155,8 +150,8 @@ public class JavaMotionDisplayerCallback extends AnalysisWrapperWithTimer {
             public void run() {
                double currentRealTime = getCurrentRealTime();
                if(minRenderTimeInterval<=0 || currentRealTime-lastRenderTime>minRenderTimeInterval) {
-                  if(motionDisplayer!=null && storage.getSize()>0) 
-                      motionDisplayer.applyFrameToModel(storage.getSize()-1);            
+                  if(motionDisplayer!=null && getStorage().getSize()>0) 
+                      motionDisplayer.applyFrameToModel(getStorage().getSize()-1);            
                   ViewDB.getInstance().updateModelDisplay(getModelForDisplay());  // Faster? than the next few indented lines
                     //ViewDB.getInstance().updateModelDisplayNoRepaint(getModelForDisplay());
                     ////ViewDB.getInstance().renderAll(); // Render now (if want to do it later, use repaintAll()) -- may slow things down too much
@@ -194,7 +189,7 @@ public class JavaMotionDisplayerCallback extends AnalysisWrapperWithTimer {
           super.getStates(statesBuffer);
           System.out.println("Simulation time="+currentSimTime+" state[0]="+statesBuffer[0]);
           nextResult.setStates(currentSimTime, numStates, statesBuffer);
-          storage.append(nextResult);
+          getStorage().append(nextResult);
       }
       if (!isInitialized()){
          initializeTimer();
@@ -204,9 +199,8 @@ public class JavaMotionDisplayerCallback extends AnalysisWrapperWithTimer {
           startDisplayTime = getCurrentRealTime(); // Start timing of display update
           updateDisplaySynchronously();
           stopDisplayTime = getCurrentRealTime();  // Stop timing of display update
-          if(optimizerAlgorithm != null && optimizerAlgorithm.equals("JACOBIAN")) {
-              minSimTime = currentSimTime+(stopDisplayTime-startDisplayTime)+(stopIKTime-startIKTime);  // Set minimum simulation time for next display update 
-          }
+          minSimTime = currentSimTime+(stopDisplayTime-startDisplayTime)+(stopIKTime-startIKTime);  // Set minimum simulation time for next display update 
+          
           //System.out.println("minSimTime = "+currentSimTime+" + "+(stopDisplayTime-startDisplayTime)+" + "+(stopIKTime-startIKTime)+" = "+minSimTime);
           System.out.println("Updating Display");
           startIKTime = getCurrentRealTime(); // Start timing of ik computations
@@ -256,7 +250,7 @@ public class JavaMotionDisplayerCallback extends AnalysisWrapperWithTimer {
     }
 
     public Storage getStateStorage() {
-        return storage;
+        return getStorage();
     }
 
     static public long getRefreshRatePreference() {
@@ -265,4 +259,8 @@ public class JavaMotionDisplayerCallback extends AnalysisWrapperWithTimer {
          Long savedLong = Long.parseLong(saved);
          return savedLong;
     }    
+
+    public Storage getStorage() {
+        return storage;
+    }
 }

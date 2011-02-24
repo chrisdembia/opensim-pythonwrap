@@ -67,15 +67,15 @@ public class EditPrescribedForceSetPanel extends javax.swing.JPanel
         try {
             extFileName=dTool.getPropertySet().get("external_loads_file").getValueStr();
             if (!extFileName.equals("")){
-                tool.createExternalLoads(extFileName, "", tool.getModel());
+                //OpenSim23 tool.createExternalLoads(extFileName, "", tool.getModel());
             }
         } catch (IOException ex) {  // Shouldn't happen unless there're tools that use forces and don't define the property '
             ex.printStackTrace();
         }
-        forceListModel = new ForceListModel(dTool.updExternalForceSet());
+        //OpenSim23 forceListModel = new ForceListModel(dTool.updExternalForceSet());
         initComponents();
         externalLoadsDataFileName.setExtensionsAndDescription(".sto,.mot", "Data file for prescribed forces");
-        String dataFile = dTool.getExternalForceSet().getDataFileName();
+        String dataFile = "";//OpenSim23 dTool.getExternalForceSet().getDataFileName();
         File extForcesFile = new File(extFileName);
         if (extForcesFile.exists() && dataFile!=""){
             // Make dataFile relative to path of extForcesFile
@@ -397,7 +397,7 @@ public class EditPrescribedForceSetPanel extends javax.swing.JPanel
         Object pfo=null;
         for(int i=sels.length;i>=1;i--){
            forceListModel.remove(sels[i-1]);
-           dTool.updExternalForceSet().remove(sels[i-1]);
+           //OpenSim23 dTool.updExternalForceSet().remove(sels[i-1]);
         }
  // TODO add your handling code here:
         
@@ -434,7 +434,7 @@ public class EditPrescribedForceSetPanel extends javax.swing.JPanel
          if (((Integer)userInput).compareTo((Integer)DialogDescriptor.OK_OPTION)==0){
              forceListModel.add(forceListModel.getSize(), pf);
              String usrObjBodyName=pf.getBodyName();                         
-             dTool.updExternalForceSet().append(pf);
+             //OpenSim23 dTool.updExternalForceSet().append(pf);
              cachedForces.add(pf);
          }
     }//GEN-LAST:event_jButtonAddActionPerformed
@@ -462,7 +462,7 @@ public class EditPrescribedForceSetPanel extends javax.swing.JPanel
         if (dataFile!="" && dataFile !=null && new File(dataFile).exists()){
             try {
                 externalLoadsStorage = new Storage(dataFile);
-                dTool.updExternalForceSet().setDataFileName(externalLoadsDataFileName.getFileName());
+               //OpenSim23  dTool.updExternalForceSet().setDataFileName(externalLoadsDataFileName.getFileName());
                 updateButtonAvailability();
             } catch (IOException ex) {
                 ex.printStackTrace();

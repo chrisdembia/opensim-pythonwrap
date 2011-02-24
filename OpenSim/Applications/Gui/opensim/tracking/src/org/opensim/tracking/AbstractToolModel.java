@@ -298,60 +298,61 @@ abstract class AbstractToolModelWithExternalLoads extends AbstractToolModel {
 
    public boolean getExternalLoadsEnabled() { return externalLoadsEnabled; }
    public void setExternalLoadsEnabled(boolean enabled) {
-      if(getExternalLoadsEnabled() != enabled) {
-         externalLoadsEnabled = enabled;
-         setModified(AbstractToolModel.Operation.ExternalLoadsDataChanged);
-      }
-   }
+        if(getExternalLoadsEnabled() != enabled) {
+            externalLoadsEnabled = enabled;
+            setModified(AbstractToolModel.Operation.ExternalLoadsDataChanged);
+        }
+    }
 
-   public abstract String getExternalLoadsFileName();
-   protected abstract void setExternalLoadsFileNameInternal(String fileName);
-   public void setExternalLoadsFileName(String fileName) {
-      if(!getExternalLoadsFileName().equals(fileName)) {
-         setExternalLoadsFileNameInternal(fileName);
-         setModified(AbstractToolModel.Operation.ExternalLoadsDataChanged);
-      }
-   }
+    //OpenSim23 public abstract String getExternalLoadsFileName();
+    //OpenSim23 protected abstract void setExternalLoadsFileNameInternal(String fileName);
+    //OpenSim23 public void setExternalLoadsFileName(String fileName) {
+    //OpenSim23   if(!getExternalLoadsFileName().equals(fileName)) {
+    //OpenSim23      setExternalLoadsFileNameInternal(fileName);
+    //OpenSim23      setModified(AbstractToolModel.Operation.ExternalLoadsDataChanged);
+    //OpenSim23   }
+    //OpenSim23}
+    /* //OpenSim23
+    public abstract String getExternalLoadsModelKinematicsFileName();
+    protected abstract void setExternalLoadsModelKinematicsFileNameInternal(String fileName);
+    public void setExternalLoadsModelKinematicsFileName(String fileName) {
+       if(!getExternalLoadsModelKinematicsFileName().equals(fileName)) {
+          setExternalLoadsModelKinematicsFileNameInternal(fileName);
+          setModified(AbstractToolModel.Operation.ExternalLoadsDataChanged);
+       }
+    }*/
 
-   public abstract String getExternalLoadsModelKinematicsFileName();
-   protected abstract void setExternalLoadsModelKinematicsFileNameInternal(String fileName);
-   public void setExternalLoadsModelKinematicsFileName(String fileName) {
-      if(!getExternalLoadsModelKinematicsFileName().equals(fileName)) {
-         setExternalLoadsModelKinematicsFileNameInternal(fileName);
-         setModified(AbstractToolModel.Operation.ExternalLoadsDataChanged);
-      }
-   }
+   //OpenSim23 public abstract double getLowpassCutoffFrequencyForLoadKinematics();
+   //OpenSim23 protected abstract void setLowpassCutoffFrequencyForLoadKinematicsInternal(double cutoffFrequency);
+   /* //OpenSim23
+    public void setLowpassCutoffFrequencyForLoadKinematics(double cutoffFrequency) {
+       if(getLowpassCutoffFrequencyForLoadKinematics() != cutoffFrequency) {
+          setLowpassCutoffFrequencyForLoadKinematicsInternal(cutoffFrequency);
+          setModified(AbstractToolModel.Operation.ExternalLoadsDataChanged);
+       }
+    }
 
-   public abstract double getLowpassCutoffFrequencyForLoadKinematics();
-   protected abstract void setLowpassCutoffFrequencyForLoadKinematicsInternal(double cutoffFrequency);
-   public void setLowpassCutoffFrequencyForLoadKinematics(double cutoffFrequency) {
-      if(getLowpassCutoffFrequencyForLoadKinematics() != cutoffFrequency) {
-         setLowpassCutoffFrequencyForLoadKinematicsInternal(cutoffFrequency);
-         setModified(AbstractToolModel.Operation.ExternalLoadsDataChanged);
-      }
-   }
-
-   public boolean getFilterLoadKinematics() { return getLowpassCutoffFrequencyForLoadKinematics() > 0; }
-   public void setFilterLoadKinematics(boolean filterLoadKinematics) {
-      if(getFilterLoadKinematics() != filterLoadKinematics) {
-         if(filterLoadKinematics) setLowpassCutoffFrequencyForLoadKinematicsInternal(6);
-         else setLowpassCutoffFrequencyForLoadKinematicsInternal(-1);
-         setModified(AbstractToolModel.Operation.ExternalLoadsDataChanged);
-      }
-   }
+    public boolean getFilterLoadKinematics() { return getLowpassCutoffFrequencyForLoadKinematics() > 0; }
+    public void setFilterLoadKinematics(boolean filterLoadKinematics) {
+       if(getFilterLoadKinematics() != filterLoadKinematics) {
+          if(filterLoadKinematics) setLowpassCutoffFrequencyForLoadKinematicsInternal(6);
+          else setLowpassCutoffFrequencyForLoadKinematicsInternal(-1);
+          setModified(AbstractToolModel.Operation.ExternalLoadsDataChanged);
+       }
+    }*/
 
    protected void updateFromTool() {
       super.updateFromTool();
-      externalLoadsEnabled = !FileUtils.effectivelyNull(getExternalLoadsFileName());
+      //OpenSim23 externalLoadsEnabled = !FileUtils.effectivelyNull(getExternalLoadsFileName());
    }
 
    protected void updateTool() {
       super.updateTool();
-      if(!externalLoadsEnabled) setExternalLoadsFileNameInternal("");
+      //OpenSim23 if(!externalLoadsEnabled) setExternalLoadsFileNameInternal("");
    }
 
    public boolean isValidated() {
-      return !getExternalLoadsEnabled() || (new File(getExternalLoadsFileName()).exists());
+      return false;//OpenSim23 return !getExternalLoadsEnabled() || (new File(getExternalLoadsFileName()).exists());
    }
 
    protected double[] intersectTimeRanges(double[] range1, double[] range2) {

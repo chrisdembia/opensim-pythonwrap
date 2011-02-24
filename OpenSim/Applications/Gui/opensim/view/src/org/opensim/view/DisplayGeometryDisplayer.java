@@ -74,7 +74,7 @@ public class DisplayGeometryDisplayer extends vtkActor
     public void setHidden(boolean toHide) {
         ViewDB.getInstance().toggleObjectDisplay(displayGeometry, !toHide);
         Modified();
-        ViewDB.getInstance().repaintAll();
+        ViewDB.getInstance().renderAll();
     }
     
     public boolean isHidden() {
@@ -84,7 +84,7 @@ public class DisplayGeometryDisplayer extends vtkActor
     public void setShading(int shading) {
         ViewDB.getInstance().setObjectRepresentation(displayGeometry, shading, shading);
         Modified();
-        ViewDB.getInstance().repaintAll();
+        ViewDB.getInstance().renderAll();
     }
     
     public int getShading() {
@@ -113,6 +113,7 @@ public class DisplayGeometryDisplayer extends vtkActor
                ViewDB.getInstance().applyColor(oldColorCompDbl, DisplayGeometryDisplayer.this, false);
                displayGeometry.setColor(oldColorCompDbl);
                assignColor(oldColorCompDbl);
+               ExplorerTopComponent.getDefault().requestActive();
            }
 
             private void assignColor(final double[] colorComponentDbl) {
@@ -123,6 +124,7 @@ public class DisplayGeometryDisplayer extends vtkActor
                ViewDB.getInstance().applyColor(colorCompDbl, DisplayGeometryDisplayer.this, false);
                displayGeometry.setColor(colorCompDbl);
                assignColor(colorCompDbl);
+               ExplorerTopComponent.getDefault().requestActive();
            }
             public String getPresentationName() {
                 return "Color Change";

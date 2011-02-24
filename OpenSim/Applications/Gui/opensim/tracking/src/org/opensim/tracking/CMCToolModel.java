@@ -393,11 +393,11 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
    public String getExternalLoadsFileName() { return cmcTool().getExternalLoadsFileName(); }
    protected void setExternalLoadsFileNameInternal(String fileName) { cmcTool().setExternalLoadsFileName(fileName); }
 
-   public String getExternalLoadsModelKinematicsFileName() { return cmcTool().getExternalLoadsModelKinematicsFileName(); }
-   protected void setExternalLoadsModelKinematicsFileNameInternal(String fileName) { cmcTool().setExternalLoadsModelKinematicsFileName(fileName); }
+   //OpenSim23 public String getExternalLoadsModelKinematicsFileName() { return cmcTool().getExternalLoadsModelKinematicsFileName(); }
+   //OpenSim23 protected void setExternalLoadsModelKinematicsFileNameInternal(String fileName) { cmcTool().setExternalLoadsModelKinematicsFileName(fileName); }
 
-   public double getLowpassCutoffFrequencyForLoadKinematics() { return cmcTool().getLowpassCutoffFrequencyForLoadKinematics(); }
-   protected void setLowpassCutoffFrequencyForLoadKinematicsInternal(double cutoffFrequency) { cmcTool().setLowpassCutoffFrequencyForLoadKinematics(cutoffFrequency); }
+   //OpenSim23 public double getLowpassCutoffFrequencyForLoadKinematics() { return cmcTool().getLowpassCutoffFrequencyForLoadKinematics(); }
+   //OpenSim23 protected void setLowpassCutoffFrequencyForLoadKinematicsInternal(double cutoffFrequency) { cmcTool().setLowpassCutoffFrequencyForLoadKinematics(cutoffFrequency); }
 
    // TODO: implement
    public double[] getAvailableTimeRange() { return null; }
@@ -472,7 +472,7 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
       cmcTool().setOutputModelFileName(FileUtils.makePathAbsolute(cmcTool().getOutputModelFileName(), parentDir));
 
       cmcTool().setExternalLoadsFileName(FileUtils.makePathAbsolute(cmcTool().getExternalLoadsFileName(), parentDir));
-      cmcTool().setExternalLoadsModelKinematicsFileName(FileUtils.makePathAbsolute(cmcTool().getExternalLoadsModelKinematicsFileName(), parentDir));
+      //OpenSim23 cmcTool().setExternalLoadsModelKinematicsFileName(FileUtils.makePathAbsolute(cmcTool().getExternalLoadsModelKinematicsFileName(), parentDir));
    }
 
    protected void AbsoluteToRelativePaths(String parentFileName) {
@@ -485,7 +485,7 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
       cmcTool().setOutputModelFileName(FileUtils.makePathRelative(cmcTool().getOutputModelFileName(), parentDir));
 
       cmcTool().setExternalLoadsFileName(FileUtils.makePathRelative(cmcTool().getExternalLoadsFileName(), parentDir));
-      cmcTool().setExternalLoadsModelKinematicsFileName(FileUtils.makePathRelative(cmcTool().getExternalLoadsModelKinematicsFileName(), parentDir));       
+      //OpenSim23 cmcTool().setExternalLoadsModelKinematicsFileName(FileUtils.makePathRelative(cmcTool().getExternalLoadsModelKinematicsFileName(), parentDir));       
    }
    
    public boolean loadSettings(String fileName) {

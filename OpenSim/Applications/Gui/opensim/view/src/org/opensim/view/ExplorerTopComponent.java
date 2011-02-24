@@ -27,6 +27,8 @@ package org.opensim.view;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.io.Serializable;
@@ -87,8 +89,13 @@ final public class ExplorerTopComponent extends TopComponent
 
    private ExplorerTopComponent() {
       initComponents();
-      setName(NbBundle.getMessage(ExplorerTopComponent.class, "CTL_ExplorerTopComponent"));
-      setToolTipText(NbBundle.getMessage(ExplorerTopComponent.class, "HINT_ExplorerTopComponent"));
+      SwingUtilities.invokeLater(new Runnable(){
+
+            public void run() {
+                setName(NbBundle.getMessage(ExplorerTopComponent.class, "CTL_ExplorerTopComponent"));
+            }
+        });
+      //setToolTipText(NbBundle.getMessage(ExplorerTopComponent.class, "HINT_ExplorerTopComponent"));
       // Add explorer as observer of the database
       OpenSimDB.getInstance().addObserver(this);
       //        setIcon(Utilities.loadImage(ICON_PATH, true));
@@ -101,6 +108,12 @@ final public class ExplorerTopComponent extends TopComponent
       getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0), "handleDelete");
       getActionMap().put("handleDelete", new handleDelete());
       associateLookup(ExplorerUtils.createLookup(manager, getActionMap()));
+      /*
+      this.addComponentListener(new ComponentAdapter(){
+          public void componentResized(ComponentEvent e) {
+              WindowManager.getDefault().getMainWindow().validate();
+          }
+      });*/
    }
 
    final class handleDelete extends AbstractAction {

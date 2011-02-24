@@ -230,7 +230,7 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
    private AnalyzeToolModel analyzeToolModel() { return (AnalyzeToolModel)toolModel; }
    private ForwardToolModel forwardToolModel() { return (ForwardToolModel)toolModel; } 
    private CMCToolModel cmcToolModel() { return (CMCToolModel)toolModel; } 
-
+   
    public void update(Observable observable, Object obj) {
       if(observable == toolModel && obj == AbstractToolModel.Operation.ExecutionStateChanged)
 

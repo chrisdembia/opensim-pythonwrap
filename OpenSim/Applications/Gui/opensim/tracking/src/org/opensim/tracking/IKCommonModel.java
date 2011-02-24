@@ -29,13 +29,13 @@ import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
 import org.opensim.modeling.ArrayDouble;
-import org.opensim.modeling.IKTool;
-import org.opensim.modeling.IKTrial;
+import org.opensim.modeling.InverseKinematicsTool;
 import org.opensim.modeling.MarkerData;
 import org.opensim.modeling.MarkerPlacer;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.PropertyStr;
 import org.opensim.modeling.Storage;
+
 //===========================================================================
 // IKCommonModel
 //===========================================================================
@@ -232,43 +232,31 @@ public class IKCommonModel extends Observable implements Observer {
       ikCoordinateTasksModel.toTaskSet(markerPlacer.getIKTaskSet());
    }
 
-   public void fromIKTool(IKTool ikTool) {
+   public void fromIKTool(InverseKinematicsTool ikTool) {
       markerData = null;
       coordinateData = null;
-      if(ikTool.getIKTrialSet().getSize()==0) {
-         markerDataFileName = "";
-         coordinateDataFile.fromProperty("");
-         timeRange = new double[]{-1, -1};
-      } else {
-         IKTrial trial = ikTool.getIKTrialSet().get(0);
-
          // Marker data file
-         markerDataFileName = trial.getMarkerDataFileName();
+         markerDataFileName = ikTool.getMarkerDataFileName();
          loadMarkerData();
 
          // Coordinate data file
-         coordinateDataFile.fromProperty(trial.getCoordinateFileName());
+         coordinateDataFile.fromProperty(ikTool.getCoordinateFileName());
          loadCoordinateData();
 
          // Time range
-         timeRange = new double[]{trial.getStartTime(), trial.getEndTime()};
-      }
+         timeRange = new double[]{ikTool.getStartTime(), ikTool.getEndTime()};
+      
 
       // IK task set
       ikMarkerTasksModel.fromTaskSet(ikTool.getIKTaskSet());
       ikCoordinateTasksModel.fromTaskSet(ikTool.getIKTaskSet());
    }
 
-   public void toIKTool(IKTool ikTool) {
-      if(ikTool.getIKTrialSet().getSize()==0) {
-         // nothing to do
-      } else {
-         IKTrial trial = ikTool.getIKTrialSet().get(0);
-         trial.setMarkerDataFileName(markerDataFileName);
-         trial.setCoordinateFileName(coordinateDataFile.toProperty());
-         trial.setStartTime(timeRange[0]);
-         trial.setEndTime(timeRange[1]);
-      }
+   public void toInverseKinematicsTool(InverseKinematicsTool ikTool) {
+     ikTool.setMarkerDataFileName(markerDataFileName);
+     ikTool.setCoordinateFileName(coordinateDataFile.toProperty()); 
+     ikTool.setStartTime(timeRange[0]);
+     ikTool.setEndTime(timeRange[1]);     
 
       // IK task set
       ikMarkerTasksModel.toTaskSet(ikTool.getIKTaskSet());

@@ -334,7 +334,7 @@ public class ExcitationEditorJFrame extends javax.swing.JFrame {
 
 	for(int i=0;i<acts.getSize();i++) {
                 Actuator act = acts.get(i);
-                int numControls = act.getNumControls();
+                int numControls = act.numControls();
                 for (int nc=0;nc<numControls;nc++){
                     ControlLinear control = new ControlLinear();
                     control.setControlValue(0.0, 0.1);

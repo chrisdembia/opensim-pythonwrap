@@ -38,7 +38,7 @@ public class ToolCommon {
    public static final String CoordinateFormatStr = "%.3f";
    public static final String WeightFormatStr = "%.3f";
 
-   public static void bindProperty(OpenSimObject obj, String propertyName, JComponent comp) { 
+    public static void bindProperty(OpenSimObject obj, String propertyName, JComponent comp) { 
       PropertySet pset = obj.getPropertySet();
       Property prop = pset.contains(propertyName);
       if(prop!=null) {

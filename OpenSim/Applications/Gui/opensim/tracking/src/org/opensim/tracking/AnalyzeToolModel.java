@@ -277,7 +277,7 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
           if(inverseDynamicsAnalysis==null) {
               inverseDynamicsAnalysis = InverseDynamics.safeDownCast(new InverseDynamics().copy());
               setAnalysisTimeFromTool(inverseDynamicsAnalysis);
-              analyzeTool().addAnalysis(inverseDynamicsAnalysis);
+              //analyzeTool().addAnalysis(inverseDynamicsAnalysis);
           }
           inverseDynamicsAnalysis.setOn(true);
           inverseDynamicsAnalysis.setUseModelForceSet(false);
@@ -304,7 +304,7 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
           }
           if(staticOptimizationAnalysis==null) {
               staticOptimizationAnalysis = StaticOptimization.safeDownCast(new StaticOptimization().copy()); // C++-side copy
-              analyzeTool().addAnalysis(staticOptimizationAnalysis);
+              //analyzeTool().addAnalysis(staticOptimizationAnalysis);
           }
           staticOptimizationAnalysis.setOn(true);
           staticOptimizationAnalysis.setUseModelForceSet(true);
@@ -481,14 +481,14 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
    //------------------------------------------------------------------------
    // External loads get/set (don't need to call setModified since AbstractToolModel does that)
    //------------------------------------------------------------------------
-   public String getExternalLoadsFileName() { return analyzeTool().getExternalLoadsFileName(); }
-   protected void setExternalLoadsFileNameInternal(String fileName) { analyzeTool().setExternalLoadsFileName(fileName); }
+   public String getExternalLoadsFileName() { return ""; }
+   protected void setExternalLoadsFileNameInternal(String fileName) {  }
 
-   public String getExternalLoadsModelKinematicsFileName() { return analyzeTool().getExternalLoadsModelKinematicsFileName(); }
-   protected void setExternalLoadsModelKinematicsFileNameInternal(String fileName) { analyzeTool().setExternalLoadsModelKinematicsFileName(fileName); }
+   public String getExternalLoadsModelKinematicsFileName() { return ""; }
+   protected void setExternalLoadsModelKinematicsFileNameInternal(String fileName) { }
 
-   public double getLowpassCutoffFrequencyForLoadKinematics() { return analyzeTool().getLowpassCutoffFrequencyForLoadKinematics(); }
-   protected void setLowpassCutoffFrequencyForLoadKinematicsInternal(double cutoffFrequency) { analyzeTool().setLowpassCutoffFrequencyForLoadKinematics(cutoffFrequency); }
+   public double getLowpassCutoffFrequencyForLoadKinematics() { return 6;}
+   protected void setLowpassCutoffFrequencyForLoadKinematicsInternal(double cutoffFrequency) {  }
 
    //------------------------------------------------------------------------
    // Utilities for running/canceling tool
@@ -580,7 +580,7 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
       analyzeTool().setSpeedsFileName(FileUtils.makePathAbsolute(analyzeTool().getSpeedsFileName(), parentDir));
 
       analyzeTool().setExternalLoadsFileName(FileUtils.makePathAbsolute(analyzeTool().getExternalLoadsFileName(), parentDir));
-      analyzeTool().setExternalLoadsModelKinematicsFileName(FileUtils.makePathAbsolute(analyzeTool().getExternalLoadsModelKinematicsFileName(), parentDir));
+      //OpenSim23 analyzeTool().setExternalLoadsModelKinematicsFileName(FileUtils.makePathAbsolute(analyzeTool().getExternalLoadsModelKinematicsFileName(), parentDir));
    }
 
    protected void AbsoluteToRelativePaths(String parentFileName) {
@@ -595,7 +595,7 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
       analyzeTool().setSpeedsFileName(FileUtils.makePathRelative(analyzeTool().getSpeedsFileName(), parentDir));
 
       analyzeTool().setExternalLoadsFileName(FileUtils.makePathRelative(analyzeTool().getExternalLoadsFileName(), parentDir));
-      analyzeTool().setExternalLoadsModelKinematicsFileName(FileUtils.makePathRelative(analyzeTool().getExternalLoadsModelKinematicsFileName(), parentDir));
+      //OpenSim23 analyzeTool().setExternalLoadsModelKinematicsFileName(FileUtils.makePathRelative(analyzeTool().getExternalLoadsModelKinematicsFileName(), parentDir));
    }
    
    public boolean loadSettings(String fileName) {

@@ -48,7 +48,6 @@ import org.openide.awt.UndoRedo;
 import org.openide.util.NbBundle;
 import org.openide.util.SharedClassObject;
 import org.openide.windows.TopComponent;
-import org.openide.windows.WindowManager;
 import org.opensim.utils.FileUtils;
 import org.opensim.utils.Prefs;
 import org.opensim.utils.TheApp;

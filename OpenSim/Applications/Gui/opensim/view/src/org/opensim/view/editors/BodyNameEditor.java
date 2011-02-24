@@ -39,6 +39,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyEditor;
 import java.beans.PropertyEditorSupport;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.KeyStroke;
@@ -46,7 +47,8 @@ import org.openide.explorer.propertysheet.ExPropertyEditor;
 import org.openide.explorer.propertysheet.InplaceEditor;
 import org.openide.explorer.propertysheet.PropertyEnv;
 import org.openide.explorer.propertysheet.PropertyModel;
-import org.opensim.utils.Vec3;
+import org.opensim.view.SingleModelGuiElements;
+import org.opensim.view.pub.ViewDB;
 
 /**
  *
@@ -119,6 +121,8 @@ public class BodyNameEditor extends PropertyEditorSupport
         
         public void connect(PropertyEditor propertyEditor, PropertyEnv env) {
             editor = propertyEditor;
+            SingleModelGuiElements modelGuiElems = ViewDB.getInstance().getModelGuiElements(ViewDB.getCurrentModel());
+            picker.setModel(new DefaultComboBoxModel(modelGuiElems.getBodyNames()));
             reset();
         }
 

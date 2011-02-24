@@ -76,8 +76,12 @@ public final class ObjectDisplayColorAction extends CallableSystemAction {
                applyOperationToNode(childNode, newColorComponents);
             }
         }
-        else
+        else {
             ViewDB.getInstance().setObjectColor(obj, newColorComponents);
+            if (objectNode instanceof ColorableInterface)
+                ((ColorableInterface)objectNode).setColor(new Color((float)newColorComponents[0], 
+                        (float)newColorComponents[1], (float)newColorComponents[2]));
+        }
     }
     
     // Make it available only if selected objects have representation and belong to same model

@@ -15,8 +15,6 @@
 #
 #----------------------------------------------------
 
-IF (USE_LIBRARIES_FROM_REPOSITORY)
-
 SET(PLATFORM_ROOT  ${OpenSim_SOURCE_DIR}/Vendors/SimTK/${Platform})
 
 IF(WIN32)
@@ -75,5 +73,4 @@ FOREACH(LIBF ${LIB_FILES})
 	    VERBATIM)
 
 ENDFOREACH()
-
 

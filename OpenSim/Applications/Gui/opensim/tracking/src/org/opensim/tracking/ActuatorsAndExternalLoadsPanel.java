@@ -155,7 +155,7 @@ public class ActuatorsAndExternalLoadsPanel extends javax.swing.JPanel {
          int index = bodySet.getIndex(selectedBody);
          comboBox.setSelectedIndex(index);
       }
-*/
+
       externalLoadsFileName.setFileName(toolModel.getExternalLoadsFileName(),false);
       externalLoadsModelKinematicsFileName.setFileName(toolModel.getExternalLoadsModelKinematicsFileName(),false);
       if(!toolModel.getFilterLoadKinematics()) {
@@ -166,7 +166,7 @@ public class ActuatorsAndExternalLoadsPanel extends javax.swing.JPanel {
          filterModelKinematics.setSelected(true);
          cutoffFrequency.setText(numFormat.format(toolModel.getLowpassCutoffFrequencyForLoadKinematics()));
       }
-
+*/
       internalTrigger = false;
    }
    
@@ -452,15 +452,15 @@ public class ActuatorsAndExternalLoadsPanel extends javax.swing.JPanel {
    }//GEN-LAST:event_editActuatorSetFilesActionPerformed
 
    private void externalLoadsFileNameStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_externalLoadsFileNameStateChanged
-      toolModel.setExternalLoadsFileName(externalLoadsFileName.getFileName());
+      //Opensim23 toolModel.setExternalLoadsFileName(externalLoadsFileName.getFileName());
    }//GEN-LAST:event_externalLoadsFileNameStateChanged
 
    private void externalLoadsModelKinematicsFileNameStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_externalLoadsModelKinematicsFileNameStateChanged
-      toolModel.setExternalLoadsModelKinematicsFileName(externalLoadsModelKinematicsFileName.getFileName());
+      //Opensim23 toolModel.setExternalLoadsModelKinematicsFileName(externalLoadsModelKinematicsFileName.getFileName());
    }//GEN-LAST:event_externalLoadsModelKinematicsFileNameStateChanged
    
    private void filterModelKinematicsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterModelKinematicsActionPerformed
-      toolModel.setFilterLoadKinematics(filterModelKinematics.isSelected());
+     //Opensim23  toolModel.setFilterLoadKinematics(filterModelKinematics.isSelected());
    }//GEN-LAST:event_filterModelKinematicsActionPerformed
 
    private void cutoffFrequencyFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cutoffFrequencyFocusLost
@@ -468,12 +468,13 @@ public class ActuatorsAndExternalLoadsPanel extends javax.swing.JPanel {
    }//GEN-LAST:event_cutoffFrequencyFocusLost
 
    private void cutoffFrequencyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cutoffFrequencyActionPerformed
-      try {
+      /* //OpenSim23 
+       try {
          toolModel.setLowpassCutoffFrequencyForLoadKinematics(numFormat.parse(cutoffFrequency.getText()).doubleValue());
       } catch (ParseException ex) {
          Toolkit.getDefaultToolkit().beep();
          cutoffFrequency.setText(numFormat.format(toolModel.getLowpassCutoffFrequencyForLoadKinematics()));
-      }
+      }*/
    }//GEN-LAST:event_cutoffFrequencyActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -501,7 +502,7 @@ public class ActuatorsAndExternalLoadsPanel extends javax.swing.JPanel {
         public void actionPerformed(ActionEvent e) {
             FileFilter ff = FileUtils.getFileFilter(".xml", "File to save External ForceSet");
             String fileName = FileUtils.getInstance().browseForFilenameToSave(ff, true, "", null);
-            toolModel.getTool().getExternalForceSet().print(fileName);
+            //OpenSim23 toolModel.getTool().getExternalForceSet().print(fileName);
             externalLoadsFileName.setFileName(fileName);
         }
     }

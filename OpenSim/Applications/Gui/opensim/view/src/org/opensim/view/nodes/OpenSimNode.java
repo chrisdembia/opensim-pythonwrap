@@ -45,7 +45,7 @@ public class OpenSimNode extends AbstractNode {
         mapPropertyEnumToGetters.put(PropertyType.Int, "getValueInt");
         mapPropertyEnumToClass.put(PropertyType.Dbl, Double.class);
         mapPropertyEnumToGetters.put(PropertyType.Dbl, "getValueDbl");
-        mapPropertyEnumToSetters.put(PropertyType.Dbl, "setValue");
+        mapPropertyEnumToSetters.put(PropertyType.Dbl, "setValueDbl");
         mapPropertyEnumToClass.put(PropertyType.Str, String.class);
         mapPropertyEnumToGetters.put(PropertyType.Str, "getValueStr");
         mapPropertyEnumToClass.put(PropertyType.Bool, Boolean.class);

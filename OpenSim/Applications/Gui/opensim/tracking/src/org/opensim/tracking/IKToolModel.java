@@ -34,8 +34,7 @@ import org.netbeans.api.progress.ProgressHandleFactory;
 import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
 import org.openide.util.Cancellable;
-import org.opensim.modeling.IKTool;
-import org.opensim.modeling.IKTrial;
+import org.opensim.modeling.InverseKinematicsTool;
 import org.opensim.modeling.InterruptCallback;
 //import org.opensim.modeling.InterruptingIntegCallback;
 import org.opensim.modeling.Model;
@@ -74,19 +73,13 @@ public class IKToolModel extends Observable implements Observer {
          // Operate on a copy of the model -- this way if users play with parameters in the GUI it won't affect the model we're actually computing on
          ikTool.setModel(getOriginalModel());
 
-         // We assume we're working with trial 0.  No support for dealing with other trials in the trial set right now.
-         
-         if (!context.initializeTrial(ikTool, 0))
-            throw new Exception("Inverse kinematics tool initialization failed -- check messages window for more details.");
-
          // Make no motion be currently selected (so model doesn't have extraneous ground forces/experimental markers from
          // another motion show up on it)
          MotionsDB.getInstance().clearCurrent();
 
          // Initialize progress bar, given we know the number of frames to process
-         IKTrial trial = ikTool.getIKTrialSet().get(0);
-         int startFrame = trial.getStartFrame();
-         int endFrame = trial.getEndFrame();
+         double startTime = ikTool.getStartTime();
+         double endTime = ikTool.getEndTime();
          progressHandle = ProgressHandleFactory.createHandle("Executing inverse kinematics...",
                               new Cancellable() {
                                  public boolean cancel() {
@@ -96,13 +89,12 @@ public class IKToolModel extends Observable implements Observer {
                               });
 
          // Animation callback will update the display during IK solve
-         animationCallback = new JavaMotionDisplayerCallback(getOriginalModel(), ikTool.getIKTrialSet().get(0).getOutputStorage(), progressHandle);
+         animationCallback = new JavaMotionDisplayerCallback(getOriginalModel(),null/* ikTool.getOutputStorage()*/, progressHandle);
          //OpenSim20 animationCallback.setRenderMuscleActivations(false);
          //OpenSim20 animationCallback.setModelForDisplaySetConfiguration(false);
          getOriginalModel().addAnalysis(animationCallback);
          animationCallback.setStepInterval(1);
-         animationCallback.startProgressUsingSteps(startFrame, endFrame);
-         animationCallback.setOptimizerAlgorithm(ikTool.getIKTrialSet().get(0).getOptimizerAlgorithm());
+         animationCallback.startProgressUsingTime(startTime, endTime);
 
          // Do this manouver (there's gotta be a nicer way) to create the object so that C++ owns it and not Java (since 
          // removeIntegCallback in finished() will cause the C++-side callback to be deleted, and if Java owned this object
@@ -121,7 +113,7 @@ public class IKToolModel extends Observable implements Observer {
 
       public Object construct() {
          try {
-            result = context.solveTrial(ikTool, 0);
+            result = context.solveInverseKinematics(ikTool);
          }
          catch(Exception ex) {
                    finished();
@@ -141,11 +133,9 @@ public class IKToolModel extends Observable implements Observer {
 
          if(result) resetModified();
 
-         IKTrial trial = ikTool.getIKTrialSet().get(0);
-
          boolean addMotion = true;
          if(!result) {
-            boolean havePartialResult = trial.getOutputStorage()!=null && trial.getOutputStorage().getSize()>0;
+            boolean havePartialResult = false;//OpenSim23 ikTool.getOutputStorage()!=null && ikTool.getOutputStorage().getSize()>0;
             if(havePartialResult && promptToKeepPartialResult) {
                Object answer = DialogDisplayer.getDefault().notify(new NotifyDescriptor.Confirmation("Inverse kinematics did not complete.  Keep partial result?",NotifyDescriptor.YES_NO_OPTION));
                if(answer==NotifyDescriptor.NO_OPTION) addMotion = false;
@@ -155,8 +145,8 @@ public class IKToolModel extends Observable implements Observer {
          }
 
          if(addMotion) {
-            Storage motion = new Storage(trial.getOutputStorage()); // Java-side copy
-            updateMotion(motion);
+            //Storage motion = new Storage(); // Java-side copy
+            updateMotion(animationCallback.getStorage());
          }
 
          setExecuting(false);
@@ -172,7 +162,7 @@ public class IKToolModel extends Observable implements Observer {
 
    public enum Operation { AllDataChanged, IKTrialNameChanged, IKTaskSetChanged, ExecutionStateChanged };
 
-   private IKTool ikTool = null;
+   private InverseKinematicsTool ikTool = null;
    private Model originalModel = null;
    private boolean modifiedSinceLastExecute = true;
    private IKCommonModel ikCommonModel;
@@ -186,22 +176,16 @@ public class IKToolModel extends Observable implements Observer {
       this.originalModel = originalModel;
 
       // Create IK tool
-      ikTool = new IKTool();
-      addTrialIfNecessary();
+      ikTool = new InverseKinematicsTool();
+      //addTrialIfNecessary();
 
       ikCommonModel = new IKCommonModel(originalModel);
       ikCommonModel.addObserver(this);
    }
 
    public Model getOriginalModel() { return originalModel; }
-   public IKTool getIKTool() { return ikTool; }
+   public InverseKinematicsTool getIKTool() { return ikTool; }
    public IKCommonModel getIKCommonModel() { return ikCommonModel; }
-
-   private void addTrialIfNecessary() {
-      if(ikTool.getIKTrialSet().getSize()==0) {
-         ikTool.getIKTrialSet().append(IKTrial.safeDownCast(new IKTrial().copy()));
-      }
-   }
    
    //------------------------------------------------------------------------
    // IK trial name
@@ -236,12 +220,11 @@ public class IKToolModel extends Observable implements Observer {
    //------------------------------------------------------------------------
 
    private void updateIKTool() {
-      ikCommonModel.toIKTool(ikTool);
-      ikTool.setPrintResultFiles(false);
-      if(ikTool.getIKTrialSet().getSize()>0) ikTool.getIKTrialSet().get(0).setName(trialName);
+      ikCommonModel.toInverseKinematicsTool(ikTool);
+      //OpenSim23 ikTool.setPrintResultFiles(false);
    }
 
-   public void execute() {
+   public void execute() {  
       if(isModified() && worker==null) {
          try {
             worker = new IKToolWorker();
@@ -317,38 +300,30 @@ public class IKToolModel extends Observable implements Observer {
    
    private void relativeToAbsolutePaths(String parentFileName) {
       String parentDir = (new File(parentFileName)).getParent();
-      for(int i=0; i<ikTool.getIKTrialSet().getSize(); i++) {
-         IKTrial trial = ikTool.getIKTrialSet().get(i);
-         trial.setMarkerDataFileName(FileUtils.makePathAbsolute(trial.getMarkerDataFileName(),parentDir));
-         trial.setCoordinateFileName(FileUtils.makePathAbsolute(trial.getCoordinateFileName(),parentDir));
-      }
-   }
+        ikTool.setMarkerDataFileName(FileUtils.makePathAbsolute(ikTool.getMarkerDataFileName(),parentDir));
+        ikTool.setCoordinateFileName(FileUtils.makePathAbsolute(ikTool.getCoordinateFileName(),parentDir));
+  }
 
    private void AbsoluteToRelativePaths(String parentFileName) {
       String parentDir = (new File(parentFileName)).getParent();
-      for(int i=0; i<ikTool.getIKTrialSet().getSize(); i++) {
-         IKTrial trial = ikTool.getIKTrialSet().get(i);
-         trial.setMarkerDataFileName(FileUtils.makePathRelative(trial.getMarkerDataFileName(),parentDir));
-         trial.setCoordinateFileName(FileUtils.makePathRelative(trial.getCoordinateFileName(),parentDir));
-      }
+      ikTool.setMarkerDataFileName(FileUtils.makePathRelative(ikTool.getMarkerDataFileName(),parentDir));
+      ikTool.setCoordinateFileName(FileUtils.makePathRelative(ikTool.getCoordinateFileName(),parentDir));
+      
    }
 
    public boolean loadSettings(String fileName) {
       // TODO: set current working directory before trying to read it?
-      IKTool newIKTool = null;
+      InverseKinematicsTool newIKTool = null;
       try {
-         newIKTool = new IKTool(fileName, false);
+         newIKTool = new InverseKinematicsTool(fileName, false);
       } catch (IOException ex) {
          ErrorDialog.displayIOExceptionDialog("Error loading file","Could not load "+fileName,ex);
          return false;
       }
       ikTool = newIKTool;
-      addTrialIfNecessary();
       relativeToAbsolutePaths(fileName);
 
       ikCommonModel.fromIKTool(ikTool);
-
-      if(ikTool.getIKTrialSet().getSize()>0) trialName = ikTool.getIKTrialSet().get(0).getName();
 
       setModified(Operation.AllDataChanged);
       return true;

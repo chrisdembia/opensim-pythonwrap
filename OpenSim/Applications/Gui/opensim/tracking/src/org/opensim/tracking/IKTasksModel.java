@@ -43,17 +43,6 @@ import org.opensim.tracking.IKTasksModel.ValueType;
 import org.opensim.view.pub.OpenSimDB;
 
 //==================================================================
-// IKTasksModelEvent
-//==================================================================
-class IKTasksModelEvent {
-   public enum Operation { AllChanged, TaskChanged };
-   public Operation op;
-   public int index;
-   public IKTasksModelEvent(Operation op) { this.op = op; this.index = -1; }
-   public IKTasksModelEvent(Operation op, int index) { this.op = op; this.index = index; }
-}
-
-//==================================================================
 // IKTasksModel
 //==================================================================
 public abstract class IKTasksModel extends Observable {

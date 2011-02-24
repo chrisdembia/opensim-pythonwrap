@@ -49,6 +49,7 @@ import javax.swing.undo.CannotUndoException;
 import org.openide.DialogDescriptor;
 import org.openide.DialogDisplayer;
 import org.openide.awt.StatusDisplayer;
+//import org.openide.util.Exceptions;
 import org.openide.util.NbBundle;
 import org.opensim.modeling.Actuator;
 import org.opensim.modeling.DisplayGeometry;
@@ -633,6 +634,7 @@ public final class ViewDB extends Observable implements Observer {
             }
          
       }
+      renderAll();
    }
 
    public void applyColor(final double[] colorComponents, final vtkProp3D asm, boolean allowUndo) {
@@ -663,9 +665,12 @@ public final class ViewDB extends Observable implements Observer {
 
        ApplyFunctionToActors(asm, new ActorFunctionApplier() {
          public void apply(vtkActor actor) { 
-             if (!(actor instanceof FrameActor))
-                actor.GetProperty().SetColor(colorComponents); }});
-      repaintAll();
+             if (!(actor instanceof FrameActor)){
+                actor.GetProperty().SetColor(colorComponents);
+                actor.Modified();
+             }
+         }});
+      renderAll();
    }
    
    public void setNominalModelOpacity(OpenSimObject object, double newOpacity)

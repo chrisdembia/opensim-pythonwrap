@@ -266,11 +266,11 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
    public String getExternalLoadsFileName() { return forwardTool().getExternalLoadsFileName(); }
    protected void setExternalLoadsFileNameInternal(String fileName) { forwardTool().setExternalLoadsFileName(fileName); }
 
-   public String getExternalLoadsModelKinematicsFileName() { return forwardTool().getExternalLoadsModelKinematicsFileName(); }
-   protected void setExternalLoadsModelKinematicsFileNameInternal(String fileName) { forwardTool().setExternalLoadsModelKinematicsFileName(fileName); }
+   //OpenSim23 public String getExternalLoadsModelKinematicsFileName() { return forwardTool().getExternalLoadsModelKinematicsFileName(); }
+   //OpenSim23 protected void setExternalLoadsModelKinematicsFileNameInternal(String fileName) { forwardTool().setExternalLoadsModelKinematicsFileName(fileName); }
 
-   public double getLowpassCutoffFrequencyForLoadKinematics() { return forwardTool().getLowpassCutoffFrequencyForLoadKinematics(); }
-   protected void setLowpassCutoffFrequencyForLoadKinematicsInternal(double cutoffFrequency) { forwardTool().setLowpassCutoffFrequencyForLoadKinematics(cutoffFrequency); }
+   //OpenSim23 public double getLowpassCutoffFrequencyForLoadKinematics() { return forwardTool().getLowpassCutoffFrequencyForLoadKinematics(); }
+   //OpenSim23 protected void setLowpassCutoffFrequencyForLoadKinematicsInternal(double cutoffFrequency) { forwardTool().setLowpassCutoffFrequencyForLoadKinematics(cutoffFrequency); }
 
    //------------------------------------------------------------------------
    // Utilities for running/canceling tool
@@ -330,7 +330,7 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
       forwardTool().setStatesFileName(FileUtils.makePathAbsolute(forwardTool().getStatesFileName(), parentDir));
 
       forwardTool().setExternalLoadsFileName(FileUtils.makePathAbsolute(forwardTool().getExternalLoadsFileName(), parentDir));
-      forwardTool().setExternalLoadsModelKinematicsFileName(FileUtils.makePathAbsolute(forwardTool().getExternalLoadsModelKinematicsFileName(), parentDir));
+      //OpenSim23 forwardTool().setExternalLoadsModelKinematicsFileName(FileUtils.makePathAbsolute(forwardTool().getExternalLoadsModelKinematicsFileName(), parentDir));
    }
 
    protected void AbsoluteToRelativePaths(String parentFileName) {
@@ -343,7 +343,7 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
       forwardTool().setStatesFileName(FileUtils.makePathRelative(forwardTool().getStatesFileName(), parentDir));
 
       forwardTool().setExternalLoadsFileName(FileUtils.makePathRelative(forwardTool().getExternalLoadsFileName(), parentDir));
-      forwardTool().setExternalLoadsModelKinematicsFileName(FileUtils.makePathRelative(forwardTool().getExternalLoadsModelKinematicsFileName(), parentDir));
+      //OpenSim23 forwardTool().setExternalLoadsModelKinematicsFileName(FileUtils.makePathRelative(forwardTool().getExternalLoadsModelKinematicsFileName(), parentDir));
    }
 
    public boolean loadSettings(String fileName) {
