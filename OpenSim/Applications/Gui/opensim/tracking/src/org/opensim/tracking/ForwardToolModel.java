@@ -266,11 +266,11 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
    public String getExternalLoadsFileName() { return forwardTool().getExternalLoadsFileName(); }
    protected void setExternalLoadsFileNameInternal(String fileName) { forwardTool().setExternalLoadsFileName(fileName); }
 
-   //OpenSim23 public String getExternalLoadsModelKinematicsFileName() { return forwardTool().getExternalLoadsModelKinematicsFileName(); }
-   //OpenSim23 protected void setExternalLoadsModelKinematicsFileNameInternal(String fileName) { forwardTool().setExternalLoadsModelKinematicsFileName(fileName); }
+   public String getExternalLoadsModelKinematicsFileName() { return forwardTool().getExternalLoads().getExternalLoadsModelKinematicsFileName(); }
+   protected void setExternalLoadsModelKinematicsFileNameInternal(String fileName) { forwardTool().getExternalLoads().setExternalLoadsModelKinematicsFileName(fileName); }
 
-   //OpenSim23 public double getLowpassCutoffFrequencyForLoadKinematics() { return forwardTool().getLowpassCutoffFrequencyForLoadKinematics(); }
-   //OpenSim23 protected void setLowpassCutoffFrequencyForLoadKinematicsInternal(double cutoffFrequency) { forwardTool().setLowpassCutoffFrequencyForLoadKinematics(cutoffFrequency); }
+   public double getLowpassCutoffFrequencyForLoadKinematics() { return forwardTool().getExternalLoads().getLowpassCutoffFrequencyForLoadKinematics(); }
+   protected void setLowpassCutoffFrequencyForLoadKinematicsInternal(double cutoffFrequency) { forwardTool().getExternalLoads().setLowpassCutoffFrequencyForLoadKinematics(cutoffFrequency); }
 
    //------------------------------------------------------------------------
    // Utilities for running/canceling tool

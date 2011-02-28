@@ -68,8 +68,32 @@ public class InverseDynamicsTool extends DynamicsTool {
     return opensimModelJNI.InverseDynamicsTool_getOutputGenForceFileName(swigCPtr, this);
   }
 
+  public String getCoordinatesFileName() {
+    return opensimModelJNI.InverseDynamicsTool_getCoordinatesFileName(swigCPtr, this);
+  }
+
+  public void setCoordinatesFileName(String aCoordinateFile) {
+    opensimModelJNI.InverseDynamicsTool_setCoordinatesFileName(swigCPtr, this, aCoordinateFile);
+  }
+
   public boolean run() throws java.io.IOException {
     return opensimModelJNI.InverseDynamicsTool_run(swigCPtr, this);
   }
+
+    public String getStatesFileName() {
+        return null;
+    }
+
+    public void setStatesFileName(String speedsFileName) {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    public double getLowpassCutoffFrequency() {
+        return 0;
+    }
+
+    public void setLowpassCutoffFrequency(double frequency) {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
 
 }

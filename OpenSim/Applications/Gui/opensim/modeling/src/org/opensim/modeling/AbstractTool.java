@@ -76,12 +76,12 @@ public class AbstractTool extends OpenSimObject {
     return opensimModelJNI.AbstractTool_getNextAvailableForceName__SWIG_1(swigCPtr, this);
   }
 
-  public SWIGTYPE_p_ExternalLoads getExternalLoads() {
-    return new SWIGTYPE_p_ExternalLoads(opensimModelJNI.AbstractTool_getExternalLoads(swigCPtr, this), false);
+  public ExternalLoads getExternalLoads() {
+    return new ExternalLoads(opensimModelJNI.AbstractTool_getExternalLoads(swigCPtr, this), false);
   }
 
-  public SWIGTYPE_p_ExternalLoads updExternalLoads() {
-    return new SWIGTYPE_p_ExternalLoads(opensimModelJNI.AbstractTool_updExternalLoads(swigCPtr, this), false);
+  public ExternalLoads updExternalLoads() {
+    return new ExternalLoads(opensimModelJNI.AbstractTool_updExternalLoads(swigCPtr, this), false);
   }
 
   public String getExternalLoadsFileName() {

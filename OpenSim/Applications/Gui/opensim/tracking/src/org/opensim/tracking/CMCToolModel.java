@@ -393,11 +393,11 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
    public String getExternalLoadsFileName() { return cmcTool().getExternalLoadsFileName(); }
    protected void setExternalLoadsFileNameInternal(String fileName) { cmcTool().setExternalLoadsFileName(fileName); }
 
-   //OpenSim23 public String getExternalLoadsModelKinematicsFileName() { return cmcTool().getExternalLoadsModelKinematicsFileName(); }
-   //OpenSim23 protected void setExternalLoadsModelKinematicsFileNameInternal(String fileName) { cmcTool().setExternalLoadsModelKinematicsFileName(fileName); }
+   public String getExternalLoadsModelKinematicsFileName() { return cmcTool().getExternalLoads().getExternalLoadsModelKinematicsFileName(); }
+   protected void setExternalLoadsModelKinematicsFileNameInternal(String fileName) { cmcTool().getExternalLoads().setExternalLoadsModelKinematicsFileName(fileName); }
 
-   //OpenSim23 public double getLowpassCutoffFrequencyForLoadKinematics() { return cmcTool().getLowpassCutoffFrequencyForLoadKinematics(); }
-   //OpenSim23 protected void setLowpassCutoffFrequencyForLoadKinematicsInternal(double cutoffFrequency) { cmcTool().setLowpassCutoffFrequencyForLoadKinematics(cutoffFrequency); }
+   public double getLowpassCutoffFrequencyForLoadKinematics() { return cmcTool().getExternalLoads().getLowpassCutoffFrequencyForLoadKinematics(); }
+   protected void setLowpassCutoffFrequencyForLoadKinematicsInternal(double cutoffFrequency) { cmcTool().getExternalLoads().setLowpassCutoffFrequencyForLoadKinematics(cutoffFrequency); }
 
    // TODO: implement
    public double[] getAvailableTimeRange() { return null; }

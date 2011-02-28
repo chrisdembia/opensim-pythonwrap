@@ -44,6 +44,30 @@ public class DynamicsTool extends Tool {
     opensimModelJNI.DynamicsTool_disableModelForces(swigCPtr, this, Model.getCPtr(model), model, SWIGTYPE_p_SimTK__State.getCPtr(s), ArrayStr.getCPtr(forcesByNameOrGroup), forcesByNameOrGroup);
   }
 
+  public void setStartTime(double d) {
+    opensimModelJNI.DynamicsTool_setStartTime(swigCPtr, this, d);
+  }
+
+  public double getStartTime() {
+    return opensimModelJNI.DynamicsTool_getStartTime(swigCPtr, this);
+  }
+
+  public void setEndTime(double d) {
+    opensimModelJNI.DynamicsTool_setEndTime(swigCPtr, this, d);
+  }
+
+  public double getEndTime() {
+    return opensimModelJNI.DynamicsTool_getEndTime(swigCPtr, this);
+  }
+
+  public void setModel(Model aModel) {
+    opensimModelJNI.DynamicsTool_setModel(swigCPtr, this, Model.getCPtr(aModel), aModel);
+  }
+
+  public void setExcludedForces(ArrayStr aExcluded) {
+    opensimModelJNI.DynamicsTool_setExcludedForces(swigCPtr, this, ArrayStr.getCPtr(aExcluded), aExcluded);
+  }
+
   public boolean run() throws java.io.IOException {
     return opensimModelJNI.DynamicsTool_run(swigCPtr, this);
   }
