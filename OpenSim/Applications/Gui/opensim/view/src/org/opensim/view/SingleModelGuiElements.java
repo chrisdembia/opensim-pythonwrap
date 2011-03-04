@@ -47,6 +47,8 @@ import org.opensim.modeling.Coordinate;
 import org.opensim.modeling.CoordinateSet;
 import org.opensim.modeling.MarkerSet;
 import org.opensim.modeling.ObjectGroup;
+import org.opensim.modeling.OpenSimContext;
+import org.opensim.view.pub.OpenSimDB;
 
 /**
  *
@@ -68,10 +70,13 @@ public class SingleModelGuiElements {
     // of a model while in use.
     private boolean locked = false;
     private String lockOwner = null;
-
+    OpenSimContext context;
+    
     public SingleModelGuiElements(Model model)
     {
        this.model=model;
+       context = OpenSimDB.getInstance().getContext(model);
+
     }
 
     /**
@@ -167,11 +172,9 @@ public class SingleModelGuiElements {
          Vector<String> coordinateNamesVec = new Vector<String>();
          for (int i = 0; i < coordinates.getSize(); i++){
             Coordinate coord = coordinates.get(i);
-            //OpenSim23
-            /*
-            boolean constrained = coord.isConstrained();
+            boolean constrained = context.isConstrained(coord);
             if (!constrained)
-                coordinateNamesVec.add(coord.getName());*/
+                coordinateNamesVec.add(coord.getName());
          }
          unconstrainedCoordinateNames= new String[coordinateNamesVec.size()];
          coordinateNamesVec.toArray(unconstrainedCoordinateNames);
