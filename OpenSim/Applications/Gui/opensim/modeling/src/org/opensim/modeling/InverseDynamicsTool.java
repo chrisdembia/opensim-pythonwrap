@@ -85,7 +85,7 @@ public class InverseDynamicsTool extends DynamicsTool {
     }
 
     public void setStatesFileName(String speedsFileName) {
-        throw new UnsupportedOperationException("Not yet implemented");
+       // throw new UnsupportedOperationException("Not yet implemented");
     }
 
     public double getLowpassCutoffFrequency() {
@@ -93,7 +93,7 @@ public class InverseDynamicsTool extends DynamicsTool {
     }
 
     public void setLowpassCutoffFrequency(double frequency) {
-        throw new UnsupportedOperationException("Not yet implemented");
+       // throw new UnsupportedOperationException("Not yet implemented");
     }
 
 }

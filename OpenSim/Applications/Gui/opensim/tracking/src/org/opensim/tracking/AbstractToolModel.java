@@ -67,7 +67,7 @@ public abstract class AbstractToolModel extends Observable {
    protected void setModel(Model model) { 
        this.model = model; 
        // Include model's file name in xml rep.'
-       if (model.getInputFileName()!="")
+       if (model.getInputFileName()!="" && tool != null)
            tool.setModelFilename(model.getInputFileName());
    }
 
@@ -304,15 +304,15 @@ abstract class AbstractToolModelWithExternalLoads extends AbstractToolModel {
         }
     }
 
-    //OpenSim23 public abstract String getExternalLoadsFileName();
-    //OpenSim23 protected abstract void setExternalLoadsFileNameInternal(String fileName);
-    //OpenSim23 public void setExternalLoadsFileName(String fileName) {
-    //OpenSim23   if(!getExternalLoadsFileName().equals(fileName)) {
-    //OpenSim23      setExternalLoadsFileNameInternal(fileName);
-    //OpenSim23      setModified(AbstractToolModel.Operation.ExternalLoadsDataChanged);
-    //OpenSim23   }
-    //OpenSim23}
-    /* //OpenSim23
+    abstract String getExternalLoadsFileName();
+    protected abstract void setExternalLoadsFileNameInternal(String fileName);
+    public void setExternalLoadsFileName(String fileName) {
+        if(!getExternalLoadsFileName().equals(fileName)) {
+          setExternalLoadsFileNameInternal(fileName);
+          setModified(AbstractToolModel.Operation.ExternalLoadsDataChanged);
+        }
+    }
+    
     public abstract String getExternalLoadsModelKinematicsFileName();
     protected abstract void setExternalLoadsModelKinematicsFileNameInternal(String fileName);
     public void setExternalLoadsModelKinematicsFileName(String fileName) {
@@ -320,11 +320,11 @@ abstract class AbstractToolModelWithExternalLoads extends AbstractToolModel {
           setExternalLoadsModelKinematicsFileNameInternal(fileName);
           setModified(AbstractToolModel.Operation.ExternalLoadsDataChanged);
        }
-    }*/
+    }
 
-   //OpenSim23 public abstract double getLowpassCutoffFrequencyForLoadKinematics();
-   //OpenSim23 protected abstract void setLowpassCutoffFrequencyForLoadKinematicsInternal(double cutoffFrequency);
-   /* //OpenSim23
+   public abstract double getLowpassCutoffFrequencyForLoadKinematics();
+   protected abstract void setLowpassCutoffFrequencyForLoadKinematicsInternal(double cutoffFrequency);
+   
     public void setLowpassCutoffFrequencyForLoadKinematics(double cutoffFrequency) {
        if(getLowpassCutoffFrequencyForLoadKinematics() != cutoffFrequency) {
           setLowpassCutoffFrequencyForLoadKinematicsInternal(cutoffFrequency);
@@ -339,11 +339,11 @@ abstract class AbstractToolModelWithExternalLoads extends AbstractToolModel {
           else setLowpassCutoffFrequencyForLoadKinematicsInternal(-1);
           setModified(AbstractToolModel.Operation.ExternalLoadsDataChanged);
        }
-    }*/
+    }
 
    protected void updateFromTool() {
       super.updateFromTool();
-      //OpenSim23 externalLoadsEnabled = !FileUtils.effectivelyNull(getExternalLoadsFileName());
+      externalLoadsEnabled = !FileUtils.effectivelyNull(getExternalLoadsFileName());
    }
 
    protected void updateTool() {
@@ -352,7 +352,7 @@ abstract class AbstractToolModelWithExternalLoads extends AbstractToolModel {
    }
 
    public boolean isValidated() {
-      return false;//OpenSim23 return !getExternalLoadsEnabled() || (new File(getExternalLoadsFileName()).exists());
+      return true;//OpenSim23 return !getExternalLoadsEnabled() || (new File(getExternalLoadsFileName()).exists());
    }
 
    protected double[] intersectTimeRanges(double[] range1, double[] range2) {
@@ -365,5 +365,25 @@ abstract class AbstractToolModelWithExternalLoads extends AbstractToolModel {
    public boolean hasResultsDisplayer(ResultDisplayerInterface displayer) {
        return resultDisplayers.contains(displayer);
    }
+
+    void setLowpassCutoffFrequency(double d) {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    double getLowpassCutoffFrequency() {
+        return 0;
+    }
+
+    void setFilterCoordinates(boolean b) {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    void setStatesFileName(String string) {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    void setCoordinatesFileName(String string) {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
 }
 

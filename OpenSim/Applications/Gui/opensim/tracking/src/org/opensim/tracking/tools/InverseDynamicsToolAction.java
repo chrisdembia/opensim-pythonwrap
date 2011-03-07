@@ -32,6 +32,7 @@ import org.openide.util.actions.CallableSystemAction;
 import org.opensim.modeling.Model;
 import org.opensim.tracking.AnalyzeAndForwardToolPanel;
 import org.opensim.tracking.BaseToolPanel;
+import org.opensim.tracking.InverseDynamicsToolPanel;
 import org.opensim.utils.ErrorDialog;
 import org.opensim.view.pub.OpenSimDB;
 
@@ -42,7 +43,7 @@ public final class InverseDynamicsToolAction extends CallableSystemAction {
       if(model==null) return;
 
       try {
-         final AnalyzeAndForwardToolPanel panel = new AnalyzeAndForwardToolPanel(model,AnalyzeAndForwardToolPanel.Mode.InverseDynamics);
+         final InverseDynamicsToolPanel panel = new InverseDynamicsToolPanel(model);
          BaseToolPanel.openToolDialog(panel, "Inverse Dynamics Tool");
       } catch (IOException ex) {
          ErrorDialog.displayIOExceptionDialog("Inverse Dynamics Tool Error","Error while initializing inverse dynamics tool",ex);

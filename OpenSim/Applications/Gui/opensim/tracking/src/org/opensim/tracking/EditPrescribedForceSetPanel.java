@@ -75,7 +75,7 @@ public class EditPrescribedForceSetPanel extends javax.swing.JPanel
         //OpenSim23 forceListModel = new ForceListModel(dTool.updExternalForceSet());
         initComponents();
         externalLoadsDataFileName.setExtensionsAndDescription(".sto,.mot", "Data file for prescribed forces");
-        String dataFile = "";//OpenSim23 dTool.getExternalForceSet().getDataFileName();
+        String dataFile = dTool.getExternalLoads().getDataFileName();
         File extForcesFile = new File(extFileName);
         if (extForcesFile.exists() && dataFile!=""){
             // Make dataFile relative to path of extForcesFile
@@ -462,7 +462,7 @@ public class EditPrescribedForceSetPanel extends javax.swing.JPanel
         if (dataFile!="" && dataFile !=null && new File(dataFile).exists()){
             try {
                 externalLoadsStorage = new Storage(dataFile);
-               //OpenSim23  dTool.updExternalForceSet().setDataFileName(externalLoadsDataFileName.getFileName());
+               dTool.updExternalLoads().setDataFileName(externalLoadsDataFileName.getFileName());
                 updateButtonAvailability();
             } catch (IOException ex) {
                 ex.printStackTrace();
