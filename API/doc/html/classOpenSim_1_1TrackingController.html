@@ -62,8 +62,8 @@ Inheritance diagram for OpenSim::TrackingController:</div>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1TrackingController.html#a0a992080c059818ff982c6f06612e2c0">setDesiredStatesStorage</a> (const <a class="el" href="classOpenSim_1_1Storage.html">Storage</a> *aYDesStore)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> this class's pointer to the storage object containing desired model states to point to the storage object passed into this method.  <a href="#a0a992080c059818ff982c6f06612e2c0"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual const <a class="el" href="classOpenSim_1_1Storage.html">Storage</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1TrackingController.html#a9313bfb65a9b2dbd5f764dc9e23d4a73">getDesiredStatesStorage</a> () const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1TrackingController.html#a2e5ff67782dd8c68541150458d6a59f3">computeControl</a> (const SimTK::State &amp;s, int index) const =0</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Note that this method is "pure virtual", which means that the <a class="el" href="classOpenSim_1_1Controller.html">Controller</a> class does not implement it, and that subclasses must implement it.  <a href="#a2e5ff67782dd8c68541150458d6a59f3"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1TrackingController.html#a838aed1980276aeaa0760f6a874177b5">computeControls</a> (const SimTK::State &amp;s, SimTK::Vector &amp;controls) const =0</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Controller.html">Controller</a> interface.  <a href="#a838aed1980276aeaa0760f6a874177b5"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Protected Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1TrackingController.html#a250a97ebe3a0a352acafa5cc16bb3847">setupProperties</a> ()</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Connect properties to local pointers.  <a href="#a250a97ebe3a0a352acafa5cc16bb3847"></a><br/></td></tr>
@@ -206,12 +206,12 @@ Inheritance diagram for OpenSim::TrackingController:</div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="a2e5ff67782dd8c68541150458d6a59f3"></a><!-- doxytag: member="OpenSim::TrackingController::computeControl" ref="a2e5ff67782dd8c68541150458d6a59f3" args="(const SimTK::State &amp;s, int index) const =0" -->
+<a class="anchor" id="a838aed1980276aeaa0760f6a874177b5"></a><!-- doxytag: member="OpenSim::TrackingController::computeControls" ref="a838aed1980276aeaa0760f6a874177b5" args="(const SimTK::State &amp;s, SimTK::Vector &amp;controls) const =0" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">virtual double OpenSim::TrackingController::computeControl </td>
+          <td class="memname">virtual void OpenSim::TrackingController::computeControls </td>
           <td>(</td>
           <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
           <td class="paramname"> <em>s</em>, </td>
@@ -219,8 +219,8 @@ Inheritance diagram for OpenSim::TrackingController:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&nbsp;</td>
-          <td class="paramname"> <em>index</em></td><td>&nbsp;</td>
+          <td class="paramtype">SimTK::Vector &amp;&nbsp;</td>
+          <td class="paramname"> <em>controls</em></td><td>&nbsp;</td>
         </tr>
         <tr>
           <td></td>
@@ -231,18 +231,11 @@ Inheritance diagram for OpenSim::TrackingController:</div>
 </div>
 <div class="memdoc">
 
-<p>Note that this method is "pure virtual", which means that the <a class="el" href="classOpenSim_1_1Controller.html">Controller</a> class does not implement it, and that subclasses must implement it. </p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>s</em>&nbsp;</td><td>system state </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>rControlSet</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Control.html">Control</a> set used for the simulation. This method alters the control set in order to control the simulation. </td></tr>
-  </table>
-  </dd>
-</dl>
+<p><a class="el" href="classOpenSim_1_1Controller.html">Controller</a> interface. </p>
 
-<p>Implements <a class="el" href="classOpenSim_1_1Controller.html#a9ea35bd6b15197b4a8c77c67c45b9dfa">OpenSim::Controller</a>.</p>
+<p>Implements <a class="el" href="classOpenSim_1_1Controller.html#a2df1b977388e8871c9fb9b1ca245d668">OpenSim::Controller</a>.</p>
 
-<p>Implemented in <a class="el" href="classOpenSim_1_1CMC.html#a7af4e7c4f8ccbaad8171325fbe2d718c">OpenSim::CMC</a>, and <a class="el" href="classOpenSim_1_1CorrectionController.html#acbd7e1fef3fd699cc221705b42e8fcc9">OpenSim::CorrectionController</a>.</p>
+<p>Implemented in <a class="el" href="classOpenSim_1_1CMC.html#adbafcfd029e04a3f7fba113b887903ab">OpenSim::CMC</a>, and <a class="el" href="classOpenSim_1_1CorrectionController.html#a76bc1fba3977c7dbb0b8a8dab707ed5a">OpenSim::CorrectionController</a>.</p>
 
 </div>
 </div>
@@ -370,7 +363,7 @@ Inheritance diagram for OpenSim::TrackingController:</div>
 
 <p>Connect properties to local pointers. </p>
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Controller.html#afb31d20226e9820701df0a1861fd0c3a">OpenSim::Controller</a>.</p>
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1Controller.html">OpenSim::Controller</a>.</p>
 
 <p>Reimplemented in <a class="el" href="classOpenSim_1_1CMC.html#a344a15b002a5d18a16adf12b4ca23997">OpenSim::CMC</a>, and <a class="el" href="classOpenSim_1_1CorrectionController.html#a3723c532f947864a25dbca8fbb1563df">OpenSim::CorrectionController</a>.</p>
 
@@ -426,7 +419,7 @@ Inheritance diagram for OpenSim::TrackingController:</div>
 <li>OpenSim/Simulation/Control/TrackingController.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:37:07 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Sat Mar 12 12:28:29 2011 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

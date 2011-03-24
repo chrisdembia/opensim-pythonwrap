@@ -96,14 +96,14 @@ Inheritance diagram for OpenSim::ContactGeometry:</div>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ContactGeometry.html#ae5a94967de73f26aadafa8b3b1422141">setDefaultsFromState</a> (const SimTK::State &amp;state)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> all default values for this object to match those in a specified State.  <a href="#ae5a94967de73f26aadafa8b3b1422141"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ContactGeometry.html#a9c603b17ac1965793b52179a3a799450">getNumStateVariables</a> () const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Gets the number of "Continuous" state variables maintained by the <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any object which can be added to a Model.">ModelComponent</a> If the <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any object which can be added to a Model.">ModelComponent</a> defines any that are of interest to the user, names should also be given.  <a href="#a9c603b17ac1965793b52179a3a799450"></a><br/></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Gets the number of "Continuous" state variables maintained by the <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any component which can be added to a Model.">ModelComponent</a> If the <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any component which can be added to a Model.">ModelComponent</a> defines any that are of interest to the user, names should also be given.  <a href="#a9c603b17ac1965793b52179a3a799450"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Body.html">Body</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ContactGeometry.html#a9e3115314a59651f49169d38003daa2e">_body</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyStr.html">PropertyStr</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ContactGeometry.html#a2130b59ba0860b21c4023760fffc461e">_bodyNameProp</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::string &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ContactGeometry.html#a65b5c9817e01f1d9a01418506e64cdf1">_bodyName</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyDblVec3.html">PropertyDblVec3</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ContactGeometry.html#a70d90ad5b0a2213e2e836f9ae078b43e">_locationInBodyProp</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyDblVec__.html">PropertyDblVec3</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ContactGeometry.html#a70d90ad5b0a2213e2e836f9ae078b43e">_locationInBodyProp</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">SimTK::Vec3 &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ContactGeometry.html#addccea0bcf424116d8c8da38b86e35cc">_locationInBody</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyDblVec3.html">PropertyDblVec3</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ContactGeometry.html#ae0a5a145535023bd3f897f7c3dba3e8f">_orientationInBodyProp</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyDblVec__.html">PropertyDblVec3</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ContactGeometry.html#ae0a5a145535023bd3f897f7c3dba3e8f">_orientationInBodyProp</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">SimTK::Vec3 &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ContactGeometry.html#a823977dbd7421cbcdb9be1d99efef2d1">_orientationInBody</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1VisibleObject.html">VisibleObject</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ContactGeometry.html#a6d90b9b60b7663e2aa419b39991a3a24">_displayer</a></td></tr>
 </table>
@@ -293,7 +293,7 @@ Inheritance diagram for OpenSim::ContactGeometry:</div>
 <div class="memdoc">
 
 <p>This is called when a SimTK System is being created for the <a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a>. </p>
-<p>It must be implemented to add appropriate elements to the System corresponding to this object.</p>
+<p>It must be implemented to add appropriate elements to the System corresponding to this object. Methods for adding modeling options, state variables and their derivatives, discrete variables, as well must be called with <a class="el" href="classOpenSim_1_1ContactGeometry.html#a0a890f4bd0fe68b3742923ff083e61b4" title="This is called when a SimTK System is being created for the Model.">createSystem()</a> only.</p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>system</em>&nbsp;</td><td>the System being created </td></tr>
@@ -301,7 +301,7 @@ Inheritance diagram for OpenSim::ContactGeometry:</div>
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="classOpenSim_1_1ModelComponent.html#a85757ad4645e4066f72ce4d0411a49b8">OpenSim::ModelComponent</a>.</p>
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1ModelComponent.html#a8cecde2c81b7645a5daea70050884881">OpenSim::ModelComponent</a>.</p>
 
 </div>
 </div>
@@ -415,7 +415,7 @@ Inheritance diagram for OpenSim::ContactGeometry:</div>
 </div>
 <div class="memdoc">
 
-<p>Gets the number of "Continuous" state variables maintained by the <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any object which can be added to a Model.">ModelComponent</a> If the <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any object which can be added to a Model.">ModelComponent</a> defines any that are of interest to the user, names should also be given. </p>
+<p>Gets the number of "Continuous" state variables maintained by the <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any component which can be added to a Model.">ModelComponent</a> If the <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any component which can be added to a Model.">ModelComponent</a> defines any that are of interest to the user, names should also be given. </p>
 
 <p>Implements <a class="el" href="classOpenSim_1_1ModelComponent.html#a1e0f42516d2b3d7fd54892ee24b80f61">OpenSim::ModelComponent</a>.</p>
 
@@ -484,7 +484,7 @@ Inheritance diagram for OpenSim::ContactGeometry:</div>
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="classOpenSim_1_1ModelComponent.html#a2af3e8933cda56820900f0c643881434">OpenSim::ModelComponent</a>.</p>
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1ModelComponent.html#a96a4567ffb7c19a52855fb6d0fa2b9e1">OpenSim::ModelComponent</a>.</p>
 
 </div>
 </div>
@@ -580,7 +580,7 @@ Inheritance diagram for OpenSim::ContactGeometry:</div>
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="classOpenSim_1_1ModelComponent.html#a0e600cbcb3f90abfa53c6b7afa3cdf30">OpenSim::ModelComponent</a>.</p>
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1ModelComponent.html#a5f936e1d2c3597cb2e227cd7382ea2ec">OpenSim::ModelComponent</a>.</p>
 
 </div>
 </div>
@@ -759,7 +759,7 @@ Inheritance diagram for OpenSim::ContactGeometry:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classOpenSim_1_1PropertyDblVec3.html">PropertyDblVec3</a> <a class="el" href="classOpenSim_1_1ContactGeometry.html#a70d90ad5b0a2213e2e836f9ae078b43e">OpenSim::ContactGeometry::_locationInBodyProp</a><code> [protected]</code></td>
+          <td class="memname"><a class="el" href="classOpenSim_1_1PropertyDblVec__.html">PropertyDblVec3</a> <a class="el" href="classOpenSim_1_1ContactGeometry.html#a70d90ad5b0a2213e2e836f9ae078b43e">OpenSim::ContactGeometry::_locationInBodyProp</a><code> [protected]</code></td>
         </tr>
       </table>
 </div>
@@ -785,7 +785,7 @@ Inheritance diagram for OpenSim::ContactGeometry:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classOpenSim_1_1PropertyDblVec3.html">PropertyDblVec3</a> <a class="el" href="classOpenSim_1_1ContactGeometry.html#ae0a5a145535023bd3f897f7c3dba3e8f">OpenSim::ContactGeometry::_orientationInBodyProp</a><code> [protected]</code></td>
+          <td class="memname"><a class="el" href="classOpenSim_1_1PropertyDblVec__.html">PropertyDblVec3</a> <a class="el" href="classOpenSim_1_1ContactGeometry.html#ae0a5a145535023bd3f897f7c3dba3e8f">OpenSim::ContactGeometry::_orientationInBodyProp</a><code> [protected]</code></td>
         </tr>
       </table>
 </div>
@@ -798,7 +798,7 @@ Inheritance diagram for OpenSim::ContactGeometry:</div>
 <li>OpenSim/Simulation/Model/ContactGeometry.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:37:08 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Sat Mar 12 12:28:30 2011 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

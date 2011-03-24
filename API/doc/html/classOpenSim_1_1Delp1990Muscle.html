@@ -39,8 +39,8 @@ Inheritance diagram for OpenSim::Delp1990Muscle:</div>
   <img src="classOpenSim_1_1Delp1990Muscle.gif" usemap="#OpenSim::Delp1990Muscle_map" alt=""/>
   <map id="OpenSim::Delp1990Muscle_map" name="OpenSim::Delp1990Muscle_map">
 <area href="classOpenSim_1_1Muscle.html" alt="OpenSim::Muscle" shape="rect" coords="0,280,167,304"/>
-<area href="classOpenSim_1_1CustomActuator.html" alt="OpenSim::CustomActuator" shape="rect" coords="0,224,167,248"/>
-<area href="classOpenSim_1_1Actuator.html" alt="OpenSim::Actuator" shape="rect" coords="0,168,167,192"/>
+<area href="classOpenSim_1_1Actuator.html" alt="OpenSim::Actuator" shape="rect" coords="0,224,167,248"/>
+<area href="classOpenSim_1_1Actuator__.html" alt="OpenSim::Actuator_" shape="rect" coords="0,168,167,192"/>
 <area href="classOpenSim_1_1Force.html" alt="OpenSim::Force" shape="rect" coords="0,112,167,136"/>
 <area href="classOpenSim_1_1ModelComponent.html" alt="OpenSim::ModelComponent" shape="rect" coords="0,56,167,80"/>
 <area href="classOpenSim_1_1Object.html" alt="OpenSim::Object" shape="rect" coords="0,0,167,24"/>
@@ -61,9 +61,6 @@ Inheritance diagram for OpenSim::Delp1990Muscle:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Copy this muscle point and return a pointer to the copy.  <a href="#acb2aa8e481eb8e5dbb02cc9ef2951bae"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html">Delp1990Muscle</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#af42ec681a00956366be601bde6211c83">operator=</a> (const <a class="el" href="classOpenSim_1_1Delp1990Muscle.html">Delp1990Muscle</a> &amp;aMuscle)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Assignment operator.  <a href="#af42ec681a00956366be601bde6211c83"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#ae9844fff622dff2301069f023678c35e">initStateCache</a> (SimTK::State &amp;s, SimTK::SubsystemIndex subsystemIndex, <a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;model)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">allocate and initialize the SimTK state for this acuator.  <a href="#ae9844fff622dff2301069f023678c35e"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#ab4b28fc40018608d1d6c26b1246101b4">equilibrate</a> (SimTK::State &amp;state) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#a17682ef3c675335cc06901c6d35276fc">copyData</a> (const <a class="el" href="classOpenSim_1_1Delp1990Muscle.html">Delp1990Muscle</a> &amp;aMuscle)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Copy data members from one <a class="el" href="classOpenSim_1_1Delp1990Muscle.html" title="A class implementing a SIMM muscle.">Delp1990Muscle</a> to another.  <a href="#a17682ef3c675335cc06901c6d35276fc"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#ae0bd9b36b5b82d7ea3dae08fa3cd8b59">copyPropertyValues</a> (<a class="el" href="classOpenSim_1_1Actuator.html">Actuator</a> &amp;aActuator)</td></tr>
@@ -120,8 +117,6 @@ Inheritance diagram for OpenSim::Delp1990Muscle:</div>
 <tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#ab7ec74342c2af3e3f108e42bec2ec87f">getActiveForce</a> (const SimTK::State &amp;s) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#a6791c11bf4bf56d0a582f185930dd016">setPassiveForce</a> (const SimTK::State &amp;s, double aForce) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#aa6ea9151a31e88bf0662bee49b299c17">getPassiveForce</a> (const SimTK::State &amp;s) const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#ab6d6cc7572a1cd7174b5f4f96c561c54">computeStateDerivatives</a> (const SimTK::State &amp;s)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Compute the derivatives of the muscle states.  <a href="#ab6d6cc7572a1cd7174b5f4f96c561c54"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#af5fa93eef17bb648f54da491f711fcb4">computeEquilibrium</a> (SimTK::State &amp;s) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Compute the equilibrium states.  <a href="#af5fa93eef17bb648f54da491f711fcb4"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#a9108ad9ac697e6c1d83715ec6ba8ca78">computeActuation</a> (const SimTK::State &amp;s) const </td></tr>
@@ -150,10 +145,16 @@ Inheritance diagram for OpenSim::Delp1990Muscle:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the force-velocity curve.  <a href="#acfdf72a283e4d1377179345ad7f7e971"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#a679c7b1f7f54f5ee5505340744dc6154">setForceVelocityCurve</a> (<a class="el" href="classOpenSim_1_1Function.html">Function</a> *aForceVelocityCurve)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the force-velocity curve.  <a href="#a679c7b1f7f54f5ee5505340744dc6154"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#a96b57582615e29d91f66a70491fef52d">getStateVariableYIndex</a> (int index) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the YIndex of a state variable allocated by this <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any component which can be added to a Model.">ModelComponent</a>.  <a href="#a96b57582615e29d91f66a70491fef52d"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#a1c039505cb1e84f3f02e84bdac0bdbb8">OPENSIM_DECLARE_DERIVED</a> (<a class="el" href="classOpenSim_1_1Delp1990Muscle.html">Delp1990Muscle</a>, <a class="el" href="classOpenSim_1_1Actuator.html">Actuator</a>)</td></tr>
 <tr><td colspan="2"><h2>Protected Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#afce1ac256305ba725c7ed9a08f0b5785">setup</a> (<a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;aModel)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Perform some set up functions that happen after the object has been deserialized or copied.  <a href="#afce1ac256305ba725c7ed9a08f0b5785"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#ab7d053b8e0bf4bacb67a2646a9b57de6">createSystem</a> (SimTK::MultibodySystem &amp;system) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">allocate and initialize the SimTK state for this acuator.  <a href="#ab7d053b8e0bf4bacb67a2646a9b57de6"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual SimTK::Vector&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#a688261df0f94ba0a76c9bf3b3db2d0db">computeStateVariableDerivatives</a> (const SimTK::State &amp;s) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Compute the derivatives of the muscle states.  <a href="#a688261df0f94ba0a76c9bf3b3db2d0db"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyDbl.html">PropertyDbl</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#aa9e34626de2d6daf1e192d3979bf2489">_timeScaleProp</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Scale.html">Scale</a> factor for normalizing time.  <a href="#aa9e34626de2d6daf1e192d3979bf2489"></a><br/></td></tr>
@@ -190,9 +191,6 @@ Inheritance diagram for OpenSim::Delp1990Muscle:</div>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Function.html">Function</a> *&amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#a0b1240eb6682976a214cb1841099beed">_passiveForceLengthCurve</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyObjPtr.html">PropertyObjPtr</a>&lt; <a class="el" href="classOpenSim_1_1Function.html">Function</a> &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#a7194702e08e5b7a2de3d51cde2ecc45b">_forceVelocityCurveProp</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Function.html">Function</a> *&amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#a707b911f018f93c43faba5be3b1d1c29">_forceVelocityCurve</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">SimTK::CacheEntryIndex&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#af31a404b3d3ce000cee8e68d005c9b70">_tendonForceIndex</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">SimTK::CacheEntryIndex&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#a2896f08b3ce22e5e4cdbff6a66b225ab">_activeForceIndex</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">SimTK::CacheEntryIndex&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#a076209d8d664eb1360b2b21f99691b6a">_passiveForceIndex</a></td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
 <p>A class implementing a SIMM muscle. </p>
@@ -307,7 +305,7 @@ Inheritance diagram for OpenSim::Delp1990Muscle:</div>
 <p>Compute the equilibrium states. </p>
 <p>This method computes a fiber length for the muscle that is consistent with the muscle's activation level. </p>
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Actuator.html#ab3c83b05177cdc910902c00f37795508">OpenSim::Actuator</a>.</p>
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1Actuator__.html#a40bb70448e1682dcfb9e300e7039b0d3">OpenSim::Actuator_</a>.</p>
 
 </div>
 </div>
@@ -390,17 +388,17 @@ Inheritance diagram for OpenSim::Delp1990Muscle:</div>
 
 </div>
 </div>
-<a class="anchor" id="ab6d6cc7572a1cd7174b5f4f96c561c54"></a><!-- doxytag: member="OpenSim::Delp1990Muscle::computeStateDerivatives" ref="ab6d6cc7572a1cd7174b5f4f96c561c54" args="(const SimTK::State &amp;s)" -->
+<a class="anchor" id="a688261df0f94ba0a76c9bf3b3db2d0db"></a><!-- doxytag: member="OpenSim::Delp1990Muscle::computeStateVariableDerivatives" ref="a688261df0f94ba0a76c9bf3b3db2d0db" args="(const SimTK::State &amp;s) const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Delp1990Muscle::computeStateDerivatives </td>
+          <td class="memname">SimTK::Vector Delp1990Muscle::computeStateVariableDerivatives </td>
           <td>(</td>
           <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
           <td class="paramname"> <em>s</em></td>
           <td>&nbsp;)&nbsp;</td>
-          <td><code> [virtual]</code></td>
+          <td> const<code> [protected, virtual]</code></td>
         </tr>
       </table>
 </div>
@@ -414,7 +412,7 @@ Inheritance diagram for OpenSim::Delp1990Muscle:</div>
   </dd>
 </dl>
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Actuator.html#add8af2055a49ac75eabd2d4a9d4c5009">OpenSim::Actuator</a>.</p>
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1ModelComponent.html#a0a7e2996757ff53344dc835d12939346">OpenSim::ModelComponent</a>.</p>
 
 </div>
 </div>
@@ -488,30 +486,32 @@ Inheritance diagram for OpenSim::Delp1990Muscle:</div>
 <p>Copy the property values from another actuator, which may not be a <a class="el" href="classOpenSim_1_1Delp1990Muscle.html" title="A class implementing a SIMM muscle.">Delp1990Muscle</a>. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>aActuator</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Actuator.html" title="An abstract class for representing an actuator (e.g., a torque motor, muscle, .">Actuator</a> to copy property values from. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>aActuator</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Actuator.html" title="Derived class for an actuator (e.g., a torque motor, muscle, .">Actuator</a> to copy property values from. </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a class="anchor" id="ab4b28fc40018608d1d6c26b1246101b4"></a><!-- doxytag: member="OpenSim::Delp1990Muscle::equilibrate" ref="ab4b28fc40018608d1d6c26b1246101b4" args="(SimTK::State &amp;state) const " -->
+<a class="anchor" id="ab7d053b8e0bf4bacb67a2646a9b57de6"></a><!-- doxytag: member="OpenSim::Delp1990Muscle::createSystem" ref="ab7d053b8e0bf4bacb67a2646a9b57de6" args="(SimTK::MultibodySystem &amp;system) const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Delp1990Muscle::equilibrate </td>
+          <td class="memname">void Delp1990Muscle::createSystem </td>
           <td>(</td>
-          <td class="paramtype">SimTK::State &amp;&nbsp;</td>
-          <td class="paramname"> <em>state</em></td>
+          <td class="paramtype">SimTK::MultibodySystem &amp;&nbsp;</td>
+          <td class="paramname"> <em>system</em></td>
           <td>&nbsp;)&nbsp;</td>
-          <td> const<code> [virtual]</code></td>
+          <td> const<code> [protected, virtual]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Muscle.html#a70157a8d2af3d0041cb40cd9a0070f6e">OpenSim::Muscle</a>.</p>
+<p>allocate and initialize the SimTK state for this acuator. </p>
+
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1Muscle.html#a6c604065251c500579c39be862bcd1ba">OpenSim::Muscle</a>.</p>
 
 </div>
 </div>
@@ -784,6 +784,8 @@ Inheritance diagram for OpenSim::Delp1990Muscle:</div>
 </div>
 <div class="memdoc">
 
+<p>Implements <a class="el" href="classOpenSim_1_1Muscle.html#a9b00f50ae342e4e6d7b558539279dca1">OpenSim::Muscle</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="aaca8b339c21ec23af7788ff002b9213f"></a><!-- doxytag: member="OpenSim::Delp1990Muscle::getPassiveFiberForce" ref="aaca8b339c21ec23af7788ff002b9213f" args="(const SimTK::State &amp;) const " -->
@@ -899,6 +901,35 @@ Inheritance diagram for OpenSim::Delp1990Muscle:</div>
 
 </div>
 </div>
+<a class="anchor" id="a96b57582615e29d91f66a70491fef52d"></a><!-- doxytag: member="OpenSim::Delp1990Muscle::getStateVariableYIndex" ref="a96b57582615e29d91f66a70491fef52d" args="(int index) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Delp1990Muscle::getStateVariableYIndex </td>
+          <td>(</td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>index</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Get the YIndex of a state variable allocated by this <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any component which can be added to a Model.">ModelComponent</a>. </p>
+<p>The default implementation throws an exception, so subclasses that allocate state variables must override it.</p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>index</em>&nbsp;</td><td>the index of the state variable (0 to <a class="el" href="classOpenSim_1_1Muscle.html#ae8dcbe22e8f8d61f5a0e5d4834bfdea6" title="Get the number of state variables allocated by this force.">getNumStateVariables()</a>-1) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1ModelComponent.html#add74863ab4a9bd7742834c894b7af2a8">OpenSim::ModelComponent</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a94faa6aceb48ff7afbbe29f6bec2840e"></a><!-- doxytag: member="OpenSim::Delp1990Muscle::getStress" ref="a94faa6aceb48ff7afbbe29f6bec2840e" args="(const SimTK::State &amp;s) const " -->
 <div class="memitem">
 <div class="memproto">
@@ -995,43 +1026,6 @@ Inheritance diagram for OpenSim::Delp1990Muscle:</div>
 
 </div>
 </div>
-<a class="anchor" id="ae9844fff622dff2301069f023678c35e"></a><!-- doxytag: member="OpenSim::Delp1990Muscle::initStateCache" ref="ae9844fff622dff2301069f023678c35e" args="(SimTK::State &amp;s, SimTK::SubsystemIndex subsystemIndex, Model &amp;model)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Delp1990Muscle::initStateCache </td>
-          <td>(</td>
-          <td class="paramtype">SimTK::State &amp;&nbsp;</td>
-          <td class="paramname"> <em>s</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">SimTK::SubsystemIndex&nbsp;</td>
-          <td class="paramname"> <em>subsystemIndex</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>model</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td><code> [virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>allocate and initialize the SimTK state for this acuator. </p>
-
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Muscle.html#a67e54b95e86e42adc44a86cab74193a8">OpenSim::Muscle</a>.</p>
-
-</div>
-</div>
 <a class="anchor" id="a1c039505cb1e84f3f02e84bdac0bdbb8"></a><!-- doxytag: member="OpenSim::Delp1990Muscle::OPENSIM_DECLARE_DERIVED" ref="a1c039505cb1e84f3f02e84bdac0bdbb8" args="(Delp1990Muscle, Actuator)" -->
 <div class="memitem">
 <div class="memproto">
@@ -1057,7 +1051,7 @@ Inheritance diagram for OpenSim::Delp1990Muscle:</div>
 </div>
 <div class="memdoc">
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1CustomActuator.html#a71010b039e1b291fd45460bb0d68223b">OpenSim::CustomActuator</a>.</p>
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1Muscle.html#ae2c534dd7d1c85aea69374edd3fa005d">OpenSim::Muscle</a>.</p>
 
 </div>
 </div>
@@ -1843,19 +1837,6 @@ Inheritance diagram for OpenSim::Delp1990Muscle:</div>
 
 </div>
 </div>
-<a class="anchor" id="a2896f08b3ce22e5e4cdbff6a66b225ab"></a><!-- doxytag: member="OpenSim::Delp1990Muscle::_activeForceIndex" ref="a2896f08b3ce22e5e4cdbff6a66b225ab" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">SimTK::CacheEntryIndex <a class="el" href="classOpenSim_1_1Delp1990Muscle.html#a2896f08b3ce22e5e4cdbff6a66b225ab">OpenSim::Delp1990Muscle::_activeForceIndex</a><code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
 <a class="anchor" id="afc4b425b898e2a67e9b82cce71b0035e"></a><!-- doxytag: member="OpenSim::Delp1990Muscle::_activeForceLengthCurve" ref="afc4b425b898e2a67e9b82cce71b0035e" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -2020,19 +2001,6 @@ Inheritance diagram for OpenSim::Delp1990Muscle:</div>
 
 </div>
 </div>
-<a class="anchor" id="a076209d8d664eb1360b2b21f99691b6a"></a><!-- doxytag: member="OpenSim::Delp1990Muscle::_passiveForceIndex" ref="a076209d8d664eb1360b2b21f99691b6a" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">SimTK::CacheEntryIndex <a class="el" href="classOpenSim_1_1Delp1990Muscle.html#a076209d8d664eb1360b2b21f99691b6a">OpenSim::Delp1990Muscle::_passiveForceIndex</a><code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
 <a class="anchor" id="a0b1240eb6682976a214cb1841099beed"></a><!-- doxytag: member="OpenSim::Delp1990Muscle::_passiveForceLengthCurve" ref="a0b1240eb6682976a214cb1841099beed" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -2084,19 +2052,6 @@ Inheritance diagram for OpenSim::Delp1990Muscle:</div>
 <div class="memdoc">
 
 <p>Angle between tendon and fibers at optimal fiber length. </p>
-
-</div>
-</div>
-<a class="anchor" id="af31a404b3d3ce000cee8e68d005c9b70"></a><!-- doxytag: member="OpenSim::Delp1990Muscle::_tendonForceIndex" ref="af31a404b3d3ce000cee8e68d005c9b70" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">SimTK::CacheEntryIndex <a class="el" href="classOpenSim_1_1Delp1990Muscle.html#af31a404b3d3ce000cee8e68d005c9b70">OpenSim::Delp1990Muscle::_tendonForceIndex</a><code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
 
 </div>
 </div>
@@ -2187,7 +2142,7 @@ Inheritance diagram for OpenSim::Delp1990Muscle:</div>
 <li>OpenSim/Actuators/Delp1990Muscle.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:36:59 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Sat Mar 12 12:28:19 2011 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

@@ -27,7 +27,7 @@
   </div>
 </div>
 <div class="contents">
-<h1>OpenSim::Ligament Class Reference</h1><!-- doxytag: class="OpenSim::Ligament" --><!-- doxytag: inherits="OpenSim::CustomForce" -->
+<h1>OpenSim::Ligament Class Reference</h1><!-- doxytag: class="OpenSim::Ligament" --><!-- doxytag: inherits="OpenSim::Force" -->
 <p>A class implementing a ligament.  
 <a href="#_details">More...</a></p>
 
@@ -38,7 +38,6 @@ Inheritance diagram for OpenSim::Ligament:</div>
  <div class="center">
   <img src="classOpenSim_1_1Ligament.gif" usemap="#OpenSim::Ligament_map" alt=""/>
   <map id="OpenSim::Ligament_map" name="OpenSim::Ligament_map">
-<area href="classOpenSim_1_1CustomForce.html" alt="OpenSim::CustomForce" shape="rect" coords="0,168,167,192"/>
 <area href="classOpenSim_1_1Force.html" alt="OpenSim::Force" shape="rect" coords="0,112,167,136"/>
 <area href="classOpenSim_1_1ModelComponent.html" alt="OpenSim::ModelComponent" shape="rect" coords="0,56,167,80"/>
 <area href="classOpenSim_1_1Object.html" alt="OpenSim::Object" shape="rect" coords="0,0,167,24"/>
@@ -61,8 +60,6 @@ Inheritance diagram for OpenSim::Ligament:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Assignment operator.  <a href="#a553621252acee176cd727a9734425f1a"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Ligament.html#a5bafddce4350256d59fb43828307b981">copyData</a> (const <a class="el" href="classOpenSim_1_1Ligament.html">Ligament</a> &amp;aLigament)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Copy data members from one ligament to another.  <a href="#a5bafddce4350256d59fb43828307b981"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Ligament.html#aecc0bd1408e7138c6651582de73a90ba">initStateCache</a> (SimTK::State &amp;s, SimTK::SubsystemIndex subsystemIndex, <a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;model)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">allocate and initialize the SimTK state for this ligament.  <a href="#aecc0bd1408e7138c6651582de73a90ba"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1GeometryPath.html">GeometryPath</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Ligament.html#acf1128a7371981046035f6ca91426f26">getGeometryPath</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Ligament.html#a11542ae1cabd3533cede5de805a1c9e3">getLength</a> (const SimTK::State &amp;s) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the length of the ligament.  <a href="#a11542ae1cabd3533cede5de805a1c9e3"></a><br/></td></tr>
@@ -89,10 +86,12 @@ Inheritance diagram for OpenSim::Ligament:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the visible object used to represent the <a class="el" href="classOpenSim_1_1Ligament.html" title="A class implementing a ligament.">Ligament</a>.  <a href="#ab206f413e6232e9a9b11fd8f13d1b938"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Ligament.html#a3cf472331be5780857e28e739563cedf">updateDisplayer</a> (const SimTK::State &amp;s)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Update the visible object used to represent the <a class="el" href="classOpenSim_1_1Ligament.html" title="A class implementing a ligament.">Ligament</a>.  <a href="#a3cf472331be5780857e28e739563cedf"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Ligament.html#a40b8126a7d5bdcb635265a0bd93e3ade">OPENSIM_DECLARE_DERIVED</a> (<a class="el" href="classOpenSim_1_1Ligament.html">Ligament</a>, <a class="el" href="classOpenSim_1_1CustomForce.html">CustomForce</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Ligament.html#acf0db3520d5d9a3b14d535f6f800815b">OPENSIM_DECLARE_DERIVED</a> (<a class="el" href="classOpenSim_1_1Ligament.html">Ligament</a>, <a class="el" href="classOpenSim_1_1Force.html">Force</a>)</td></tr>
 <tr><td colspan="2"><h2>Protected Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Ligament.html#aa9d9dc38bf3ce8e28b3bae184afd18f0">setup</a> (<a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;aModel)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Perform some set up functions that happen after the ligament has been deserialized or copied.  <a href="#aa9d9dc38bf3ce8e28b3bae184afd18f0"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Ligament.html#a1dbbb699350d94376f8cfaa246e9446d">createSystem</a> (SimTK::MultibodySystem &amp;system) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">allocate and initialize the SimTK state for this ligament.  <a href="#a1dbbb699350d94376f8cfaa246e9446d"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Ligament.html#a92fa7940f7feee808e16384c387803bf">initState</a> (SimTK::State &amp;s) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This is called after a SimTK System and State have been created for the <a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a>.  <a href="#a92fa7940f7feee808e16384c387803bf"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Protected Attributes</h2></td></tr>
@@ -211,9 +210,9 @@ Inheritance diagram for OpenSim::Ligament:</div>
 <div class="memdoc">
 
 <p>Subclasses must implement this method to compute the forces that should be applied to bodies and generalized speeds. </p>
-<p>This is invoked by <a class="el" href="classOpenSim_1_1ForceAdapter.html" title="This acts as an adapter to allow a CustomForce or CustomActuator to be used as a...">ForceAdapter</a> to perform the force computation. </p>
+<p>This is invoked by <a class="el" href="classOpenSim_1_1ForceAdapter.html" title="This acts as an adapter to allow a Force or Actuator to be used as a SimTK::Force...">ForceAdapter</a> to perform the force computation. </p>
 
-<p>Implements <a class="el" href="classOpenSim_1_1CustomForce.html#abdc00ab9c7428ae228ded1a56aa40d9d">OpenSim::CustomForce</a>.</p>
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1Force.html#a6d55fd6e0f0de26a57894feea249c78b">OpenSim::Force</a>.</p>
 
 </div>
 </div>
@@ -294,6 +293,28 @@ Inheritance diagram for OpenSim::Ligament:</div>
 </dl>
 
 <p>Reimplemented from <a class="el" href="classOpenSim_1_1Force.html#a3d0364bb0f23b0c14ac5ad37b6c7310c">OpenSim::Force</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a1dbbb699350d94376f8cfaa246e9446d"></a><!-- doxytag: member="OpenSim::Ligament::createSystem" ref="a1dbbb699350d94376f8cfaa246e9446d" args="(SimTK::MultibodySystem &amp;system) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Ligament::createSystem </td>
+          <td>(</td>
+          <td class="paramtype">SimTK::MultibodySystem &amp;&nbsp;</td>
+          <td class="paramname"> <em>system</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [protected, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>allocate and initialize the SimTK state for this ligament. </p>
+
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1Force.html#a66dc0d02d11c3253c51748ca2f47da12">OpenSim::Force</a>.</p>
 
 </div>
 </div>
@@ -437,42 +458,7 @@ Inheritance diagram for OpenSim::Ligament:</div>
 
 </div>
 </div>
-<a class="anchor" id="aecc0bd1408e7138c6651582de73a90ba"></a><!-- doxytag: member="OpenSim::Ligament::initStateCache" ref="aecc0bd1408e7138c6651582de73a90ba" args="(SimTK::State &amp;s, SimTK::SubsystemIndex subsystemIndex, Model &amp;model)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Ligament::initStateCache </td>
-          <td>(</td>
-          <td class="paramtype">SimTK::State &amp;&nbsp;</td>
-          <td class="paramname"> <em>s</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">SimTK::SubsystemIndex&nbsp;</td>
-          <td class="paramname"> <em>subsystemIndex</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>model</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>allocate and initialize the SimTK state for this ligament. </p>
-
-</div>
-</div>
-<a class="anchor" id="a40b8126a7d5bdcb635265a0bd93e3ade"></a><!-- doxytag: member="OpenSim::Ligament::OPENSIM_DECLARE_DERIVED" ref="a40b8126a7d5bdcb635265a0bd93e3ade" args="(Ligament, CustomForce)" -->
+<a class="anchor" id="acf0db3520d5d9a3b14d535f6f800815b"></a><!-- doxytag: member="OpenSim::Ligament::OPENSIM_DECLARE_DERIVED" ref="acf0db3520d5d9a3b14d535f6f800815b" args="(Ligament, Force)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -485,7 +471,7 @@ Inheritance diagram for OpenSim::Ligament:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classOpenSim_1_1CustomForce.html">CustomForce</a>&nbsp;</td>
+          <td class="paramtype"><a class="el" href="classOpenSim_1_1Force.html">Force</a>&nbsp;</td>
           <td class="paramname"></td><td>&nbsp;</td>
         </tr>
         <tr>
@@ -875,7 +861,7 @@ Inheritance diagram for OpenSim::Ligament:</div>
 <li>OpenSim/Simulation/Model/Ligament.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:37:09 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Sat Mar 12 12:28:32 2011 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

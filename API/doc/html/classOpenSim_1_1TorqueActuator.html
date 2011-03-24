@@ -27,7 +27,7 @@
   </div>
 </div>
 <div class="contents">
-<h1>OpenSim::TorqueActuator Class Reference</h1><!-- doxytag: class="OpenSim::TorqueActuator" --><!-- doxytag: inherits="OpenSim::CustomActuator" -->
+<h1>OpenSim::TorqueActuator Class Reference</h1><!-- doxytag: class="OpenSim::TorqueActuator" --><!-- doxytag: inherits="OpenSim::Actuator" -->
 <p><code>#include &lt;TorqueActuator.h&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for OpenSim::TorqueActuator:</div>
@@ -35,8 +35,8 @@ Inheritance diagram for OpenSim::TorqueActuator:</div>
  <div class="center">
   <img src="classOpenSim_1_1TorqueActuator.gif" usemap="#OpenSim::TorqueActuator_map" alt=""/>
   <map id="OpenSim::TorqueActuator_map" name="OpenSim::TorqueActuator_map">
-<area href="classOpenSim_1_1CustomActuator.html" alt="OpenSim::CustomActuator" shape="rect" coords="0,224,167,248"/>
-<area href="classOpenSim_1_1Actuator.html" alt="OpenSim::Actuator" shape="rect" coords="0,168,167,192"/>
+<area href="classOpenSim_1_1Actuator.html" alt="OpenSim::Actuator" shape="rect" coords="0,224,167,248"/>
+<area href="classOpenSim_1_1Actuator__.html" alt="OpenSim::Actuator_" shape="rect" coords="0,168,167,192"/>
 <area href="classOpenSim_1_1Force.html" alt="OpenSim::Force" shape="rect" coords="0,112,167,136"/>
 <area href="classOpenSim_1_1ModelComponent.html" alt="OpenSim::ModelComponent" shape="rect" coords="0,56,167,80"/>
 <area href="classOpenSim_1_1Object.html" alt="OpenSim::Object" shape="rect" coords="0,0,167,24"/>
@@ -76,7 +76,6 @@ Inheritance diagram for OpenSim::TorqueActuator:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the optimal force of the force.  <a href="#ad5823540b3862fe7c11258d37258fcd0"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1TorqueActuator.html#abd74a6293b18c8955bc41c344095c0c9">getStress</a> (const SimTK::State &amp;s) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the stress of the force.  <a href="#abd74a6293b18c8955bc41c344095c0c9"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1TorqueActuator.html#abb0ca4cbb7c6884cc281f42f9c0d6f59">initStateCache</a> (SimTK::State &amp;s, SimTK::SubsystemIndex subsystemIndex, <a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;model)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1TorqueActuator.html#a020479b83c5d430a7b84ecb6871a26e1">computeForce</a> (const SimTK::State &amp;state, SimTK::Vector_&lt; SimTK::SpatialVec &gt; &amp;bodyForces, SimTK::Vector &amp;mobilityForces) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Apply the actuator force to BodyA and BodyB.  <a href="#a020479b83c5d430a7b84ecb6871a26e1"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1TorqueActuator.html#a76847617d297aff840c3e3ca979c34c0">computeActuation</a> (const SimTK::State &amp;s) const </td></tr>
@@ -98,7 +97,7 @@ Inheritance diagram for OpenSim::TorqueActuator:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Name of <a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody rigid body.">Body</a> to which the <a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody rigid body.">Body</a> actuator is applied.  <a href="#a81b731fdfcc65f0a60cf91a8bb1f6292"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyStr.html">PropertyStr</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1TorqueActuator.html#a6e9e3c12338a5197c85bf014b47e40b7">_propBodyNameB</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Name of <a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody rigid body.">Body</a> to which the equal and opposite torque is applied.  <a href="#a6e9e3c12338a5197c85bf014b47e40b7"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyDblVec3.html">PropertyDblVec3</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1TorqueActuator.html#afe5df6997220a05f71b6261a356b0226">_propAxis</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyDblVec__.html">PropertyDblVec3</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1TorqueActuator.html#afe5df6997220a05f71b6261a356b0226">_propAxis</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Direction.  <a href="#afe5df6997220a05f71b6261a356b0226"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyBool.html">PropertyBool</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1TorqueActuator.html#afa4805928fe0b5a7e472df40ab4953e8">_propTorqueIsGlobal</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyDbl.html">PropertyDbl</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1TorqueActuator.html#a53aaefe9edf74690859042fcb84d0012">_propOptimalForce</a></td></tr>
@@ -206,8 +205,6 @@ Inheritance diagram for OpenSim::TorqueActuator:</div>
 <p>Check that this point actuator actuator is valid. </p>
 <dl class="return"><dt><b>Returns:</b></dt><dd>True if valid, false if invalid. </dd></dl>
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Actuator.html#ae06f4cf3793aba7c5fad83cb4f631f3f">OpenSim::Actuator</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a76847617d297aff840c3e3ca979c34c0"></a><!-- doxytag: member="OpenSim::TorqueActuator::computeActuation" ref="a76847617d297aff840c3e3ca979c34c0" args="(const SimTK::State &amp;s) const " -->
@@ -228,7 +225,7 @@ Inheritance diagram for OpenSim::TorqueActuator:</div>
 
 <p>Compute all quantities necessary for applying the actuator force to the model. </p>
 
-<p>Implements <a class="el" href="classOpenSim_1_1Actuator.html#a570ac569bc55be32494d0542e8d2fb59">OpenSim::Actuator</a>.</p>
+<p>Implements <a class="el" href="classOpenSim_1_1Actuator__.html#afb50d351a2a4104625239e8ebcbcb747">OpenSim::Actuator_</a>.</p>
 
 </div>
 </div>
@@ -265,7 +262,7 @@ Inheritance diagram for OpenSim::TorqueActuator:</div>
 
 <p>Apply the actuator force to BodyA and BodyB. </p>
 
-<p>Implements <a class="el" href="classOpenSim_1_1CustomActuator.html#afdfb511fb33a855430124c856dc7390e">OpenSim::CustomActuator</a>.</p>
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1Force.html#a6d55fd6e0f0de26a57894feea249c78b">OpenSim::Force</a>.</p>
 
 </div>
 </div>
@@ -477,41 +474,6 @@ Inheritance diagram for OpenSim::TorqueActuator:</div>
 
 </div>
 </div>
-<a class="anchor" id="abb0ca4cbb7c6884cc281f42f9c0d6f59"></a><!-- doxytag: member="OpenSim::TorqueActuator::initStateCache" ref="abb0ca4cbb7c6884cc281f42f9c0d6f59" args="(SimTK::State &amp;s, SimTK::SubsystemIndex subsystemIndex, Model &amp;model)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void TorqueActuator::initStateCache </td>
-          <td>(</td>
-          <td class="paramtype">SimTK::State &amp;&nbsp;</td>
-          <td class="paramname"> <em>s</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">SimTK::SubsystemIndex&nbsp;</td>
-          <td class="paramname"> <em>subsystemIndex</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>model</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td><code> [virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Actuator.html#a95b6f1caeb4f391ff2bf91de67acd371">OpenSim::Actuator</a>.</p>
-
-</div>
-</div>
 <a class="anchor" id="ad4fa3f3b3c6f10a85e08b96e93877ad4"></a><!-- doxytag: member="OpenSim::TorqueActuator::OPENSIM_DECLARE_DERIVED" ref="ad4fa3f3b3c6f10a85e08b96e93877ad4" args="(TorqueActuator, Actuator)" -->
 <div class="memitem">
 <div class="memproto">
@@ -536,8 +498,6 @@ Inheritance diagram for OpenSim::TorqueActuator:</div>
       </table>
 </div>
 <div class="memdoc">
-
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1CustomActuator.html#a71010b039e1b291fd45460bb0d68223b">OpenSim::CustomActuator</a>.</p>
 
 </div>
 </div>
@@ -813,7 +773,7 @@ Inheritance diagram for OpenSim::TorqueActuator:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classOpenSim_1_1PropertyDblVec3.html">PropertyDblVec3</a> <a class="el" href="classOpenSim_1_1TorqueActuator.html#afe5df6997220a05f71b6261a356b0226">OpenSim::TorqueActuator::_propAxis</a><code> [protected]</code></td>
+          <td class="memname"><a class="el" href="classOpenSim_1_1PropertyDblVec__.html">PropertyDblVec3</a> <a class="el" href="classOpenSim_1_1TorqueActuator.html#afe5df6997220a05f71b6261a356b0226">OpenSim::TorqueActuator::_propAxis</a><code> [protected]</code></td>
         </tr>
       </table>
 </div>
@@ -899,7 +859,7 @@ Inheritance diagram for OpenSim::TorqueActuator:</div>
 <li>OpenSim/Actuators/TorqueActuator.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:36:59 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Sat Mar 12 12:28:20 2011 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

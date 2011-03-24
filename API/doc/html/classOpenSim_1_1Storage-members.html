@@ -60,7 +60,7 @@
   <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Storage.html#abdcb681ccdd3b49c25232cf85ab8ae5c">append</a>(double aT, const SimTK::Vec3 &amp;aY, bool aCheckForDuplicateTime=true)</td><td><a class="el" href="classOpenSim_1_1Storage.html">OpenSim::Storage</a></td><td><code> [inline, virtual]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Object.html#a82549ce31636f26c0f4e4b592a58b8a0">clearChanged</a>()</td><td><a class="el" href="classOpenSim_1_1Object.html">OpenSim::Object</a></td><td><code> [inline, protected]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Object.html#a5b460035064bddcb55b31ccaaad290f2">clearXMLStructures</a>()</td><td><a class="el" href="classOpenSim_1_1Object.html">OpenSim::Object</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Storage.html#a1449c7ff95a05fa5ed87271b09f53286">compareColumn</a>(Storage &amp;aOtherStorage, std::string &amp;aColumnName, double startTime, double endTime=-1.0)</td><td><a class="el" href="classOpenSim_1_1Storage.html">OpenSim::Storage</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Storage.html#aa99274643fa3b69d64359f3dbafd526f">compareColumn</a>(Storage &amp;aOtherStorage, const std::string &amp;aColumnName, double startTime, double endTime=-1.0)</td><td><a class="el" href="classOpenSim_1_1Storage.html">OpenSim::Storage</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Storage.html#a5d8dece91579f091e04e9bd7cacc5798">computeArea</a>(int aN, double *aArea) const </td><td><a class="el" href="classOpenSim_1_1Storage.html">OpenSim::Storage</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Storage.html#a2197f37207a8f423f33a358dfcbcf935">computeArea</a>(double aTI, double aTF, int aN, double *aArea) const </td><td><a class="el" href="classOpenSim_1_1Storage.html">OpenSim::Storage</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Storage.html#acfa2bfc3ddff1f822d7425499dea5c27">computeAverage</a>(int aN, double *aAve) const </td><td><a class="el" href="classOpenSim_1_1Storage.html">OpenSim::Storage</a></td><td></td></tr>
@@ -154,7 +154,7 @@
   <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Object.html#aa0c374bb0dad4023999e96a943d246b2">Object</a>(const Object &amp;aObject)</td><td><a class="el" href="classOpenSim_1_1Object.html">OpenSim::Object</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Object.html#ae9c2d177d307a23dbc28a82c7f687b70">operator&lt;</a>(const Object &amp;aObject) const </td><td><a class="el" href="classOpenSim_1_1Object.html">OpenSim::Object</a></td><td><code> [virtual]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Object.html#a89a6ee4ca0d4b2502e469e5ae9bce0c4">operator&lt;&lt;</a>(std::ostream &amp;aOut, const Object &amp;aObject)</td><td><a class="el" href="classOpenSim_1_1Object.html">OpenSim::Object</a></td><td><code> [friend]</code></td></tr>
-  <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Object.html#a1a5b4bda8ca9bdc1c96ef514a15e0eef">operator=</a>(const Object &amp;aObject)</td><td><a class="el" href="classOpenSim_1_1Object.html">OpenSim::Object</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Storage.html#a0497c772f611e5fd7cf21f45c1595872">operator=</a>(const Storage &amp;aStorage)</td><td><a class="el" href="classOpenSim_1_1Storage.html">OpenSim::Storage</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Object.html#abf6c987f2908e1b0e1cbf6a4299599e3">operator==</a>(const Object &amp;aObject) const </td><td><a class="el" href="classOpenSim_1_1Object.html">OpenSim::Object</a></td><td><code> [virtual]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Storage.html#aaf3ba558195c62b9675e0ec1bac1cd23">pad</a>(int aPadSize)</td><td><a class="el" href="classOpenSim_1_1Storage.html">OpenSim::Storage</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Storage.html#abd01fa11849b97cf7e888c25acd1dffd">print</a>() const </td><td><a class="el" href="classOpenSim_1_1Storage.html">OpenSim::Storage</a></td><td></td></tr>
@@ -215,7 +215,7 @@
   <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Storage.html#a73cf30f0a34250396f9eabee7dc5c93d">~Storage</a>()</td><td><a class="el" href="classOpenSim_1_1Storage.html">OpenSim::Storage</a></td><td><code> [virtual]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classOpenSim_1_1StorageInterface.html#a1a1a10312ca37e0d048c484b30969602">~StorageInterface</a>()</td><td><a class="el" href="classOpenSim_1_1StorageInterface.html">OpenSim::StorageInterface</a></td><td><code> [inline, virtual]</code></td></tr>
 </table></div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:37:06 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Sat Mar 12 12:28:26 2011 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

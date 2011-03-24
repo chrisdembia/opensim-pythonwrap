@@ -72,12 +72,6 @@ Inheritance diagram for OpenSim::AnalyzeTool:</div>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1AnalyzeTool.html#a9bf6785c84ab057bbe891b85fac622fb">setSpeedsFileName</a> (const std::string &amp;aFileName)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1AnalyzeTool.html#a6674eee085caabdc3952be3948874a42">getLowpassCutoffFrequency</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1AnalyzeTool.html#a7880260bff0a2133841efa9eff467925">setLowpassCutoffFrequency</a> (double aLowpassCutoffFrequency)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const std::string &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1AnalyzeTool.html#aca2e1a4b4c0d16d3b03ac37139777d8c">getExternalLoadsFileName</a> () const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1AnalyzeTool.html#a35ff78f7736500d245ef10a466d0a79b">setExternalLoadsFileName</a> (const std::string &amp;aFileName)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const std::string &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1AnalyzeTool.html#a314858d0d2da504849a8c31ed800f19b">getExternalLoadsModelKinematicsFileName</a> () const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1AnalyzeTool.html#af39755ecf39861de8899bbe717b851a9">setExternalLoadsModelKinematicsFileName</a> (const std::string &amp;aFileName)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1AnalyzeTool.html#ad1f2b00edb538fd8b287b469799d6647">getLowpassCutoffFrequencyForLoadKinematics</a> () const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1AnalyzeTool.html#a614be6838d7fb3d3f263e560056f74be">setLowpassCutoffFrequencyForLoadKinematics</a> (double aLowpassCutoffFrequency)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1AnalyzeTool.html#a34c28643206fd162743ad2af78d2ea22">setStatesFromMotion</a> (const SimTK::State &amp;s, const <a class="el" href="classOpenSim_1_1Storage.html">Storage</a> &amp;aMotion, bool aInDegrees) SWIG_DECLARE_EXCEPTION</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1AnalyzeTool.html#aec465ffda2a4f44a3db050c71ac35eb7">loadStatesFromFile</a> (SimTK::State &amp;s) SWIG_DECLARE_EXCEPTION</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Initialize the controls, states, and external loads from files.  <a href="#aec465ffda2a4f44a3db050c71ac35eb7"></a><br/></td></tr>
@@ -181,11 +175,11 @@ Inheritance diagram for OpenSim::AnalyzeTool:</div>
 
 <p>Copy constructor. </p>
 <p>Copy constructors for all Tools only copy the non-XML variable members of the object; that is, the object's DOMnode and <a class="el" href="classOpenSim_1_1XMLDocument.html" title="A class for managing and for performing operations on an XML document.">XMLDocument</a> are not copied but set to NULL. The reason for this is that for the object and all its derived classes to establish the correct connection to the XML document nodes, the the object would need to reconstruct based on the XML document not the values of the object's member variables.</p>
-<p>There are three proper ways to generate an XML document for an Tool:</p>
+<p>There are three proper ways to generate an XML document for an <a class="el" href="classOpenSim_1_1Tool.html" title="A Tool is an OpenSim abstraction that encasulates an analysis or series of modeling...">Tool</a>:</p>
 <p>1) Construction based on XML file (</p>
 <dl class="see"><dt><b>See also:</b></dt><dd>Tool(const char *aFileName)). In this case, the XML document is created by parsing the XML file.</dd></dl>
-<p>2) Construction by Tool(const XMLDocument *aDocument). This constructor explictly requests construction based on an XML document. In this way the proper connection between an object's node and the corresponding node within the XML document is established. This constructor is a copy constructor of sorts because all essential Tool member variables should be held within the XML document. The advantage of this style of construction is that nodes within the XML document, such as comments that may not have any associated Tool member variable, are preserved.</p>
-<p>3) A call to generateXMLDocument(). This method generates an XML document for the Tool from scratch. Only the essential document nodes are created (that is, nodes that correspond directly to member variables.).</p>
+<p>2) Construction by Tool(const XMLDocument *aDocument). This constructor explictly requests construction based on an XML document. In this way the proper connection between an object's node and the corresponding node within the XML document is established. This constructor is a copy constructor of sorts because all essential <a class="el" href="classOpenSim_1_1Tool.html" title="A Tool is an OpenSim abstraction that encasulates an analysis or series of modeling...">Tool</a> member variables should be held within the XML document. The advantage of this style of construction is that nodes within the XML document, such as comments that may not have any associated <a class="el" href="classOpenSim_1_1Tool.html" title="A Tool is an OpenSim abstraction that encasulates an analysis or series of modeling...">Tool</a> member variable, are preserved.</p>
+<p>3) A call to generateXMLDocument(). This method generates an XML document for the <a class="el" href="classOpenSim_1_1Tool.html" title="A Tool is an OpenSim abstraction that encasulates an analysis or series of modeling...">Tool</a> from scratch. Only the essential document nodes are created (that is, nodes that correspond directly to member variables.).</p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>aTool</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Object.html" title="Class Oject is intended to be used as the base class for all OpenSim objects.">Object</a> to be copied. </td></tr>
@@ -302,63 +296,12 @@ generateXMLDocument() </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="aca2e1a4b4c0d16d3b03ac37139777d8c"></a><!-- doxytag: member="OpenSim::AnalyzeTool::getExternalLoadsFileName" ref="aca2e1a4b4c0d16d3b03ac37139777d8c" args="() const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const std::string&amp; OpenSim::AnalyzeTool::getExternalLoadsFileName </td>
-          <td>(</td>
-          <td class="paramname"></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td> const<code> [inline]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a314858d0d2da504849a8c31ed800f19b"></a><!-- doxytag: member="OpenSim::AnalyzeTool::getExternalLoadsModelKinematicsFileName" ref="a314858d0d2da504849a8c31ed800f19b" args="() const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const std::string&amp; OpenSim::AnalyzeTool::getExternalLoadsModelKinematicsFileName </td>
-          <td>(</td>
-          <td class="paramname"></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td> const<code> [inline]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
 <a class="anchor" id="a6674eee085caabdc3952be3948874a42"></a><!-- doxytag: member="OpenSim::AnalyzeTool::getLowpassCutoffFrequency" ref="a6674eee085caabdc3952be3948874a42" args="() const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">double OpenSim::AnalyzeTool::getLowpassCutoffFrequency </td>
-          <td>(</td>
-          <td class="paramname"></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td> const<code> [inline]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="ad1f2b00edb538fd8b287b469799d6647"></a><!-- doxytag: member="OpenSim::AnalyzeTool::getLowpassCutoffFrequencyForLoadKinematics" ref="ad1f2b00edb538fd8b287b469799d6647" args="() const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">double OpenSim::AnalyzeTool::getLowpassCutoffFrequencyForLoadKinematics </td>
           <td>(</td>
           <td class="paramname"></td>
           <td>&nbsp;)&nbsp;</td>
@@ -576,66 +519,12 @@ generateXMLDocument() </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="a35ff78f7736500d245ef10a466d0a79b"></a><!-- doxytag: member="OpenSim::AnalyzeTool::setExternalLoadsFileName" ref="a35ff78f7736500d245ef10a466d0a79b" args="(const std::string &amp;aFileName)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void OpenSim::AnalyzeTool::setExternalLoadsFileName </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&nbsp;</td>
-          <td class="paramname"> <em>aFileName</em></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td><code> [inline]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="af39755ecf39861de8899bbe717b851a9"></a><!-- doxytag: member="OpenSim::AnalyzeTool::setExternalLoadsModelKinematicsFileName" ref="af39755ecf39861de8899bbe717b851a9" args="(const std::string &amp;aFileName)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void OpenSim::AnalyzeTool::setExternalLoadsModelKinematicsFileName </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&nbsp;</td>
-          <td class="paramname"> <em>aFileName</em></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td><code> [inline]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
 <a class="anchor" id="a7880260bff0a2133841efa9eff467925"></a><!-- doxytag: member="OpenSim::AnalyzeTool::setLowpassCutoffFrequency" ref="a7880260bff0a2133841efa9eff467925" args="(double aLowpassCutoffFrequency)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">void OpenSim::AnalyzeTool::setLowpassCutoffFrequency </td>
-          <td>(</td>
-          <td class="paramtype">double&nbsp;</td>
-          <td class="paramname"> <em>aLowpassCutoffFrequency</em></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td><code> [inline]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a614be6838d7fb3d3f263e560056f74be"></a><!-- doxytag: member="OpenSim::AnalyzeTool::setLowpassCutoffFrequencyForLoadKinematics" ref="a614be6838d7fb3d3f263e560056f74be" args="(double aLowpassCutoffFrequency)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void OpenSim::AnalyzeTool::setLowpassCutoffFrequencyForLoadKinematics </td>
           <td>(</td>
           <td class="paramtype">double&nbsp;</td>
           <td class="paramname"> <em>aLowpassCutoffFrequency</em></td>
@@ -788,7 +677,7 @@ generateXMLDocument() </dd></dl>
 <li>OpenSim/Tools/AnalyzeTool.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:37:14 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Sat Mar 12 12:28:36 2011 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

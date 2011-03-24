@@ -1360,6 +1360,9 @@ public class opensimModelJNI {
   public final static native void ExternalLoads_computeFunctions__SWIG_1(long jarg1, ExternalLoads jarg1_, long jarg2, double jarg3, double jarg4, long jarg5, Storage jarg5_, long jarg6, Storage jarg6_);
   public final static native void ExternalLoads_computeFunctions__SWIG_2(long jarg1, ExternalLoads jarg1_, long jarg2, double jarg3, double jarg4, long jarg5, Storage jarg5_);
   public final static native void ExternalLoads_setup(long jarg1, ExternalLoads jarg1_, long jarg2, Model jarg2_);
+  public final static native long ExternalLoads_getModel(long jarg1, ExternalLoads jarg1_);
+  public final static native boolean ExternalLoads_hasModel(long jarg1, ExternalLoads jarg1_);
+  public final static native void ExternalLoads_setModel(long jarg1, ExternalLoads jarg1_, long jarg2, Model jarg2_);
   public final static native long new_PrescribedForce__SWIG_0(long jarg1, Body jarg1_);
   public final static native long new_PrescribedForce__SWIG_1();
   public final static native long new_PrescribedForce__SWIG_2(long jarg1, PrescribedForce jarg1_);
@@ -2871,6 +2874,7 @@ public class opensimModelJNI {
   public final static native long Constraint_getRecordLabels(long jarg1, Constraint jarg1_);
   public final static native long Constraint_getRecordValues(long jarg1, Constraint jarg1_, long jarg2);
   public final static native void Constraint_scale(long jarg1, Constraint jarg1_, long jarg2, ScaleSet jarg2_);
+  public final static native void Constraint_setContactPointForInducedAccelerations(long jarg1, Constraint jarg1_, long jarg2, long jarg3);
   public final static native boolean Constraint_isKindOf(String jarg1);
   public final static native boolean Constraint_isA(long jarg1, Constraint jarg1_, String jarg2);
   public final static native long Constraint_safeDownCast(long jarg1, OpenSimObject jarg1_);
@@ -3553,6 +3557,7 @@ public class opensimModelJNI {
   public final static native boolean Delp1990Muscle_setTendonForceLengthCurve(long jarg1, Delp1990Muscle jarg1_, long jarg2, Function jarg2_);
   public final static native long Delp1990Muscle_getForceVelocityCurve(long jarg1, Delp1990Muscle jarg1_);
   public final static native boolean Delp1990Muscle_setForceVelocityCurve(long jarg1, Delp1990Muscle jarg1_, long jarg2, Function jarg2_);
+  public final static native int Delp1990Muscle_getStateVariableYIndex(long jarg1, Delp1990Muscle jarg1_, int jarg2);
   public final static native boolean Delp1990Muscle_isKindOf(String jarg1);
   public final static native boolean Delp1990Muscle_isA(long jarg1, Delp1990Muscle jarg1_, String jarg2);
   public final static native long Delp1990Muscle_safeDownCast(long jarg1, OpenSimObject jarg1_);
@@ -3896,12 +3901,17 @@ public class opensimModelJNI {
   public final static native void delete_DynamicsTool(long jarg1);
   public final static native long DynamicsTool_copy(long jarg1, DynamicsTool jarg1_);
   public final static native void DynamicsTool_disableModelForces(long jarg1, DynamicsTool jarg1_, long jarg2, Model jarg2_, long jarg3, long jarg4, ArrayStr jarg4_);
+  public final static native long DynamicsTool_getExternalLoads(long jarg1, DynamicsTool jarg1_);
+  public final static native long DynamicsTool_updExternalLoads(long jarg1, DynamicsTool jarg1_);
+  public final static native String DynamicsTool_getExternalLoadsFileName(long jarg1, DynamicsTool jarg1_);
+  public final static native void DynamicsTool_setExternalLoadsFileName(long jarg1, DynamicsTool jarg1_, String jarg2);
   public final static native void DynamicsTool_setStartTime(long jarg1, DynamicsTool jarg1_, double jarg2);
   public final static native double DynamicsTool_getStartTime(long jarg1, DynamicsTool jarg1_);
   public final static native void DynamicsTool_setEndTime(long jarg1, DynamicsTool jarg1_, double jarg2);
   public final static native double DynamicsTool_getEndTime(long jarg1, DynamicsTool jarg1_);
   public final static native void DynamicsTool_setModel(long jarg1, DynamicsTool jarg1_, long jarg2, Model jarg2_);
   public final static native void DynamicsTool_setExcludedForces(long jarg1, DynamicsTool jarg1_, long jarg2, ArrayStr jarg2_);
+  public final static native boolean DynamicsTool_createExternalLoads(long jarg1, DynamicsTool jarg1_, String jarg2, long jarg3, Model jarg3_);
   public final static native boolean DynamicsTool_run(long jarg1, DynamicsTool jarg1_) throws java.io.IOException;
   public final static native void delete_InverseDynamicsTool(long jarg1);
   public final static native long new_InverseDynamicsTool__SWIG_0();

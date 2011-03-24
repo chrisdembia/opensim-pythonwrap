@@ -79,12 +79,13 @@ Inheritance diagram for OpenSim::ControllerSet:</div>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ControllerSet.html#aff43666c55369184b707cdd1124613b5">setup</a> (<a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;aModel)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the <a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a> this object is part of.  <a href="#aff43666c55369184b707cdd1124613b5"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ControllerSet.html#a8375826ec2da0aa8a17d6bf13e6e8a34">createSystem</a> (SimTK::MultibodySystem &amp;system)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ControllerSet.html#ae1280415f128962f8ec9d83013085a4a">computeControls</a> (const SimTK::State &amp;s, SimTK::Vector &amp;controls) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ControllerSet.html#a22cdfa7f9995dbfe7ef4e435bb7a1a99">printInfo</a> () const </td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
 <p>A class for holding and managing a set of controllers for a model. </p>
-<dl class="author"><dt><b>Authors:</b></dt><dd>Jack Middleton </dd></dl>
-<dl class="version"><dt><b>Version:</b></dt><dd>1.0 </dd></dl>
+<dl class="author"><dt><b>Authors:</b></dt><dd>Jack Middleton, Ajay Seth </dd></dl>
+<dl class="version"><dt><b>Version:</b></dt><dd>2.0 </dd></dl>
 <hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a56371b9985b5736627456c8ba64a626b"></a><!-- doxytag: member="OpenSim::ControllerSet::ControllerSet" ref="a56371b9985b5736627456c8ba64a626b" args="()" -->
 <div class="memitem">
@@ -255,6 +256,33 @@ Inheritance diagram for OpenSim::ControllerSet:</div>
 <div class="memdoc">
 
 <p>Check that all actuators have a valid controller. </p>
+
+</div>
+</div>
+<a class="anchor" id="ae1280415f128962f8ec9d83013085a4a"></a><!-- doxytag: member="OpenSim::ControllerSet::computeControls" ref="ae1280415f128962f8ec9d83013085a4a" args="(const SimTK::State &amp;s, SimTK::Vector &amp;controls) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ControllerSet::computeControls </td>
+          <td>(</td>
+          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
+          <td class="paramname"> <em>s</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SimTK::Vector &amp;&nbsp;</td>
+          <td class="paramname"> <em>controls</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
 
 </div>
 </div>
@@ -563,7 +591,7 @@ Inheritance diagram for OpenSim::ControllerSet:</div>
 <li>OpenSim/Simulation/Model/ControllerSet.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:37:09 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Sat Mar 12 12:28:31 2011 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

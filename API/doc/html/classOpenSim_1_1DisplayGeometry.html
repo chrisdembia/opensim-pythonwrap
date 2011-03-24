@@ -64,8 +64,8 @@ Inheritance diagram for OpenSim::DisplayGeometry:</div>
 <tr><td class="memItemLeft" align="right" valign="top">virtual&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1DisplayGeometry.html#a14c61cbc41666f4fd58f77ab0b8b7302">~DisplayGeometry</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classOpenSim_1_1Object.html">Object</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1DisplayGeometry.html#a227305bde3aba224e21527c199e029b8">copy</a> () const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Construct and return a copy of this object.  <a href="#a227305bde3aba224e21527c199e029b8"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1DisplayGeometry.html">DisplayGeometry</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1DisplayGeometry.html#aa74da4cd0480f311c15f4996614bfd90">operator=</a> (const <a class="el" href="classOpenSim_1_1DisplayGeometry.html">DisplayGeometry</a> &amp;aObject)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Assign this object to the values of another.  <a href="#aa74da4cd0480f311c15f4996614bfd90"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1DisplayGeometry.html">DisplayGeometry</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1DisplayGeometry.html#a1f5da0c9497d7212f22bcd7cdadeca26">operator=</a> (const <a class="el" href="classOpenSim_1_1DisplayGeometry.html">DisplayGeometry</a> &amp;aObject)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Assignment operator.  <a href="#a1f5da0c9497d7212f22bcd7cdadeca26"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1DisplayGeometry.html#a795478489847ed174c27001a0740c4a1">operator==</a> (const <a class="el" href="classOpenSim_1_1DisplayGeometry.html">DisplayGeometry</a> &amp;aObject) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Determine if two objects are equal.  <a href="#a795478489847ed174c27001a0740c4a1"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">const std::string &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1DisplayGeometry.html#aa5c629f7f6b93cd2e1bba88905c2c5a5">getGeometryFile</a> () const </td></tr>
@@ -88,6 +88,7 @@ Inheritance diagram for OpenSim::DisplayGeometry:</div>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1DisplayGeometry.html#a0a106439d6671e6cf2cacfb30f77a61b">setDisplayPreference</a> (const <a class="el" href="classOpenSim_1_1DisplayGeometry.html#a519ec1e0da042f9d4b974ee38c7d3697">DisplayPreference</a> &amp;aPreference)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1DisplayGeometry.html#a1ced2b2347a24177f8669c55bf505d4a">getOpacity</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1DisplayGeometry.html#a8bf27cd691efe3c5b4ee7b372fc3a37a">setOpacity</a> (const double &amp;aOpacity)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1DisplayGeometry.html#aebc2031638060220e93d3f9481c217eb">OPENSIM_DECLARE_DERIVED</a> (<a class="el" href="classOpenSim_1_1DisplayGeometry.html">DisplayGeometry</a>, <a class="el" href="classOpenSim_1_1Object.html">Object</a>)</td></tr>
 <tr><td colspan="2"><h2>Protected Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1DisplayGeometry.html#a907a8ebfc27b20f8e240ae28f7d2fb8c">setupProperties</a> ()</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Connect properties to local pointers.  <a href="#a907a8ebfc27b20f8e240ae28f7d2fb8c"></a><br/></td></tr>
@@ -95,7 +96,7 @@ Inheritance diagram for OpenSim::DisplayGeometry:</div>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyStr.html">PropertyStr</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1DisplayGeometry.html#a12f64744d986f49f3602a326ba1b37f3">_propGeometryFile</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Name of geomtry file .vtp, .stl, .obj are supported.  <a href="#a12f64744d986f49f3602a326ba1b37f3"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::string &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1DisplayGeometry.html#a47d46147df985c15716605a18552bb95">_geometryFile</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyDblVec3.html">PropertyDblVec3</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1DisplayGeometry.html#ae8bcba5ba483d792028493f25384c019">_propColor</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyDblVec__.html">PropertyDblVec3</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1DisplayGeometry.html#ae8bcba5ba483d792028493f25384c019">_propColor</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">A list of 3 colors.  <a href="#ae8bcba5ba483d792028493f25384c019"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">SimTK::Vec3 &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1DisplayGeometry.html#ac0e3fbad8d314dc9bf7fa65859fc58fc">_color</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyDbl.html">PropertyDbl</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1DisplayGeometry.html#a4cf3ff6d16722c451c9052c9a16ffaf2">_propOpacity</a></td></tr>
@@ -107,7 +108,7 @@ Inheritance diagram for OpenSim::DisplayGeometry:</div>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyTransform.html">PropertyTransform</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1DisplayGeometry.html#aef35f94a380a7608554149d58a231672">_propTransform</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Transform relative to owner's frame.  <a href="#aef35f94a380a7608554149d58a231672"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">SimTK::Transform &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1DisplayGeometry.html#a732c97b7706c47aef11034c62389eaf4">_transform</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyDblVec3.html">PropertyDblVec3</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1DisplayGeometry.html#afe5b7bfdce67da30225835d9d7dce38c">_propScaleFactors</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyDblVec__.html">PropertyDblVec3</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1DisplayGeometry.html#afe5b7bfdce67da30225835d9d7dce38c">_propScaleFactors</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">A list of 3 scale factors in X, Y, Z directions.  <a href="#afe5b7bfdce67da30225835d9d7dce38c"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">SimTK::Vec3 &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1DisplayGeometry.html#abb511b02e368f6b0f22033d84dc83121">_scaleFactors</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyInt.html">PropertyInt</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1DisplayGeometry.html#a82953e6a29469d2cc5bc30e567f09efc">_propDisplayPreference</a></td></tr>
@@ -427,15 +428,42 @@ Inheritance diagram for OpenSim::DisplayGeometry:</div>
 
 </div>
 </div>
-<a class="anchor" id="aa74da4cd0480f311c15f4996614bfd90"></a><!-- doxytag: member="OpenSim::DisplayGeometry::operator=" ref="aa74da4cd0480f311c15f4996614bfd90" args="(const DisplayGeometry &amp;aObject)" -->
+<a class="anchor" id="aebc2031638060220e93d3f9481c217eb"></a><!-- doxytag: member="OpenSim::DisplayGeometry::OPENSIM_DECLARE_DERIVED" ref="aebc2031638060220e93d3f9481c217eb" args="(DisplayGeometry, Object)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classOpenSim_1_1DisplayGeometry.html">DisplayGeometry</a>&amp; OpenSim::DisplayGeometry::operator= </td>
+          <td class="memname">OpenSim::DisplayGeometry::OPENSIM_DECLARE_DERIVED </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classOpenSim_1_1DisplayGeometry.html">DisplayGeometry</a>&nbsp;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classOpenSim_1_1Object.html">Object</a>&nbsp;</td>
+          <td class="paramname"></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a1f5da0c9497d7212f22bcd7cdadeca26"></a><!-- doxytag: member="OpenSim::DisplayGeometry::operator=" ref="a1f5da0c9497d7212f22bcd7cdadeca26" args="(const DisplayGeometry &amp;aObject)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classOpenSim_1_1DisplayGeometry.html">DisplayGeometry</a> &amp; DisplayGeometry::operator= </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classOpenSim_1_1DisplayGeometry.html">DisplayGeometry</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>aObject</em></td>
+          <td class="paramname"> <em>aDisplayGeometry</em></td>
           <td>&nbsp;)&nbsp;</td>
           <td></td>
         </tr>
@@ -443,12 +471,8 @@ Inheritance diagram for OpenSim::DisplayGeometry:</div>
 </div>
 <div class="memdoc">
 
-<p>Assign this object to the values of another. </p>
-<p>The XML-associated variable members are not copied-- the XML nodes and/or document must be generated anew for a copied object.</p>
+<p>Assignment operator. </p>
 <dl class="return"><dt><b>Returns:</b></dt><dd>Reference to this object. </dd></dl>
-<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="classOpenSim_1_1Object.html#af7b69323f19dfd7820b365703223ecb7" title="Update the XML node that represents this object.">updateXMLNode()</a> </dd>
-<dd>
-<a class="el" href="classOpenSim_1_1Object.html#a182b628ae6fa1bd16bbe439abc8c2faf" title="Generate an XML node to represent this object.">generateXMLNode()</a> </dd></dl>
 
 <p>Reimplemented from <a class="el" href="classOpenSim_1_1Object.html#a1a5b4bda8ca9bdc1c96ef514a15e0eef">OpenSim::Object</a>.</p>
 
@@ -737,7 +761,7 @@ Inheritance diagram for OpenSim::DisplayGeometry:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classOpenSim_1_1PropertyDblVec3.html">PropertyDblVec3</a> <a class="el" href="classOpenSim_1_1DisplayGeometry.html#ae8bcba5ba483d792028493f25384c019">OpenSim::DisplayGeometry::_propColor</a><code> [protected]</code></td>
+          <td class="memname"><a class="el" href="classOpenSim_1_1PropertyDblVec__.html">PropertyDblVec3</a> <a class="el" href="classOpenSim_1_1DisplayGeometry.html#ae8bcba5ba483d792028493f25384c019">OpenSim::DisplayGeometry::_propColor</a><code> [protected]</code></td>
         </tr>
       </table>
 </div>
@@ -797,7 +821,7 @@ Inheritance diagram for OpenSim::DisplayGeometry:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classOpenSim_1_1PropertyDblVec3.html">PropertyDblVec3</a> <a class="el" href="classOpenSim_1_1DisplayGeometry.html#afe5b7bfdce67da30225835d9d7dce38c">OpenSim::DisplayGeometry::_propScaleFactors</a><code> [protected]</code></td>
+          <td class="memname"><a class="el" href="classOpenSim_1_1PropertyDblVec__.html">PropertyDblVec3</a> <a class="el" href="classOpenSim_1_1DisplayGeometry.html#afe5b7bfdce67da30225835d9d7dce38c">OpenSim::DisplayGeometry::_propScaleFactors</a><code> [protected]</code></td>
         </tr>
       </table>
 </div>
@@ -881,7 +905,7 @@ Inheritance diagram for OpenSim::DisplayGeometry:</div>
 <li>OpenSim/Common/DisplayGeometry.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:37:01 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Sat Mar 12 12:28:22 2011 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

@@ -80,20 +80,4 @@ public class InverseDynamicsTool extends DynamicsTool {
     return opensimModelJNI.InverseDynamicsTool_run(swigCPtr, this);
   }
 
-    public String getStatesFileName() {
-        return null;
-    }
-
-    public void setStatesFileName(String speedsFileName) {
-       // throw new UnsupportedOperationException("Not yet implemented");
-    }
-
-    public double getLowpassCutoffFrequency() {
-        return 0;
-    }
-
-    public void setLowpassCutoffFrequency(double frequency) {
-       // throw new UnsupportedOperationException("Not yet implemented");
-    }
-
 }

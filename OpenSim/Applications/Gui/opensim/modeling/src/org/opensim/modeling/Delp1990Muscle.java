@@ -148,6 +148,10 @@ public class Delp1990Muscle extends Muscle {
     return opensimModelJNI.Delp1990Muscle_setForceVelocityCurve(swigCPtr, this, Function.getCPtr(aForceVelocityCurve), aForceVelocityCurve);
   }
 
+  public int getStateVariableYIndex(int index) {
+    return opensimModelJNI.Delp1990Muscle_getStateVariableYIndex(swigCPtr, this, index);
+  }
+
   public static boolean isKindOf(String type) {
     return opensimModelJNI.Delp1990Muscle_isKindOf(type);
   }

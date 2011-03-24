@@ -79,6 +79,7 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
          // setModel() will call addAnalysisSetToModel
          tool.updateModelForces(workersModel, "");
          tool.setModel(workersModel);
+         tool.setToolOwnsModel(false);
          context = new OpenSimContext(workersModel.initSystem(), workersModel); // Has side effect of calling setup
         
          workersModel.setInputFileName("");
@@ -481,14 +482,14 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
    //------------------------------------------------------------------------
    // External loads get/set (don't need to call setModified since AbstractToolModel does that)
    //------------------------------------------------------------------------
-   public String getExternalLoadsFileName() { return ""; }
-   protected void setExternalLoadsFileNameInternal(String fileName) {  }
+   public String getExternalLoadsFileName() { return analyzeTool().getExternalLoadsFileName(); }
+   protected void setExternalLoadsFileNameInternal(String fileName) { analyzeTool().setExternalLoadsFileName(fileName); }
 
-   public String getExternalLoadsModelKinematicsFileName() { return ""; }
-   protected void setExternalLoadsModelKinematicsFileNameInternal(String fileName) { }
+   public String getExternalLoadsModelKinematicsFileName() { return analyzeTool().getExternalLoads().getExternalLoadsModelKinematicsFileName(); }
+   protected void setExternalLoadsModelKinematicsFileNameInternal(String fileName) { analyzeTool().getExternalLoads().setExternalLoadsModelKinematicsFileName(fileName); }
 
-   public double getLowpassCutoffFrequencyForLoadKinematics() { return 6;}
-   protected void setLowpassCutoffFrequencyForLoadKinematicsInternal(double cutoffFrequency) {  }
+   public double getLowpassCutoffFrequencyForLoadKinematics() { return analyzeTool().getExternalLoads().getLowpassCutoffFrequencyForLoadKinematics(); }
+   protected void setLowpassCutoffFrequencyForLoadKinematicsInternal(double cutoffFrequency) { analyzeTool().getExternalLoads().setLowpassCutoffFrequencyForLoadKinematics(cutoffFrequency); }
 
    //------------------------------------------------------------------------
    // Utilities for running/canceling tool

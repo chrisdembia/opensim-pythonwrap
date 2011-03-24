@@ -44,6 +44,22 @@ public class DynamicsTool extends Tool {
     opensimModelJNI.DynamicsTool_disableModelForces(swigCPtr, this, Model.getCPtr(model), model, SWIGTYPE_p_SimTK__State.getCPtr(s), ArrayStr.getCPtr(forcesByNameOrGroup), forcesByNameOrGroup);
   }
 
+  public ExternalLoads getExternalLoads() {
+    return new ExternalLoads(opensimModelJNI.DynamicsTool_getExternalLoads(swigCPtr, this), false);
+  }
+
+  public ExternalLoads updExternalLoads() {
+    return new ExternalLoads(opensimModelJNI.DynamicsTool_updExternalLoads(swigCPtr, this), false);
+  }
+
+  public String getExternalLoadsFileName() {
+    return opensimModelJNI.DynamicsTool_getExternalLoadsFileName(swigCPtr, this);
+  }
+
+  public void setExternalLoadsFileName(String aFileName) {
+    opensimModelJNI.DynamicsTool_setExternalLoadsFileName(swigCPtr, this, aFileName);
+  }
+
   public void setStartTime(double d) {
     opensimModelJNI.DynamicsTool_setStartTime(swigCPtr, this, d);
   }
@@ -66,6 +82,10 @@ public class DynamicsTool extends Tool {
 
   public void setExcludedForces(ArrayStr aExcluded) {
     opensimModelJNI.DynamicsTool_setExcludedForces(swigCPtr, this, ArrayStr.getCPtr(aExcluded), aExcluded);
+  }
+
+  public boolean createExternalLoads(String aExternalLoadsFileName, Model aModel) {
+    return opensimModelJNI.DynamicsTool_createExternalLoads(swigCPtr, this, aExternalLoadsFileName, Model.getCPtr(aModel), aModel);
   }
 
   public boolean run() throws java.io.IOException {

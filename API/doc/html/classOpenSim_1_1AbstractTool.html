@@ -38,12 +38,10 @@ Inheritance diagram for OpenSim::AbstractTool:</div>
  <div class="center">
   <img src="classOpenSim_1_1AbstractTool.gif" usemap="#OpenSim::AbstractTool_map" alt=""/>
   <map id="OpenSim::AbstractTool_map" name="OpenSim::AbstractTool_map">
-<area href="classOpenSim_1_1Object.html" alt="OpenSim::Object" shape="rect" coords="258,0,420,24"/>
-<area href="classOpenSim_1_1AnalyzeTool.html" alt="OpenSim::AnalyzeTool" shape="rect" coords="0,112,162,136"/>
-<area href="classOpenSim_1_1CMCTool.html" alt="OpenSim::CMCTool" shape="rect" coords="172,112,334,136"/>
-<area href="classOpenSim_1_1ForwardTool.html" alt="OpenSim::ForwardTool" shape="rect" coords="344,112,506,136"/>
-<area href="classOpenSim_1_1IKTool.html" alt="OpenSim::IKTool" shape="rect" coords="516,112,678,136"/>
-<area href="classOpenSim_1_1PerturbationTool.html" alt="OpenSim::PerturbationTool" shape="rect" coords="344,168,506,192"/>
+<area href="classOpenSim_1_1Object.html" alt="OpenSim::Object" shape="rect" coords="151,0,292,24"/>
+<area href="classOpenSim_1_1AnalyzeTool.html" alt="OpenSim::AnalyzeTool" shape="rect" coords="0,112,141,136"/>
+<area href="classOpenSim_1_1CMCTool.html" alt="OpenSim::CMCTool" shape="rect" coords="151,112,292,136"/>
+<area href="classOpenSim_1_1ForwardTool.html" alt="OpenSim::ForwardTool" shape="rect" coords="302,112,443,136"/>
 </map>
  </div>
 </div>
@@ -70,8 +68,10 @@ Inheritance diagram for OpenSim::AbstractTool:</div>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1AbstractTool.html#a12def8f1e51f56ef926682c5460cfd15">setReplaceForceSet</a> (bool aReplace)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::string&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1AbstractTool.html#aafce82cdef010238218cd7bb61edbc90">getNextAvailableForceName</a> (const std::string prefix=&quot;Force&quot;) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">A Convenience method to get the next unique.  <a href="#aafce82cdef010238218cd7bb61edbc90"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classOpenSim_1_1ForceSet.html">ForceSet</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1AbstractTool.html#af4ac2fc168312ecd34a0a5a8809f67e6">getExternalForceSet</a> () const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1ForceSet.html">ForceSet</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1AbstractTool.html#a6190e720eeb06e836c27644f46eb840e">updExternalForceSet</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classOpenSim_1_1ExternalLoads.html">ExternalLoads</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1AbstractTool.html#a8cb12125a1a4eb5d8841bb2176521ba1">getExternalLoads</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1ExternalLoads.html">ExternalLoads</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1AbstractTool.html#acf7b32dc96d094c7968ae6fedbfc54ea">updExternalLoads</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const std::string &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1AbstractTool.html#ac3c1378eae2a9660aecb0d6d108b2cfc">getExternalLoadsFileName</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1AbstractTool.html#a39e864956b76f0bf3b27e4180eb1d0e7">setExternalLoadsFileName</a> (const std::string &amp;aFileName)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Array.html">Array</a>&lt; std::string &gt; &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1AbstractTool.html#a95eb0807c877782b25b2891d90a0c547">getForceSetFiles</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1AbstractTool.html#a3c42e5a45bdd752a25898e51892a66d3">setForceSetFiles</a> (const <a class="el" href="classOpenSim_1_1Array.html">Array</a>&lt; std::string &gt; &amp;aForceSetFiles)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1AbstractTool.html#ab87c6660b52b2e9e130341a8c2f42288">getOutputPrecision</a> () const </td></tr>
@@ -120,12 +120,8 @@ Inheritance diagram for OpenSim::AbstractTool:</div>
 <tr><td class="memItemLeft" align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1AbstractTool.html#aa3736c3cb15af82eaa10f2b2c5cfb405">run</a> () SWIG_DECLARE_EXCEPTION=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1AbstractTool.html#add0272ed1563d18f6865922d46b76430">printResults</a> (const std::string &amp;aBaseName, const std::string &amp;aDir=&quot;&quot;, double aDT=-1.0, const std::string &amp;aExtension=&quot;.sto&quot;)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Print the results of the analysis.  <a href="#add0272ed1563d18f6865922d46b76430"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1AbstractTool.html#a6b91c04c945bde00fc250e1eabc12689">createExternalLoads</a> (const std::string &amp;aExternalLoadsFileName, const std::string &amp;aExternalLoadsModelKinematicsFileName, <a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;aModel)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1AbstractTool.html#a47118c3450f5639f27948750a47bfe69">initializeExternalLoads</a> (SimTK::State &amp;s, const double &amp;analysisStartTime, const double &amp;analysisFinalTime, <a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;aModel, const std::string &amp;aExternalLoadsFileName, const std::string &amp;aExternalLoadsModelKinematicsFileName, double aLowpassCutoffFrequencyForLoadKinematics)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1AbstractTool.html#abfe89e5304144e430b5765bc8a602420">computePointFunctions</a> (SimTK::State &amp;s, double startTime, double endTime, const <a class="el" href="classOpenSim_1_1Body.html">Body</a> &amp;body, const <a class="el" href="classOpenSim_1_1Storage.html">Storage</a> &amp;aQStore, const <a class="el" href="classOpenSim_1_1Storage.html">Storage</a> &amp;aUStore, <a class="el" href="classOpenSim_1_1VectorGCVSplineR1R3.html">VectorGCVSplineR1R3</a> &amp;aPGlobal, <a class="el" href="classOpenSim_1_1GCVSpline.html">GCVSpline</a> *&amp;xfunc, <a class="el" href="classOpenSim_1_1GCVSpline.html">GCVSpline</a> *&amp;yfunc, <a class="el" href="classOpenSim_1_1GCVSpline.html">GCVSpline</a> *&amp;zfunc)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Compute the position and velocity functions that set the position and velocity of the point at which the linear spring applies its force.  <a href="#abfe89e5304144e430b5765bc8a602420"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1AbstractTool.html#ab9205acf442e9028223f8704736e9890">computeFunctions</a> (SimTK::State &amp;s, double startTime, double endTime, const <a class="el" href="classOpenSim_1_1Storage.html">Storage</a> &amp;kineticsStore, <a class="el" href="classOpenSim_1_1Storage.html">Storage</a> *qStore=NULL, <a class="el" href="classOpenSim_1_1Storage.html">Storage</a> *uStore=NULL)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Compute the position and velocity functions that set the position and velocity of the point at which the linear spring applies its force.  <a href="#ab9205acf442e9028223f8704736e9890"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1AbstractTool.html#a66557d15ad3edf8914b901e7435f0059">createExternalLoads</a> (const std::string &amp;aExternalLoadsFileName, <a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;aModel)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1AbstractTool.html#a389ae950839afde44dc5cd58be426594">initializeExternalLoads</a> (SimTK::State &amp;s, const double &amp;analysisStartTime, const double &amp;analysisFinalTime)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1AbstractTool.html#a7bfd990e4042e6dddc9a0975453c6c2d">updateFromXMLNode</a> ()</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Override default implementation by object to intercept and fix the XML node underneath the tool to match current version.  <a href="#a7bfd990e4042e6dddc9a0975453c6c2d"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1AbstractTool.html#a18a4f566ab4cc64ec1be2c14a013cfdf">loadQStorage</a> (const std::string &amp;statesFileName, <a class="el" href="classOpenSim_1_1Storage.html">Storage</a> &amp;rQStore) const </td></tr>
@@ -175,8 +171,11 @@ Inheritance diagram for OpenSim::AbstractTool:</div>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1ControllerSet.html">ControllerSet</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1AbstractTool.html#a91f4514fb79e5cfdf1ade5a0b564a265">_controllerSet</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1AbstractTool.html#abf0df3f73a3167f3836bd227bd458801">_toolOwnsModel</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Whether the tool owns the model it operates on.  <a href="#abf0df3f73a3167f3836bd227bd458801"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1ForceSet.html">ForceSet</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1AbstractTool.html#a98ca3cf68c0252bbc791b0b6965cca7a">_externalForces</a></td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">External forces being applied.  <a href="#a98ca3cf68c0252bbc791b0b6965cca7a"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyStr.html">OpenSim::PropertyStr</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1AbstractTool.html#ad5228c3dfb5b541071d260cfe0d670e6">_externalLoadsFileNameProp</a></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Name of the file containing the external loads applied to the model.  <a href="#ad5228c3dfb5b541071d260cfe0d670e6"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::string &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1AbstractTool.html#a2856541c824e89af551ac1bb129a8d36">_externalLoadsFileName</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1ExternalLoads.html">ExternalLoads</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1AbstractTool.html#a1b1af4344fc55933cd381d9e22cc50e5">_externalLoads</a></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Actual external forces being applied.  <a href="#a1b1af4344fc55933cd381d9e22cc50e5"></a><br/></td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
 <p>An abstract class for specifying the interface for an investigation. </p>
@@ -356,155 +355,7 @@ generateXMLDocument() </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="ab9205acf442e9028223f8704736e9890"></a><!-- doxytag: member="OpenSim::AbstractTool::computeFunctions" ref="ab9205acf442e9028223f8704736e9890" args="(SimTK::State &amp;s, double startTime, double endTime, const Storage &amp;kineticsStore, Storage *qStore=NULL, Storage *uStore=NULL)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void AbstractTool::computeFunctions </td>
-          <td>(</td>
-          <td class="paramtype">SimTK::State &amp;&nbsp;</td>
-          <td class="paramname"> <em>s</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&nbsp;</td>
-          <td class="paramname"> <em>startTime</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&nbsp;</td>
-          <td class="paramname"> <em>endTime</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classOpenSim_1_1Storage.html">Storage</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>kineticsStore</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classOpenSim_1_1Storage.html">Storage</a> *&nbsp;</td>
-          <td class="paramname"> <em>aQStore</em> = <code>NULL</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classOpenSim_1_1Storage.html">Storage</a> *&nbsp;</td>
-          <td class="paramname"> <em>aUStore</em> = <code>NULL</code></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Compute the position and velocity functions that set the position and velocity of the point at which the linear spring applies its force. </p>
-<p>This method takes the time histories of a point's position and velocity in the inertial frame and converts them to the local (body) frame.</p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>aQStore</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Storage.html">Storage</a> containing the time history of generalized coordinates for the model. Note that all generalized coordinates must be specified and in radians and Euler parameters. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>aUStore</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Storage.html">Storage</a> containing the time history of generalized speeds for the model. Note that all generalized speeds must be specified and in radians.</td></tr>
-  </table>
-  </dd>
-</dl>
-<p><a class="el" href="classOpenSim_1_1Storage.html">Storage</a> containing the time history for forces. </p>
-
-</div>
-</div>
-<a class="anchor" id="abfe89e5304144e430b5765bc8a602420"></a><!-- doxytag: member="OpenSim::AbstractTool::computePointFunctions" ref="abfe89e5304144e430b5765bc8a602420" args="(SimTK::State &amp;s, double startTime, double endTime, const Body &amp;body, const Storage &amp;aQStore, const Storage &amp;aUStore, VectorGCVSplineR1R3 &amp;aPGlobal, GCVSpline *&amp;xfunc, GCVSpline *&amp;yfunc, GCVSpline *&amp;zfunc)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void AbstractTool::computePointFunctions </td>
-          <td>(</td>
-          <td class="paramtype">SimTK::State &amp;&nbsp;</td>
-          <td class="paramname"> <em>s</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&nbsp;</td>
-          <td class="paramname"> <em>startTime</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&nbsp;</td>
-          <td class="paramname"> <em>endTime</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classOpenSim_1_1Body.html">Body</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>body</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classOpenSim_1_1Storage.html">Storage</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>aQStore</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classOpenSim_1_1Storage.html">Storage</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>aUStore</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classOpenSim_1_1VectorGCVSplineR1R3.html">VectorGCVSplineR1R3</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>aPGlobal</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classOpenSim_1_1GCVSpline.html">GCVSpline</a> *&amp;&nbsp;</td>
-          <td class="paramname"> <em>xFunc</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classOpenSim_1_1GCVSpline.html">GCVSpline</a> *&amp;&nbsp;</td>
-          <td class="paramname"> <em>yFunc</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classOpenSim_1_1GCVSpline.html">GCVSpline</a> *&amp;&nbsp;</td>
-          <td class="paramname"> <em>zFunc</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Compute the position and velocity functions that set the position and velocity of the point at which the linear spring applies its force. </p>
-<p>This method takes the time histories of a point's position and velocity in the inertial frame and converts them to the local (body) frame.</p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>aQStore</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Storage.html">Storage</a> containing the time history of generalized coordinates for the model. Note that all generalized coordinates must be specified and in radians and Euler parameters. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>aUStore</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Storage.html">Storage</a> containing the time history of generalized speeds for the model. Note that all generalized speeds must be specified and in radians. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>aPStore</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Storage.html">Storage</a> containing the time history of the position at which the force is to be applied in the global frame. DEPRECATED </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="a6b91c04c945bde00fc250e1eabc12689"></a><!-- doxytag: member="OpenSim::AbstractTool::createExternalLoads" ref="a6b91c04c945bde00fc250e1eabc12689" args="(const std::string &amp;aExternalLoadsFileName, const std::string &amp;aExternalLoadsModelKinematicsFileName, Model &amp;aModel)" -->
+<a class="anchor" id="a66557d15ad3edf8914b901e7435f0059"></a><!-- doxytag: member="OpenSim::AbstractTool::createExternalLoads" ref="a66557d15ad3edf8914b901e7435f0059" args="(const std::string &amp;aExternalLoadsFileName, Model &amp;aModel)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -513,12 +364,6 @@ generateXMLDocument() </dd></dl>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&nbsp;</td>
           <td class="paramname"> <em>aExternalLoadsFileName</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&nbsp;</td>
-          <td class="paramname"> <em>aExternalLoadsModelKinematicsFileName</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -592,12 +437,12 @@ generateXMLDocument() </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="af4ac2fc168312ecd34a0a5a8809f67e6"></a><!-- doxytag: member="OpenSim::AbstractTool::getExternalForceSet" ref="af4ac2fc168312ecd34a0a5a8809f67e6" args="() const " -->
+<a class="anchor" id="a8cb12125a1a4eb5d8841bb2176521ba1"></a><!-- doxytag: member="OpenSim::AbstractTool::getExternalLoads" ref="a8cb12125a1a4eb5d8841bb2176521ba1" args="() const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="classOpenSim_1_1ForceSet.html">ForceSet</a>&amp; OpenSim::AbstractTool::getExternalForceSet </td>
+          <td class="memname">const <a class="el" href="classOpenSim_1_1ExternalLoads.html">ExternalLoads</a>&amp; OpenSim::AbstractTool::getExternalLoads </td>
           <td>(</td>
           <td class="paramname"></td>
           <td>&nbsp;)&nbsp;</td>
@@ -606,6 +451,25 @@ generateXMLDocument() </dd></dl>
       </table>
 </div>
 <div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ac3c1378eae2a9660aecb0d6d108b2cfc"></a><!-- doxytag: member="OpenSim::AbstractTool::getExternalLoadsFileName" ref="ac3c1378eae2a9660aecb0d6d108b2cfc" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string&amp; OpenSim::AbstractTool::getExternalLoadsFileName </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Reimplemented in <a class="el" href="classOpenSim_1_1CMCTool.html#a638ef705cd85804cca761daab960b689">OpenSim::CMCTool</a>.</p>
 
 </div>
 </div>
@@ -871,12 +735,12 @@ generateXMLDocument() </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="a47118c3450f5639f27948750a47bfe69"></a><!-- doxytag: member="OpenSim::AbstractTool::initializeExternalLoads" ref="a47118c3450f5639f27948750a47bfe69" args="(SimTK::State &amp;s, const double &amp;analysisStartTime, const double &amp;analysisFinalTime, Model &amp;aModel, const std::string &amp;aExternalLoadsFileName, const std::string &amp;aExternalLoadsModelKinematicsFileName, double aLowpassCutoffFrequencyForLoadKinematics)" -->
+<a class="anchor" id="a389ae950839afde44dc5cd58be426594"></a><!-- doxytag: member="OpenSim::AbstractTool::initializeExternalLoads" ref="a389ae950839afde44dc5cd58be426594" args="(SimTK::State &amp;s, const double &amp;analysisStartTime, const double &amp;analysisFinalTime)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void OpenSim::AbstractTool::initializeExternalLoads </td>
+          <td class="memname">void AbstractTool::initializeExternalLoads </td>
           <td>(</td>
           <td class="paramtype">SimTK::State &amp;&nbsp;</td>
           <td class="paramname"> <em>s</em>, </td>
@@ -891,31 +755,7 @@ generateXMLDocument() </dd></dl>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const double &amp;&nbsp;</td>
-          <td class="paramname"> <em>analysisFinalTime</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>aModel</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&nbsp;</td>
-          <td class="paramname"> <em>aExternalLoadsFileName</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&nbsp;</td>
-          <td class="paramname"> <em>aExternalLoadsModelKinematicsFileName</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&nbsp;</td>
-          <td class="paramname"> <em>aLowpassCutoffFrequencyForLoadKinematics</em></td><td>&nbsp;</td>
+          <td class="paramname"> <em>analysisFinalTime</em></td><td>&nbsp;</td>
         </tr>
         <tr>
           <td></td>
@@ -1032,7 +872,7 @@ generateXMLDocument() </dd></dl>
 
 <p>Reimplemented from <a class="el" href="classOpenSim_1_1Object.html#a1a5b4bda8ca9bdc1c96ef514a15e0eef">OpenSim::Object</a>.</p>
 
-<p>Reimplemented in <a class="el" href="classOpenSim_1_1AnalyzeTool.html#a7ee1d1cb10cee611bace542d39135fd3">OpenSim::AnalyzeTool</a>, <a class="el" href="classOpenSim_1_1CMCTool.html#adbdbe990b3db370db30333d9e834cd22">OpenSim::CMCTool</a>, <a class="el" href="classOpenSim_1_1ForwardTool.html#aa338f6a185c3602ad7a1212460a96a84">OpenSim::ForwardTool</a>, <a class="el" href="classOpenSim_1_1IKTool.html#a9cbf46b38aa79c36080266c14416fe05">OpenSim::IKTool</a>, and <a class="el" href="classOpenSim_1_1PerturbationTool.html#ac24f4c5d868f2913d0fb51af1b0858a7">OpenSim::PerturbationTool</a>.</p>
+<p>Reimplemented in <a class="el" href="classOpenSim_1_1AnalyzeTool.html#a7ee1d1cb10cee611bace542d39135fd3">OpenSim::AnalyzeTool</a>, <a class="el" href="classOpenSim_1_1CMCTool.html#adbdbe990b3db370db30333d9e834cd22">OpenSim::CMCTool</a>, and <a class="el" href="classOpenSim_1_1ForwardTool.html#aa338f6a185c3602ad7a1212460a96a84">OpenSim::ForwardTool</a>.</p>
 
 </div>
 </div>
@@ -1139,7 +979,7 @@ generateXMLDocument() </dd></dl>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classOpenSim_1_1AnalyzeTool.html#a976a815f7331f5a71ef7cbcda721d2bd">OpenSim::AnalyzeTool</a>, <a class="el" href="classOpenSim_1_1CMCTool.html#a88cbbc346e16a8f9ee01109d2076048f">OpenSim::CMCTool</a>, <a class="el" href="classOpenSim_1_1ForwardTool.html#a43e06d318ea43a10f0bf5783fc1ee095">OpenSim::ForwardTool</a>, <a class="el" href="classOpenSim_1_1IKTool.html#a8430295b6d03d99913b860ed446f3441">OpenSim::IKTool</a>, and <a class="el" href="classOpenSim_1_1PerturbationTool.html#a225954c19b9d5f9271c15f1a323a8bb8">OpenSim::PerturbationTool</a>.</p>
+<p>Implemented in <a class="el" href="classOpenSim_1_1AnalyzeTool.html#a976a815f7331f5a71ef7cbcda721d2bd">OpenSim::AnalyzeTool</a>, <a class="el" href="classOpenSim_1_1CMCTool.html#a88cbbc346e16a8f9ee01109d2076048f">OpenSim::CMCTool</a>, and <a class="el" href="classOpenSim_1_1ForwardTool.html#a43e06d318ea43a10f0bf5783fc1ee095">OpenSim::ForwardTool</a>.</p>
 
 </div>
 </div>
@@ -1178,6 +1018,26 @@ generateXMLDocument() </dd></dl>
       </table>
 </div>
 <div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a39e864956b76f0bf3b27e4180eb1d0e7"></a><!-- doxytag: member="OpenSim::AbstractTool::setExternalLoadsFileName" ref="a39e864956b76f0bf3b27e4180eb1d0e7" args="(const std::string &amp;aFileName)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenSim::AbstractTool::setExternalLoadsFileName </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&nbsp;</td>
+          <td class="paramname"> <em>aFileName</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Reimplemented in <a class="el" href="classOpenSim_1_1CMCTool.html#ab1c369eee9cc74c3a3478809ad865f34">OpenSim::CMCTool</a>.</p>
 
 </div>
 </div>
@@ -1455,7 +1315,7 @@ generateXMLDocument() </dd></dl>
 
 <p>Reimplemented from <a class="el" href="classOpenSim_1_1Object.html#a3426934773f3803309b0a360d3262de0">OpenSim::Object</a>.</p>
 
-<p>Reimplemented in <a class="el" href="classOpenSim_1_1ForwardTool.html#a5c829e120b8d863a0830598098140352">OpenSim::ForwardTool</a>, and <a class="el" href="classOpenSim_1_1PerturbationTool.html#a7991f1b5ba9ee4bca8c11db4af0071a8">OpenSim::PerturbationTool</a>.</p>
+<p>Reimplemented in <a class="el" href="classOpenSim_1_1ForwardTool.html#a5c829e120b8d863a0830598098140352">OpenSim::ForwardTool</a>.</p>
 
 </div>
 </div>
@@ -1494,12 +1354,12 @@ generateXMLDocument() </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="a6190e720eeb06e836c27644f46eb840e"></a><!-- doxytag: member="OpenSim::AbstractTool::updExternalForceSet" ref="a6190e720eeb06e836c27644f46eb840e" args="()" -->
+<a class="anchor" id="acf7b32dc96d094c7968ae6fedbfc54ea"></a><!-- doxytag: member="OpenSim::AbstractTool::updExternalLoads" ref="acf7b32dc96d094c7968ae6fedbfc54ea" args="()" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classOpenSim_1_1ForceSet.html">ForceSet</a>&amp; OpenSim::AbstractTool::updExternalForceSet </td>
+          <td class="memname"><a class="el" href="classOpenSim_1_1ExternalLoads.html">ExternalLoads</a>&amp; OpenSim::AbstractTool::updExternalLoads </td>
           <td>(</td>
           <td class="paramname"></td>
           <td>&nbsp;)&nbsp;</td>
@@ -1595,19 +1455,47 @@ generateXMLDocument() </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="a98ca3cf68c0252bbc791b0b6965cca7a"></a><!-- doxytag: member="OpenSim::AbstractTool::_externalForces" ref="a98ca3cf68c0252bbc791b0b6965cca7a" args="" -->
+<a class="anchor" id="a1b1af4344fc55933cd381d9e22cc50e5"></a><!-- doxytag: member="OpenSim::AbstractTool::_externalLoads" ref="a1b1af4344fc55933cd381d9e22cc50e5" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classOpenSim_1_1ForceSet.html">ForceSet</a> <a class="el" href="classOpenSim_1_1AbstractTool.html#a98ca3cf68c0252bbc791b0b6965cca7a">OpenSim::AbstractTool::_externalForces</a><code> [protected]</code></td>
+          <td class="memname"><a class="el" href="classOpenSim_1_1ExternalLoads.html">ExternalLoads</a> <a class="el" href="classOpenSim_1_1AbstractTool.html#a1b1af4344fc55933cd381d9e22cc50e5">OpenSim::AbstractTool::_externalLoads</a><code> [protected]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
-<p>External forces being applied. </p>
+<p>Actual external forces being applied. </p>
 <p>e.g. GRF </p>
+
+</div>
+</div>
+<a class="anchor" id="a2856541c824e89af551ac1bb129a8d36"></a><!-- doxytag: member="OpenSim::AbstractTool::_externalLoadsFileName" ref="a2856541c824e89af551ac1bb129a8d36" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string&amp; <a class="el" href="classOpenSim_1_1AbstractTool.html#a2856541c824e89af551ac1bb129a8d36">OpenSim::AbstractTool::_externalLoadsFileName</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ad5228c3dfb5b541071d260cfe0d670e6"></a><!-- doxytag: member="OpenSim::AbstractTool::_externalLoadsFileNameProp" ref="ad5228c3dfb5b541071d260cfe0d670e6" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classOpenSim_1_1PropertyStr.html">OpenSim::PropertyStr</a> <a class="el" href="classOpenSim_1_1AbstractTool.html#ad5228c3dfb5b541071d260cfe0d670e6">OpenSim::AbstractTool::_externalLoadsFileNameProp</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Name of the file containing the external loads applied to the model. </p>
 
 </div>
 </div>
@@ -1956,7 +1844,7 @@ generateXMLDocument() </dd></dl>
 <li>OpenSim/Simulation/Model/AbstractTool.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:37:07 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Sat Mar 12 12:28:29 2011 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

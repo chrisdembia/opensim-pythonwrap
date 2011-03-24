@@ -266,9 +266,27 @@ public class OpenSimObjectModel extends AbstractTreeTableModel {
          {
             if(idx==-1) {
                aggregate = true;
-  
+                 if (propType != Property.PropertyType.DblArray){
+                   // Button to add array item
+                   controlButton = new JButton(addIcon);
+                   //controlButton.setRolloverIcon(addRolloverIcon); // doesn't work right now
+                   controlButton.addMouseListener(new MouseInputAdapter() {
+                      public void mousePressed(MouseEvent evt) { addPropertyItem(); }
+                   });
+                   controlButton.setToolTipText("Add an item to this property array");
+               }
+
             } else {
+               if (propType != Property.PropertyType.DblArray){
+                   // Button to delete array item
+                   controlButton = new JButton(removeIcon);
+                   //controlButton.setRolloverIcon(removeRolloverIcon); // doesn't work right now
+                   controlButton.addMouseListener(new MouseInputAdapter() {
+                      public void mousePressed(MouseEvent evt) { removePropertyItem(); }
+                   });
+                   controlButton.setToolTipText("Remove this item from the property array");
              }
+            }
          }
          else if(propType == Property.PropertyType.Obj ||
                  propType == Property.PropertyType.ObjPtr ||

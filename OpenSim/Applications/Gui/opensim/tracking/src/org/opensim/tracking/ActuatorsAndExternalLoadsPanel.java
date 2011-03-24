@@ -178,14 +178,14 @@ public class ActuatorsAndExternalLoadsPanel extends javax.swing.JPanel {
     private void initComponents() {
         buttonGroup1 = new javax.swing.ButtonGroup();
         createNewExternalForceSetButton = new javax.swing.JButton();
-        externalLoadsPanel = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
+        externalLoadsModelKinematicsFileName = new org.opensim.swingui.FileTextFieldAndChooser();
         jLabel4 = new javax.swing.JLabel();
         filterModelKinematics = new javax.swing.JCheckBox();
-        externalLoadsFileName = new org.opensim.swingui.FileTextFieldAndChooser();
-        externalLoadsModelKinematicsFileName = new org.opensim.swingui.FileTextFieldAndChooser();
         cutoffFrequency = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
+        externalLoadsPanel = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        externalLoadsFileName = new org.opensim.swingui.FileTextFieldAndChooser();
         jEditExternalForceSetButton = new javax.swing.JButton();
         actuatorsPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -201,32 +201,19 @@ public class ActuatorsAndExternalLoadsPanel extends javax.swing.JPanel {
             }
         });
 
-        externalLoadsPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "External Loads"));
-        jLabel3.setText("External loads force set file");
+        externalLoadsModelKinematicsFileName.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                externalLoadsModelKinematicsFileNameStateChanged(evt);
+            }
+        });
 
         jLabel4.setText("Kinematics for external loads");
-
         filterModelKinematics.setText("Filter kinematics");
         filterModelKinematics.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         filterModelKinematics.setMargin(new java.awt.Insets(0, 0, 0, 0));
         filterModelKinematics.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 filterModelKinematicsActionPerformed(evt);
-            }
-        });
-
-        externalLoadsFileName.setCheckIfFileExists(true);
-        externalLoadsFileName.setFileFilter(null);
-        externalLoadsFileName.setIncludeOpenButton(false);
-        externalLoadsFileName.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                externalLoadsFileNameStateChanged(evt);
-            }
-        });
-
-        externalLoadsModelKinematicsFileName.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                externalLoadsModelKinematicsFileNameStateChanged(evt);
             }
         });
 
@@ -245,6 +232,18 @@ public class ActuatorsAndExternalLoadsPanel extends javax.swing.JPanel {
 
         jLabel9.setText("Hz");
 
+        externalLoadsPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "External Loads"));
+        jLabel3.setText("External loads specification file");
+
+        externalLoadsFileName.setCheckIfFileExists(true);
+        externalLoadsFileName.setFileFilter(null);
+        externalLoadsFileName.setIncludeOpenButton(false);
+        externalLoadsFileName.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                externalLoadsFileNameStateChanged(evt);
+            }
+        });
+
         jEditExternalForceSetButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/swingui/editor.gif")));
         jEditExternalForceSetButton.setPreferredSize(new java.awt.Dimension(49, 20));
         jEditExternalForceSetButton.addActionListener(new java.awt.event.ActionListener() {
@@ -258,26 +257,12 @@ public class ActuatorsAndExternalLoadsPanel extends javax.swing.JPanel {
         externalLoadsPanelLayout.setHorizontalGroup(
             externalLoadsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(externalLoadsPanelLayout.createSequentialGroup()
-                .add(externalLoadsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(externalLoadsPanelLayout.createSequentialGroup()
-                        .add(17, 17, 17)
-                        .add(jLabel3)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(externalLoadsFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jEditExternalForceSetButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 28, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(externalLoadsPanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .add(externalLoadsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                            .add(jLabel4)
-                            .add(filterModelKinematics))
-                        .add(6, 6, 6)
-                        .add(externalLoadsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(externalLoadsPanelLayout.createSequentialGroup()
-                                .add(cutoffFrequency, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 139, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(jLabel9))
-                            .add(externalLoadsModelKinematicsFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE))))
+                .add(17, 17, 17)
+                .add(jLabel3)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(externalLoadsFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jEditExternalForceSetButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 28, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         externalLoadsPanelLayout.setVerticalGroup(
@@ -292,15 +277,6 @@ public class ActuatorsAndExternalLoadsPanel extends javax.swing.JPanel {
                         .add(externalLoadsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jEditExternalForceSetButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                             .add(externalLoadsFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE))))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(externalLoadsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(externalLoadsModelKinematicsFileName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jLabel4))
-                .add(14, 14, 14)
-                .add(externalLoadsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(cutoffFrequency, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jLabel9)
-                    .add(filterModelKinematics))
                 .addContainerGap())
         );
 
@@ -308,7 +284,6 @@ public class ActuatorsAndExternalLoadsPanel extends javax.swing.JPanel {
         jLabel1.setText("Additional force set files");
 
         actuatorSetFiles.setEditable(false);
-        actuatorSetFiles.setText("jTextField2");
 
         buttonGroup1.add(appendActuatorSetRadioButton);
         appendActuatorSetRadioButton.setSelected(true);
@@ -348,7 +323,7 @@ public class ActuatorsAndExternalLoadsPanel extends javax.swing.JPanel {
                     .add(actuatorsPanelLayout.createSequentialGroup()
                         .add(jLabel1)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(actuatorSetFiles, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
+                        .add(actuatorSetFiles, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(editActuatorSetFiles))
                     .add(appendActuatorSetRadioButton)
@@ -392,13 +367,16 @@ public class ActuatorsAndExternalLoadsPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jEditExternalForceSetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEditExternalForceSetButtonActionPerformed
-        try {
+        /*try {
             // Need to make sure model is set in Tool since we need
             toolModel.getTool().setModel(model);
         } catch (IOException ex) {
             ex.printStackTrace();
-        }
-        EditPrescribedForceSetPanel epfsPanel = new EditPrescribedForceSetPanel(toolModel.getTool());
+        }*/
+        // Create External Loads first
+        //Model mdl =  toolModel.getExternalLoads().getModel();
+        toolModel.getExternalLoads().setModel(model);
+        EditPrescribedForceSetPanel epfsPanel = new EditPrescribedForceSetPanel(toolModel.getExternalLoads());
         DialogDescriptor dlg = new DialogDescriptor(epfsPanel, "Prescibed ForceSet");
         JButton saveButton = new JButton("Save...");
         saveButton.addActionListener(new SaveButtonActionListener());
@@ -410,7 +388,7 @@ public class ActuatorsAndExternalLoadsPanel extends javax.swing.JPanel {
 
     private void createNewExternalForceSetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createNewExternalForceSetButtonActionPerformed
 // TODO add your handling code here:
-        EditPrescribedForceSetPanel epfsPanel = new EditPrescribedForceSetPanel(toolModel.getTool());
+        EditPrescribedForceSetPanel epfsPanel = new EditPrescribedForceSetPanel(toolModel.getExternalLoads());
         DialogDescriptor dlg = new DialogDescriptor(epfsPanel, "Prescibed ForceSet");
         JButton saveButton = new JButton("Save...");
         saveButton.addActionListener(new SaveButtonActionListener());
@@ -501,7 +479,7 @@ public class ActuatorsAndExternalLoadsPanel extends javax.swing.JPanel {
         public void actionPerformed(ActionEvent e) {
             FileFilter ff = FileUtils.getFileFilter(".xml", "File to save External ForceSet");
             String fileName = FileUtils.getInstance().browseForFilenameToSave(ff, true, "", null);
-            //OpenSim23 toolModel.getTool().getExternalForceSet().print(fileName);
+            toolModel.getExternalLoads().print(fileName);
             externalLoadsFileName.setFileName(fileName);
         }
     }

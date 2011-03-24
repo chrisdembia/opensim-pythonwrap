@@ -245,7 +245,7 @@ public class IKCommonModel extends Observable implements Observer {
 
          // Time range
          timeRange = new double[]{ikTool.getStartTime(), ikTool.getEndTime()};
-      
+      setTimeRange(timeRange);
 
       // IK task set
       ikMarkerTasksModel.fromTaskSet(ikTool.getIKTaskSet());

@@ -37,6 +37,7 @@ import org.openide.util.Cancellable;
 import org.opensim.modeling.AbstractTool;
 import org.opensim.modeling.Analysis;
 import org.opensim.modeling.ArrayStr;
+import org.opensim.modeling.ExternalLoads;
 import org.opensim.modeling.InverseDynamicsTool;
 import org.opensim.modeling.InterruptCallback;
 import org.opensim.modeling.Model;
@@ -201,7 +202,7 @@ public class InverseDynamicsToolModel extends AbstractToolModelWithExternalLoads
    private boolean inverseDynamicsMode = false;
 
    enum InputSource { Motion, States, Coordinates, Unspecified };
-   private InputSource inputSource = InputSource.Unspecified;
+   InputSource inputSource = InputSource.Unspecified;
    private Storage inputMotion = null;
    private boolean loadSpeeds = false;
    private String toolName;
@@ -233,6 +234,9 @@ public class InverseDynamicsToolModel extends AbstractToolModelWithExternalLoads
    //------------------------------------------------------------------------
 
    protected void adjustToolForMode() {
+        ArrayStr excludedGroups = new ArrayStr();
+        excludedGroups.append("Muscles");
+        InverseDynamicsTool().setExcludedForces(excludedGroups);    
   }
 
    //------------------------------------------------------------------------
@@ -255,6 +259,8 @@ public class InverseDynamicsToolModel extends AbstractToolModelWithExternalLoads
          inputMotion = motions.get(0);
          inputSource = InputSource.Motion;
       }
+      
+          
       inputSource = InputSource.Coordinates;
    }
 
@@ -278,10 +284,10 @@ public class InverseDynamicsToolModel extends AbstractToolModelWithExternalLoads
       }
    }
 
-   public String getStatesFileName() { return InverseDynamicsTool().getStatesFileName(); }
+   public String getStatesFileName() { return ""; }
    void setStatesFileName(String speedsFileName) {
       if(!getStatesFileName().equals(speedsFileName)) {
-         InverseDynamicsTool().setStatesFileName(speedsFileName);
+        // InverseDynamicsTool().setStatesFileName(speedsFileName);
          setModified(AbstractToolModel.Operation.InputDataChanged);
       }
    }
@@ -308,22 +314,7 @@ public class InverseDynamicsToolModel extends AbstractToolModelWithExternalLoads
    }
    public boolean getCoordinatesValid() { return (new File(getCoordinatesFileName()).exists()); }
 
-   public double getLowpassCutoffFrequency() { return InverseDynamicsTool().getLowpassCutoffFrequency(); }
-   public void setLowpassCutoffFrequency(double frequency) {
-      if(getLowpassCutoffFrequency() != frequency) {
-         InverseDynamicsTool().setLowpassCutoffFrequency(frequency);
-         setModified(AbstractToolModel.Operation.InputDataChanged);
-      }
-   }
-
    public boolean getFilterCoordinates() { return getLowpassCutoffFrequency() > 0; }
-   public void setFilterCoordinates(boolean filterCoordinates) {
-      if(getFilterCoordinates() != filterCoordinates) {
-         if(filterCoordinates) InverseDynamicsTool().setLowpassCutoffFrequency(6);
-         else InverseDynamicsTool().setLowpassCutoffFrequency(-1);
-         setModified(AbstractToolModel.Operation.InputDataChanged);
-      }
-   }
    
    // TODO: implement
    public double[] getAvailableTimeRange() { 
@@ -336,14 +327,14 @@ public class InverseDynamicsToolModel extends AbstractToolModelWithExternalLoads
    //------------------------------------------------------------------------
    // External loads get/set (don't need to call setModified since AbstractToolModel does that)
    //------------------------------------------------------------------------
-   public String getExternalLoadsFileName() { return ""; }
-   protected void setExternalLoadsFileNameInternal(String fileName) {  }
+   public String getExternalLoadsFileName() { return idTool.getExternalLoadsFileName(); }
+   protected void setExternalLoadsFileNameInternal(String fileName) {  idTool.setExternalLoadsFileName(fileName);}
 
-   public String getExternalLoadsModelKinematicsFileName() { return ""; }
-   protected void setExternalLoadsModelKinematicsFileNameInternal(String fileName) { }
+   public String getExternalLoadsModelKinematicsFileName() { return idTool.getExternalLoads().getExternalLoadsModelKinematicsFileName(); }
+   protected void setExternalLoadsModelKinematicsFileNameInternal(String fileName) { idTool.getExternalLoads().setExternalLoadsModelKinematicsFileName(fileName); }
 
-   public double getLowpassCutoffFrequencyForLoadKinematics() { return 6;}
-   protected void setLowpassCutoffFrequencyForLoadKinematicsInternal(double cutoffFrequency) {  }
+   public double getLowpassCutoffFrequencyForLoadKinematics() { return idTool.getExternalLoads().getLowpassCutoffFrequencyForLoadKinematics(); }
+   protected void setLowpassCutoffFrequencyForLoadKinematicsInternal(double cutoffFrequency) { idTool.getExternalLoads().setLowpassCutoffFrequencyForLoadKinematics(cutoffFrequency); }
 
    //------------------------------------------------------------------------
    // Utilities for running/canceling tool
@@ -397,6 +388,7 @@ public class InverseDynamicsToolModel extends AbstractToolModelWithExternalLoads
       else if(!FileUtils.effectivelyNull(getCoordinatesFileName())) inputSource = InputSource.Coordinates;
       else inputSource = InputSource.Unspecified;
 
+       //if(inputSource == InputSource.Coordinates) setCoordinatesFileName(InverseDynamicsTool().getCoordinatesFileName());
    }
 
    protected void updateTool() {
@@ -407,7 +399,7 @@ public class InverseDynamicsToolModel extends AbstractToolModelWithExternalLoads
          InverseDynamicsTool().setCoordinatesFileName("");
       } 
       if(inputSource != InputSource.States) {
-         InverseDynamicsTool().setStatesFileName("");
+        //OpenSim23  InverseDynamicsTool().setStatesFileName("");
       }
       setModified(AbstractToolModel.Operation.AllDataChanged);
       
@@ -418,23 +410,23 @@ public class InverseDynamicsToolModel extends AbstractToolModelWithExternalLoads
 
       String parentDir = (new File(parentFileName)).getParent();
 
-      InverseDynamicsTool().setStatesFileName(FileUtils.makePathAbsolute(InverseDynamicsTool().getStatesFileName(), parentDir));
+      //OpenSim23 InverseDynamicsTool().setStatesFileName(FileUtils.makePathAbsolute(InverseDynamicsTool().getStatesFileName(), parentDir));
       InverseDynamicsTool().setCoordinatesFileName(FileUtils.makePathAbsolute(InverseDynamicsTool().getCoordinatesFileName(), parentDir));
 
-      //OpenSim23 InverseDynamicsTool().setExternalLoadsFileName(FileUtils.makePathAbsolute(InverseDynamicsTool().getExternalLoadsFileName(), parentDir));
-      //OpenSim23 InverseDynamicsTool().setExternalLoadsModelKinematicsFileName(FileUtils.makePathAbsolute(InverseDynamicsTool().getExternalLoadsModelKinematicsFileName(), parentDir));
+      InverseDynamicsTool().setExternalLoadsFileName(FileUtils.makePathAbsolute(InverseDynamicsTool().getExternalLoadsFileName(), parentDir));
+      InverseDynamicsTool().getExternalLoads().setExternalLoadsModelKinematicsFileName(FileUtils.makePathAbsolute(InverseDynamicsTool().getExternalLoads().getExternalLoadsModelKinematicsFileName(), parentDir));
    }
 
    protected void AbsoluteToRelativePaths(String parentFileName) {
-      super.AbsoluteToRelativePaths(parentFileName);
+       //OpenSim23 super.AbsoluteToRelativePaths(parentFileName);
 
       String parentDir = (new File(parentFileName)).getParent();
 
-      InverseDynamicsTool().setStatesFileName(FileUtils.makePathRelative(InverseDynamicsTool().getStatesFileName(), parentDir));
+      //OpenSim23 InverseDynamicsTool().setStatesFileName(FileUtils.makePathRelative(InverseDynamicsTool().getStatesFileName(), parentDir));
       InverseDynamicsTool().setCoordinatesFileName(FileUtils.makePathRelative(InverseDynamicsTool().getCoordinatesFileName(), parentDir));
 
-      //OpenSim23 InverseDynamicsTool().setExternalLoadsFileName(FileUtils.makePathRelative(InverseDynamicsTool().getExternalLoadsFileName(), parentDir));
-      //OpenSim23 InverseDynamicsTool().setExternalLoadsModelKinematicsFileName(FileUtils.makePathRelative(InverseDynamicsTool().getExternalLoadsModelKinematicsFileName(), parentDir));
+      InverseDynamicsTool().setExternalLoadsFileName(FileUtils.makePathRelative(InverseDynamicsTool().getExternalLoadsFileName(), parentDir));
+      InverseDynamicsTool().getExternalLoads().setExternalLoadsModelKinematicsFileName(FileUtils.makePathRelative(InverseDynamicsTool().getExternalLoads().getExternalLoadsModelKinematicsFileName(), parentDir));
    }
    
    public boolean loadSettings(String fileName) {
@@ -447,8 +439,8 @@ public class InverseDynamicsToolModel extends AbstractToolModelWithExternalLoads
          ErrorDialog.displayIOExceptionDialog("Error loading file","Could not load "+fileName,ex);
          return false;
       }
-
-      //OpenSim23 setTool(newInverseDynamicsTool);
+      idTool = newInverseDynamicsTool;
+      //setTool(newInverseDynamicsTool);
       relativeToAbsolutePaths(fileName);
       adjustToolForMode();
       updateFromTool();
@@ -504,5 +496,10 @@ public class InverseDynamicsToolModel extends AbstractToolModelWithExternalLoads
          setModified(Operation.OutputDataChanged);
       }
    }
+
+    public ExternalLoads getExternalLoads() {
+        idTool.createExternalLoads(InverseDynamicsTool().getExternalLoadsFileName(), getOriginalModel());
+        return idTool.getExternalLoads();
+    }
 }
 

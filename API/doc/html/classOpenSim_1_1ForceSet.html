@@ -41,6 +41,7 @@ Inheritance diagram for OpenSim::ForceSet:</div>
 <area href="classOpenSim_1_1ModelComponentSet.html" alt="OpenSim::ModelComponentSet&lt; Force &gt;" shape="rect" coords="0,112,243,136"/>
 <area href="classOpenSim_1_1Set.html" alt="OpenSim::Set&lt; Force &gt;" shape="rect" coords="0,56,243,80"/>
 <area href="classOpenSim_1_1Object.html" alt="OpenSim::Object" shape="rect" coords="0,0,243,24"/>
+<area href="classOpenSim_1_1ExternalLoads.html" alt="OpenSim::ExternalLoads" shape="rect" coords="0,224,243,248"/>
 </map>
  </div>
 </div>
@@ -61,10 +62,6 @@ Inheritance diagram for OpenSim::ForceSet:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Copy this <a class="el" href="classOpenSim_1_1ForceSet.html" title="A class for holding and managing a set of forces for a model.">ForceSet</a> and return a pointer to the copy.  <a href="#a81b41aec5752a9b4823c23e809f573cd"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ForceSet.html#abaf3996cef516999b0b8a53b574718ed">copyData</a> (const <a class="el" href="classOpenSim_1_1ForceSet.html">ForceSet</a> &amp;aAbsForceSet)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Copy the member variables of the <a class="el" href="classOpenSim_1_1ForceSet.html" title="A class for holding and managing a set of forces for a model.">ForceSet</a>.  <a href="#abaf3996cef516999b0b8a53b574718ed"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ForceSet.html#adac1d913d2d88d42c86bed8417b1aa53">createForcesFromFile</a> (const std::string &amp;datafileName, <a class="el" href="classOpenSim_1_1Array.html">Array</a>&lt; std::string &gt; &amp;startForceColumns, <a class="el" href="classOpenSim_1_1Array.html">Array</a>&lt; int &gt; &amp;columnCount, <a class="el" href="classOpenSim_1_1Array.html">Array</a>&lt; std::string &gt; &amp;bodyNames)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Create a set of prescribed forces from a file.  <a href="#adac1d913d2d88d42c86bed8417b1aa53"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const std::string &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ForceSet.html#a41f1761af7109dd33ba0303e74fa0e0b">getDataFileName</a> () const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ForceSet.html#ab379cdd8c8a57fa22b9f29d8baa95ae7">setDataFileName</a> (const std::string &amp;aNewFile)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1ForceSet.html">ForceSet</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ForceSet.html#a6bd8414e4652878d5cff701157feef91">operator=</a> (const <a class="el" href="classOpenSim_1_1ForceSet.html">ForceSet</a> &amp;aSet)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Assignment operator.  <a href="#a6bd8414e4652878d5cff701157feef91"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ForceSet.html#acfa7d90f1962720cff2b1ece1f5b00bd">setup</a> (<a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;aModel)</td></tr>
@@ -91,16 +88,11 @@ Inheritance diagram for OpenSim::ForceSet:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the names of the states of the actuators.  <a href="#a20dcbd72df792cfdb3be3127cbe08b84"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ForceSet.html#a5b0ec660f909de23347d492fbf251c11">computeEquilibrium</a> (SimTK::State &amp;s)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Compute a set of equlibirium states.  <a href="#a5b0ec660f909de23347d492fbf251c11"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ForceSet.html#ad3b0e5cbd63c02c70e1336d02df0f44a">computeStateDerivatives</a> (const SimTK::State &amp;s)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Compute the time derivatives of the states that characterize the actuators.  <a href="#ad3b0e5cbd63c02c70e1336d02df0f44a"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ForceSet.html#acc49bbe12198153131dc3df91ea06a0b">check</a> () const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Check that all actuators are valid.  <a href="#acc49bbe12198153131dc3df91ea06a0b"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Protected Attributes</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyStr.html">PropertyStr</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ForceSet.html#a9263c0197204520f3c8a857de4e92b1a">_dataFileNameProp</a></td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">In case the Forces in the set are loaded from file, the filename goes here and the column names go into individual functions.  <a href="#a9263c0197204520f3c8a857de4e92b1a"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">std::string &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ForceSet.html#abe3944ab3dfb4d56e08efb72f0b254dd">_dataFileName</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Set.html">Set</a>&lt; <a class="el" href="classOpenSim_1_1Actuator.html">Actuator</a> &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ForceSet.html#a833f3d3e0051bfc3f7bb2b0c0a8d542f">_actuators</a></td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The subset of Forces that extend <a class="el" href="classOpenSim_1_1Actuator.html" title="An abstract class for representing an actuator (e.g., a torque motor, muscle, .">Actuator</a>.  <a href="#a833f3d3e0051bfc3f7bb2b0c0a8d542f"></a><br/></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The subset of Forces that extend <a class="el" href="classOpenSim_1_1Actuator.html" title="Derived class for an actuator (e.g., a torque motor, muscle, .">Actuator</a>.  <a href="#a833f3d3e0051bfc3f7bb2b0c0a8d542f"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Set.html">Set</a>&lt; <a class="el" href="classOpenSim_1_1Muscle.html">Muscle</a> &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ForceSet.html#a8781c5a3819bb4449693954bdd624711">_muscles</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The subset of Forces that extend <a class="el" href="classOpenSim_1_1Muscle.html" title="A base class representing a muscle-tendon actuator.">Muscle</a>.  <a href="#a8781c5a3819bb4449693954bdd624711"></a><br/></td></tr>
 </table>
@@ -375,32 +367,6 @@ Inheritance diagram for OpenSim::ForceSet:</div>
 
 </div>
 </div>
-<a class="anchor" id="ad3b0e5cbd63c02c70e1336d02df0f44a"></a><!-- doxytag: member="OpenSim::ForceSet::computeStateDerivatives" ref="ad3b0e5cbd63c02c70e1336d02df0f44a" args="(const SimTK::State &amp;s)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void ForceSet::computeStateDerivatives </td>
-          <td>(</td>
-          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
-          <td class="paramname"> <em>s</em></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Compute the time derivatives of the states that characterize the actuators. </p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>rDY</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Array.html">Array</a> of state derivatives. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
 <a class="anchor" id="a81b41aec5752a9b4823c23e809f573cd"></a><!-- doxytag: member="OpenSim::ForceSet::copy" ref="a81b41aec5752a9b4823c23e809f573cd" args="() const " -->
 <div class="memitem">
 <div class="memproto">
@@ -421,6 +387,8 @@ Inheritance diagram for OpenSim::ForceSet:</div>
 <dl class="return"><dt><b>Returns:</b></dt><dd>Pointer to a copy of this <a class="el" href="classOpenSim_1_1ForceSet.html" title="A class for holding and managing a set of forces for a model.">ForceSet</a>. </dd></dl>
 
 <p>Reimplemented from <a class="el" href="classOpenSim_1_1ModelComponentSet.html#a354cfad9a1addcb0eedba6dabe78e7be">OpenSim::ModelComponentSet&lt; Force &gt;</a>.</p>
+
+<p>Reimplemented in <a class="el" href="classOpenSim_1_1ExternalLoads.html#a3cbfda6ffe85f82a9fa1d8b213c2a109">OpenSim::ExternalLoads</a>.</p>
 
 </div>
 </div>
@@ -448,47 +416,7 @@ Inheritance diagram for OpenSim::ForceSet:</div>
   </dd>
 </dl>
 
-</div>
-</div>
-<a class="anchor" id="adac1d913d2d88d42c86bed8417b1aa53"></a><!-- doxytag: member="OpenSim::ForceSet::createForcesFromFile" ref="adac1d913d2d88d42c86bed8417b1aa53" args="(const std::string &amp;datafileName, Array&lt; std::string &gt; &amp;startForceColumns, Array&lt; int &gt; &amp;columnCount, Array&lt; std::string &gt; &amp;bodyNames)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void ForceSet::createForcesFromFile </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&nbsp;</td>
-          <td class="paramname"> <em>fileName</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classOpenSim_1_1Array.html">Array</a>&lt; std::string &gt; &amp;&nbsp;</td>
-          <td class="paramname"> <em>startForceColumns</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classOpenSim_1_1Array.html">Array</a>&lt; int &gt; &amp;&nbsp;</td>
-          <td class="paramname"> <em>columnCount</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classOpenSim_1_1Array.html">Array</a>&lt; std::string &gt; &amp;&nbsp;</td>
-          <td class="paramname"> <em>bodyNames</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Create a set of prescribed forces from a file. </p>
-<p>Assumptions: 1. instance variable _dataFileName is set already 2. Sizes of the three arrays startForceColumns, bodyNames, columnCount is identical 3. columnCount is 9: <a class="el" href="classOpenSim_1_1Force.html" title="This abstract class represents a force applied to bodies or generalized coordinates...">Force</a>, Point, Torque 6: <a class="el" href="classOpenSim_1_1Force.html" title="This abstract class represents a force applied to bodies or generalized coordinates...">Force</a>, Point </p>
+<p>Reimplemented in <a class="el" href="classOpenSim_1_1ExternalLoads.html#ae2bbd66e258c0bd080ad7dada7567eb9">OpenSim::ExternalLoads</a>.</p>
 
 </div>
 </div>
@@ -508,23 +436,6 @@ Inheritance diagram for OpenSim::ForceSet:</div>
 <div class="memdoc">
 
 <p>Get the list of Actuators. </p>
-
-</div>
-</div>
-<a class="anchor" id="a41f1761af7109dd33ba0303e74fa0e0b"></a><!-- doxytag: member="OpenSim::ForceSet::getDataFileName" ref="a41f1761af7109dd33ba0303e74fa0e0b" args="() const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const std::string&amp; OpenSim::ForceSet::getDataFileName </td>
-          <td>(</td>
-          <td class="paramname"></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td> const<code> [inline]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
 
 </div>
 </div>
@@ -625,6 +536,8 @@ Inheritance diagram for OpenSim::ForceSet:</div>
 
 <p>Reimplemented from <a class="el" href="classOpenSim_1_1Object.html#a1a5b4bda8ca9bdc1c96ef514a15e0eef">OpenSim::Object</a>.</p>
 
+<p>Reimplemented in <a class="el" href="classOpenSim_1_1ExternalLoads.html#adf8fabfac088be28ac6e8b8fa09764e4">OpenSim::ExternalLoads</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="ae596646b1879bc673797282d8fe2b04c"></a><!-- doxytag: member="OpenSim::ForceSet::remove" ref="ae596646b1879bc673797282d8fe2b04c" args="(int aIndex)" -->
@@ -695,24 +608,6 @@ Inheritance diagram for OpenSim::ForceSet:</div>
 
 </div>
 </div>
-<a class="anchor" id="ab379cdd8c8a57fa22b9f29d8baa95ae7"></a><!-- doxytag: member="OpenSim::ForceSet::setDataFileName" ref="ab379cdd8c8a57fa22b9f29d8baa95ae7" args="(const std::string &amp;aNewFile)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void OpenSim::ForceSet::setDataFileName </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&nbsp;</td>
-          <td class="paramname"> <em>aNewFile</em></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td><code> [inline]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
 <a class="anchor" id="acfa7d90f1962720cff2b1ece1f5b00bd"></a><!-- doxytag: member="OpenSim::ForceSet::setup" ref="acfa7d90f1962720cff2b1ece1f5b00bd" args="(Model &amp;aModel)" -->
 <div class="memitem">
 <div class="memproto">
@@ -732,6 +627,8 @@ Inheritance diagram for OpenSim::ForceSet:</div>
 <p><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the <a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a> this object is part of. </p>
 
 <p>Reimplemented from <a class="el" href="classOpenSim_1_1ModelComponentSet.html#ab2aafdaf3a166163572bcc40c641b21b">OpenSim::ModelComponentSet&lt; Force &gt;</a>.</p>
+
+<p>Reimplemented in <a class="el" href="classOpenSim_1_1ExternalLoads.html#a40079acbd6c8986ffa512920666c8b51">OpenSim::ExternalLoads</a>.</p>
 
 </div>
 </div>
@@ -781,35 +678,7 @@ Inheritance diagram for OpenSim::ForceSet:</div>
 </div>
 <div class="memdoc">
 
-<p>The subset of Forces that extend <a class="el" href="classOpenSim_1_1Actuator.html" title="An abstract class for representing an actuator (e.g., a torque motor, muscle, .">Actuator</a>. </p>
-
-</div>
-</div>
-<a class="anchor" id="abe3944ab3dfb4d56e08efb72f0b254dd"></a><!-- doxytag: member="OpenSim::ForceSet::_dataFileName" ref="abe3944ab3dfb4d56e08efb72f0b254dd" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string&amp; <a class="el" href="classOpenSim_1_1ForceSet.html#abe3944ab3dfb4d56e08efb72f0b254dd">OpenSim::ForceSet::_dataFileName</a><code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a9263c0197204520f3c8a857de4e92b1a"></a><!-- doxytag: member="OpenSim::ForceSet::_dataFileNameProp" ref="a9263c0197204520f3c8a857de4e92b1a" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classOpenSim_1_1PropertyStr.html">PropertyStr</a> <a class="el" href="classOpenSim_1_1ForceSet.html#a9263c0197204520f3c8a857de4e92b1a">OpenSim::ForceSet::_dataFileNameProp</a><code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>In case the Forces in the set are loaded from file, the filename goes here and the column names go into individual functions. </p>
+<p>The subset of Forces that extend <a class="el" href="classOpenSim_1_1Actuator.html" title="Derived class for an actuator (e.g., a torque motor, muscle, .">Actuator</a>. </p>
 
 </div>
 </div>
@@ -833,7 +702,7 @@ Inheritance diagram for OpenSim::ForceSet:</div>
 <li>OpenSim/Simulation/Model/ForceSet.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:37:09 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Sat Mar 12 12:28:31 2011 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

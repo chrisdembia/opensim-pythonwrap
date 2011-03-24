@@ -37,12 +37,14 @@ import org.opensim.modeling.ForwardTool;
 import org.opensim.modeling.InterruptCallback;
 import org.opensim.modeling.Kinematics;
 import org.opensim.modeling.Model;
+import org.opensim.modeling.OpenSimContext;
 import org.opensim.modeling.Storage;
 import org.opensim.view.motions.MotionsDB;
 import org.opensim.swingui.SwingWorker;
 import org.opensim.utils.ErrorDialog;
 import org.opensim.utils.FileUtils;
 import org.opensim.view.motions.JavaMotionDisplayerCallback;
+import org.opensim.view.pub.OpenSimDB;
 
 public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
    //========================================================================
@@ -196,7 +198,12 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
       //if(model.getSimbodyEngine().getType().equals("SimmKinematicsEngine"))
       //   throw new IOException("Forward dynamics tool requires a model with SdfastEngine or SimbodyEngine; SimmKinematicsEngine does not support dynamics.");
       ForwardTool dTool = new ForwardTool();
+      OpenSimContext openSimContext = OpenSimDB.getInstance().getContext(model);
+      //openSimContext.setDefaultsFromState();
       dTool.setModel(model);
+      dTool.setToolOwnsModel(false);
+
+      //openSimContext.setDefaultsFromState();
       setTool(dTool);
 
       // By default, set prefix of output to be subject name
@@ -234,7 +241,7 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
    }
    public boolean getControlsValid() { 
        // If model has no controls then return true always otherwise check file exists
-       return (/*getOriginalModel().getNumControls()==0|| */new File(getControlsFileName()).exists()); 
+       return (/*getOriginalModel().getNumControls()==0|| new File(getControlsFileName()).exists()*/true); 
    }
 
    public String getInitialStatesFileName() { return forwardTool().getStatesFileName(); }
@@ -244,7 +251,7 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
          setModified(AbstractToolModel.Operation.InputDataChanged);
       }
    }
-   public boolean getInitialStatesValid() { return (new File(getInitialStatesFileName()).exists()); }
+   public boolean getInitialStatesValid() { return true; }//(new File(getInitialStatesFileName()).exists()); }
 
    // TODO: implement
    public double[] getAvailableTimeRange() { return null; }

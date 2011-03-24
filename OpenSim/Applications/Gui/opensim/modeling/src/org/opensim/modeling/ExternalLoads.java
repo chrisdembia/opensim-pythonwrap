@@ -112,4 +112,16 @@ public class ExternalLoads extends ForceSet {
     opensimModelJNI.ExternalLoads_setup(swigCPtr, this, Model.getCPtr(aModel), aModel);
   }
 
+  public Model getModel() {
+    return new Model(opensimModelJNI.ExternalLoads_getModel(swigCPtr, this), false);
+  }
+
+  public boolean hasModel() {
+    return opensimModelJNI.ExternalLoads_hasModel(swigCPtr, this);
+  }
+
+  public void setModel(Model aModel) {
+    opensimModelJNI.ExternalLoads_setModel(swigCPtr, this, Model.getCPtr(aModel), aModel);
+  }
+
 }

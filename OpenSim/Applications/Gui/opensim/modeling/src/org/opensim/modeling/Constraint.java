@@ -56,8 +56,8 @@ public class Constraint extends ModelComponent {
     return opensimModelJNI.Constraint_setDisabled(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), isDisabled);
   }
 
-  public void calcConstraintForces(SWIGTYPE_p_SimTK__State s, SWIGTYPE_p_SimTK__Vector_T_SimTK__SpatialVec_t bodyForcesInParent, SWIGTYPE_p_SimTK__Vector mobilityForces) {
-    opensimModelJNI.Constraint_calcConstraintForces(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), SWIGTYPE_p_SimTK__Vector_T_SimTK__SpatialVec_t.getCPtr(bodyForcesInParent), SWIGTYPE_p_SimTK__Vector.getCPtr(mobilityForces));
+  public void calcConstraintForces(SWIGTYPE_p_SimTK__State s, SWIGTYPE_p_SimTK__Vector_T_SimTK__SpatialVec_t bodyForcesInAncestor, SWIGTYPE_p_SimTK__Vector mobilityForces) {
+    opensimModelJNI.Constraint_calcConstraintForces(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), SWIGTYPE_p_SimTK__Vector_T_SimTK__SpatialVec_t.getCPtr(bodyForcesInAncestor), SWIGTYPE_p_SimTK__Vector.getCPtr(mobilityForces));
   }
 
   public ArrayStr getRecordLabels() {
@@ -70,6 +70,10 @@ public class Constraint extends ModelComponent {
 
   public void scale(ScaleSet aScaleSet) {
     opensimModelJNI.Constraint_scale(swigCPtr, this, ScaleSet.getCPtr(aScaleSet), aScaleSet);
+  }
+
+  public void setContactPointForInducedAccelerations(SWIGTYPE_p_SimTK__State s, SWIGTYPE_p_SimTK__Vec3 point) {
+    opensimModelJNI.Constraint_setContactPointForInducedAccelerations(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), SWIGTYPE_p_SimTK__Vec3.getCPtr(point));
   }
 
   public static boolean isKindOf(String type) {

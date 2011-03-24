@@ -66,8 +66,6 @@ Inheritance diagram for OpenSim::SimbodyEngine:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Update all coordinates in the model with the ones in the passed-in coordinate set.  <a href="#a7de1058259bbc26d23a8ae339b69457b"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1SimbodyEngine.html#a5af78133d22da1c111c5c643a97047fb">getUnlockedCoordinates</a> (const SimTK::State &amp;s, <a class="el" href="classOpenSim_1_1CoordinateSet.html">CoordinateSet</a> &amp;rUnlockedCoordinates) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the set of coordinates that are not locked.  <a href="#a5af78133d22da1c111c5c643a97047fb"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1SimbodyEngine.html#a6d43abdc1f086db3ef725e4b3f2db2af">projectConfigurationToSatisfyConstraints</a> (SimTK::State &amp;s, const double cTol) const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Project (change) the current configuration such that it satisfies the constraints acting on the system.  <a href="#a6d43abdc1f086db3ef725e4b3f2db2af"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1SimbodyEngine.html#acd20dfc67adf5fa623c50a40553b9953">scale</a> (SimTK::State &amp;s, const <a class="el" href="classOpenSim_1_1ScaleSet.html">ScaleSet</a> &amp;aScaleSet, double aFinalMass=-1.0, bool aPreserveMassDist=false)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Scale.html">Scale</a> the dynamics engine.  <a href="#acd20dfc67adf5fa623c50a40553b9953"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classOpenSim_1_1Body.html">Body</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1SimbodyEngine.html#a612426bc29df2ed66588910935452b0d">getGroundBody</a> () const </td></tr>
@@ -1675,43 +1673,6 @@ Inheritance diagram for OpenSim::SimbodyEngine:</div>
 
 </div>
 </div>
-<a class="anchor" id="a6d43abdc1f086db3ef725e4b3f2db2af"></a><!-- doxytag: member="OpenSim::SimbodyEngine::projectConfigurationToSatisfyConstraints" ref="a6d43abdc1f086db3ef725e4b3f2db2af" args="(SimTK::State &amp;s, const double cTol) const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool SimbodyEngine::projectConfigurationToSatisfyConstraints </td>
-          <td>(</td>
-          <td class="paramtype">SimTK::State &amp;&nbsp;</td>
-          <td class="paramname"> <em>s</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const double&nbsp;</td>
-          <td class="paramname"> <em>cTol</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td> const<code> [virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Project (change) the current configuration such that it satisfies the constraints acting on the system. </p>
-<p>This alters the configuration (state) down in Simbody and then returns the projected configuration. This method is intended for corrections to the state during integration and should be called after a successful integrations step. It can also be called to pose the model (i.e. in coord-&gt;setValue() after ) so that the configuration satisfies the constraints but WARNING this may produce upredictable results when the current configuration is far from satisfying the constraints.</p>
-<p>returns true iff the engine configuration (state) was changed by the projection </p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>cTol</em>&nbsp;</td><td>constraint tolerance. (input) </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
 <a class="anchor" id="acd20dfc67adf5fa623c50a40553b9953"></a><!-- doxytag: member="OpenSim::SimbodyEngine::scale" ref="acd20dfc67adf5fa623c50a40553b9953" args="(SimTK::State &amp;s, const ScaleSet &amp;aScaleSet, double aFinalMass=&#45;1.0, bool aPreserveMassDist=false)" -->
 <div class="memitem">
 <div class="memproto">
@@ -2238,7 +2199,7 @@ Inheritance diagram for OpenSim::SimbodyEngine:</div>
 <li>OpenSim/Simulation/SimbodyEngine/SimbodyEngine.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:37:12 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Sat Mar 12 12:28:35 2011 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

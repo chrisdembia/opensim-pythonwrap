@@ -27,7 +27,7 @@
   </div>
 </div>
 <div class="contents">
-<h1>OpenSim::LinearSpring Class Reference</h1><!-- doxytag: class="OpenSim::LinearSpring" --><!-- doxytag: inherits="OpenSim::CustomForce" -->
+<h1>OpenSim::LinearSpring Class Reference</h1><!-- doxytag: class="OpenSim::LinearSpring" --><!-- doxytag: inherits="OpenSim::Force" -->
 <p><code>#include &lt;LinearSpring.h&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for OpenSim::LinearSpring:</div>
@@ -35,7 +35,6 @@ Inheritance diagram for OpenSim::LinearSpring:</div>
  <div class="center">
   <img src="classOpenSim_1_1LinearSpring.gif" usemap="#OpenSim::LinearSpring_map" alt=""/>
   <map id="OpenSim::LinearSpring_map" name="OpenSim::LinearSpring_map">
-<area href="classOpenSim_1_1CustomForce.html" alt="OpenSim::CustomForce" shape="rect" coords="0,168,167,192"/>
 <area href="classOpenSim_1_1Force.html" alt="OpenSim::Force" shape="rect" coords="0,112,167,136"/>
 <area href="classOpenSim_1_1ModelComponent.html" alt="OpenSim::ModelComponent" shape="rect" coords="0,56,167,80"/>
 <area href="classOpenSim_1_1Object.html" alt="OpenSim::Object" shape="rect" coords="0,0,167,24"/>
@@ -91,7 +90,7 @@ Inheritance diagram for OpenSim::LinearSpring:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Callback called right after actuation has been applied by the model.  <a href="#a0ec6318947e9002dcd321b2f65d3b5de"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Protected Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1LinearSpring.html#ad2225c037a6dd964f057aab00d3c905f">setup</a> (<a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;aModel)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Subclasses may optionally override this method to perform setup.  <a href="#ad2225c037a6dd964f057aab00d3c905f"></a><br/></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Subclasses should override these methods appropriately.  <a href="#ad2225c037a6dd964f057aab00d3c905f"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1LinearSpring.html#a1199f20e9c5154a618ef97e7564f8e02">initState</a> (SimTK::State &amp;state) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This is called after a SimTK System and State have been created for the <a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a>.  <a href="#a1199f20e9c5154a618ef97e7564f8e02"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Protected Attributes</h2></td></tr>
@@ -223,7 +222,7 @@ Inheritance diagram for OpenSim::LinearSpring:</div>
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="classOpenSim_1_1CustomForce.html#abdc00ab9c7428ae228ded1a56aa40d9d">OpenSim::CustomForce</a>.</p>
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1Force.html#a6d55fd6e0f0de26a57894feea249c78b">OpenSim::Force</a>.</p>
 
 </div>
 </div>
@@ -783,7 +782,7 @@ Inheritance diagram for OpenSim::LinearSpring:</div>
 </div>
 <div class="memdoc">
 
-<p>Subclasses may optionally override this method to perform setup. </p>
+<p>Subclasses should override these methods appropriately. </p>
 
 <p>Reimplemented from <a class="el" href="classOpenSim_1_1Force.html#a31983c29e0fe68b26da4f22e96ca3e59">OpenSim::Force</a>.</p>
 
@@ -973,7 +972,7 @@ Inheritance diagram for OpenSim::LinearSpring:</div>
 <li>OpenSim/Simulation/Model/LinearSpring.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:37:10 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Sat Mar 12 12:28:32 2011 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

@@ -28,7 +28,7 @@
 </div>
 <div class="contents">
 <h1>OpenSim::ModelComponentSet&lt; T &gt; Class Template Reference</h1><!-- doxytag: class="OpenSim::ModelComponentSet" --><!-- doxytag: inherits="OpenSim::Set" -->
-<p>This is the base class for sets of <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any object which can be added to a Model.">ModelComponent</a> subclasses.  
+<p>This is the base class for sets of <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any component which can be added to a Model.">ModelComponent</a> subclasses.  
 <a href="#_details">More...</a></p>
 
 <p><code>#include &lt;ModelComponentSet.h&gt;</code></p>
@@ -84,8 +84,8 @@ Inheritance diagram for OpenSim::ModelComponentSet&lt; T &gt;:</div>
 <h3>template&lt;class T&gt;<br/>
  class OpenSim::ModelComponentSet&lt; T &gt;</h3>
 
-<p>This is the base class for sets of <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any object which can be added to a Model.">ModelComponent</a> subclasses. </p>
-<p>It provides methods for invoking all of the <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any object which can be added to a Model.">ModelComponent</a> methods on each member of the set. </p>
+<p>This is the base class for sets of <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any component which can be added to a Model.">ModelComponent</a> subclasses. </p>
+<p>It provides methods for invoking all of the <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any component which can be added to a Model.">ModelComponent</a> methods on each member of the set. </p>
 <hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a89b00a905bbd3feeb3e81209d86eec40"></a><!-- doxytag: member="OpenSim::ModelComponentSet::ModelComponentSet" ref="a89b00a905bbd3feeb3e81209d86eec40" args="()" -->
 <div class="memitem">
@@ -267,7 +267,7 @@ template&lt;class T&gt; </div>
 
 <p>Reimplemented from <a class="el" href="classOpenSim_1_1Set.html#af19fb228de2647a8bac5401399cacfb2">OpenSim::Set&lt; T &gt;</a>.</p>
 
-<p>Reimplemented in <a class="el" href="classOpenSim_1_1ControllerSet.html#aa85786ea01126dc908e1813cee44cb58">OpenSim::ControllerSet</a>, and <a class="el" href="classOpenSim_1_1ForceSet.html#a81b41aec5752a9b4823c23e809f573cd">OpenSim::ForceSet</a>.</p>
+<p>Reimplemented in <a class="el" href="classOpenSim_1_1ControllerSet.html#aa85786ea01126dc908e1813cee44cb58">OpenSim::ControllerSet</a>, <a class="el" href="classOpenSim_1_1ExternalLoads.html#a3cbfda6ffe85f82a9fa1d8b213c2a109">OpenSim::ExternalLoads</a>, and <a class="el" href="classOpenSim_1_1ForceSet.html#a81b41aec5752a9b4823c23e809f573cd">OpenSim::ForceSet</a>.</p>
 
 </div>
 </div>
@@ -454,7 +454,7 @@ template&lt;class T&gt; </div>
 
 <p><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the <a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a> this object is part of. </p>
 
-<p>Reimplemented in <a class="el" href="classOpenSim_1_1BodySet.html#ab8f420fba69bbfab19938748cc272593">OpenSim::BodySet</a>, <a class="el" href="classOpenSim_1_1ConstraintSet.html#a8fa8b9319163997315cf3f74b9e035c3">OpenSim::ConstraintSet</a>, <a class="el" href="classOpenSim_1_1ContactGeometrySet.html#a8b13553c5209469926e20a4de85d5bb4">OpenSim::ContactGeometrySet</a>, <a class="el" href="classOpenSim_1_1ControllerSet.html#aff43666c55369184b707cdd1124613b5">OpenSim::ControllerSet</a>, <a class="el" href="classOpenSim_1_1CoordinateSet.html#a8b877f61bfa8b7a5c63d1e075500b7ce">OpenSim::CoordinateSet</a>, and <a class="el" href="classOpenSim_1_1ForceSet.html#acfa7d90f1962720cff2b1ece1f5b00bd">OpenSim::ForceSet</a>.</p>
+<p>Reimplemented in <a class="el" href="classOpenSim_1_1BodySet.html#ab8f420fba69bbfab19938748cc272593">OpenSim::BodySet</a>, <a class="el" href="classOpenSim_1_1ConstraintSet.html#a8fa8b9319163997315cf3f74b9e035c3">OpenSim::ConstraintSet</a>, <a class="el" href="classOpenSim_1_1ContactGeometrySet.html#a8b13553c5209469926e20a4de85d5bb4">OpenSim::ContactGeometrySet</a>, <a class="el" href="classOpenSim_1_1ControllerSet.html#aff43666c55369184b707cdd1124613b5">OpenSim::ControllerSet</a>, <a class="el" href="classOpenSim_1_1CoordinateSet.html#a8b877f61bfa8b7a5c63d1e075500b7ce">OpenSim::CoordinateSet</a>, <a class="el" href="classOpenSim_1_1ExternalLoads.html#a40079acbd6c8986ffa512920666c8b51">OpenSim::ExternalLoads</a>, and <a class="el" href="classOpenSim_1_1ForceSet.html#acfa7d90f1962720cff2b1ece1f5b00bd">OpenSim::ForceSet</a>.</p>
 
 </div>
 </div>
@@ -515,7 +515,7 @@ template&lt;class T&gt; </div>
 <li>OpenSim/Simulation/Model/ModelComponentSet.h</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:37:10 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Sat Mar 12 12:28:33 2011 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

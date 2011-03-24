@@ -28,7 +28,7 @@
 </div>
 <div class="contents">
 <h1>OpenSim::ForceAdapter Class Reference</h1><!-- doxytag: class="OpenSim::ForceAdapter" -->
-<p>This acts as an adapter to allow a <a class="el" href="classOpenSim_1_1CustomForce.html" title="This is an abstract subclass of Force which allows you to define new Force types...">CustomForce</a> or <a class="el" href="classOpenSim_1_1CustomActuator.html" title="This is an abstract subclass of Actuator which allows you to define new Actuator...">CustomActuator</a> to be used as a SimTK::Force.  
+<p>This acts as an adapter to allow a <a class="el" href="classOpenSim_1_1Force.html" title="This abstract class represents a force applied to bodies or generalized coordinates...">Force</a> or <a class="el" href="classOpenSim_1_1Actuator.html" title="Derived class for an actuator (e.g., a torque motor, muscle, .">Actuator</a> to be used as a SimTK::Force.  
 <a href="#_details">More...</a></p>
 
 <p><code>#include &lt;ForceAdapter.h&gt;</code></p>
@@ -36,62 +36,34 @@
 <p><a href="classOpenSim_1_1ForceAdapter-members.html">List of all members.</a></p>
 <table border="0" cellpadding="0" cellspacing="0">
 <tr><td colspan="2"><h2>Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ForceAdapter.html#a79901b05ed755895741b58ed7d7ccbe3">ForceAdapter</a> (const <a class="el" href="classOpenSim_1_1CustomForce.html">CustomForce</a> &amp;force, const <a class="el" href="classOpenSim_1_1SimbodyEngine.html">SimbodyEngine</a> &amp;engine)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ForceAdapter.html#a6c5a342cbaed5d4db5a68f251f52af18">ForceAdapter</a> (const <a class="el" href="classOpenSim_1_1CustomActuator.html">CustomActuator</a> &amp;actuator, const <a class="el" href="classOpenSim_1_1SimbodyEngine.html">SimbodyEngine</a> &amp;engine)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ForceAdapter.html#ae620c7e190fef2c413ce2459606cc9e0">ForceAdapter</a> (const <a class="el" href="classOpenSim_1_1Force.html">Force</a> &amp;force)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ForceAdapter.html#a74a62ccd1962568655adce24c5c6c78f">calcForce</a> (const SimTK::State &amp;state, SimTK::Vector_&lt; SimTK::SpatialVec &gt; &amp;bodyForces, SimTK::Vector_&lt; SimTK::Vec3 &gt; &amp;particleForces, SimTK::Vector &amp;mobilityForces) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">SimTK::Real&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ForceAdapter.html#a2e2d3686dea15f5f58eb35d46cadc008">calcPotentialEnergy</a> (const SimTK::State &amp;state) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ForceAdapter.html#a290da9c1465a29ae7b687e8bcc0fa915">realizeTopology</a> (SimTK::State &amp;state) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ForceAdapter.html#a045b155db5520b57defd69fd1e162df5">realizeModel</a> (SimTK::State &amp;state) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ForceAdapter.html#ac01b562579ebb65e181f0399fe93ef5a">realizeInstance</a> (const SimTK::State &amp;state) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ForceAdapter.html#a32774a94bce47c3c760b0e44ff5ee29c">realizeTime</a> (const SimTK::State &amp;state) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ForceAdapter.html#ac6afc1330cd1b025cfe7bc7ca0e2a587">realizePosition</a> (const SimTK::State &amp;state) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ForceAdapter.html#aedf03c699dd8bb2fbd02e5f116b37435">realizeVelocity</a> (const SimTK::State &amp;state) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ForceAdapter.html#a69a1f66be9e9c318bbf9fc967a8d4966">realizeDynamics</a> (const SimTK::State &amp;state) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ForceAdapter.html#ad055d8c1252bc5ce14a622c21ca081f8">realizeAcceleration</a> (const SimTK::State &amp;state) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ForceAdapter.html#aa9f99dc783de9297772cd19e30e5af03">realizeReport</a> (const SimTK::State &amp;state) const </td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
-<p>This acts as an adapter to allow a <a class="el" href="classOpenSim_1_1CustomForce.html" title="This is an abstract subclass of Force which allows you to define new Force types...">CustomForce</a> or <a class="el" href="classOpenSim_1_1CustomActuator.html" title="This is an abstract subclass of Actuator which allows you to define new Actuator...">CustomActuator</a> to be used as a SimTK::Force. </p>
+<p>This acts as an adapter to allow a <a class="el" href="classOpenSim_1_1Force.html" title="This abstract class represents a force applied to bodies or generalized coordinates...">Force</a> or <a class="el" href="classOpenSim_1_1Actuator.html" title="Derived class for an actuator (e.g., a torque motor, muscle, .">Actuator</a> to be used as a SimTK::Force. </p>
 <dl class="author"><dt><b>Authors:</b></dt><dd>Peter Eastman </dd></dl>
 <hr/><h2>Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a79901b05ed755895741b58ed7d7ccbe3"></a><!-- doxytag: member="OpenSim::ForceAdapter::ForceAdapter" ref="a79901b05ed755895741b58ed7d7ccbe3" args="(const CustomForce &amp;force, const SimbodyEngine &amp;engine)" -->
+<a class="anchor" id="ae620c7e190fef2c413ce2459606cc9e0"></a><!-- doxytag: member="OpenSim::ForceAdapter::ForceAdapter" ref="ae620c7e190fef2c413ce2459606cc9e0" args="(const Force &amp;force)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">ForceAdapter::ForceAdapter </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classOpenSim_1_1CustomForce.html">CustomForce</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>force</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">const <a class="el" href="classOpenSim_1_1Force.html">Force</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>force</em></td>
+          <td>&nbsp;)&nbsp;</td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="classOpenSim_1_1SimbodyEngine.html">SimbodyEngine</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>engine</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a6c5a342cbaed5d4db5a68f251f52af18"></a><!-- doxytag: member="OpenSim::ForceAdapter::ForceAdapter" ref="a6c5a342cbaed5d4db5a68f251f52af18" args="(const CustomActuator &amp;actuator, const SimbodyEngine &amp;engine)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">ForceAdapter::ForceAdapter </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classOpenSim_1_1CustomActuator.html">CustomActuator</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>actuator</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classOpenSim_1_1SimbodyEngine.html">SimbodyEngine</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>engine</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td></td>
         </tr>
       </table>
 </div>
@@ -157,12 +129,174 @@
 
 </div>
 </div>
+<a class="anchor" id="ad055d8c1252bc5ce14a622c21ca081f8"></a><!-- doxytag: member="OpenSim::ForceAdapter::realizeAcceleration" ref="ad055d8c1252bc5ce14a622c21ca081f8" args="(const SimTK::State &amp;state) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ForceAdapter::realizeAcceleration </td>
+          <td>(</td>
+          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
+          <td class="paramname"> <em>state</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a69a1f66be9e9c318bbf9fc967a8d4966"></a><!-- doxytag: member="OpenSim::ForceAdapter::realizeDynamics" ref="a69a1f66be9e9c318bbf9fc967a8d4966" args="(const SimTK::State &amp;state) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void OpenSim::ForceAdapter::realizeDynamics </td>
+          <td>(</td>
+          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
+          <td class="paramname"> <em>state</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [inline, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ac01b562579ebb65e181f0399fe93ef5a"></a><!-- doxytag: member="OpenSim::ForceAdapter::realizeInstance" ref="ac01b562579ebb65e181f0399fe93ef5a" args="(const SimTK::State &amp;state) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void OpenSim::ForceAdapter::realizeInstance </td>
+          <td>(</td>
+          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
+          <td class="paramname"> <em>state</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [inline, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a045b155db5520b57defd69fd1e162df5"></a><!-- doxytag: member="OpenSim::ForceAdapter::realizeModel" ref="a045b155db5520b57defd69fd1e162df5" args="(SimTK::State &amp;state) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void OpenSim::ForceAdapter::realizeModel </td>
+          <td>(</td>
+          <td class="paramtype">SimTK::State &amp;&nbsp;</td>
+          <td class="paramname"> <em>state</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [inline, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ac6afc1330cd1b025cfe7bc7ca0e2a587"></a><!-- doxytag: member="OpenSim::ForceAdapter::realizePosition" ref="ac6afc1330cd1b025cfe7bc7ca0e2a587" args="(const SimTK::State &amp;state) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void OpenSim::ForceAdapter::realizePosition </td>
+          <td>(</td>
+          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
+          <td class="paramname"> <em>state</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [inline, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="aa9f99dc783de9297772cd19e30e5af03"></a><!-- doxytag: member="OpenSim::ForceAdapter::realizeReport" ref="aa9f99dc783de9297772cd19e30e5af03" args="(const SimTK::State &amp;state) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void OpenSim::ForceAdapter::realizeReport </td>
+          <td>(</td>
+          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
+          <td class="paramname"> <em>state</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [inline, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a32774a94bce47c3c760b0e44ff5ee29c"></a><!-- doxytag: member="OpenSim::ForceAdapter::realizeTime" ref="a32774a94bce47c3c760b0e44ff5ee29c" args="(const SimTK::State &amp;state) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void OpenSim::ForceAdapter::realizeTime </td>
+          <td>(</td>
+          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
+          <td class="paramname"> <em>state</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [inline, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a290da9c1465a29ae7b687e8bcc0fa915"></a><!-- doxytag: member="OpenSim::ForceAdapter::realizeTopology" ref="a290da9c1465a29ae7b687e8bcc0fa915" args="(SimTK::State &amp;state) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ForceAdapter::realizeTopology </td>
+          <td>(</td>
+          <td class="paramtype">SimTK::State &amp;&nbsp;</td>
+          <td class="paramname"> <em>state</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="aedf03c699dd8bb2fbd02e5f116b37435"></a><!-- doxytag: member="OpenSim::ForceAdapter::realizeVelocity" ref="aedf03c699dd8bb2fbd02e5f116b37435" args="(const SimTK::State &amp;state) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void OpenSim::ForceAdapter::realizeVelocity </td>
+          <td>(</td>
+          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
+          <td class="paramname"> <em>state</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [inline, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>OpenSim/Simulation/Model/ForceAdapter.h</li>
 <li>OpenSim/Simulation/Model/ForceAdapter.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:37:09 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Sat Mar 12 12:28:31 2011 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

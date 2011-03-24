@@ -76,7 +76,7 @@ Inheritance diagram for OpenSim::EllipsoidJoint:</div>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1EllipsoidJoint.html#aa72d41fb6a978f82dfc5f71a36758731">setDefaultsFromState</a> (const SimTK::State &amp;state)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> all default values for this object to match those in a specified State.  <a href="#aa72d41fb6a978f82dfc5f71a36758731"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Protected Attributes</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyDblVec3.html">PropertyDblVec3</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1EllipsoidJoint.html#a4451d7214e82be3b5f47dba5000d5967">_ellipsoidRadiiProp</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyDblVec__.html">PropertyDblVec3</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1EllipsoidJoint.html#a4451d7214e82be3b5f47dba5000d5967">_ellipsoidRadiiProp</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Ellipsoid radii mobilizer frame as a Vec3(rX, rY, rZ).  <a href="#a4451d7214e82be3b5f47dba5000d5967"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">SimTK::Vec3 &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1EllipsoidJoint.html#a579efbe1a52355a8f6196adf775c14da">_ellipsoidRadii</a></td></tr>
 </table>
@@ -290,7 +290,7 @@ Inheritance diagram for OpenSim::EllipsoidJoint:</div>
 <div class="memdoc">
 
 <p>This is called when a SimTK System is being created for the <a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a>. </p>
-<p>It must be implemented to add appropriate elements to the System corresponding to this object.</p>
+<p>It must be implemented to add appropriate elements to the System corresponding to this object. Methods for adding modeling options, state variables and their derivatives, discrete variables, as well must be called with <a class="el" href="classOpenSim_1_1EllipsoidJoint.html#afb32799d27756a856d0056c79ad7f58a" title="This is called when a SimTK System is being created for the Model.">createSystem()</a> only.</p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>system</em>&nbsp;</td><td>the System being created </td></tr>
@@ -495,7 +495,7 @@ Inheritance diagram for OpenSim::EllipsoidJoint:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classOpenSim_1_1PropertyDblVec3.html">PropertyDblVec3</a> <a class="el" href="classOpenSim_1_1EllipsoidJoint.html#a4451d7214e82be3b5f47dba5000d5967">OpenSim::EllipsoidJoint::_ellipsoidRadiiProp</a><code> [protected]</code></td>
+          <td class="memname"><a class="el" href="classOpenSim_1_1PropertyDblVec__.html">PropertyDblVec3</a> <a class="el" href="classOpenSim_1_1EllipsoidJoint.html#a4451d7214e82be3b5f47dba5000d5967">OpenSim::EllipsoidJoint::_ellipsoidRadiiProp</a><code> [protected]</code></td>
         </tr>
       </table>
 </div>
@@ -510,7 +510,7 @@ Inheritance diagram for OpenSim::EllipsoidJoint:</div>
 <li>OpenSim/Simulation/SimbodyEngine/EllipsoidJoint.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:37:12 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Sat Mar 12 12:28:34 2011 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

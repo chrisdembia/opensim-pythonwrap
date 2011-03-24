@@ -48,7 +48,7 @@ Inheritance diagram for OpenSim::PrescribedController:</div>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PrescribedController.html#a797b1ff9843eaad0186e7033a66abfd1">PrescribedController</a> ()</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Default constructor.  <a href="#a797b1ff9843eaad0186e7033a66abfd1"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PrescribedController.html#af80568246bed15a3f4cd19a2a391cff8">PrescribedController</a> (<a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;aModel)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Another constructor.  <a href="#af80568246bed15a3f4cd19a2a391cff8"></a><br/></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Constructor to create and add to a <a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a>.  <a href="#af80568246bed15a3f4cd19a2a391cff8"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PrescribedController.html#a7e9bdf40a1af3e49b6e87e2b8420fff7">PrescribedController</a> (const std::string &amp;aFileName, bool aUpdateFromXMLNode=true)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Constructor from an XML Document.  <a href="#a7e9bdf40a1af3e49b6e87e2b8420fff7"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PrescribedController.html#a4e91d9aacf3276986956cb242d44038e">PrescribedController</a> (const <a class="el" href="classOpenSim_1_1PrescribedController.html">PrescribedController</a> &amp;<a class="el" href="classOpenSim_1_1PrescribedController.html">PrescribedController</a>)</td></tr>
@@ -57,8 +57,8 @@ Inheritance diagram for OpenSim::PrescribedController:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Destructor.  <a href="#abf0d266890bb31d5ecaec58170e579c1"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PrescribedController.html">PrescribedController</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PrescribedController.html#a07a23c822aca549e19fad487aec1c73e">operator=</a> (const <a class="el" href="classOpenSim_1_1PrescribedController.html">PrescribedController</a> &amp;<a class="el" href="classOpenSim_1_1PrescribedController.html">PrescribedController</a>)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Assignment operator.  <a href="#a07a23c822aca549e19fad487aec1c73e"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PrescribedController.html#a1cfe94347fcd1d4c874d9d3f17e283a0">computeControl</a> (const SimTK::State &amp;s, int index) const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> this class's pointer to the set containing functions of the desired controls to be executed by this <a class="el" href="classOpenSim_1_1Controller.html">Controller</a>.  <a href="#a1cfe94347fcd1d4c874d9d3f17e283a0"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PrescribedController.html#a67980f3b70e7c6e69af7d136c1dccdad">computeControls</a> (const SimTK::State &amp;s, SimTK::Vector &amp;controls) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> this class's pointer to the set containing functions of the desired controls to be executed by this <a class="el" href="classOpenSim_1_1Controller.html">Controller</a>.  <a href="#a67980f3b70e7c6e69af7d136c1dccdad"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PrescribedController.html#afde28f0b01338e88f33aec68b201304b">prescribeControlForActuator</a> (int index, <a class="el" href="classOpenSim_1_1Function.html">OpenSim::Function</a> *prescribedFunction)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Assign a prescribe control function for the desired actuator identified by its index.  <a href="#afde28f0b01338e88f33aec68b201304b"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PrescribedController.html#af42c0b8d393f51033e4adfb7ab2d2168">prescribeControlForActuator</a> (const std::string actName, <a class="el" href="classOpenSim_1_1Function.html">OpenSim::Function</a> *prescribedFunction)</td></tr>
@@ -107,11 +107,11 @@ Inheritance diagram for OpenSim::PrescribedController:</div>
 </div>
 <div class="memdoc">
 
-<p>Another constructor. </p>
+<p>Constructor to create and add to a <a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a>. </p>
 <p>Constructor.</p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>aModel</em>&nbsp;</td><td>The model that has actualtors being controlled by this <a class="el" href="classOpenSim_1_1Controller.html">Controller</a>. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>aModel</em>&nbsp;</td><td>The model that has actuators being controlled by this <a class="el" href="classOpenSim_1_1Controller.html">Controller</a>. </td></tr>
   </table>
   </dd>
 </dl>
@@ -201,12 +201,12 @@ Inheritance diagram for OpenSim::PrescribedController:</div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="a1cfe94347fcd1d4c874d9d3f17e283a0"></a><!-- doxytag: member="OpenSim::PrescribedController::computeControl" ref="a1cfe94347fcd1d4c874d9d3f17e283a0" args="(const SimTK::State &amp;s, int index) const " -->
+<a class="anchor" id="a67980f3b70e7c6e69af7d136c1dccdad"></a><!-- doxytag: member="OpenSim::PrescribedController::computeControls" ref="a67980f3b70e7c6e69af7d136c1dccdad" args="(const SimTK::State &amp;s, SimTK::Vector &amp;controls) const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double PrescribedController::computeControl </td>
+          <td class="memname">void PrescribedController::computeControls </td>
           <td>(</td>
           <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
           <td class="paramname"> <em>s</em>, </td>
@@ -214,8 +214,8 @@ Inheritance diagram for OpenSim::PrescribedController:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&nbsp;</td>
-          <td class="paramname"> <em>index</em></td><td>&nbsp;</td>
+          <td class="paramtype">SimTK::Vector &amp;&nbsp;</td>
+          <td class="paramname"> <em>controls</em></td><td>&nbsp;</td>
         </tr>
         <tr>
           <td></td>
@@ -229,14 +229,14 @@ Inheritance diagram for OpenSim::PrescribedController:</div>
 <p><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> this class's pointer to the set containing functions of the desired controls to be executed by this <a class="el" href="classOpenSim_1_1Controller.html">Controller</a>. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>functions</em>&nbsp;</td><td>Pointer to a <a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> of Functions- one per actuator Evalate the specified functions for the control values.</td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>functions</em>&nbsp;</td><td>Pointer to a <a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> of Functions- one per actuator Compute the control values for all actuators under the control of this <a class="el" href="classOpenSim_1_1Controller.html">Controller</a> </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>s</em>&nbsp;</td><td>system state </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>rControlSet</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Control.html">Control</a> set used for the simulation. This method alters the control set in order to control the simulation. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>model</em>&nbsp;</td><td>controls </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="classOpenSim_1_1Controller.html#a9ea35bd6b15197b4a8c77c67c45b9dfa">OpenSim::Controller</a>.</p>
+<p>Implements <a class="el" href="classOpenSim_1_1Controller.html#a2df1b977388e8871c9fb9b1ca245d668">OpenSim::Controller</a>.</p>
 
 </div>
 </div>
@@ -388,7 +388,7 @@ Inheritance diagram for OpenSim::PrescribedController:</div>
 
 <p>Connect properties to local pointers. </p>
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Controller.html#afb31d20226e9820701df0a1861fd0c3a">OpenSim::Controller</a>.</p>
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1Controller.html">OpenSim::Controller</a>.</p>
 
 </div>
 </div>
@@ -411,7 +411,7 @@ Inheritance diagram for OpenSim::PrescribedController:</div>
 <li>OpenSim/Simulation/Control/PrescribedController.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:37:07 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Sat Mar 12 12:28:29 2011 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

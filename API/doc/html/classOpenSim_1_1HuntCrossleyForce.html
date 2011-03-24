@@ -55,8 +55,6 @@ Inheritance diagram for OpenSim::HuntCrossleyForce:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Copy data members from one <a class="el" href="classOpenSim_1_1Force.html" title="This abstract class represents a force applied to bodies or generalized coordinates...">Force</a> to another.  <a href="#af55687bf9cd5df3bfb38c84187ad8429"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Object.html">Object</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1HuntCrossleyForce.html#acc4a736dfc8c4fb142173aab5ff6a0d1">copy</a> () const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Copy this force and return a pointer to the copy.  <a href="#acc4a736dfc8c4fb142173aab5ff6a0d1"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1HuntCrossleyForce.html#a4c6a8492ea7433a422f5ac9a1259f5f1">createSystem</a> (SimTK::MultibodySystem &amp;system) const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Create a SimTK::Force which implements this <a class="el" href="classOpenSim_1_1Force.html" title="This abstract class represents a force applied to bodies or generalized coordinates...">Force</a>.  <a href="#a4c6a8492ea7433a422f5ac9a1259f5f1"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">ContactParametersSet &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1HuntCrossleyForce.html#a16945636a6a2d8214d6ae3175763aba8">updContactParametersSet</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">const ContactParametersSet &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1HuntCrossleyForce.html#a2b7c711067a3c7a7efdecffb089a13a6">getContactParametersSet</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1HuntCrossleyForce.html#adfa982baadf74b9a8dd2bed52f188811">addContactParameters</a> (ContactParameters *params)</td></tr>
@@ -64,6 +62,11 @@ Inheritance diagram for OpenSim::HuntCrossleyForce:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the transition velocity for switching between static and dynamic friction.  <a href="#a9e814b3ce5c023587a5adbe8d19052e7"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1HuntCrossleyForce.html#ae9acd94cd1a4caf5ddeeca48ca83836e">setTransitionVelocity</a> (double velocity)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the transition velocity for switching between static and dynamic friction.  <a href="#ae9acd94cd1a4caf5ddeeca48ca83836e"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classOpenSim_1_1Array.html">OpenSim::Array</a><br class="typebreak"/>
+&lt; std::string &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1HuntCrossleyForce.html#a2b0296e49c66b9021a72dcae59a36fd6">getRecordLabels</a> () const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Provide name(s) of the quantities (column labels) of the force value(s) to be reported.  <a href="#a2b0296e49c66b9021a72dcae59a36fd6"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classOpenSim_1_1Array.html">OpenSim::Array</a>&lt; double &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1HuntCrossleyForce.html#abd4c02dc4a5bca8f5c06f26f44f8c532">getRecordValues</a> (const SimTK::State &amp;state) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Provide the value(s) to be reported that correspond to the labels.  <a href="#abd4c02dc4a5bca8f5c06f26f44f8c532"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1HuntCrossleyForce.html#aedfd2f681e5fda37a9d988591374573b">ContactParameters</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1HuntCrossleyForce.html#a7709c505cb67515b2187882e7811a50e">ContactParameters</a> (const ContactParameters &amp;copy)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1HuntCrossleyForce.html#a41c7e8b9f113e7efb1fb890fe7dc5b51">ContactParameters</a> (double stiffness, double dissipation, double staticFriction, double dynamicFriction, double viscousFriction)</td></tr>
@@ -89,6 +92,9 @@ Inheritance diagram for OpenSim::HuntCrossleyForce:</div>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Object.html">Object</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1HuntCrossleyForce.html#a4621ebf9012af7721bad3e6217154365">copy</a> () const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Construct and return a copy of this object.  <a href="#a4621ebf9012af7721bad3e6217154365"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">ContactParametersSet &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1HuntCrossleyForce.html#af02548184f81618ccc7075989cd7d4d7">operator=</a> (const ContactParametersSet &amp;copy)</td></tr>
+<tr><td colspan="2"><h2>Protected Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1HuntCrossleyForce.html#a4c6a8492ea7433a422f5ac9a1259f5f1">createSystem</a> (SimTK::MultibodySystem &amp;system) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Create a SimTK::Force which implements this <a class="el" href="classOpenSim_1_1Force.html" title="This abstract class represents a force applied to bodies or generalized coordinates...">Force</a>.  <a href="#a4c6a8492ea7433a422f5ac9a1259f5f1"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyObj.html">PropertyObj</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1HuntCrossleyForce.html#a835a563bef4cca84e5a810022ccbb691">_contactParametersSetProp</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">ContactParametersSet &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1HuntCrossleyForce.html#a925dc53d82b85764edc4ddedebc28b0a">_contactParametersSet</a></td></tr>
@@ -448,7 +454,7 @@ Inheritance diagram for OpenSim::HuntCrossleyForce:</div>
           <td class="paramtype">SimTK::MultibodySystem &amp;&nbsp;</td>
           <td class="paramname"> <em>system</em></td>
           <td>&nbsp;)&nbsp;</td>
-          <td> const<code> [virtual]</code></td>
+          <td> const<code> [protected, virtual]</code></td>
         </tr>
       </table>
 </div>
@@ -456,7 +462,7 @@ Inheritance diagram for OpenSim::HuntCrossleyForce:</div>
 
 <p>Create a SimTK::Force which implements this <a class="el" href="classOpenSim_1_1Force.html" title="This abstract class represents a force applied to bodies or generalized coordinates...">Force</a>. </p>
 
-<p>Implements <a class="el" href="classOpenSim_1_1ModelComponent.html#a85757ad4645e4066f72ce4d0411a49b8">OpenSim::ModelComponent</a>.</p>
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1Force.html#a66dc0d02d11c3253c51748ca2f47da12">OpenSim::Force</a>.</p>
 
 </div>
 </div>
@@ -525,6 +531,50 @@ Inheritance diagram for OpenSim::HuntCrossleyForce:</div>
       </table>
 </div>
 <div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a2b0296e49c66b9021a72dcae59a36fd6"></a><!-- doxytag: member="OpenSim::HuntCrossleyForce::getRecordLabels" ref="a2b0296e49c66b9021a72dcae59a36fd6" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classOpenSim_1_1Array.html">OpenSim::Array</a>&lt; std::string &gt; OpenSim::HuntCrossleyForce::getRecordLabels </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Provide name(s) of the quantities (column labels) of the force value(s) to be reported. </p>
+<p>Provide names of the quantities (column labels) of the force value(s) reported.</p>
+
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1Force.html#a68e82cdee70e59a51c42b2b78ed93f03">OpenSim::Force</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="abd4c02dc4a5bca8f5c06f26f44f8c532"></a><!-- doxytag: member="OpenSim::HuntCrossleyForce::getRecordValues" ref="abd4c02dc4a5bca8f5c06f26f44f8c532" args="(const SimTK::State &amp;state) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classOpenSim_1_1Array.html">OpenSim::Array</a>&lt; double &gt; OpenSim::HuntCrossleyForce::getRecordValues </td>
+          <td>(</td>
+          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
+          <td class="paramname"> <em>state</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Provide the value(s) to be reported that correspond to the labels. </p>
+
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1Force.html#ac57805498131e7424d5c06c455d15737">OpenSim::Force</a>.</p>
 
 </div>
 </div>
@@ -818,7 +868,7 @@ Inheritance diagram for OpenSim::HuntCrossleyForce:</div>
 <li>OpenSim/Simulation/Model/HuntCrossleyForce.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:37:09 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Sat Mar 12 12:28:32 2011 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

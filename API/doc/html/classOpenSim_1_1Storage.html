@@ -54,6 +54,8 @@ Inheritance diagram for OpenSim::Storage:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Copy this object.  <a href="#aa2b677ca5e2fda582fce8d70c36777c9"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#a73cf30f0a34250396f9eabee7dc5c93d">~Storage</a> ()</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Destructor.  <a href="#a73cf30f0a34250396f9eabee7dc5c93d"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Storage.html">Storage</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#a0497c772f611e5fd7cf21f45c1595872">operator=</a> (const <a class="el" href="classOpenSim_1_1Storage.html">Storage</a> &amp;aStorage)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Assignment operator to copy contents of an existing storage.  <a href="#a0497c772f611e5fd7cf21f45c1595872"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">const std::string &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#a79779c85dc6bfa2528f9eab945e522f8">getName</a> () const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the name of this object.  <a href="#a79779c85dc6bfa2528f9eab945e522f8"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">const std::string &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#ab3ad6289a019b30526c830994d9f3acb">getDescription</a> () const </td></tr>
@@ -219,8 +221,8 @@ Inheritance diagram for OpenSim::Storage:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Resample <a class="el" href="classOpenSim_1_1Storage.html">Storage</a> columns to specified rate.  <a href="#adb7be2ee9e5be4d8ec4db79029aa9c9c"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#a3e7347ae928c68129b416e2fb8ca9227">resampleLinear</a> (double aDT)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Resample using linear interpolation.  <a href="#a3e7347ae928c68129b416e2fb8ca9227"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#a1449c7ff95a05fa5ed87271b09f53286">compareColumn</a> (<a class="el" href="classOpenSim_1_1Storage.html">Storage</a> &amp;aOtherStorage, std::string &amp;aColumnName, double startTime, double endTime=-1.0)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Compare column named "aColumnName" in two storage objects If endTime is not specified the comparison goes to the end of the file.  <a href="#a1449c7ff95a05fa5ed87271b09f53286"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#aa99274643fa3b69d64359f3dbafd526f">compareColumn</a> (<a class="el" href="classOpenSim_1_1Storage.html">Storage</a> &amp;aOtherStorage, const std::string &amp;aColumnName, double startTime, double endTime=-1.0)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Compare column named "aColumnName" in two storage objects If endTime is not specified the comparison goes to the end of the file.  <a href="#aa99274643fa3b69d64359f3dbafd526f"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#a2d9a9e61784736668e2784475d01998a">makeStorageLabelsUnique</a> ()</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Force.html" title="This abstract class represents a force applied to bodies or generalized coordinates...">Force</a> column labels for a <a class="el" href="classOpenSim_1_1Storage.html">Storage</a> object to become unique.  <a href="#a2d9a9e61784736668e2784475d01998a"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#abd01fa11849b97cf7e888c25acd1dffd">print</a> () const </td></tr>
@@ -829,7 +831,7 @@ Inheritance diagram for OpenSim::Storage:</div>
 
 </div>
 </div>
-<a class="anchor" id="a1449c7ff95a05fa5ed87271b09f53286"></a><!-- doxytag: member="OpenSim::Storage::compareColumn" ref="a1449c7ff95a05fa5ed87271b09f53286" args="(Storage &amp;aOtherStorage, std::string &amp;aColumnName, double startTime, double endTime=&#45;1.0)" -->
+<a class="anchor" id="aa99274643fa3b69d64359f3dbafd526f"></a><!-- doxytag: member="OpenSim::Storage::compareColumn" ref="aa99274643fa3b69d64359f3dbafd526f" args="(Storage &amp;aOtherStorage, const std::string &amp;aColumnName, double startTime, double endTime=&#45;1.0)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -842,7 +844,7 @@ Inheritance diagram for OpenSim::Storage:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::string &amp;&nbsp;</td>
+          <td class="paramtype">const std::string &amp;&nbsp;</td>
           <td class="paramname"> <em>aColumnName</em>, </td>
         </tr>
         <tr>
@@ -2657,6 +2659,30 @@ Inheritance diagram for OpenSim::Storage:</div>
 
 </div>
 </div>
+<a class="anchor" id="a0497c772f611e5fd7cf21f45c1595872"></a><!-- doxytag: member="OpenSim::Storage::operator=" ref="a0497c772f611e5fd7cf21f45c1595872" args="(const Storage &amp;aStorage)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classOpenSim_1_1Storage.html">Storage</a> &amp; Storage::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classOpenSim_1_1Storage.html">Storage</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>aStorage</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Assignment operator to copy contents of an existing storage. </p>
+<p>Assignment operator.</p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>Reference to this object. </dd></dl>
+
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1StorageInterface.html#a8576a6d8c3423a1441af1cf4e1c8c0f7">OpenSim::StorageInterface</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="aaf3ba558195c62b9675e0ec1bac1cd23"></a><!-- doxytag: member="OpenSim::Storage::pad" ref="aaf3ba558195c62b9675e0ec1bac1cd23" args="(int aPadSize)" -->
 <div class="memitem">
 <div class="memproto">
@@ -3674,7 +3700,7 @@ Inheritance diagram for OpenSim::Storage:</div>
 <li>OpenSim/Common/Storage.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:37:06 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Sat Mar 12 12:28:26 2011 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

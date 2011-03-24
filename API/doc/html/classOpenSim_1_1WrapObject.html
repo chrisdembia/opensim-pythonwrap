@@ -94,6 +94,7 @@ Inheritance diagram for OpenSim::WrapObject:</div>
 <tr><td class="memItemLeft" align="right" valign="top">const char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1WrapObject.html#a6eafd070aa5929b95c34e269af8e4548">getQuadrantName</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1WrapObject.html#a79b756da60b853deba262219684c5b34">getQuadrantNameUseDefault</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1WrapObject.html#aab9176939c716a417c537c2a0275612b">setQuadrantName</a> (const std::string &amp;aName)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const SimTK::Transform &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1WrapObject.html#a11d1a8141f714441781d93eabf550c45">getTransform</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual const char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1WrapObject.html#a1744e6ae339ba95c66dc8a61c70ab8b3">getWrapTypeName</a> () const =0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual std::string&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1WrapObject.html#a0eb29d8de79a68ce4dafe6988cb45fa8">getDimensionsString</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1WrapObject.html#a59f544a0c48dadae5e1b774a1c50a126">wrapPathSegment</a> (const SimTK::State &amp;s, <a class="el" href="classOpenSim_1_1PathPoint.html">PathPoint</a> &amp;aPoint1, <a class="el" href="classOpenSim_1_1PathPoint.html">PathPoint</a> &amp;aPoint2, const <a class="el" href="classOpenSim_1_1PathWrap.html">PathWrap</a> &amp;aPathWrap, <a class="el" href="classOpenSim_1_1WrapResult.html">WrapResult</a> &amp;aWrapResult) const </td></tr>
@@ -112,7 +113,7 @@ Inheritance diagram for OpenSim::WrapObject:</div>
 <tr><td colspan="2"><h2>Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyDblArray.html">PropertyDblArray</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1WrapObject.html#a16a2a2684918f808059bf3e55cd344c4">_xyzBodyRotationProp</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Array.html">Array</a>&lt; double &gt; &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1WrapObject.html#a7971a42c39af793671427fedfd90a538">_xyzBodyRotation</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyDblVec3.html">PropertyDblVec3</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1WrapObject.html#ac08ae7915d7008db3627c6743eb3d496">_translationProp</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyDblVec__.html">PropertyDblVec3</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1WrapObject.html#ac08ae7915d7008db3627c6743eb3d496">_translationProp</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">SimTK::Vec3 &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1WrapObject.html#a692d451b230f046144cb7326fd130ea0">_translation</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyBool.html">PropertyBool</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1WrapObject.html#a90baddeae7fad8b3f17472adafe44188">_activeProp</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1WrapObject.html#aac3cd2d2d844d0dc2dde232915c231d2">_active</a></td></tr>
@@ -419,6 +420,23 @@ Inheritance diagram for OpenSim::WrapObject:</div>
       <table class="memname">
         <tr>
           <td class="memname">bool OpenSim::WrapObject::getQuadrantNameUseDefault </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a11d1a8141f714441781d93eabf550c45"></a><!-- doxytag: member="OpenSim::WrapObject::getTransform" ref="a11d1a8141f714441781d93eabf550c45" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const SimTK::Transform&amp; OpenSim::WrapObject::getTransform </td>
           <td>(</td>
           <td class="paramname"></td>
           <td>&nbsp;)&nbsp;</td>
@@ -960,7 +978,7 @@ Inheritance diagram for OpenSim::WrapObject:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classOpenSim_1_1PropertyDblVec3.html">PropertyDblVec3</a> <a class="el" href="classOpenSim_1_1WrapObject.html#ac08ae7915d7008db3627c6743eb3d496">OpenSim::WrapObject::_translationProp</a><code> [protected]</code></td>
+          <td class="memname"><a class="el" href="classOpenSim_1_1PropertyDblVec__.html">PropertyDblVec3</a> <a class="el" href="classOpenSim_1_1WrapObject.html#ac08ae7915d7008db3627c6743eb3d496">OpenSim::WrapObject::_translationProp</a><code> [protected]</code></td>
         </tr>
       </table>
 </div>
@@ -1025,7 +1043,7 @@ Inheritance diagram for OpenSim::WrapObject:</div>
 <li>OpenSim/Simulation/Wrap/WrapObject.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:37:13 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Sat Mar 12 12:28:36 2011 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

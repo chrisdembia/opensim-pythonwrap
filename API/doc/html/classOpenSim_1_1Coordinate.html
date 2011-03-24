@@ -119,7 +119,7 @@ Inheritance diagram for OpenSim::Coordinate:</div>
 <tr><td class="memItemLeft" align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Coordinate.html#a9b9cfcde2055408044078ffa40f4c6de">getDefaultLocked</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Coordinate.html#af068b2857e45b260117d1cbb4c233adc">setDefaultLocked</a> (bool aLocked)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Coordinate.html#a3a06352a0e30eaa1d2c110e3eb71e2e9">getLockedUseDefault</a> () const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Coordinate.html#a00d560c859113bf0cbaeceb22d3589c2">isPrescribed</a> (const SimTK::State &amp;s) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Coordinate.html#ad75d8a3770748594bfbd1d3d87ce1488">isPrescribed</a> (const SimTK::State &amp;s) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Coordinate.html#acaa20bdf753f8f8dc55c4ece3fd2908d">setIsPrescribed</a> (SimTK::State &amp;s, bool isPrescribed) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> whether or not this coordinate is being prescribed.  <a href="#acaa20bdf753f8f8dc55c4ece3fd2908d"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Coordinate.html#a12995bedea718e0123244f406e1397e9">getDefaultIsPrescribed</a> () const </td></tr>
@@ -131,14 +131,16 @@ Inheritance diagram for OpenSim::Coordinate:</div>
 <tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classOpenSim_1_1Coordinate.html#acaab8f61e08b60803c79271d76746c8e">MotionType</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Coordinate.html#ace1a36adbdfb0c05a636bb554b53bfd4">getMotionType</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Coordinate.html#a0658114249e39d9472c9a3533b82bbf0">setMotionType</a> (<a class="el" href="classOpenSim_1_1Coordinate.html#acaab8f61e08b60803c79271d76746c8e">MotionType</a> aMotionType)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> coordinate's motion type.  <a href="#a0658114249e39d9472c9a3533b82bbf0"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Coordinate.html#aee8f6adb4c68c0f39a32bc2d0c67bdd4">isConstrained</a> () const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Determine if the the coordinate is constrained or not.  <a href="#aee8f6adb4c68c0f39a32bc2d0c67bdd4"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Coordinate.html#a621bb464ff03de809e37cfd41f86fe27">isDependent</a> (const SimTK::State &amp;s) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Determine if the the coordinate is dependent on other coordinates or not.  <a href="#a621bb464ff03de809e37cfd41f86fe27"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Coordinate.html#ac63971ff4fc1f8b2f1999dc8cfd3d6e9">isConstrained</a> (const SimTK::State &amp;s) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Return true if coordinate is locked, prescribed, or dependent on other coordinates.  <a href="#ac63971ff4fc1f8b2f1999dc8cfd3d6e9"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Coordinate.html#a9538a961b598ff1af38ed09556f0b35c">getMobilityIndex</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">SimTK::MobilizedBodyIndex&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Coordinate.html#a308d947ddaca04a62e3598def080c193">getBodyIndex</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual std::string&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Coordinate.html#af1bad9c30f2ffa34651bdedece621cf1">getStateVariableName</a> (int index) const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the name of a state variable allocated by this <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any object which can be added to a Model.">ModelComponent</a>.  <a href="#af1bad9c30f2ffa34651bdedece621cf1"></a><br/></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the name of a state variable allocated by this <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any component which can be added to a Model.">ModelComponent</a>.  <a href="#af1bad9c30f2ffa34651bdedece621cf1"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Coordinate.html#ac585f6ff1519c024584c299ab2936cff">getStateVariableYIndex</a> (int index) const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the YIndex of a state variable allocated by this <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any object which can be added to a Model.">ModelComponent</a>.  <a href="#ac585f6ff1519c024584c299ab2936cff"></a><br/></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the YIndex of a state variable allocated by this <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any component which can be added to a Model.">ModelComponent</a>.  <a href="#ac585f6ff1519c024584c299ab2936cff"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Coordinate.html#a9415c44a3b6c11211b99a719f83a3f7f">OPENSIM_DECLARE_DERIVED</a> (<a class="el" href="classOpenSim_1_1Coordinate.html">Coordinate</a>, <a class="el" href="classOpenSim_1_1Object.html">Object</a>)</td></tr>
 <tr><td colspan="2"><h2>Protected Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Coordinate.html#abf56135652d2bad3c686169e6a3ae7e5">createSystem</a> (SimTK::MultibodySystem &amp;system) const </td></tr>
@@ -148,7 +150,7 @@ Inheritance diagram for OpenSim::Coordinate:</div>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Coordinate.html#aa49d1266fd7e9694e23c5e42e37d158e">setDefaultsFromState</a> (const SimTK::State &amp;state)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> all default values for this object to match those in a specified State.  <a href="#aa49d1266fd7e9694e23c5e42e37d158e"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Coordinate.html#a02b744e1c1450322684dda69c80ce9d8">getNumStateVariables</a> () const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Gets the number of "Continuous" state variables maintained by the <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any object which can be added to a Model.">ModelComponent</a> If the <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any object which can be added to a Model.">ModelComponent</a> defines any that are of interest to the user, names should also be given.  <a href="#a02b744e1c1450322684dda69c80ce9d8"></a><br/></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Gets the number of "Continuous" state variables maintained by the <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any component which can be added to a Model.">ModelComponent</a> If the <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any component which can be added to a Model.">ModelComponent</a> defines any that are of interest to the user, names should also be given.  <a href="#a02b744e1c1450322684dda69c80ce9d8"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyStr.html">PropertyStr</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Coordinate.html#a707a51d26f538c731738a3388f703872">_motionTypeNameProp</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::string &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Coordinate.html#aa2aeedb43830c1a182e8441e573370e6">_motionTypeName</a></td></tr>
@@ -391,7 +393,7 @@ Inheritance diagram for OpenSim::Coordinate:</div>
 <div class="memdoc">
 
 <p>This is called when a SimTK System is being created for the <a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a>. </p>
-<p>It must be implemented to add appropriate elements to the System corresponding to this object.</p>
+<p>It must be implemented to add appropriate elements to the System corresponding to this object. Methods for adding modeling options, state variables and their derivatives, discrete variables, as well must be called with <a class="el" href="classOpenSim_1_1Coordinate.html#abf56135652d2bad3c686169e6a3ae7e5" title="This is called when a SimTK System is being created for the Model.">createSystem()</a> only.</p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>system</em>&nbsp;</td><td>the System being created </td></tr>
@@ -399,7 +401,7 @@ Inheritance diagram for OpenSim::Coordinate:</div>
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="classOpenSim_1_1ModelComponent.html#a85757ad4645e4066f72ce4d0411a49b8">OpenSim::ModelComponent</a>.</p>
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1ModelComponent.html#a8cecde2c81b7645a5daea70050884881">OpenSim::ModelComponent</a>.</p>
 
 </div>
 </div>
@@ -725,7 +727,7 @@ Inheritance diagram for OpenSim::Coordinate:</div>
 </div>
 <div class="memdoc">
 
-<p>Gets the number of "Continuous" state variables maintained by the <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any object which can be added to a Model.">ModelComponent</a> If the <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any object which can be added to a Model.">ModelComponent</a> defines any that are of interest to the user, names should also be given. </p>
+<p>Gets the number of "Continuous" state variables maintained by the <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any component which can be added to a Model.">ModelComponent</a> If the <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any component which can be added to a Model.">ModelComponent</a> defines any that are of interest to the user, names should also be given. </p>
 
 <p>Implements <a class="el" href="classOpenSim_1_1ModelComponent.html#a1e0f42516d2b3d7fd54892ee24b80f61">OpenSim::ModelComponent</a>.</p>
 
@@ -871,7 +873,7 @@ Inheritance diagram for OpenSim::Coordinate:</div>
 </div>
 <div class="memdoc">
 
-<p>Get the name of a state variable allocated by this <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any object which can be added to a Model.">ModelComponent</a>. </p>
+<p>Get the name of a state variable allocated by this <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any component which can be added to a Model.">ModelComponent</a>. </p>
 <p>The default implementation throws an exception, so subclasses that allocate state variables must override it.</p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
@@ -900,7 +902,7 @@ Inheritance diagram for OpenSim::Coordinate:</div>
 </div>
 <div class="memdoc">
 
-<p>Get the YIndex of a state variable allocated by this <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any object which can be added to a Model.">ModelComponent</a>. </p>
+<p>Get the YIndex of a state variable allocated by this <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any component which can be added to a Model.">ModelComponent</a>. </p>
 <p>The default implementation throws an exception, so subclasses that allocate state variables must override it.</p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
@@ -976,18 +978,19 @@ Inheritance diagram for OpenSim::Coordinate:</div>
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="classOpenSim_1_1ModelComponent.html#a2af3e8933cda56820900f0c643881434">OpenSim::ModelComponent</a>.</p>
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1ModelComponent.html#a96a4567ffb7c19a52855fb6d0fa2b9e1">OpenSim::ModelComponent</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="aee8f6adb4c68c0f39a32bc2d0c67bdd4"></a><!-- doxytag: member="OpenSim::Coordinate::isConstrained" ref="aee8f6adb4c68c0f39a32bc2d0c67bdd4" args="() const " -->
+<a class="anchor" id="ac63971ff4fc1f8b2f1999dc8cfd3d6e9"></a><!-- doxytag: member="OpenSim::Coordinate::isConstrained" ref="ac63971ff4fc1f8b2f1999dc8cfd3d6e9" args="(const SimTK::State &amp;s) const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">bool Coordinate::isConstrained </td>
           <td>(</td>
-          <td class="paramname"></td>
+          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
+          <td class="paramname"> <em>s</em></td>
           <td>&nbsp;)&nbsp;</td>
           <td> const<code> [virtual]</code></td>
         </tr>
@@ -995,22 +998,44 @@ Inheritance diagram for OpenSim::Coordinate:</div>
 </div>
 <div class="memdoc">
 
-<p>Determine if the the coordinate is constrained or not. </p>
-<p>Specifically, is it a dependent coordinate in any of the constraints?\ If so return true, false otherwise. </p>
+<p>Return true if coordinate is locked, prescribed, or dependent on other coordinates. </p>
+<p>Determine if the the coordinate is constrained or not.</p>
+<p>Specifically, is locked, prescribed, or completely dependent on other coordinates? If so return true, false otherwise. </p>
 
 </div>
 </div>
-<a class="anchor" id="a00d560c859113bf0cbaeceb22d3589c2"></a><!-- doxytag: member="OpenSim::Coordinate::isPrescribed" ref="a00d560c859113bf0cbaeceb22d3589c2" args="(const SimTK::State &amp;s) const " -->
+<a class="anchor" id="a621bb464ff03de809e37cfd41f86fe27"></a><!-- doxytag: member="OpenSim::Coordinate::isDependent" ref="a621bb464ff03de809e37cfd41f86fe27" args="(const SimTK::State &amp;s) const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">virtual bool OpenSim::Coordinate::isPrescribed </td>
+          <td class="memname">bool Coordinate::isDependent </td>
           <td>(</td>
           <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
           <td class="paramname"> <em>s</em></td>
           <td>&nbsp;)&nbsp;</td>
-          <td> const<code> [inline, virtual]</code></td>
+          <td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Determine if the the coordinate is dependent on other coordinates or not. </p>
+<p>If so return true, false otherwise. </p>
+
+</div>
+</div>
+<a class="anchor" id="ad75d8a3770748594bfbd1d3d87ce1488"></a><!-- doxytag: member="OpenSim::Coordinate::isPrescribed" ref="ad75d8a3770748594bfbd1d3d87ce1488" args="(const SimTK::State &amp;s) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Coordinate::isPrescribed </td>
+          <td>(</td>
+          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
+          <td class="paramname"> <em>s</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [virtual]</code></td>
         </tr>
       </table>
 </div>
@@ -1064,7 +1089,7 @@ Inheritance diagram for OpenSim::Coordinate:</div>
 <p>Assignment operator. </p>
 <dl class="return"><dt><b>Returns:</b></dt><dd>Reference to this object. </dd></dl>
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Object.html#a1a5b4bda8ca9bdc1c96ef514a15e0eef">OpenSim::Object</a>.</p>
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1ModelComponent.html#aa534ea078cd87e6405a3661ddc7636c9">OpenSim::ModelComponent</a>.</p>
 
 </div>
 </div>
@@ -1174,7 +1199,7 @@ Inheritance diagram for OpenSim::Coordinate:</div>
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="classOpenSim_1_1ModelComponent.html#a0e600cbcb3f90abfa53c6b7afa3cdf30">OpenSim::ModelComponent</a>.</p>
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1ModelComponent.html#a5f936e1d2c3597cb2e227cd7382ea2ec">OpenSim::ModelComponent</a>.</p>
 
 </div>
 </div>
@@ -1976,7 +2001,7 @@ Inheritance diagram for OpenSim::Coordinate:</div>
 <li>OpenSim/Simulation/SimbodyEngine/Coordinate.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:37:11 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Sat Mar 12 12:28:34 2011 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

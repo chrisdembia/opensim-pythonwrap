@@ -6,12 +6,12 @@
 
 package org.opensim.tracking;
 
-import java.util.Observable;
 import java.util.Vector;
 import javax.swing.JComboBox;
 import org.openide.DialogDescriptor;
 import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.BodySet;
+import org.opensim.modeling.ExternalLoads;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.PrescribedForce;
 import org.opensim.modeling.Storage;
@@ -23,20 +23,22 @@ import org.opensim.modeling.Storage;
 public class EditOneForceJPanel extends javax.swing.JPanel {
     PrescribedForce prescribedForce;
     Storage forceStorage=null;
-    Model model;
+    //Model model;
+    ExternalLoads loads;
     boolean initializing;
     ArrayStr lbls;
     private DialogDescriptor dDialog;
     boolean uniqueNames=false;  // If true we should be using column numbers exclusively
     
     /** Creates new form EditOneForceJPanel */
-    public EditOneForceJPanel(PrescribedForce force, Storage storage, Model aModel) {
+    public EditOneForceJPanel(PrescribedForce force, Storage storage, ExternalLoads aLoads) {
         prescribedForce = force;
+        loads = aLoads;
         forceStorage = new Storage(storage);
         uniqueNames = forceStorage.makeStorageLabelsUnique();
         
         lbls=forceStorage.getColumnLabels();
-        model = aModel;
+        //model = aModel;
         initializing=true;
         initComponents();
         ForceNameTextField.setText(force.getName());
@@ -459,6 +461,7 @@ public class EditOneForceJPanel extends javax.swing.JPanel {
     // Initialize GUI Panel from a prescribedForce
     private void initComboBoxes() {
         // Body name combobox
+        Model model=loads.getModel();
         BodySet bodySet = model.getBodySet();
         BodiesComboBox.removeAllItems();
         for(int i=0; i<bodySet.getSize(); i++) BodiesComboBox.addItem(bodySet.get(i).getName());

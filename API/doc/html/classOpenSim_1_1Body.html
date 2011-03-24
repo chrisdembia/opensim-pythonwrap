@@ -91,12 +91,12 @@ Inheritance diagram for OpenSim::Body:</div>
 SimTK::MobilizedBodyIndex&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Body.html#ad11fb4d294611abe969586a73f6f6387">getIndex</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Body.html#a7d4ff53e686554d19ac415ee5e1d33ac">getScaleFactors</a> (SimTK::Vec3 &amp;aScaleFactors) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1WrapObject.html">WrapObject</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Body.html#a1f5c7f7ee2e60497138101772ed55409">getWrapObject</a> (const std::string &amp;aName) const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1WrapObjectSet.html">WrapObjectSet</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Body.html#a447b549c3016bad38f95540b48fa95b5">getWrapObjectSet</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classOpenSim_1_1WrapObjectSet.html">WrapObjectSet</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Body.html#ab3240738261eee36ebd0f6228c5cbbeb">getWrapObjectSet</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Body.html#ab59b1e73a4ad0ad88a175cc737210efc">OPENSIM_DECLARE_DERIVED</a> (<a class="el" href="classOpenSim_1_1Body.html">Body</a>, <a class="el" href="classOpenSim_1_1Object.html">Object</a>)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">SimTK::MassProperties&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Body.html#a11ceccc99ab7b5d7b245ba9d91611c0a">getMassProperties</a> ()</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Assemble body interial properties: mass, center of mass location, moment of inertia about the origin of the body and return as a SimTK::MassProperties.  <a href="#a11ceccc99ab7b5d7b245ba9d91611c0a"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Body.html#ab7cb472d967af51fb5d2be95874bfc66">getNumStateVariables</a> () const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Gets the number of "Continuous" state variables maintained by the <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any object which can be added to a Model.">ModelComponent</a> If the <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any object which can be added to a Model.">ModelComponent</a> defines any that are of interest to the user, names should also be given.  <a href="#ab7cb472d967af51fb5d2be95874bfc66"></a><br/></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Gets the number of "Continuous" state variables maintained by the <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any component which can be added to a Model.">ModelComponent</a> If the <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any component which can be added to a Model.">ModelComponent</a> defines any that are of interest to the user, names should also be given.  <a href="#ab7cb472d967af51fb5d2be95874bfc66"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Protected Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Body.html#a7615d14abb43145ff785a25525e82088">setup</a> (<a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;aModel)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Perform some set up functions that happen after the object has been deserialized or copied.  <a href="#a7615d14abb43145ff785a25525e82088"></a><br/></td></tr>
@@ -110,7 +110,7 @@ SimTK::MobilizedBodyIndex&nbsp;</td><td class="memItemRight" valign="bottom"><a 
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyDbl.html">PropertyDbl</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Body.html#a47b3ec5b7a3f074818f1874a9114515a">_massProp</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Mass of the body.  <a href="#a47b3ec5b7a3f074818f1874a9114515a"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">double &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Body.html#a8f5b20751b8fc7122c251827b563b664">_mass</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyDblVec3.html">PropertyDblVec3</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Body.html#a8469a5ea5a325a6ecbf0605a678e0dde">_massCenterProp</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyDblVec__.html">PropertyDblVec3</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Body.html#a8469a5ea5a325a6ecbf0605a678e0dde">_massCenterProp</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Mass center of body.  <a href="#a8469a5ea5a325a6ecbf0605a678e0dde"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">SimTK::Vec3 &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Body.html#a8599e9f3329088efbbf4a9a8b4fa8862">_massCenter</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyDbl.html">PropertyDbl</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Body.html#a6c46bdccf0940d347732e936b634bb7f">_inertiaXXProp</a></td></tr>
@@ -304,7 +304,7 @@ SimTK::MobilizedBodyIndex&nbsp;</td><td class="memItemRight" valign="bottom"><a 
   </table>
   </dd>
 </dl>
-<p>Body::Body(const AbstractBody &amp;aBody) : AbstractBody(aBody), _mass(_massProp.getValueDbl()), _massCenter(_massCenterProp.getValueDblVec3()), _inertiaXX(_inertiaXXProp.getValueDbl()), _inertiaYY(_inertiaYYProp.getValueDbl()), _inertiaZZ(_inertiaZZProp.getValueDbl()), _inertiaXY(_inertiaXYProp.getValueDbl()), _inertiaXZ(_inertiaXZProp.getValueDbl()), _inertiaYZ(_inertiaYZProp.getValueDbl()), _joint(_jointProp.getValueObjPtrRef()), _displayerProp(<a class="el" href="classOpenSim_1_1PropertyObj.html">PropertyObj</a>("", VisibleObject())), _displayer((<a class="el" href="classOpenSim_1_1VisibleObject.html" title="Class VisibleObject is intended to be used as the base class for all Visible objects...">VisibleObject</a>&amp;)_displayerProp.getValueObj()) { setNull(); setupProperties(); copyData(aBody); } Copy this body and return a pointer to the copy. The copy constructor for this class is used.</p>
+<p>Body::Body(const AbstractBody &amp;aBody) : AbstractBody(aBody), _mass(_massProp.getValueDbl()), _massCenter(_massCenterProp.getValueDblVec()), _inertiaXX(_inertiaXXProp.getValueDbl()), _inertiaYY(_inertiaYYProp.getValueDbl()), _inertiaZZ(_inertiaZZProp.getValueDbl()), _inertiaXY(_inertiaXYProp.getValueDbl()), _inertiaXZ(_inertiaXZProp.getValueDbl()), _inertiaYZ(_inertiaYZProp.getValueDbl()), _joint(_jointProp.getValueObjPtrRef()), _displayerProp(<a class="el" href="classOpenSim_1_1PropertyObj.html">PropertyObj</a>("", VisibleObject())), _displayer((<a class="el" href="classOpenSim_1_1VisibleObject.html" title="Class VisibleObject is intended to be used as the base class for all Visible objects...">VisibleObject</a>&amp;)_displayerProp.getValueObj()) { setNull(); setupProperties(); copyData(aBody); } Copy this body and return a pointer to the copy. The copy constructor for this class is used.</p>
 <dl class="return"><dt><b>Returns:</b></dt><dd>Pointer to a copy of this <a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody rigid body.">Body</a>. </dd></dl>
 
 <p>Reimplemented from <a class="el" href="classOpenSim_1_1Object.html#a2000b12522f6f79a8918991b819a4bb7">OpenSim::Object</a>.</p>
@@ -354,7 +354,7 @@ SimTK::MobilizedBodyIndex&nbsp;</td><td class="memItemRight" valign="bottom"><a 
 <div class="memdoc">
 
 <p>This is called when a SimTK System is being created for the <a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a>. </p>
-<p>It must be implemented to add appropriate elements to the System corresponding to this object.</p>
+<p>It must be implemented to add appropriate elements to the System corresponding to this object. Methods for adding modeling options, state variables and their derivatives, discrete variables, as well must be called with <a class="el" href="classOpenSim_1_1Body.html#a6d3af7fb21295ed30e19cd6fc332e5a5" title="This is called when a SimTK System is being created for the Model.">createSystem()</a> only.</p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>system</em>&nbsp;</td><td>the System being created </td></tr>
@@ -362,7 +362,7 @@ SimTK::MobilizedBodyIndex&nbsp;</td><td class="memItemRight" valign="bottom"><a 
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="classOpenSim_1_1ModelComponent.html#a85757ad4645e4066f72ce4d0411a49b8">OpenSim::ModelComponent</a>.</p>
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1ModelComponent.html#a8cecde2c81b7645a5daea70050884881">OpenSim::ModelComponent</a>.</p>
 
 </div>
 </div>
@@ -525,7 +525,7 @@ SimTK::MobilizedBodyIndex&nbsp;</td><td class="memItemRight" valign="bottom"><a 
 </div>
 <div class="memdoc">
 
-<p>Gets the number of "Continuous" state variables maintained by the <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any object which can be added to a Model.">ModelComponent</a> If the <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any object which can be added to a Model.">ModelComponent</a> defines any that are of interest to the user, names should also be given. </p>
+<p>Gets the number of "Continuous" state variables maintained by the <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any component which can be added to a Model.">ModelComponent</a> If the <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any component which can be added to a Model.">ModelComponent</a> defines any that are of interest to the user, names should also be given. </p>
 
 <p>Implements <a class="el" href="classOpenSim_1_1ModelComponent.html#a1e0f42516d2b3d7fd54892ee24b80f61">OpenSim::ModelComponent</a>.</p>
 
@@ -567,16 +567,16 @@ SimTK::MobilizedBodyIndex&nbsp;</td><td class="memItemRight" valign="bottom"><a 
 
 </div>
 </div>
-<a class="anchor" id="a447b549c3016bad38f95540b48fa95b5"></a><!-- doxytag: member="OpenSim::Body::getWrapObjectSet" ref="a447b549c3016bad38f95540b48fa95b5" args="()" -->
+<a class="anchor" id="ab3240738261eee36ebd0f6228c5cbbeb"></a><!-- doxytag: member="OpenSim::Body::getWrapObjectSet" ref="ab3240738261eee36ebd0f6228c5cbbeb" args="() const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classOpenSim_1_1WrapObjectSet.html">WrapObjectSet</a>&amp; OpenSim::Body::getWrapObjectSet </td>
+          <td class="memname">const <a class="el" href="classOpenSim_1_1WrapObjectSet.html">WrapObjectSet</a>&amp; OpenSim::Body::getWrapObjectSet </td>
           <td>(</td>
           <td class="paramname"></td>
           <td>&nbsp;)&nbsp;</td>
-          <td><code> [inline]</code></td>
+          <td> const<code> [inline]</code></td>
         </tr>
       </table>
 </div>
@@ -626,7 +626,7 @@ SimTK::MobilizedBodyIndex&nbsp;</td><td class="memItemRight" valign="bottom"><a 
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="classOpenSim_1_1ModelComponent.html#a2af3e8933cda56820900f0c643881434">OpenSim::ModelComponent</a>.</p>
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1ModelComponent.html#a96a4567ffb7c19a52855fb6d0fa2b9e1">OpenSim::ModelComponent</a>.</p>
 
 </div>
 </div>
@@ -676,7 +676,7 @@ SimTK::MobilizedBodyIndex&nbsp;</td><td class="memItemRight" valign="bottom"><a 
 <p>Assignment operator. </p>
 <dl class="return"><dt><b>Returns:</b></dt><dd>Reference to this object. </dd></dl>
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Object.html#a1a5b4bda8ca9bdc1c96ef514a15e0eef">OpenSim::Object</a>.</p>
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1ModelComponent.html#aa534ea078cd87e6405a3661ddc7636c9">OpenSim::ModelComponent</a>.</p>
 
 </div>
 </div>
@@ -803,7 +803,7 @@ SimTK::MobilizedBodyIndex&nbsp;</td><td class="memItemRight" valign="bottom"><a 
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="classOpenSim_1_1ModelComponent.html#a0e600cbcb3f90abfa53c6b7afa3cdf30">OpenSim::ModelComponent</a>.</p>
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1ModelComponent.html#a5f936e1d2c3597cb2e227cd7382ea2ec">OpenSim::ModelComponent</a>.</p>
 
 </div>
 </div>
@@ -1246,7 +1246,7 @@ SimTK::MobilizedBodyIndex&nbsp;</td><td class="memItemRight" valign="bottom"><a 
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classOpenSim_1_1PropertyDblVec3.html">PropertyDblVec3</a> <a class="el" href="classOpenSim_1_1Body.html#a8469a5ea5a325a6ecbf0605a678e0dde">OpenSim::Body::_massCenterProp</a><code> [protected]</code></td>
+          <td class="memname"><a class="el" href="classOpenSim_1_1PropertyDblVec__.html">PropertyDblVec3</a> <a class="el" href="classOpenSim_1_1Body.html#a8469a5ea5a325a6ecbf0605a678e0dde">OpenSim::Body::_massCenterProp</a><code> [protected]</code></td>
         </tr>
       </table>
 </div>
@@ -1304,7 +1304,7 @@ SimTK::MobilizedBodyIndex&nbsp;</td><td class="memItemRight" valign="bottom"><a 
 <li>OpenSim/Simulation/SimbodyEngine/Body.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:37:11 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Sat Mar 12 12:28:34 2011 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

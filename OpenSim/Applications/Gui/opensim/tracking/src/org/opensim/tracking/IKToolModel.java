@@ -61,6 +61,7 @@ public class IKToolModel extends Observable implements Observer {
       private InterruptCallback interruptingCallback = null;
       boolean result = false;
       boolean promptToKeepPartialResult = true;
+      boolean cleanup=true;
       //private Model modelCopy = null;
       final OpenSimContext context=OpenSimDB.getInstance().getContext(getOriginalModel());
       
@@ -113,17 +114,22 @@ public class IKToolModel extends Observable implements Observer {
 
       public Object construct() {
          try {
-            result = context.solveInverseKinematics(ikTool);
+           ikTool.run();
          }
          catch(Exception ex) {
-                   finished();
+            progressHandle.finish();
+            worker=null;
+            cleanup=false;
          }
          return this;
       }
 
       public void finished() {
          progressHandle.finish();
-
+         if (!cleanup) {         
+             setExecuting(false);
+            return;
+         }
          // Clean up motion displayer (this is necessary!)
          animationCallback.cleanupMotionDisplayer();
 
@@ -144,7 +150,7 @@ public class IKToolModel extends Observable implements Observer {
             }
          }
 
-         if(addMotion) {
+         if(true) {
             //Storage motion = new Storage(); // Java-side copy
             updateMotion(animationCallback.getStorage());
          }

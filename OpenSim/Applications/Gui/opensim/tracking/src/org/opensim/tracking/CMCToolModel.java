@@ -36,10 +36,12 @@ import org.openide.util.Cancellable;
 import org.openide.windows.WindowManager;
 import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.CMCTool;
+import org.opensim.modeling.ExternalLoads;
 import org.opensim.modeling.InterruptCallback;
 import org.opensim.modeling.Kinematics;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.Storage;
+import org.opensim.tracking.AbstractToolModelWithExternalLoads;
 import org.opensim.view.motions.JavaMotionDisplayerCallback;
 import org.opensim.view.motions.MotionsDB;
 import org.opensim.swingui.SwingWorker;
@@ -449,6 +451,7 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
       super.updateFromTool();
 
       constraintsEnabled = !FileUtils.effectivelyNull(getConstraintsFileName());
+      ExternalLoads lds = cmcTool().getExternalLoads();
       
    }
 
@@ -472,7 +475,7 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
       cmcTool().setOutputModelFileName(FileUtils.makePathAbsolute(cmcTool().getOutputModelFileName(), parentDir));
 
       cmcTool().setExternalLoadsFileName(FileUtils.makePathAbsolute(cmcTool().getExternalLoadsFileName(), parentDir));
-      //OpenSim23 cmcTool().setExternalLoadsModelKinematicsFileName(FileUtils.makePathAbsolute(cmcTool().getExternalLoadsModelKinematicsFileName(), parentDir));
+      cmcTool().getExternalLoads().setExternalLoadsModelKinematicsFileName(FileUtils.makePathAbsolute(cmcTool().getExternalLoads().getExternalLoadsModelKinematicsFileName(), parentDir));
    }
 
    protected void AbsoluteToRelativePaths(String parentFileName) {
@@ -485,7 +488,7 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
       cmcTool().setOutputModelFileName(FileUtils.makePathRelative(cmcTool().getOutputModelFileName(), parentDir));
 
       cmcTool().setExternalLoadsFileName(FileUtils.makePathRelative(cmcTool().getExternalLoadsFileName(), parentDir));
-      //OpenSim23 cmcTool().setExternalLoadsModelKinematicsFileName(FileUtils.makePathRelative(cmcTool().getExternalLoadsModelKinematicsFileName(), parentDir));       
+      cmcTool().getExternalLoads().setExternalLoadsModelKinematicsFileName(FileUtils.makePathRelative(cmcTool().getExternalLoads().getExternalLoadsModelKinematicsFileName(), parentDir));       
    }
    
    public boolean loadSettings(String fileName) {

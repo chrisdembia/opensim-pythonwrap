@@ -30,21 +30,23 @@
 package org.opensim.tracking;
 
 import java.awt.Dialog;
+import java.awt.Toolkit;
 import java.io.File;
 import java.io.IOException;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.Vector;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import org.openide.DialogDescriptor;
 import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
-import org.opensim.modeling.AbstractTool;
 import org.opensim.modeling.ArrayStr;
+import org.opensim.modeling.ExternalLoads;
 import org.opensim.modeling.ForceSet;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.modeling.PrescribedForce;
 import org.opensim.modeling.Storage;
-import org.opensim.utils.FileUtils;
 
 /**
  *
@@ -53,29 +55,34 @@ import org.opensim.utils.FileUtils;
 public class EditPrescribedForceSetPanel extends javax.swing.JPanel 
                                          implements ListSelectionListener {
     
-    AbstractTool dTool;
+    ExternalLoads dLoads;
     Storage externalLoadsStorage=null;
     Vector<PrescribedForce> cachedForces = new Vector<PrescribedForce>(4);
     private ForceListModel forceListModel;
     ForceSet dForceSet;
+    private NumberFormat numFormat = NumberFormat.getInstance();
+
     /**
      * Creates new form EditPrescribedForceSetPanel
      */
-    public EditPrescribedForceSetPanel(AbstractTool tool) {
-        dTool = tool;
-        String extFileName="";
+    public EditPrescribedForceSetPanel(ExternalLoads loads) {
+        dLoads = loads;
+        String extFileName="";/*
         try {
             extFileName=dTool.getPropertySet().get("external_loads_file").getValueStr();
             if (!extFileName.equals("")){
-                //OpenSim23 tool.createExternalLoads(extFileName, "", tool.getModel());
+                dTool.createExternalLoads(extFileName, tool.getModel());
             }
         } catch (IOException ex) {  // Shouldn't happen unless there're tools that use forces and don't define the property '
             ex.printStackTrace();
-        }
-        //OpenSim23 forceListModel = new ForceListModel(dTool.updExternalForceSet());
+        }*/
+        forceListModel = new ForceListModel(dLoads);
         initComponents();
         externalLoadsDataFileName.setExtensionsAndDescription(".sto,.mot", "Data file for prescribed forces");
-        String dataFile = dTool.getExternalLoads().getDataFileName();
+        externalLoadsModelKinematicsFileName.setExtensionsAndDescription(".mot", "Kinematics for external loads if transforming froce application global to local");
+        externalLoadsModelKinematicsFileName.setFileName(dLoads.getExternalLoadsModelKinematicsFileName());
+        cutoffFrequency.setText(String.valueOf(dLoads.getLowpassCutoffFrequencyForLoadKinematics()));
+        String dataFile = dLoads.getDataFileName();
         File extForcesFile = new File(extFileName);
         if (extForcesFile.exists() && dataFile!=""){
             // Make dataFile relative to path of extForcesFile
@@ -126,6 +133,11 @@ public class EditPrescribedForceSetPanel extends javax.swing.JPanel
         jComboBoxTY = new javax.swing.JComboBox();
         jComboBoxTZ = new javax.swing.JComboBox();
         externalLoadsDataFileName = new org.opensim.swingui.FileTextFieldAndChooser();
+        jLabel8 = new javax.swing.JLabel();
+        externalLoadsModelKinematicsFileName = new org.opensim.swingui.FileTextFieldAndChooser();
+        cutoffFrequency = new javax.swing.JTextField();
+        filterModelKinematics = new javax.swing.JCheckBox();
+        jLabel9 = new javax.swing.JLabel();
         DatafileNameLabel = new javax.swing.JLabel();
         ForcesListManagerPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -313,6 +325,38 @@ public class EditPrescribedForceSetPanel extends javax.swing.JPanel
             }
         });
 
+        jLabel8.setText("Kinematics for external loads");
+
+        externalLoadsModelKinematicsFileName.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                externalLoadsModelKinematicsFileNameStateChanged(evt);
+            }
+        });
+
+        cutoffFrequency.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
+        cutoffFrequency.setText(" ");
+        cutoffFrequency.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cutoffFrequencyActionPerformed(evt);
+            }
+        });
+        cutoffFrequency.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                cutoffFrequencyFocusLost(evt);
+            }
+        });
+
+        filterModelKinematics.setText("Filter kinematics");
+        filterModelKinematics.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        filterModelKinematics.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        filterModelKinematics.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                filterModelKinematicsActionPerformed(evt);
+            }
+        });
+
+        jLabel9.setText("Hz");
+
         DatafileNameLabel.setText("Force data file");
 
         ForcesListManagerPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Specify Forces/Torques for model"));
@@ -365,7 +409,7 @@ public class EditPrescribedForceSetPanel extends javax.swing.JPanel
                 .add(17, 17, 17)
                 .add(jButtonDelete)
                 .add(24, 24, 24))
-            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
+            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
         );
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
@@ -379,6 +423,20 @@ public class EditPrescribedForceSetPanel extends javax.swing.JPanel
                 .add(externalLoadsDataFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
                 .addContainerGap())
             .add(ForcesListManagerPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .add(layout.createSequentialGroup()
+                .addContainerGap()
+                .add(jLabel8)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(externalLoadsModelKinematicsFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
+                .addContainerGap())
+            .add(layout.createSequentialGroup()
+                .addContainerGap()
+                .add(filterModelKinematics)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(cutoffFrequency, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jLabel9)
+                .addContainerGap(280, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -388,16 +446,46 @@ public class EditPrescribedForceSetPanel extends javax.swing.JPanel
                     .add(externalLoadsDataFileName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(DatafileNameLabel))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(ForcesListManagerPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jLabel8)
+                    .add(externalLoadsModelKinematicsFileName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(filterModelKinematics)
+                    .add(cutoffFrequency, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jLabel9))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(ForcesListManagerPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void cutoffFrequencyFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cutoffFrequencyFocusLost
+        if(!evt.isTemporary()) cutoffFrequencyActionPerformed(null);
+    }//GEN-LAST:event_cutoffFrequencyFocusLost
+
+    private void cutoffFrequencyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cutoffFrequencyActionPerformed
+        try {
+            dLoads.setLowpassCutoffFrequencyForLoadKinematics(numFormat.parse(cutoffFrequency.getText()).doubleValue());
+        } catch (ParseException ex) {
+            Toolkit.getDefaultToolkit().beep();
+            cutoffFrequency.setText(numFormat.format(dLoads.getLowpassCutoffFrequencyForLoadKinematics()));
+        }
+    }//GEN-LAST:event_cutoffFrequencyActionPerformed
+
+    private void filterModelKinematicsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterModelKinematicsActionPerformed
+        //dLoads.setFilterLoadKinematics(filterModelKinematics.isSelected());
+    }//GEN-LAST:event_filterModelKinematicsActionPerformed
+
+    private void externalLoadsModelKinematicsFileNameStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_externalLoadsModelKinematicsFileNameStateChanged
+        dLoads.setExternalLoadsModelKinematicsFileName(externalLoadsModelKinematicsFileName.getFileName());
+    }//GEN-LAST:event_externalLoadsModelKinematicsFileNameStateChanged
 
     private void jButtonDeleteActionPerformed1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed1
         int[] sels = jForcesList.getSelectedIndices();
         Object pfo=null;
         for(int i=sels.length;i>=1;i--){
            forceListModel.remove(sels[i-1]);
-           //OpenSim23 dTool.updExternalForceSet().remove(sels[i-1]);
+           dLoads.remove(sels[i-1]);
         }
  // TODO add your handling code here:
         
@@ -411,7 +499,7 @@ public class EditPrescribedForceSetPanel extends javax.swing.JPanel
         }
         PrescribedForce pf = PrescribedForce.safeDownCast((OpenSimObject) pfo);
         PrescribedForce pfCopy = new PrescribedForce(pf);
-        EditOneForceJPanel eofPanel = new EditOneForceJPanel(pf, externalLoadsStorage, dTool.getModel());
+        EditOneForceJPanel eofPanel = new EditOneForceJPanel(pf, externalLoadsStorage, dLoads);
         DialogDescriptor dlg = new DialogDescriptor(eofPanel, "Create/Edit PrescribedForce");
         eofPanel.setDDialog(dlg);
         DialogDisplayer.getDefault().createDialog(dlg).setVisible(true);
@@ -423,9 +511,9 @@ public class EditPrescribedForceSetPanel extends javax.swing.JPanel
 
     private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
          PrescribedForce pf = new PrescribedForce();
-         pf.setName(dTool.getNextAvailableForceName("ExternalForce"));
+         //pf.setName(dTool.getNextAvailableForceName("ExternalForce"));
          pf.setBodyName("Ground");
-         EditOneForceJPanel eofPanel = new EditOneForceJPanel(pf, externalLoadsStorage, dTool.getModel());
+         EditOneForceJPanel eofPanel = new EditOneForceJPanel(pf, externalLoadsStorage, null/*dTool.getModel()*/);
          DialogDescriptor dlg = new DialogDescriptor(eofPanel, "Create/Edit PrescribedForce");
          eofPanel.setDDialog(dlg);
          Dialog d=DialogDisplayer.getDefault().createDialog(dlg);
@@ -434,7 +522,7 @@ public class EditPrescribedForceSetPanel extends javax.swing.JPanel
          if (((Integer)userInput).compareTo((Integer)DialogDescriptor.OK_OPTION)==0){
              forceListModel.add(forceListModel.getSize(), pf);
              String usrObjBodyName=pf.getBodyName();                         
-             //OpenSim23 dTool.updExternalForceSet().append(pf);
+             dLoads.append(pf);
              cachedForces.add(pf);
          }
     }//GEN-LAST:event_jButtonAddActionPerformed
@@ -450,7 +538,7 @@ public class EditPrescribedForceSetPanel extends javax.swing.JPanel
                 ex.printStackTrace();
             }
         }
-           ;//dTool.updExternalForceSet().setDataFileName(externalLoadsDataFileName.getFileName());
+        dLoads.setDataFileName(externalLoadsDataFileName.getFileName());
        }
 // TODO add your handling code here:
     }//GEN-LAST:event_externalLoadsDataFileNameInputMethodTextChanged
@@ -462,7 +550,7 @@ public class EditPrescribedForceSetPanel extends javax.swing.JPanel
         if (dataFile!="" && dataFile !=null && new File(dataFile).exists()){
             try {
                 externalLoadsStorage = new Storage(dataFile);
-               dTool.updExternalLoads().setDataFileName(externalLoadsDataFileName.getFileName());
+               dLoads.setDataFileName(externalLoadsDataFileName.getFileName());
                 updateButtonAvailability();
             } catch (IOException ex) {
                 ex.printStackTrace();
@@ -470,60 +558,6 @@ public class EditPrescribedForceSetPanel extends javax.swing.JPanel
         }
        }
     }//GEN-LAST:event_externalLoadsDataFileNameStateChanged
-/*
-    private void invokeTreePopupIfNeeded(int evtX, int evtY) {
-      final TreePath clickedElement = jForceTree.getPathForLocation(evtX, evtY);
-       
-      //  Display the name of the selected tree element in the selection field
-      if (clickedElement != null){
-         Object[] pathObjects = clickedElement.getPath();
-         int depth =pathObjects.length-1;
-         final DefaultMutableTreeNode node = (DefaultMutableTreeNode)pathObjects[depth];
-         JPopupMenu manageForcePopup = new JPopupMenu();
-         if (node.isRoot()){
-             // Show popup to add one PrescribedForce(s)
-             JMenuItem addOneMenuItem = new JMenuItem("Add...");
-             addOneMenuItem.addActionListener(new ActionListener(){
-                 public void actionPerformed(ActionEvent e) {
-                     PrescribedForce pf = new PrescribedForce();
-                     pf.setName(dTool.getNextAvailableForceName("ExternalForce"));
-                     pf.setBodyName("Ground");
-                     EditOneForceJPanel eofPanel = new EditOneForceJPanel(pf, externalLoadsStorage, dTool.getModel());
-                     DialogDescriptor dlg = new DialogDescriptor(eofPanel, "Create/Edit PrescribedForce");
-                     DialogDisplayer.getDefault().createDialog(dlg).setVisible(true);
-                     Object userInput = dlg.getValue();
-                     if (((Integer)userInput).compareTo((Integer)DialogDescriptor.OK_OPTION)==0){
-                         // Creatre node and add it
-                         String usrObjBodyName=pf.getBodyName();                         
-                         dTool.updExternalForceSet().append(pf);
-                         cachedForces.add(pf);
-                     }     
-                 }});
-                 manageForcePopup.add(addOneMenuItem);
-             JMenuItem clearMenuItem = new JMenuItem("Clear");
-             addOneMenuItem.addActionListener(new ActionListener(){
-                 public void actionPerformed(ActionEvent e) {
-                 }});
-                 manageForcePopup.add(clearMenuItem);
-         }
-         else { // Regular Force node 
-             JMenuItem editOneMenuItem = new JMenuItem("Edit...");
-             editOneMenuItem.addActionListener(new ActionListener(){
-                 public void actionPerformed(ActionEvent e) {
-                     PrescribedForce pf = (PrescribedForce) node.getUserObject();
-                     String usrObjBodyName=pf.getBodyName();
-                     EditOneForceJPanel eofPanel = new EditOneForceJPanel(pf, externalLoadsStorage, dTool.getModel());
-                     DialogDescriptor dlg = new DialogDescriptor(eofPanel, "Create/Edit PrescribedForce");
-                     DialogDisplayer.getDefault().createDialog(dlg).setVisible(true);
-                             
-                 }});
-                 manageForcePopup.add(editOneMenuItem);
-             
-         }
-         manageForcePopup.show(jForceTree, evtX, evtY);
-      }
-    }
-*/
     private void updateButtonAvailability() {
        int[] sels = jForcesList.getSelectedIndices();
        jButtonEdit.setEnabled(sels.length==1);
@@ -568,7 +602,10 @@ public class EditPrescribedForceSetPanel extends javax.swing.JPanel
     private javax.swing.JPanel PointColumnsPanel;
     private javax.swing.JCheckBox PointIsGlobalCheckBox;
     private javax.swing.JPanel TorqueColumnLabels;
+    private javax.swing.JTextField cutoffFrequency;
     private org.opensim.swingui.FileTextFieldAndChooser externalLoadsDataFileName;
+    private org.opensim.swingui.FileTextFieldAndChooser externalLoadsModelKinematicsFileName;
+    private javax.swing.JCheckBox filterModelKinematics;
     private javax.swing.JButton jButtonAdd;
     private javax.swing.JButton jButtonDelete;
     private javax.swing.JButton jButtonEdit;
@@ -587,6 +624,8 @@ public class EditPrescribedForceSetPanel extends javax.swing.JPanel
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
     

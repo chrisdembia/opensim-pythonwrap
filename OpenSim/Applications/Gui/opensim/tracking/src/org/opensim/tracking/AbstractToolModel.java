@@ -33,6 +33,7 @@ import org.opensim.modeling.AbstractTool;
 import org.opensim.modeling.Analysis;
 import org.opensim.modeling.AnalysisSet;
 import org.opensim.modeling.ArrayStr;
+import org.opensim.modeling.ExternalLoads;
 import org.opensim.modeling.Model;
 import org.opensim.tracking.AbstractToolModel.Operation;
 import org.opensim.utils.FileUtils;
@@ -384,6 +385,10 @@ abstract class AbstractToolModelWithExternalLoads extends AbstractToolModel {
 
     void setCoordinatesFileName(String string) {
         throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    public ExternalLoads getExternalLoads() {
+        return getTool().getExternalLoads();
     }
 }
 

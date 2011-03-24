@@ -28,6 +28,9 @@
 </div>
 <div class="contents">
 <h1>OpenSim::StepFunction Class Reference</h1><!-- doxytag: class="OpenSim::StepFunction" --><!-- doxytag: inherits="OpenSim::Function" -->
+<p>A class for representing a <a class="el" href="classOpenSim_1_1StepFunction.html" title="A class for representing a StepFunction.">StepFunction</a>.  
+<a href="#_details">More...</a></p>
+
 <p><code>#include &lt;StepFunction.h&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for OpenSim::StepFunction:</div>
@@ -46,59 +49,49 @@ Inheritance diagram for OpenSim::StepFunction:</div>
 <tr><td colspan="2"><h2>Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1StepFunction.html#ab2ffe0184d25f479135c2441bcabede7">StepFunction</a> ()</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Default constructor.  <a href="#ab2ffe0184d25f479135c2441bcabede7"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1StepFunction.html#ac9cff44f7821bad333d24c9785c32312">StepFunction</a> (int aN, const double *aTimes, const double *aValues, const std::string &amp;aName=&quot;&quot;)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1StepFunction.html#ac6a0a75409b5a22193d92a3894cdc23f">StepFunction</a> (const <a class="el" href="classOpenSim_1_1StepFunction.html">StepFunction</a> &amp;aFunction)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Copy constructor.  <a href="#ac6a0a75409b5a22193d92a3894cdc23f"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1StepFunction.html#a73d4def330b4160193a9192e5fdafc99">StepFunction</a> (double startTime, double endTime, double startValue=0.0, double endValue=1.0)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1StepFunction.html#aee6ae8968fc524839c15cb78e9732b08">StepFunction</a> (const <a class="el" href="classOpenSim_1_1StepFunction.html">StepFunction</a> &amp;aSpline)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Copy constructor.  <a href="#aee6ae8968fc524839c15cb78e9732b08"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1StepFunction.html#a57a20b49b55d094be855ae254a3a650c">~StepFunction</a> ()</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Destructor.  <a href="#a57a20b49b55d094be855ae254a3a650c"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classOpenSim_1_1Object.html">Object</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1StepFunction.html#a72ece297702b634a699e69406c9f589e">copy</a> () const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Copy this object.  <a href="#a72ece297702b634a699e69406c9f589e"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1StepFunction.html#a40771e2f73ed99807c6071a10e545528">init</a> (<a class="el" href="classOpenSim_1_1Function.html">Function</a> *aFunction)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Initialize the function with X and Y values.  <a href="#a40771e2f73ed99807c6071a10e545528"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1StepFunction.html">StepFunction</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1StepFunction.html#a6fb48c89ffba4ce53c3b5aaed9b862fb">operator=</a> (const <a class="el" href="classOpenSim_1_1StepFunction.html">StepFunction</a> &amp;aFunction)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Assignment operator.  <a href="#a6fb48c89ffba4ce53c3b5aaed9b862fb"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1StepFunction.html#ae1800e4007d5e60c435388c35ed225df">getSize</a> () const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get size or number of independent data points (or number of coefficients) used to construct the function.  <a href="#ae1800e4007d5e60c435388c35ed225df"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classOpenSim_1_1Array.html">Array</a>&lt; double &gt; &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1StepFunction.html#a1c155e777eeb4418fa4527f5a0554109">getX</a> () const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the array of independent variables used to construct the function.  <a href="#a1c155e777eeb4418fa4527f5a0554109"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classOpenSim_1_1Array.html">Array</a>&lt; double &gt; &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1StepFunction.html#adfac8c215cf87a4f7a40f577cb7d4c4b">getY</a> () const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the array of Y values for the function.  <a href="#adfac8c215cf87a4f7a40f577cb7d4c4b"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual const double *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1StepFunction.html#a3b8df5ec7066fd108e622ba4d0d7a432">getXValues</a> () const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the array of independent variables used to construct the function.  <a href="#a3b8df5ec7066fd108e622ba4d0d7a432"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual const double *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1StepFunction.html#a890666cb28e9f1238a2673d0f7db1754">getYValues</a> () const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the array of dependent variables used to construct the function.  <a href="#a890666cb28e9f1238a2673d0f7db1754"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1StepFunction.html#a68ef9ab6038f6da1f0e8f7c5dc43fc4e">getNumberOfPoints</a> () const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1StepFunction.html#acacb0cfd6b6641fb482574000b55df3d">getX</a> (int aIndex) const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1StepFunction.html#a9b5f93d382039defbffcb209dbfcc08c">getY</a> (int aIndex) const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1StepFunction.html#a869ea94faaa16ac6d20a100e01037261">getZ</a> (int aIndex) const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1StepFunction.html#af4d1623291d06ce1494a97a03ca25032">setX</a> (int aIndex, double aValue)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1StepFunction.html#a39232c9d2bef1fd588b39509c1cd0a35">setY</a> (int aIndex, double aValue)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1StepFunction.html#a7cb0d61dd9642d684f7a52816815cff4">deletePoint</a> (int aIndex)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1StepFunction.html#aae8d9707c4958382b83d001760c429d4">deletePoints</a> (const <a class="el" href="classOpenSim_1_1Array.html">Array</a>&lt; int &gt; &amp;indices)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1StepFunction.html#ae95ec501d7ad369b8e64a193efd0b51e">addPoint</a> (double aX, double aY)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1StepFunction.html#a1fb2160ee8bf73d996cb93914b729df8">evaluateTotalFirstDerivative</a> (double aX, double aDxdt) const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Evaluates total first derivative.  <a href="#a1fb2160ee8bf73d996cb93914b729df8"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1StepFunction.html#a62fc0bd8bb0578b8663c792e290adcbb">evaluateTotalSecondDerivative</a> (double aX, double aDxdt, double aD2xdt2) const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Evaluates total second derivative.  <a href="#a62fc0bd8bb0578b8663c792e290adcbb"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1StepFunction.html#aa24f6292e720256d2ce7b6a7f14410ae">calcValue</a> (const SimTK::Vector &amp;x) const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Calculate the value of this function at a particular point.  <a href="#aa24f6292e720256d2ce7b6a7f14410ae"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1StepFunction.html#a369ae1e1d7b6aed522ced577462bb9e4">calcDerivative</a> (const std::vector&lt; int &gt; &amp;derivComponents, const SimTK::Vector &amp;x) const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Calculate a partial derivative of this function at a particular point.  <a href="#a369ae1e1d7b6aed522ced577462bb9e4"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1StepFunction.html#a9de98bf24f94c90993f07b0e4d62136d">getArgumentSize</a> () const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the number of components expected in the input vector.  <a href="#a9de98bf24f94c90993f07b0e4d62136d"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1StepFunction.html#a5cbf30e82ff3556178e8a76ec3a0ac70">getMaxDerivativeOrder</a> () const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the maximum derivative order this <a class="el" href="classOpenSim_1_1Function.html">Function</a> object can calculate.  <a href="#a5cbf30e82ff3556178e8a76ec3a0ac70"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">SimTK::Function *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1StepFunction.html#af8d0757a3d754b4be7f5bb3d86b38912">createSimTKFunction</a> () const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1StepFunction.html#a3d416cc947532297c0d1951922eee920">updateFromXMLNode</a> ()</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Update this object based on its XML node.  <a href="#a3d416cc947532297c0d1951922eee920"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1StepFunction.html">StepFunction</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1StepFunction.html#a060a0abb7d574d1ed3765795d4be1da1">operator=</a> (const <a class="el" href="classOpenSim_1_1StepFunction.html">StepFunction</a> &amp;aStepFunction)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Assignment operator.  <a href="#a060a0abb7d574d1ed3765795d4be1da1"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1StepFunction.html#a4fccdaf0396f96ef3dc0f0c0bc01b193">setStartTime</a> (double time)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> step transition start time.  <a href="#a4fccdaf0396f96ef3dc0f0c0bc01b193"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1StepFunction.html#ae9a66dc588264f980c0148dc4f42aaec">getStartTime</a> () const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get step transition time.  <a href="#ae9a66dc588264f980c0148dc4f42aaec"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1StepFunction.html#af097f396ec97988bf6b1d49969a04cda">setEndTime</a> (double time)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> step transition end time.  <a href="#af097f396ec97988bf6b1d49969a04cda"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1StepFunction.html#a135a5ae0d8f8a5a0c9d66f8ee00f9ff6">getEndTime</a> () const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get step transition time.  <a href="#a135a5ae0d8f8a5a0c9d66f8ee00f9ff6"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1StepFunction.html#a094e4637156803abd8a5a66f0aa70c17">setStartValue</a> (double start)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> start value before step.  <a href="#a094e4637156803abd8a5a66f0aa70c17"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1StepFunction.html#ae9e5b0e172aa51521a0ac79785c7c959">getStartValue</a> () const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get start value before step.  <a href="#ae9e5b0e172aa51521a0ac79785c7c959"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1StepFunction.html#a997f1c118776d127439536070d4161c2">setEndValue</a> (double end)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> end value before step.  <a href="#a997f1c118776d127439536070d4161c2"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1StepFunction.html#ac4fbc75b7b905798bd0d643f4c0f5456">getEndValue</a> () const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get end value before step.  <a href="#ac4fbc75b7b905798bd0d643f4c0f5456"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual SimTK::Function *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1StepFunction.html#af8d0757a3d754b4be7f5bb3d86b38912">createSimTKFunction</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1StepFunction.html#a19bc61a5124228659714f1c9392d2dbc">OPENSIM_DECLARE_DERIVED</a> (<a class="el" href="classOpenSim_1_1StepFunction.html">StepFunction</a>, <a class="el" href="classOpenSim_1_1Function.html">Function</a>)</td></tr>
 <tr><td colspan="2"><h2>Protected Attributes</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyDblArray.html">PropertyDblArray</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1StepFunction.html#a59a347a97614ceae104380c10ac149b6">_propX</a></td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Array.html">Array</a> of values for the independent variables (i.e., the knot sequence).  <a href="#a59a347a97614ceae104380c10ac149b6"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Array.html">Array</a>&lt; double &gt; &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1StepFunction.html#a7786b9391b7d979eb319e8298d82ba6f">_x</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyDblArray.html">PropertyDblArray</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1StepFunction.html#af6a390d95fcdc43e382b93e4d9b6539a">_propY</a></td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Y values.  <a href="#af6a390d95fcdc43e382b93e4d9b6539a"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Array.html">Array</a>&lt; double &gt; &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1StepFunction.html#aa45f599201411ed9c5ffeb35846f47a0">_y</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyDbl.html">PropertyDbl</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1StepFunction.html#a14c515f68bf159546a910f1a4d4a40b4">_startTimeProp</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">double &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1StepFunction.html#ad6d301807ae501eb41dfc9682fa598d5">_startTime</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyDbl.html">PropertyDbl</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1StepFunction.html#a31bb0513cdf09c1fc16848fabd46e9e2">_endTimeProp</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">double &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1StepFunction.html#aabd43d1e796f70117a9f34e0487f9594">_endTime</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyDbl.html">PropertyDbl</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1StepFunction.html#ae2f5a785656c47ca185f4f561e8fb577">_startValueProp</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">double &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1StepFunction.html#a3e4b9b304b85157b558026fffd0f1b43">_startValue</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyDbl.html">PropertyDbl</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1StepFunction.html#ae2dc395d5c5f8dc5dc8a81cedba207ad">_endValueProp</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">double &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1StepFunction.html#ae6485b331b9bfd306b05d8ce5ef4ffdc">_endValue</a></td></tr>
 </table>
+<hr/><a name="_details"></a><h2>Detailed Description</h2>
+<p>A class for representing a <a class="el" href="classOpenSim_1_1StepFunction.html" title="A class for representing a StepFunction.">StepFunction</a>. </p>
+<p>{ start_value, t &lt;= start_time f(t) = { S-plolynomial(t), start_time &lt; t &lt; end_time { end_value, t &gt;= end_time</p>
+<p>This class inherits from <a class="el" href="classOpenSim_1_1Function.html">Function</a> and so can be used as input to any class requiring a Fuction as input.</p>
+<dl class="author"><dt><b>Author:</b></dt><dd>Ajay Seth </dd></dl>
+<dl class="version"><dt><b>Version:</b></dt><dd>1.0 </dd></dl>
 <hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="ab2ffe0184d25f479135c2441bcabede7"></a><!-- doxytag: member="OpenSim::StepFunction::StepFunction" ref="ab2ffe0184d25f479135c2441bcabede7" args="()" -->
 <div class="memitem">
@@ -119,33 +112,33 @@ Inheritance diagram for OpenSim::StepFunction:</div>
 
 </div>
 </div>
-<a class="anchor" id="ac9cff44f7821bad333d24c9785c32312"></a><!-- doxytag: member="OpenSim::StepFunction::StepFunction" ref="ac9cff44f7821bad333d24c9785c32312" args="(int aN, const double *aTimes, const double *aValues, const std::string &amp;aName=&quot;&quot;)" -->
+<a class="anchor" id="a73d4def330b4160193a9192e5fdafc99"></a><!-- doxytag: member="OpenSim::StepFunction::StepFunction" ref="a73d4def330b4160193a9192e5fdafc99" args="(double startTime, double endTime, double startValue=0.0, double endValue=1.0)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">OpenSim::StepFunction::StepFunction </td>
+          <td class="memname">StepFunction::StepFunction </td>
           <td>(</td>
-          <td class="paramtype">int&nbsp;</td>
-          <td class="paramname"> <em>aN</em>, </td>
+          <td class="paramtype">double&nbsp;</td>
+          <td class="paramname"> <em>startTime</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const double *&nbsp;</td>
-          <td class="paramname"> <em>aTimes</em>, </td>
+          <td class="paramtype">double&nbsp;</td>
+          <td class="paramname"> <em>endTime</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const double *&nbsp;</td>
-          <td class="paramname"> <em>aValues</em>, </td>
+          <td class="paramtype">double&nbsp;</td>
+          <td class="paramname"> <em>startValue</em> = <code>0.0</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::string &amp;&nbsp;</td>
-          <td class="paramname"> <em>aName</em> = <code>&quot;&quot;</code></td><td>&nbsp;</td>
+          <td class="paramtype">double&nbsp;</td>
+          <td class="paramname"> <em>endValue</em> = <code>1.0</code></td><td>&nbsp;</td>
         </tr>
         <tr>
           <td></td>
@@ -158,7 +151,7 @@ Inheritance diagram for OpenSim::StepFunction:</div>
 
 </div>
 </div>
-<a class="anchor" id="ac6a0a75409b5a22193d92a3894cdc23f"></a><!-- doxytag: member="OpenSim::StepFunction::StepFunction" ref="ac6a0a75409b5a22193d92a3894cdc23f" args="(const StepFunction &amp;aFunction)" -->
+<a class="anchor" id="aee6ae8968fc524839c15cb78e9732b08"></a><!-- doxytag: member="OpenSim::StepFunction::StepFunction" ref="aee6ae8968fc524839c15cb78e9732b08" args="(const StepFunction &amp;aSpline)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -166,7 +159,7 @@ Inheritance diagram for OpenSim::StepFunction:</div>
           <td class="memname">StepFunction::StepFunction </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classOpenSim_1_1StepFunction.html">StepFunction</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>aFunction</em></td>
+          <td class="paramname"> <em>aStepFunction</em></td>
           <td>&nbsp;)&nbsp;</td>
           <td></td>
         </tr>
@@ -175,10 +168,10 @@ Inheritance diagram for OpenSim::StepFunction:</div>
 <div class="memdoc">
 
 <p>Copy constructor. </p>
-<p>All data members of the specified function are copied.</p>
+<p>All data members of the specified <a class="el" href="classOpenSim_1_1StepFunction.html" title="A class for representing a StepFunction.">StepFunction</a> are copied.</p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>aFunction</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1StepFunction.html">StepFunction</a> object to be copied. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>aStepFunction</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1StepFunction.html" title="A class for representing a StepFunction.">StepFunction</a> object to be copied. </td></tr>
   </table>
   </dd>
 </dl>
@@ -205,100 +198,6 @@ Inheritance diagram for OpenSim::StepFunction:</div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="ae95ec501d7ad369b8e64a193efd0b51e"></a><!-- doxytag: member="OpenSim::StepFunction::addPoint" ref="ae95ec501d7ad369b8e64a193efd0b51e" args="(double aX, double aY)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int StepFunction::addPoint </td>
-          <td>(</td>
-          <td class="paramtype">double&nbsp;</td>
-          <td class="paramname"> <em>aX</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&nbsp;</td>
-          <td class="paramname"> <em>aY</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td><code> [virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a369ae1e1d7b6aed522ced577462bb9e4"></a><!-- doxytag: member="OpenSim::StepFunction::calcDerivative" ref="a369ae1e1d7b6aed522ced577462bb9e4" args="(const std::vector&lt; int &gt; &amp;derivComponents, const SimTK::Vector &amp;x) const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">double OpenSim::StepFunction::calcDerivative </td>
-          <td>(</td>
-          <td class="paramtype">const std::vector&lt; int &gt; &amp;&nbsp;</td>
-          <td class="paramname"> <em>derivComponents</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const SimTK::Vector &amp;&nbsp;</td>
-          <td class="paramname"> <em>x</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td> const<code> [virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Calculate a partial derivative of this function at a particular point. </p>
-<p>Which derivative to take is specified by listing the input components with which to take it. For example, if derivComponents=={0}, that indicates a first derivative with respective to component 0. If derivComponents=={0, 0, 0}, that indicates a third derivative with respective to component 0. If derivComponents=={4, 7}, that indicates a partial second derivative with respect to components 4 and 7.</p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>derivComponents</em>&nbsp;</td><td>the input components with respect to which the derivative should be taken. Its size must be less than or equal to the value returned by <a class="el" href="classOpenSim_1_1StepFunction.html#a5cbf30e82ff3556178e8a76ec3a0ac70" title="Get the maximum derivative order this Function object can calculate.">getMaxDerivativeOrder()</a>. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>x</em>&nbsp;</td><td>the Vector of input arguments. Its size must equal the value returned by <a class="el" href="classOpenSim_1_1StepFunction.html#a9de98bf24f94c90993f07b0e4d62136d" title="Get the number of components expected in the input vector.">getArgumentSize()</a>. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Function.html#a8fba6e59c215f3708f961b979c27dc70">OpenSim::Function</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aa24f6292e720256d2ce7b6a7f14410ae"></a><!-- doxytag: member="OpenSim::StepFunction::calcValue" ref="aa24f6292e720256d2ce7b6a7f14410ae" args="(const SimTK::Vector &amp;x) const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">double OpenSim::StepFunction::calcValue </td>
-          <td>(</td>
-          <td class="paramtype">const SimTK::Vector &amp;&nbsp;</td>
-          <td class="paramname"> <em>x</em></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td> const<code> [virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Calculate the value of this function at a particular point. </p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>x</em>&nbsp;</td><td>the Vector of input arguments. Its size must equal the value returned by <a class="el" href="classOpenSim_1_1StepFunction.html#a9de98bf24f94c90993f07b0e4d62136d" title="Get the number of components expected in the input vector.">getArgumentSize()</a>. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Function.html#abe1dc62990fa03c7ac43fdaae3cb5999">OpenSim::Function</a>.</p>
-
-</div>
-</div>
 <a class="anchor" id="a72ece297702b634a699e69406c9f589e"></a><!-- doxytag: member="OpenSim::StepFunction::copy" ref="a72ece297702b634a699e69406c9f589e" args="() const " -->
 <div class="memitem">
 <div class="memproto">
@@ -340,158 +239,102 @@ Inheritance diagram for OpenSim::StepFunction:</div>
 
 </div>
 </div>
-<a class="anchor" id="a7cb0d61dd9642d684f7a52816815cff4"></a><!-- doxytag: member="OpenSim::StepFunction::deletePoint" ref="a7cb0d61dd9642d684f7a52816815cff4" args="(int aIndex)" -->
+<a class="anchor" id="a135a5ae0d8f8a5a0c9d66f8ee00f9ff6"></a><!-- doxytag: member="OpenSim::StepFunction::getEndTime" ref="a135a5ae0d8f8a5a0c9d66f8ee00f9ff6" args="() const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool StepFunction::deletePoint </td>
+          <td class="memname">double OpenSim::StepFunction::getEndTime </td>
           <td>(</td>
-          <td class="paramtype">int&nbsp;</td>
-          <td class="paramname"> <em>aIndex</em></td>
+          <td class="paramname"></td>
           <td>&nbsp;)&nbsp;</td>
-          <td><code> [virtual]</code></td>
+          <td> const<code> [inline]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
+<p>Get step transition time. </p>
+
 </div>
 </div>
-<a class="anchor" id="aae8d9707c4958382b83d001760c429d4"></a><!-- doxytag: member="OpenSim::StepFunction::deletePoints" ref="aae8d9707c4958382b83d001760c429d4" args="(const Array&lt; int &gt; &amp;indices)" -->
+<a class="anchor" id="ac4fbc75b7b905798bd0d643f4c0f5456"></a><!-- doxytag: member="OpenSim::StepFunction::getEndValue" ref="ac4fbc75b7b905798bd0d643f4c0f5456" args="() const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool StepFunction::deletePoints </td>
+          <td class="memname">double OpenSim::StepFunction::getEndValue </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classOpenSim_1_1Array.html">Array</a>&lt; int &gt; &amp;&nbsp;</td>
-          <td class="paramname"> <em>indices</em></td>
+          <td class="paramname"></td>
           <td>&nbsp;)&nbsp;</td>
-          <td><code> [virtual]</code></td>
+          <td> const<code> [inline]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
+<p>Get end value before step. </p>
+
 </div>
 </div>
-<a class="anchor" id="a1fb2160ee8bf73d996cb93914b729df8"></a><!-- doxytag: member="OpenSim::StepFunction::evaluateTotalFirstDerivative" ref="a1fb2160ee8bf73d996cb93914b729df8" args="(double aX, double aDxdt) const " -->
+<a class="anchor" id="ae9a66dc588264f980c0148dc4f42aaec"></a><!-- doxytag: member="OpenSim::StepFunction::getStartTime" ref="ae9a66dc588264f980c0148dc4f42aaec" args="() const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double StepFunction::evaluateTotalFirstDerivative </td>
+          <td class="memname">double OpenSim::StepFunction::getStartTime </td>
           <td>(</td>
-          <td class="paramtype">double&nbsp;</td>
-          <td class="paramname"> <em>aX</em>, </td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Get step transition time. </p>
+
+</div>
+</div>
+<a class="anchor" id="ae9e5b0e172aa51521a0ac79785c7c959"></a><!-- doxytag: member="OpenSim::StepFunction::getStartValue" ref="ae9e5b0e172aa51521a0ac79785c7c959" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double OpenSim::StepFunction::getStartValue </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Get start value before step. </p>
+
+</div>
+</div>
+<a class="anchor" id="a19bc61a5124228659714f1c9392d2dbc"></a><!-- doxytag: member="OpenSim::StepFunction::OPENSIM_DECLARE_DERIVED" ref="a19bc61a5124228659714f1c9392d2dbc" args="(StepFunction, Function)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">OpenSim::StepFunction::OPENSIM_DECLARE_DERIVED </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classOpenSim_1_1StepFunction.html">StepFunction</a>&nbsp;</td>
+          <td class="paramname">, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double&nbsp;</td>
-          <td class="paramname"> <em>aDxdt</em></td><td>&nbsp;</td>
+          <td class="paramtype"><a class="el" href="classOpenSim_1_1Function.html">Function</a>&nbsp;</td>
+          <td class="paramname"></td><td>&nbsp;</td>
         </tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td><td> const<code> [virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Evaluates total first derivative. </p>
-
-</div>
-</div>
-<a class="anchor" id="a62fc0bd8bb0578b8663c792e290adcbb"></a><!-- doxytag: member="OpenSim::StepFunction::evaluateTotalSecondDerivative" ref="a62fc0bd8bb0578b8663c792e290adcbb" args="(double aX, double aDxdt, double aD2xdt2) const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">double StepFunction::evaluateTotalSecondDerivative </td>
-          <td>(</td>
-          <td class="paramtype">double&nbsp;</td>
-          <td class="paramname"> <em>aX</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&nbsp;</td>
-          <td class="paramname"> <em>aDxdt</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&nbsp;</td>
-          <td class="paramname"> <em>aD2xdt2</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td> const<code> [virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Evaluates total second derivative. </p>
-
-</div>
-</div>
-<a class="anchor" id="a9de98bf24f94c90993f07b0e4d62136d"></a><!-- doxytag: member="OpenSim::StepFunction::getArgumentSize" ref="a9de98bf24f94c90993f07b0e4d62136d" args="() const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int StepFunction::getArgumentSize </td>
-          <td>(</td>
-          <td class="paramname"></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td> const<code> [virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Get the number of components expected in the input vector. </p>
-
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Function.html#a0d135f54962ee99f6bf67ab3cece1690">OpenSim::Function</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a5cbf30e82ff3556178e8a76ec3a0ac70"></a><!-- doxytag: member="OpenSim::StepFunction::getMaxDerivativeOrder" ref="a5cbf30e82ff3556178e8a76ec3a0ac70" args="() const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int StepFunction::getMaxDerivativeOrder </td>
-          <td>(</td>
-          <td class="paramname"></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td> const<code> [virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Get the maximum derivative order this <a class="el" href="classOpenSim_1_1Function.html">Function</a> object can calculate. </p>
-
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Function.html#af0ac92fd93d056c204552b5987656b74">OpenSim::Function</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a68ef9ab6038f6da1f0e8f7c5dc43fc4e"></a><!-- doxytag: member="OpenSim::StepFunction::getNumberOfPoints" ref="a68ef9ab6038f6da1f0e8f7c5dc43fc4e" args="() const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual int OpenSim::StepFunction::getNumberOfPoints </td>
-          <td>(</td>
-          <td class="paramname"></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td> const<code> [inline, virtual]</code></td>
+          <td></td><td></td><td></td>
         </tr>
       </table>
 </div>
@@ -499,195 +342,7 @@ Inheritance diagram for OpenSim::StepFunction:</div>
 
 </div>
 </div>
-<a class="anchor" id="ae1800e4007d5e60c435388c35ed225df"></a><!-- doxytag: member="OpenSim::StepFunction::getSize" ref="ae1800e4007d5e60c435388c35ed225df" args="() const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int StepFunction::getSize </td>
-          <td>(</td>
-          <td class="paramname"></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Get size or number of independent data points (or number of coefficients) used to construct the function. </p>
-<dl class="return"><dt><b>Returns:</b></dt><dd>Number of data points (or number of coefficients). </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="acacb0cfd6b6641fb482574000b55df3d"></a><!-- doxytag: member="OpenSim::StepFunction::getX" ref="acacb0cfd6b6641fb482574000b55df3d" args="(int aIndex) const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">double StepFunction::getX </td>
-          <td>(</td>
-          <td class="paramtype">int&nbsp;</td>
-          <td class="paramname"> <em>aIndex</em></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td> const<code> [virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a1c155e777eeb4418fa4527f5a0554109"></a><!-- doxytag: member="OpenSim::StepFunction::getX" ref="a1c155e777eeb4418fa4527f5a0554109" args="() const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="classOpenSim_1_1Array.html">Array</a>&lt; double &gt; &amp; StepFunction::getX </td>
-          <td>(</td>
-          <td class="paramname"></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Get the array of independent variables used to construct the function. </p>
-<p>For the number of independent variable data points use getN().</p>
-<dl class="return"><dt><b>Returns:</b></dt><dd>Pointer to the independent variable data points. </dd></dl>
-<dl class="see"><dt><b>See also:</b></dt><dd>getN(); </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a3b8df5ec7066fd108e622ba4d0d7a432"></a><!-- doxytag: member="OpenSim::StepFunction::getXValues" ref="a3b8df5ec7066fd108e622ba4d0d7a432" args="() const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const double * StepFunction::getXValues </td>
-          <td>(</td>
-          <td class="paramname"></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td> const<code> [virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Get the array of independent variables used to construct the function. </p>
-<p>For the number of independent variable data points use getN().</p>
-<dl class="return"><dt><b>Returns:</b></dt><dd>Pointer to the independent variable data points. </dd></dl>
-<dl class="see"><dt><b>See also:</b></dt><dd>getN(); </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a9b5f93d382039defbffcb209dbfcc08c"></a><!-- doxytag: member="OpenSim::StepFunction::getY" ref="a9b5f93d382039defbffcb209dbfcc08c" args="(int aIndex) const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">double StepFunction::getY </td>
-          <td>(</td>
-          <td class="paramtype">int&nbsp;</td>
-          <td class="paramname"> <em>aIndex</em></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td> const<code> [virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="adfac8c215cf87a4f7a40f577cb7d4c4b"></a><!-- doxytag: member="OpenSim::StepFunction::getY" ref="adfac8c215cf87a4f7a40f577cb7d4c4b" args="() const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="classOpenSim_1_1Array.html">Array</a>&lt; double &gt; &amp; StepFunction::getY </td>
-          <td>(</td>
-          <td class="paramname"></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Get the array of Y values for the function. </p>
-<p>For the number of Y values use getNX().</p>
-<dl class="return"><dt><b>Returns:</b></dt><dd>Pointer to the coefficients. </dd></dl>
-<dl class="see"><dt><b>See also:</b></dt><dd>getCoefficients(); </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a890666cb28e9f1238a2673d0f7db1754"></a><!-- doxytag: member="OpenSim::StepFunction::getYValues" ref="a890666cb28e9f1238a2673d0f7db1754" args="() const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const double * StepFunction::getYValues </td>
-          <td>(</td>
-          <td class="paramname"></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td> const<code> [virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Get the array of dependent variables used to construct the function. </p>
-<dl class="return"><dt><b>Returns:</b></dt><dd>Pointer to the dependent variable data points. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a869ea94faaa16ac6d20a100e01037261"></a><!-- doxytag: member="OpenSim::StepFunction::getZ" ref="a869ea94faaa16ac6d20a100e01037261" args="(int aIndex) const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual double OpenSim::StepFunction::getZ </td>
-          <td>(</td>
-          <td class="paramtype">int&nbsp;</td>
-          <td class="paramname"> <em>aIndex</em></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td> const<code> [inline, virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a40771e2f73ed99807c6071a10e545528"></a><!-- doxytag: member="OpenSim::StepFunction::init" ref="a40771e2f73ed99807c6071a10e545528" args="(Function *aFunction)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void StepFunction::init </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classOpenSim_1_1Function.html">Function</a> *&nbsp;</td>
-          <td class="paramname"> <em>aFunction</em></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td><code> [virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Initialize the function with X and Y values. </p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>aN</em>&nbsp;</td><td>the number of X and Y values </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>aXValues</em>&nbsp;</td><td>the X values </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>aYValues</em>&nbsp;</td><td>the Y values </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="a6fb48c89ffba4ce53c3b5aaed9b862fb"></a><!-- doxytag: member="OpenSim::StepFunction::operator=" ref="a6fb48c89ffba4ce53c3b5aaed9b862fb" args="(const StepFunction &amp;aFunction)" -->
+<a class="anchor" id="a060a0abb7d574d1ed3765795d4be1da1"></a><!-- doxytag: member="OpenSim::StepFunction::operator=" ref="a060a0abb7d574d1ed3765795d4be1da1" args="(const StepFunction &amp;aStepFunction)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -695,7 +350,7 @@ Inheritance diagram for OpenSim::StepFunction:</div>
           <td class="memname"><a class="el" href="classOpenSim_1_1StepFunction.html">StepFunction</a> &amp; StepFunction::operator= </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classOpenSim_1_1StepFunction.html">StepFunction</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>aFunction</em></td>
+          <td class="paramname"> <em>aStepFunction</em></td>
           <td>&nbsp;)&nbsp;</td>
           <td></td>
         </tr>
@@ -705,125 +360,105 @@ Inheritance diagram for OpenSim::StepFunction:</div>
 
 <p>Assignment operator. </p>
 <p>Note that data members of the base class are also assigned.</p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>aStepFunction</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1StepFunction.html" title="A class for representing a StepFunction.">StepFunction</a> to be copied. </td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>Reference to this object. </dd></dl>
 
 <p>Reimplemented from <a class="el" href="classOpenSim_1_1Function.html#a90691e07139a44c0220d7dcde79ec15a">OpenSim::Function</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="af4d1623291d06ce1494a97a03ca25032"></a><!-- doxytag: member="OpenSim::StepFunction::setX" ref="af4d1623291d06ce1494a97a03ca25032" args="(int aIndex, double aValue)" -->
+<a class="anchor" id="af097f396ec97988bf6b1d49969a04cda"></a><!-- doxytag: member="OpenSim::StepFunction::setEndTime" ref="af097f396ec97988bf6b1d49969a04cda" args="(double time)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void StepFunction::setX </td>
+          <td class="memname">void OpenSim::StepFunction::setEndTime </td>
           <td>(</td>
-          <td class="paramtype">int&nbsp;</td>
-          <td class="paramname"> <em>aIndex</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
           <td class="paramtype">double&nbsp;</td>
-          <td class="paramname"> <em>aValue</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td><code> [virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a39232c9d2bef1fd588b39509c1cd0a35"></a><!-- doxytag: member="OpenSim::StepFunction::setY" ref="a39232c9d2bef1fd588b39509c1cd0a35" args="(int aIndex, double aValue)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void StepFunction::setY </td>
-          <td>(</td>
-          <td class="paramtype">int&nbsp;</td>
-          <td class="paramname"> <em>aIndex</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&nbsp;</td>
-          <td class="paramname"> <em>aValue</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td><code> [virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a3d416cc947532297c0d1951922eee920"></a><!-- doxytag: member="OpenSim::StepFunction::updateFromXMLNode" ref="a3d416cc947532297c0d1951922eee920" args="()" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void StepFunction::updateFromXMLNode </td>
-          <td>(</td>
-          <td class="paramname"></td>
+          <td class="paramname"> <em>time</em></td>
           <td>&nbsp;)&nbsp;</td>
-          <td><code> [virtual]</code></td>
+          <td><code> [inline]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
-<p>Update this object based on its XML node. </p>
+<p><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> step transition end time. </p>
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Object.html#a3426934773f3803309b0a360d3262de0">OpenSim::Object</a>.</p>
+</div>
+</div>
+<a class="anchor" id="a997f1c118776d127439536070d4161c2"></a><!-- doxytag: member="OpenSim::StepFunction::setEndValue" ref="a997f1c118776d127439536070d4161c2" args="(double end)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenSim::StepFunction::setEndValue </td>
+          <td>(</td>
+          <td class="paramtype">double&nbsp;</td>
+          <td class="paramname"> <em>end</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> end value before step. </p>
+
+</div>
+</div>
+<a class="anchor" id="a4fccdaf0396f96ef3dc0f0c0bc01b193"></a><!-- doxytag: member="OpenSim::StepFunction::setStartTime" ref="a4fccdaf0396f96ef3dc0f0c0bc01b193" args="(double time)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenSim::StepFunction::setStartTime </td>
+          <td>(</td>
+          <td class="paramtype">double&nbsp;</td>
+          <td class="paramname"> <em>time</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> step transition start time. </p>
+
+</div>
+</div>
+<a class="anchor" id="a094e4637156803abd8a5a66f0aa70c17"></a><!-- doxytag: member="OpenSim::StepFunction::setStartValue" ref="a094e4637156803abd8a5a66f0aa70c17" args="(double start)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenSim::StepFunction::setStartValue </td>
+          <td>(</td>
+          <td class="paramtype">double&nbsp;</td>
+          <td class="paramname"> <em>start</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> start value before step. </p>
 
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
-<a class="anchor" id="a59a347a97614ceae104380c10ac149b6"></a><!-- doxytag: member="OpenSim::StepFunction::_propX" ref="a59a347a97614ceae104380c10ac149b6" args="" -->
+<a class="anchor" id="aabd43d1e796f70117a9f34e0487f9594"></a><!-- doxytag: member="OpenSim::StepFunction::_endTime" ref="aabd43d1e796f70117a9f34e0487f9594" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classOpenSim_1_1PropertyDblArray.html">PropertyDblArray</a> <a class="el" href="classOpenSim_1_1StepFunction.html#a59a347a97614ceae104380c10ac149b6">OpenSim::StepFunction::_propX</a><code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p><a class="el" href="classOpenSim_1_1Array.html">Array</a> of values for the independent variables (i.e., the knot sequence). </p>
-<p>This array must be monotonically increasing. </p>
-
-</div>
-</div>
-<a class="anchor" id="af6a390d95fcdc43e382b93e4d9b6539a"></a><!-- doxytag: member="OpenSim::StepFunction::_propY" ref="af6a390d95fcdc43e382b93e4d9b6539a" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classOpenSim_1_1PropertyDblArray.html">PropertyDblArray</a> <a class="el" href="classOpenSim_1_1StepFunction.html#af6a390d95fcdc43e382b93e4d9b6539a">OpenSim::StepFunction::_propY</a><code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Y values. </p>
-
-</div>
-</div>
-<a class="anchor" id="a7786b9391b7d979eb319e8298d82ba6f"></a><!-- doxytag: member="OpenSim::StepFunction::_x" ref="a7786b9391b7d979eb319e8298d82ba6f" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classOpenSim_1_1Array.html">Array</a>&lt;double&gt;&amp; <a class="el" href="classOpenSim_1_1StepFunction.html#a7786b9391b7d979eb319e8298d82ba6f">OpenSim::StepFunction::_x</a><code> [protected]</code></td>
+          <td class="memname">double&amp; <a class="el" href="classOpenSim_1_1StepFunction.html#aabd43d1e796f70117a9f34e0487f9594">OpenSim::StepFunction::_endTime</a><code> [protected]</code></td>
         </tr>
       </table>
 </div>
@@ -831,12 +466,90 @@ Inheritance diagram for OpenSim::StepFunction:</div>
 
 </div>
 </div>
-<a class="anchor" id="aa45f599201411ed9c5ffeb35846f47a0"></a><!-- doxytag: member="OpenSim::StepFunction::_y" ref="aa45f599201411ed9c5ffeb35846f47a0" args="" -->
+<a class="anchor" id="a31bb0513cdf09c1fc16848fabd46e9e2"></a><!-- doxytag: member="OpenSim::StepFunction::_endTimeProp" ref="a31bb0513cdf09c1fc16848fabd46e9e2" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classOpenSim_1_1Array.html">Array</a>&lt;double&gt;&amp; <a class="el" href="classOpenSim_1_1StepFunction.html#aa45f599201411ed9c5ffeb35846f47a0">OpenSim::StepFunction::_y</a><code> [protected]</code></td>
+          <td class="memname"><a class="el" href="classOpenSim_1_1PropertyDbl.html">PropertyDbl</a> <a class="el" href="classOpenSim_1_1StepFunction.html#a31bb0513cdf09c1fc16848fabd46e9e2">OpenSim::StepFunction::_endTimeProp</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ae6485b331b9bfd306b05d8ce5ef4ffdc"></a><!-- doxytag: member="OpenSim::StepFunction::_endValue" ref="ae6485b331b9bfd306b05d8ce5ef4ffdc" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double&amp; <a class="el" href="classOpenSim_1_1StepFunction.html#ae6485b331b9bfd306b05d8ce5ef4ffdc">OpenSim::StepFunction::_endValue</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ae2dc395d5c5f8dc5dc8a81cedba207ad"></a><!-- doxytag: member="OpenSim::StepFunction::_endValueProp" ref="ae2dc395d5c5f8dc5dc8a81cedba207ad" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classOpenSim_1_1PropertyDbl.html">PropertyDbl</a> <a class="el" href="classOpenSim_1_1StepFunction.html#ae2dc395d5c5f8dc5dc8a81cedba207ad">OpenSim::StepFunction::_endValueProp</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ad6d301807ae501eb41dfc9682fa598d5"></a><!-- doxytag: member="OpenSim::StepFunction::_startTime" ref="ad6d301807ae501eb41dfc9682fa598d5" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double&amp; <a class="el" href="classOpenSim_1_1StepFunction.html#ad6d301807ae501eb41dfc9682fa598d5">OpenSim::StepFunction::_startTime</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a14c515f68bf159546a910f1a4d4a40b4"></a><!-- doxytag: member="OpenSim::StepFunction::_startTimeProp" ref="a14c515f68bf159546a910f1a4d4a40b4" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classOpenSim_1_1PropertyDbl.html">PropertyDbl</a> <a class="el" href="classOpenSim_1_1StepFunction.html#a14c515f68bf159546a910f1a4d4a40b4">OpenSim::StepFunction::_startTimeProp</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a3e4b9b304b85157b558026fffd0f1b43"></a><!-- doxytag: member="OpenSim::StepFunction::_startValue" ref="a3e4b9b304b85157b558026fffd0f1b43" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double&amp; <a class="el" href="classOpenSim_1_1StepFunction.html#a3e4b9b304b85157b558026fffd0f1b43">OpenSim::StepFunction::_startValue</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ae2f5a785656c47ca185f4f561e8fb577"></a><!-- doxytag: member="OpenSim::StepFunction::_startValueProp" ref="ae2f5a785656c47ca185f4f561e8fb577" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classOpenSim_1_1PropertyDbl.html">PropertyDbl</a> <a class="el" href="classOpenSim_1_1StepFunction.html#ae2f5a785656c47ca185f4f561e8fb577">OpenSim::StepFunction::_startValueProp</a><code> [protected]</code></td>
         </tr>
       </table>
 </div>
@@ -849,7 +562,7 @@ Inheritance diagram for OpenSim::StepFunction:</div>
 <li>OpenSim/Common/StepFunction.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:37:05 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Sat Mar 12 12:28:26 2011 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

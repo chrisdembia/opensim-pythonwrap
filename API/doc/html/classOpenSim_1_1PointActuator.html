@@ -27,7 +27,7 @@
   </div>
 </div>
 <div class="contents">
-<h1>OpenSim::PointActuator Class Reference</h1><!-- doxytag: class="OpenSim::PointActuator" --><!-- doxytag: inherits="OpenSim::CustomActuator" -->
+<h1>OpenSim::PointActuator Class Reference</h1><!-- doxytag: class="OpenSim::PointActuator" --><!-- doxytag: inherits="OpenSim::Actuator" -->
 <p><code>#include &lt;PointActuator.h&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for OpenSim::PointActuator:</div>
@@ -35,8 +35,8 @@ Inheritance diagram for OpenSim::PointActuator:</div>
  <div class="center">
   <img src="classOpenSim_1_1PointActuator.gif" usemap="#OpenSim::PointActuator_map" alt=""/>
   <map id="OpenSim::PointActuator_map" name="OpenSim::PointActuator_map">
-<area href="classOpenSim_1_1CustomActuator.html" alt="OpenSim::CustomActuator" shape="rect" coords="0,224,167,248"/>
-<area href="classOpenSim_1_1Actuator.html" alt="OpenSim::Actuator" shape="rect" coords="0,168,167,192"/>
+<area href="classOpenSim_1_1Actuator.html" alt="OpenSim::Actuator" shape="rect" coords="0,224,167,248"/>
+<area href="classOpenSim_1_1Actuator__.html" alt="OpenSim::Actuator_" shape="rect" coords="0,168,167,192"/>
 <area href="classOpenSim_1_1Force.html" alt="OpenSim::Force" shape="rect" coords="0,112,167,136"/>
 <area href="classOpenSim_1_1ModelComponent.html" alt="OpenSim::ModelComponent" shape="rect" coords="0,56,167,80"/>
 <area href="classOpenSim_1_1Object.html" alt="OpenSim::Object" shape="rect" coords="0,0,167,24"/>
@@ -68,7 +68,6 @@ Inheritance diagram for OpenSim::PointActuator:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the optimal force of the force.  <a href="#a40713256b4758a2be62c7e232b033bdc"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PointActuator.html#aa8bdc284cafc47214a2e3afb371b1754">getStress</a> (const SimTK::State &amp;s) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the stress of the force.  <a href="#aa8bdc284cafc47214a2e3afb371b1754"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PointActuator.html#a9fca55a05a18edf80c22a677923c7cc2">initStateCache</a> (SimTK::State &amp;s, SimTK::SubsystemIndex subsystemIndex, <a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;model)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PointActuator.html#a3d2538739e80d8eb6101caa0f668566e">computeForce</a> (const SimTK::State &amp;state, SimTK::Vector_&lt; SimTK::SpatialVec &gt; &amp;bodyForces, SimTK::Vector &amp;mobilityForces) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Apply the actuator force to BodyA and BodyB.  <a href="#a3d2538739e80d8eb6101caa0f668566e"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PointActuator.html#a5d2f311c4cb20b08d34bbeffeb0e5041">computeActuation</a> (const SimTK::State &amp;s) const </td></tr>
@@ -88,10 +87,10 @@ Inheritance diagram for OpenSim::PointActuator:</div>
 <tr><td colspan="2"><h2>Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyStr.html">PropertyStr</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PointActuator.html#adf2f87cb1d5e32b420c4f29574db4015">_propBodyName</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Name of <a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody rigid body.">Body</a> to which the <a class="el" href="classOpenSim_1_1Body.html" title="A class implementing a Simbody rigid body.">Body</a> actuator is applied.  <a href="#adf2f87cb1d5e32b420c4f29574db4015"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyDblVec3.html">PropertyDblVec3</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PointActuator.html#af548bc61168bb9bbbeab9566a3c3abfc">_propPoint</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyDblVec__.html">PropertyDblVec3</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PointActuator.html#af548bc61168bb9bbbeab9566a3c3abfc">_propPoint</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Point.  <a href="#af548bc61168bb9bbbeab9566a3c3abfc"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyBool.html">PropertyBool</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PointActuator.html#a3c089a667fe4739425c6feb081b1fafb">_propPointIsGlobal</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyDblVec3.html">PropertyDblVec3</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PointActuator.html#a4e381a35a1944d7f2ef133c0db44fa67">_propDirection</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyDblVec__.html">PropertyDblVec3</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PointActuator.html#a4e381a35a1944d7f2ef133c0db44fa67">_propDirection</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Direction.  <a href="#a4e381a35a1944d7f2ef133c0db44fa67"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyBool.html">PropertyBool</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PointActuator.html#ab7c742f1c0b0902cf75d337bfbb281c1">_propForceIsGlobal</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyDbl.html">PropertyDbl</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PointActuator.html#a734a51cef44468d00c8a37d02d085ca2">_propOptimalForce</a></td></tr>
@@ -188,8 +187,6 @@ Inheritance diagram for OpenSim::PointActuator:</div>
 <p>Check that this point actuator actuator is valid. </p>
 <dl class="return"><dt><b>Returns:</b></dt><dd>True if valid, false if invalid. </dd></dl>
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Actuator.html#ae06f4cf3793aba7c5fad83cb4f631f3f">OpenSim::Actuator</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a5d2f311c4cb20b08d34bbeffeb0e5041"></a><!-- doxytag: member="OpenSim::PointActuator::computeActuation" ref="a5d2f311c4cb20b08d34bbeffeb0e5041" args="(const SimTK::State &amp;s) const " -->
@@ -210,7 +207,7 @@ Inheritance diagram for OpenSim::PointActuator:</div>
 
 <p>Compute all quantities necessary for applying the actuator force to the model. </p>
 
-<p>Implements <a class="el" href="classOpenSim_1_1Actuator.html#a570ac569bc55be32494d0542e8d2fb59">OpenSim::Actuator</a>.</p>
+<p>Implements <a class="el" href="classOpenSim_1_1Actuator__.html#afb50d351a2a4104625239e8ebcbcb747">OpenSim::Actuator_</a>.</p>
 
 </div>
 </div>
@@ -247,7 +244,7 @@ Inheritance diagram for OpenSim::PointActuator:</div>
 
 <p>Apply the actuator force to BodyA and BodyB. </p>
 
-<p>Implements <a class="el" href="classOpenSim_1_1CustomActuator.html#afdfb511fb33a855430124c856dc7390e">OpenSim::CustomActuator</a>.</p>
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1Force.html#a6d55fd6e0f0de26a57894feea249c78b">OpenSim::Force</a>.</p>
 
 </div>
 </div>
@@ -405,41 +402,6 @@ Inheritance diagram for OpenSim::PointActuator:</div>
 
 </div>
 </div>
-<a class="anchor" id="a9fca55a05a18edf80c22a677923c7cc2"></a><!-- doxytag: member="OpenSim::PointActuator::initStateCache" ref="a9fca55a05a18edf80c22a677923c7cc2" args="(SimTK::State &amp;s, SimTK::SubsystemIndex subsystemIndex, Model &amp;model)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void PointActuator::initStateCache </td>
-          <td>(</td>
-          <td class="paramtype">SimTK::State &amp;&nbsp;</td>
-          <td class="paramname"> <em>s</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">SimTK::SubsystemIndex&nbsp;</td>
-          <td class="paramname"> <em>subsystemIndex</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>model</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td><code> [virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Actuator.html#a95b6f1caeb4f391ff2bf91de67acd371">OpenSim::Actuator</a>.</p>
-
-</div>
-</div>
 <a class="anchor" id="acf81d1f2497ab446beb0ab6e6622d479"></a><!-- doxytag: member="OpenSim::PointActuator::OPENSIM_DECLARE_DERIVED" ref="acf81d1f2497ab446beb0ab6e6622d479" args="(PointActuator, Actuator)" -->
 <div class="memitem">
 <div class="memproto">
@@ -464,8 +426,6 @@ Inheritance diagram for OpenSim::PointActuator:</div>
       </table>
 </div>
 <div class="memdoc">
-
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1CustomActuator.html#a71010b039e1b291fd45460bb0d68223b">OpenSim::CustomActuator</a>.</p>
 
 </div>
 </div>
@@ -702,7 +662,7 @@ Inheritance diagram for OpenSim::PointActuator:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classOpenSim_1_1PropertyDblVec3.html">PropertyDblVec3</a> <a class="el" href="classOpenSim_1_1PointActuator.html#a4e381a35a1944d7f2ef133c0db44fa67">OpenSim::PointActuator::_propDirection</a><code> [protected]</code></td>
+          <td class="memname"><a class="el" href="classOpenSim_1_1PropertyDblVec__.html">PropertyDblVec3</a> <a class="el" href="classOpenSim_1_1PointActuator.html#a4e381a35a1944d7f2ef133c0db44fa67">OpenSim::PointActuator::_propDirection</a><code> [protected]</code></td>
         </tr>
       </table>
 </div>
@@ -745,7 +705,7 @@ Inheritance diagram for OpenSim::PointActuator:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classOpenSim_1_1PropertyDblVec3.html">PropertyDblVec3</a> <a class="el" href="classOpenSim_1_1PointActuator.html#af548bc61168bb9bbbeab9566a3c3abfc">OpenSim::PointActuator::_propPoint</a><code> [protected]</code></td>
+          <td class="memname"><a class="el" href="classOpenSim_1_1PropertyDblVec__.html">PropertyDblVec3</a> <a class="el" href="classOpenSim_1_1PointActuator.html#af548bc61168bb9bbbeab9566a3c3abfc">OpenSim::PointActuator::_propPoint</a><code> [protected]</code></td>
         </tr>
       </table>
 </div>
@@ -773,7 +733,7 @@ Inheritance diagram for OpenSim::PointActuator:</div>
 <li>OpenSim/Actuators/PointActuator.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Nov 8 15:36:59 2010 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Sat Mar 12 12:28:19 2011 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>
