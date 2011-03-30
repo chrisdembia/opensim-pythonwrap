@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE filesystem PUBLIC "-//NetBeans//DTD Filesystem 1.1//EN" "http://www.netbeans.org/dtds/filesystem-1_1.dtd">
+<filesystem>
+    <folder name="Actions">
+        <folder name="Help">
+            <file name="org-opensim-helputils-HelpShowXML.instance"/>
+        </folder>
+    </folder>
+    <folder name="Menu">
+        <folder name="Help">
+            <attr name="org-opensim-view-TutorialsAction.shadow/org-opensim-helputils-separatorBefore.instance" boolvalue="true"/>
+            <file name="org-opensim-helputils-separatorBefore.instance">
+                <attr name="instanceClass" stringvalue="javax.swing.JSeparator"/>
+            </file>
+            <attr name="org-opensim-helputils-separatorBefore.instance/org-opensim-helputils-HelpShowXML.shadow" boolvalue="true"/>
+            <file name="org-opensim-helputils-HelpShowXML.shadow">
+                <attr name="originalFile" stringvalue="Actions/Help/org-opensim-helputils-HelpShowXML.instance"/>
+            </file>
+            <attr name="org-opensim-helputils-HelpShowXML.shadow/org-opensim-k12-separatorBefore.instance" boolvalue="true"/>
+        </folder>
+    </folder>
+</filesystem>
