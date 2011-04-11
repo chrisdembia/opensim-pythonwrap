@@ -52,9 +52,9 @@ public class AllForcesNode extends OpenSimObjectSetNode {
    public AllForcesNode(ForceSet as) {
       super(as);
       setDisplayName(NbBundle.getMessage(AllForcesNode.class, "CTL_AllForces"));
-      for (int i=0; i<as.getSize(); i++) {
+      /*for (int i=0; i<as.getSize(); i++) {
         System.out.println(as.get(i).getType());
-      }
+      }*/
       getChildren().add(new Node[] {new MusclesNode(as)});
       getChildren().add(new Node[] {new ActuatorsNode(as)});
       getChildren().add(new Node[] {new ContactForcesNode(as)});

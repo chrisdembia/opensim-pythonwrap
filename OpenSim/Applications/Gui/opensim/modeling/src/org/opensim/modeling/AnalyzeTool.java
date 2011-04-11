@@ -129,4 +129,5 @@ public class AnalyzeTool extends AbstractTool {
     return opensimModelJNI.AnalyzeTool_run__SWIG_1(swigCPtr, this, plotting);
   }
 
+
 }

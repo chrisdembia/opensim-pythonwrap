@@ -59,7 +59,7 @@ public class GeometrySetNode extends OpenSimObjectSetNode {
        setDisplayName(NbBundle.getMessage(GeometrySetNode.class, "CTL_DisplayGeometries"));
        Children children = getChildren();
        for (int i=0; i<as.getSize(); i++) {
-           System.out.println(as.get(i).getType());
+           //System.out.println(as.get(i).getType());
            OneDisplayGeometryNode node = new OneDisplayGeometryNode(as.get(i));
            Node[] arrNodes = new Node[1];
            arrNodes[0] = node;

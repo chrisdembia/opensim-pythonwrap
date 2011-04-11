@@ -244,7 +244,7 @@ final class ParametersTopComponent extends TopComponent
                 knobsPanel.add(new SliderWithTextBox(objAdaptor,
                         1.0,
                         displayName));
-            } else if (prop.getType()==prop.getType().DblVec3||
+            } else if (prop.getType()==prop.getType().DblVec||
                     prop.getType()==prop.getType().DblArray){
                 // Three sliders one per component if none specified
                 if (propertyComponent==-1){

@@ -8,6 +8,7 @@ package org.opensim.helputils;
 
 import java.io.IOException;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.text.html.HTMLEditorKit;
 import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.modeling.Property;
@@ -25,6 +26,7 @@ public class ShowXMLRepJDialog extends javax.swing.JDialog {
         super(parent, modal);
         populateCbModel();
         initComponents();
+        jEditorPane1.setEditorKit(new HTMLEditorKit());
     }
     
     /** This method is called from within the constructor to
@@ -37,7 +39,7 @@ public class ShowXMLRepJDialog extends javax.swing.JDialog {
         jComboBox1 = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        jEditorPane1 = new javax.swing.JEditorPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         jComboBox1.setModel(cbModel);
@@ -54,10 +56,8 @@ public class ShowXMLRepJDialog extends javax.swing.JDialog {
 
         jLabel1.setText("Class Name");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setEditable(false);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        jEditorPane1.setEditable(false);
+        jScrollPane1.setViewportView(jEditorPane1);
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -95,22 +95,25 @@ public class ShowXMLRepJDialog extends javax.swing.JDialog {
 // TODO add your handling code here:
         String selectedClass = (String) jComboBox1.getSelectedItem();
         OpenSimObject obj = OpenSimObject.newInstanceOfType(selectedClass);
-        jTextArea1.setText("");
+        String contents="";
         PropertySet pSet = obj.getPropertySet();
-        jTextArea1.append("<"+obj.getType()+">\n");
+        contents = contents.concat("<FONT COLOR=RED>&lt;"+obj.getType()+"&gt</FONT><br>");
         for(int i=0; i< pSet.getSize(); i++){
             try {
                 Property p = pSet.get(i);
                 String cmt = p.getComment();
-                if (cmt.length()>0) jTextArea1.append("\t<!--"+cmt+"-->\n");
-                jTextArea1.append("\t<"+p.getName()+">"+p.toString()+"</"+p.getName()+">\n");
+                if (cmt.length()>0) contents = contents.concat("\t<FONT COLOR=Green>&lt;!--"+cmt+"--&gt</FONT><br>");
+                contents = contents.concat("\t<FONT COLOR=RED>&lt;"+p.getName()+"&gt;</FONT>"+p.toString()+
+                        "<FONT COLOR=RED>&lt;/"+p.getName()+"&gt</FONT><br>");
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
            
         }
-        jTextArea1.append("</"+obj.getType()+">\n");
-        
+        contents = contents.concat("<FONT COLOR=RED>&lt;/"+obj.getType()+"&gt</FONT><br>");
+        jEditorPane1.selectAll();
+        jEditorPane1.cut();
+        jEditorPane1.setText(contents);
     }//GEN-LAST:event_jComboBox1ActionPerformed
     
     /**
@@ -133,9 +136,9 @@ public class ShowXMLRepJDialog extends javax.swing.JDialog {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JEditorPane jEditorPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
     
 }

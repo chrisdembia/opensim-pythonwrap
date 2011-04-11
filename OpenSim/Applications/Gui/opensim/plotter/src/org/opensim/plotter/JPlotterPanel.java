@@ -1707,6 +1707,13 @@ public class JPlotterPanel extends javax.swing.JPanel
             String dataFilename = FileUtils.getInstance().browseForFilename(".sto, .mot", "Files containing data to plot", true, JPlotterPanel.this);
             if (dataFilename != null){
                PlotterSourceFile src= getPlotterModel().addFile(dataFilename);
+               if (src==null) {
+                  NotifyDescriptor.Message dlg =
+                          new NotifyDescriptor.Message("The file specified:"+dataFilename+" is corrupt or have no valid data. Ignoring...");
+                  DialogDisplayer.getDefault().notify(dlg);
+                  JPlotterPanel.this.requestFocus(true);
+                  return;
+               };
                xQuantityButton.setEnabled(getPlotterModel().countSources()>0);
                populateYPopup();
                // Proceed as if it's selected'

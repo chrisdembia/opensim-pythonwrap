@@ -56,7 +56,7 @@ public class ContactGeometriesNode extends OpenSimObjectSetNode {
        setDisplayName(NbBundle.getMessage(ContactGeometriesNode.class, "CTL_ContactGeometries"));
        Children children = getChildren();
        for (int i=0; i<as.getSize(); i++) {
-           System.out.println(as.get(i).getType());
+           //System.out.println(as.get(i).getType());
            OneContactGeometryNode node = new OneContactGeometryNode(as.get(i));
            Node[] arrNodes = new Node[1];
            arrNodes[0] = node;
