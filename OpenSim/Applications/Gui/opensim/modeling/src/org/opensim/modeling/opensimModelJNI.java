@@ -3806,10 +3806,6 @@ public class opensimModelJNI {
   public final static native void ModelScaler_setScalingOrder(long jarg1, ModelScaler jarg1_, long jarg2, ArrayStr jarg2_);
   public final static native String ModelScaler_getMarkerFileName(long jarg1, ModelScaler jarg1_);
   public final static native void ModelScaler_setMarkerFileName(long jarg1, ModelScaler jarg1_, String jarg2);
-  public final static native String ModelScaler_getOutputJointFileName(long jarg1, ModelScaler jarg1_);
-  public final static native void ModelScaler_setOutputJointFileName(long jarg1, ModelScaler jarg1_, String jarg2);
-  public final static native String ModelScaler_getOutputMuscleFileName(long jarg1, ModelScaler jarg1_);
-  public final static native void ModelScaler_setOutputMuscleFileName(long jarg1, ModelScaler jarg1_, String jarg2);
   public final static native String ModelScaler_getOutputModelFileName(long jarg1, ModelScaler jarg1_);
   public final static native void ModelScaler_setOutputModelFileName(long jarg1, ModelScaler jarg1_, String jarg2);
   public final static native String ModelScaler_getOutputScaleFileName(long jarg1, ModelScaler jarg1_);

@@ -132,22 +132,6 @@ public class ModelScaler extends OpenSimObject {
     opensimModelJNI.ModelScaler_setMarkerFileName(swigCPtr, this, aMarkerFileName);
   }
 
-  public String getOutputJointFileName() {
-    return opensimModelJNI.ModelScaler_getOutputJointFileName(swigCPtr, this);
-  }
-
-  public void setOutputJointFileName(String outputJointFileName) {
-    opensimModelJNI.ModelScaler_setOutputJointFileName(swigCPtr, this, outputJointFileName);
-  }
-
-  public String getOutputMuscleFileName() {
-    return opensimModelJNI.ModelScaler_getOutputMuscleFileName(swigCPtr, this);
-  }
-
-  public void setOutputMuscleFileName(String aOutputMuscleFileName) {
-    opensimModelJNI.ModelScaler_setOutputMuscleFileName(swigCPtr, this, aOutputMuscleFileName);
-  }
-
   public String getOutputModelFileName() {
     return opensimModelJNI.ModelScaler_getOutputModelFileName(swigCPtr, this);
   }
