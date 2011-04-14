@@ -752,7 +752,7 @@ final public class MarkerEditorTopComponent extends TopComponent implements Obse
       boolean sameName = currentMarker.getName().equals(savedMarker.getName());
 
       // Copy the elements of the saved marker into the current marker.
-      currentMarker.copy(savedMarker);
+      currentMarker.updateFromMarker(savedMarker);
       vis.updateMarkerGeometry(currentMarker);
 
       // If the name has changed, update the marker list in ViewDB and fire an event.
