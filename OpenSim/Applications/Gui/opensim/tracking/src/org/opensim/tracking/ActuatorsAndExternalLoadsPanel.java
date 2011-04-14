@@ -479,8 +479,9 @@ public class ActuatorsAndExternalLoadsPanel extends javax.swing.JPanel {
         public void actionPerformed(ActionEvent e) {
             FileFilter ff = FileUtils.getFileFilter(".xml", "File to save External ForceSet");
             String fileName = FileUtils.getInstance().browseForFilenameToSave(ff, true, "", null);
-            toolModel.getExternalLoads().print(fileName);
-            externalLoadsFileName.setFileName(fileName);
+            String fullFilename = FileUtils.addExtensionIfNeeded(fileName, ".xml");
+            toolModel.getExternalLoads().print(fullFilename);
+            externalLoadsFileName.setFileName(fullFilename);
         }
     }
 
