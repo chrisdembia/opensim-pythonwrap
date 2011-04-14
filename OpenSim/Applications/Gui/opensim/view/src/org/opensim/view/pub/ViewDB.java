@@ -312,15 +312,17 @@ public final class ViewDB extends Observable implements Observer {
                SingleModelVisuals visModel = mapModelsToVisuals.get(dModel);
                // Remove from display
                //int rc = visModel.getModelDisplayAssembly().GetReferenceCount();
-               removeObjectFromScene(visModel.getModelDisplayAssembly());
+               if (visModel != null){
+                    removeObjectFromScene(visModel.getModelDisplayAssembly());
+                    //rc = visModel.getModelDisplayAssembly().GetReferenceCount();
+                    // Remove from lists
+                    modelVisuals.remove(visModel);
+               }
                removeAnnotationObjects(dModel);
-               //rc = visModel.getModelDisplayAssembly().GetReferenceCount();
-               // Remove from lists
-               modelVisuals.remove(visModel);
                mapModelsToVisuals.remove(dModel);
                modelOpacities.remove(dModel);
                //rc = visModel.getModelDisplayAssembly().GetReferenceCount();
-               visModel.cleanup();
+               if (visModel != null) visModel.cleanup();
                
             } else if (ev.getOperation()==ModelEvent.Operation.SetCurrent) {
                // Current model has changed. For view purposes this affects available commands
