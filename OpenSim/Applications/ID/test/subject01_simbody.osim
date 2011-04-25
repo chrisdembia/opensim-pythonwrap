@@ -14580,8 +14580,8 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 					<mass>       0.20920965 </mass>
 					<mass_center>       0.03553713       0.00616251      -0.01797398 </mass_center>
 					<inertia_xx>       0.00009659 </inertia_xx>
-					<inertia_yy>       0.00019318 </inertia_yy>
-					<inertia_zz>       0.00096588 </inertia_zz>
+					<inertia_yy>       0.00009659 </inertia_yy>
+					<inertia_zz>       0.00009659 </inertia_zz>
 					<inertia_xy>       0.00000000 </inertia_xy>
 					<inertia_xz>       0.00000000 </inertia_xz>
 					<inertia_yz>       0.00000000 </inertia_yz>
@@ -15383,8 +15383,8 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 					<mass>       0.20920965 </mass>
 					<mass_center>       0.03553713       0.00616251       0.01797398 </mass_center>
 					<inertia_xx>       0.00009659 </inertia_xx>
-					<inertia_yy>       0.00019318 </inertia_yy>
-					<inertia_zz>       0.00096588 </inertia_zz>
+					<inertia_yy>       0.00009659 </inertia_yy>
+					<inertia_zz>       0.00009659 </inertia_zz>
 					<inertia_xy>       0.00000000 </inertia_xy>
 					<inertia_xz>       0.00000000 </inertia_xz>
 					<inertia_yz>       0.00000000 </inertia_yz>
