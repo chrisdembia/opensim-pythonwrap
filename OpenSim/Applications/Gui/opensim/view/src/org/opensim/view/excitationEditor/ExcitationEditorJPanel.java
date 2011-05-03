@@ -690,9 +690,9 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
 // TODO add your handling code here:
        if (evt.isPopupTrigger())
         invokeTreePopupIfNeeded(evt.getX(), evt.getY());
-       if (evt.getClickCount()==2 && evt.getModifiers()==InputEvent.BUTTON1_MASK){    // innocent double click on a node. Toggle display
-           toggleDisplay(evt.getX(), evt.getY());
-       }
+       //OpenSim23 if (evt.getClickCount()==2 && evt.getModifiers()==InputEvent.BUTTON1_MASK){    // innocent double click on a node. Toggle display
+       //OpenSim23     toggleDisplay(evt.getX(), evt.getY());
+       //OpenSim23 }
 
     }//GEN-LAST:event_jExcitationsTreeMouseReleased
 
