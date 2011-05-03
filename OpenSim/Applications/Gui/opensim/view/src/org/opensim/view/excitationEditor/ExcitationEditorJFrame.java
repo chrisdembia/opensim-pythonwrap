@@ -106,6 +106,7 @@ public class ExcitationEditorJFrame extends javax.swing.JFrame {
         SaveLayoutButton = new javax.swing.JButton();
         LoadLayoutButton = new javax.swing.JButton();
         SaveAsButton = new javax.swing.JButton();
+        helpButton = new javax.swing.JButton();
 
         jFileMenu.setText("File");
         jFileMenu.addActionListener(new java.awt.event.ActionListener() {
@@ -168,6 +169,12 @@ public class ExcitationEditorJFrame extends javax.swing.JFrame {
         jToolsMenu.add(jSaveTemplateMenuItem);
 
         jLoadTemplateMenuItem.setText("Load Layout...");
+        jLoadTemplateMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jLoadTemplateMenuItemActionPerformed(evt);
+            }
+        });
+
         jToolsMenu.add(jLoadTemplateMenuItem);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -217,6 +224,9 @@ public class ExcitationEditorJFrame extends javax.swing.JFrame {
             }
         });
 
+        helpButton.setText("?");
+        helpButton.setToolTipText("<html>\nAnchor with left mouse button and drag to lower right to <b>Zoom In</b> on a rectangle.<br>\nAnchor  with left mouse button and drag to the left to <b>Zoom Out/Refit</b> the data.<br>\nUse <b>I</b> to zoom in about the center of the pane.l<br>\nUse <b>O</b> to zoom out about the center of the panel.l<br>\nUse <b>L</b> to move the panel Left<br>\nUse <b>R</b> to move the panel Right<br>\nUse <b>U</b> to move the panel Up<br>\nUse <b>D</b> to move the panel Down<br>\n<b>Selection:</b><br>\nHolding <b>CTRL</b> button down turns on selection mode.<br>\n  - Left mouse button selects individual points.<br>\n  - Shift + left mouse button accumulates selection.<br>\n  - Draw box to select all points within the box.<br>\n  - Left mouse button in background deselects all points.<br>\n<b>Adding Points:</b><br>\nRight mouse click inside a panel and use popup menu to add points.<br>\n</html>\n\n");
+
         org.jdesktop.layout.GroupLayout jControlPanelLayout = new org.jdesktop.layout.GroupLayout(jControlPanel);
         jControlPanel.setLayout(jControlPanelLayout);
         jControlPanelLayout.setHorizontalGroup(
@@ -232,7 +242,10 @@ public class ExcitationEditorJFrame extends javax.swing.JFrame {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(SaveLayoutButton)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(LoadLayoutButton))
+                .add(LoadLayoutButton)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(helpButton)
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jControlPanelLayout.setVerticalGroup(
             jControlPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -242,13 +255,18 @@ public class ExcitationEditorJFrame extends javax.swing.JFrame {
                 .add(CreateNewButton)
                 .add(SaveLayoutButton)
                 .add(LoadLayoutButton)
-                .add(SaveAsButton))
+                .add(SaveAsButton)
+                .add(helpButton))
         );
         getContentPane().add(jControlPanel, java.awt.BorderLayout.NORTH);
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-507)/2, (screenSize.height-300)/2, 507, 300);
+        setBounds((screenSize.width-557)/2, (screenSize.height-300)/2, 557, 300);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jLoadTemplateMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLoadTemplateMenuItemActionPerformed
+// TODO add your handling code here:
+    }//GEN-LAST:event_jLoadTemplateMenuItemActionPerformed
 
     private void jFileMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFileMenuActionPerformed
 // TODO add your handling code here:
@@ -411,6 +429,7 @@ public class ExcitationEditorJFrame extends javax.swing.JFrame {
     private javax.swing.JButton SaveAsButton;
     private javax.swing.JButton SaveButton;
     private javax.swing.JButton SaveLayoutButton;
+    private javax.swing.JButton helpButton;
     private javax.swing.JPanel jControlPanel;
     private javax.swing.JMenuItem jCreateDefaultMenuItem;
     private javax.swing.JMenu jFileMenu;

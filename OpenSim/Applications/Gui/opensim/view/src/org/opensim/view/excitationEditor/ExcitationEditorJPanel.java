@@ -99,7 +99,7 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
     Vector<TreePath> selectedColumnsVector = new Vector<TreePath>(4);   // Cache used to accumulate user selection of the tree
     boolean somethingSelected=false;
     private ExcitationsGridJPanel excitationGridPanel = new ExcitationsGridJPanel();
-    static int MAX_EXCITATIONS_PER_COLUMN=8;
+    static int MAX_EXCITATIONS_PER_COLUMN=4;
     /** Creates new form ExcitationEditorJPanel */
     
     public ExcitationEditorJPanel(JFrame owner, ControlSet controls) {
@@ -143,6 +143,14 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
      */
     // <editor-fold defaultstate="collapsed" desc=" Generated Code ">//GEN-BEGIN:initComponents
     private void initComponents() {
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        displayControlPanel = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
+        MinMaxShadingCheckBox1 = new javax.swing.JCheckBox();
+        jPanel6 = new javax.swing.JPanel();
+        ShowExcBaseShapeCheckBox1 = new JCheckBox("Control", true);
+        ShowMinBaseShapeCheckBox1 = new JCheckBox("Minimum", true);
+        ShowMaxBaseShapeCheckBox1 = new JCheckBox("Maximum", true);
         jPanel4 = new javax.swing.JPanel();
         ExportExcitationsButton = new javax.swing.JButton();
         DisplayPanel = new javax.swing.JPanel();
@@ -168,8 +176,6 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
         jMoveDownButton = new javax.swing.JButton();
         jDeleteButton = new javax.swing.JButton();
         jRightPanel = new javax.swing.JPanel();
-        jExScrollPane = new javax.swing.JScrollPane();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
         ControlPanel = new javax.swing.JPanel();
         jSeparator2 = new javax.swing.JSeparator();
         jBackupAllButton = new javax.swing.JButton();
@@ -178,14 +184,102 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
         jLabel2 = new javax.swing.JLabel();
         jRemoveNodesButton = new javax.swing.JButton();
         jValueToFormattedTextField = new javax.swing.JFormattedTextField();
-        displayControlPanel = new javax.swing.JPanel();
-        jPanel7 = new javax.swing.JPanel();
-        MinMaxShadingCheckBox1 = new javax.swing.JCheckBox();
-        jPanel6 = new javax.swing.JPanel();
-        ShowExcBaseShapeCheckBox1 = new JCheckBox("Control", true);
-        ShowMinBaseShapeCheckBox1 = new JCheckBox("Minimum", true);
-        ShowMaxBaseShapeCheckBox1 = new JCheckBox("Maximum", true);
+        jSetValueSelectedPointsButton = new javax.swing.JButton();
+        jExScrollPane = new javax.swing.JScrollPane();
 
+        jTabbedPane1.setName("Edit");
+        displayControlPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Display Preferences"));
+        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Shading Options"));
+        MinMaxShadingCheckBox1.setText("MinMax");
+        MinMaxShadingCheckBox1.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        MinMaxShadingCheckBox1.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        MinMaxShadingCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MinMaxShadingCheckBoxActionPerformed(evt);
+            }
+        });
+
+        org.jdesktop.layout.GroupLayout jPanel7Layout = new org.jdesktop.layout.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addContainerGap(22, Short.MAX_VALUE)
+                .add(MinMaxShadingCheckBox1)
+                .addContainerGap())
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel7Layout.createSequentialGroup()
+                .add(MinMaxShadingCheckBox1)
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Curve Shapes"));
+        ShowExcBaseShapeCheckBox1.setText("Control");
+        ShowExcBaseShapeCheckBox1.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        ShowExcBaseShapeCheckBox1.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        ShowExcBaseShapeCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ShowExcBaseShapeCheckBoxActionPerformed(evt);
+            }
+        });
+
+        ShowMinBaseShapeCheckBox1.setText("Minimum");
+        ShowMinBaseShapeCheckBox1.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        ShowMinBaseShapeCheckBox1.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        ShowMinBaseShapeCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ShowMinBaseShapeCheckBoxActionPerformed(evt);
+            }
+        });
+
+        ShowMaxBaseShapeCheckBox1.setText("Maximum");
+        ShowMaxBaseShapeCheckBox1.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        ShowMaxBaseShapeCheckBox1.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        ShowMaxBaseShapeCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ShowMaxBaseShapeCheckBoxActionPerformed(evt);
+            }
+        });
+
+        org.jdesktop.layout.GroupLayout jPanel6Layout = new org.jdesktop.layout.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(jPanel6Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(ShowExcBaseShapeCheckBox1)
+                    .add(ShowMinBaseShapeCheckBox1)
+                    .add(ShowMaxBaseShapeCheckBox1))
+                .addContainerGap(35, Short.MAX_VALUE))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel6Layout.createSequentialGroup()
+                .add(ShowExcBaseShapeCheckBox1)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(ShowMinBaseShapeCheckBox1)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(ShowMaxBaseShapeCheckBox1))
+        );
+
+        org.jdesktop.layout.GroupLayout displayControlPanelLayout = new org.jdesktop.layout.GroupLayout(displayControlPanel);
+        displayControlPanel.setLayout(displayControlPanelLayout);
+        displayControlPanelLayout.setHorizontalGroup(
+            displayControlPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(displayControlPanelLayout.createSequentialGroup()
+                .add(jPanel6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jPanel7, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        displayControlPanelLayout.setVerticalGroup(
+            displayControlPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+            .add(jPanel7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+        );
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "With Selected Excitations"));
         ExportExcitationsButton.setText("Export...");
         ExportExcitationsButton.setToolTipText("Save selected controls to a separate file");
@@ -399,13 +493,6 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
 
         jRightPanel.setLayout(new java.awt.BorderLayout());
 
-        jExScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-        jExScrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        jRightPanel.add(jExScrollPane, java.awt.BorderLayout.CENTER);
-
-        jTabbedPane1.setName("Edit");
-        jRightPanel.add(jTabbedPane1, java.awt.BorderLayout.SOUTH);
-
         jBackupAllButton.setText("Backup");
         jBackupAllButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -420,10 +507,10 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
             }
         });
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "With Selected Points"));
-        jLabel2.setText("Set to");
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Operations on Selected Points"));
+        jLabel2.setText("Set selected points to");
 
-        jRemoveNodesButton.setText("Remove");
+        jRemoveNodesButton.setText("Remove selected points ");
         jRemoveNodesButton.setToolTipText("Remove selected control points from their respective curves");
         jRemoveNodesButton.setActionCommand("Remove Selected Nodes");
         jRemoveNodesButton.addActionListener(new java.awt.event.ActionListener() {
@@ -444,120 +531,44 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
             }
         });
 
+        jSetValueSelectedPointsButton.setText("OK");
+        jSetValueSelectedPointsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jSetValueSelectedPointsButtonActionPerformed(evt);
+            }
+        });
+
         org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel2Layout.createSequentialGroup()
-                .add(jLabel2)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jValueToFormattedTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jRemoveNodesButton)
-                .addContainerGap())
+                .addContainerGap()
+                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jPanel2Layout.createSequentialGroup()
+                        .add(jLabel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 104, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jValueToFormattedTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 94, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jSetValueSelectedPointsButton))
+                    .add(jRemoveNodesButton))
+                .addContainerGap(255, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel2Layout.createSequentialGroup()
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel2)
                     .add(jValueToFormattedTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jRemoveNodesButton))
+                    .add(jSetValueSelectedPointsButton)
+                    .add(jLabel2))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jRemoveNodesButton)
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        displayControlPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Display Preferences"));
-        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Shading Options"));
-        MinMaxShadingCheckBox1.setText("MinMax");
-        MinMaxShadingCheckBox1.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        MinMaxShadingCheckBox1.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        MinMaxShadingCheckBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MinMaxShadingCheckBoxActionPerformed(evt);
-            }
-        });
-
-        org.jdesktop.layout.GroupLayout jPanel7Layout = new org.jdesktop.layout.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addContainerGap(22, Short.MAX_VALUE)
-                .add(MinMaxShadingCheckBox1)
-                .addContainerGap())
-        );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel7Layout.createSequentialGroup()
-                .add(MinMaxShadingCheckBox1)
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Curve Shapes"));
-        ShowExcBaseShapeCheckBox1.setText("Control");
-        ShowExcBaseShapeCheckBox1.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        ShowExcBaseShapeCheckBox1.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        ShowExcBaseShapeCheckBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ShowExcBaseShapeCheckBoxActionPerformed(evt);
-            }
-        });
-
-        ShowMinBaseShapeCheckBox1.setText("Minimum");
-        ShowMinBaseShapeCheckBox1.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        ShowMinBaseShapeCheckBox1.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        ShowMinBaseShapeCheckBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ShowMinBaseShapeCheckBoxActionPerformed(evt);
-            }
-        });
-
-        ShowMaxBaseShapeCheckBox1.setText("Maximum");
-        ShowMaxBaseShapeCheckBox1.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        ShowMaxBaseShapeCheckBox1.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        ShowMaxBaseShapeCheckBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ShowMaxBaseShapeCheckBoxActionPerformed(evt);
-            }
-        });
-
-        org.jdesktop.layout.GroupLayout jPanel6Layout = new org.jdesktop.layout.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .add(jPanel6Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(ShowExcBaseShapeCheckBox1)
-                    .add(ShowMinBaseShapeCheckBox1)
-                    .add(ShowMaxBaseShapeCheckBox1))
-                .addContainerGap(35, Short.MAX_VALUE))
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel6Layout.createSequentialGroup()
-                .add(ShowExcBaseShapeCheckBox1)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(ShowMinBaseShapeCheckBox1)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(ShowMaxBaseShapeCheckBox1))
-        );
-
-        org.jdesktop.layout.GroupLayout displayControlPanelLayout = new org.jdesktop.layout.GroupLayout(displayControlPanel);
-        displayControlPanel.setLayout(displayControlPanelLayout);
-        displayControlPanelLayout.setHorizontalGroup(
-            displayControlPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(displayControlPanelLayout.createSequentialGroup()
-                .add(jPanel6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jPanel7, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        displayControlPanelLayout.setVerticalGroup(
-            displayControlPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-            .add(jPanel7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-        );
+        jExScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        jExScrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        jExScrollPane.setAlignmentY(0.0F);
 
         org.jdesktop.layout.GroupLayout ControlPanelLayout = new org.jdesktop.layout.GroupLayout(ControlPanel);
         ControlPanel.setLayout(ControlPanelLayout);
@@ -565,35 +576,29 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
             ControlPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(ControlPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .add(ControlPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, ControlPanelLayout.createSequentialGroup()
-                        .add(jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(displayControlPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jSeparator2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 522, Short.MAX_VALUE)
-                    .add(ControlPanelLayout.createSequentialGroup()
-                        .add(jBackupAllButton)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 374, Short.MAX_VALUE)
-                        .add(jRestoreAllButton)
-                        .addContainerGap())))
+                .add(jBackupAllButton)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 374, Short.MAX_VALUE)
+                .add(jRestoreAllButton)
+                .addContainerGap())
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, jSeparator2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 532, Short.MAX_VALUE)
+            .add(jExScrollPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 532, Short.MAX_VALUE)
         );
         ControlPanelLayout.setVerticalGroup(
             ControlPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(ControlPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .add(ControlPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(displayControlPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, ControlPanelLayout.createSequentialGroup()
+                .add(jExScrollPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jSeparator2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 17, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(8, 8, 8)
+                .add(jSeparator2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(ControlPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jBackupAllButton)
                     .add(jRestoreAllButton))
                 .addContainerGap())
         );
-        jRightPanel.add(ControlPanel, java.awt.BorderLayout.SOUTH);
+        jRightPanel.add(ControlPanel, java.awt.BorderLayout.CENTER);
 
         jSplitPane1.setRightComponent(jRightPanel);
 
@@ -605,9 +610,14 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jSplitPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)
+            .add(jSplitPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 539, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jSetValueSelectedPointsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSetValueSelectedPointsButtonActionPerformed
+// TODO add your handling code here:
+        new handleReturnAction().actionPerformed(null);
+    }//GEN-LAST:event_jSetValueSelectedPointsButtonActionPerformed
 
     private void jValueToFormattedTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jValueToFormattedTextFieldFocusLost
 // TODO add your handling code here:
@@ -891,6 +901,7 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JButton jSetValueSelectedPointsButton;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField jTextField1;
