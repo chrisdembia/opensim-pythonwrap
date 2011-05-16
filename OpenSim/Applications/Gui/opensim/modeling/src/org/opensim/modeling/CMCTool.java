@@ -96,30 +96,6 @@ public class CMCTool extends AbstractTool {
     opensimModelJNI.CMCTool_setRRAControlsFileName(swigCPtr, this, aFileName);
   }
 
-  public String getOutputModelFileName() {
-    return opensimModelJNI.CMCTool_getOutputModelFileName(swigCPtr, this);
-  }
-
-  public void setOutputModelFileName(String aFileName) {
-    opensimModelJNI.CMCTool_setOutputModelFileName(swigCPtr, this, aFileName);
-  }
-
-  public boolean getAdjustCOMToReduceResiduals() {
-    return opensimModelJNI.CMCTool_getAdjustCOMToReduceResiduals(swigCPtr, this);
-  }
-
-  public void setAdjustCOMToReduceResiduals(boolean aAdjust) {
-    opensimModelJNI.CMCTool_setAdjustCOMToReduceResiduals(swigCPtr, this, aAdjust);
-  }
-
-  public String getAdjustedCOMBody() {
-    return opensimModelJNI.CMCTool_getAdjustedCOMBody(swigCPtr, this);
-  }
-
-  public void setAdjustedCOMBody(String aBody) {
-    opensimModelJNI.CMCTool_setAdjustedCOMBody(swigCPtr, this, aBody);
-  }
-
   public boolean getAdjustKinematicsToReduceResiduals() {
     return opensimModelJNI.CMCTool_getAdjustKinematicsToReduceResiduals(swigCPtr, this);
   }

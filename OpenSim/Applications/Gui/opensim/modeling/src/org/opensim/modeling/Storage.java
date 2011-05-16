@@ -234,6 +234,14 @@ public class Storage extends StorageInterface {
     opensimModelJNI.Storage_getDataColumn__SWIG_4(swigCPtr, this, columnName, ArrayDouble.getCPtr(data), data);
   }
 
+  public void getDataForIdentifier(String identifier, SWIGTYPE_p_OpenSim__ArrayT_OpenSim__ArrayT_double_t_t rData, double startTime) {
+    opensimModelJNI.Storage_getDataForIdentifier__SWIG_0(swigCPtr, this, identifier, SWIGTYPE_p_OpenSim__ArrayT_OpenSim__ArrayT_double_t_t.getCPtr(rData), startTime);
+  }
+
+  public void getDataForIdentifier(String identifier, SWIGTYPE_p_OpenSim__ArrayT_OpenSim__ArrayT_double_t_t rData) {
+    opensimModelJNI.Storage_getDataForIdentifier__SWIG_1(swigCPtr, this, identifier, SWIGTYPE_p_OpenSim__ArrayT_OpenSim__ArrayT_double_t_t.getCPtr(rData));
+  }
+
   public void setStepInterval(int aStepInterval) {
     opensimModelJNI.Storage_setStepInterval(swigCPtr, this, aStepInterval);
   }
