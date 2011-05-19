@@ -4,6 +4,7 @@
     <folder name="Actions">
         <folder name="Edit">
             <file name="org-opensim-tracking-tools-AnalyzeToolAction.instance"/>
+            <file name="org-opensim-tracking-tools-RRAToolAction.instance"/>
             <file name="org-opensim-tracking-tools-CMCToolAction.instance"/>
             <file name="org-opensim-tracking-tools-ForwardToolAction.instance"/>
             <file name="org-opensim-tracking-tools-InverseDynamicsToolAction.instance"/>
@@ -40,7 +41,11 @@
             <file name="org-opensim-tracking-tools-ForwardToolAction.shadow">
                 <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-tracking-tools-ForwardToolAction.instance"/>
             </file>
-            <attr name="org-opensim-tracking-tools-ForwardToolAction.shadow/org-opensim-tracking-tools-CMCToolAction.shadow" boolvalue="true"/>
+            <attr name="org-opensim-tracking-tools-ForwardToolAction.shadow/org-opensim-tracking-tools-RRAToolAction.shadow" boolvalue="true"/>
+            <file name="org-opensim-tracking-tools-RRAToolAction.shadow">
+                <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-tracking-tools-RRAToolAction.instance"/>
+            </file>
+             <attr name="org-opensim-tracking-tools-ForwardToolAction.shadow/org-opensim-tracking-tools-CMCToolAction.shadow" boolvalue="true"/>
             <file name="org-opensim-tracking-tools-CMCToolAction.shadow">
                 <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-tracking-tools-CMCToolAction.instance"/>
             </file>

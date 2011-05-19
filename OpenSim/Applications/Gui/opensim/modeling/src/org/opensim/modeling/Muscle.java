@@ -8,7 +8,7 @@
 
 package org.opensim.modeling;
 
-public class Muscle extends Actuator {
+public class Muscle extends PathActuator {
   private long swigCPtr;
 
   public Muscle(long cPtr, boolean cMemoryOwn) {
@@ -52,52 +52,8 @@ public class Muscle extends Actuator {
     opensimModelJNI.Muscle_updateFromXMLNode(swigCPtr, this);
   }
 
-  public void equilibrate(SWIGTYPE_p_SimTK__State state) {
-    opensimModelJNI.Muscle_equilibrate(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(state));
-  }
-
-  public int getNumStateVariables() {
-    return opensimModelJNI.Muscle_getNumStateVariables(swigCPtr, this);
-  }
-
-  public double getPennationAngleAtOptimalFiberLength() {
-    return opensimModelJNI.Muscle_getPennationAngleAtOptimalFiberLength(swigCPtr, this);
-  }
-
-  public GeometryPath getGeometryPath() {
-    return new GeometryPath(opensimModelJNI.Muscle_getGeometryPath(swigCPtr, this), false);
-  }
-
-  public void addNewPathPoint(String proposedName, Body aBody, SWIGTYPE_p_SimTK__Vec3 aPositionOnBody) {
-    opensimModelJNI.Muscle_addNewPathPoint(swigCPtr, this, proposedName, Body.getCPtr(aBody), aBody, SWIGTYPE_p_SimTK__Vec3.getCPtr(aPositionOnBody));
-  }
-
-  public double getDefaultActivation() {
-    return opensimModelJNI.Muscle_getDefaultActivation(swigCPtr, this);
-  }
-
-  public void setDefaultActivation(double activation) {
-    opensimModelJNI.Muscle_setDefaultActivation(swigCPtr, this, activation);
-  }
-
-  public double getDefaultFiberLength() {
-    return opensimModelJNI.Muscle_getDefaultFiberLength(swigCPtr, this);
-  }
-
-  public void setDefaultFiberLength(double length) {
-    opensimModelJNI.Muscle_setDefaultFiberLength(swigCPtr, this, length);
-  }
-
-  public double getOptimalFiberLength() {
-    return opensimModelJNI.Muscle_getOptimalFiberLength(swigCPtr, this);
-  }
-
   public double getPennationAngle(SWIGTYPE_p_SimTK__State s) {
     return opensimModelJNI.Muscle_getPennationAngle(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s));
-  }
-
-  public double getLength(SWIGTYPE_p_SimTK__State s) {
-    return opensimModelJNI.Muscle_getLength(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s));
   }
 
   public double getTendonLength(SWIGTYPE_p_SimTK__State s) {
@@ -118,10 +74,6 @@ public class Muscle extends Actuator {
 
   public double getFiberLengthAlongTendon(SWIGTYPE_p_SimTK__State s) {
     return opensimModelJNI.Muscle_getFiberLengthAlongTendon(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s));
-  }
-
-  public double getShorteningSpeed(SWIGTYPE_p_SimTK__State s) {
-    return opensimModelJNI.Muscle_getShorteningSpeed(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s));
   }
 
   public double getFiberForce(SWIGTYPE_p_SimTK__State s) {
@@ -160,28 +112,12 @@ public class Muscle extends Actuator {
     opensimModelJNI.Muscle_setActivation(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), activation);
   }
 
-  public double getExcitation(SWIGTYPE_p_SimTK__State s) {
-    return opensimModelJNI.Muscle_getExcitation(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s));
-  }
-
   public double computeActuation(SWIGTYPE_p_SimTK__State s) {
     return opensimModelJNI.Muscle_computeActuation(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s));
   }
 
-  public double computeMomentArm(SWIGTYPE_p_SimTK__State s, Coordinate aCoord) {
-    return opensimModelJNI.Muscle_computeMomentArm(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), Coordinate.getCPtr(aCoord), aCoord);
-  }
-
-  public double computeLengtheningSpeed(SWIGTYPE_p_SimTK__State s) {
-    return opensimModelJNI.Muscle_computeLengtheningSpeed(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s));
-  }
-
   public double computeIsometricForce(SWIGTYPE_p_SimTK__State s, double activation) {
     return opensimModelJNI.Muscle_computeIsometricForce(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), activation);
-  }
-
-  public double computeIsokineticForceAssumingInfinitelyStiffTendon(SWIGTYPE_p_SimTK__State s, double aActivation) {
-    return opensimModelJNI.Muscle_computeIsokineticForceAssumingInfinitelyStiffTendon(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), aActivation);
   }
 
   public double evaluateForceLengthVelocityCurve(double aActivation, double aNormalizedLength, double aNormalizedVelocity) {
@@ -192,24 +128,8 @@ public class Muscle extends Actuator {
     return opensimModelJNI.Muscle_calcPennation(swigCPtr, this, aFiberLength, aOptimalFiberLength, aInitialPennationAngle);
   }
 
-  public static double EstimateActivation(double aTRise, double aTFall, double aA0, double aX, double aDT) {
-    return opensimModelJNI.Muscle_EstimateActivation(aTRise, aTFall, aA0, aX, aDT);
-  }
-
-  public static double InvertActivation(double aTRise, double aTFall, double aA0, double aA, double aDT) {
-    return opensimModelJNI.Muscle_InvertActivation(aTRise, aTFall, aA0, aA, aDT);
-  }
-
-  public static double DADT(double aTRise, double aTFall, double aX, double aA) {
-    return opensimModelJNI.Muscle_DADT(aTRise, aTFall, aX, aA);
-  }
-
-  public static double DADTNonlinear(double aTRise, double aTFall, double aX, double aA) {
-    return opensimModelJNI.Muscle_DADTNonlinear(aTRise, aTFall, aX, aA);
-  }
-
-  public static double f(double aFMax, double aA) {
-    return opensimModelJNI.Muscle_f(aFMax, aA);
+  public void equilibrate(SWIGTYPE_p_SimTK__State s) {
+    opensimModelJNI.Muscle_equilibrate(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s));
   }
 
   public ArrayStr getRecordLabels() {
@@ -218,15 +138,6 @@ public class Muscle extends Actuator {
 
   public ArrayDouble getRecordValues(SWIGTYPE_p_SimTK__State state) {
     return new ArrayDouble(opensimModelJNI.Muscle_getRecordValues(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(state)), true);
-  }
-
-  public VisibleObject getDisplayer() {
-    long cPtr = opensimModelJNI.Muscle_getDisplayer(swigCPtr, this);
-    return (cPtr == 0) ? null : new VisibleObject(cPtr, false);
-  }
-
-  public void updateDisplayer(SWIGTYPE_p_SimTK__State s) {
-    opensimModelJNI.Muscle_updateDisplayer(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s));
   }
 
   public static boolean isKindOf(String type) {

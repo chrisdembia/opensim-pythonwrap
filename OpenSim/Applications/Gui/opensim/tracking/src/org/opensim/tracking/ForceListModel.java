@@ -10,17 +10,17 @@
 package org.opensim.tracking;
 
 import javax.swing.DefaultListModel;
+import org.opensim.modeling.ExternalLoads;
 import org.opensim.modeling.Force;
-import org.opensim.modeling.ForceSet;
 
 /**
  *
  * @author ayman
  */
 public class ForceListModel extends DefaultListModel {
-    ForceSet  fSet;
+    ExternalLoads  fSet;
     /** Creates a new instance of ForceListModel */
-    public ForceListModel(ForceSet fSet) {
+    public ForceListModel(ExternalLoads fSet) {
         super();
         this.fSet = fSet;
         initModel();

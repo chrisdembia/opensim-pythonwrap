@@ -8,7 +8,7 @@
 
 package org.opensim.modeling;
 
-public class Schutte1993Muscle extends Muscle {
+public class Schutte1993Muscle extends ActivationFiberLengthMuscle {
   private long swigCPtr;
 
   public Schutte1993Muscle(long cPtr, boolean cMemoryOwn) {

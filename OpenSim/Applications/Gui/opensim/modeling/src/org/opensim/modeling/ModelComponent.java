@@ -87,6 +87,14 @@ public class ModelComponent extends OpenSimObject {
     opensimModelJNI.ModelComponent_setDiscreteVariable(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(state), name, value);
   }
 
+  public void markCacheVariableValid(SWIGTYPE_p_SimTK__State state, String name) {
+    opensimModelJNI.ModelComponent_markCacheVariableValid(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(state), name);
+  }
+
+  public boolean isCacheVariableValid(SWIGTYPE_p_SimTK__State state, String name) {
+    return opensimModelJNI.ModelComponent_isCacheVariableValid(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(state), name);
+  }
+
   public void includeAsSubComponent(ModelComponent aComponent) {
     opensimModelJNI.ModelComponent_includeAsSubComponent(swigCPtr, this, ModelComponent.getCPtr(aComponent), aComponent);
   }

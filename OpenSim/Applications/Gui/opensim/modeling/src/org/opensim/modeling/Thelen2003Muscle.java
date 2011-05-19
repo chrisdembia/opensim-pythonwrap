@@ -8,7 +8,7 @@
 
 package org.opensim.modeling;
 
-public class Thelen2003Muscle extends Muscle {
+public class Thelen2003Muscle extends ActivationFiberLengthMuscle {
   private long swigCPtr;
 
   public Thelen2003Muscle(long cPtr, boolean cMemoryOwn) {

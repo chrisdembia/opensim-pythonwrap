@@ -38,6 +38,9 @@ public class Property {
   public void setValueDbl(Double dbl) {
 	setValue(dbl.doubleValue());
   };
+  public void setValue(Boolean bool) {
+	setValue(bool.booleanValue());
+  };
 
   public Property copy() {
     long cPtr = opensimModelJNI.Property_copy(swigCPtr, this);

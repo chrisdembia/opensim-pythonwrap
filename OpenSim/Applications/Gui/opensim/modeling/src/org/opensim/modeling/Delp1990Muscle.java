@@ -8,7 +8,7 @@
 
 package org.opensim.modeling;
 
-public class Delp1990Muscle extends Muscle {
+public class Delp1990Muscle extends ActivationFiberLengthMuscle {
   private long swigCPtr;
 
   public Delp1990Muscle(long cPtr, boolean cMemoryOwn) {

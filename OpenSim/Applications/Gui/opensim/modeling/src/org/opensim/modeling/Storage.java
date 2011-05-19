@@ -108,6 +108,14 @@ public class Storage extends StorageInterface {
     opensimModelJNI.Storage_setDescription(swigCPtr, this, aDescription);
   }
 
+  public static int getLatestVersion() {
+    return opensimModelJNI.Storage_getLatestVersion();
+  }
+
+  public int getFileVersion() {
+    return opensimModelJNI.Storage_getFileVersion(swigCPtr, this);
+  }
+
   public int getSize() {
     return opensimModelJNI.Storage_getSize(swigCPtr, this);
   }
@@ -180,6 +188,14 @@ public class Storage extends StorageInterface {
 
   public boolean hasKey(String aKey) {
     return opensimModelJNI.Storage_hasKey(swigCPtr, this, aKey);
+  }
+
+  public boolean isInDegrees() {
+    return opensimModelJNI.Storage_isInDegrees(swigCPtr, this);
+  }
+
+  public void setInDegrees(boolean isInDegrees) {
+    opensimModelJNI.Storage_setInDegrees(swigCPtr, this, isInDegrees);
   }
 
   public int getData(int aTimeIndex, int aStateIndex, SWIGTYPE_p_double rValue) {

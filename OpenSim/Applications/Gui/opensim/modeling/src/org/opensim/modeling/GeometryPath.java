@@ -135,20 +135,20 @@ public class GeometryPath extends ModelComponent {
     return new ArrayPathPoint(opensimModelJNI.GeometryPath_getCurrentPath(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s)), false);
   }
 
-  public ArrayPathPoint updCurrentPath(SWIGTYPE_p_SimTK__State s) {
-    return new ArrayPathPoint(opensimModelJNI.GeometryPath_updCurrentPath(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s)), false);
-  }
-
   public ArrayPathPoint getCurrentDisplayPath(SWIGTYPE_p_SimTK__State s) {
     return new ArrayPathPoint(opensimModelJNI.GeometryPath_getCurrentDisplayPath(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s)), false);
   }
 
-  public ArrayPathPoint updCurrentDisplayPath(SWIGTYPE_p_SimTK__State s) {
-    return new ArrayPathPoint(opensimModelJNI.GeometryPath_updCurrentDisplayPath(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s)), false);
-  }
-
   public void getPointForceDirections(SWIGTYPE_p_SimTK__State s, SWIGTYPE_p_OpenSim__ArrayT_OpenSim__PointForceDirection_p_t rPFDs) {
     opensimModelJNI.GeometryPath_getPointForceDirections(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), SWIGTYPE_p_OpenSim__ArrayT_OpenSim__PointForceDirection_p_t.getCPtr(rPFDs));
+  }
+
+  public double getLengtheningSpeed(SWIGTYPE_p_SimTK__State s) {
+    return opensimModelJNI.GeometryPath_getLengtheningSpeed(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s));
+  }
+
+  public void setLengtheningSpeed(SWIGTYPE_p_SimTK__State s, double speed) {
+    opensimModelJNI.GeometryPath_setLengtheningSpeed(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), speed);
   }
 
   public double computeMomentArm(SWIGTYPE_p_SimTK__State s, Coordinate aCoord) {
