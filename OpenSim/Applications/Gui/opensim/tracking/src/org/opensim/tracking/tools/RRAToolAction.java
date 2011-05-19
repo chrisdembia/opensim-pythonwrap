@@ -45,7 +45,7 @@ public final class RRAToolAction extends CallableSystemAction {
          final AnalyzeAndForwardToolPanel panel = new AnalyzeAndForwardToolPanel(model,AnalyzeAndForwardToolPanel.Mode.RRA);
          BaseToolPanel.openToolDialog(panel, "RRA Tool");
       } catch (IOException ex) {
-         ErrorDialog.displayIOExceptionDialog("RRA Tool Error","Error while initializing RRA tool",ex);
+         ErrorDialog.displayIOExceptionDialog("CMC Tool Error","Error while initializing RRA tool",ex);
       }
    }
    

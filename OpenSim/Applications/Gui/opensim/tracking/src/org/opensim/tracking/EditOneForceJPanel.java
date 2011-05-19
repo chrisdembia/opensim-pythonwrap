@@ -13,7 +13,7 @@ import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.BodySet;
 import org.opensim.modeling.ExternalLoads;
 import org.opensim.modeling.Model;
-import org.opensim.modeling.PrescribedForce;
+import org.opensim.modeling.ExternalForce;
 import org.opensim.modeling.Storage;
 
 /**
@@ -21,7 +21,7 @@ import org.opensim.modeling.Storage;
  * @author  ayman
  */
 public class EditOneForceJPanel extends javax.swing.JPanel {
-    PrescribedForce prescribedForce;
+    ExternalForce externalForce;
     Storage forceStorage=null;
     //Model model;
     ExternalLoads loads;
@@ -31,8 +31,8 @@ public class EditOneForceJPanel extends javax.swing.JPanel {
     boolean uniqueNames=false;  // If true we should be using column numbers exclusively
     
     /** Creates new form EditOneForceJPanel */
-    public EditOneForceJPanel(PrescribedForce force, Storage storage, ExternalLoads aLoads) {
-        prescribedForce = force;
+    public EditOneForceJPanel(ExternalForce force, Storage storage, ExternalLoads aLoads) {
+        externalForce = force;
         loads = aLoads;
         forceStorage = new Storage(storage);
         uniqueNames = forceStorage.makeStorageLabelsUnique();
@@ -57,12 +57,10 @@ public class EditOneForceJPanel extends javax.swing.JPanel {
         jLabelExternalLoadsApplicationDescription = new javax.swing.JLabel();
         buttonGroupForceType = new javax.swing.ButtonGroup();
         EditOneForcePanel = new javax.swing.JPanel();
-        PointIsGlobalCheckBox = new javax.swing.JCheckBox();
         jLabel5 = new javax.swing.JLabel();
         BodiesComboBox = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
         ForceNameTextField = new javax.swing.JTextField();
-        ForceIsGlobalCheckBox = new javax.swing.JCheckBox();
         jRadioButtonApplyPointForce = new javax.swing.JRadioButton();
         jRadioButtonApplyBodyForce = new javax.swing.JRadioButton();
         jComboBoxPY = new javax.swing.JComboBox();
@@ -79,17 +77,12 @@ public class EditOneForceJPanel extends javax.swing.JPanel {
         jComboBoxTY = new javax.swing.JComboBox();
         jComboBoxTX = new javax.swing.JComboBox();
         jCheckBoxTorque = new javax.swing.JCheckBox();
+        jLabel1 = new javax.swing.JLabel();
+        BodiesComboBox1 = new javax.swing.JComboBox();
+        jLabel2 = new javax.swing.JLabel();
+        BodiesComboBox2 = new javax.swing.JComboBox();
 
         jLabelExternalLoadsApplicationDescription.setText("jLabel1");
-
-        PointIsGlobalCheckBox.setText("Point is global");
-        PointIsGlobalCheckBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        PointIsGlobalCheckBox.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        PointIsGlobalCheckBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PointIsGlobalCheckBoxActionPerformed(evt);
-            }
-        });
 
         jLabel5.setText("Applied to");
 
@@ -115,15 +108,6 @@ public class EditOneForceJPanel extends javax.swing.JPanel {
         ForceNameTextField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 ForceNameTextFieldFocusLost(evt);
-            }
-        });
-
-        ForceIsGlobalCheckBox.setText("Force is global");
-        ForceIsGlobalCheckBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        ForceIsGlobalCheckBox.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        ForceIsGlobalCheckBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ForceIsGlobalCheckBoxActionPerformed(evt);
             }
         });
 
@@ -153,6 +137,7 @@ public class EditOneForceJPanel extends javax.swing.JPanel {
         });
 
         jComboBoxPY.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxPY.setEnabled(false);
         jComboBoxPY.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 updateForceFromPanel(evt);
@@ -162,6 +147,7 @@ public class EditOneForceJPanel extends javax.swing.JPanel {
         jLabel6.setText("Point Columns");
 
         jComboBoxPZ.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxPZ.setEnabled(false);
         jComboBoxPZ.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 updateForceFromPanel(evt);
@@ -194,6 +180,7 @@ public class EditOneForceJPanel extends javax.swing.JPanel {
         });
 
         jComboBoxFY.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ground_force_py", "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxFY.setEnabled(false);
         jComboBoxFY.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 updateForceFromPanel(evt);
@@ -201,6 +188,7 @@ public class EditOneForceJPanel extends javax.swing.JPanel {
         });
 
         jComboBoxFZ.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ground_force_pz", "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxFZ.setEnabled(false);
         jComboBoxFZ.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 updateForceFromPanel(evt);
@@ -210,6 +198,7 @@ public class EditOneForceJPanel extends javax.swing.JPanel {
         jLabel7.setText("Torque Columns");
 
         jComboBoxTZ.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxTZ.setEnabled(false);
         jComboBoxTZ.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 updateForceFromPanel(evt);
@@ -217,6 +206,7 @@ public class EditOneForceJPanel extends javax.swing.JPanel {
         });
 
         jComboBoxTY.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxTY.setEnabled(false);
         jComboBoxTY.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 updateForceFromPanel(evt);
@@ -239,6 +229,34 @@ public class EditOneForceJPanel extends javax.swing.JPanel {
             }
         });
 
+        jLabel1.setText("Force Expressed in");
+
+        BodiesComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        BodiesComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BodiesComboBox1ActionPerformed(evt);
+            }
+        });
+        BodiesComboBox1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                BodiesComboBox1FocusLost(evt);
+            }
+        });
+
+        jLabel2.setText("Point Expressed in");
+
+        BodiesComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        BodiesComboBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BodiesComboBox2ActionPerformed(evt);
+            }
+        });
+        BodiesComboBox2.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                BodiesComboBox2FocusLost(evt);
+            }
+        });
+
         org.jdesktop.layout.GroupLayout EditOneForcePanelLayout = new org.jdesktop.layout.GroupLayout(EditOneForcePanel);
         EditOneForcePanel.setLayout(EditOneForcePanelLayout);
         EditOneForcePanelLayout.setHorizontalGroup(
@@ -249,29 +267,27 @@ public class EditOneForceJPanel extends javax.swing.JPanel {
                         .addContainerGap()
                         .add(EditOneForcePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(EditOneForcePanelLayout.createSequentialGroup()
-                                .add(EditOneForcePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                    .add(EditOneForcePanelLayout.createSequentialGroup()
-                                        .add(17, 17, 17)
-                                        .add(jLabel7))
-                                    .add(ForceIsGlobalCheckBox))
+                                .add(17, 17, 17)
+                                .add(jLabel7)
                                 .add(35, 35, 35)
+                                .add(EditOneForcePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                                    .add(org.jdesktop.layout.GroupLayout.LEADING, jComboBoxTX, 0, 133, Short.MAX_VALUE)
+                                    .add(org.jdesktop.layout.GroupLayout.LEADING, jComboBoxPX, 0, 133, Short.MAX_VALUE)
+                                    .add(org.jdesktop.layout.GroupLayout.LEADING, jComboBoxFX, 0, 133, Short.MAX_VALUE))
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                 .add(EditOneForcePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                     .add(EditOneForcePanelLayout.createSequentialGroup()
                                         .add(EditOneForcePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                                            .add(org.jdesktop.layout.GroupLayout.LEADING, jComboBoxTX, 0, 125, Short.MAX_VALUE)
-                                            .add(org.jdesktop.layout.GroupLayout.LEADING, jComboBoxPX, 0, 125, Short.MAX_VALUE)
-                                            .add(org.jdesktop.layout.GroupLayout.LEADING, jComboBoxFX, 0, 125, Short.MAX_VALUE))
-                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                        .add(EditOneForcePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                            .add(EditOneForcePanelLayout.createSequentialGroup()
-                                                .add(EditOneForcePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                                                    .add(org.jdesktop.layout.GroupLayout.LEADING, jComboBoxPY, 0, 107, Short.MAX_VALUE)
-                                                    .add(org.jdesktop.layout.GroupLayout.LEADING, jComboBoxFY, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                                .add(8, 8, 8))
-                                            .add(EditOneForcePanelLayout.createSequentialGroup()
-                                                .add(jComboBoxTY, 0, 109, Short.MAX_VALUE)
-                                                .add(6, 6, 6))))
-                                    .add(PointIsGlobalCheckBox)))
+                                            .add(org.jdesktop.layout.GroupLayout.LEADING, jComboBoxPY, 0, 115, Short.MAX_VALUE)
+                                            .add(org.jdesktop.layout.GroupLayout.LEADING, jComboBoxFY, 0, 115, Short.MAX_VALUE))
+                                        .add(8, 8, 8))
+                                    .add(EditOneForcePanelLayout.createSequentialGroup()
+                                        .add(jComboBoxTY, 0, 117, Short.MAX_VALUE)
+                                        .add(6, 6, 6))
+                                    .add(EditOneForcePanelLayout.createSequentialGroup()
+                                        .add(10, 10, 10)
+                                        .add(jLabel2)
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED))))
                             .add(jCheckBoxTorque)))
                     .add(EditOneForcePanelLayout.createSequentialGroup()
                         .add(21, 21, 21)
@@ -291,16 +307,24 @@ public class EditOneForceJPanel extends javax.swing.JPanel {
                             .add(org.jdesktop.layout.GroupLayout.LEADING, BodiesComboBox, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .add(org.jdesktop.layout.GroupLayout.LEADING, ForceNameTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 126, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                     .add(EditOneForcePanelLayout.createSequentialGroup()
-                        .add(39, 39, 39)
-                        .add(jRadioButtonApplyPointForce)
+                        .add(EditOneForcePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(EditOneForcePanelLayout.createSequentialGroup()
+                                .add(39, 39, 39)
+                                .add(jRadioButtonApplyPointForce))
+                            .add(EditOneForcePanelLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .add(jLabel1)))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jRadioButtonApplyBodyForce)
-                        .add(12, 12, 12)))
+                        .add(EditOneForcePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jRadioButtonApplyBodyForce)
+                            .add(BodiesComboBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 108, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(161, 161, 161)))
                 .add(0, 0, 0)
                 .add(EditOneForcePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jComboBoxPZ, 0, 109, Short.MAX_VALUE)
-                    .add(jComboBoxTZ, 0, 109, Short.MAX_VALUE)
-                    .add(jComboBoxFZ, 0, 109, Short.MAX_VALUE))
+                    .add(jComboBoxPZ, 0, 126, Short.MAX_VALUE)
+                    .add(jComboBoxTZ, 0, 126, Short.MAX_VALUE)
+                    .add(jComboBoxFZ, 0, 126, Short.MAX_VALUE)
+                    .add(BodiesComboBox2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 108, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         EditOneForcePanelLayout.setVerticalGroup(
@@ -343,8 +367,11 @@ public class EditOneForceJPanel extends javax.swing.JPanel {
                     .add(jComboBoxTY, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(EditOneForcePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(ForceIsGlobalCheckBox)
-                    .add(PointIsGlobalCheckBox)))
+                    .add(jLabel1)
+                    .add(BodiesComboBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jLabel2)
+                    .add(BodiesComboBox2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(12, 12, 12))
         );
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
@@ -355,9 +382,25 @@ public class EditOneForceJPanel extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(EditOneForcePanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
+            .add(EditOneForcePanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void BodiesComboBox2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_BodiesComboBox2FocusLost
+// TODO add your handling code here:
+    }//GEN-LAST:event_BodiesComboBox2FocusLost
+
+    private void BodiesComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BodiesComboBox2ActionPerformed
+// TODO add your handling code here:
+    }//GEN-LAST:event_BodiesComboBox2ActionPerformed
+
+    private void BodiesComboBox1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_BodiesComboBox1FocusLost
+// TODO add your handling code here:
+    }//GEN-LAST:event_BodiesComboBox1FocusLost
+
+    private void BodiesComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BodiesComboBox1ActionPerformed
+// TODO add your handling code here:
+    }//GEN-LAST:event_BodiesComboBox1ActionPerformed
     
     private void jComboBoxTXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxTXActionPerformed
         int idx =((JComboBox)evt.getSource()).getSelectedIndex();
@@ -393,19 +436,7 @@ public class EditOneForceJPanel extends javax.swing.JPanel {
         if (dDialog!= null) dDialog.setValid(checkValid());
         
     }//GEN-LAST:event_jComboBoxFXActionPerformed
-    
-    private void PointIsGlobalCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PointIsGlobalCheckBoxActionPerformed
-        updateAvailabilityFromCheckboxSelections();
-        updateForceFromPanel();
-        // TODO add your handling code here:
-    }//GEN-LAST:event_PointIsGlobalCheckBoxActionPerformed
-    
-    private void ForceIsGlobalCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ForceIsGlobalCheckBoxActionPerformed
-        updateAvailabilityFromCheckboxSelections();
-        updateForceFromPanel();
-// TODO add your handling code here:
-    }//GEN-LAST:event_ForceIsGlobalCheckBoxActionPerformed
-    
+            
     private void updateForceFromPanel(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateForceFromPanel
 // TODO add your handling code here:
         updateForceFromPanel();
@@ -458,15 +489,16 @@ public class EditOneForceJPanel extends javax.swing.JPanel {
     private void ForceNameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ForceNameTextFieldActionPerformed
         if (checkValid()) updateForceFromPanel();
     }//GEN-LAST:event_ForceNameTextFieldActionPerformed
-    // Initialize GUI Panel from a prescribedForce
+    // Initialize GUI Panel from a externalForce
     private void initComboBoxes() {
         // Body name combobox
+        /*
         Model model=loads.getModel();
         BodySet bodySet = model.getBodySet();
         BodiesComboBox.removeAllItems();
         for(int i=0; i<bodySet.getSize(); i++) BodiesComboBox.addItem(bodySet.get(i).getName());
-        String debug=prescribedForce.getBodyName();
-        BodiesComboBox.setSelectedItem(prescribedForce.getBodyName());
+        String debug=externalForce.getBodyName();
+        BodiesComboBox.setSelectedItem(externalForce.getBodyName());
         // All other drop downs, populate with column names except time.
         Vector<String> colmnLabels = lbls.toVector();
         colmnLabels.set(0,""); // no default column & time shouldn't be permitted anyway'
@@ -478,7 +510,7 @@ public class EditOneForceJPanel extends javax.swing.JPanel {
         jComboBoxFZ.setModel(new javax.swing.DefaultComboBoxModel(colNames));
         jCheckBoxForce.setSelected(false);
         ArrayStr forceFunctionNames = new ArrayStr();
-        prescribedForce.getForceFunctionNames(forceFunctionNames);
+        externalForce.getForceFunctionNames(forceFunctionNames);
         if (forceFunctionNames.getSize()==3){
             setComboBoxSelection(jComboBoxFX, forceFunctionNames, 0);
             setComboBoxSelection(jComboBoxFY, forceFunctionNames, 1);
@@ -490,7 +522,7 @@ public class EditOneForceJPanel extends javax.swing.JPanel {
         jComboBoxPY.setModel(new javax.swing.DefaultComboBoxModel(colNames));
         jComboBoxPZ.setModel(new javax.swing.DefaultComboBoxModel(colNames));
         ArrayStr pointFunctionNames = new ArrayStr();
-        prescribedForce.getPointFunctionNames(pointFunctionNames);
+        externalForce.getPointFunctionNames(pointFunctionNames);
         if (pointFunctionNames.getSize()==3){
             setComboBoxSelection(jComboBoxPX, pointFunctionNames, 0);
             setComboBoxSelection(jComboBoxPY, pointFunctionNames, 1);
@@ -504,7 +536,7 @@ public class EditOneForceJPanel extends javax.swing.JPanel {
         jComboBoxTZ.setModel(new javax.swing.DefaultComboBoxModel(colNames));
         jCheckBoxTorque.setSelected(false);
         ArrayStr torqueFunctionNames = new ArrayStr();
-        prescribedForce.getTorqueFunctionNames(torqueFunctionNames);
+        externalForce.getTorqueFunctionNames(torqueFunctionNames);
         if (torqueFunctionNames.getSize()==3){
             setComboBoxSelection(jComboBoxTX, torqueFunctionNames, 0);
             setComboBoxSelection(jComboBoxTY, torqueFunctionNames, 1);
@@ -512,8 +544,8 @@ public class EditOneForceJPanel extends javax.swing.JPanel {
             jCheckBoxTorque.setSelected(true);
         }
         // Checkboxes and radio butons
-        ForceIsGlobalCheckBox.setSelected(prescribedForce.getForceIsInGlobalFrame());
-        PointIsGlobalCheckBox.setSelected(prescribedForce.getPointIsInGlobalFrame());
+        ForceIsGlobalCheckBox.setSelected(externalForce.getForceIsInGlobalFrame());
+        PointIsGlobalCheckBox.setSelected(externalForce.getPointIsInGlobalFrame());*/
     }
     
     private void setComboBoxSelection(final JComboBox jcombox, final ArrayStr forceFunctionNames, final int j) throws NumberFormatException {
@@ -527,10 +559,10 @@ public class EditOneForceJPanel extends javax.swing.JPanel {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox BodiesComboBox;
+    private javax.swing.JComboBox BodiesComboBox1;
+    private javax.swing.JComboBox BodiesComboBox2;
     private javax.swing.JPanel EditOneForcePanel;
-    private javax.swing.JCheckBox ForceIsGlobalCheckBox;
     private javax.swing.JTextField ForceNameTextField;
-    private javax.swing.JCheckBox PointIsGlobalCheckBox;
     private javax.swing.ButtonGroup buttonGroupForceType;
     private javax.swing.JCheckBox jCheckBoxForce;
     private javax.swing.JCheckBox jCheckBoxTorque;
@@ -543,6 +575,8 @@ public class EditOneForceJPanel extends javax.swing.JPanel {
     private javax.swing.JComboBox jComboBoxTX;
     private javax.swing.JComboBox jComboBoxTY;
     private javax.swing.JComboBox jComboBoxTZ;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -553,15 +587,15 @@ public class EditOneForceJPanel extends javax.swing.JPanel {
     private javax.swing.JRadioButton jRadioButtonApplyPointForce;
     // End of variables declaration//GEN-END:variables
     
-    // Update prescribedForce based on selection in the GUI Panel
+    // Update ExternalForce based on selection in the GUI Panel
     private void updateForceFromPanel() {
         String forceName=ForceNameTextField.getText();
         if (forceName != null && forceName.length()!=0)
-            if (!initializing) prescribedForce.setName(forceName);
+            if (!initializing) externalForce.setName(forceName);
         
         String forceBodyame = (String) BodiesComboBox.getSelectedItem();
         if (forceBodyame != null && forceBodyame.length()!=0)
-            if (!initializing) prescribedForce.setBodyName(forceBodyame);
+            if (!initializing) externalForce.setAppliedToBodyName(forceBodyame);
         
         // Set either forcefunctions or force and pointFunctions if ForceCheckBox is on
         if (jCheckBoxForce.isSelected()){
@@ -569,7 +603,7 @@ public class EditOneForceJPanel extends javax.swing.JPanel {
             functionNames.append(makeFunctionName(jComboBoxFX));
             functionNames.append(makeFunctionName(jComboBoxFY));
             functionNames.append(makeFunctionName(jComboBoxFZ));
-            if (!initializing) prescribedForce.setForceFunctionNames(functionNames, forceStorage);
+            //if (!initializing) externalForce.setForceFunctionNames(functionNames, forceStorage);
             
             // if point force also allow for setPointFunctionNames
             String cmd=buttonGroupForceType.getSelection().getActionCommand();
@@ -578,14 +612,14 @@ public class EditOneForceJPanel extends javax.swing.JPanel {
                 pointFunctionNames.append(makeFunctionName(jComboBoxPX));
                 pointFunctionNames.append(makeFunctionName(jComboBoxPY));
                 pointFunctionNames.append(makeFunctionName(jComboBoxPZ));
-                if (!initializing) prescribedForce.setPointFunctionNames(pointFunctionNames, forceStorage);
+                //if (!initializing) externalForce.setPointFunctionNames(pointFunctionNames, forceStorage);
             } else
-                if (!initializing) prescribedForce.clearPointFunctions();
+                ;//if (!initializing) externalForce.clearPointFunctions();
         } else {
             // Clear all
             if (!initializing) {
-                prescribedForce.clearPointFunctions();
-                prescribedForce.clearForceFunctions();
+                //externalForce.clearPointFunctions();
+                //externalForce.clearForceFunctions();
             }
         }
         // Set torquefunctions if TorqueCheckBox is on
@@ -594,11 +628,11 @@ public class EditOneForceJPanel extends javax.swing.JPanel {
             torqueFunctionNames.append(makeFunctionName(jComboBoxTX));
             torqueFunctionNames.append(makeFunctionName(jComboBoxTY));
             torqueFunctionNames.append(makeFunctionName(jComboBoxTZ));
-            if (!initializing) prescribedForce.setTorqueFunctionNames(torqueFunctionNames, forceStorage);
+            //if (!initializing) externalForce.setTorqueFunctionNames(torqueFunctionNames, forceStorage);
         } else
-            if (!initializing) prescribedForce.clearTorqueFunctions();
-        if (!initializing) prescribedForce.setForceIsInGlobalFrame(ForceIsGlobalCheckBox.isSelected());
-        if (!initializing) prescribedForce.setPointIsInGlobalFrame(PointIsGlobalCheckBox.isSelected());
+            ;//if (!initializing) externalForce.clearTorqueFunctions();
+        //if (!initializing) externalForce.setForceIsInGlobalFrame(ForceIsGlobalCheckBox.isSelected());
+        //if (!initializing) externalForce.setPointIsInGlobalFrame(PointIsGlobalCheckBox.isSelected());
     }
     // Convenience method to enable/disable buttons and dropdowns based on user selections
     // for check-boxes, radio-buttons
@@ -615,7 +649,7 @@ public class EditOneForceJPanel extends javax.swing.JPanel {
             jComboBoxPX.setEnabled(false);
             jComboBoxPY.setEnabled(false);
             jComboBoxPZ.setEnabled(false);
-            PointIsGlobalCheckBox.setEnabled(false);
+            //PointIsGlobalCheckBox.setEnabled(false);
         } else {  // Point Force: need to specify everything
             jComboBoxFX.setEnabled(applyForce);
             jComboBoxFY.setEnabled(applyForce);
@@ -623,7 +657,7 @@ public class EditOneForceJPanel extends javax.swing.JPanel {
             jComboBoxPX.setEnabled(applyForce);
             jComboBoxPY.setEnabled(applyForce);
             jComboBoxPZ.setEnabled(applyForce);
-            PointIsGlobalCheckBox.setEnabled(true);
+            //PointIsGlobalCheckBox.setEnabled(true);
             jLabelExternalLoadsApplicationDescription.setText("Point is converted to local frame using external loads kinematics.");
         }
         

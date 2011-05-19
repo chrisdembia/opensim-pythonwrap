@@ -210,28 +210,6 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
                motion = new Storage(motion);
                motion.resampleLinear(0.001); // so that we don't get a crazy oversampled storage
             }
-
-            if(getAdjustModelToReduceResidualsEnabled()) {
-                if (new File(getOutputModelFileName()).exists()) {
-               Model newReducedResidualsModel = null;
-               try {
-                  newReducedResidualsModel = new Model(getOutputModelFileName());
-                  //newReducedResidualsModel.setup();
-               } catch (IOException ex) {
-                  newReducedResidualsModel = null;
-               }
-               //OpenSim20 added argument
-               OpenSimDB.getInstance().replaceModel(reducedResidualsModel, newReducedResidualsModel, null);
-               reducedResidualsModel = newReducedResidualsModel;
-               MotionsDB.getInstance().addMotion(reducedResidualsModel, motion);
-               }
-            } else {
-               if(reducedResidualsModel!=null) {
-                  OpenSimDB.getInstance().removeModel(reducedResidualsModel);
-                  reducedResidualsModel = null;
-               }
-               MotionsDB.getInstance().addMotion(getOriginalModel(), motion);
-            }
          }
 
          // Remove the kinematics analysis before printing results, so its results won't be written to disk
@@ -274,7 +252,6 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
       // By default, set prefix of output to be subject name
       cmcTool().setName(model.getName());
       cmcTool().setModelFilename(model.getInputFileName());
-      setAdjustModelToReduceResidualsEnabled(true);
       setDefaultResultsDirectory(model);
 
       updateFromTool();
@@ -338,39 +315,6 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
          else cmcTool().setLowpassCutoffFrequency(-1);
          setModified(AbstractToolModel.Operation.InputDataChanged);
       }
-   }
-
-   // RRA settings
-   //
-   public String getOutputModelFileName() { return cmcTool().getOutputModelFileName(); }
-   public void setOutputModelFileName(String fileName) {
-      if(!getOutputModelFileName().equals(fileName)) {
-         cmcTool().setOutputModelFileName(fileName);
-         setModified(AbstractToolModel.Operation.InputDataChanged);
-      }
-   }
-
-   public boolean getAdjustModelToReduceResidualsEnabled() { return cmcTool().getAdjustCOMToReduceResiduals(); }
-   public void setAdjustModelToReduceResidualsEnabled(boolean enabled) {
-      if(getAdjustModelToReduceResidualsEnabled() != enabled) {
-         cmcTool().setAdjustCOMToReduceResiduals(enabled);
-         setModified(AbstractToolModel.Operation.InputDataChanged);
-      }
-   }
-
-   public String getAdjustedCOMBody() { return cmcTool().getAdjustedCOMBody(); }
-   public void setAdjustedCOMBody(String fileName) {
-      if(!getAdjustedCOMBody().equals(fileName)) {
-         cmcTool().setAdjustedCOMBody(fileName);
-         setModified(AbstractToolModel.Operation.InputDataChanged);
-      }
-   }
-   public boolean getAdjustedCOMBodyValid() {
-      return getOriginalModel().getBodySet().getIndex(getAdjustedCOMBody())>=0;
-   }
-
-   private boolean isRRAValid() {
-      return !getAdjustModelToReduceResidualsEnabled() || (!FileUtils.effectivelyNull(getOutputModelFileName()) && getAdjustedCOMBodyValid());
    }
 
    public boolean getUseFastTarget() { 
@@ -440,7 +384,7 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
    //------------------------------------------------------------------------
 
    public boolean isValidated() {
-      return super.isValidated() && getDesiredKinematicsValid() && getTaskSetValid() && getConstraintsValid() && isRRAValid();
+      return super.isValidated() && getDesiredKinematicsValid() && getTaskSetValid() && getConstraintsValid();
    }
 
    //------------------------------------------------------------------------
@@ -472,8 +416,7 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
       cmcTool().setConstraintsFileName(FileUtils.makePathAbsolute(cmcTool().getConstraintsFileName(), parentDir));
       cmcTool().setTaskSetFileName(FileUtils.makePathAbsolute(cmcTool().getTaskSetFileName(), parentDir));
       cmcTool().setRRAControlsFileName(FileUtils.makePathAbsolute(cmcTool().getRRAControlsFileName(), parentDir));
-      cmcTool().setOutputModelFileName(FileUtils.makePathAbsolute(cmcTool().getOutputModelFileName(), parentDir));
-
+ 
       cmcTool().setExternalLoadsFileName(FileUtils.makePathAbsolute(cmcTool().getExternalLoadsFileName(), parentDir));
       cmcTool().getExternalLoads().setExternalLoadsModelKinematicsFileName(FileUtils.makePathAbsolute(cmcTool().getExternalLoads().getExternalLoadsModelKinematicsFileName(), parentDir));
    }
@@ -485,8 +428,7 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
       cmcTool().setConstraintsFileName(FileUtils.makePathRelative(cmcTool().getConstraintsFileName(), parentDir));
       cmcTool().setTaskSetFileName(FileUtils.makePathRelative(cmcTool().getTaskSetFileName(), parentDir));
       cmcTool().setRRAControlsFileName(FileUtils.makePathRelative(cmcTool().getRRAControlsFileName(), parentDir));
-      cmcTool().setOutputModelFileName(FileUtils.makePathRelative(cmcTool().getOutputModelFileName(), parentDir));
-
+ 
       cmcTool().setExternalLoadsFileName(FileUtils.makePathRelative(cmcTool().getExternalLoadsFileName(), parentDir));
       cmcTool().getExternalLoads().setExternalLoadsModelKinematicsFileName(FileUtils.makePathRelative(cmcTool().getExternalLoads().getExternalLoadsModelKinematicsFileName(), parentDir));       
    }

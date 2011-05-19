@@ -498,6 +498,7 @@ public class InverseDynamicsToolModel extends AbstractToolModelWithExternalLoads
    }
 
     public ExternalLoads getExternalLoads() {
+        String kinFileName=InverseDynamicsTool().getExternalLoads().getExternalLoadsModelKinematicsFileName();
         idTool.createExternalLoads(InverseDynamicsTool().getExternalLoadsFileName(), getOriginalModel());
         return idTool.getExternalLoads();
     }

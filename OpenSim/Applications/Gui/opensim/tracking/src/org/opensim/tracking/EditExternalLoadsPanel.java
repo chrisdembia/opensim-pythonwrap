@@ -45,19 +45,19 @@ import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.ExternalLoads;
 import org.opensim.modeling.ForceSet;
 import org.opensim.modeling.OpenSimObject;
-import org.opensim.modeling.PrescribedForce;
+import org.opensim.modeling.ExternalForce;
 import org.opensim.modeling.Storage;
 
 /**
  *
  * @author  ayman
  */
-public class EditPrescribedForceSetPanel extends javax.swing.JPanel 
+public class EditExternalLoadsPanel extends javax.swing.JPanel 
                                          implements ListSelectionListener {
     
     ExternalLoads dLoads;
     Storage externalLoadsStorage=null;
-    Vector<PrescribedForce> cachedForces = new Vector<PrescribedForce>(4);
+    Vector<ExternalForce> cachedForces = new Vector<ExternalForce>(4);
     private ForceListModel forceListModel;
     ForceSet dForceSet;
     private NumberFormat numFormat = NumberFormat.getInstance();
@@ -65,7 +65,7 @@ public class EditPrescribedForceSetPanel extends javax.swing.JPanel
     /**
      * Creates new form EditPrescribedForceSetPanel
      */
-    public EditPrescribedForceSetPanel(ExternalLoads loads) {
+    public EditExternalLoadsPanel(ExternalLoads loads) {
         dLoads = loads;
         String extFileName="";/*
         try {
@@ -75,7 +75,7 @@ public class EditPrescribedForceSetPanel extends javax.swing.JPanel
             }
         } catch (IOException ex) {  // Shouldn't happen unless there're tools that use forces and don't define the property '
             ex.printStackTrace();
-        }*/
+        }
         forceListModel = new ForceListModel(dLoads);
         initComponents();
         externalLoadsDataFileName.setExtensionsAndDescription(".sto,.mot", "Data file for prescribed forces");
@@ -100,7 +100,7 @@ public class EditPrescribedForceSetPanel extends javax.swing.JPanel
             }
         }
         updateButtonAvailability();
-        jForcesList.addListSelectionListener(this);
+        jForcesList.addListSelectionListener(this); */
     }
     
     /** This method is called from within the constructor to
@@ -497,10 +497,10 @@ public class EditPrescribedForceSetPanel extends javax.swing.JPanel
         if (sels.length==1){
             pfo = forceListModel.get(sels[0]);
         }
-        PrescribedForce pf = PrescribedForce.safeDownCast((OpenSimObject) pfo);
-        PrescribedForce pfCopy = new PrescribedForce(pf);
+        ExternalForce pf = ExternalForce.safeDownCast((OpenSimObject) pfo);
+        ExternalForce pfCopy = new ExternalForce(pf);
         EditOneForceJPanel eofPanel = new EditOneForceJPanel(pf, externalLoadsStorage, dLoads);
-        DialogDescriptor dlg = new DialogDescriptor(eofPanel, "Create/Edit PrescribedForce");
+        DialogDescriptor dlg = new DialogDescriptor(eofPanel, "Create/Edit ExternalForce");
         eofPanel.setDDialog(dlg);
         DialogDisplayer.getDefault().createDialog(dlg).setVisible(true);
         Object userInput = dlg.getValue();
@@ -510,19 +510,19 @@ public class EditPrescribedForceSetPanel extends javax.swing.JPanel
     }//GEN-LAST:event_jButtonEditActionPerformed
 
     private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
-         PrescribedForce pf = new PrescribedForce();
+         ExternalForce pf = new ExternalForce();
          //pf.setName(dTool.getNextAvailableForceName("ExternalForce"));
-         pf.setBodyName("Ground");
+         pf.setAppliedToBodyName("Ground");
          EditOneForceJPanel eofPanel = new EditOneForceJPanel(pf, externalLoadsStorage, null/*dTool.getModel()*/);
-         DialogDescriptor dlg = new DialogDescriptor(eofPanel, "Create/Edit PrescribedForce");
+         DialogDescriptor dlg = new DialogDescriptor(eofPanel, "Create/Edit ExternalForce");
          eofPanel.setDDialog(dlg);
          Dialog d=DialogDisplayer.getDefault().createDialog(dlg);
          d.setVisible(true);
          Object userInput = dlg.getValue();
          if (((Integer)userInput).compareTo((Integer)DialogDescriptor.OK_OPTION)==0){
              forceListModel.add(forceListModel.getSize(), pf);
-             String usrObjBodyName=pf.getBodyName();                         
-             dLoads.append(pf);
+             String usrObjBodyName=pf.getAppliedToBodyName();                         
+             //dLoads.append(pf);
              cachedForces.add(pf);
          }
     }//GEN-LAST:event_jButtonAddActionPerformed

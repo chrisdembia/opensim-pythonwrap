@@ -372,23 +372,23 @@ public class ActuatorsAndExternalLoadsPanel extends javax.swing.JPanel {
             toolModel.getTool().setModel(model);
         } catch (IOException ex) {
             ex.printStackTrace();
-        }*/
+        }
         // Create External Loads first
         //Model mdl =  toolModel.getExternalLoads().getModel();
-        toolModel.getExternalLoads().setModel(model);
-        EditPrescribedForceSetPanel epfsPanel = new EditPrescribedForceSetPanel(toolModel.getExternalLoads());
+        toolModel.getExternalLoads().setModel(model);*/
+        EditExternalLoadsPanel epfsPanel = new EditExternalLoadsPanel(toolModel.getExternalLoads());
         DialogDescriptor dlg = new DialogDescriptor(epfsPanel, "Prescibed ForceSet");
         JButton saveButton = new JButton("Save...");
         saveButton.addActionListener(new SaveButtonActionListener());
         dlg.setOptions(new Object[]{saveButton, new JButton("Cancel")});
         // Find OK 
         DialogDisplayer.getDefault().createDialog(dlg).setVisible(true);
-   
+        
     }//GEN-LAST:event_jEditExternalForceSetButtonActionPerformed
 
     private void createNewExternalForceSetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createNewExternalForceSetButtonActionPerformed
 // TODO add your handling code here:
-        EditPrescribedForceSetPanel epfsPanel = new EditPrescribedForceSetPanel(toolModel.getExternalLoads());
+        EditExternalLoadsPanel epfsPanel = new EditExternalLoadsPanel(toolModel.getExternalLoads());
         DialogDescriptor dlg = new DialogDescriptor(epfsPanel, "Prescibed ForceSet");
         JButton saveButton = new JButton("Save...");
         saveButton.addActionListener(new SaveButtonActionListener());
@@ -480,7 +480,7 @@ public class ActuatorsAndExternalLoadsPanel extends javax.swing.JPanel {
             FileFilter ff = FileUtils.getFileFilter(".xml", "File to save External ForceSet");
             String fileName = FileUtils.getInstance().browseForFilenameToSave(ff, true, "", null);
             String fullFilename = FileUtils.addExtensionIfNeeded(fileName, ".xml");
-            toolModel.getExternalLoads().print(fullFilename);
+            //toolModel.getExternalLoads().print(fullFilename);
             externalLoadsFileName.setFileName(fullFilename);
         }
     }

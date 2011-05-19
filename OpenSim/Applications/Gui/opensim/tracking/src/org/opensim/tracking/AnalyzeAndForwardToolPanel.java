@@ -66,10 +66,12 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
    //private JCheckBox rraPanelCheckBox = new JCheckBox(new EnableReduceResidualsAction());
    class EnableReduceResidualsAction extends AbstractAction {
       public EnableReduceResidualsAction() { super("Reduce Residuals"); }
-      public void actionPerformed(ActionEvent evt) { cmcToolModel().setAdjustModelToReduceResidualsEnabled(((JCheckBox)evt.getSource()).isSelected()); }
+      public void actionPerformed(ActionEvent evt) { 
+          ///cmcToolModel().setAdjustModelToReduceResidualsEnabled(((JCheckBox)evt.getSource()).isSelected()); 
+      }
    }
 
-   public enum Mode { ForwardDynamics, InverseDynamics, CMC, Analyze, StaticOptimization };
+   public enum Mode { ForwardDynamics, InverseDynamics, CMC, RRA, Analyze, StaticOptimization };
    private Mode mode;
    String modeName;
   
@@ -230,6 +232,7 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
    private AnalyzeToolModel analyzeToolModel() { return (AnalyzeToolModel)toolModel; }
    private ForwardToolModel forwardToolModel() { return (ForwardToolModel)toolModel; } 
    private CMCToolModel cmcToolModel() { return (CMCToolModel)toolModel; } 
+   private RRAToolModel rraToolModel() { return (RRAToolModel)toolModel; } 
    
    public void update(Observable observable, Object obj) {
       if(observable == toolModel && obj == AbstractToolModel.Operation.ExecutionStateChanged)
@@ -470,20 +473,20 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
       //----------------------------------------------------------------------
       // RRA Panel
       //----------------------------------------------------------------------
-      adjustModelCheckBox.setSelected(toolModel.getAdjustModelToReduceResidualsEnabled());      
+      ///adjustModelCheckBox.setSelected(toolModel.getAdjustModelToReduceResidualsEnabled());      
       rraOutputModelFileName.setEnabled(adjustModelCheckBox.isSelected());
       rraAdjustedBodyComboBox.setEnabled(adjustModelCheckBox.isSelected());
       
-      rraOutputModelFileName.setFileName(toolModel.getOutputModelFileName(),false);
+      ///rraOutputModelFileName.setFileName(toolModel.getOutputModelFileName(),false);
 
       rraAdjustedBodyComboBox.removeAllItems();
       if(toolModel.getOriginalModel()!=null) {
          BodySet bodySet = toolModel.getOriginalModel().getBodySet();
          if(bodySet!=null) {
             for(int i=0; i<bodySet.getSize(); i++) rraAdjustedBodyComboBox.addItem(bodySet.get(i).getName());
-            String selectedBody = toolModel.getAdjustedCOMBody();
-            int index = bodySet.getIndex(selectedBody);
-            rraAdjustedBodyComboBox.setSelectedIndex(index);
+            ///String selectedBody = toolModel.getAdjustedCOMBody();
+            ///int index = bodySet.getIndex(selectedBody);
+            ///rraAdjustedBodyComboBox.setSelectedIndex(index);
          }
       }
 
@@ -1937,13 +1940,13 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
 
    private void rraAdjustedBodyComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rraAdjustedBodyComboBoxActionPerformed
       if(!internalTrigger) {
-         if(rraAdjustedBodyComboBox.getSelectedItem()==null) cmcToolModel().setAdjustedCOMBody("");
-         else cmcToolModel().setAdjustedCOMBody((String)rraAdjustedBodyComboBox.getSelectedItem());
+         if(rraAdjustedBodyComboBox.getSelectedItem()==null) rraToolModel().setAdjustedCOMBody("");
+         else rraToolModel().setAdjustedCOMBody((String)rraAdjustedBodyComboBox.getSelectedItem());
       }
    }//GEN-LAST:event_rraAdjustedBodyComboBoxActionPerformed
 
    private void rraOutputModelFileNameStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_rraOutputModelFileNameStateChanged
-      cmcToolModel().setOutputModelFileName(rraOutputModelFileName.getFileName());
+      rraToolModel().setOutputModelFileName(rraOutputModelFileName.getFileName());
    }//GEN-LAST:event_rraOutputModelFileNameStateChanged
     
    private void adjustModelCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adjustModelCheckBoxActionPerformed
