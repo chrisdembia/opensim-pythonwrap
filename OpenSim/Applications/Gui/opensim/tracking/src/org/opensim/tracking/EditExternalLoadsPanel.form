@@ -374,10 +374,10 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="filterModelKinematics" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="cutoffFrequency" min="-2" max="-2" attributes="0"/>
+              <Component id="cutoffFrequency" min="-2" pref="25" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="284" max="32767" attributes="0"/>
+              <EmptySpace pref="273" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -397,8 +397,8 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="filterModelKinematics" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="cutoffFrequency" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cutoffFrequency" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="ForcesListManagerPanel" min="-2" max="-2" attributes="0"/>
@@ -434,6 +434,9 @@
       <Properties>
         <Property name="horizontalAlignment" type="int" value="11"/>
         <Property name="text" type="java.lang.String" value=" "/>
+        <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+          <Insets value="[0, 0, 0, 0]"/>
+        </Property>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cutoffFrequencyActionPerformed"/>

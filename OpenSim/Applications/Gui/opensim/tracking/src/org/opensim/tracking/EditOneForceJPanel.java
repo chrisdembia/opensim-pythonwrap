@@ -492,13 +492,11 @@ public class EditOneForceJPanel extends javax.swing.JPanel {
     // Initialize GUI Panel from a externalForce
     private void initComboBoxes() {
         // Body name combobox
-        /*
+        
         Model model=loads.getModel();
         BodySet bodySet = model.getBodySet();
-        BodiesComboBox.removeAllItems();
-        for(int i=0; i<bodySet.getSize(); i++) BodiesComboBox.addItem(bodySet.get(i).getName());
-        String debug=externalForce.getBodyName();
-        BodiesComboBox.setSelectedItem(externalForce.getBodyName());
+        populateBodyList(bodySet, BodiesComboBox);
+         BodiesComboBox.setSelectedItem(externalForce.getAppliedToBodyName());
         // All other drop downs, populate with column names except time.
         Vector<String> colmnLabels = lbls.toVector();
         colmnLabels.set(0,""); // no default column & time shouldn't be permitted anyway'
@@ -510,7 +508,7 @@ public class EditOneForceJPanel extends javax.swing.JPanel {
         jComboBoxFZ.setModel(new javax.swing.DefaultComboBoxModel(colNames));
         jCheckBoxForce.setSelected(false);
         ArrayStr forceFunctionNames = new ArrayStr();
-        externalForce.getForceFunctionNames(forceFunctionNames);
+        //externalForce.getForceFunctionNames(forceFunctionNames);
         if (forceFunctionNames.getSize()==3){
             setComboBoxSelection(jComboBoxFX, forceFunctionNames, 0);
             setComboBoxSelection(jComboBoxFY, forceFunctionNames, 1);
@@ -522,7 +520,7 @@ public class EditOneForceJPanel extends javax.swing.JPanel {
         jComboBoxPY.setModel(new javax.swing.DefaultComboBoxModel(colNames));
         jComboBoxPZ.setModel(new javax.swing.DefaultComboBoxModel(colNames));
         ArrayStr pointFunctionNames = new ArrayStr();
-        externalForce.getPointFunctionNames(pointFunctionNames);
+        //externalForce.getPointFunctionNames(pointFunctionNames);
         if (pointFunctionNames.getSize()==3){
             setComboBoxSelection(jComboBoxPX, pointFunctionNames, 0);
             setComboBoxSelection(jComboBoxPY, pointFunctionNames, 1);
@@ -536,16 +534,21 @@ public class EditOneForceJPanel extends javax.swing.JPanel {
         jComboBoxTZ.setModel(new javax.swing.DefaultComboBoxModel(colNames));
         jCheckBoxTorque.setSelected(false);
         ArrayStr torqueFunctionNames = new ArrayStr();
-        externalForce.getTorqueFunctionNames(torqueFunctionNames);
+        //externalForce.getTorqueFunctionNames(torqueFunctionNames);
         if (torqueFunctionNames.getSize()==3){
             setComboBoxSelection(jComboBoxTX, torqueFunctionNames, 0);
             setComboBoxSelection(jComboBoxTY, torqueFunctionNames, 1);
             setComboBoxSelection(jComboBoxTZ, torqueFunctionNames, 2);
             jCheckBoxTorque.setSelected(true);
         }
-        // Checkboxes and radio butons
-        ForceIsGlobalCheckBox.setSelected(externalForce.getForceIsInGlobalFrame());
-        PointIsGlobalCheckBox.setSelected(externalForce.getPointIsInGlobalFrame());*/
+        populateBodyList(bodySet, BodiesComboBox1);
+        populateBodyList(bodySet, BodiesComboBox2);
+
+    }
+
+    private void populateBodyList(final BodySet bodySet, JComboBox comboBox) {
+        comboBox.removeAllItems();
+        for(int i=0; i<bodySet.getSize(); i++) comboBox.addItem(bodySet.get(i).getName());
     }
     
     private void setComboBoxSelection(final JComboBox jcombox, final ArrayStr forceFunctionNames, final int j) throws NumberFormatException {

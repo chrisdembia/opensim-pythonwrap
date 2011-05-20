@@ -44,6 +44,7 @@ import org.openide.NotifyDescriptor;
 import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.ExternalLoads;
 import org.opensim.modeling.ForceSet;
+import org.opensim.modeling.Model;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.modeling.ExternalForce;
 import org.opensim.modeling.Storage;
@@ -61,46 +62,50 @@ public class EditExternalLoadsPanel extends javax.swing.JPanel
     private ForceListModel forceListModel;
     ForceSet dForceSet;
     private NumberFormat numFormat = NumberFormat.getInstance();
-
+    String fullExternalLoadsFilename;
+    File dataFile=null;
     /**
      * Creates new form EditPrescribedForceSetPanel
      */
-    public EditExternalLoadsPanel(ExternalLoads loads) {
-        dLoads = loads;
-        String extFileName="";/*
-        try {
-            extFileName=dTool.getPropertySet().get("external_loads_file").getValueStr();
-            if (!extFileName.equals("")){
-                dTool.createExternalLoads(extFileName, tool.getModel());
-            }
-        } catch (IOException ex) {  // Shouldn't happen unless there're tools that use forces and don't define the property '
-            ex.printStackTrace();
-        }
+    public EditExternalLoadsPanel(Model model, String externalLoadsFilename) {
+        dLoads = new ExternalLoads(model, externalLoadsFilename);
+        fullExternalLoadsFilename = externalLoadsFilename;
         forceListModel = new ForceListModel(dLoads);
         initComponents();
-        externalLoadsDataFileName.setExtensionsAndDescription(".sto,.mot", "Data file for prescribed forces");
+        filterModelKinematics.setSelected(dLoads.getLowpassCutoffFrequencyForLoadKinematics()>0);
+        externalLoadsDataFileName.setExtensionsAndDescription(".sto,.mot", "Data file for external forces");
         externalLoadsModelKinematicsFileName.setExtensionsAndDescription(".mot", "Kinematics for external loads if transforming froce application global to local");
-        externalLoadsModelKinematicsFileName.setFileName(dLoads.getExternalLoadsModelKinematicsFileName());
+        String externalLoadsKinFile = dLoads.getExternalLoadsModelKinematicsFileName(); // Optional
+        externalLoadsModelKinematicsFileName.setFileName(externalLoadsKinFile);
         cutoffFrequency.setText(String.valueOf(dLoads.getLowpassCutoffFrequencyForLoadKinematics()));
-        String dataFile = dLoads.getDataFileName();
-        File extForcesFile = new File(extFileName);
-        if (extForcesFile.exists() && dataFile!=""){
-            // Make dataFile relative to path of extForcesFile
-            if (dataFile.indexOf(File.separatorChar)==-1){
+        String dataFileName = dLoads.getDataFileName(); // Mandatory
+        File extForcesFile = new File(fullExternalLoadsFilename);
+        if (extForcesFile.exists()){
+            dataFile = new File(dataFileName);
+            if (!dataFile.exists()){
+                // Try full path
                 String parentDir = extForcesFile.getParent();
-                dataFile = parentDir+File.separator+dataFile;
+                dataFileName = parentDir+File.separator+dataFileName;
+                dataFile = new File(dataFileName);
+                if (!dataFile.exists()){
+                    // disable editing
+                    
+                }
             }
         }
-        externalLoadsDataFileName.setFileName(dataFile);
-        if (dataFile!="" && dataFile !=null && new File(dataFile).exists()){
+        else {
+            // We're dead. bail out. We shouldn't be here as the constructor should've aborted'
+        }
+        externalLoadsDataFileName.setFileName(dataFileName);
+        if (dataFileName!="" && dataFileName !=null && new File(dataFileName).exists()){
             try {
-                externalLoadsStorage = new Storage(dataFile);
+                externalLoadsStorage = new Storage(dataFileName);
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
         }
         updateButtonAvailability();
-        jForcesList.addListSelectionListener(this); */
+        jForcesList.addListSelectionListener(this);
     }
     
     /** This method is called from within the constructor to
@@ -335,6 +340,7 @@ public class EditExternalLoadsPanel extends javax.swing.JPanel
 
         cutoffFrequency.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
         cutoffFrequency.setText(" ");
+        cutoffFrequency.setMargin(new java.awt.Insets(0, 0, 0, 0));
         cutoffFrequency.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cutoffFrequencyActionPerformed(evt);
@@ -420,23 +426,23 @@ public class EditExternalLoadsPanel extends javax.swing.JPanel
                 .addContainerGap()
                 .add(DatafileNameLabel)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(externalLoadsDataFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
+                .add(externalLoadsDataFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
                 .addContainerGap())
             .add(ForcesListManagerPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .add(layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jLabel8)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(externalLoadsModelKinematicsFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
+                .add(externalLoadsModelKinematicsFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
                 .addContainerGap())
             .add(layout.createSequentialGroup()
                 .addContainerGap()
                 .add(filterModelKinematics)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(cutoffFrequency, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(cutoffFrequency, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 25, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jLabel9)
-                .addContainerGap(280, Short.MAX_VALUE))
+                .addContainerGap(273, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -452,8 +458,8 @@ public class EditExternalLoadsPanel extends javax.swing.JPanel
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(filterModelKinematics)
-                    .add(cutoffFrequency, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jLabel9))
+                    .add(jLabel9)
+                    .add(cutoffFrequency, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(ForcesListManagerPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
         );
@@ -473,7 +479,7 @@ public class EditExternalLoadsPanel extends javax.swing.JPanel
     }//GEN-LAST:event_cutoffFrequencyActionPerformed
 
     private void filterModelKinematicsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterModelKinematicsActionPerformed
-        //dLoads.setFilterLoadKinematics(filterModelKinematics.isSelected());
+        //dLoads.setLowpassCutoffFrequencyForLoadKinematics(filterModelKinematics.isSelected());
     }//GEN-LAST:event_filterModelKinematicsActionPerformed
 
     private void externalLoadsModelKinematicsFileNameStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_externalLoadsModelKinematicsFileNameStateChanged
