@@ -123,7 +123,7 @@ public class MotionsDB extends Observable // Observed by other entities in motio
          }
          // user selected a model, try to associate it
          if(MotionsDB.getInstance().motionAssociationPossible(modelForMotion, newMotion)){
-            addMotion(modelForMotion, newMotion, true);
+            addMotion(modelForMotion, newMotion);
             saveStorageFileName(newMotion, fileName);
             StatusDisplayer.getDefault().setStatusText("Associated motion: "+newMotion.getName()+" to model: "+modelForMotion.getName());
             associated = true;
@@ -160,8 +160,9 @@ public class MotionsDB extends Observable // Observed by other entities in motio
       return (numUsedColumns>=1);  // At least one column makes sense
    }
 
-   public void addMotion(Model model, Storage motion, boolean convertAngles) {
+   public void addMotion(Model model, Storage motion) {
       if (! (model instanceof ModelForExperimentalData)){
+          boolean convertAngles = motion.isInDegrees();
           if(convertAngles) model.getSimbodyEngine().convertDegreesToRadians(motion);
       }
       // Add to mapModels2Motion
@@ -197,9 +198,6 @@ public class MotionsDB extends Observable // Observed by other entities in motio
       return false;
    }
 
-   public void addMotion(Model model, Storage motion) {
-      addMotion(model, motion, false);
-   }
 
    public void clearCurrent() {
       clearCurrentMotions();
