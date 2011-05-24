@@ -72,6 +72,10 @@ public class ExternalLoads extends ModelComponentSetExternalForces {
     opensimModelJNI.ExternalLoads_setup(swigCPtr, this, Model.getCPtr(aModel), aModel);
   }
 
+  public Model getModel() {
+    return new Model(opensimModelJNI.ExternalLoads_getModel(swigCPtr, this), false);
+  }
+
   public String getDataFileName() {
     return opensimModelJNI.ExternalLoads_getDataFileName(swigCPtr, this);
   }

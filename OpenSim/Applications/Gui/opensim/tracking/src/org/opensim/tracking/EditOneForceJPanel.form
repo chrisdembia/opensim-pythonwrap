@@ -26,7 +26,7 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="EditOneForcePanel" alignment="0" pref="256" max="32767" attributes="0"/>
+          <Component id="EditOneForcePanel" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -110,7 +110,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jRadioButtonApplyBodyForce" min="-2" max="-2" attributes="0"/>
-                              <Component id="BodiesComboBox1" min="-2" pref="108" max="-2" attributes="0"/>
+                              <Component id="ForceExpressedBodiesComboBox" min="-2" pref="108" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="161" max="-2" attributes="0"/>
                       </Group>
@@ -120,7 +120,7 @@
                       <Component id="jComboBoxPZ" pref="126" max="32767" attributes="3"/>
                       <Component id="jComboBoxTZ" pref="126" max="32767" attributes="2"/>
                       <Component id="jComboBoxFZ" alignment="0" pref="126" max="32767" attributes="2"/>
-                      <Component id="BodiesComboBox2" min="-2" pref="108" max="-2" attributes="0"/>
+                      <Component id="PointExpressedBodiesComboBox" min="-2" pref="108" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -174,9 +174,9 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="BodiesComboBox1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="ForceExpressedBodiesComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="BodiesComboBox2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="PointExpressedBodiesComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
               </Group>
@@ -455,7 +455,7 @@
             <Property name="text" type="java.lang.String" value="Force Expressed in"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JComboBox" name="BodiesComboBox1">
+        <Component class="javax.swing.JComboBox" name="ForceExpressedBodiesComboBox">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="4">
@@ -467,8 +467,8 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BodiesComboBox1ActionPerformed"/>
-            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="BodiesComboBox1FocusLost"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ForceExpressedBodiesComboBoxActionPerformed"/>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="ForceExpressedBodiesComboBoxFocusLost"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
@@ -476,7 +476,7 @@
             <Property name="text" type="java.lang.String" value="Point Expressed in"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JComboBox" name="BodiesComboBox2">
+        <Component class="javax.swing.JComboBox" name="PointExpressedBodiesComboBox">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="4">
@@ -488,8 +488,8 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BodiesComboBox2ActionPerformed"/>
-            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="BodiesComboBox2FocusLost"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="PointExpressedBodiesComboBoxActionPerformed"/>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="PointExpressedBodiesComboBoxFocusLost"/>
           </Events>
         </Component>
       </SubComponents>

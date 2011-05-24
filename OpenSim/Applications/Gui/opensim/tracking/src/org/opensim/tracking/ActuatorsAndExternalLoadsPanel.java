@@ -36,7 +36,6 @@ import java.awt.Component;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
@@ -45,15 +44,13 @@ import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileFilter;
 import org.jdesktop.layout.GroupLayout;
 import org.openide.DialogDescriptor;
 import org.openide.DialogDisplayer;
-import org.openide.NotifyDescriptor;
 import org.opensim.modeling.ArrayStr;
-import org.opensim.modeling.BodySet;
+import org.opensim.modeling.ExternalLoads;
 import org.opensim.modeling.Model;
 import org.opensim.swingui.ComponentTitledBorder;
 import org.opensim.swingui.MultiFileSelectorPanel;
@@ -379,7 +376,7 @@ public class ActuatorsAndExternalLoadsPanel extends javax.swing.JPanel {
         EditExternalLoadsPanel epfsPanel = new EditExternalLoadsPanel(model, toolModel.getExternalLoadsFileName());
         DialogDescriptor dlg = new DialogDescriptor(epfsPanel, "Prescibed ForceSet");
         JButton saveButton = new JButton("Save...");
-        saveButton.addActionListener(new SaveButtonActionListener());
+        saveButton.addActionListener(new SaveButtonActionListener(epfsPanel.getExternalLoads()));
         dlg.setOptions(new Object[]{saveButton, new JButton("Cancel")});
         // Find OK 
         DialogDisplayer.getDefault().createDialog(dlg).setVisible(true);
@@ -391,7 +388,7 @@ public class ActuatorsAndExternalLoadsPanel extends javax.swing.JPanel {
         EditExternalLoadsPanel epfsPanel = new EditExternalLoadsPanel(model, toolModel.getExternalLoadsFileName());
         DialogDescriptor dlg = new DialogDescriptor(epfsPanel, "Prescibed ForceSet");
         JButton saveButton = new JButton("Save...");
-        saveButton.addActionListener(new SaveButtonActionListener());
+        saveButton.addActionListener(new SaveButtonActionListener(toolModel.getExternalLoads()));
         dlg.setOptions(new Object[]{saveButton, new JButton("Cancel")});
         DialogDisplayer.getDefault().createDialog(dlg).setVisible(true);
 
@@ -475,12 +472,15 @@ public class ActuatorsAndExternalLoadsPanel extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     private class SaveButtonActionListener implements ActionListener {
-
+        private ExternalLoads dLoads;
+        SaveButtonActionListener(ExternalLoads loads){
+            dLoads = loads;
+        }
         public void actionPerformed(ActionEvent e) {
             FileFilter ff = FileUtils.getFileFilter(".xml", "File to save External ForceSet");
             String fileName = FileUtils.getInstance().browseForFilenameToSave(ff, true, "", null);
             String fullFilename = FileUtils.addExtensionIfNeeded(fileName, ".xml");
-            //toolModel.getExternalLoads().print(fullFilename);
+            dLoads.print(fullFilename);
             externalLoadsFileName.setFileName(fullFilename);
         }
     }

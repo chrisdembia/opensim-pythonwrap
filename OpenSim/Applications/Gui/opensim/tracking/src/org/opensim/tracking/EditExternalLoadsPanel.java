@@ -56,7 +56,7 @@ import org.opensim.modeling.Storage;
 public class EditExternalLoadsPanel extends javax.swing.JPanel 
                                          implements ListSelectionListener {
     
-    ExternalLoads dLoads;
+    private ExternalLoads dLoads;
     Storage externalLoadsStorage=null;
     Vector<ExternalForce> cachedForces = new Vector<ExternalForce>(4);
     private ForceListModel forceListModel;
@@ -68,7 +68,7 @@ public class EditExternalLoadsPanel extends javax.swing.JPanel
      * Creates new form EditPrescribedForceSetPanel
      */
     public EditExternalLoadsPanel(Model model, String externalLoadsFilename) {
-        dLoads = new ExternalLoads(model, externalLoadsFilename);
+        dLoads = (externalLoadsFilename.equalsIgnoreCase(""))?new ExternalLoads(model):new ExternalLoads(model, externalLoadsFilename);
         fullExternalLoadsFilename = externalLoadsFilename;
         forceListModel = new ForceListModel(dLoads);
         initComponents();
@@ -99,7 +99,7 @@ public class EditExternalLoadsPanel extends javax.swing.JPanel
         externalLoadsDataFileName.setFileName(dataFileName);
         if (dataFileName!="" && dataFileName !=null && new File(dataFileName).exists()){
             try {
-                externalLoadsStorage = new Storage(dataFileName);
+                externalLoadsStorage = new Storage(dataFileName, true);
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
@@ -513,13 +513,17 @@ public class EditExternalLoadsPanel extends javax.swing.JPanel
          if (((Integer)userInput).compareTo((Integer)DialogDescriptor.OK_OPTION)!=0){
              forceListModel.set(sels[0], pfCopy);
          }
+         else {
+            //eofPanel.updateForceFromPanel();
+            pf.print("EditedExternalForce.xml");
+         }
     }//GEN-LAST:event_jButtonEditActionPerformed
 
     private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
          ExternalForce pf = new ExternalForce();
          //pf.setName(dTool.getNextAvailableForceName("ExternalForce"));
-         pf.setAppliedToBodyName("Ground");
-         EditOneForceJPanel eofPanel = new EditOneForceJPanel(pf, externalLoadsStorage, null/*dTool.getModel()*/);
+         pf.setAppliedToBodyName("ground");
+         EditOneForceJPanel eofPanel = new EditOneForceJPanel(pf, externalLoadsStorage, dLoads);
          DialogDescriptor dlg = new DialogDescriptor(eofPanel, "Create/Edit ExternalForce");
          eofPanel.setDDialog(dlg);
          Dialog d=DialogDisplayer.getDefault().createDialog(dlg);
@@ -528,7 +532,7 @@ public class EditExternalLoadsPanel extends javax.swing.JPanel
          if (((Integer)userInput).compareTo((Integer)DialogDescriptor.OK_OPTION)==0){
              forceListModel.add(forceListModel.getSize(), pf);
              String usrObjBodyName=pf.getAppliedToBodyName();                         
-             //dLoads.append(pf);
+             dLoads.append(pf);
              cachedForces.add(pf);
          }
     }//GEN-LAST:event_jButtonAddActionPerformed
@@ -555,7 +559,7 @@ public class EditExternalLoadsPanel extends javax.swing.JPanel
         String dataFile = externalLoadsDataFileName.getFileName();
         if (dataFile!="" && dataFile !=null && new File(dataFile).exists()){
             try {
-                externalLoadsStorage = new Storage(dataFile);
+                externalLoadsStorage = new Storage(dataFile, true);
                dLoads.setDataFileName(externalLoadsDataFileName.getFileName());
                 updateButtonAvailability();
             } catch (IOException ex) {
@@ -596,6 +600,10 @@ public class EditExternalLoadsPanel extends javax.swing.JPanel
         }
 	return;
     }    
+
+    public ExternalLoads getExternalLoads() {
+        return dLoads;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox BodiesComboBox;

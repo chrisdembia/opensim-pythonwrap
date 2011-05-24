@@ -124,6 +124,18 @@ public class ExternalForce extends Force {
     opensimModelJNI.ExternalForce_setTorqueIdentifier(swigCPtr, this, aTorqueIdentifier);
   }
 
+  public String getForceIdentifier() {
+    return opensimModelJNI.ExternalForce_getForceIdentifier(swigCPtr, this);
+  }
+
+  public String getPointIdentifier() {
+    return opensimModelJNI.ExternalForce_getPointIdentifier(swigCPtr, this);
+  }
+
+  public String getTorqueIdentifier() {
+    return opensimModelJNI.ExternalForce_getTorqueIdentifier(swigCPtr, this);
+  }
+
   public SWIGTYPE_p_SimTK__Vec3 getForceAtTime(double aTime) {
     return new SWIGTYPE_p_SimTK__Vec3(opensimModelJNI.ExternalForce_getForceAtTime(swigCPtr, this, aTime), true);
   }
@@ -142,6 +154,18 @@ public class ExternalForce extends Force {
 
   public ArrayDouble getRecordValues(SWIGTYPE_p_SimTK__State state) {
     return new ArrayDouble(opensimModelJNI.ExternalForce_getRecordValues(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(state)), true);
+  }
+
+  public boolean appliesForce() {
+    return opensimModelJNI.ExternalForce_appliesForce(swigCPtr, this);
+  }
+
+  public boolean specifiesPoint() {
+    return opensimModelJNI.ExternalForce_specifiesPoint(swigCPtr, this);
+  }
+
+  public boolean appliesTorque() {
+    return opensimModelJNI.ExternalForce_appliesTorque(swigCPtr, this);
   }
 
   public static boolean isKindOf(String type) {
