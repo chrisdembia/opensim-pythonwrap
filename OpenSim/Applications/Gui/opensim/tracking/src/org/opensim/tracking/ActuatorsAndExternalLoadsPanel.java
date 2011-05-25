@@ -388,7 +388,7 @@ public class ActuatorsAndExternalLoadsPanel extends javax.swing.JPanel {
         EditExternalLoadsPanel epfsPanel = new EditExternalLoadsPanel(model, toolModel.getExternalLoadsFileName());
         DialogDescriptor dlg = new DialogDescriptor(epfsPanel, "Prescibed ForceSet");
         JButton saveButton = new JButton("Save...");
-        saveButton.addActionListener(new SaveButtonActionListener(toolModel.getExternalLoads()));
+        saveButton.addActionListener(new SaveButtonActionListener(epfsPanel.getExternalLoads()));
         dlg.setOptions(new Object[]{saveButton, new JButton("Cancel")});
         DialogDisplayer.getDefault().createDialog(dlg).setVisible(true);
 
@@ -472,6 +472,7 @@ public class ActuatorsAndExternalLoadsPanel extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     private class SaveButtonActionListener implements ActionListener {
+
         private ExternalLoads dLoads;
         SaveButtonActionListener(ExternalLoads loads){
             dLoads = loads;

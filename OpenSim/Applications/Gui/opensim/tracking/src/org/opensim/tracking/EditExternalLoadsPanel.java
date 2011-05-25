@@ -48,6 +48,7 @@ import org.opensim.modeling.Model;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.modeling.ExternalForce;
 import org.opensim.modeling.Storage;
+import org.opensim.utils.FileUtils;
 
 /**
  *
@@ -68,7 +69,15 @@ public class EditExternalLoadsPanel extends javax.swing.JPanel
      * Creates new form EditPrescribedForceSetPanel
      */
     public EditExternalLoadsPanel(Model model, String externalLoadsFilename) {
-        dLoads = (externalLoadsFilename.equalsIgnoreCase(""))?new ExternalLoads(model):new ExternalLoads(model, externalLoadsFilename);
+        
+        if (externalLoadsFilename.equalsIgnoreCase("")|| externalLoadsFilename.equalsIgnoreCase("Unassigned")){
+            // Create a new empty ExternlLoads file and use it for now
+            String f = new File(model.getInputFileName()).getParentFile().getAbsolutePath();
+            externalLoadsFilename = FileUtils.getNextAvailableName(f, "ExternalLoads.xml");
+            ExternalLoads el = new ExternalLoads();
+            el.print(externalLoadsFilename);
+        }
+        dLoads = new ExternalLoads(model, externalLoadsFilename);
         fullExternalLoadsFilename = externalLoadsFilename;
         forceListModel = new ForceListModel(dLoads);
         initComponents();
@@ -513,17 +522,13 @@ public class EditExternalLoadsPanel extends javax.swing.JPanel
          if (((Integer)userInput).compareTo((Integer)DialogDescriptor.OK_OPTION)!=0){
              forceListModel.set(sels[0], pfCopy);
          }
-         else {
-            //eofPanel.updateForceFromPanel();
-            pf.print("EditedExternalForce.xml");
-         }
     }//GEN-LAST:event_jButtonEditActionPerformed
 
     private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
          ExternalForce pf = new ExternalForce();
          //pf.setName(dTool.getNextAvailableForceName("ExternalForce"));
          pf.setAppliedToBodyName("ground");
-         EditOneForceJPanel eofPanel = new EditOneForceJPanel(pf, externalLoadsStorage, dLoads);
+         EditOneForceJPanel eofPanel = new EditOneForceJPanel(pf, externalLoadsStorage,dLoads);
          DialogDescriptor dlg = new DialogDescriptor(eofPanel, "Create/Edit ExternalForce");
          eofPanel.setDDialog(dlg);
          Dialog d=DialogDisplayer.getDefault().createDialog(dlg);
