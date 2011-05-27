@@ -67,24 +67,28 @@ public class Storage extends StorageInterface {
     this(opensimModelJNI.new_Storage__SWIG_2(), true);
   }
 
+  public Storage(String aFileName, boolean readHeadersOnly) throws java.io.IOException {
+    this(opensimModelJNI.new_Storage__SWIG_3(aFileName, readHeadersOnly), true);
+  }
+
   public Storage(String aFileName) throws java.io.IOException {
-    this(opensimModelJNI.new_Storage__SWIG_3(aFileName), true);
+    this(opensimModelJNI.new_Storage__SWIG_4(aFileName), true);
   }
 
   public Storage(Storage aStorage, boolean aCopyData) {
-    this(opensimModelJNI.new_Storage__SWIG_4(Storage.getCPtr(aStorage), aStorage, aCopyData), true);
+    this(opensimModelJNI.new_Storage__SWIG_5(Storage.getCPtr(aStorage), aStorage, aCopyData), true);
   }
 
   public Storage(Storage aStorage) {
-    this(opensimModelJNI.new_Storage__SWIG_5(Storage.getCPtr(aStorage), aStorage), true);
+    this(opensimModelJNI.new_Storage__SWIG_6(Storage.getCPtr(aStorage), aStorage), true);
   }
 
   public Storage(Storage aStorage, int aStateIndex, int aN, String aDelimiter) {
-    this(opensimModelJNI.new_Storage__SWIG_6(Storage.getCPtr(aStorage), aStorage, aStateIndex, aN, aDelimiter), true);
+    this(opensimModelJNI.new_Storage__SWIG_7(Storage.getCPtr(aStorage), aStorage, aStateIndex, aN, aDelimiter), true);
   }
 
   public Storage(Storage aStorage, int aStateIndex, int aN) {
-    this(opensimModelJNI.new_Storage__SWIG_7(Storage.getCPtr(aStorage), aStorage, aStateIndex, aN), true);
+    this(opensimModelJNI.new_Storage__SWIG_8(Storage.getCPtr(aStorage), aStorage, aStateIndex, aN), true);
   }
 
   public OpenSimObject copy() {
@@ -256,6 +260,10 @@ public class Storage extends StorageInterface {
 
   public void getDataForIdentifier(String identifier, SWIGTYPE_p_OpenSim__ArrayT_OpenSim__ArrayT_double_t_t rData) {
     opensimModelJNI.Storage_getDataForIdentifier__SWIG_1(swigCPtr, this, identifier, SWIGTYPE_p_OpenSim__ArrayT_OpenSim__ArrayT_double_t_t.getCPtr(rData));
+  }
+
+  public ArrayInt getColumnIndicesForIdentifier(String identifier) {
+    return new ArrayInt(opensimModelJNI.Storage_getColumnIndicesForIdentifier(swigCPtr, this, identifier), true);
   }
 
   public void setStepInterval(int aStepInterval) {

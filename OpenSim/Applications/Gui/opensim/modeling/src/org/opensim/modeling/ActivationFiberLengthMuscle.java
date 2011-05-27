@@ -60,10 +60,6 @@ public class ActivationFiberLengthMuscle extends Muscle {
     return opensimModelJNI.ActivationFiberLengthMuscle_getNumStateVariables(swigCPtr, this);
   }
 
-  public double getPennationAngleAtOptimalFiberLength() {
-    return opensimModelJNI.ActivationFiberLengthMuscle_getPennationAngleAtOptimalFiberLength(swigCPtr, this);
-  }
-
   public double getDefaultActivation() {
     return opensimModelJNI.ActivationFiberLengthMuscle_getDefaultActivation(swigCPtr, this);
   }
@@ -78,14 +74,6 @@ public class ActivationFiberLengthMuscle extends Muscle {
 
   public void setDefaultFiberLength(double length) {
     opensimModelJNI.ActivationFiberLengthMuscle_setDefaultFiberLength(swigCPtr, this, length);
-  }
-
-  public double getOptimalFiberLength() {
-    return opensimModelJNI.ActivationFiberLengthMuscle_getOptimalFiberLength(swigCPtr, this);
-  }
-
-  public double getPennationAngle(SWIGTYPE_p_SimTK__State s) {
-    return opensimModelJNI.ActivationFiberLengthMuscle_getPennationAngle(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s));
   }
 
   public double getTendonLength(SWIGTYPE_p_SimTK__State s) {
@@ -128,10 +116,6 @@ public class ActivationFiberLengthMuscle extends Muscle {
     return opensimModelJNI.ActivationFiberLengthMuscle_getPassiveFiberForceAlongTendon(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s));
   }
 
-  public double getMaxIsometricForce() {
-    return opensimModelJNI.ActivationFiberLengthMuscle_getMaxIsometricForce(swigCPtr, this);
-  }
-
   public double getTendonForce(SWIGTYPE_p_SimTK__State s) {
     return opensimModelJNI.ActivationFiberLengthMuscle_getTendonForce(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s));
   }
@@ -158,10 +142,6 @@ public class ActivationFiberLengthMuscle extends Muscle {
 
   public double computeIsokineticForceAssumingInfinitelyStiffTendon(SWIGTYPE_p_SimTK__State s, double aActivation) {
     return opensimModelJNI.ActivationFiberLengthMuscle_computeIsokineticForceAssumingInfinitelyStiffTendon(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), aActivation);
-  }
-
-  public double calcPennation(double aFiberLength, double aOptimalFiberLength, double aInitialPennationAngle) {
-    return opensimModelJNI.ActivationFiberLengthMuscle_calcPennation(swigCPtr, this, aFiberLength, aOptimalFiberLength, aInitialPennationAngle);
   }
 
   public ArrayStr getRecordLabels() {

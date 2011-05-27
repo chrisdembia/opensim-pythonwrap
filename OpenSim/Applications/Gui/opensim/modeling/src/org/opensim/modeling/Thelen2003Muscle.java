@@ -44,26 +44,6 @@ public class Thelen2003Muscle extends ActivationFiberLengthMuscle {
     opensimModelJNI.Thelen2003Muscle_copyData(swigCPtr, this, Thelen2003Muscle.getCPtr(aMuscle), aMuscle);
   }
 
-  public void copyPropertyValues(Actuator aActuator) {
-    opensimModelJNI.Thelen2003Muscle_copyPropertyValues(swigCPtr, this, Actuator.getCPtr(aActuator), aActuator);
-  }
-
-  public double getMaxIsometricForce() {
-    return opensimModelJNI.Thelen2003Muscle_getMaxIsometricForce(swigCPtr, this);
-  }
-
-  public double getOptimalFiberLength() {
-    return opensimModelJNI.Thelen2003Muscle_getOptimalFiberLength(swigCPtr, this);
-  }
-
-  public double getTendonSlackLength() {
-    return opensimModelJNI.Thelen2003Muscle_getTendonSlackLength(swigCPtr, this);
-  }
-
-  public double getPennationAngleAtOptimalFiberLength() {
-    return opensimModelJNI.Thelen2003Muscle_getPennationAngleAtOptimalFiberLength(swigCPtr, this);
-  }
-
   public double getActivationTimeConstant() {
     return opensimModelJNI.Thelen2003Muscle_getActivationTimeConstant(swigCPtr, this);
   }
@@ -114,22 +94,6 @@ public class Thelen2003Muscle extends ActivationFiberLengthMuscle {
 
   public boolean setDeactivationTimeConstant(double aDeactivationTimeConstant) {
     return opensimModelJNI.Thelen2003Muscle_setDeactivationTimeConstant(swigCPtr, this, aDeactivationTimeConstant);
-  }
-
-  public boolean setMaxIsometricForce(double aMaxIsometricForce) {
-    return opensimModelJNI.Thelen2003Muscle_setMaxIsometricForce(swigCPtr, this, aMaxIsometricForce);
-  }
-
-  public boolean setOptimalFiberLength(double aOptimalFiberLength) {
-    return opensimModelJNI.Thelen2003Muscle_setOptimalFiberLength(swigCPtr, this, aOptimalFiberLength);
-  }
-
-  public boolean setTendonSlackLength(double aTendonSlackLength) {
-    return opensimModelJNI.Thelen2003Muscle_setTendonSlackLength(swigCPtr, this, aTendonSlackLength);
-  }
-
-  public boolean setPennationAngle(double aPennationAngle) {
-    return opensimModelJNI.Thelen2003Muscle_setPennationAngle(swigCPtr, this, aPennationAngle);
   }
 
   public boolean setVmax(double aVmax) {

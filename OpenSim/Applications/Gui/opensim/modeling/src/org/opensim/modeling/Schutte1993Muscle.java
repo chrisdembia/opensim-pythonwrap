@@ -44,30 +44,6 @@ public class Schutte1993Muscle extends ActivationFiberLengthMuscle {
     opensimModelJNI.Schutte1993Muscle_copyData(swigCPtr, this, Schutte1993Muscle.getCPtr(aMuscle), aMuscle);
   }
 
-  public void copyPropertyValues(Actuator aActuator) {
-    opensimModelJNI.Schutte1993Muscle_copyPropertyValues(swigCPtr, this, Actuator.getCPtr(aActuator), aActuator);
-  }
-
-  public double getMaxIsometricForce() {
-    return opensimModelJNI.Schutte1993Muscle_getMaxIsometricForce(swigCPtr, this);
-  }
-
-  public double getOptimalFiberLength() {
-    return opensimModelJNI.Schutte1993Muscle_getOptimalFiberLength(swigCPtr, this);
-  }
-
-  public double getTendonSlackLength() {
-    return opensimModelJNI.Schutte1993Muscle_getTendonSlackLength(swigCPtr, this);
-  }
-
-  public double getPennationAngleAtOptimalFiberLength() {
-    return opensimModelJNI.Schutte1993Muscle_getPennationAngleAtOptimalFiberLength(swigCPtr, this);
-  }
-
-  public double getMaxContractionVelocity() {
-    return opensimModelJNI.Schutte1993Muscle_getMaxContractionVelocity(swigCPtr, this);
-  }
-
   public double getTimeScale() {
     return opensimModelJNI.Schutte1993Muscle_getTimeScale(swigCPtr, this);
   }
@@ -86,26 +62,6 @@ public class Schutte1993Muscle extends ActivationFiberLengthMuscle {
 
   public boolean setActivation2(double aActivation2) {
     return opensimModelJNI.Schutte1993Muscle_setActivation2(swigCPtr, this, aActivation2);
-  }
-
-  public boolean setMaxIsometricForce(double aMaxIsometricForce) {
-    return opensimModelJNI.Schutte1993Muscle_setMaxIsometricForce(swigCPtr, this, aMaxIsometricForce);
-  }
-
-  public boolean setOptimalFiberLength(double aOptimalFiberLength) {
-    return opensimModelJNI.Schutte1993Muscle_setOptimalFiberLength(swigCPtr, this, aOptimalFiberLength);
-  }
-
-  public boolean setTendonSlackLength(double aTendonSlackLength) {
-    return opensimModelJNI.Schutte1993Muscle_setTendonSlackLength(swigCPtr, this, aTendonSlackLength);
-  }
-
-  public boolean setPennationAngle(double aPennationAngle) {
-    return opensimModelJNI.Schutte1993Muscle_setPennationAngle(swigCPtr, this, aPennationAngle);
-  }
-
-  public boolean setMaxContractionVelocity(double aMaxContractionVelocity) {
-    return opensimModelJNI.Schutte1993Muscle_setMaxContractionVelocity(swigCPtr, this, aMaxContractionVelocity);
   }
 
   public boolean setDamping(double aDamping) {

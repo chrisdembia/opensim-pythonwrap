@@ -40,10 +40,6 @@ public class Actuator_ extends Force {
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
-  public void copyPropertyValues(Actuator_ aActuator) {
-    opensimModelJNI.Actuator__copyPropertyValues(swigCPtr, this, Actuator_.getCPtr(aActuator), aActuator);
-  }
-
   public int numControls() {
     return opensimModelJNI.Actuator__numControls(swigCPtr, this);
   }
@@ -70,26 +66,6 @@ public class Actuator_ extends Force {
 
   public void computeEquilibrium(SWIGTYPE_p_SimTK__State s) {
     opensimModelJNI.Actuator__computeEquilibrium(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s));
-  }
-
-  public void preScale(SWIGTYPE_p_SimTK__State s, ScaleSet aScaleSet) {
-    opensimModelJNI.Actuator__preScale(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), ScaleSet.getCPtr(aScaleSet), aScaleSet);
-  }
-
-  public void scale(SWIGTYPE_p_SimTK__State s, ScaleSet aScaleSet) {
-    opensimModelJNI.Actuator__scale(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), ScaleSet.getCPtr(aScaleSet), aScaleSet);
-  }
-
-  public void postScale(SWIGTYPE_p_SimTK__State s, ScaleSet aScaleSet) {
-    opensimModelJNI.Actuator__postScale(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), ScaleSet.getCPtr(aScaleSet), aScaleSet);
-  }
-
-  public void updateDisplayer(SWIGTYPE_p_SimTK__State s) {
-    opensimModelJNI.Actuator__updateDisplayer(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s));
-  }
-
-  public void replacePropertyFunction(Function aOldFunction, Function aNewFunction) {
-    opensimModelJNI.Actuator__replacePropertyFunction(swigCPtr, this, Function.getCPtr(aOldFunction), aOldFunction, Function.getCPtr(aNewFunction), aNewFunction);
   }
 
 }

@@ -44,30 +44,6 @@ public class Delp1990Muscle extends ActivationFiberLengthMuscle {
     opensimModelJNI.Delp1990Muscle_copyData(swigCPtr, this, Delp1990Muscle.getCPtr(aMuscle), aMuscle);
   }
 
-  public void copyPropertyValues(Actuator aActuator) {
-    opensimModelJNI.Delp1990Muscle_copyPropertyValues(swigCPtr, this, Actuator.getCPtr(aActuator), aActuator);
-  }
-
-  public double getMaxIsometricForce() {
-    return opensimModelJNI.Delp1990Muscle_getMaxIsometricForce(swigCPtr, this);
-  }
-
-  public double getOptimalFiberLength() {
-    return opensimModelJNI.Delp1990Muscle_getOptimalFiberLength(swigCPtr, this);
-  }
-
-  public double getTendonSlackLength() {
-    return opensimModelJNI.Delp1990Muscle_getTendonSlackLength(swigCPtr, this);
-  }
-
-  public double getPennationAngleAtOptimalFiberLength() {
-    return opensimModelJNI.Delp1990Muscle_getPennationAngleAtOptimalFiberLength(swigCPtr, this);
-  }
-
-  public double getMaxContractionVelocity() {
-    return opensimModelJNI.Delp1990Muscle_getMaxContractionVelocity(swigCPtr, this);
-  }
-
   public double getTimeScale() {
     return opensimModelJNI.Delp1990Muscle_getTimeScale(swigCPtr, this);
   }
@@ -86,26 +62,6 @@ public class Delp1990Muscle extends ActivationFiberLengthMuscle {
 
   public boolean setActivation2(double aActivation2) {
     return opensimModelJNI.Delp1990Muscle_setActivation2(swigCPtr, this, aActivation2);
-  }
-
-  public boolean setMaxIsometricForce(double aMaxIsometricForce) {
-    return opensimModelJNI.Delp1990Muscle_setMaxIsometricForce(swigCPtr, this, aMaxIsometricForce);
-  }
-
-  public boolean setOptimalFiberLength(double aOptimalFiberLength) {
-    return opensimModelJNI.Delp1990Muscle_setOptimalFiberLength(swigCPtr, this, aOptimalFiberLength);
-  }
-
-  public boolean setTendonSlackLength(double aTendonSlackLength) {
-    return opensimModelJNI.Delp1990Muscle_setTendonSlackLength(swigCPtr, this, aTendonSlackLength);
-  }
-
-  public boolean setPennationAngle(double aPennationAngle) {
-    return opensimModelJNI.Delp1990Muscle_setPennationAngle(swigCPtr, this, aPennationAngle);
-  }
-
-  public boolean setMaxContractionVelocity(double aMaxContractionVelocity) {
-    return opensimModelJNI.Delp1990Muscle_setMaxContractionVelocity(swigCPtr, this, aMaxContractionVelocity);
   }
 
   public boolean setMass(double aMass) {

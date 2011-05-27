@@ -108,6 +108,18 @@ public class PathActuator extends Actuator {
     opensimModelJNI.PathActuator_updateFromXMLNode(swigCPtr, this);
   }
 
+  public void preScale(SWIGTYPE_p_SimTK__State s, ScaleSet aScaleSet) {
+    opensimModelJNI.PathActuator_preScale(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), ScaleSet.getCPtr(aScaleSet), aScaleSet);
+  }
+
+  public void scale(SWIGTYPE_p_SimTK__State s, ScaleSet aScaleSet) {
+    opensimModelJNI.PathActuator_scale(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), ScaleSet.getCPtr(aScaleSet), aScaleSet);
+  }
+
+  public void postScale(SWIGTYPE_p_SimTK__State s, ScaleSet aScaleSet) {
+    opensimModelJNI.PathActuator_postScale(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), ScaleSet.getCPtr(aScaleSet), aScaleSet);
+  }
+
   public VisibleObject getDisplayer() {
     long cPtr = opensimModelJNI.PathActuator_getDisplayer(swigCPtr, this);
     return (cPtr == 0) ? null : new VisibleObject(cPtr, false);

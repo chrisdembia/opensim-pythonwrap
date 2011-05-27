@@ -52,6 +52,46 @@ public class Muscle extends PathActuator {
     opensimModelJNI.Muscle_updateFromXMLNode(swigCPtr, this);
   }
 
+  public double getMaxIsometricForce() {
+    return opensimModelJNI.Muscle_getMaxIsometricForce(swigCPtr, this);
+  }
+
+  public double getOptimalFiberLength() {
+    return opensimModelJNI.Muscle_getOptimalFiberLength(swigCPtr, this);
+  }
+
+  public double getTendonSlackLength() {
+    return opensimModelJNI.Muscle_getTendonSlackLength(swigCPtr, this);
+  }
+
+  public double getPennationAngleAtOptimalFiberLength() {
+    return opensimModelJNI.Muscle_getPennationAngleAtOptimalFiberLength(swigCPtr, this);
+  }
+
+  public double getMaxContractionVelocity() {
+    return opensimModelJNI.Muscle_getMaxContractionVelocity(swigCPtr, this);
+  }
+
+  public void setMaxIsometricForce(double aMaxIsometricForce) {
+    opensimModelJNI.Muscle_setMaxIsometricForce(swigCPtr, this, aMaxIsometricForce);
+  }
+
+  public void setOptimalFiberLength(double aOptimalFiberLength) {
+    opensimModelJNI.Muscle_setOptimalFiberLength(swigCPtr, this, aOptimalFiberLength);
+  }
+
+  public void setTendonSlackLength(double aTendonSlackLength) {
+    opensimModelJNI.Muscle_setTendonSlackLength(swigCPtr, this, aTendonSlackLength);
+  }
+
+  public void setPennationAngleAtOptimalFiberLength(double aPennationAngle) {
+    opensimModelJNI.Muscle_setPennationAngleAtOptimalFiberLength(swigCPtr, this, aPennationAngle);
+  }
+
+  public void setMaxContractionVelocity(double aMaxContractionVelocity) {
+    opensimModelJNI.Muscle_setMaxContractionVelocity(swigCPtr, this, aMaxContractionVelocity);
+  }
+
   public double getPennationAngle(SWIGTYPE_p_SimTK__State s) {
     return opensimModelJNI.Muscle_getPennationAngle(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s));
   }
@@ -62,10 +102,6 @@ public class Muscle extends PathActuator {
 
   public double getFiberLength(SWIGTYPE_p_SimTK__State s) {
     return opensimModelJNI.Muscle_getFiberLength(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s));
-  }
-
-  public void setFiberLength(SWIGTYPE_p_SimTK__State s, double fiberLength) {
-    opensimModelJNI.Muscle_setFiberLength(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), fiberLength);
   }
 
   public double getNormalizedFiberLength(SWIGTYPE_p_SimTK__State s) {
@@ -96,10 +132,6 @@ public class Muscle extends PathActuator {
     return opensimModelJNI.Muscle_getPassiveFiberForceAlongTendon(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s));
   }
 
-  public double getMaxIsometricForce() {
-    return opensimModelJNI.Muscle_getMaxIsometricForce(swigCPtr, this);
-  }
-
   public double getTendonForce(SWIGTYPE_p_SimTK__State s) {
     return opensimModelJNI.Muscle_getTendonForce(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s));
   }
@@ -128,8 +160,8 @@ public class Muscle extends PathActuator {
     return opensimModelJNI.Muscle_calcPennation(swigCPtr, this, aFiberLength, aOptimalFiberLength, aInitialPennationAngle);
   }
 
-  public void equilibrate(SWIGTYPE_p_SimTK__State s) {
-    opensimModelJNI.Muscle_equilibrate(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s));
+  public void equilibrate(SWIGTYPE_p_SimTK__State state) {
+    opensimModelJNI.Muscle_equilibrate(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(state));
   }
 
   public ArrayStr getRecordLabels() {
