@@ -60,14 +60,6 @@ public class ObjectEditDialogMaker {
         JPanel topDialogPanel = new JPanel();
         topDialogPanel.setLayout(new BoxLayout(topDialogPanel, BoxLayout.Y_AXIS));
 
-        //if (object.getDisplayer()!=null &&
-        //        ViewDB.getInstance().getVtkRepForObject(object)!=null){   // This should be made more general to account for other editing
-        //    typeSpecificEditorPanel = new VisibilityEditorPanel(object, owner);
-        //    typeSpecificEditorPanel.setAlignmentY(0);
-        //    typeSpecificEditorPanel.setAlignmentX(0);
-        //    topDialogPanel.add(typeSpecificEditorPanel);
-        //}
-
         propertiesEditorPanel.setAlignmentY(0);
         propertiesEditorPanel.setAlignmentX(0);
         topDialogPanel.add(propertiesEditorPanel);
@@ -102,7 +94,7 @@ public class ObjectEditDialogMaker {
      public static boolean editFile(String fileName) {
         OpenSimObject obj = OpenSimObject.makeObjectFromFile(fileName);
         if(obj!=null) {
-           if(new ObjectEditDialogMaker(obj, true, "Save").process()) {
+           if(new ObjectEditDialogMaker(obj, true, "Save...").process()) {
               obj.print(fileName);
               return true;
            }
@@ -124,4 +116,5 @@ public class ObjectEditDialogMaker {
         }
         return confirm;
     }
+
 }

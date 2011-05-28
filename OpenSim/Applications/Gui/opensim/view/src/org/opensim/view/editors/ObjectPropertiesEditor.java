@@ -25,6 +25,7 @@
  */
 package org.opensim.view.editors;
 
+import java.io.File;
 import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
 import org.openide.util.HelpCtx;
@@ -40,8 +41,18 @@ public final class ObjectPropertiesEditor extends CallableSystemAction {
       if(fileName!=null) {
          OpenSimObject obj = OpenSimObject.makeObjectFromFile(fileName);
          if (obj != null){
-            boolean confirm = new ObjectEditDialogMaker(obj, true, "Save").process();
-            if (confirm) obj.print(fileName);
+            ObjectEditDialogMaker dlg = new ObjectEditDialogMaker(obj, true, "Save...");
+            boolean confirm = dlg.process();
+            if (confirm){
+                // get Extension of original file
+                File origFile =  new File(fileName);
+                String fullName =origFile.getAbsolutePath();
+                String folderName = origFile.getParent();
+                String ext = fullName.substring(fullName.lastIndexOf('.'));
+                //browseForFilenameToSave(String extensions, String description, boolean promptIfReplacing, String currentFilename)
+                String newFilename = FileUtils.getInstance().browseForFilenameToSave(ext, "Save to file name", true, fileName);
+                obj.copy().print(newFilename);
+            }
          } else {
             DialogDisplayer.getDefault().notify(
                new NotifyDescriptor.Message("Could not construct an object from the specified file."));
