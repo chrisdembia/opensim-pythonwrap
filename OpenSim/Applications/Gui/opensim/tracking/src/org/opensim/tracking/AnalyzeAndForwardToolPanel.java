@@ -118,7 +118,7 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
       cmcInputPanel.setVisible(mode==Mode.CMC);
       staticOptimizationPanel.setVisible(mode==Mode.StaticOptimization);
       
-      rraPanel.setVisible(mode==Mode.CMC);
+      rraPanel.setVisible(mode==Mode.RRA);
       activeAnalysesPanel.setVisible(mode==Mode.Analyze);
 
       plotMetricsPanel.setVisible(mode==Mode.CMC || mode==Mode.ForwardDynamics || mode==Mode.InverseDynamics);
@@ -133,7 +133,7 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
         jLabel23.setVisible(false);
         cmcTimeWindow.setVisible(false);
 	plotMetricsPanel.setVisible(false); // Show plots only for RRA, CMC for now as the more time consuming steps
-        }
+      }
       if(mode==Mode.Analyze) {
          // Set file filters for analyze tool inputs
          statesFileName.setExtensionsAndDescription(".sto", "States data for "+modeName);
@@ -202,11 +202,13 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
          //opensim20 ToolCommon.bindProperty(toolModel.getTool(), "controls_file", controlsFileName);
          ToolCommon.bindProperty(toolModel.getTool(), "states_file", initialStatesFileName);
          ToolCommon.bindProperty(toolModel.getTool(), "use_specified_dt", useSpecifiedDt);
-      } else { //CMC
+      } else if (mode==Mode.CMC){ //CMC
          ToolCommon.bindProperty(toolModel.getTool(), "desired_kinematics_file", cmcDesiredKinematicsFileName);
          ToolCommon.bindProperty(toolModel.getTool(), "lowpass_cutoff_frequency", cmcCutoffFrequency);
          ToolCommon.bindProperty(toolModel.getTool(), "task_set_file", cmcTaskSetFileName);
          ToolCommon.bindProperty(toolModel.getTool(), "constraints_file", cmcConstraintsFileName);
+      } else { //RRA
+         ToolCommon.bindProperty(toolModel.getTool(), "task_set_file", cmcTaskSetFileName);
          ToolCommon.bindProperty(toolModel.getTool(), "output_model_file", rraOutputModelFileName);
          ToolCommon.bindProperty(toolModel.getTool(), "adjusted_com_body", rraAdjustedBodyComboBox);
          ToolCommon.bindProperty(toolModel.getTool(), "cmc_time_window", cmcTimeWindow);
@@ -546,6 +548,9 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
         buttonGroup2 = new javax.swing.ButtonGroup();
         buttonGroup3 = new javax.swing.ButtonGroup();
         buttonGroup4 = new javax.swing.ButtonGroup();
+        plotMetricsPanel = new javax.swing.JPanel();
+        plotMetricsCheckBox = new javax.swing.JCheckBox();
+        reuseSelectedQuantitiesCheckBox = new javax.swing.JCheckBox();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         mainSettingsPanel = new javax.swing.JPanel();
         analyzeInputPanel = new javax.swing.JPanel();
@@ -629,9 +634,6 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
             jLabel24 = new javax.swing.JLabel();
             staticOptActivationExponentTextField = new javax.swing.JTextField();
             useForceLengthStaticOptCheckBox = new javax.swing.JCheckBox();
-            plotMetricsPanel = new javax.swing.JPanel();
-            plotMetricsCheckBox = new javax.swing.JCheckBox();
-            reuseSelectedQuantitiesCheckBox = new javax.swing.JCheckBox();
 
             integratorSettingsPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Integrator Settings"));
             jLabel15.setText("Integrator error tolerance");
@@ -769,6 +771,43 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
             unspecifiedRadioButton.setText("jRadioButton1");
             unspecifiedRadioButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
             unspecifiedRadioButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
+            plotMetricsPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Plot"));
+            plotMetricsCheckBox.setText("Plot quantities while running ");
+            plotMetricsCheckBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+            plotMetricsCheckBox.setMargin(new java.awt.Insets(0, 0, 0, 0));
+            plotMetricsCheckBox.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    plotMetricsCheckBoxActionPerformed(evt);
+                }
+            });
+
+            reuseSelectedQuantitiesCheckBox.setText("Use quantities from previous tool invocation (otherwise you'll be prompted)");
+            reuseSelectedQuantitiesCheckBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+            reuseSelectedQuantitiesCheckBox.setMargin(new java.awt.Insets(0, 0, 0, 0));
+            reuseSelectedQuantitiesCheckBox.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    reuseSelectedQuantitiesCheckBoxActionPerformed(evt);
+                }
+            });
+
+            org.jdesktop.layout.GroupLayout plotMetricsPanelLayout = new org.jdesktop.layout.GroupLayout(plotMetricsPanel);
+            plotMetricsPanel.setLayout(plotMetricsPanelLayout);
+            plotMetricsPanelLayout.setHorizontalGroup(
+                plotMetricsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(plotMetricsPanelLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .add(plotMetricsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                        .add(plotMetricsCheckBox)
+                        .add(reuseSelectedQuantitiesCheckBox))
+                    .addContainerGap(50, Short.MAX_VALUE))
+            );
+            plotMetricsPanelLayout.setVerticalGroup(
+                plotMetricsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(plotMetricsPanelLayout.createSequentialGroup()
+                    .add(plotMetricsCheckBox)
+                    .add(14, 14, 14)
+                    .add(reuseSelectedQuantitiesCheckBox))
+            );
 
             analyzeInputPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Input"));
             motionsComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -1652,44 +1691,6 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
                     .addContainerGap())
             );
 
-            plotMetricsPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Plot"));
-            plotMetricsCheckBox.setText("Plot quantities while running ");
-            plotMetricsCheckBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-            plotMetricsCheckBox.setMargin(new java.awt.Insets(0, 0, 0, 0));
-            plotMetricsCheckBox.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    plotMetricsCheckBoxActionPerformed(evt);
-                }
-            });
-
-            reuseSelectedQuantitiesCheckBox.setText("Use quantities from previous tool invocation (otherwise you'll be prompted)");
-            reuseSelectedQuantitiesCheckBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-            reuseSelectedQuantitiesCheckBox.setMargin(new java.awt.Insets(0, 0, 0, 0));
-            reuseSelectedQuantitiesCheckBox.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    reuseSelectedQuantitiesCheckBoxActionPerformed(evt);
-                }
-            });
-
-            org.jdesktop.layout.GroupLayout plotMetricsPanelLayout = new org.jdesktop.layout.GroupLayout(plotMetricsPanel);
-            plotMetricsPanel.setLayout(plotMetricsPanelLayout);
-            plotMetricsPanelLayout.setHorizontalGroup(
-                plotMetricsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                .add(plotMetricsPanelLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .add(plotMetricsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                        .add(plotMetricsCheckBox)
-                        .add(reuseSelectedQuantitiesCheckBox))
-                    .addContainerGap(50, Short.MAX_VALUE))
-            );
-            plotMetricsPanelLayout.setVerticalGroup(
-                plotMetricsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                .add(plotMetricsPanelLayout.createSequentialGroup()
-                    .add(plotMetricsCheckBox)
-                    .add(14, 14, 14)
-                    .add(reuseSelectedQuantitiesCheckBox))
-            );
-
             org.jdesktop.layout.GroupLayout mainSettingsPanelLayout = new org.jdesktop.layout.GroupLayout(mainSettingsPanel);
             mainSettingsPanel.setLayout(mainSettingsPanelLayout);
             mainSettingsPanelLayout.setHorizontalGroup(
@@ -1697,7 +1698,6 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
                 .add(mainSettingsPanelLayout.createSequentialGroup()
                     .addContainerGap()
                     .add(mainSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                        .add(org.jdesktop.layout.GroupLayout.LEADING, plotMetricsPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .add(org.jdesktop.layout.GroupLayout.LEADING, staticOptimizationPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .add(org.jdesktop.layout.GroupLayout.LEADING, forwardInputPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .add(org.jdesktop.layout.GroupLayout.LEADING, analyzeInputPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1733,8 +1733,6 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
                     .add(activeAnalysesPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                     .add(outputPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                    .add(plotMetricsPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap())
             );
             jTabbedPane1.addTab("Main Settings", mainSettingsPanel);
