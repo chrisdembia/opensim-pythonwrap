@@ -293,17 +293,6 @@ public class InverseDynamicsToolModel extends AbstractToolModelWithExternalLoads
    }
    public boolean getStatesValid() { return (new File(getStatesFileName()).exists()); }
 
-  /*opensim20
-
-   public boolean needPseudoStates() { return getOriginalModel().getNumPseudoStates()>0; }
-   public String getPseudoStatesFileName() { return InverseDynamicsTool().getPseudoStatesFileName(); }
-   void setPseudoStatesFileName(String speedsFileName) {
-      if(!getPseudoStatesFileName().equals(speedsFileName)) {
-         InverseDynamicsTool().setPseudoStatesFileName(speedsFileName);
-         setModified(AbstractToolModel.Operation.InputDataChanged);
-      }
-   }
-*/
    public String getCoordinatesFileName() { return InverseDynamicsTool().getCoordinatesFileName(); }
    void setCoordinatesFileName(String coordinatesFileName) {
       if(!getCoordinatesFileName().equals(coordinatesFileName)) {
@@ -315,6 +304,22 @@ public class InverseDynamicsToolModel extends AbstractToolModelWithExternalLoads
    public boolean getCoordinatesValid() { return (new File(getCoordinatesFileName()).exists()); }
 
    public boolean getFilterCoordinates() { return getLowpassCutoffFrequency() > 0; }
+   
+   void setLowpassCutoffFrequency(double d) {
+       InverseDynamicsTool().setLowpassCutoffFrequency(d);
+   }
+
+   double getLowpassCutoffFrequency() {
+       double f = InverseDynamicsTool().getLowpassCutoffFrequency();
+        return InverseDynamicsTool().getLowpassCutoffFrequency();
+   }
+
+   void setFilterCoordinates(boolean b) {
+       if (b)
+            InverseDynamicsTool().setLowpassCutoffFrequency(6);
+       else
+            InverseDynamicsTool().setLowpassCutoffFrequency(-1);
+   }
    
    // TODO: implement
    public double[] getAvailableTimeRange() { 
@@ -387,8 +392,9 @@ public class InverseDynamicsToolModel extends AbstractToolModelWithExternalLoads
       if(!FileUtils.effectivelyNull(getStatesFileName())) inputSource = InputSource.States;
       else if(!FileUtils.effectivelyNull(getCoordinatesFileName())) inputSource = InputSource.Coordinates;
       else inputSource = InputSource.Unspecified;
-
+      // update filtering options here
        //if(inputSource == InputSource.Coordinates) setCoordinatesFileName(InverseDynamicsTool().getCoordinatesFileName());
+      
    }
 
    protected void updateTool() {

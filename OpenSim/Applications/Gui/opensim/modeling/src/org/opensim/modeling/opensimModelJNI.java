@@ -4035,6 +4035,8 @@ public class opensimModelJNI {
   public final static native String InverseDynamicsTool_getOutputGenForceFileName(long jarg1, InverseDynamicsTool jarg1_);
   public final static native String InverseDynamicsTool_getCoordinatesFileName(long jarg1, InverseDynamicsTool jarg1_);
   public final static native void InverseDynamicsTool_setCoordinatesFileName(long jarg1, InverseDynamicsTool jarg1_, String jarg2);
+  public final static native double InverseDynamicsTool_getLowpassCutoffFrequency(long jarg1, InverseDynamicsTool jarg1_);
+  public final static native void InverseDynamicsTool_setLowpassCutoffFrequency(long jarg1, InverseDynamicsTool jarg1_, double jarg2);
   public final static native boolean InverseDynamicsTool_run(long jarg1, InverseDynamicsTool jarg1_) throws java.io.IOException;
   public final static native void delete_ForwardTool(long jarg1);
   public final static native long new_ForwardTool__SWIG_0();

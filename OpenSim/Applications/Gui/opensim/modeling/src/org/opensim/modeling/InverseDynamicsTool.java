@@ -76,6 +76,14 @@ public class InverseDynamicsTool extends DynamicsTool {
     opensimModelJNI.InverseDynamicsTool_setCoordinatesFileName(swigCPtr, this, aCoordinateFile);
   }
 
+  public double getLowpassCutoffFrequency() {
+    return opensimModelJNI.InverseDynamicsTool_getLowpassCutoffFrequency(swigCPtr, this);
+  }
+
+  public void setLowpassCutoffFrequency(double aFrequency) {
+    opensimModelJNI.InverseDynamicsTool_setLowpassCutoffFrequency(swigCPtr, this, aFrequency);
+  }
+
   public boolean run() throws java.io.IOException {
     return opensimModelJNI.InverseDynamicsTool_run(swigCPtr, this);
   }

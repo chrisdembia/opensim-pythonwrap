@@ -110,9 +110,9 @@ public class InverseDynamicsToolPanel extends BaseToolPanel implements Observer 
    private void bindPropertiesToComponents() {
 //          ToolCommon.bindProperty(toolModel.getTool(), "states_file", statesFileName);
 //         ToolCommon.bindProperty(toolModel.getTool(), "coordinates_file", coordinatesFileName);
-//         ToolCommon.bindProperty(toolModel.getTool(), "lowpass_cutoff_frequency_for_coordinates", cutoffFrequency);
       InverseDynamicsToolModel idModel = (InverseDynamicsToolModel)toolModel;
  
+      ToolCommon.bindProperty(idModel.InverseDynamicsTool(), "lowpass_cutoff_frequency_for_coordinates", cutoffFrequency1);
       ToolCommon.bindProperty(idModel.InverseDynamicsTool(), "initial_time", initialTime);
       ToolCommon.bindProperty(idModel.InverseDynamicsTool(), "final_time", finalTime);
       ToolCommon.bindProperty(idModel.InverseDynamicsTool(), "results_directory", outputDirectory);
@@ -219,7 +219,7 @@ public class InverseDynamicsToolPanel extends BaseToolPanel implements Observer 
       coordinatesFileName1.setFileName(toolModel.getCoordinatesFileName(),false);
 
       // Filter
-      //OpenSim23 filterCoordinatesCheckBox1.setSelected(toolModel.getFilterCoordinates());
+      filterCoordinatesCheckBox1.setSelected(toolModel.getFilterCoordinates());
       if(!filterCoordinatesCheckBox1.isSelected()) {
          cutoffFrequency1.setText("");
          cutoffFrequency1.setEnabled(false);
@@ -262,8 +262,6 @@ public class InverseDynamicsToolPanel extends BaseToolPanel implements Observer 
         buttonGroup2 = new javax.swing.ButtonGroup();
         buttonGroup3 = new javax.swing.ButtonGroup();
         buttonGroup4 = new javax.swing.ButtonGroup();
-        filterCoordinatesCheckBox1 = new javax.swing.JCheckBox();
-        cutoffFrequency1 = new javax.swing.JTextField();
         HzJLabel = new javax.swing.JLabel();
         plotMetricsPanel = new javax.swing.JPanel();
         plotMetricsCheckBox = new javax.swing.JCheckBox();
@@ -281,11 +279,14 @@ public class InverseDynamicsToolPanel extends BaseToolPanel implements Observer 
         inverseInputPanel = new javax.swing.JPanel();
         motionsComboBox1 = new javax.swing.JComboBox();
         statesRadioButton1 = new javax.swing.JRadioButton();
+        jLabel1 = new javax.swing.JLabel();
         motionRadioButton1 = new javax.swing.JRadioButton();
         statesFileName1 = new org.opensim.swingui.FileTextFieldAndChooser();
         coordinatesFileName1 = new org.opensim.swingui.FileTextFieldAndChooser();
         fromFileMotionRadioButton1 = new javax.swing.JRadioButton();
         loadedMotionRadioButton1 = new javax.swing.JRadioButton();
+        filterCoordinatesCheckBox1 = new javax.swing.JCheckBox();
+        cutoffFrequency1 = new javax.swing.JTextField();
 
         outputName.setText("jTextField1");
         outputName.addActionListener(new java.awt.event.ActionListener() {
@@ -304,27 +305,6 @@ public class InverseDynamicsToolPanel extends BaseToolPanel implements Observer 
         unspecifiedRadioButton.setText("jRadioButton1");
         unspecifiedRadioButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         unspecifiedRadioButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        filterCoordinatesCheckBox1.setText("Filter coordinates");
-        filterCoordinatesCheckBox1.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        filterCoordinatesCheckBox1.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        filterCoordinatesCheckBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                filterCoordinatesCheckBox1ActionPerformed(evt);
-            }
-        });
-
-        cutoffFrequency1.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
-        cutoffFrequency1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cutoffFrequency1ActionPerformed(evt);
-            }
-        });
-        cutoffFrequency1.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                cutoffFrequency1FocusLost(evt);
-            }
-        });
-
         HzJLabel.setText("Hz");
         plotMetricsPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Plot"));
         plotMetricsCheckBox.setText("Plot quantities while running ");
@@ -381,7 +361,7 @@ public class InverseDynamicsToolPanel extends BaseToolPanel implements Observer 
                 .addContainerGap()
                 .add(jLabel11)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(outputDirectory, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE)
+                .add(outputDirectory, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
                 .addContainerGap())
         );
         outputPanelLayout.setVerticalGroup(
@@ -391,7 +371,7 @@ public class InverseDynamicsToolPanel extends BaseToolPanel implements Observer 
                 .add(outputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                     .add(jLabel11)
                     .add(outputDirectory, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         timePanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Time"));
@@ -438,7 +418,7 @@ public class InverseDynamicsToolPanel extends BaseToolPanel implements Observer 
                 .add(jLabel5)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(finalTime, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 64, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(85, Short.MAX_VALUE))
+                .addContainerGap(84, Short.MAX_VALUE))
         );
 
         timePanelLayout.linkSize(new java.awt.Component[] {finalTime, initialTime}, org.jdesktop.layout.GroupLayout.HORIZONTAL);
@@ -470,6 +450,8 @@ public class InverseDynamicsToolPanel extends BaseToolPanel implements Observer 
                 inputSourceRadioButtonActionPerformed1(evt);
             }
         });
+
+        jLabel1.setText("Hz");
 
         buttonGroup3.add(motionRadioButton1);
         motionRadioButton1.setSelected(true);
@@ -515,32 +497,62 @@ public class InverseDynamicsToolPanel extends BaseToolPanel implements Observer 
             }
         });
 
+        filterCoordinatesCheckBox1.setText("Filter coordinates");
+        filterCoordinatesCheckBox1.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        filterCoordinatesCheckBox1.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        filterCoordinatesCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                filterCoordinatesCheckBox1ActionPerformed(evt);
+            }
+        });
+
+        cutoffFrequency1.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
+        cutoffFrequency1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cutoffFrequency1ActionPerformed(evt);
+            }
+        });
+        cutoffFrequency1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                cutoffFrequency1FocusLost(evt);
+            }
+        });
+
         org.jdesktop.layout.GroupLayout inverseInputPanelLayout = new org.jdesktop.layout.GroupLayout(inverseInputPanel);
         inverseInputPanel.setLayout(inverseInputPanelLayout);
         inverseInputPanelLayout.setHorizontalGroup(
             inverseInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(inverseInputPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .add(inverseInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                    .add(statesRadioButton1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(motionRadioButton1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(inverseInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                .add(inverseInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(inverseInputPanelLayout.createSequentialGroup()
-                        .add(inverseInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(fromFileMotionRadioButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 82, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(loadedMotionRadioButton1))
+                        .add(inverseInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                            .add(statesRadioButton1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .add(motionRadioButton1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(inverseInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(org.jdesktop.layout.GroupLayout.TRAILING, motionsComboBox1, 0, 228, Short.MAX_VALUE)
-                            .add(org.jdesktop.layout.GroupLayout.TRAILING, coordinatesFileName1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)))
-                    .add(statesFileName1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE))
-                .add(34, 34, 34))
+                        .add(inverseInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                            .add(inverseInputPanelLayout.createSequentialGroup()
+                                .add(inverseInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                    .add(fromFileMotionRadioButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 82, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                    .add(loadedMotionRadioButton1))
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(inverseInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                    .add(org.jdesktop.layout.GroupLayout.TRAILING, motionsComboBox1, 0, 217, Short.MAX_VALUE)
+                                    .add(org.jdesktop.layout.GroupLayout.TRAILING, coordinatesFileName1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)))
+                            .add(statesFileName1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE))
+                        .add(34, 34, 34))
+                    .add(inverseInputPanelLayout.createSequentialGroup()
+                        .add(filterCoordinatesCheckBox1)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(cutoffFrequency1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 32, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jLabel1)
+                        .addContainerGap())))
         );
         inverseInputPanelLayout.setVerticalGroup(
             inverseInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(inverseInputPanelLayout.createSequentialGroup()
-                .add(0, 0, 0)
+                .add(5, 5, 5)
                 .add(inverseInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                     .add(statesRadioButton1)
                     .add(statesFileName1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
@@ -554,7 +566,14 @@ public class InverseDynamicsToolPanel extends BaseToolPanel implements Observer 
                 .add(inverseInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(motionsComboBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(loadedMotionRadioButton1))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .add(inverseInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(inverseInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                        .add(jLabel1)
+                        .add(cutoffFrequency1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(inverseInputPanelLayout.createSequentialGroup()
+                        .add(filterCoordinatesCheckBox1)
+                        .add(4, 4, 4)))
+                .addContainerGap())
         );
 
         org.jdesktop.layout.GroupLayout mainSettingsPanelLayout = new org.jdesktop.layout.GroupLayout(mainSettingsPanel);
@@ -576,8 +595,8 @@ public class InverseDynamicsToolPanel extends BaseToolPanel implements Observer 
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(timePanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(outputPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .add(outputPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jTabbedPane1.addTab("Main Settings", mainSettingsPanel);
 
@@ -587,15 +606,15 @@ public class InverseDynamicsToolPanel extends BaseToolPanel implements Observer 
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jTabbedPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
+                .add(jTabbedPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 459, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jTabbedPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 276, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .add(jTabbedPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 338, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -661,6 +680,7 @@ private void reuseSelectedQuantitiesCheckBoxActionPerformed(java.awt.event.Actio
 
     private void filterCoordinatesCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterCoordinatesCheckBox1ActionPerformed
       toolModel.setFilterCoordinates(filterCoordinatesCheckBox1.isSelected());
+       cutoffFrequency1.setEnabled(filterCoordinatesCheckBox1.isSelected());
     }//GEN-LAST:event_filterCoordinatesCheckBox1ActionPerformed
 
     private void coordinatesFileName1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_coordinatesFileName1StateChanged
@@ -739,6 +759,7 @@ private void reuseSelectedQuantitiesCheckBoxActionPerformed(java.awt.event.Actio
     private javax.swing.JRadioButton fromFileMotionRadioButton1;
     private javax.swing.JTextField initialTime;
     private javax.swing.JPanel inverseInputPanel;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
