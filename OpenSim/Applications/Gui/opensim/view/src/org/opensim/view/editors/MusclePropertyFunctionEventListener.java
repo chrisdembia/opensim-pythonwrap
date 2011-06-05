@@ -63,8 +63,9 @@ public class MusclePropertyFunctionEventListener implements FunctionEventListene
             Function oldFunction = fre.getFunction();
             Function newFunction = fre.getReplacementFunction();
             if (Function.getCPtr(oldFunction) != Function.getCPtr(newFunction)) {
-               act.replacePropertyFunction(oldFunction, newFunction);
-               MuscleEditorTopComponent.findInstance().propertyFunctionChanged(event.getModel(), act);
+               //act.replacePropertyFunction(oldFunction, newFunction);
+                throw new UnsupportedOperationException("Not implemented");
+               //MuscleEditorTopComponent.findInstance().propertyFunctionChanged(event.getModel(), act);
             }
          } else if (event instanceof FunctionModifiedEvent) {
             MuscleEditorTopComponent.findInstance().propertyFunctionChanged(event.getModel(), act);
