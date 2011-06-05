@@ -69,15 +69,28 @@ public class EditExternalLoadsPanel extends javax.swing.JPanel
      * Creates new form EditPrescribedForceSetPanel
      */
     public EditExternalLoadsPanel(Model model, String externalLoadsFilename) {
-        
-        if (externalLoadsFilename.equalsIgnoreCase("")|| externalLoadsFilename.equalsIgnoreCase("Unassigned")){
+        boolean createNewFile=false;
+        if (!new File(externalLoadsFilename).exists()){
+            // Query user to create new file
+            createNewFile = true;
+        }
+        if (externalLoadsFilename.equalsIgnoreCase("")|| externalLoadsFilename.equalsIgnoreCase("Unassigned") || createNewFile){
             // Create a new empty ExternlLoads file and use it for now
             String f = new File(model.getInputFileName()).getParentFile().getAbsolutePath();
             externalLoadsFilename = FileUtils.getNextAvailableName(f, "ExternalLoads.xml");
             ExternalLoads el = new ExternalLoads();
             el.print(externalLoadsFilename);
         }
-        dLoads = new ExternalLoads(model, externalLoadsFilename);
+        try {
+            dLoads = new ExternalLoads(model, externalLoadsFilename);
+        } catch (IOException ex) {
+            NotifyDescriptor.Message dlg =
+                          new NotifyDescriptor.Message("Failed to construct ExternalLoads object from file "+
+                                externalLoadsFilename+
+                                ". Possible reasons: data file doesn't exist or has incorrect format.");
+                  DialogDisplayer.getDefault().notify(dlg);   
+            //throw(ex);
+        }
         fullExternalLoadsFilename = externalLoadsFilename;
         forceListModel = new ForceListModel(dLoads);
         initComponents();
@@ -543,36 +556,44 @@ public class EditExternalLoadsPanel extends javax.swing.JPanel
     }//GEN-LAST:event_jButtonAddActionPerformed
 
     private void externalLoadsDataFileNameInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_externalLoadsDataFileNameInputMethodTextChanged
-       if (externalLoadsDataFileName.getFileIsValid()){
-           //dTool.getExternalForceSet().
-        String dataFile = externalLoadsDataFileName.getFileName();
-        if (dataFile!="" && dataFile !=null && new File(dataFile).exists()){
-            try {
-                externalLoadsStorage = new Storage(dataFile);                
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-        }
-        dLoads.setDataFileName(externalLoadsDataFileName.getFileName());
-       }
+        handleDatafileSelectionChange();
 // TODO add your handling code here:
     }//GEN-LAST:event_externalLoadsDataFileNameInputMethodTextChanged
 
-    private void externalLoadsDataFileNameStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_externalLoadsDataFileNameStateChanged
-       if (externalLoadsDataFileName.getFileIsValid()){
-           //dTool.getExternalForceSet().
-        String dataFile = externalLoadsDataFileName.getFileName();
-        if (dataFile!="" && dataFile !=null && new File(dataFile).exists()){
-            try {
-                externalLoadsStorage = new Storage(dataFile, true);
-               dLoads.setDataFileName(externalLoadsDataFileName.getFileName());
-                updateButtonAvailability();
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
+    private void handleDatafileSelectionChange() {
+        if (externalLoadsDataFileName.getFileIsValid()){
+            //dTool.getExternalForceSet().
+         String dataFile = externalLoadsDataFileName.getFileName();
+         if (dataFile!="" && dataFile !=null && new File(dataFile).exists()){
+             try {
+                 externalLoadsStorage = new Storage(dataFile, true);   
+                  boolean isUnique = verifyUniqueLabels(externalLoadsStorage);
+                  externalLoadsStorage.makeStorageLabelsUnique();
+                 if (!isUnique){
+                     String newFilename = FileUtils.getInstance().browseForFilenameToSave(".sto,.mot", "Save file with unique labels as", true, dataFile);
+                     if (newFilename==null) {
+                         externalLoadsDataFileName.setFileName("");
+                         return;
+                     }
+                     externalLoadsDataFileName.setFileName(newFilename);
+                     externalLoadsStorage = new Storage(dataFile); // Read full file not just headers
+                     externalLoadsStorage.makeStorageLabelsUnique();
+                     dataFile = newFilename;
+                     externalLoadsStorage.print(newFilename);
+                }
+             } catch (IOException ex) {
+                 ex.printStackTrace();
+             }
+         }
+         dLoads.setDataFileName(externalLoadsDataFileName.getFileName());
+         updateButtonAvailability();
         }
-       }
+    }
+
+    private void externalLoadsDataFileNameStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_externalLoadsDataFileNameStateChanged
+        handleDatafileSelectionChange();
     }//GEN-LAST:event_externalLoadsDataFileNameStateChanged
+    
     private void updateButtonAvailability() {
        int[] sels = jForcesList.getSelectedIndices();
        jButtonEdit.setEnabled(sels.length==1);
@@ -589,7 +610,7 @@ public class EditExternalLoadsPanel extends javax.swing.JPanel
         return forceListModel;
     }
 
-    private void verifyUniqueLabels(Storage aStore) {
+    private boolean verifyUniqueLabels(Storage aStore) {
 	ArrayStr lbls = aStore.getColumnLabels();
 	boolean isUnique = true;
         String offending="";
@@ -600,10 +621,10 @@ public class EditExternalLoadsPanel extends javax.swing.JPanel
         if (!isUnique){
                   NotifyDescriptor.Message dlg =
                           new NotifyDescriptor.Message("Column labels in specified data file are not unique (e.g. "+
-                          offending+"). Appending a suffix (.) to resolve ambiguity..");
+                          offending+"). Appending a prefix to resolve ambiguity..");
                   DialogDisplayer.getDefault().notify(dlg);            
         }
-	return;
+	return isUnique;
     }    
 
     public ExternalLoads getExternalLoads() {

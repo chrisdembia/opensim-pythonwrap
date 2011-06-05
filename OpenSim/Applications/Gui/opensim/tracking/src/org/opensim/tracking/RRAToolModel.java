@@ -97,7 +97,7 @@ public class RRAToolModel extends AbstractToolModelWithExternalLoads {
          // Initialize progress bar, given we know the number of frames to process
          double ti = getInitialTime();
          double tf = getFinalTime();
-         progressHandle = ProgressHandleFactory.createHandle("Executing computed muscle control...",
+         progressHandle = ProgressHandleFactory.createHandle("Reducing residuals...",
                               new Cancellable() {
                                  public boolean cancel() {
                                     interrupt(false);

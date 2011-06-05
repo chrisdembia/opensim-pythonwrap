@@ -574,6 +574,8 @@ public class EditOneForceJPanel extends javax.swing.JPanel {
     
     private void setComboBoxSelection(final JComboBox jcombox, final String objIdentifier, final int j) throws NumberFormatException {
         ArrayInt indices = forceStorage.getColumnIndicesForIdentifier(objIdentifier);
+        if (indices.getSize()!=3) return;
+        if (indices.getitem(j)== -1) return;
         //String[] suffixes = new String[]{"x", "y", "z"};
         jcombox.setSelectedItem(lbls.getitem(indices.getitem(j)));
     }

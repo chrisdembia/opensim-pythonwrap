@@ -43,11 +43,11 @@ public class ExternalLoads extends ModelComponentSetExternalForces {
     this(opensimModelJNI.new_ExternalLoads__SWIG_1(Model.getCPtr(model), model), true);
   }
 
-  public ExternalLoads(Model model, String aFileName, boolean aUpdateFromXMLNode) {
+  public ExternalLoads(Model model, String aFileName, boolean aUpdateFromXMLNode) throws java.io.IOException {
     this(opensimModelJNI.new_ExternalLoads__SWIG_2(Model.getCPtr(model), model, aFileName, aUpdateFromXMLNode), true);
   }
 
-  public ExternalLoads(Model model, String aFileName) {
+  public ExternalLoads(Model model, String aFileName) throws java.io.IOException {
     this(opensimModelJNI.new_ExternalLoads__SWIG_3(Model.getCPtr(model), model, aFileName), true);
   }
 

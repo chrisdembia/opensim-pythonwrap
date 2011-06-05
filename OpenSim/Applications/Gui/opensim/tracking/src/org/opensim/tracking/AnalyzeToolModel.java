@@ -199,7 +199,6 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
    //========================================================================
    private Storage motion = null;
 
-   private boolean inverseDynamicsMode = false;
    private boolean staticOptimizationMode = false;
 
    enum InputSource { Motion, States, Coordinates, Unspecified };
@@ -213,14 +212,12 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
    public AnalyzeToolModel(Model model, AnalyzeAndForwardToolPanel.Mode dMode) throws IOException {
       super(model);
 
-      this.inverseDynamicsMode = (dMode==AnalyzeAndForwardToolPanel.Mode.InverseDynamics);
       this.staticOptimizationMode = (dMode==AnalyzeAndForwardToolPanel.Mode.StaticOptimization);
-      if(inverseDynamicsMode) toolName = "Inverse Dynamics Tool";
-      else if (staticOptimizationMode) toolName = "Static Optimization Tool";
+      if (staticOptimizationMode) toolName = "Static Optimization Tool";
       else toolName = "Analyze Tool";
 
       // In inverse dynamisc mode, we know for sure we'll need a real dynamics engine, so check this up front
-      if((inverseDynamicsMode || staticOptimizationMode) && model.getSimbodyEngine().getType().equals("SimmKinematicsEngine"))
+      if(staticOptimizationMode && model.getSimbodyEngine().getType().equals("SimmKinematicsEngine"))
          throw new IOException(toolName+" requires a model with SdfastEngine or SimbodyEngine; SimmKinematicsEngine does not support dynamics.");
 
       AnalyzeTool dTool = new AnalyzeTool();
@@ -245,7 +242,7 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
    //------------------------------------------------------------------------
 
    protected void adjustToolForMode() {
-      if(!inverseDynamicsMode && !staticOptimizationMode) return;
+      if(!staticOptimizationMode) return;
       // Check if have non-inverse dynamics analyses, or multiple inverse dynamics analyses
       boolean foundOtherAnalysis = false;
       boolean advancedSettings = false;
@@ -253,7 +250,7 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
       InverseDynamics inverseDynamicsAnalysis = null;
       int numStaticOptimizationAnalyses = 0;
       StaticOptimization staticOptimizationAnalysis = null;
-      if (inverseDynamicsMode){
+      if (false){
         // Since we're not using the model's actuator set, clear the actuator set related fields
         analyzeTool().setReplaceForceSet(true);
         analyzeTool().getForceSetFiles().setSize(0);
@@ -341,7 +338,7 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
          inputMotion = motions.get(0);
          inputSource = InputSource.Motion;
       }
-      if (staticOptimizationMode || inverseDynamicsMode){  // Surgically change inputSource based on fields
+      if (staticOptimizationMode){  // Surgically change inputSource based on fields
           inputSource = InputSource.Coordinates;
       }
    }
@@ -581,7 +578,7 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
       analyzeTool().setSpeedsFileName(FileUtils.makePathAbsolute(analyzeTool().getSpeedsFileName(), parentDir));
 
       analyzeTool().setExternalLoadsFileName(FileUtils.makePathAbsolute(analyzeTool().getExternalLoadsFileName(), parentDir));
-      //OpenSim23 analyzeTool().setExternalLoadsModelKinematicsFileName(FileUtils.makePathAbsolute(analyzeTool().getExternalLoadsModelKinematicsFileName(), parentDir));
+      //analyzeTool().setExternalLoadsModelKinematicsFileName(FileUtils.makePathAbsolute(analyzeTool().getExternalLoadsModelKinematicsFileName(), parentDir));
    }
 
    protected void AbsoluteToRelativePaths(String parentFileName) {

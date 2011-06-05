@@ -36,6 +36,7 @@ import java.awt.Component;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
@@ -374,7 +375,7 @@ public class ActuatorsAndExternalLoadsPanel extends javax.swing.JPanel {
         //Model mdl =  toolModel.getExternalLoads().getModel();
         toolModel.getExternalLoads().setModel(model);*/
         EditExternalLoadsPanel epfsPanel = new EditExternalLoadsPanel(model, toolModel.getExternalLoadsFileName());
-        DialogDescriptor dlg = new DialogDescriptor(epfsPanel, "Prescibed ForceSet");
+        DialogDescriptor dlg = new DialogDescriptor(epfsPanel, "External ForceSet");
         JButton saveButton = new JButton("Save...");
         saveButton.addActionListener(new SaveButtonActionListener(epfsPanel.getExternalLoads()));
         dlg.setOptions(new Object[]{saveButton, new JButton("Cancel")});
@@ -385,7 +386,7 @@ public class ActuatorsAndExternalLoadsPanel extends javax.swing.JPanel {
 
     private void createNewExternalForceSetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createNewExternalForceSetButtonActionPerformed
 // TODO add your handling code here:
-        EditExternalLoadsPanel epfsPanel = new EditExternalLoadsPanel(model, toolModel.getExternalLoadsFileName());
+        EditExternalLoadsPanel epfsPanel= new EditExternalLoadsPanel(model, toolModel.getExternalLoadsFileName());
         DialogDescriptor dlg = new DialogDescriptor(epfsPanel, "Prescibed ForceSet");
         JButton saveButton = new JButton("Save...");
         saveButton.addActionListener(new SaveButtonActionListener(epfsPanel.getExternalLoads()));

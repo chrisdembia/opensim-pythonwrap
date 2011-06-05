@@ -1447,8 +1447,8 @@ public class opensimModelJNI {
   public final static native void delete_ModelComponentSetExternalForces(long jarg1);
   public final static native long new_ExternalLoads__SWIG_0();
   public final static native long new_ExternalLoads__SWIG_1(long jarg1, Model jarg1_);
-  public final static native long new_ExternalLoads__SWIG_2(long jarg1, Model jarg1_, String jarg2, boolean jarg3);
-  public final static native long new_ExternalLoads__SWIG_3(long jarg1, Model jarg1_, String jarg2);
+  public final static native long new_ExternalLoads__SWIG_2(long jarg1, Model jarg1_, String jarg2, boolean jarg3) throws java.io.IOException;
+  public final static native long new_ExternalLoads__SWIG_3(long jarg1, Model jarg1_, String jarg2) throws java.io.IOException;
   public final static native long new_ExternalLoads__SWIG_4(long jarg1, ExternalLoads jarg1_);
   public final static native void delete_ExternalLoads(long jarg1);
   public final static native long ExternalLoads_copy(long jarg1, ExternalLoads jarg1_);
