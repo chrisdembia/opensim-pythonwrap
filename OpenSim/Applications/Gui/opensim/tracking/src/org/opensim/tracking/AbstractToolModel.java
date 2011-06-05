@@ -353,7 +353,7 @@ abstract class AbstractToolModelWithExternalLoads extends AbstractToolModel {
    }
 
    public boolean isValidated() {
-      return true;//OpenSim23 return !getExternalLoadsEnabled() || (new File(getExternalLoadsFileName()).exists());
+      return !getExternalLoadsEnabled() || (new File(getExternalLoadsFileName()).exists());
    }
 
    protected double[] intersectTimeRanges(double[] range1, double[] range2) {
