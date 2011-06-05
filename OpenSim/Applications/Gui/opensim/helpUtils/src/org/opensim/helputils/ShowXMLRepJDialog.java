@@ -103,7 +103,8 @@ public class ShowXMLRepJDialog extends javax.swing.JDialog {
                 Property p = pSet.get(i);
                 String cmt = p.getComment();
                 if (cmt.length()>0) contents = contents.concat("\t<FONT COLOR=Green>&lt;!--"+cmt+"--&gt</FONT><br>");
-                contents = contents.concat("\t<FONT COLOR=RED>&lt;"+p.getName()+"&gt;</FONT>"+p.toString()+
+                contents = contents.concat("\t<FONT COLOR=RED>&lt;"+p.getName()+"&gt;</FONT>"+
+                        removeEnclosingParethesisIfNeeded(p.toString())+
                         "<FONT COLOR=RED>&lt;/"+p.getName()+"&gt</FONT><br>");
             } catch (IOException ex) {
                 ex.printStackTrace();
@@ -140,5 +141,11 @@ public class ShowXMLRepJDialog extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
-    
+   
+    private String removeEnclosingParethesisIfNeeded(String string) {
+        if (string.startsWith("(")){
+            return string.substring(1, string.length()-1);
+        }
+        return string;
+    }
 }
