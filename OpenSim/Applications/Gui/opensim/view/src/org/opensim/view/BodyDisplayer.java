@@ -31,6 +31,7 @@
 package org.opensim.view;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.prefs.Preferences;
 import org.opensim.modeling.Body;
@@ -47,9 +48,9 @@ import vtk.vtkAssembly;
 import vtk.vtkBMPReader;
 import vtk.vtkImageReader2;
 import vtk.vtkJPEGReader;
-import vtk.vtkLookupTable;
 import vtk.vtkPNGReader;
 import vtk.vtkProp3D;
+import vtk.vtkProp3DCollection;
 import vtk.vtkTexture;
 import vtk.vtkTransform;
 
@@ -80,8 +81,11 @@ public class BodyDisplayer extends vtkAssembly
     /**
      * Creates a new instance of BodyDisplayer
      */
-    public BodyDisplayer(vtkAssembly modelAssembly, Body body, String modelFilePath)
+    public BodyDisplayer(vtkAssembly modelAssembly, Body body, 
+            Hashtable<OpenSimObject, vtkProp3D> mapObject2VtkObjects,
+            Hashtable<vtkProp3D, OpenSimObject> mapVtkObjects2Objects)
    {
+      String modelFilePath=body.getModel().getFilePath();
       String defaultSize = "1.0";
       defaultSize = Preferences.userNodeForPackage(TheApp.class).get("Joint Frame Scale", defaultSize);
       double userScale = Double.parseDouble(defaultSize);
@@ -122,7 +126,7 @@ public class BodyDisplayer extends vtkAssembly
       if (bodyDisplayer.getShowAxes()){
           AddPart(getBodyAxes());
       }
-      
+      updateMapsToSupportPicking(body, mapObject2VtkObjects, mapVtkObjects2Objects);
       modelAssembly.AddPart(this);
     }
 /*
@@ -376,5 +380,29 @@ public class BodyDisplayer extends vtkAssembly
           gPiece.getColor(colorOnFile);
           gPiece.setColor(colorOnFile);
       }
+    }
+    private void updateMapsToSupportPicking(final Body body, 
+            Hashtable<OpenSimObject, vtkProp3D> mapObject2VtkObjects,
+            Hashtable<vtkProp3D, OpenSimObject> mapVtkObjects2Objects) {
+
+        // Fill the maps between objects and display to support picking, highlighting, etc..
+        // The reverse map takes an actor to an Object and is filled as actors are created.
+        mapObject2VtkObjects.put(body, this);
+        
+        // Picker picks Actors only, put those in reverseMap instead of BodyDisplayer
+        vtkProp3DCollection props = GetParts();
+        props.InitTraversal();
+        ArrayList<vtkActor> actors = new ArrayList<vtkActor>();
+        int idx=0;
+        GeometrySet gSet = body.getDisplayer().getGeometrySet();
+        for(int act=0; act < props.GetNumberOfItems(); act++){
+             vtkProp3D nextActor = props.GetNextProp3D();
+             mapVtkObjects2Objects.put(nextActor, body);
+             if (nextActor instanceof vtkActor)
+                 actors.add((vtkActor)nextActor);
+             if (nextActor instanceof FrameActor) continue;
+             mapObject2VtkObjects.put(gSet.get(idx), nextActor);
+             idx++;
+        }
     }
 }

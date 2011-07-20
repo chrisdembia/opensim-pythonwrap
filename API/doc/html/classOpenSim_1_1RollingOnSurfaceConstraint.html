@@ -72,7 +72,8 @@ Inheritance diagram for OpenSim::RollingOnSurfaceConstraint:</div>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html#a5b32dbff55f8b2768124d85f29c728f5">setRollingBodyByName</a> (std::string aBodyName)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Following methods set attributes of the weld constraint.  <a href="#a5b32dbff55f8b2768124d85f29c728f5"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html#a23cb3c4533f79dbf9d4ad6b98909e18d">setSurfaceBodyByName</a> (std::string aBodyName)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html#a4b7307b2463737c66cca93b8f99d4cf2">setContactPointOnSurfaceBody</a> (const SimTK::State &amp;s, SimTK::Vec3 point)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html#abc9b08a5ecea085beba8d6b1d78d3180">setContactPointForInducedAccelerations</a> (const SimTK::State &amp;s, SimTK::Vec3 point)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This method specifies the interface that a constraint must implement in order to be used by the Induced Accelerations <a class="el" href="classOpenSim_1_1Analysis.html" title="An abstract class for specifying the interface for an analysis plugin.">Analysis</a>.  <a href="#abc9b08a5ecea085beba8d6b1d78d3180"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual std::vector&lt; bool &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html#adc486ccec65372b232bb392e23c4b733">unilateralConditionsSatisfied</a> (const SimTK::State &amp;state)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html#aee19c74ab04440b3d453c5cf9b1cf928">isDisabled</a> (const SimTK::State &amp;state) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get whether or not the <a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html" title="A class implementing a collection of rolling-without-slipping and non-penetration...">RollingOnSurfaceConstraint</a> is disabled.  <a href="#aee19c74ab04440b3d453c5cf9b1cf928"></a><br/></td></tr>
@@ -80,12 +81,8 @@ Inheritance diagram for OpenSim::RollingOnSurfaceConstraint:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> whether or not the <a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html" title="A class implementing a collection of rolling-without-slipping and non-penetration...">RollingOnSurfaceConstraint</a> is disabled.  <a href="#aaf6fbfbb2571fa41b8bd7ec5ab388e46"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html#a7eee5858eb0ff65dcf2ebe748d08c473">setDisabled</a> (SimTK::State &amp;state, bool isDisabled, std::vector&lt; bool &gt; shouldBeOn)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html#a6dd68a42ead84145f5d7b5ca4a86fd24">setDisabledWithCachedUnilateralConditions</a> (bool isDisabled, SimTK::State &amp;state)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html#aa065f84c32a4a7196e5c53d5e2f275c1">calcConstraintForces</a> (const SimTK::State &amp;state, SimTK::Vector_&lt; SimTK::SpatialVec &gt; &amp;bodyForcesInParent, SimTK::Vector &amp;mobilityForces)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Ask the <a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html" title="A class implementing a collection of rolling-without-slipping and non-penetration...">RollingOnSurfaceConstraint</a> for the forces it is imposing on the system Simbody multibody system must be realized to at least position Returns: the bodyForces on those bodies being constrained (constrainedBodies) a SpatialVec (6 components) describing resulting torque and force mobilityForces acting along constrained mobilities.  <a href="#aa065f84c32a4a7196e5c53d5e2f275c1"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classOpenSim_1_1Array.html">Array</a>&lt; std::string &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html#ab7d97e16cb9abdd5d829d10c4dce00e9">getRecordLabels</a> () const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Methods to query a <a class="el" href="classOpenSim_1_1Constraint.html" title="A parent class for implementing a Simbody Constraint.">Constraint</a> forces (defaults to the Lagrange mulipliers) applied The names of the quantities (column labels) is returned by this first function <a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html#ab7d97e16cb9abdd5d829d10c4dce00e9" title="Methods to query a Constraint forces (defaults to the Lagrange mulipliers) applied...">getRecordLabels()</a>.  <a href="#ab7d97e16cb9abdd5d829d10c4dce00e9"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classOpenSim_1_1Array.html">Array</a>&lt; double &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html#a7e249587708dcedb7bbe4fae144fc533">getRecordValues</a> (const SimTK::State &amp;state) const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Given SimTK::State object extract all the values necessary to report constraint forces (multipliers) Subclasses can override to report force, application location frame, etc.  <a href="#a7e249587708dcedb7bbe4fae144fc533"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html#a7dfa3bfe0c326485856586589c3310a7">calcConstraintForces</a> (const SimTK::State &amp;state, SimTK::Vector_&lt; SimTK::SpatialVec &gt; &amp;bodyForcesInAncestor, SimTK::Vector &amp;mobilityForces) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Ask the <a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html" title="A class implementing a collection of rolling-without-slipping and non-penetration...">RollingOnSurfaceConstraint</a> for the forces it is imposing on the system Simbody multibody system must be realized to at least position Returns: the bodyForces on those bodies being constrained (constrainedBodies) a SpatialVec (6 components) describing resulting torque and force mobilityForces acting along constrained mobilities.  <a href="#a7dfa3bfe0c326485856586589c3310a7"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyStr.html">PropertyStr</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html#a251f6ac6c4ae81ec98421986b2d7876d">_rollingBodyNameProp</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Specify the rolling body for this constraint.  <a href="#a251f6ac6c4ae81ec98421986b2d7876d"></a><br/></td></tr>
@@ -188,7 +185,7 @@ Inheritance diagram for OpenSim::RollingOnSurfaceConstraint:</div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="aa065f84c32a4a7196e5c53d5e2f275c1"></a><!-- doxytag: member="OpenSim::RollingOnSurfaceConstraint::calcConstraintForces" ref="aa065f84c32a4a7196e5c53d5e2f275c1" args="(const SimTK::State &amp;state, SimTK::Vector_&lt; SimTK::SpatialVec &gt; &amp;bodyForcesInParent, SimTK::Vector &amp;mobilityForces)" -->
+<a class="anchor" id="a7dfa3bfe0c326485856586589c3310a7"></a><!-- doxytag: member="OpenSim::RollingOnSurfaceConstraint::calcConstraintForces" ref="a7dfa3bfe0c326485856586589c3310a7" args="(const SimTK::State &amp;state, SimTK::Vector_&lt; SimTK::SpatialVec &gt; &amp;bodyForcesInAncestor, SimTK::Vector &amp;mobilityForces) const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -202,7 +199,7 @@ Inheritance diagram for OpenSim::RollingOnSurfaceConstraint:</div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">SimTK::Vector_&lt; SimTK::SpatialVec &gt; &amp;&nbsp;</td>
-          <td class="paramname"> <em>bodyForcesInParent</em>, </td>
+          <td class="paramname"> <em>bodyForcesInAncestor</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -213,7 +210,7 @@ Inheritance diagram for OpenSim::RollingOnSurfaceConstraint:</div>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td><td><code> [virtual]</code></td>
+          <td></td><td></td><td> const<code> [virtual]</code></td>
         </tr>
       </table>
 </div>
@@ -223,13 +220,13 @@ Inheritance diagram for OpenSim::RollingOnSurfaceConstraint:</div>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>state</em>&nbsp;</td><td>State of model </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>bodyForcesInParent</em>&nbsp;</td><td>is a Vector of SpatialVecs contain constraint forces </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>bodyForcesInAncestor</em>&nbsp;</td><td>is a Vector of SpatialVecs contain constraint forces </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>mobilityForces</em>&nbsp;</td><td>is a Vector of forces that act along the constrained mobilitities associated with this constraint </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Constraint.html#addc2ea60972944c4366007f0878f3017">OpenSim::Constraint</a>.</p>
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1Constraint.html#acf20be5b43f8d44df96a13303ed8c79e">OpenSim::Constraint</a>.</p>
 
 </div>
 </div>
@@ -303,52 +300,6 @@ Inheritance diagram for OpenSim::RollingOnSurfaceConstraint:</div>
 <p>Create the SimTK::Constraints: which implements this <a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html" title="A class implementing a collection of rolling-without-slipping and non-penetration...">RollingOnSurfaceConstraint</a>. </p>
 
 <p>Reimplemented from <a class="el" href="classOpenSim_1_1ModelComponent.html#a8cecde2c81b7645a5daea70050884881">OpenSim::ModelComponent</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ab7d97e16cb9abdd5d829d10c4dce00e9"></a><!-- doxytag: member="OpenSim::RollingOnSurfaceConstraint::getRecordLabels" ref="ab7d97e16cb9abdd5d829d10c4dce00e9" args="() const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classOpenSim_1_1Array.html">Array</a>&lt; std::string &gt; RollingOnSurfaceConstraint::getRecordLabels </td>
-          <td>(</td>
-          <td class="paramname"></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td> const<code> [virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Methods to query a <a class="el" href="classOpenSim_1_1Constraint.html" title="A parent class for implementing a Simbody Constraint.">Constraint</a> forces (defaults to the Lagrange mulipliers) applied The names of the quantities (column labels) is returned by this first function <a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html#ab7d97e16cb9abdd5d829d10c4dce00e9" title="Methods to query a Constraint forces (defaults to the Lagrange mulipliers) applied...">getRecordLabels()</a>. </p>
-<p>Methods to query a <a class="el" href="classOpenSim_1_1Constraint.html" title="A parent class for implementing a Simbody Constraint.">Constraint</a> forces for the value actually applied during simulation The names of the quantities (column labels) is returned by this first function <a class="el" href="classOpenSim_1_1RollingOnSurfaceConstraint.html#ab7d97e16cb9abdd5d829d10c4dce00e9" title="Methods to query a Constraint forces (defaults to the Lagrange mulipliers) applied...">getRecordLabels()</a>. </p>
-
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Constraint.html#a975c77446e48e9b33226bd93896b444d">OpenSim::Constraint</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a7e249587708dcedb7bbe4fae144fc533"></a><!-- doxytag: member="OpenSim::RollingOnSurfaceConstraint::getRecordValues" ref="a7e249587708dcedb7bbe4fae144fc533" args="(const SimTK::State &amp;state) const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classOpenSim_1_1Array.html">Array</a>&lt; double &gt; RollingOnSurfaceConstraint::getRecordValues </td>
-          <td>(</td>
-          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
-          <td class="paramname"> <em>state</em></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td> const<code> [virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Given SimTK::State object extract all the values necessary to report constraint forces (multipliers) Subclasses can override to report force, application location frame, etc. </p>
-<p>Given SimTK::State object extract all the values necessary to report constraint forces, application location frame, etc.</p>
-<p>used in conjunction with getRecordLabels and should return same size <a class="el" href="classOpenSim_1_1Array.html">Array</a> </p>
-
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Constraint.html#a7dd3c3e71d3679ecf975ffb83e770e66">OpenSim::Constraint</a>.</p>
 
 </div>
 </div>
@@ -426,12 +377,12 @@ Inheritance diagram for OpenSim::RollingOnSurfaceConstraint:</div>
 
 </div>
 </div>
-<a class="anchor" id="a4b7307b2463737c66cca93b8f99d4cf2"></a><!-- doxytag: member="OpenSim::RollingOnSurfaceConstraint::setContactPointOnSurfaceBody" ref="a4b7307b2463737c66cca93b8f99d4cf2" args="(const SimTK::State &amp;s, SimTK::Vec3 point)" -->
+<a class="anchor" id="abc9b08a5ecea085beba8d6b1d78d3180"></a><!-- doxytag: member="OpenSim::RollingOnSurfaceConstraint::setContactPointForInducedAccelerations" ref="abc9b08a5ecea085beba8d6b1d78d3180" args="(const SimTK::State &amp;s, SimTK::Vec3 point)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void OpenSim::RollingOnSurfaceConstraint::setContactPointOnSurfaceBody </td>
+          <td class="memname">virtual void OpenSim::RollingOnSurfaceConstraint::setContactPointForInducedAccelerations </td>
           <td>(</td>
           <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
           <td class="paramname"> <em>s</em>, </td>
@@ -445,11 +396,15 @@ Inheritance diagram for OpenSim::RollingOnSurfaceConstraint:</div>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td><td></td>
+          <td></td><td></td><td><code> [virtual]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>This method specifies the interface that a constraint must implement in order to be used by the Induced Accelerations <a class="el" href="classOpenSim_1_1Analysis.html" title="An abstract class for specifying the interface for an analysis plugin.">Analysis</a>. </p>
+
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1Constraint.html#a7a28cc4956dcf1432f98d7405b154015">OpenSim::Constraint</a>.</p>
 
 </div>
 </div>
@@ -893,7 +848,7 @@ Inheritance diagram for OpenSim::RollingOnSurfaceConstraint:</div>
 <li>OpenSim/Simulation/SimbodyEngine/RollingOnSurfaceConstraint.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sat Mar 12 12:28:35 2011 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Jun 5 10:14:17 2011 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

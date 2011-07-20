@@ -28,7 +28,7 @@
 </div>
 <div class="contents">
 <h1>OpenSim::InverseDynamicsTool Class Reference</h1><!-- doxytag: class="OpenSim::InverseDynamicsTool" --><!-- doxytag: inherits="OpenSim::DynamicsTool" -->
-<p>A <a class="el" href="classOpenSim_1_1Tool.html" title="A Tool is an OpenSim abstraction that encasulates an analysis or series of modeling...">Tool</a> that performs an Inverse Dynamics analysis with a given model.  
+<p>A <a class="el" href="classOpenSim_1_1Tool.html" title="A Tool is an OpenSim abstraction that encapsulates an analysis or series of modeling...">Tool</a> that performs an Inverse Dynamics analysis with a given model.  
 <a href="#_details">More...</a></p>
 
 <p><code>#include &lt;InverseDynamicsTool.h&gt;</code></p>
@@ -73,9 +73,6 @@ Inheritance diagram for OpenSim::InverseDynamicsTool:</div>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyStr.html">PropertyStr</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1InverseDynamicsTool.html#ad386a7adf2491351b6c4fe0c6da8a787">_coordinatesFileNameProp</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">name of storage file that contains coordinate values for inverse dynamics solving  <a href="#ad386a7adf2491351b6c4fe0c6da8a787"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::string &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1InverseDynamicsTool.html#a8c93fc946c1862b9ff1f118c5e5acf99">_coordinatesFileName</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyBool.html">PropertyBool</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1InverseDynamicsTool.html#ada63aac9cc8892e2dfb59b2d940a741a">_inDegreesProp</a></td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Whether input coordinates have angles in degrees.  <a href="#ada63aac9cc8892e2dfb59b2d940a741a"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1InverseDynamicsTool.html#ac512aaec7bb72f1f4bda09acbb8f79cb">_inDegrees</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyDbl.html">PropertyDbl</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1InverseDynamicsTool.html#ac7ee6518cf91ebed3fb84b1f72930325">_lowpassCutoffFrequencyProp</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Low-pass cut-off frequency for filtering the coordinates (does not apply to states).  <a href="#ac7ee6518cf91ebed3fb84b1f72930325"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">double &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1InverseDynamicsTool.html#a5985dea27c04b6b9bbceb8b2cd44123b">_lowpassCutoffFrequency</a></td></tr>
@@ -83,8 +80,8 @@ Inheritance diagram for OpenSim::InverseDynamicsTool:</div>
 <tr><td class="memItemLeft" align="right" valign="top">std::string &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1InverseDynamicsTool.html#a7cd3bfe870de947e3b1c7b8c914c0afd">_outputGenForceFileName</a></td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
-<p>A <a class="el" href="classOpenSim_1_1Tool.html" title="A Tool is an OpenSim abstraction that encasulates an analysis or series of modeling...">Tool</a> that performs an Inverse Dynamics analysis with a given model. </p>
-<p>Inverse Dynamics is the solution for the generalized-coordinate forces that generate given generalized-coordinate accelerations at a given state. This <a class="el" href="classOpenSim_1_1Tool.html" title="A Tool is an OpenSim abstraction that encasulates an analysis or series of modeling...">Tool</a> determines the state from provided coordinate trajectories as functions as that are twice differntiable to estimate velocities and accelerations.</p>
+<p>A <a class="el" href="classOpenSim_1_1Tool.html" title="A Tool is an OpenSim abstraction that encapsulates an analysis or series of modeling...">Tool</a> that performs an Inverse Dynamics analysis with a given model. </p>
+<p>Inverse Dynamics is the solution for the generalized-coordinate forces that generate given generalized-coordinate accelerations at a given state. This <a class="el" href="classOpenSim_1_1Tool.html" title="A Tool is an OpenSim abstraction that encapsulates an analysis or series of modeling...">Tool</a> determines the state from provided coordinate trajectories as functions as that are twice differntiable to estimate velocities and accelerations.</p>
 <dl class="author"><dt><b>Author:</b></dt><dd>Ajay Seth </dd></dl>
 <dl class="version"><dt><b>Version:</b></dt><dd>1.0 </dd></dl>
 <hr/><h2>Constructor &amp; Destructor Documentation</h2>
@@ -367,34 +364,6 @@ Inheritance diagram for OpenSim::InverseDynamicsTool:</div>
 
 </div>
 </div>
-<a class="anchor" id="ac512aaec7bb72f1f4bda09acbb8f79cb"></a><!-- doxytag: member="OpenSim::InverseDynamicsTool::_inDegrees" ref="ac512aaec7bb72f1f4bda09acbb8f79cb" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool&amp; <a class="el" href="classOpenSim_1_1InverseDynamicsTool.html#ac512aaec7bb72f1f4bda09acbb8f79cb">OpenSim::InverseDynamicsTool::_inDegrees</a><code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="ada63aac9cc8892e2dfb59b2d940a741a"></a><!-- doxytag: member="OpenSim::InverseDynamicsTool::_inDegreesProp" ref="ada63aac9cc8892e2dfb59b2d940a741a" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classOpenSim_1_1PropertyBool.html">PropertyBool</a> <a class="el" href="classOpenSim_1_1InverseDynamicsTool.html#ada63aac9cc8892e2dfb59b2d940a741a">OpenSim::InverseDynamicsTool::_inDegreesProp</a><code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Whether input coordinates have angles in degrees. </p>
-
-</div>
-</div>
 <a class="anchor" id="a5985dea27c04b6b9bbceb8b2cd44123b"></a><!-- doxytag: member="OpenSim::InverseDynamicsTool::_lowpassCutoffFrequency" ref="a5985dea27c04b6b9bbceb8b2cd44123b" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -454,7 +423,7 @@ Inheritance diagram for OpenSim::InverseDynamicsTool:</div>
 <li>OpenSim/Tools/InverseDynamicsTool.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sat Mar 12 12:28:38 2011 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Jun 5 10:14:21 2011 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

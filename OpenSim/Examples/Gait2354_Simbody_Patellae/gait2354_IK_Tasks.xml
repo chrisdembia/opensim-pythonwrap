@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<IKTaskSet name="gait2354_IK">
+<OpenSimDocument Version="20302">
+	<IKTaskSet name="gait2354_IK">
 	<objects>
 		<IKMarkerTask name="Sternum">
 			<!--Whether or not this task will be used during inverse kinematics solve.-->
@@ -287,5 +288,7 @@
 			<value>       0.00000000 </value>
 		</IKCoordinateTask>
 	</objects>
-</IKTaskSet>
+		<groups/>
+	</IKTaskSet>
+</OpenSimDocument>
 

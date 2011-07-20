@@ -582,7 +582,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       savedActs.put(currentAct, savedAct);
       // Set the display preference of the new muscle to the same as the old.
       currentAct.getDisplayer().setDisplayPreference(dp);
-      vis.addActuatorGeometry(currentAct, true);
+      vis.addPathActuatorGeometry(currentAct, true);
 
       // Once the proper ObjectsReplacedEvent is implemented, this ObjectsRenamedEvent
       // should no longer be needed.

@@ -241,7 +241,7 @@ public class JavaMotionDisplayerCallback extends AnalysisWrapperWithTimer {
         if (!isInitialized()){
 			initializeTimer();
         }
-        //retValue = super.begin(s);
+        processStep(s, 0);
         return retValue;
     }
 

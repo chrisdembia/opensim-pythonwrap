@@ -68,7 +68,7 @@ public class EditExternalLoadsPanel extends javax.swing.JPanel
     /**
      * Creates new form EditPrescribedForceSetPanel
      */
-    public EditExternalLoadsPanel(Model model, String externalLoadsFilename) {
+    public EditExternalLoadsPanel(Model model, String externalLoadsFilename) throws IOException {
         boolean createNewFile=false;
         if (!new File(externalLoadsFilename).exists()){
             // Query user to create new file
@@ -79,18 +79,13 @@ public class EditExternalLoadsPanel extends javax.swing.JPanel
             String f = new File(model.getInputFileName()).getParentFile().getAbsolutePath();
             externalLoadsFilename = FileUtils.getNextAvailableName(f, "ExternalLoads.xml");
             ExternalLoads el = new ExternalLoads();
+            el.setName("Ex1");
             el.print(externalLoadsFilename);
+            el.delete();
+            el=null;
         }
-        try {
             dLoads = new ExternalLoads(model, externalLoadsFilename);
-        } catch (IOException ex) {
-            NotifyDescriptor.Message dlg =
-                          new NotifyDescriptor.Message("Failed to construct ExternalLoads object from file "+
-                                externalLoadsFilename+
-                                ". Possible reasons: data file doesn't exist or has incorrect format.");
-                  DialogDisplayer.getDefault().notify(dlg);   
-            //throw(ex);
-        }
+        dLoads.setName("Ex2");
         fullExternalLoadsFilename = externalLoadsFilename;
         forceListModel = new ForceListModel(dLoads);
         initComponents();
@@ -344,13 +339,6 @@ public class EditExternalLoadsPanel extends javax.swing.JPanel
                 externalLoadsDataFileNameStateChanged(evt);
             }
         });
-        externalLoadsDataFileName.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-            }
-            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
-                externalLoadsDataFileNameInputMethodTextChanged(evt);
-            }
-        });
 
         jLabel8.setText("Kinematics for external loads");
 
@@ -361,7 +349,7 @@ public class EditExternalLoadsPanel extends javax.swing.JPanel
         });
 
         cutoffFrequency.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
-        cutoffFrequency.setText(" ");
+        cutoffFrequency.setText("-1");
         cutoffFrequency.setMargin(new java.awt.Insets(0, 0, 0, 0));
         cutoffFrequency.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -420,7 +408,7 @@ public class EditExternalLoadsPanel extends javax.swing.JPanel
         ForcesListManagerPanelLayout.setHorizontalGroup(
             ForcesListManagerPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, ForcesListManagerPanelLayout.createSequentialGroup()
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 338, Short.MAX_VALUE)
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 342, Short.MAX_VALUE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(ForcesListManagerPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
                     .add(jButtonDelete, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -453,18 +441,17 @@ public class EditExternalLoadsPanel extends javax.swing.JPanel
             .add(ForcesListManagerPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .add(layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jLabel8)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(externalLoadsModelKinematicsFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
-                .addContainerGap())
-            .add(layout.createSequentialGroup()
-                .addContainerGap()
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
                 .add(filterModelKinematics)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(cutoffFrequency, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 25, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(cutoffFrequency))
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, jLabel8))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jLabel9)
-                .addContainerGap(273, Short.MAX_VALUE))
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(externalLoadsModelKinematicsFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
+                    .add(jLabel9))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -501,7 +488,14 @@ public class EditExternalLoadsPanel extends javax.swing.JPanel
     }//GEN-LAST:event_cutoffFrequencyActionPerformed
 
     private void filterModelKinematicsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterModelKinematicsActionPerformed
-        //dLoads.setLowpassCutoffFrequencyForLoadKinematics(filterModelKinematics.isSelected());
+     boolean selected=filterModelKinematics.isSelected();
+     if (selected) cutoffFrequency.setText("6.0"); else cutoffFrequency.setText("-1.0");
+        try {
+            dLoads.setLowpassCutoffFrequencyForLoadKinematics(numFormat.parse(cutoffFrequency.getText()).doubleValue());
+        } catch (ParseException ex) {
+            Toolkit.getDefaultToolkit().beep();
+            cutoffFrequency.setText(numFormat.format(dLoads.getLowpassCutoffFrequencyForLoadKinematics()));
+        }
     }//GEN-LAST:event_filterModelKinematicsActionPerformed
 
     private void externalLoadsModelKinematicsFileNameStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_externalLoadsModelKinematicsFileNameStateChanged
@@ -551,14 +545,10 @@ public class EditExternalLoadsPanel extends javax.swing.JPanel
              forceListModel.add(forceListModel.getSize(), pf);
              String usrObjBodyName=pf.getAppliedToBodyName();                         
              dLoads.append(pf);
+             dLoads.setMemoryOwner(false);
              cachedForces.add(pf);
          }
     }//GEN-LAST:event_jButtonAddActionPerformed
-
-    private void externalLoadsDataFileNameInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_externalLoadsDataFileNameInputMethodTextChanged
-        handleDatafileSelectionChange();
-// TODO add your handling code here:
-    }//GEN-LAST:event_externalLoadsDataFileNameInputMethodTextChanged
 
     private void handleDatafileSelectionChange() {
         if (externalLoadsDataFileName.getFileIsValid()){
@@ -575,11 +565,11 @@ public class EditExternalLoadsPanel extends javax.swing.JPanel
                          externalLoadsDataFileName.setFileName("");
                          return;
                      }
-                     externalLoadsDataFileName.setFileName(newFilename);
                      externalLoadsStorage = new Storage(dataFile); // Read full file not just headers
                      externalLoadsStorage.makeStorageLabelsUnique();
                      dataFile = newFilename;
                      externalLoadsStorage.print(newFilename);
+                     externalLoadsDataFileName.setFileName(newFilename);
                 }
              } catch (IOException ex) {
                  ex.printStackTrace();

@@ -41,7 +41,6 @@ import org.opensim.modeling.InterruptCallback;
 import org.opensim.modeling.Kinematics;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.Storage;
-import org.opensim.tracking.AbstractToolModelWithExternalLoads;
 import org.opensim.view.motions.JavaMotionDisplayerCallback;
 import org.opensim.view.motions.MotionsDB;
 import org.opensim.swingui.SwingWorker;
@@ -53,7 +52,7 @@ import org.opensim.view.excitationEditor.FilterableStringArray;
 import org.opensim.view.excitationEditor.NameFilterJPanel;
 import org.opensim.view.pub.OpenSimDB;
 
-public class CMCToolModel extends AbstractToolModelWithExternalLoads {
+public class CMCToolModel extends TrackingToolModel {
    //========================================================================
    // CMCToolWorker
    //========================================================================
@@ -80,6 +79,7 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
 
          // Re-initialize our copy of the workersModel
          Model workersModel = new Model(getOriginalModel());
+         workersModel.updAnalysisSet().setSize(0);
          String tempFileName=getOriginalModel().getInputFileName();
          //int loc = tempFileName.lastIndexOf(".");
          workersModel.setInputFileName(tempFileName);
@@ -211,6 +211,8 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
                motion.resampleLinear(0.001); // so that we don't get a crazy oversampled storage
             }
          }
+         if (motion!=null)
+            updateMotion(motion); // replaces current motion
 
          // Remove the kinematics analysis before printing results, so its results won't be written to disk
          //getModel().removeAnalysis(kinematicsAnalysis);
@@ -244,9 +246,6 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
    public CMCToolModel(Model model) throws IOException {
       super(model);
 
-      if(model.getSimbodyEngine().getType().equals("SimmKinematicsEngine"))
-         throw new IOException("Computed muscle control tool requires a model with SdfastEngine or SimbodyEngine; SimmKinematicsEngine does not support dynamics.");
-
       setTool(new CMCTool());
 
       // By default, set prefix of output to be subject name
@@ -268,7 +267,14 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
       if(!getDesiredKinematicsFileName().equals(fileName)) {
          cmcTool().setDesiredKinematicsFileName(fileName);
          setModified(AbstractToolModel.Operation.InputDataChanged);
+         try {
+            Storage coords = new Storage(fileName);
+            updateToolTimeRange(coords);
+         } catch (IOException ex) {
+            ex.printStackTrace();
       }
+
+   }
    }
    public boolean getDesiredKinematicsValid() { return (new File(getDesiredKinematicsFileName()).exists()); }
 
@@ -466,6 +472,13 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
 
     void setReuseSelectedMetrics(boolean b) {
         reuseMetrics=b;
+    }
+    private void updateMotion(Storage newMotion) {
+        if(newMotion!=null) {
+            MotionsDB.getInstance().addMotion(getOriginalModel(), newMotion);
+            MotionsDB.getInstance().setCurrentTime(newMotion.getLastTime());
+            
+        }
     }
 }
 

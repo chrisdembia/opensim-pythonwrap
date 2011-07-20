@@ -1,1818 +1,1775 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<OpenSimDocument Version="10600">
-	<ControlSet name="leg39">
+<OpenSimDocument Version="20302">
+	<ControlSet name="Control Set">
 		<defaults>
-			<Force name="default">
-				<body_A>  </body_A>
-				<point_A>       0.00000000000000000000       0.00000000000000000000       0.00000000000000000000 </point_A>
-				<direction_A>       1.00000000000000000000       0.00000000000000000000       0.00000000000000000000 </direction_A>
-				<body_B>  </body_B>
-				<point_B>       0.00000000000000000000       0.00000000000000000000       0.00000000000000000000 </point_B>
-				<optimal_force>    1000.00000000000000000000 </optimal_force>
-			</Force>
-			<GeneralizedForce name="default">
-				<coordinate> Unassigned </coordinate>
-				<optimal_force>     300.00000000000000000000 </optimal_force>
-			</GeneralizedForce>
 			<ControlLinear name="default">
 				<is_model_control> true </is_model_control>
 				<extrapolate> true </extrapolate>
-				<default_min>       0.02000000000000000000 </default_min>
-				<default_max>       1.00000000000000000000 </default_max>
+				<default_min>       0.02000000 </default_min>
+				<default_max>       1.00000000 </default_max>
 				<filter_on> false </filter_on>
 				<use_steps> true </use_steps>
 				<x_nodes/>
 				<min_nodes/>
 				<max_nodes/>
-				<kp>     100.00000000000000000000 </kp>
-				<kv>      20.00000000000000000000 </kv>
+				<kp>     100.00000000 </kp>
+				<kv>      20.00000000 </kv>
 			</ControlLinear>
 			<Thelen2003Muscle name="default">
-				<MusclePointSet name="">
+				<isDisabled> false </isDisabled>
+				<!--Minimum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<min_control>       0.00000000 </min_control>
+				<!--Maximum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<max_control>       1.00000000 </max_control>
+				<GeometryPath name="">
+					<PathPointSet name="">
 					<objects/>
 					<groups/>
-				</MusclePointSet>
+					</PathPointSet>
 				<VisibleObject name="">
-					<geometry_files> </geometry_files>
-					<VisibleProperties name="">
-						<display_preference> 4 </display_preference>
-						<show_normals> false </show_normals>
+						<!--Set of geometry files and associated attributes, allow .vtp, .stl,
+						    .obj-->
+						<GeometrySet name="">
+							<objects/>
+							<groups/>
+						</GeometrySet>
+						<!--Three scale factors for display purposes: scaleX scaleY scaleZ-->
+						<scale_factors>       1.00000000       1.00000000       1.00000000 </scale_factors>
+						<!--transform relative to owner specified as 3 rotations (rad) followed by
+						    3 translations rX rY rZ tx ty tz-->
+						<transform>      -0.00000000       0.00000000      -0.00000000       0.00000000       0.00000000       0.00000000 </transform>
+						<!--Whether to show a coordinate frame-->
 						<show_axes> false </show_axes>
-						<material_name> DEFAULT </material_name>
-					</VisibleProperties>
-					<scale_factors>       1.00000000000000000000       1.00000000000000000000       1.00000000000000000000 </scale_factors>
-				</VisibleObject>
-				<MuscleWrapSet name="">
-					<objects/>
-					<groups/>
-				</MuscleWrapSet>
-				<muscle_model> 9 </muscle_model>
-				<!--maximum isometric force of the muscle fibers-->
-				<max_isometric_force>     546.00000000000000000000 </max_isometric_force>
-				<!--optimal length of the muscle fibers-->
-				<optimal_fiber_length>       0.05349999999999999900 </optimal_fiber_length>
-				<!--resting length of the tendon-->
-				<tendon_slack_length>       0.07800000000000000000 </tendon_slack_length>
-				<!--angle between tendon and fibers at optimal fiber length-->
-				<pennation_angle>       0.00000000000000000000 </pennation_angle>
-				<!--time constant for ramping up of muscle activation-->
-				<activation_time_constant>       0.01000000000000000000 </activation_time_constant>
-				<!--time constant for ramping down of muscle activation-->
-				<deactivation_time_constant>       0.04000000000000000100 </deactivation_time_constant>
-				<!--maximum contraction velocity at full activation in fiber lengths per
-				    second-->
-				<Vmax>      10.00000000000000000000 </Vmax>
-				<!--maximum contraction velocity at low activation in fiber lengths per
-				    second-->
-				<Vmax0>       5.00000000000000000000 </Vmax0>
-				<!--tendon strain due to maximum isometric muscle force-->
-				<FmaxTendonStrain>       0.03300000000000000200 </FmaxTendonStrain>
-				<!--passive muscle strain due to maximum isometric muscle force-->
-				<FmaxMuscleStrain>       0.59999999999999998000 </FmaxMuscleStrain>
-				<!--shape factor for Gaussian active muscle force-length relationship-->
-				<KshapeActive>       0.50000000000000000000 </KshapeActive>
-				<!--exponential shape factor for passive force-length relationship-->
-				<KshapePassive>       4.00000000000000000000 </KshapePassive>
-				<!--passive damping in the force-velocity relationship-->
-				<damping>       0.05000000000000000300 </damping>
-				<!--force-velocity shape factor-->
-				<Af>       0.29999999999999999000 </Af>
-				<!--maximum normalized lengthening force-->
-				<Flen>       1.80000000000000000000 </Flen>
-			</Thelen2003Muscle>
-			<Schutte1993Muscle name="default">
-				<MusclePointSet name="">
-					<objects/>
-					<groups/>
-				</MusclePointSet>
-				<VisibleObject name="">
-					<geometry_files> </geometry_files>
-					<VisibleProperties name="">
+						<!--Display Pref. 0:Hide 1:Wire 3:Flat 4:Shaded Can be overriden for
+						    individual geometries-->
 						<display_preference> 4 </display_preference>
-						<show_normals> false </show_normals>
-						<show_axes> false </show_axes>
-						<material_name> DEFAULT </material_name>
-					</VisibleProperties>
-					<scale_factors>       1.00000000000000000000       1.00000000000000000000       1.00000000000000000000 </scale_factors>
 				</VisibleObject>
-				<MuscleWrapSet name="">
+					<PathWrapSet name="">
 					<objects/>
 					<groups/>
-				</MuscleWrapSet>
-				<muscle_model> 9 </muscle_model>
-				<!--Scale factor for normalizing time-->
-				<time_scale>       0.10000000000000001000 </time_scale>
-				<!--Parameter used in time constant of ramping up of muscle force-->
-				<activation1>       0.00000000000000000000 </activation1>
-				<!--Parameter used in time constant of ramping up and ramping down of
-				    muscle force-->
-				<activation2>       0.00000000000000000000 </activation2>
+					</PathWrapSet>
+				</GeometryPath>
+				<optimal_force>       1.00000000 </optimal_force>
 				<!--Maximum isometric force that the fibers can generate-->
-				<max_isometric_force>       0.00000000000000000000 </max_isometric_force>
+				<max_isometric_force>     546.00000000 </max_isometric_force>
 				<!--Optimal length of the muscle fibers-->
-				<optimal_fiber_length>       0.00000000000000000000 </optimal_fiber_length>
+				<optimal_fiber_length>       0.05350000 </optimal_fiber_length>
 				<!--Resting length of the tendon-->
-				<tendon_slack_length>       0.00000000000000000000 </tendon_slack_length>
+				<tendon_slack_length>       0.07800000 </tendon_slack_length>
 				<!--Angle between tendon and fibers at optimal fiber length-->
-				<pennation_angle>       0.00000000000000000000 </pennation_angle>
+				<pennation_angle_at_optimal>       0.00000000 </pennation_angle_at_optimal>
 				<!--Maximum contraction velocity of the fibers, in optimal fiberlengths
 				    per second-->
-				<max_contraction_velocity>      10.00000000000000000000 </max_contraction_velocity>
+				<max_contraction_velocity>      10.00000000 </max_contraction_velocity>
+				<!--time constant for ramping up of muscle activation-->
+				<activation_time_constant>       0.01000000 </activation_time_constant>
+				<!--time constant for ramping down of muscle activation-->
+				<deactivation_time_constant>       0.04000000 </deactivation_time_constant>
+				<!--maximum contraction velocity at full activation in fiber lengths per
+				    second-->
+				<Vmax>      10.00000000 </Vmax>
+				<!--maximum contraction velocity at low activation in fiber lengths per
+				    second-->
+				<Vmax0>       5.00000000 </Vmax0>
+				<!--tendon strain due to maximum isometric muscle force-->
+				<FmaxTendonStrain>       0.03300000 </FmaxTendonStrain>
+				<!--passive muscle strain due to maximum isometric muscle force-->
+				<FmaxMuscleStrain>       0.60000000 </FmaxMuscleStrain>
+				<!--shape factor for Gaussian active muscle force-length relationship-->
+				<KshapeActive>       0.50000000 </KshapeActive>
+				<!--exponential shape factor for passive force-length relationship-->
+				<KshapePassive>       4.00000000 </KshapePassive>
+				<!--passive damping in the force-velocity relationship-->
+				<damping>       0.05000000 </damping>
+				<!--force-velocity shape factor-->
+				<Af>       0.30000000 </Af>
+				<!--maximum normalized lengthening force-->
+				<Flen>       1.80000000 </Flen>
+			</Thelen2003Muscle>
+			<Schutte1993Muscle name="default">
+				<isDisabled> false </isDisabled>
+				<!--Minimum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<min_control>       0.00000000 </min_control>
+				<!--Maximum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<max_control>       1.00000000 </max_control>
+				<GeometryPath name="">
+					<PathPointSet name="">
+					<objects/>
+					<groups/>
+					</PathPointSet>
+				<VisibleObject name="">
+						<!--Set of geometry files and associated attributes, allow .vtp, .stl,
+						    .obj-->
+						<GeometrySet name="">
+							<objects/>
+							<groups/>
+						</GeometrySet>
+						<!--Three scale factors for display purposes: scaleX scaleY scaleZ-->
+						<scale_factors>       1.00000000       1.00000000       1.00000000 </scale_factors>
+						<!--transform relative to owner specified as 3 rotations (rad) followed by
+						    3 translations rX rY rZ tx ty tz-->
+						<transform>      -0.00000000       0.00000000      -0.00000000       0.00000000       0.00000000       0.00000000 </transform>
+						<!--Whether to show a coordinate frame-->
+						<show_axes> false </show_axes>
+						<!--Display Pref. 0:Hide 1:Wire 3:Flat 4:Shaded Can be overriden for
+						    individual geometries-->
+						<display_preference> 4 </display_preference>
+				</VisibleObject>
+					<PathWrapSet name="">
+					<objects/>
+					<groups/>
+					</PathWrapSet>
+				</GeometryPath>
+				<optimal_force>       1.00000000 </optimal_force>
+				<!--Maximum isometric force that the fibers can generate-->
+				<max_isometric_force>       0.00000000 </max_isometric_force>
+				<!--Optimal length of the muscle fibers-->
+				<optimal_fiber_length>       0.00000000 </optimal_fiber_length>
+				<!--Resting length of the tendon-->
+				<tendon_slack_length>       0.00000000 </tendon_slack_length>
+				<!--Angle between tendon and fibers at optimal fiber length-->
+				<pennation_angle_at_optimal>       0.00000000 </pennation_angle_at_optimal>
+				<!--Maximum contraction velocity of the fibers, in optimal fiberlengths
+				    per second-->
+				<max_contraction_velocity>      10.00000000 </max_contraction_velocity>
+				<!--Scale factor for normalizing time-->
+				<time_scale>       0.10000000 </time_scale>
+				<!--Parameter used in time constant of ramping up of muscle force-->
+				<activation1>       0.00000000 </activation1>
+				<!--Parameter used in time constant of ramping up and ramping down of
+				    muscle force-->
+				<activation2>       0.00000000 </activation2>
 				<!--Damping factor related to maximum contraction velocity-->
-				<damping>       0.05000000000000000300 </damping>
+				<damping>       0.05000000 </damping>
 				<!--Function representing force-length behavior of tendon-->
 				<tendon_force_length_curve>
-					<natCubicSpline name="">
-						<min_x> -1000000000000000000000000000000.00000000000000000000 </min_x>
-						<max_x> 1000000000000000000000000000000.00000000000000000000 </max_x>
-						<min_y> -1000000000000000000000000000000.00000000000000000000 </min_y>
-						<max_y> 1000000000000000000000000000000.00000000000000000000 </max_y>
-						<min_z> -1000000000000000000000000000000.00000000000000000000 </min_z>
-						<max_z> 1000000000000000000000000000000.00000000000000000000 </max_z>
-						<x>     -10.00000000000000000000      -0.00200000000000000000      -0.00100000000000000000       0.00000000000000000000       0.00131000000000000000       0.00281000000000000000       0.00430999999999999960       0.00581000000000000010       0.00730999999999999970       0.00881000000000000010       0.01030000000000000000       0.01180000000000000000       0.01230000000000000000       9.19999999999999930000       9.20100000000000050000       9.20200000000000000000      20.00000000000000000000 </x>
-						<y>       0.00000000000000000000       0.00000000000000000000       0.00000000000000000000       0.00000000000000000000       0.01080000000000000100       0.02570000000000000100       0.04349999999999999700       0.06519999999999999400       0.09149999999999999800       0.12300000000000000000       0.16100000000000000000       0.20799999999999999000       0.22700000000000001000     345.00000000000000000000     345.00000000000000000000     345.00000000000000000000     345.00000000000000000000 </y>
-					</natCubicSpline>
+					<NaturalCubicSpline name="">
+						<x>     -10.00000000      -0.00200000      -0.00100000       0.00000000       0.00131000       0.00281000       0.00431000       0.00581000       0.00731000       0.00881000       0.01030000       0.01180000       0.01230000       9.20000000       9.20100000       9.20200000      20.00000000 </x>
+						<y>       0.00000000       0.00000000       0.00000000       0.00000000       0.01080000       0.02570000       0.04350000       0.06520000       0.09150000       0.12300000       0.16100000       0.20800000       0.22700000     345.00000000     345.00000000     345.00000000     345.00000000 </y>
+					</NaturalCubicSpline>
 				</tendon_force_length_curve>
 				<!--Function representing active force-length behavior of muscle fibers-->
 				<active_force_length_curve>
-					<natCubicSpline name="">
-						<min_x> -1000000000000000000000000000000.00000000000000000000 </min_x>
-						<max_x> 1000000000000000000000000000000.00000000000000000000 </max_x>
-						<min_y> -1000000000000000000000000000000.00000000000000000000 </min_y>
-						<max_y> 1000000000000000000000000000000.00000000000000000000 </max_y>
-						<min_z> -1000000000000000000000000000000.00000000000000000000 </min_z>
-						<max_z> 1000000000000000000000000000000.00000000000000000000 </max_z>
-						<x>      -5.30769200000000030000      -4.30769200000000030000      -1.92307699999999990000      -0.88461500000000004000      -0.26923100000000000000       0.23076900000000000000       0.46153800000000000000       0.52725000000000000000       0.62875000000000003000       0.71875000000000000000       0.86124999999999996000       1.04499999999999990000       1.21750000000000000000       1.43875000000000000000       1.50000000000000000000       1.61538500000000010000       2.00000000000000000000       2.96153800000000000000       3.69230800000000010000       5.46153800000000000000       9.90190199999999980000 </x>
-						<y>       0.01218799999999999900       0.02189899999999999800       0.03646599999999999800       0.05249299999999999800       0.07531200000000000400       0.11415800000000000000       0.15785900000000000000       0.22666700000000001000       0.63666699999999998000       0.85666699999999996000       0.94999999999999996000       0.99333300000000002000       0.77000000000000002000       0.24666700000000000000       0.19382099999999999000       0.13325200000000001000       0.07268299999999999800       0.04441699999999999800       0.03634099999999999800       0.02189899999999999800       0.00733200000000000000 </y>
-					</natCubicSpline>
+					<NaturalCubicSpline name="">
+						<x>      -5.30769200      -4.30769200      -1.92307700      -0.88461500      -0.26923100       0.23076900       0.46153800       0.52725000       0.62875000       0.71875000       0.86125000       1.04500000       1.21750000       1.43875000       1.50000000       1.61538500       2.00000000       2.96153800       3.69230800       5.46153800       9.90190200 </x>
+						<y>       0.01218800       0.02189900       0.03646600       0.05249300       0.07531200       0.11415800       0.15785900       0.22666700       0.63666700       0.85666700       0.95000000       0.99333300       0.77000000       0.24666700       0.19382100       0.13325200       0.07268300       0.04441700       0.03634100       0.02189900       0.00733200 </y>
+					</NaturalCubicSpline>
 				</active_force_length_curve>
 				<!--Function representing passive force-length behavior of muscle fibers-->
 				<passive_force_length_curve>
-					<natCubicSpline name="">
-						<min_x> -1000000000000000000000000000000.00000000000000000000 </min_x>
-						<max_x> 1000000000000000000000000000000.00000000000000000000 </max_x>
-						<min_y> -1000000000000000000000000000000.00000000000000000000 </min_y>
-						<max_y> 1000000000000000000000000000000.00000000000000000000 </max_y>
-						<min_z> -1000000000000000000000000000000.00000000000000000000 </min_z>
-						<max_z> 1000000000000000000000000000000.00000000000000000000 </max_z>
-						<x>      -5.00000000000000000000       0.99800000000000000000       0.99900000000000000000       1.00000000000000000000       1.10000000000000010000       1.20000000000000000000       1.30000000000000000000       1.39999999999999990000       1.50000000000000000000       1.60000000000000010000       1.60100000000000000000       1.60200000000000010000       5.00000000000000000000 </x>
-						<y>       0.00000000000000000000       0.00000000000000000000       0.00000000000000000000       0.00000000000000000000       0.03500000000000000300       0.12000000000000000000       0.26000000000000001000       0.55000000000000004000       1.16999999999999990000       2.00000000000000000000       2.00000000000000000000       2.00000000000000000000       2.00000000000000000000 </y>
-					</natCubicSpline>
+					<NaturalCubicSpline name="">
+						<x>      -5.00000000       0.99800000       0.99900000       1.00000000       1.10000000       1.20000000       1.30000000       1.40000000       1.50000000       1.60000000       1.60100000       1.60200000       5.00000000 </x>
+						<y>       0.00000000       0.00000000       0.00000000       0.00000000       0.03500000       0.12000000       0.26000000       0.55000000       1.17000000       2.00000000       2.00000000       2.00000000       2.00000000 </y>
+					</NaturalCubicSpline>
 				</passive_force_length_curve>
 			</Schutte1993Muscle>
-			<Torque name="default">
-				<body_A>  </body_A>
-				<direction_A>       1.00000000000000000000       0.00000000000000000000       0.00000000000000000000 </direction_A>
-				<body_B>  </body_B>
-				<optimal_force>       1.00000000000000000000 </optimal_force>
-			</Torque>
-			<rdCMC_Joint name="default">
-				<!--Flag (true or false) indicating whether or not a task is on.-->
-				<on> false </on>
-				<!--Name of body frame with respect to which a tracking objective is
-				    specified. The special name 'center_of_mass' refers to the system
-				    center of mass. This property is not used for tracking joint angles.-->
-				<wrt_body> -1 </wrt_body>
-				<!--Name of body frame in which the tracking objectives are expressed.
-				    This property is not used for tracking joint angles.-->
-				<express_body> -1 </express_body>
-				<!--Array of 3 flags (each true or false) specifying whether a component
-				    of a task is active.  For example, tracking the trajectory of a point
-				    in space could have three components (x,y,z).  This allows each of
-				    those to be made active (true) or inactive (false).  A task for
-				    tracking a joint coordinate only has one component.-->
-				<active> false false false </active>
-				<!--Weight with which a task is tracked relative to other tasks. To track
-				    a task more tightly, make the weight larger.-->
-				<weight>       1.00000000000000000000       1.00000000000000000000       1.00000000000000000000 </weight>
-				<!--Position error feedback gain (stiffness). To achieve critical damping
-				    of errors, choose kv = 2*sqrt(kp).-->
-				<kp>       1.00000000000000000000       1.00000000000000000000       1.00000000000000000000 </kp>
-				<!--Velocity error feedback gain (damping). To achieve critical damping of
-				    errors, choose kv = 2*sqrt(kp).-->
-				<kv>       1.00000000000000000000       1.00000000000000000000       1.00000000000000000000 </kv>
-				<!--Feedforward acceleration gain.  This is normally set to 1.0, so no
-				    gain.-->
-				<ka>       1.00000000000000000000       1.00000000000000000000       1.00000000000000000000 </ka>
-				<!--Direction vector[3] for component 0 of a task. Joint tasks do not use
-				    this propery.-->
-				<r0>       0.00000000000000000000       0.00000000000000000000       0.00000000000000000000 </r0>
-				<!--Direction vector[3] for component 1 of a task. Joint tasks do not use
-				    this property.-->
-				<r1>       0.00000000000000000000       0.00000000000000000000       0.00000000000000000000 </r1>
-				<!--Direction vector[3] for component 2 of a task. Joint tasks do not use
-				    this property.-->
-				<r2>       0.00000000000000000000       0.00000000000000000000       0.00000000000000000000 </r2>
-				<!--Name of the coordinate to be tracked.-->
-				<coordinate>  </coordinate>
-				<!--Error limit on the tracking accuracy for this coordinate. If the
-				    tracking errors approach this limit, the weighting for this coordinate
-				    is increased.-->
-				<limit>       0.00000000000000000000 </limit>
-			</rdCMC_Joint>
 		</defaults>
 		<objects>
 			<ControlLinear name="bifemlh_r.excitation">
 				<is_model_control> true </is_model_control>
 				<extrapolate> true </extrapolate>
-				<default_min>       0.02000000000000000000 </default_min>
-				<default_max>       1.00000000000000000000 </default_max>
+				<default_min>       0.02000000 </default_min>
+				<default_max>       1.00000000 </default_max>
 				<filter_on> false </filter_on>
 				<use_steps> true </use_steps>
 				<x_nodes>
 					<ControlLinearNode name="">
-						<t>       0.00000000000000000000 </t>
-						<value>       0.19498137980818087000 </value>
+						<t>       0.00000000 </t>
+						<value>       0.19498138 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.01000000000000000000 </t>
-						<value>       0.10749068990409043000 </value>
+						<t>       0.01000000 </t>
+						<value>       0.10749069 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.02000000000000000000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.02000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.02999999999999999900 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.03000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.04000000000000000100 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.04000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.05000000000000000300 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.05000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.06000000000000000500 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.06000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.07000000000000000700 </t>
-						<value>       0.05660972683816678500 </value>
+						<t>       0.07000000 </t>
+						<value>       0.05660973 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.08000000000000000200 </t>
-						<value>       0.07484429793897350000 </value>
+						<t>       0.08000000 </t>
+						<value>       0.07484430 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.08999999999999999700 </t>
-						<value>       0.07112497988582233700 </value>
+						<t>       0.09000000 </t>
+						<value>       0.07112498 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.09999999999999999200 </t>
-						<value>       0.06893554812042829200 </value>
+						<t>       0.10000000 </t>
+						<value>       0.06893555 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.10999999999999999000 </t>
-						<value>       0.05582867188650400500 </value>
+						<t>       0.11000000 </t>
+						<value>       0.05582867 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.11999999999999998000 </t>
-						<value>       0.03577977044944696800 </value>
+						<t>       0.12000000 </t>
+						<value>       0.03577977 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.12999999999999998000 </t>
-						<value>       0.02386546581641987900 </value>
+						<t>       0.13000000 </t>
+						<value>       0.02386547 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.13999999999999999000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.14000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.14999999999999999000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.15000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.16000000000000000000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.16000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.17000000000000001000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.17000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.18000000000000002000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.18000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.19000000000000003000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.19000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.20000000000000004000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.20000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.21000000000000005000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.21000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.22000000000000006000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.22000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.23000000000000007000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.23000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.24000000000000007000 </t>
-						<value>       0.02376877088838688600 </value>
+						<t>       0.24000000 </t>
+						<value>       0.02376877 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.25000000000000006000 </t>
-						<value>       0.03323158325963498900 </value>
+						<t>       0.25000000 </t>
+						<value>       0.03323158 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.26000000000000006000 </t>
-						<value>       0.05343587246483246000 </value>
+						<t>       0.26000000 </t>
+						<value>       0.05343587 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.27000000000000007000 </t>
-						<value>       0.07020620490331566700 </value>
+						<t>       0.27000000 </t>
+						<value>       0.07020620 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.28000000000000008000 </t>
-						<value>       0.09595888365455858300 </value>
+						<t>       0.28000000 </t>
+						<value>       0.09595888 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.29000000000000009000 </t>
-						<value>       0.12325066501675769000 </value>
+						<t>       0.29000000 </t>
+						<value>       0.12325067 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.30000000000000010000 </t>
-						<value>       0.15141548094150103000 </value>
+						<t>       0.30000000 </t>
+						<value>       0.15141548 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.31000000000000011000 </t>
-						<value>       0.15842582441781644000 </value>
+						<t>       0.31000000 </t>
+						<value>       0.15842582 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.32000000000000012000 </t>
-						<value>       0.18026642925684849000 </value>
+						<t>       0.32000000 </t>
+						<value>       0.18026643 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.33000000000000013000 </t>
-						<value>       0.20465725654472050000 </value>
+						<t>       0.33000000 </t>
+						<value>       0.20465726 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.34000000000000014000 </t>
-						<value>       0.25084956753149640000 </value>
+						<t>       0.34000000 </t>
+						<value>       0.25084957 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.35000000000000014000 </t>
-						<value>       0.27907365564201680000 </value>
+						<t>       0.35000000 </t>
+						<value>       0.27907366 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.36000000000000015000 </t>
-						<value>       0.28319005326565500000 </value>
+						<t>       0.36000000 </t>
+						<value>       0.28319005 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.37000000000000016000 </t>
-						<value>       0.22412240746768675000 </value>
+						<t>       0.37000000 </t>
+						<value>       0.22412241 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.38000000000000017000 </t>
-						<value>       0.09864391609982815800 </value>
+						<t>       0.38000000 </t>
+						<value>       0.09864392 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.39000000000000018000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.39000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.40000000000000019000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.40000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 				</x_nodes>
 				<min_nodes/>
 				<max_nodes/>
-				<kp>     100.00000000000000000000 </kp>
-				<kv>      20.00000000000000000000 </kv>
+				<kp>     100.00000000 </kp>
+				<kv>      20.00000000 </kv>
 			</ControlLinear>
 			<ControlLinear name="bifemsh_r.excitation">
 				<is_model_control> true </is_model_control>
 				<extrapolate> true </extrapolate>
-				<default_min>       0.02000000000000000000 </default_min>
-				<default_max>       1.00000000000000000000 </default_max>
+				<default_min>       0.02000000 </default_min>
+				<default_max>       1.00000000 </default_max>
 				<filter_on> false </filter_on>
 				<use_steps> true </use_steps>
 				<x_nodes>
 					<ControlLinearNode name="">
-						<t>       0.00000000000000000000 </t>
-						<value>       0.29308860468256459000 </value>
+						<t>       0.00000000 </t>
+						<value>       0.29308860 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.01000000000000000000 </t>
-						<value>       0.15654430234128230000 </value>
+						<t>       0.01000000 </t>
+						<value>       0.15654430 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.02000000000000000000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.02000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.02999999999999999900 </t>
-						<value>       0.15029715973924515000 </value>
+						<t>       0.03000000 </t>
+						<value>       0.15029716 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.04000000000000000100 </t>
-						<value>       0.28830578635337800000 </value>
+						<t>       0.04000000 </t>
+						<value>       0.28830579 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.05000000000000000300 </t>
-						<value>       0.25374585844443642000 </value>
+						<t>       0.05000000 </t>
+						<value>       0.25374586 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.06000000000000000500 </t>
-						<value>       0.30460374281171387000 </value>
+						<t>       0.06000000 </t>
+						<value>       0.30460374 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.07000000000000000700 </t>
-						<value>       0.30948957377116970000 </value>
+						<t>       0.07000000 </t>
+						<value>       0.30948957 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.08000000000000000200 </t>
-						<value>       0.25200213264858096000 </value>
+						<t>       0.08000000 </t>
+						<value>       0.25200213 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.08999999999999999700 </t>
-						<value>       0.22941692927309382000 </value>
+						<t>       0.09000000 </t>
+						<value>       0.22941693 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.09999999999999999200 </t>
-						<value>       0.15583415881741836000 </value>
+						<t>       0.10000000 </t>
+						<value>       0.15583416 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.10999999999999999000 </t>
-						<value>       0.17088263393402747000 </value>
+						<t>       0.11000000 </t>
+						<value>       0.17088263 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.11999999999999998000 </t>
-						<value>       0.16361316178587665000 </value>
+						<t>       0.12000000 </t>
+						<value>       0.16361316 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.12999999999999998000 </t>
-						<value>       0.12922158839671458000 </value>
+						<t>       0.13000000 </t>
+						<value>       0.12922159 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.13999999999999999000 </t>
-						<value>       0.07397679971598368500 </value>
+						<t>       0.14000000 </t>
+						<value>       0.07397680 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.14999999999999999000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.15000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.16000000000000000000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.16000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.17000000000000001000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.17000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.18000000000000002000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.18000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.19000000000000003000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.19000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.20000000000000004000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.20000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.21000000000000005000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.21000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.22000000000000006000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.22000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.23000000000000007000 </t>
-						<value>       0.02200000000000000900 </value>
+						<t>       0.23000000 </t>
+						<value>       0.02200000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.24000000000000007000 </t>
-						<value>       0.02200000000000000900 </value>
+						<t>       0.24000000 </t>
+						<value>       0.02200000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.25000000000000006000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.25000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.26000000000000006000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.26000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.27000000000000007000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.27000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.28000000000000008000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.28000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.29000000000000009000 </t>
-						<value>       0.02200000000000000900 </value>
+						<t>       0.29000000 </t>
+						<value>       0.02200000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.30000000000000010000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.30000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.31000000000000011000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.31000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.32000000000000012000 </t>
-						<value>       0.03311082832526202800 </value>
+						<t>       0.32000000 </t>
+						<value>       0.03311083 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.33000000000000013000 </t>
-						<value>       0.06507529930103690700 </value>
+						<t>       0.33000000 </t>
+						<value>       0.06507530 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.34000000000000014000 </t>
-						<value>       0.08883761885250371400 </value>
+						<t>       0.34000000 </t>
+						<value>       0.08883762 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.35000000000000014000 </t>
-						<value>       0.10286075323207403000 </value>
+						<t>       0.35000000 </t>
+						<value>       0.10286075 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.36000000000000015000 </t>
-						<value>       0.12315109282818151000 </value>
+						<t>       0.36000000 </t>
+						<value>       0.12315109 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.37000000000000016000 </t>
-						<value>       0.14354504929456208000 </value>
+						<t>       0.37000000 </t>
+						<value>       0.14354505 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.38000000000000017000 </t>
-						<value>       0.15862258950011882000 </value>
+						<t>       0.38000000 </t>
+						<value>       0.15862259 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.39000000000000018000 </t>
-						<value>       0.08679837138246661300 </value>
+						<t>       0.39000000 </t>
+						<value>       0.08679837 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.40000000000000019000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.40000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 				</x_nodes>
 				<min_nodes/>
 				<max_nodes/>
-				<kp>     100.00000000000000000000 </kp>
-				<kv>      20.00000000000000000000 </kv>
+				<kp>     100.00000000 </kp>
+				<kv>      20.00000000 </kv>
 			</ControlLinear>
 			<ControlLinear name="glut_max2_r.excitation">
 				<is_model_control> true </is_model_control>
 				<extrapolate> true </extrapolate>
-				<default_min>       0.02000000000000000000 </default_min>
-				<default_max>       1.00000000000000000000 </default_max>
+				<default_min>       0.02000000 </default_min>
+				<default_max>       1.00000000 </default_max>
 				<filter_on> false </filter_on>
 				<use_steps> true </use_steps>
 				<x_nodes>
 					<ControlLinearNode name="">
-						<t>       0.00000000000000000000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.00000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.01000000000000000000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.01000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.02000000000000000000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.02000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.02999999999999999900 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.03000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.04000000000000000100 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.04000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.05000000000000000300 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.05000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.06000000000000000500 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.06000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.07000000000000000700 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.07000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.08000000000000000200 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.08000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.08999999999999999700 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.09000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.09999999999999999200 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.10000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.10999999999999999000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.11000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.11999999999999998000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.12000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.12999999999999998000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.13000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.13999999999999999000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.14000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.14999999999999999000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.15000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.16000000000000000000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.16000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.17000000000000001000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.17000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.18000000000000002000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.18000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.19000000000000003000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.19000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.20000000000000004000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.20000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.21000000000000005000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.21000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.22000000000000006000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.22000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.23000000000000007000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.23000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.24000000000000007000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.24000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.25000000000000006000 </t>
-						<value>       0.02517958893316435100 </value>
+						<t>       0.25000000 </t>
+						<value>       0.02517959 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.26000000000000006000 </t>
-						<value>       0.02878145585164714600 </value>
+						<t>       0.26000000 </t>
+						<value>       0.02878146 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.27000000000000007000 </t>
-						<value>       0.04800640745332370600 </value>
+						<t>       0.27000000 </t>
+						<value>       0.04800641 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.28000000000000008000 </t>
-						<value>       0.05662373444368466700 </value>
+						<t>       0.28000000 </t>
+						<value>       0.05662373 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.29000000000000009000 </t>
-						<value>       0.07105722379189478900 </value>
+						<t>       0.29000000 </t>
+						<value>       0.07105722 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.30000000000000010000 </t>
-						<value>       0.08968196336089887000 </value>
+						<t>       0.30000000 </t>
+						<value>       0.08968196 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.31000000000000011000 </t>
-						<value>       0.04873597519625479800 </value>
+						<t>       0.31000000 </t>
+						<value>       0.04873598 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.32000000000000012000 </t>
-						<value>       0.02200000000000000900 </value>
+						<t>       0.32000000 </t>
+						<value>       0.02200000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.33000000000000013000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.33000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.34000000000000014000 </t>
-						<value>       0.02200000000000000900 </value>
+						<t>       0.34000000 </t>
+						<value>       0.02200000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.35000000000000014000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.35000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.36000000000000015000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.36000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.37000000000000016000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.37000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.38000000000000017000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.38000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.39000000000000018000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.39000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.40000000000000019000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.40000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 				</x_nodes>
 				<min_nodes/>
 				<max_nodes/>
-				<kp>     100.00000000000000000000 </kp>
-				<kv>      20.00000000000000000000 </kv>
+				<kp>     100.00000000 </kp>
+				<kv>      20.00000000 </kv>
 			</ControlLinear>
 			<ControlLinear name="psoas_r.excitation">
 				<is_model_control> true </is_model_control>
 				<extrapolate> true </extrapolate>
-				<default_min>       0.02000000000000000000 </default_min>
-				<default_max>       1.00000000000000000000 </default_max>
+				<default_min>       0.02000000 </default_min>
+				<default_max>       1.00000000 </default_max>
 				<filter_on> false </filter_on>
 				<use_steps> true </use_steps>
 				<x_nodes>
 					<ControlLinearNode name="">
-						<t>       0.00000000000000000000 </t>
-						<value>       0.40998813571617310000 </value>
+						<t>       0.00000000 </t>
+						<value>       0.40998814 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.01000000000000000000 </t>
-						<value>       0.63008778755322892000 </value>
+						<t>       0.01000000 </t>
+						<value>       0.63008779 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.02000000000000000000 </t>
-						<value>       0.78097265742576327000 </value>
+						<t>       0.02000000 </t>
+						<value>       0.78097266 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.02999999999999999900 </t>
-						<value>       0.46327823979204430000 </value>
+						<t>       0.03000000 </t>
+						<value>       0.46327824 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.04000000000000000100 </t>
-						<value>       0.07731036562929966000 </value>
+						<t>       0.04000000 </t>
+						<value>       0.07731037 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.05000000000000000300 </t>
-						<value>       0.34657593186266822000 </value>
+						<t>       0.05000000 </t>
+						<value>       0.34657593 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.06000000000000000500 </t>
-						<value>       0.33172885248615069000 </value>
+						<t>       0.06000000 </t>
+						<value>       0.33172885 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.07000000000000000700 </t>
-						<value>       0.38023496090238240000 </value>
+						<t>       0.07000000 </t>
+						<value>       0.38023496 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.08000000000000000200 </t>
-						<value>       0.38277336501769360000 </value>
+						<t>       0.08000000 </t>
+						<value>       0.38277337 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.08999999999999999700 </t>
-						<value>       0.33350516521620438000 </value>
+						<t>       0.09000000 </t>
+						<value>       0.33350517 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.09999999999999999200 </t>
-						<value>       0.30787679262450179000 </value>
+						<t>       0.10000000 </t>
+						<value>       0.30787679 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.10999999999999999000 </t>
-						<value>       0.34644861160115925000 </value>
+						<t>       0.11000000 </t>
+						<value>       0.34644861 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.11999999999999998000 </t>
-						<value>       0.33057698168747734000 </value>
+						<t>       0.12000000 </t>
+						<value>       0.33057698 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.12999999999999998000 </t>
-						<value>       0.36970252451562641000 </value>
+						<t>       0.13000000 </t>
+						<value>       0.36970252 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.13999999999999999000 </t>
-						<value>       0.38995507396605156000 </value>
+						<t>       0.14000000 </t>
+						<value>       0.38995507 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.14999999999999999000 </t>
-						<value>       0.40958531272920601000 </value>
+						<t>       0.15000000 </t>
+						<value>       0.40958531 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.16000000000000000000 </t>
-						<value>       0.41511617425132824000 </value>
+						<t>       0.16000000 </t>
+						<value>       0.41511617 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.17000000000000001000 </t>
-						<value>       0.40947439501735960000 </value>
+						<t>       0.17000000 </t>
+						<value>       0.40947440 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.18000000000000002000 </t>
-						<value>       0.34887370859456968000 </value>
+						<t>       0.18000000 </t>
+						<value>       0.34887371 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.19000000000000003000 </t>
-						<value>       0.28933193580304611000 </value>
+						<t>       0.19000000 </t>
+						<value>       0.28933194 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.20000000000000004000 </t>
-						<value>       0.21895891972058087000 </value>
+						<t>       0.20000000 </t>
+						<value>       0.21895892 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.21000000000000005000 </t>
-						<value>       0.16857519361261536000 </value>
+						<t>       0.21000000 </t>
+						<value>       0.16857519 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.22000000000000006000 </t>
-						<value>       0.09906547019270595100 </value>
+						<t>       0.22000000 </t>
+						<value>       0.09906547 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.23000000000000007000 </t>
-						<value>       0.03969778959550442100 </value>
+						<t>       0.23000000 </t>
+						<value>       0.03969779 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.24000000000000007000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.24000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.25000000000000006000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.25000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.26000000000000006000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.26000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.27000000000000007000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.27000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.28000000000000008000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.28000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.29000000000000009000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.29000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.30000000000000010000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.30000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.31000000000000011000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.31000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.32000000000000012000 </t>
-						<value>       0.02200000000000000900 </value>
+						<t>       0.32000000 </t>
+						<value>       0.02200000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.33000000000000013000 </t>
-						<value>       0.02430620153318464900 </value>
+						<t>       0.33000000 </t>
+						<value>       0.02430620 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.34000000000000014000 </t>
-						<value>       0.05258478075049286700 </value>
+						<t>       0.34000000 </t>
+						<value>       0.05258478 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.35000000000000014000 </t>
-						<value>       0.11426507817932380000 </value>
+						<t>       0.35000000 </t>
+						<value>       0.11426508 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.36000000000000015000 </t>
-						<value>       0.14409899639924550000 </value>
+						<t>       0.36000000 </t>
+						<value>       0.14409900 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.37000000000000016000 </t>
-						<value>       0.19062486406927293000 </value>
+						<t>       0.37000000 </t>
+						<value>       0.19062486 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.38000000000000017000 </t>
-						<value>       0.22822456887544151000 </value>
+						<t>       0.38000000 </t>
+						<value>       0.22822457 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.39000000000000018000 </t>
-						<value>       0.33293388915535638000 </value>
+						<t>       0.39000000 </t>
+						<value>       0.33293389 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.40000000000000019000 </t>
-						<value>       0.46133085957693054000 </value>
+						<t>       0.40000000 </t>
+						<value>       0.46133086 </value>
 					</ControlLinearNode>
 				</x_nodes>
 				<min_nodes/>
 				<max_nodes/>
-				<kp>     100.00000000000000000000 </kp>
-				<kv>      20.00000000000000000000 </kv>
+				<kp>     100.00000000 </kp>
+				<kv>      20.00000000 </kv>
 			</ControlLinear>
 			<ControlLinear name="rect_fem_r.excitation">
 				<is_model_control> true </is_model_control>
 				<extrapolate> true </extrapolate>
-				<default_min>       0.02000000000000000000 </default_min>
-				<default_max>       1.00000000000000000000 </default_max>
+				<default_min>       0.02000000 </default_min>
+				<default_max>       1.00000000 </default_max>
 				<filter_on> false </filter_on>
 				<use_steps> true </use_steps>
 				<x_nodes>
 					<ControlLinearNode name="">
-						<t>       0.00000000000000000000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.00000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.01000000000000000000 </t>
-						<value>       0.03604232866686979400 </value>
+						<t>       0.01000000 </t>
+						<value>       0.03604233 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.02000000000000000000 </t>
-						<value>       0.11829019353927361000 </value>
+						<t>       0.02000000 </t>
+						<value>       0.11829019 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.02999999999999999900 </t>
-						<value>       0.05543711929090283700 </value>
+						<t>       0.03000000 </t>
+						<value>       0.05543712 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.04000000000000000100 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.04000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.05000000000000000300 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.05000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.06000000000000000500 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.06000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.07000000000000000700 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.07000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.08000000000000000200 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.08000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.08999999999999999700 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.09000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.09999999999999999200 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.10000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.10999999999999999000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.11000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.11999999999999998000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.12000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.12999999999999998000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.13000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.13999999999999999000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.14000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.14999999999999999000 </t>
-						<value>       0.02200000000000000900 </value>
+						<t>       0.15000000 </t>
+						<value>       0.02200000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.16000000000000000000 </t>
-						<value>       0.04498545162156037500 </value>
+						<t>       0.16000000 </t>
+						<value>       0.04498545 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.17000000000000001000 </t>
-						<value>       0.07235429640553604800 </value>
+						<t>       0.17000000 </t>
+						<value>       0.07235430 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.18000000000000002000 </t>
-						<value>       0.09759423752180680600 </value>
+						<t>       0.18000000 </t>
+						<value>       0.09759424 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.19000000000000003000 </t>
-						<value>       0.11212554865197320000 </value>
+						<t>       0.19000000 </t>
+						<value>       0.11212555 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.20000000000000004000 </t>
-						<value>       0.11824746556999065000 </value>
+						<t>       0.20000000 </t>
+						<value>       0.11824747 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.21000000000000005000 </t>
-						<value>       0.08692149491304167200 </value>
+						<t>       0.21000000 </t>
+						<value>       0.08692149 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.22000000000000006000 </t>
-						<value>       0.06073206335067876700 </value>
+						<t>       0.22000000 </t>
+						<value>       0.06073206 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.23000000000000007000 </t>
-						<value>       0.03817218871629204900 </value>
+						<t>       0.23000000 </t>
+						<value>       0.03817219 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.24000000000000007000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.24000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.25000000000000006000 </t>
-						<value>       0.02200000000000000900 </value>
+						<t>       0.25000000 </t>
+						<value>       0.02200000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.26000000000000006000 </t>
-						<value>       0.02200000000000000900 </value>
+						<t>       0.26000000 </t>
+						<value>       0.02200000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.27000000000000007000 </t>
-						<value>       0.02642005331564588000 </value>
+						<t>       0.27000000 </t>
+						<value>       0.02642005 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.28000000000000008000 </t>
-						<value>       0.02400000000000001800 </value>
+						<t>       0.28000000 </t>
+						<value>       0.02400000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.29000000000000009000 </t>
-						<value>       0.02676629882987931500 </value>
+						<t>       0.29000000 </t>
+						<value>       0.02676630 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.30000000000000010000 </t>
-						<value>       0.02400000000000001800 </value>
+						<t>       0.30000000 </t>
+						<value>       0.02400000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.31000000000000011000 </t>
-						<value>       0.02200000000000000900 </value>
+						<t>       0.31000000 </t>
+						<value>       0.02200000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.32000000000000012000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.32000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.33000000000000013000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.33000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.34000000000000014000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.34000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.35000000000000014000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.35000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.36000000000000015000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.36000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.37000000000000016000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.37000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.38000000000000017000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.38000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.39000000000000018000 </t>
-						<value>       0.05180453100483811000 </value>
+						<t>       0.39000000 </t>
+						<value>       0.05180453 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.40000000000000019000 </t>
-						<value>       0.14283616822289308000 </value>
+						<t>       0.40000000 </t>
+						<value>       0.14283617 </value>
 					</ControlLinearNode>
 				</x_nodes>
 				<min_nodes/>
 				<max_nodes/>
-				<kp>     100.00000000000000000000 </kp>
-				<kv>      20.00000000000000000000 </kv>
+				<kp>     100.00000000 </kp>
+				<kv>      20.00000000 </kv>
 			</ControlLinear>
 			<ControlLinear name="vas_int_r.excitation">
 				<is_model_control> true </is_model_control>
 				<extrapolate> true </extrapolate>
-				<default_min>       0.02000000000000000000 </default_min>
-				<default_max>       1.00000000000000000000 </default_max>
+				<default_min>       0.02000000 </default_min>
+				<default_max>       1.00000000 </default_max>
 				<filter_on> false </filter_on>
 				<use_steps> true </use_steps>
 				<x_nodes>
 					<ControlLinearNode name="">
-						<t>       0.00000000000000000000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.00000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.01000000000000000000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.01000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.02000000000000000000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.02000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.02999999999999999900 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.03000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.04000000000000000100 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.04000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.05000000000000000300 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.05000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.06000000000000000500 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.06000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.07000000000000000700 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.07000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.08000000000000000200 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.08000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.08999999999999999700 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.09000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.09999999999999999200 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.10000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.10999999999999999000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.11000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.11999999999999998000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.12000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.12999999999999998000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.13000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.13999999999999999000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.14000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.14999999999999999000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.15000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.16000000000000000000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.16000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.17000000000000001000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.17000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.18000000000000002000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.18000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.19000000000000003000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.19000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.20000000000000004000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.20000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.21000000000000005000 </t>
-						<value>       0.02353327909958058400 </value>
+						<t>       0.21000000 </t>
+						<value>       0.02353328 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.22000000000000006000 </t>
-						<value>       0.02545254478856534600 </value>
+						<t>       0.22000000 </t>
+						<value>       0.02545254 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.23000000000000007000 </t>
-						<value>       0.02400000000000001800 </value>
+						<t>       0.23000000 </t>
+						<value>       0.02400000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.24000000000000007000 </t>
-						<value>       0.02711039653437067800 </value>
+						<t>       0.24000000 </t>
+						<value>       0.02711040 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.25000000000000006000 </t>
-						<value>       0.03246997905534062400 </value>
+						<t>       0.25000000 </t>
+						<value>       0.03246998 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.26000000000000006000 </t>
-						<value>       0.05067935161896386400 </value>
+						<t>       0.26000000 </t>
+						<value>       0.05067935 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.27000000000000007000 </t>
-						<value>       0.06321874223965251400 </value>
+						<t>       0.27000000 </t>
+						<value>       0.06321874 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.28000000000000008000 </t>
-						<value>       0.08372740027309688600 </value>
+						<t>       0.28000000 </t>
+						<value>       0.08372740 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.29000000000000009000 </t>
-						<value>       0.09947507586769269200 </value>
+						<t>       0.29000000 </t>
+						<value>       0.09947508 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.30000000000000010000 </t>
-						<value>       0.09905372030996331700 </value>
+						<t>       0.30000000 </t>
+						<value>       0.09905372 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.31000000000000011000 </t>
-						<value>       0.03118847253646000000 </value>
+						<t>       0.31000000 </t>
+						<value>       0.03118847 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.32000000000000012000 </t>
-						<value>       0.02200000000000000900 </value>
+						<t>       0.32000000 </t>
+						<value>       0.02200000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.33000000000000013000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.33000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.34000000000000014000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.34000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.35000000000000014000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.35000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.36000000000000015000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.36000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.37000000000000016000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.37000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.38000000000000017000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.38000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.39000000000000018000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.39000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.40000000000000019000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.40000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 				</x_nodes>
 				<min_nodes/>
 				<max_nodes/>
-				<kp>     100.00000000000000000000 </kp>
-				<kv>      20.00000000000000000000 </kv>
+				<kp>     100.00000000 </kp>
+				<kv>      20.00000000 </kv>
 			</ControlLinear>
 			<ControlLinear name="med_gas_r.excitation">
 				<is_model_control> true </is_model_control>
 				<extrapolate> true </extrapolate>
-				<default_min>       0.02000000000000000000 </default_min>
-				<default_max>       1.00000000000000000000 </default_max>
+				<default_min>       0.02000000 </default_min>
+				<default_max>       1.00000000 </default_max>
 				<filter_on> false </filter_on>
 				<use_steps> true </use_steps>
 				<x_nodes>
 					<ControlLinearNode name="">
-						<t>       0.00000000000000000000 </t>
-						<value>       0.19695833239461838000 </value>
+						<t>       0.00000000 </t>
+						<value>       0.19695833 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.01000000000000000000 </t>
-						<value>       0.10847916619730918000 </value>
+						<t>       0.01000000 </t>
+						<value>       0.10847917 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.02000000000000000000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.02000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.02999999999999999900 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.03000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.04000000000000000100 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.04000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.05000000000000000300 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.05000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.06000000000000000500 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.06000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.07000000000000000700 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.07000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.08000000000000000200 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.08000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.08999999999999999700 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.09000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.09999999999999999200 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.10000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.10999999999999999000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.11000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.11999999999999998000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.12000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.12999999999999998000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.13000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.13999999999999999000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.14000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.14999999999999999000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.15000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.16000000000000000000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.16000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.17000000000000001000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.17000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.18000000000000002000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.18000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.19000000000000003000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.19000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.20000000000000004000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.20000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.21000000000000005000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.21000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.22000000000000006000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.22000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.23000000000000007000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.23000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.24000000000000007000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.24000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.25000000000000006000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.25000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.26000000000000006000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.26000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.27000000000000007000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.27000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.28000000000000008000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.28000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.29000000000000009000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.29000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.30000000000000010000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.30000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.31000000000000011000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.31000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.32000000000000012000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.32000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.33000000000000013000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.33000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.34000000000000014000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.34000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.35000000000000014000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.35000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.36000000000000015000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.36000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.37000000000000016000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.37000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.38000000000000017000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.38000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.39000000000000018000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.39000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.40000000000000019000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.40000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 				</x_nodes>
 				<min_nodes/>
 				<max_nodes/>
-				<kp>     100.00000000000000000000 </kp>
-				<kv>      20.00000000000000000000 </kv>
+				<kp>     100.00000000 </kp>
+				<kv>      20.00000000 </kv>
 			</ControlLinear>
 			<ControlLinear name="soleus_r.excitation">
 				<is_model_control> true </is_model_control>
 				<extrapolate> true </extrapolate>
-				<default_min>       0.02000000000000000000 </default_min>
-				<default_max>       1.00000000000000000000 </default_max>
+				<default_min>       0.02000000 </default_min>
+				<default_max>       1.00000000 </default_max>
 				<filter_on> false </filter_on>
 				<use_steps> true </use_steps>
 				<x_nodes>
 					<ControlLinearNode name="">
-						<t>       0.00000000000000000000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.00000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.01000000000000000000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.01000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.02000000000000000000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.02000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.02999999999999999900 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.03000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.04000000000000000100 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.04000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.05000000000000000300 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.05000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.06000000000000000500 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.06000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.07000000000000000700 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.07000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.08000000000000000200 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.08000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.08999999999999999700 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.09000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.09999999999999999200 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.10000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.10999999999999999000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.11000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.11999999999999998000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.12000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.12999999999999998000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.13000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.13999999999999999000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.14000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.14999999999999999000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.15000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.16000000000000000000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.16000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.17000000000000001000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.17000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.18000000000000002000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.18000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.19000000000000003000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.19000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.20000000000000004000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.20000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.21000000000000005000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.21000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.22000000000000006000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.22000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.23000000000000007000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.23000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.24000000000000007000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.24000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.25000000000000006000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.25000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.26000000000000006000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.26000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.27000000000000007000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.27000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.28000000000000008000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.28000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.29000000000000009000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.29000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.30000000000000010000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.30000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.31000000000000011000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.31000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.32000000000000012000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.32000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.33000000000000013000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.33000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.34000000000000014000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.34000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.35000000000000014000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.35000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.36000000000000015000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.36000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.37000000000000016000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.37000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.38000000000000017000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.38000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.39000000000000018000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.39000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.40000000000000019000 </t>
-						<value>       0.02000000000000000000 </value>
+						<t>       0.40000000 </t>
+						<value>       0.02000000 </value>
 					</ControlLinearNode>
 				</x_nodes>
 				<min_nodes/>
 				<max_nodes/>
-				<kp>     100.00000000000000000000 </kp>
-				<kv>      20.00000000000000000000 </kv>
+				<kp>     100.00000000 </kp>
+				<kv>      20.00000000 </kv>
 			</ControlLinear>
 			<ControlLinear name="tib_ant_r.excitation">
 				<is_model_control> true </is_model_control>
 				<extrapolate> true </extrapolate>
-				<default_min>       0.02000000000000000000 </default_min>
-				<default_max>       1.00000000000000000000 </default_max>
+				<default_min>       0.02000000 </default_min>
+				<default_max>       1.00000000 </default_max>
 				<filter_on> false </filter_on>
 				<use_steps> true </use_steps>
 				<x_nodes>
 					<ControlLinearNode name="">
-						<t>       0.00000000000000000000 </t>
-						<value>       0.16065751975193424000 </value>
+						<t>       0.00000000 </t>
+						<value>       0.16065752 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.01000000000000000000 </t>
-						<value>       0.21177462000419039000 </value>
+						<t>       0.01000000 </t>
+						<value>       0.21177462 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.02000000000000000000 </t>
-						<value>       0.29625151587454696000 </value>
+						<t>       0.02000000 </t>
+						<value>       0.29625152 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.02999999999999999900 </t>
-						<value>       0.32486304771601643000 </value>
+						<t>       0.03000000 </t>
+						<value>       0.32486305 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.04000000000000000100 </t>
-						<value>       0.40261705162885686000 </value>
+						<t>       0.04000000 </t>
+						<value>       0.40261705 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.05000000000000000300 </t>
-						<value>       0.41074121313318374000 </value>
+						<t>       0.05000000 </t>
+						<value>       0.41074121 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.06000000000000000500 </t>
-						<value>       0.43399198847369491000 </value>
+						<t>       0.06000000 </t>
+						<value>       0.43399199 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.07000000000000000700 </t>
-						<value>       0.38131330430490279000 </value>
+						<t>       0.07000000 </t>
+						<value>       0.38131330 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.08000000000000000200 </t>
-						<value>       0.26085869574800230000 </value>
+						<t>       0.08000000 </t>
+						<value>       0.26085870 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.08999999999999999700 </t>
-						<value>       0.31444335369140242000 </value>
+						<t>       0.09000000 </t>
+						<value>       0.31444335 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.09999999999999999200 </t>
-						<value>       0.27367087824122571000 </value>
+						<t>       0.10000000 </t>
+						<value>       0.27367088 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.10999999999999999000 </t>
-						<value>       0.21570817750055318000 </value>
+						<t>       0.11000000 </t>
+						<value>       0.21570818 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.11999999999999998000 </t>
-						<value>       0.24851099244518748000 </value>
+						<t>       0.12000000 </t>
+						<value>       0.24851099 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.12999999999999998000 </t>
-						<value>       0.22851567325557731000 </value>
+						<t>       0.13000000 </t>
+						<value>       0.22851567 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.13999999999999999000 </t>
-						<value>       0.23828063353397683000 </value>
+						<t>       0.14000000 </t>
+						<value>       0.23828063 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.14999999999999999000 </t>
-						<value>       0.24165547635978110000 </value>
+						<t>       0.15000000 </t>
+						<value>       0.24165548 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.16000000000000000000 </t>
-						<value>       0.26159569391598825000 </value>
+						<t>       0.16000000 </t>
+						<value>       0.26159569 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.17000000000000001000 </t>
-						<value>       0.26736838260372975000 </value>
+						<t>       0.17000000 </t>
+						<value>       0.26736838 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.18000000000000002000 </t>
-						<value>       0.27668147275679700000 </value>
+						<t>       0.18000000 </t>
+						<value>       0.27668147 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.19000000000000003000 </t>
-						<value>       0.28150366256111875000 </value>
+						<t>       0.19000000 </t>
+						<value>       0.28150366 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.20000000000000004000 </t>
-						<value>       0.29229362334039083000 </value>
+						<t>       0.20000000 </t>
+						<value>       0.29229362 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.21000000000000005000 </t>
-						<value>       0.29854682793918452000 </value>
+						<t>       0.21000000 </t>
+						<value>       0.29854683 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.22000000000000006000 </t>
-						<value>       0.30816312157932846000 </value>
+						<t>       0.22000000 </t>
+						<value>       0.30816312 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.23000000000000007000 </t>
-						<value>       0.31362294148014197000 </value>
+						<t>       0.23000000 </t>
+						<value>       0.31362294 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.24000000000000007000 </t>
-						<value>       0.32590277198135598000 </value>
+						<t>       0.24000000 </t>
+						<value>       0.32590277 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.25000000000000006000 </t>
-						<value>       0.31904932728856639000 </value>
+						<t>       0.25000000 </t>
+						<value>       0.31904933 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.26000000000000006000 </t>
-						<value>       0.33673391621171728000 </value>
+						<t>       0.26000000 </t>
+						<value>       0.33673392 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.27000000000000007000 </t>
-						<value>       0.32423484443987116000 </value>
+						<t>       0.27000000 </t>
+						<value>       0.32423484 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.28000000000000008000 </t>
-						<value>       0.33717526145282523000 </value>
+						<t>       0.28000000 </t>
+						<value>       0.33717526 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.29000000000000009000 </t>
-						<value>       0.32358633351060584000 </value>
+						<t>       0.29000000 </t>
+						<value>       0.32358633 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.30000000000000010000 </t>
-						<value>       0.33000392011061669000 </value>
+						<t>       0.30000000 </t>
+						<value>       0.33000392 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.31000000000000011000 </t>
-						<value>       0.31603345356984369000 </value>
+						<t>       0.31000000 </t>
+						<value>       0.31603345 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.32000000000000012000 </t>
-						<value>       0.30150471446023441000 </value>
+						<t>       0.32000000 </t>
+						<value>       0.30150471 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.33000000000000013000 </t>
-						<value>       0.28718989484326024000 </value>
+						<t>       0.33000000 </t>
+						<value>       0.28718989 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.34000000000000014000 </t>
-						<value>       0.27799017710698787000 </value>
+						<t>       0.34000000 </t>
+						<value>       0.27799018 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.35000000000000014000 </t>
-						<value>       0.27727091586286873000 </value>
+						<t>       0.35000000 </t>
+						<value>       0.27727092 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.36000000000000015000 </t>
-						<value>       0.27430070082427571000 </value>
+						<t>       0.36000000 </t>
+						<value>       0.27430070 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.37000000000000016000 </t>
-						<value>       0.27379596748152668000 </value>
+						<t>       0.37000000 </t>
+						<value>       0.27379597 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.38000000000000017000 </t>
-						<value>       0.27249222594160699000 </value>
+						<t>       0.38000000 </t>
+						<value>       0.27249223 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.39000000000000018000 </t>
-						<value>       0.27711552044459492000 </value>
+						<t>       0.39000000 </t>
+						<value>       0.27711552 </value>
 					</ControlLinearNode>
 					<ControlLinearNode name="">
-						<t>       0.40000000000000019000 </t>
-						<value>       0.28176309600505817000 </value>
+						<t>       0.40000000 </t>
+						<value>       0.28176310 </value>
 					</ControlLinearNode>
 				</x_nodes>
 				<min_nodes/>
 				<max_nodes/>
-				<kp>     100.00000000000000000000 </kp>
-				<kv>      20.00000000000000000000 </kv>
+				<kp>     100.00000000 </kp>
+				<kv>      20.00000000 </kv>
 			</ControlLinear>
 		</objects>
 		<groups/>

@@ -1713,7 +1713,7 @@ public final class ViewDB extends Observable implements Observer {
               Muscle m = Muscle.safeDownCast(obj);
               boolean newState = OpenSimDB.getInstance().getContext(m.getModel()).isDisabled(m);
               if (!newState){
-                  getModelVisuals(m.getModel()).addActuatorGeometry(m, true);
+                  getModelVisuals(m.getModel()).addPathActuatorGeometry(m, true);
                   toggleObjectsDisplay(m, true);
               }
               else{

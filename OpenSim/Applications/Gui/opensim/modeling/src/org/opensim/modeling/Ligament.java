@@ -56,6 +56,10 @@ public class Ligament extends Force {
     return new GeometryPath(opensimModelJNI.Ligament_getGeometryPath(swigCPtr, this), false);
   }
 
+  public boolean hasGeometryPath() {
+    return opensimModelJNI.Ligament_hasGeometryPath(swigCPtr, this);
+  }
+
   public double getLength(SWIGTYPE_p_SimTK__State s) {
     return opensimModelJNI.Ligament_getLength(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s));
   }

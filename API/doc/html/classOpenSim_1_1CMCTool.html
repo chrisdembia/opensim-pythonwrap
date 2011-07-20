@@ -68,12 +68,6 @@ Inheritance diagram for OpenSim::CMCTool:</div>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CMCTool.html#a5123294e96ce5d319d424db7d5e56180">setTaskSetFileName</a> (const std::string &amp;aFileName)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">const std::string &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CMCTool.html#a39238bee3fe7bb23eb37c1d4770527de">getRRAControlsFileName</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CMCTool.html#a25cc9b26207692a4aefe6efd332eb2c2">setRRAControlsFileName</a> (const std::string &amp;aFileName)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const std::string &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CMCTool.html#a98de827ee9847d15b60d730a9aebc0b2">getOutputModelFileName</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CMCTool.html#a14be1cc51c2bfa0c2ec27c8701e56132">setOutputModelFileName</a> (const std::string &amp;aFileName)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CMCTool.html#a1c85bc2239b9732eb06347c0ccf59510">getAdjustCOMToReduceResiduals</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CMCTool.html#ab856ae6c3798845afdc44e75f3f4a81e">setAdjustCOMToReduceResiduals</a> (bool aAdjust)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const std::string &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CMCTool.html#a5f61773ca5d6ef8895d7c308e80c8016">getAdjustedCOMBody</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CMCTool.html#ae1d512c8a99b01e116c60a46e4a1999d">setAdjustedCOMBody</a> (const std::string &amp;aBody)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CMCTool.html#a3a9335806f62a4409710798bfa5292fd">getAdjustKinematicsToReduceResiduals</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CMCTool.html#aa1081e71596f1fbef877d03d4ff9a733">setAdjustKinematicsToReduceResiduals</a> (bool aAdjust)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CMCTool.html#afc4d887d45538fd1ff4bb94a5e33b9d1">getLowpassCutoffFrequency</a> () const </td></tr>
@@ -93,16 +87,8 @@ Inheritance diagram for OpenSim::CMCTool:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Create a set of control constraints based on an RRA solution.  <a href="#a8418c098c50c4d2e9883d822dd83cb61"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CMCTool.html#a39cfe4d1a11edbd6c5d3ce2ba8af8654">initializeControlSetUsingConstraints</a> (const <a class="el" href="classOpenSim_1_1ControlSet.html">ControlSet</a> *aRRAControlSet, const <a class="el" href="classOpenSim_1_1ControlSet.html">ControlSet</a> *aControlConstraints, <a class="el" href="classOpenSim_1_1ControlSet.html">ControlSet</a> &amp;rControlSet)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> controls to use steps except for the residuals, which use linear interpolation.  <a href="#a39cfe4d1a11edbd6c5d3ce2ba8af8654"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CMCTool.html#a685395c7946bc1fef0823cb5e14abc22">adjustCOMToReduceResiduals</a> (SimTK::State &amp;s, const <a class="el" href="classOpenSim_1_1Storage.html">Storage</a> &amp;qStore, const <a class="el" href="classOpenSim_1_1Storage.html">Storage</a> &amp;uStore)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CMCTool.html#ab7f100c883a85a82893602f166792080">adjustCOMToReduceResiduals</a> (const <a class="el" href="classOpenSim_1_1Array.html">OpenSim::Array</a>&lt; double &gt; &amp;aFAve, const <a class="el" href="classOpenSim_1_1Array.html">OpenSim::Array</a>&lt; double &gt; &amp;aMAve)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Adjust the center of mass to reduce any DC offsets in MX and MZ.  <a href="#ab7f100c883a85a82893602f166792080"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CMCTool.html#ab4721575923fff07caf8c8daf3b8b34c">addNecessaryAnalyses</a> ()</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Add Actuation/Kinematics analyses if necessary.  <a href="#ab4721575923fff07caf8c8daf3b8b34c"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CMCTool.html#a5647ec7ddb9cb9836cd49e2765b4e1de">writeAdjustedModel</a> ()</td></tr>
-<tr><td colspan="2"><h2>Static Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CMCTool.html#a62a7dec5eb01029136471198d5a68ec6">computeAverageResiduals</a> (const <a class="el" href="classOpenSim_1_1Storage.html">Storage</a> &amp;aForceStore, <a class="el" href="classOpenSim_1_1Array.html">OpenSim::Array</a>&lt; double &gt; &amp;rFAve, <a class="el" href="classOpenSim_1_1Array.html">OpenSim::Array</a>&lt; double &gt; &amp;rMAve)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Compute the average residuals.  <a href="#a62a7dec5eb01029136471198d5a68ec6"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1CMCTool.html#a67cce9621f8d09ff1a85153013e2df94">computeAverageResiduals</a> (SimTK::State &amp;s, <a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;aModel, double aTi, double aTf, const <a class="el" href="classOpenSim_1_1Storage.html">Storage</a> &amp;aStatesStore, <a class="el" href="classOpenSim_1_1Array.html">OpenSim::Array</a>&lt; double &gt; &amp;rFAve, <a class="el" href="classOpenSim_1_1Array.html">OpenSim::Array</a>&lt; double &gt; &amp;rMAve)</td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
 <p>An abstract class for specifying the interface for an investigation. </p>
@@ -192,11 +178,11 @@ Inheritance diagram for OpenSim::CMCTool:</div>
 
 <p>Copy constructor. </p>
 <p>Copy constructors for all Tools do not copy the Object's DOMnode and <a class="el" href="classOpenSim_1_1XMLDocument.html" title="A class for managing and for performing operations on an XML document.">XMLDocument</a>. The reason for this is that for the object and all its derived classes to establish the correct connection to the XML document nodes, the the object would need to reconstruct based on the XML document not the values of the object's member variables.</p>
-<p>There are three proper ways to generate an XML document for a <a class="el" href="classOpenSim_1_1Tool.html" title="A Tool is an OpenSim abstraction that encasulates an analysis or series of modeling...">Tool</a>:</p>
+<p>There are three proper ways to generate an XML document for a <a class="el" href="classOpenSim_1_1Tool.html" title="A Tool is an OpenSim abstraction that encapsulates an analysis or series of modeling...">Tool</a>:</p>
 <p>1) Construction based on XML file (</p>
 <dl class="see"><dt><b>See also:</b></dt><dd>Tool(const char *aFileName)). In this case, the XML document is created by parsing the XML file.</dd></dl>
-<p>2) Construction by Tool(const XMLDocument *aDocument). This constructor explictly requests construction based on an XML document that is held in memory. In this way the proper connection between an object's node and the corresponding node within the XML document is established. This constructor is a copy constructor of sorts because all essential <a class="el" href="classOpenSim_1_1Tool.html" title="A Tool is an OpenSim abstraction that encasulates an analysis or series of modeling...">Tool</a> member variables should be held within the XML document. The advantage of this style of construction is that nodes within the XML document, such as comments that may not have any associated <a class="el" href="classOpenSim_1_1Tool.html" title="A Tool is an OpenSim abstraction that encasulates an analysis or series of modeling...">Tool</a> member variable, are preserved.</p>
-<p>3) A call to generateXMLDocument(). This method generates an XML document for the <a class="el" href="classOpenSim_1_1Tool.html" title="A Tool is an OpenSim abstraction that encasulates an analysis or series of modeling...">Tool</a> from scratch. Only the essential document nodes are created (that is, nodes that correspond directly to member variables.).</p>
+<p>2) Construction by Tool(const XMLDocument *aDocument). This constructor explictly requests construction based on an XML document that is held in memory. In this way the proper connection between an object's node and the corresponding node within the XML document is established. This constructor is a copy constructor of sorts because all essential <a class="el" href="classOpenSim_1_1Tool.html" title="A Tool is an OpenSim abstraction that encapsulates an analysis or series of modeling...">Tool</a> member variables should be held within the XML document. The advantage of this style of construction is that nodes within the XML document, such as comments that may not have any associated <a class="el" href="classOpenSim_1_1Tool.html" title="A Tool is an OpenSim abstraction that encapsulates an analysis or series of modeling...">Tool</a> member variable, are preserved.</p>
+<p>3) A call to generateXMLDocument(). This method generates an XML document for the <a class="el" href="classOpenSim_1_1Tool.html" title="A Tool is an OpenSim abstraction that encapsulates an analysis or series of modeling...">Tool</a> from scratch. Only the essential document nodes are created (that is, nodes that correspond directly to member variables.).</p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>aTool</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Object.html" title="Class Oject is intended to be used as the base class for all OpenSim objects.">Object</a> to be copied. </td></tr>
@@ -228,174 +214,6 @@ generateXMLDocument() </dd></dl>
 <div class="memdoc">
 
 <p>Add Actuation/Kinematics analyses if necessary. </p>
-
-</div>
-</div>
-<a class="anchor" id="ab7f100c883a85a82893602f166792080"></a><!-- doxytag: member="OpenSim::CMCTool::adjustCOMToReduceResiduals" ref="ab7f100c883a85a82893602f166792080" args="(const OpenSim::Array&lt; double &gt; &amp;aFAve, const OpenSim::Array&lt; double &gt; &amp;aMAve)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void CMCTool::adjustCOMToReduceResiduals </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classOpenSim_1_1Array.html">OpenSim::Array</a>&lt; double &gt; &amp;&nbsp;</td>
-          <td class="paramname"> <em>aFAve</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classOpenSim_1_1Array.html">OpenSim::Array</a>&lt; double &gt; &amp;&nbsp;</td>
-          <td class="paramname"> <em>aMAve</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Adjust the center of mass to reduce any DC offsets in MX and MZ. </p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>aFAve</em>&nbsp;</td><td>The average residual forces. The dimension of aFAve should be 3. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>aMAve</em>&nbsp;</td><td>The average residual moments. The dimension of aMAve should be 3. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="a685395c7946bc1fef0823cb5e14abc22"></a><!-- doxytag: member="OpenSim::CMCTool::adjustCOMToReduceResiduals" ref="a685395c7946bc1fef0823cb5e14abc22" args="(SimTK::State &amp;s, const Storage &amp;qStore, const Storage &amp;uStore)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void CMCTool::adjustCOMToReduceResiduals </td>
-          <td>(</td>
-          <td class="paramtype">SimTK::State &amp;&nbsp;</td>
-          <td class="paramname"> <em>s</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classOpenSim_1_1Storage.html">Storage</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>qStore</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classOpenSim_1_1Storage.html">Storage</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>uStore</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a67cce9621f8d09ff1a85153013e2df94"></a><!-- doxytag: member="OpenSim::CMCTool::computeAverageResiduals" ref="a67cce9621f8d09ff1a85153013e2df94" args="(SimTK::State &amp;s, Model &amp;aModel, double aTi, double aTf, const Storage &amp;aStatesStore, OpenSim::Array&lt; double &gt; &amp;rFAve, OpenSim::Array&lt; double &gt; &amp;rMAve)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void CMCTool::computeAverageResiduals </td>
-          <td>(</td>
-          <td class="paramtype">SimTK::State &amp;&nbsp;</td>
-          <td class="paramname"> <em>s</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>aModel</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&nbsp;</td>
-          <td class="paramname"> <em>aTi</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&nbsp;</td>
-          <td class="paramname"> <em>aTf</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classOpenSim_1_1Storage.html">Storage</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>aStatesStore</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classOpenSim_1_1Array.html">OpenSim::Array</a>&lt; double &gt; &amp;&nbsp;</td>
-          <td class="paramname"> <em>rFAve</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classOpenSim_1_1Array.html">OpenSim::Array</a>&lt; double &gt; &amp;&nbsp;</td>
-          <td class="paramname"> <em>rMAve</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td><code> [static]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a62a7dec5eb01029136471198d5a68ec6"></a><!-- doxytag: member="OpenSim::CMCTool::computeAverageResiduals" ref="a62a7dec5eb01029136471198d5a68ec6" args="(const Storage &amp;aForceStore, OpenSim::Array&lt; double &gt; &amp;rFAve, OpenSim::Array&lt; double &gt; &amp;rMAve)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void CMCTool::computeAverageResiduals </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classOpenSim_1_1Storage.html">Storage</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>aForceStore</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classOpenSim_1_1Array.html">OpenSim::Array</a>&lt; double &gt; &amp;&nbsp;</td>
-          <td class="paramname"> <em>rFAve</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classOpenSim_1_1Array.html">OpenSim::Array</a>&lt; double &gt; &amp;&nbsp;</td>
-          <td class="paramname"> <em>rMAve</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td><code> [static]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Compute the average residuals. </p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>rFAve</em>&nbsp;</td><td>The computed average force residuals. The size of rFAve is set to 3. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>rMAve</em>&nbsp;</td><td>The computed average moment residuals. The size of rMAve is set to 3. </td></tr>
-  </table>
-  </dd>
-</dl>
 
 </div>
 </div>
@@ -445,40 +263,6 @@ generateXMLDocument() </dd></dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>Copy of this object. </dd></dl>
 
 <p>Reimplemented from <a class="el" href="classOpenSim_1_1Object.html#a2000b12522f6f79a8918991b819a4bb7">OpenSim::Object</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a1c85bc2239b9732eb06347c0ccf59510"></a><!-- doxytag: member="OpenSim::CMCTool::getAdjustCOMToReduceResiduals" ref="a1c85bc2239b9732eb06347c0ccf59510" args="()" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool OpenSim::CMCTool::getAdjustCOMToReduceResiduals </td>
-          <td>(</td>
-          <td class="paramname"></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td><code> [inline]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a5f61773ca5d6ef8895d7c308e80c8016"></a><!-- doxytag: member="OpenSim::CMCTool::getAdjustedCOMBody" ref="a5f61773ca5d6ef8895d7c308e80c8016" args="()" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const std::string&amp; OpenSim::CMCTool::getAdjustedCOMBody </td>
-          <td>(</td>
-          <td class="paramname"></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td><code> [inline]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
 
 </div>
 </div>
@@ -600,23 +384,6 @@ generateXMLDocument() </dd></dl>
           <td class="paramname"></td>
           <td>&nbsp;)&nbsp;</td>
           <td> const<code> [inline]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a98de827ee9847d15b60d730a9aebc0b2"></a><!-- doxytag: member="OpenSim::CMCTool::getOutputModelFileName" ref="a98de827ee9847d15b60d730a9aebc0b2" args="()" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const std::string&amp; OpenSim::CMCTool::getOutputModelFileName </td>
-          <td>(</td>
-          <td class="paramname"></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td><code> [inline]</code></td>
         </tr>
       </table>
 </div>
@@ -779,42 +546,6 @@ generateXMLDocument() </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="ab856ae6c3798845afdc44e75f3f4a81e"></a><!-- doxytag: member="OpenSim::CMCTool::setAdjustCOMToReduceResiduals" ref="ab856ae6c3798845afdc44e75f3f4a81e" args="(bool aAdjust)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void OpenSim::CMCTool::setAdjustCOMToReduceResiduals </td>
-          <td>(</td>
-          <td class="paramtype">bool&nbsp;</td>
-          <td class="paramname"> <em>aAdjust</em></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td><code> [inline]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="ae1d512c8a99b01e116c60a46e4a1999d"></a><!-- doxytag: member="OpenSim::CMCTool::setAdjustedCOMBody" ref="ae1d512c8a99b01e116c60a46e4a1999d" args="(const std::string &amp;aBody)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void OpenSim::CMCTool::setAdjustedCOMBody </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&nbsp;</td>
-          <td class="paramname"> <em>aBody</em></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td><code> [inline]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
 <a class="anchor" id="aa1081e71596f1fbef877d03d4ff9a733"></a><!-- doxytag: member="OpenSim::CMCTool::setAdjustKinematicsToReduceResiduals" ref="aa1081e71596f1fbef877d03d4ff9a733" args="(bool aAdjust)" -->
 <div class="memitem">
 <div class="memproto">
@@ -943,24 +674,6 @@ generateXMLDocument() </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="a14be1cc51c2bfa0c2ec27c8701e56132"></a><!-- doxytag: member="OpenSim::CMCTool::setOutputModelFileName" ref="a14be1cc51c2bfa0c2ec27c8701e56132" args="(const std::string &amp;aFileName)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void OpenSim::CMCTool::setOutputModelFileName </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&nbsp;</td>
-          <td class="paramname"> <em>aFileName</em></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td><code> [inline]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
 <a class="anchor" id="a25cc9b26207692a4aefe6efd332eb2c2"></a><!-- doxytag: member="OpenSim::CMCTool::setRRAControlsFileName" ref="a25cc9b26207692a4aefe6efd332eb2c2" args="(const std::string &amp;aFileName)" -->
 <div class="memitem">
 <div class="memproto">
@@ -1033,29 +746,12 @@ generateXMLDocument() </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="a5647ec7ddb9cb9836cd49e2765b4e1de"></a><!-- doxytag: member="OpenSim::CMCTool::writeAdjustedModel" ref="a5647ec7ddb9cb9836cd49e2765b4e1de" args="()" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void CMCTool::writeAdjustedModel </td>
-          <td>(</td>
-          <td class="paramname"></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>OpenSim/Tools/CMCTool.h</li>
 <li>OpenSim/Tools/CMCTool.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sat Mar 12 12:28:37 2011 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Jun 5 10:14:20 2011 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

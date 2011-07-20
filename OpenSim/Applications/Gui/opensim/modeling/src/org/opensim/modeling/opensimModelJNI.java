@@ -7,7 +7,8 @@
  * ----------------------------------------------------------------------------- */
 
 package org.opensim.modeling;
-import org.opensim.utils.TheApp;
+
+import javax.swing.JOptionPane;
 public class opensimModelJNI {
 
   static {
@@ -15,7 +16,7 @@ public class opensimModelJNI {
         System.loadLibrary("osimJavaJNI");		// All OpenSim classes required for GUI operation.
       }
       catch(UnsatisfiedLinkError e){
-           TheApp.exitApp("Required library failed to load. Check that the dynamic library osimJavaJNI is in your PATH\n"+e);
+           new JOptionPane("Required library failed to load. Check that the dynamic library osimJavaJNI is in your PATH\n"+e, JOptionPane.ERROR_MESSAGE).createDialog(null, "Error").setVisible(true);
       }
   }
 
@@ -1258,6 +1259,9 @@ public class opensimModelJNI {
   public final static native void SetModelComponents_getGroupNames(long jarg1, SetModelComponents jarg1_, long jarg2, ArrayStr jarg2_);
   public final static native long SetModelComponents_getGroup__SWIG_0(long jarg1, SetModelComponents jarg1_, String jarg2);
   public final static native long SetModelComponents_getGroup__SWIG_1(long jarg1, SetModelComponents jarg1_, int jarg2);
+  public final static native void delete_ArrayPtrsModelComponent(long jarg1);
+  public final static native long new_ArrayPtrsModelComponent__SWIG_0(int jarg1);
+  public final static native long new_ArrayPtrsModelComponent__SWIG_1();
   public final static native void delete_Force(long jarg1);
   public final static native void Force_copyData(long jarg1, Force jarg1_, long jarg2, Force jarg2_);
   public final static native long Force_copy__SWIG_0(long jarg1, Force jarg1_);
@@ -3361,6 +3365,7 @@ public class opensimModelJNI {
   public final static native long Ligament_copy__SWIG_0(long jarg1, Ligament jarg1_);
   public final static native void Ligament_copyData(long jarg1, Ligament jarg1_, long jarg2, Ligament jarg2_);
   public final static native long Ligament_getGeometryPath(long jarg1, Ligament jarg1_);
+  public final static native boolean Ligament_hasGeometryPath(long jarg1, Ligament jarg1_);
   public final static native double Ligament_getLength(long jarg1, Ligament jarg1_, long jarg2);
   public final static native double Ligament_getRestingLength(long jarg1, Ligament jarg1_);
   public final static native boolean Ligament_setRestingLength(long jarg1, Ligament jarg1_, double jarg2);
@@ -3386,6 +3391,7 @@ public class opensimModelJNI {
   public final static native void PathActuator_copyData(long jarg1, PathActuator jarg1_, long jarg2, PathActuator jarg2_);
   public final static native long PathActuator_updGeometryPath(long jarg1, PathActuator jarg1_);
   public final static native long PathActuator_getGeometryPath(long jarg1, PathActuator jarg1_);
+  public final static native boolean PathActuator_hasGeometryPath(long jarg1, PathActuator jarg1_);
   public final static native void PathActuator_setOptimalForce(long jarg1, PathActuator jarg1_, double jarg2);
   public final static native double PathActuator_getOptimalForce(long jarg1, PathActuator jarg1_);
   public final static native double PathActuator_getLength(long jarg1, PathActuator jarg1_, long jarg2);
@@ -3457,20 +3463,28 @@ public class opensimModelJNI {
   public final static native void ActivationFiberLengthMuscle_setDefaultActivation(long jarg1, ActivationFiberLengthMuscle jarg1_, double jarg2);
   public final static native double ActivationFiberLengthMuscle_getDefaultFiberLength(long jarg1, ActivationFiberLengthMuscle jarg1_);
   public final static native void ActivationFiberLengthMuscle_setDefaultFiberLength(long jarg1, ActivationFiberLengthMuscle jarg1_, double jarg2);
-  public final static native double ActivationFiberLengthMuscle_getTendonLength(long jarg1, ActivationFiberLengthMuscle jarg1_, long jarg2);
   public final static native double ActivationFiberLengthMuscle_getFiberLength(long jarg1, ActivationFiberLengthMuscle jarg1_, long jarg2);
   public final static native void ActivationFiberLengthMuscle_setFiberLength(long jarg1, ActivationFiberLengthMuscle jarg1_, long jarg2, double jarg3);
+  public final static native double ActivationFiberLengthMuscle_getFiberLengthDeriv(long jarg1, ActivationFiberLengthMuscle jarg1_, long jarg2);
+  public final static native void ActivationFiberLengthMuscle_setFiberLengthDeriv(long jarg1, ActivationFiberLengthMuscle jarg1_, long jarg2, double jarg3);
   public final static native double ActivationFiberLengthMuscle_getNormalizedFiberLength(long jarg1, ActivationFiberLengthMuscle jarg1_, long jarg2);
   public final static native double ActivationFiberLengthMuscle_getFiberLengthAlongTendon(long jarg1, ActivationFiberLengthMuscle jarg1_, long jarg2);
+  public final static native double ActivationFiberLengthMuscle_getTendonLength(long jarg1, ActivationFiberLengthMuscle jarg1_, long jarg2);
   public final static native double ActivationFiberLengthMuscle_getFiberForce(long jarg1, ActivationFiberLengthMuscle jarg1_, long jarg2);
   public final static native double ActivationFiberLengthMuscle_getActiveFiberForce(long jarg1, ActivationFiberLengthMuscle jarg1_, long jarg2);
   public final static native double ActivationFiberLengthMuscle_getPassiveFiberForce(long jarg1, ActivationFiberLengthMuscle jarg1_, long jarg2);
   public final static native double ActivationFiberLengthMuscle_getActiveFiberForceAlongTendon(long jarg1, ActivationFiberLengthMuscle jarg1_, long jarg2);
   public final static native double ActivationFiberLengthMuscle_getPassiveFiberForceAlongTendon(long jarg1, ActivationFiberLengthMuscle jarg1_, long jarg2);
+  public final static native double ActivationFiberLengthMuscle_getPassiveForce(long jarg1, ActivationFiberLengthMuscle jarg1_, long jarg2);
+  public final static native void ActivationFiberLengthMuscle_setPassiveForce(long jarg1, ActivationFiberLengthMuscle jarg1_, long jarg2, double jarg3);
   public final static native double ActivationFiberLengthMuscle_getTendonForce(long jarg1, ActivationFiberLengthMuscle jarg1_, long jarg2);
+  public final static native void ActivationFiberLengthMuscle_setTendonForce(long jarg1, ActivationFiberLengthMuscle jarg1_, long jarg2, double jarg3);
   public final static native double ActivationFiberLengthMuscle_getActivation(long jarg1, ActivationFiberLengthMuscle jarg1_, long jarg2);
   public final static native void ActivationFiberLengthMuscle_setActivation(long jarg1, ActivationFiberLengthMuscle jarg1_, long jarg2, double jarg3);
+  public final static native double ActivationFiberLengthMuscle_getActivationDeriv(long jarg1, ActivationFiberLengthMuscle jarg1_, long jarg2);
+  public final static native void ActivationFiberLengthMuscle_setActivationDeriv(long jarg1, ActivationFiberLengthMuscle jarg1_, long jarg2, double jarg3);
   public final static native double ActivationFiberLengthMuscle_getExcitation(long jarg1, ActivationFiberLengthMuscle jarg1_, long jarg2);
+  public final static native double ActivationFiberLengthMuscle_getStress(long jarg1, ActivationFiberLengthMuscle jarg1_, long jarg2);
   public final static native double ActivationFiberLengthMuscle_computeActuation(long jarg1, ActivationFiberLengthMuscle jarg1_, long jarg2);
   public final static native double ActivationFiberLengthMuscle_computeIsometricForce(long jarg1, ActivationFiberLengthMuscle jarg1_, long jarg2, double jarg3);
   public final static native double ActivationFiberLengthMuscle_computeIsokineticForceAssumingInfinitelyStiffTendon(long jarg1, ActivationFiberLengthMuscle jarg1_, long jarg2, double jarg3);
@@ -3933,6 +3947,8 @@ public class opensimModelJNI {
   public final static native void MarkerPlacer_copyData(long jarg1, MarkerPlacer jarg1_, long jarg2, MarkerPlacer jarg2_);
   public final static native boolean MarkerPlacer_processModel__SWIG_0(long jarg1, MarkerPlacer jarg1_, long jarg2, long jarg3, Model jarg3_, String jarg4);
   public final static native boolean MarkerPlacer_processModel__SWIG_1(long jarg1, MarkerPlacer jarg1_, long jarg2, long jarg3, Model jarg3_);
+  public final static native boolean MarkerPlacer_getApply(long jarg1, MarkerPlacer jarg1_);
+  public final static native void MarkerPlacer_setApply(long jarg1, MarkerPlacer jarg1_, boolean jarg2);
   public final static native String MarkerPlacer_getStaticPoseFileName(long jarg1, MarkerPlacer jarg1_);
   public final static native void MarkerPlacer_setStaticPoseFileName(long jarg1, MarkerPlacer jarg1_, String jarg2);
   public final static native long MarkerPlacer_getTimeRange(long jarg1, MarkerPlacer jarg1_);
@@ -4002,12 +4018,18 @@ public class opensimModelJNI {
   public final static native double InverseKinematicsSolver_computeCurrentSquaredMarkerError__SWIG_0(long jarg1, InverseKinematicsSolver jarg1_, String jarg2);
   public final static native double InverseKinematicsSolver_computeCurrentSquaredMarkerError__SWIG_1(long jarg1, InverseKinematicsSolver jarg1_, int jarg2);
   public final static native void InverseKinematicsSolver_computeCurrentSquaredMarkerErrors(long jarg1, InverseKinematicsSolver jarg1_, long jarg2);
+  public final static native int Tool_Quiet_get();
+  public final static native int Tool_Progress_get();
+  public final static native int Tool_DetailedProgress_get();
+  public final static native int Tool_Debug_get();
   public final static native void delete_Tool(long jarg1);
   public final static native boolean Tool_run(long jarg1, Tool jarg1_) throws java.io.IOException;
   public final static native String Tool_getInputsDir(long jarg1, Tool jarg1_);
   public final static native void Tool_setInputsDir(long jarg1, Tool jarg1_, String jarg2);
   public final static native String Tool_getResultsDir(long jarg1, Tool jarg1_);
   public final static native void Tool_setResultsDir(long jarg1, Tool jarg1_, String jarg2);
+  public final static native int Tool_getVerboseLevel(long jarg1, Tool jarg1_);
+  public final static native void Tool_setVerboseLevel(long jarg1, Tool jarg1_, int jarg2);
   public final static native void delete_DynamicsTool(long jarg1);
   public final static native long DynamicsTool_copy(long jarg1, DynamicsTool jarg1_);
   public final static native void DynamicsTool_disableModelForces(long jarg1, DynamicsTool jarg1_, long jarg2, Model jarg2_, long jarg3, long jarg4, ArrayStr jarg4_);
@@ -4032,6 +4054,8 @@ public class opensimModelJNI {
   public final static native long InverseDynamicsTool_copy(long jarg1, InverseDynamicsTool jarg1_);
   public final static native void InverseDynamicsTool_registerTypes();
   public final static native void InverseDynamicsTool_updateFromXMLNode(long jarg1, InverseDynamicsTool jarg1_);
+  public final static native void InverseDynamicsTool_setCoordinateValues(long jarg1, InverseDynamicsTool jarg1_, long jarg2, Storage jarg2_);
+  public final static native boolean InverseDynamicsTool_hasCoordinateValues(long jarg1, InverseDynamicsTool jarg1_);
   public final static native String InverseDynamicsTool_getOutputGenForceFileName(long jarg1, InverseDynamicsTool jarg1_);
   public final static native String InverseDynamicsTool_getCoordinatesFileName(long jarg1, InverseDynamicsTool jarg1_);
   public final static native void InverseDynamicsTool_setCoordinatesFileName(long jarg1, InverseDynamicsTool jarg1_, String jarg2);
@@ -4076,8 +4100,6 @@ public class opensimModelJNI {
   public final static native void CMCTool_setTaskSetFileName(long jarg1, CMCTool jarg1_, String jarg2);
   public final static native String CMCTool_getRRAControlsFileName(long jarg1, CMCTool jarg1_);
   public final static native void CMCTool_setRRAControlsFileName(long jarg1, CMCTool jarg1_, String jarg2);
-  public final static native boolean CMCTool_getAdjustKinematicsToReduceResiduals(long jarg1, CMCTool jarg1_);
-  public final static native void CMCTool_setAdjustKinematicsToReduceResiduals(long jarg1, CMCTool jarg1_, boolean jarg2);
   public final static native double CMCTool_getLowpassCutoffFrequency(long jarg1, CMCTool jarg1_);
   public final static native void CMCTool_setLowpassCutoffFrequency(long jarg1, CMCTool jarg1_, double jarg2);
   public final static native double CMCTool_getTimeWindow(long jarg1, CMCTool jarg1_);
@@ -4193,8 +4215,8 @@ public class opensimModelJNI {
   public final static native double OpenSimContext_getActivation(long jarg1, OpenSimContext jarg1_, long jarg2, Muscle jarg2_);
   public final static native double OpenSimContext_getMuscleLength(long jarg1, OpenSimContext jarg1_, long jarg2, Muscle jarg2_);
   public final static native long OpenSimContext_getCurrentPath(long jarg1, OpenSimContext jarg1_, long jarg2, Muscle jarg2_);
-  public final static native long OpenSimContext_getCurrentDisplayPath(long jarg1, OpenSimContext jarg1_, long jarg2, Muscle jarg2_);
-  public final static native void OpenSimContext_updateDisplayer(long jarg1, OpenSimContext jarg1_, long jarg2, Muscle jarg2_);
+  public final static native long OpenSimContext_getCurrentDisplayPath(long jarg1, OpenSimContext jarg1_, long jarg2, GeometryPath jarg2_);
+  public final static native void OpenSimContext_updateDisplayer(long jarg1, OpenSimContext jarg1_, long jarg2, Force jarg2_);
   public final static native void OpenSimContext_copyMuscle(long jarg1, OpenSimContext jarg1_, long jarg2, Muscle jarg2_, long jarg3, Muscle jarg3_);
   public final static native void OpenSimContext_setXFunction(long jarg1, OpenSimContext jarg1_, long jarg2, MovingPathPoint jarg2_, long jarg3, Function jarg3_);
   public final static native void OpenSimContext_setYFunction(long jarg1, OpenSimContext jarg1_, long jarg2, MovingPathPoint jarg2_, long jarg3, Function jarg3_);
@@ -4219,6 +4241,7 @@ public class opensimModelJNI {
   public final static native void OpenSimContext_deletePathWrap(long jarg1, OpenSimContext jarg1_, long jarg2, GeometryPath jarg2_, int jarg3);
   public final static native void OpenSimContext_setBody__SWIG_1(long jarg1, OpenSimContext jarg1_, long jarg2, Marker jarg2_, long jarg3, Body jarg3_, boolean jarg4);
   public final static native int OpenSimContext_replaceMarkerSet(long jarg1, OpenSimContext jarg1_, long jarg2, Model jarg2_, long jarg3, MarkerSet jarg3_);
+  public final static native void OpenSimContext_getCenterOfMassInGround(long jarg1, OpenSimContext jarg1_, double[] jarg2);
   public final static native int OpenSimContext_step(long jarg1, OpenSimContext jarg1_, long jarg2, Analysis jarg2_);
   public final static native boolean OpenSimContext_solveInverseKinematics(long jarg1, OpenSimContext jarg1_, long jarg2, InverseKinematicsTool jarg2_);
   public final static native void OpenSimContext_setStatesFromMotion(long jarg1, OpenSimContext jarg1_, long jarg2, AnalyzeTool jarg2_, long jarg3, Storage jarg3_, boolean jarg4);

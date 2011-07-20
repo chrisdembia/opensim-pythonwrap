@@ -35,6 +35,7 @@ import org.opensim.modeling.AnalysisSet;
 import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.ExternalLoads;
 import org.opensim.modeling.Model;
+import org.opensim.modeling.Storage;
 import org.opensim.tracking.AbstractToolModel.Operation;
 import org.opensim.utils.FileUtils;
 import org.opensim.utils.TheApp;
@@ -301,6 +302,7 @@ abstract class AbstractToolModelWithExternalLoads extends AbstractToolModel {
    public void setExternalLoadsEnabled(boolean enabled) {
         if(getExternalLoadsEnabled() != enabled) {
             externalLoadsEnabled = enabled;
+            if (!enabled) setExternalLoadsFileName("");
             setModified(AbstractToolModel.Operation.ExternalLoadsDataChanged);
         }
     }
@@ -390,5 +392,29 @@ abstract class AbstractToolModelWithExternalLoads extends AbstractToolModel {
     public ExternalLoads getExternalLoads() {
         return getTool().getExternalLoads();
     }
+}
+/**
+ * Common abstract class to be shared by CMCToolModel RRAToolModel
+ */
+abstract class TrackingToolModel extends AbstractToolModelWithExternalLoads {
+    public TrackingToolModel(Model model) { super(model); }
+
+    abstract void setFilterKinematics(boolean b);
+
+    abstract void setDesiredKinematicsFileName(String string) ;
+
+    abstract void setConstraintsEnabled(boolean b) ;
+
+    abstract void setConstraintsFileName(String string) ;
+
+    abstract void setTaskSetFileName(String string) ;
+
+
+    protected void updateToolTimeRange(Storage storage) {
+        getTool().setStartTime(storage.getFirstTime());
+        getTool().setFinalTime(storage.getLastTime());
+        setModified(Operation.TimeRangeChanged);
+    }
+
 }
 

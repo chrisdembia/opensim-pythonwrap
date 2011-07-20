@@ -55,4 +55,58 @@ public class Tool extends OpenSimObject {
     opensimModelJNI.Tool_setResultsDir(swigCPtr, this, aString);
   }
 
+  public Tool.VerboseLevel getVerboseLevel() {
+    return Tool.VerboseLevel.swigToEnum(opensimModelJNI.Tool_getVerboseLevel(swigCPtr, this));
+  }
+
+  public void setVerboseLevel(Tool.VerboseLevel aVerboseLevel) {
+    opensimModelJNI.Tool_setVerboseLevel(swigCPtr, this, aVerboseLevel.swigValue());
+  }
+
+  public final static class VerboseLevel {
+    public final static VerboseLevel Quiet = new VerboseLevel("Quiet", opensimModelJNI.Tool_Quiet_get());
+    public final static VerboseLevel Progress = new VerboseLevel("Progress", opensimModelJNI.Tool_Progress_get());
+    public final static VerboseLevel DetailedProgress = new VerboseLevel("DetailedProgress", opensimModelJNI.Tool_DetailedProgress_get());
+    public final static VerboseLevel Debug = new VerboseLevel("Debug", opensimModelJNI.Tool_Debug_get());
+
+    public final int swigValue() {
+      return swigValue;
+    }
+
+    public String toString() {
+      return swigName;
+    }
+
+    public static VerboseLevel swigToEnum(int swigValue) {
+      if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
+        return swigValues[swigValue];
+      for (int i = 0; i < swigValues.length; i++)
+        if (swigValues[i].swigValue == swigValue)
+          return swigValues[i];
+      throw new IllegalArgumentException("No enum " + VerboseLevel.class + " with value " + swigValue);
+    }
+
+    private VerboseLevel(String swigName) {
+      this.swigName = swigName;
+      this.swigValue = swigNext++;
+    }
+
+    private VerboseLevel(String swigName, int swigValue) {
+      this.swigName = swigName;
+      this.swigValue = swigValue;
+      swigNext = swigValue+1;
+    }
+
+    private VerboseLevel(String swigName, VerboseLevel swigEnum) {
+      this.swigName = swigName;
+      this.swigValue = swigEnum.swigValue;
+      swigNext = this.swigValue+1;
+    }
+
+    private static VerboseLevel[] swigValues = { Quiet, Progress, DetailedProgress, Debug };
+    private static int swigNext = 0;
+    private final int swigValue;
+    private final String swigName;
+  }
+
 }

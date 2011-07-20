@@ -1,184 +1,283 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ActuatorSet name="gait2392_RRA">
-
-	<defaults>
-
-		<Force name="default">
-			<max_force> 10000.000 </max_force>
-			<min_force> -10000.000 </min_force>
-			<optimal_force> 1000.00000000 </optimal_force>
-			<body_A> </body_A>
-			<point_A> 0.000 0.000 0.000 </point_A>
-			<direction_A> 1.000 0.000 0.000 </direction_A>
-			<body_B> </body_B>
-			<point_B> 0.000 0.000 0.000 </point_B>
-		</Force>
-
-		<Torque name="default">
-			<max_force> 1000.000 </max_force>
-			<min_force> -1000.000 </min_force>
-			<optimal_force> 300.00000000 </optimal_force>
-			<body_A> </body_A>
-			<direction_A> 1.000 0.000 0.000 </direction_A>
-			<body_B> </body_B>
-		</Torque>
-
-		<GeneralizedForce name="default">
-			<max_force> 1000.000 </max_force>
-			<min_force> -1000.000 </min_force>
-			<optimal_force> 300.00000000 </optimal_force>
-			<coordinate> </coordinate>
-		</GeneralizedForce>
-
-	</defaults>
-
+<OpenSimDocument Version="20302">
+	<ForceSet name="gait2392_RRA">
 	<objects>
-
-		<!-- Residuals -->
-
-		<Force name="FX">
-			<optimal_force> 4.0 </optimal_force>
-			<body_A> ground </body_A>
-			<point_A> 0.000 0.000 0.000 </point_A>
-			<direction_A> -1.000 0.000 0.000 </direction_A>
-			<body_B> pelvis </body_B>
-			<point_B> -0.0724376 0.00000000 0.00000000 </point_B>
-		</Force>
-
-		<Force name="FY">
-			<optimal_force> 8.0 </optimal_force>
-			<body_A> ground </body_A>
-			<point_A> 0.000 0.000 0.000 </point_A>
-			<direction_A> 0.000 -1.000 0.000 </direction_A>
-			<body_B> pelvis </body_B>
-			<point_B> -0.0724376 0.00000000 0.00000000 </point_B>
-		</Force>
-
-		<Force name="FZ">
-			<optimal_force> 4.0 </optimal_force>
-			<body_A> ground </body_A>
-			<point_A> 0.000 0.000 0.000 </point_A>
-			<direction_A> 0.000 0.000 -1.000 </direction_A>
-			<body_B> pelvis </body_B>
-			<point_B> -0.0724376 0.00000000 0.00000000 </point_B>
-		</Force>
-
-		<Torque name="MX">
-			<optimal_force> 2.0 </optimal_force>
-			<body_A> ground </body_A>
-			<direction_A> -1.000 0.000 0.000 </direction_A>
-			<body_B> pelvis </body_B>
-		</Torque>
-
-		<Torque name="MY">
-			<optimal_force> 2.0 </optimal_force>
-			<body_A> ground </body_A>
-			<direction_A> 0.000 -1.000 0.000 </direction_A>
-			<body_B> pelvis </body_B>
-		</Torque>
-
-		<Torque name="MZ">
-			<optimal_force> 2.0 </optimal_force>
-			<body_A> ground </body_A>
-			<direction_A> 0.000 0.000 -1.000 </direction_A>
-			<body_B> pelvis </body_B>
-		</Torque>
-
-
-		<!-- Right Leg -->
-
-		<GeneralizedForce name="hip_flexion_r">
+			<PointActuator name="FX">
+				<isDisabled> false </isDisabled>
+				<!--Minimum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<min_control> -infinity </min_control>
+				<!--Maximum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<max_control> infinity </max_control>
+				<body> pelvis </body>
+				<point>      -0.07243760       0.00000000       0.00000000 </point>
+				<point_is_global> false </point_is_global>
+				<direction>       1.00000000      -0.00000000      -0.00000000 </direction>
+				<force_is_global> true </force_is_global>
+				<optimal_force>       4.00000000 </optimal_force>
+			</PointActuator>
+			<PointActuator name="FY">
+				<isDisabled> false </isDisabled>
+				<!--Minimum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<min_control> -infinity </min_control>
+				<!--Maximum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<max_control> infinity </max_control>
+				<body> pelvis </body>
+				<point>      -0.07243760       0.00000000       0.00000000 </point>
+				<point_is_global> false </point_is_global>
+				<direction>      -0.00000000       1.00000000      -0.00000000 </direction>
+				<force_is_global> true </force_is_global>
+				<optimal_force>       8.00000000 </optimal_force>
+			</PointActuator>
+			<PointActuator name="FZ">
+				<isDisabled> false </isDisabled>
+				<!--Minimum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<min_control> -infinity </min_control>
+				<!--Maximum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<max_control> infinity </max_control>
+				<body> pelvis </body>
+				<point>      -0.07243760       0.00000000       0.00000000 </point>
+				<point_is_global> false </point_is_global>
+				<direction>      -0.00000000      -0.00000000       1.00000000 </direction>
+				<force_is_global> true </force_is_global>
+				<optimal_force>       4.00000000 </optimal_force>
+			</PointActuator>
+			<TorqueActuator name="MX">
+				<isDisabled> false </isDisabled>
+				<!--Minimum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<min_control> -infinity </min_control>
+				<!--Maximum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<max_control> infinity </max_control>
+				<bodyA> pelvis </bodyA>
+				<bodyB> ground </bodyB>
+				<torque_is_global> true </torque_is_global>
+				<axis>       1.00000000      -0.00000000      -0.00000000 </axis>
+				<optimal_force>       2.00000000 </optimal_force>
+			</TorqueActuator>
+			<TorqueActuator name="MY">
+				<isDisabled> false </isDisabled>
+				<!--Minimum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<min_control> -infinity </min_control>
+				<!--Maximum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<max_control> infinity </max_control>
+				<bodyA> pelvis </bodyA>
+				<bodyB> ground </bodyB>
+				<torque_is_global> true </torque_is_global>
+				<axis>      -0.00000000       1.00000000      -0.00000000 </axis>
+				<optimal_force>       2.00000000 </optimal_force>
+			</TorqueActuator>
+			<TorqueActuator name="MZ">
+				<isDisabled> false </isDisabled>
+				<!--Minimum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<min_control> -infinity </min_control>
+				<!--Maximum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<max_control> infinity </max_control>
+				<bodyA> pelvis </bodyA>
+				<bodyB> ground </bodyB>
+				<torque_is_global> true </torque_is_global>
+				<axis>      -0.00000000      -0.00000000       1.00000000 </axis>
+				<optimal_force>       2.00000000 </optimal_force>
+			</TorqueActuator>
+			<CoordinateActuator name="hip_flexion_r">
+				<isDisabled> false </isDisabled>
+				<!--Minimum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<min_control> -infinity </min_control>
+				<!--Maximum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<max_control> infinity </max_control>
 			<coordinate> hip_flexion_r </coordinate>
-			<optimal_force> 300.0 </optimal_force>
-		</GeneralizedForce>
-
-		<GeneralizedForce name="hip_adduction_r">
+				<optimal_force>     300.00000000 </optimal_force>
+			</CoordinateActuator>
+			<CoordinateActuator name="hip_adduction_r">
+				<isDisabled> false </isDisabled>
+				<!--Minimum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<min_control> -infinity </min_control>
+				<!--Maximum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<max_control> infinity </max_control>
 			<coordinate> hip_adduction_r </coordinate>
-			<optimal_force> 200.0 </optimal_force>
-		</GeneralizedForce>
-
-		<GeneralizedForce name="hip_rotation_r">
+				<optimal_force>     200.00000000 </optimal_force>
+			</CoordinateActuator>
+			<CoordinateActuator name="hip_rotation_r">
+				<isDisabled> false </isDisabled>
+				<!--Minimum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<min_control> -infinity </min_control>
+				<!--Maximum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<max_control> infinity </max_control>
 			<coordinate> hip_rotation_r </coordinate>
-			<optimal_force> 100.0 </optimal_force>
-		</GeneralizedForce>
-
-		<GeneralizedForce name="knee_angle_r">
+				<optimal_force>     100.00000000 </optimal_force>
+			</CoordinateActuator>
+			<CoordinateActuator name="knee_angle_r">
+				<isDisabled> false </isDisabled>
+				<!--Minimum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<min_control> -infinity </min_control>
+				<!--Maximum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<max_control> infinity </max_control>
 			<coordinate> knee_angle_r </coordinate>
-			<optimal_force> 300.0 </optimal_force>
-		</GeneralizedForce>
-
-		<GeneralizedForce name="ankle_angle_r">
+				<optimal_force>     300.00000000 </optimal_force>
+			</CoordinateActuator>
+			<CoordinateActuator name="ankle_angle_r">
+				<isDisabled> false </isDisabled>
+				<!--Minimum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<min_control> -infinity </min_control>
+				<!--Maximum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<max_control> infinity </max_control>
 			<coordinate> ankle_angle_r </coordinate>
-			<optimal_force> 300.0 </optimal_force>
-		</GeneralizedForce>
-
-		<GeneralizedForce name="subtalar_angle_r">
+				<optimal_force>     300.00000000 </optimal_force>
+			</CoordinateActuator>
+			<CoordinateActuator name="subtalar_angle_r">
+				<isDisabled> false </isDisabled>
+				<!--Minimum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<min_control> -infinity </min_control>
+				<!--Maximum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<max_control> infinity </max_control>
 			<coordinate> subtalar_angle_r </coordinate>
-			<optimal_force> 100.0 </optimal_force>
-		</GeneralizedForce>
-
-		<GeneralizedForce name="mtp_angle_r">
+				<optimal_force>     100.00000000 </optimal_force>
+			</CoordinateActuator>
+			<CoordinateActuator name="mtp_angle_r">
+				<isDisabled> false </isDisabled>
+				<!--Minimum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<min_control> -infinity </min_control>
+				<!--Maximum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<max_control> infinity </max_control>
 			<coordinate> mtp_angle_r </coordinate>
-			<optimal_force> 100.0 </optimal_force>
-		</GeneralizedForce>
-
-
-		<!-- Left Leg -->
-
-		<GeneralizedForce name="hip_flexion_l">
+				<optimal_force>     100.00000000 </optimal_force>
+			</CoordinateActuator>
+			<CoordinateActuator name="hip_flexion_l">
+				<isDisabled> false </isDisabled>
+				<!--Minimum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<min_control> -infinity </min_control>
+				<!--Maximum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<max_control> infinity </max_control>
 			<coordinate> hip_flexion_l </coordinate>
-			<optimal_force> 300.0 </optimal_force>
-		</GeneralizedForce>
-
-		<GeneralizedForce name="hip_adduction_l">
+				<optimal_force>     300.00000000 </optimal_force>
+			</CoordinateActuator>
+			<CoordinateActuator name="hip_adduction_l">
+				<isDisabled> false </isDisabled>
+				<!--Minimum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<min_control> -infinity </min_control>
+				<!--Maximum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<max_control> infinity </max_control>
 			<coordinate> hip_adduction_l </coordinate>
-			<optimal_force> 200.0 </optimal_force>
-		</GeneralizedForce>
-
-		<GeneralizedForce name="hip_rotation_l">
+				<optimal_force>     200.00000000 </optimal_force>
+			</CoordinateActuator>
+			<CoordinateActuator name="hip_rotation_l">
+				<isDisabled> false </isDisabled>
+				<!--Minimum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<min_control> -infinity </min_control>
+				<!--Maximum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<max_control> infinity </max_control>
 			<coordinate> hip_rotation_l </coordinate>
-			<optimal_force> 100.0 </optimal_force>
-		</GeneralizedForce>
-
-		<GeneralizedForce name="knee_angle_l">
+				<optimal_force>     100.00000000 </optimal_force>
+			</CoordinateActuator>
+			<CoordinateActuator name="knee_angle_l">
+				<isDisabled> false </isDisabled>
+				<!--Minimum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<min_control> -infinity </min_control>
+				<!--Maximum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<max_control> infinity </max_control>
 			<coordinate> knee_angle_l </coordinate>
-			<optimal_force> 300.0 </optimal_force>
-		</GeneralizedForce>
-
-		<GeneralizedForce name="ankle_angle_l">
+				<optimal_force>     300.00000000 </optimal_force>
+			</CoordinateActuator>
+			<CoordinateActuator name="ankle_angle_l">
+				<isDisabled> false </isDisabled>
+				<!--Minimum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<min_control> -infinity </min_control>
+				<!--Maximum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<max_control> infinity </max_control>
 			<coordinate> ankle_angle_l </coordinate>
-			<optimal_force> 300.0 </optimal_force>
-		</GeneralizedForce>
-
-		<GeneralizedForce name="subtalar_angle_l">
+				<optimal_force>     300.00000000 </optimal_force>
+			</CoordinateActuator>
+			<CoordinateActuator name="subtalar_angle_l">
+				<isDisabled> false </isDisabled>
+				<!--Minimum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<min_control> -infinity </min_control>
+				<!--Maximum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<max_control> infinity </max_control>
 			<coordinate> subtalar_angle_l </coordinate>
-			<optimal_force> 100.0 </optimal_force>
-		</GeneralizedForce>
-
-		<GeneralizedForce name="mtp_angle_l">
+				<optimal_force>     100.00000000 </optimal_force>
+			</CoordinateActuator>
+			<CoordinateActuator name="mtp_angle_l">
+				<isDisabled> false </isDisabled>
+				<!--Minimum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<min_control> -infinity </min_control>
+				<!--Maximum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<max_control> infinity </max_control>
 			<coordinate> mtp_angle_l </coordinate>
-			<optimal_force> 100.0 </optimal_force>
-		</GeneralizedForce>
-
-
-		<!-- Back Joint -->
-
-		<GeneralizedForce name="lumbar_extension">
+				<optimal_force>     100.00000000 </optimal_force>
+			</CoordinateActuator>
+			<CoordinateActuator name="lumbar_extension">
+				<isDisabled> false </isDisabled>
+				<!--Minimum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<min_control> -infinity </min_control>
+				<!--Maximum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<max_control> infinity </max_control>
 			<coordinate> lumbar_extension </coordinate>
-			<optimal_force> 200.0 </optimal_force>
-		</GeneralizedForce>
-
-		<GeneralizedForce name="lumbar_bending">
+				<optimal_force>     200.00000000 </optimal_force>
+			</CoordinateActuator>
+			<CoordinateActuator name="lumbar_bending">
+				<isDisabled> false </isDisabled>
+				<!--Minimum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<min_control> -infinity </min_control>
+				<!--Maximum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<max_control> infinity </max_control>
 			<coordinate> lumbar_bending </coordinate>
-			<optimal_force> 200.0 </optimal_force>
-		</GeneralizedForce>
-
-		<GeneralizedForce name="lumbar_rotation">
+				<optimal_force>     200.00000000 </optimal_force>
+			</CoordinateActuator>
+			<CoordinateActuator name="lumbar_rotation">
+				<isDisabled> false </isDisabled>
+				<!--Minimum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<min_control> -infinity </min_control>
+				<!--Maximum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<max_control> infinity </max_control>
 			<coordinate> lumbar_rotation </coordinate>
-			<optimal_force> 200.0 </optimal_force>
-		</GeneralizedForce>
-
+				<optimal_force>     200.00000000 </optimal_force>
+			</CoordinateActuator>
 	</objects>
-
-</ActuatorSet>
+		<groups/>
+	</ForceSet>
+</OpenSimDocument>
 

@@ -66,6 +66,8 @@ Inheritance diagram for OpenSim::BushingForce:</div>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1BushingForce.html#a10024b3c72ac8648af587c2cb7a6923b">setBody1BushingLocation</a> (SimTK::Vec3 location, SimTK::Vec3 orientation=SimTK::Vec3(0))</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1BushingForce.html#a809c17e8f93ee18956f8ca5e1b5dc75b">setBody2ByName</a> (std::string aBodyName)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1BushingForce.html#adfe451b03e1625994b8f317b2f7d8011">setBody2BushingLocation</a> (SimTK::Vec3 location, SimTK::Vec3 orientation=SimTK::Vec3(0))</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1BushingForce.html#aa0f050ab9d01dedbf81083016b854716">computePotentialEnergy</a> (const SimTK::State &amp;s) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Potential energy is determine by the elastic energy storage of the bushing.  <a href="#aa0f050ab9d01dedbf81083016b854716"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classOpenSim_1_1Array.html">OpenSim::Array</a><br class="typebreak"/>
 &lt; std::string &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1BushingForce.html#aba48538866c5d94502bad324ef90e222">getRecordLabels</a> () const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Provide name(s) of the quantities (column labels) of the force value(s) to be reported.  <a href="#aba48538866c5d94502bad324ef90e222"></a><br/></td></tr>
@@ -254,6 +256,28 @@ Inheritance diagram for OpenSim::BushingForce:</div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="aa0f050ab9d01dedbf81083016b854716"></a><!-- doxytag: member="OpenSim::BushingForce::computePotentialEnergy" ref="aa0f050ab9d01dedbf81083016b854716" args="(const SimTK::State &amp;s) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double BushingForce::computePotentialEnergy </td>
+          <td>(</td>
+          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
+          <td class="paramname"> <em>s</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Potential energy is determine by the elastic energy storage of the bushing. </p>
+
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1Force.html#ae5a9fc018712c89cc65649a5f4a49832">OpenSim::Force</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="aefc150196f8c1e737fdf7dd0fe1c4299"></a><!-- doxytag: member="OpenSim::BushingForce::copy" ref="aefc150196f8c1e737fdf7dd0fe1c4299" args="() const " -->
 <div class="memitem">
 <div class="memproto">
@@ -802,7 +826,7 @@ Inheritance diagram for OpenSim::BushingForce:</div>
 <li>OpenSim/Simulation/Model/BushingForce.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sat Mar 12 12:28:30 2011 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Jun 5 10:14:12 2011 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

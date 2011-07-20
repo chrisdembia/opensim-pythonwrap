@@ -1,23 +1,44 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ActuatorSet name="arm26">
-	<defaults>
-		 <CoordinateActuator name="default">
-			<max_force> 10000.0 </max_force>
-			<min_force> -10000.0 </min_force>
-			<optimal_force> 1000.0 </optimal_force>
-			<coordinate> </coordinate>
-		 </CoordinateActuator>
-	</defaults>
-	<objects>
-		<!-- Shoulder -->
-		<CoordinateActuator name="r_shoulder_elev_reserve">
-		  <coordinate> r_shoulder_elev </coordinate>
-		  <optimal_force> 25.0 </optimal_force>
-		</CoordinateActuator>
-		<!-- Elbow -->
-		<CoordinateActuator name="r_elbow_flex_reserve">
-		  <coordinate> r_elbow_flex </coordinate>
-		  <optimal_force> 25.0 </optimal_force>
-		</CoordinateActuator>
-	</objects>
-</ActuatorSet>
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSimDocument Version="20302">
+	<ForceSet name="arm26">
+		<defaults>
+			<CoordinateActuator name="default">
+				<isDisabled> false </isDisabled>
+				<!--Minimum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<min_control> -infinity </min_control>
+				<!--Maximum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<max_control> infinity </max_control>
+				<coordinate>  </coordinate>
+				<optimal_force>    1000.00000000 </optimal_force>
+			</CoordinateActuator>
+		</defaults>
+		<objects>
+			<CoordinateActuator name="r_shoulder_elev_reserve">
+				<isDisabled> false </isDisabled>
+				<!--Minimum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<min_control> -infinity </min_control>
+				<!--Maximum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<max_control> infinity </max_control>
+				<coordinate> r_shoulder_elev </coordinate>
+				<optimal_force>      25.00000000 </optimal_force>
+			</CoordinateActuator>
+			<CoordinateActuator name="r_elbow_flex_reserve">
+				<isDisabled> false </isDisabled>
+				<!--Minimum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<min_control> -infinity </min_control>
+				<!--Maximum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<max_control> infinity </max_control>
+				<coordinate> r_elbow_flex </coordinate>
+				<optimal_force>      25.00000000 </optimal_force>
+			</CoordinateActuator>
+		</objects>
+		<groups/>
+	</ForceSet>
+</OpenSimDocument>
+

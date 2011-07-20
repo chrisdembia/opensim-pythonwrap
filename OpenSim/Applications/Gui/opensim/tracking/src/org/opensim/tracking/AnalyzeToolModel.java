@@ -332,6 +332,7 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
             if(mdb.getCurrentMotion(i).model==getOriginalModel()) {
                inputMotion = mdb.getCurrentMotion(i).motion;
                inputSource = InputSource.Motion;
+               updateToolTimeRange(inputMotion);
                return;
             }
          // If not, then pick the first of this model's motions
@@ -342,6 +343,12 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
           inputSource = InputSource.Coordinates;
       }
    }
+
+    private void updateToolTimeRange(Storage storage) {
+        analyzeTool().setStartTime(storage.getFirstTime());
+        analyzeTool().setFinalTime(storage.getLastTime());
+        setModified(AbstractToolModel.Operation.TimeRangeChanged);
+    }
 
    //------------------------------------------------------------------------
    // Get/Set Values
@@ -405,7 +412,13 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
          analyzeTool().setCoordinatesFileName(coordinatesFileName);
          setInputSource(InputSource.Coordinates);
          setModified(AbstractToolModel.Operation.InputDataChanged);
+         try {
+            Storage coords = new Storage(coordinatesFileName);
+            updateToolTimeRange(coords);
+         } catch (IOException ex) {
+            ex.printStackTrace();
       }
+   }
    }
    public boolean getCoordinatesValid() { return (new File(getCoordinatesFileName()).exists()); }
 

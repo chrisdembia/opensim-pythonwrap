@@ -52,7 +52,7 @@ import org.opensim.view.excitationEditor.FilterableStringArray;
 import org.opensim.view.excitationEditor.NameFilterJPanel;
 import org.opensim.view.pub.OpenSimDB;
 
-public class RRAToolModel extends AbstractToolModelWithExternalLoads {
+public class RRAToolModel extends TrackingToolModel {
    //========================================================================
    // RRAToolWorker
    //========================================================================
@@ -60,7 +60,6 @@ public class RRAToolModel extends AbstractToolModelWithExternalLoads {
       private ProgressHandle progressHandle = null;
       private JavaMotionDisplayerCallback animationCallback = null;
       private InterruptCallback interruptingCallback = null;
-      private JavaPlottingCallback plottingCallback = null;
       
       private Kinematics kinematicsAnalysis = null; // For creating a storage we'll use as a motion
       boolean result = false;
@@ -75,10 +74,11 @@ public class RRAToolModel extends AbstractToolModelWithExternalLoads {
          MotionsDB.getInstance().clearCurrent();
 
          // CMC needs to remember the original actuator set, since it is replaced in updateModelActuatorsAndContactForces
-         cmcTool().setOriginalForceSet(getOriginalModel().getForceSet());
+         rraTool().setOriginalForceSet(getOriginalModel().getForceSet());
 
          // Re-initialize our copy of the workersModel
          Model workersModel = new Model(getOriginalModel());
+         workersModel.updAnalysisSet().setSize(0);
          String tempFileName=getOriginalModel().getInputFileName();
          //int loc = tempFileName.lastIndexOf(".");
          workersModel.setInputFileName(tempFileName);
@@ -106,7 +106,7 @@ public class RRAToolModel extends AbstractToolModelWithExternalLoads {
                               });
 
          // Animation callback will update the display during forward
-         animationCallback = new JavaMotionDisplayerCallback(workersModel, getOriginalModel(), null, progressHandle);
+         animationCallback = new JavaMotionDisplayerCallback(getModel(), getOriginalModel(), null, progressHandle);
          
          getModel().addAnalysis(animationCallback);
          animationCallback.setStepInterval(1);
@@ -120,42 +120,6 @@ public class RRAToolModel extends AbstractToolModelWithExternalLoads {
          interruptingCallback = new InterruptCallback(getModel());
          getModel().addAnalysis(interruptingCallback);
 
-         if (plotMatrics){
-             if (reuseMetrics && qtys2plot!=null){
-                 plottingCallback = new JavaPlottingCallback(workersModel, getOriginalModel());
-                 //plottingCallback.setTool((CMCTool) tool);
-                 plottingCallback.setStepInterval(1);
-                 plottingCallback.setQtyNames(qtys2plot);
-                 getModel().addAnalysis(plottingCallback);
-                 
-             }
-            else {    
-                 ArrayStr actuatorNames = new ArrayStr();
-                 getModel().getForceSet().getNames(actuatorNames);
-                 // We shouldn't be doing GUI stuff here, however, this is the only place
-                 // that we know what Actuators to use for CMC or RRA
-                 FilterableStringArray namesSource = new FilterableStringArray(actuatorNames);
-                 filterPanel = new NameFilterJPanel(namesSource, false);
-                 OpenSimDialog selectionDlg=DialogUtils.createDialogForPanelWithParent((JFrame) WindowManager.getDefault().getMainWindow(), filterPanel, "Forces for Live Plot");
-                 DialogUtils.addStandardButtons(selectionDlg);
-                 selectionDlg.setModal(true);
-                 selectionDlg.setVisible(true);
-                 String[] selected=null;
-                 
-                 if (selectionDlg.getDialogReturnValue()==selectionDlg.OK_OPTION){
-                     selected= filterPanel.getSelected();
-                     if (selected != null && selected.length >=1){   // Create and add callback only if absolutely needed.
-                         plottingCallback = new JavaPlottingCallback(workersModel, getOriginalModel());
-                         //plottingCallback.setTool((RRATool) tool);
-                         plottingCallback.setStepInterval(1);
-                         plottingCallback.setQtyNames(selected);
-                         qtys2plot = new String[selected.length];
-                         System.arraycopy(selected, 0, qtys2plot, 0, selected.length);
-                         getModel().addAnalysis(plottingCallback);
-                     }
-                 }
-             }
-         }
         // Kinematics analysis -- so that we can extract the resulting motion
          // NO LONGER NEEDED SINCE WE JUST GET THE STATES FROM THE INTEGRAND
          //kinematicsAnalysis = Kinematics.safeDownCast((new Kinematics()).copy());
@@ -271,44 +235,51 @@ public class RRAToolModel extends AbstractToolModelWithExternalLoads {
       setTool(new RRATool());
 
       // By default, set prefix of output to be subject name
-      cmcTool().setName(model.getName());
-      cmcTool().setModelFilename(model.getInputFileName());
+      rraTool().setName(model.getName());
+      rraTool().setModelFilename(model.getInputFileName());
       setAdjustModelToReduceResidualsEnabled(true);
       setDefaultResultsDirectory(model);
 
       updateFromTool();
    }
 
-   RRATool cmcTool() { return (RRATool)tool; }
+   RRATool rraTool() { return (RRATool)tool; }
 
    //------------------------------------------------------------------------
    // Get/set
    //------------------------------------------------------------------------
 
-   public String getDesiredKinematicsFileName() { return cmcTool().getDesiredKinematicsFileName(); }
+   public String getDesiredKinematicsFileName() { return rraTool().getDesiredKinematicsFileName(); }
    public void setDesiredKinematicsFileName(String fileName) {
       if(!getDesiredKinematicsFileName().equals(fileName)) {
-         cmcTool().setDesiredKinematicsFileName(fileName);
+         rraTool().setDesiredKinematicsFileName(fileName);
          setModified(AbstractToolModel.Operation.InputDataChanged);
+         try {
+            Storage coords = new Storage(fileName);
+            updateToolTimeRange(coords);
+         } catch (IOException ex) {
+            ex.printStackTrace();
       }
    }
+   }
+   
    public boolean getDesiredKinematicsValid() { return (new File(getDesiredKinematicsFileName()).exists()); }
 
    public String getTaskSetFileName() { 
-       return cmcTool().getTaskSetFileName(); 
+       return rraTool().getTaskSetFileName(); 
    }
    public void setTaskSetFileName(String fileName) {
       if(!getTaskSetFileName().equals(fileName)) {
-         cmcTool().setTaskSetFileName(fileName);
+         rraTool().setTaskSetFileName(fileName);
          setModified(AbstractToolModel.Operation.InputDataChanged);
       }
    }
    public boolean getTaskSetValid() { return (new File(getTaskSetFileName()).exists()); }
 
-   public String getConstraintsFileName() { return cmcTool().getConstraintsFileName(); }
+   public String getConstraintsFileName() { return rraTool().getConstraintsFileName(); }
    public void setConstraintsFileName(String fileName) {
       if(!getConstraintsFileName().equals(fileName)) {
-         cmcTool().setConstraintsFileName(fileName);
+         rraTool().setConstraintsFileName(fileName);
          setModified(AbstractToolModel.Operation.InputDataChanged);
       }
    }
@@ -322,10 +293,10 @@ public class RRAToolModel extends AbstractToolModelWithExternalLoads {
       }
    }
 
-   public double getLowpassCutoffFrequency() { return cmcTool().getLowpassCutoffFrequency(); }
+   public double getLowpassCutoffFrequency() { return rraTool().getLowpassCutoffFrequency(); }
    public void setLowpassCutoffFrequency(double frequency) {
       if(getLowpassCutoffFrequency() != frequency) {
-         cmcTool().setLowpassCutoffFrequency(frequency);
+         rraTool().setLowpassCutoffFrequency(frequency);
          setModified(AbstractToolModel.Operation.InputDataChanged);
       }
    }
@@ -333,34 +304,34 @@ public class RRAToolModel extends AbstractToolModelWithExternalLoads {
    public boolean getFilterKinematics() { return getLowpassCutoffFrequency() > 0; }
    public void setFilterKinematics(boolean filterKinematics) {
       if(getFilterKinematics() != filterKinematics) {
-         if(filterKinematics) cmcTool().setLowpassCutoffFrequency(6);
-         else cmcTool().setLowpassCutoffFrequency(-1);
+         if(filterKinematics) rraTool().setLowpassCutoffFrequency(6);
+         else rraTool().setLowpassCutoffFrequency(-1);
          setModified(AbstractToolModel.Operation.InputDataChanged);
       }
    }
 
    // RRA settings
    //
-   public String getOutputModelFileName() { return cmcTool().getOutputModelFileName(); }
+   public String getOutputModelFileName() { return rraTool().getOutputModelFileName(); }
    public void setOutputModelFileName(String fileName) {
       if(!getOutputModelFileName().equals(fileName)) {
-         cmcTool().setOutputModelFileName(fileName);
+         rraTool().setOutputModelFileName(fileName);
          setModified(AbstractToolModel.Operation.InputDataChanged);
       }
    }
 
-   public boolean getAdjustModelToReduceResidualsEnabled() { return cmcTool().getAdjustCOMToReduceResiduals(); }
+   public boolean getAdjustModelToReduceResidualsEnabled() { return rraTool().getAdjustCOMToReduceResiduals(); }
    public void setAdjustModelToReduceResidualsEnabled(boolean enabled) {
       if(getAdjustModelToReduceResidualsEnabled() != enabled) {
-         cmcTool().setAdjustCOMToReduceResiduals(enabled);
+         rraTool().setAdjustCOMToReduceResiduals(enabled);
          setModified(AbstractToolModel.Operation.InputDataChanged);
       }
    }
 
-   public String getAdjustedCOMBody() { return cmcTool().getAdjustedCOMBody(); }
+   public String getAdjustedCOMBody() { return rraTool().getAdjustedCOMBody(); }
    public void setAdjustedCOMBody(String fileName) {
       if(!getAdjustedCOMBody().equals(fileName)) {
-         cmcTool().setAdjustedCOMBody(fileName);
+         rraTool().setAdjustedCOMBody(fileName);
          setModified(AbstractToolModel.Operation.InputDataChanged);
       }
    }
@@ -381,14 +352,14 @@ public class RRAToolModel extends AbstractToolModelWithExternalLoads {
    //------------------------------------------------------------------------
    // External loads get/set (don't need to call setModified since AbstractToolModel does that)
    //------------------------------------------------------------------------
-   public String getExternalLoadsFileName() { return cmcTool().getExternalLoadsFileName(); }
-   protected void setExternalLoadsFileNameInternal(String fileName) { cmcTool().setExternalLoadsFileName(fileName); }
+   public String getExternalLoadsFileName() { return rraTool().getExternalLoadsFileName(); }
+   protected void setExternalLoadsFileNameInternal(String fileName) { rraTool().setExternalLoadsFileName(fileName); }
 
-   public String getExternalLoadsModelKinematicsFileName() { return cmcTool().getExternalLoads().getExternalLoadsModelKinematicsFileName(); }
-   protected void setExternalLoadsModelKinematicsFileNameInternal(String fileName) { cmcTool().getExternalLoads().setExternalLoadsModelKinematicsFileName(fileName); }
+   public String getExternalLoadsModelKinematicsFileName() { return rraTool().getExternalLoads().getExternalLoadsModelKinematicsFileName(); }
+   protected void setExternalLoadsModelKinematicsFileNameInternal(String fileName) { rraTool().getExternalLoads().setExternalLoadsModelKinematicsFileName(fileName); }
 
-   public double getLowpassCutoffFrequencyForLoadKinematics() { return cmcTool().getExternalLoads().getLowpassCutoffFrequencyForLoadKinematics(); }
-   protected void setLowpassCutoffFrequencyForLoadKinematicsInternal(double cutoffFrequency) { cmcTool().getExternalLoads().setLowpassCutoffFrequencyForLoadKinematics(cutoffFrequency); }
+   public double getLowpassCutoffFrequencyForLoadKinematics() { return rraTool().getExternalLoads().getLowpassCutoffFrequencyForLoadKinematics(); }
+   protected void setLowpassCutoffFrequencyForLoadKinematicsInternal(double cutoffFrequency) { rraTool().getExternalLoads().setLowpassCutoffFrequencyForLoadKinematics(cutoffFrequency); }
 
    // TODO: implement
    public double[] getAvailableTimeRange() { return null; }
@@ -440,14 +411,14 @@ public class RRAToolModel extends AbstractToolModelWithExternalLoads {
       super.updateFromTool();
 
       constraintsEnabled = !FileUtils.effectivelyNull(getConstraintsFileName());
-      ExternalLoads lds = cmcTool().getExternalLoads();
+      ExternalLoads lds = rraTool().getExternalLoads();
       
    }
 
    protected void updateTool() {
       super.updateTool();
 
-      if(!constraintsEnabled) cmcTool().setConstraintsFileName("");
+      if(!constraintsEnabled) rraTool().setConstraintsFileName("");
 
       setModified(AbstractToolModel.Operation.AllDataChanged);
    }
@@ -457,27 +428,27 @@ public class RRAToolModel extends AbstractToolModelWithExternalLoads {
 
       String parentDir = (new File(parentFileName)).getParent();
 
-      cmcTool().setDesiredKinematicsFileName(FileUtils.makePathAbsolute(cmcTool().getDesiredKinematicsFileName(), parentDir));
-      cmcTool().setConstraintsFileName(FileUtils.makePathAbsolute(cmcTool().getConstraintsFileName(), parentDir));
-      cmcTool().setTaskSetFileName(FileUtils.makePathAbsolute(cmcTool().getTaskSetFileName(), parentDir));
-      cmcTool().setRRAControlsFileName(FileUtils.makePathAbsolute(cmcTool().getRRAControlsFileName(), parentDir));
-      cmcTool().setOutputModelFileName(FileUtils.makePathAbsolute(cmcTool().getOutputModelFileName(), parentDir));
+      rraTool().setDesiredKinematicsFileName(FileUtils.makePathAbsolute(rraTool().getDesiredKinematicsFileName(), parentDir));
+      rraTool().setConstraintsFileName(FileUtils.makePathAbsolute(rraTool().getConstraintsFileName(), parentDir));
+      rraTool().setTaskSetFileName(FileUtils.makePathAbsolute(rraTool().getTaskSetFileName(), parentDir));
+      rraTool().setRRAControlsFileName(FileUtils.makePathAbsolute(rraTool().getRRAControlsFileName(), parentDir));
+      rraTool().setOutputModelFileName(FileUtils.makePathAbsolute(rraTool().getOutputModelFileName(), parentDir));
 
-      cmcTool().setExternalLoadsFileName(FileUtils.makePathAbsolute(cmcTool().getExternalLoadsFileName(), parentDir));
-      cmcTool().getExternalLoads().setExternalLoadsModelKinematicsFileName(FileUtils.makePathAbsolute(cmcTool().getExternalLoads().getExternalLoadsModelKinematicsFileName(), parentDir));
+      rraTool().setExternalLoadsFileName(FileUtils.makePathAbsolute(rraTool().getExternalLoadsFileName(), parentDir));
+      rraTool().getExternalLoads().setExternalLoadsModelKinematicsFileName(FileUtils.makePathAbsolute(rraTool().getExternalLoads().getExternalLoadsModelKinematicsFileName(), parentDir));
    }
 
    protected void AbsoluteToRelativePaths(String parentFileName) {
       super.AbsoluteToRelativePaths(parentFileName);
       String parentDir = (new File(parentFileName)).getParent();
-      cmcTool().setDesiredKinematicsFileName(FileUtils.makePathRelative(cmcTool().getDesiredKinematicsFileName(), parentDir));
-      cmcTool().setConstraintsFileName(FileUtils.makePathRelative(cmcTool().getConstraintsFileName(), parentDir));
-      cmcTool().setTaskSetFileName(FileUtils.makePathRelative(cmcTool().getTaskSetFileName(), parentDir));
-      cmcTool().setRRAControlsFileName(FileUtils.makePathRelative(cmcTool().getRRAControlsFileName(), parentDir));
-      cmcTool().setOutputModelFileName(FileUtils.makePathRelative(cmcTool().getOutputModelFileName(), parentDir));
+      rraTool().setDesiredKinematicsFileName(FileUtils.makePathRelative(rraTool().getDesiredKinematicsFileName(), parentDir));
+      rraTool().setConstraintsFileName(FileUtils.makePathRelative(rraTool().getConstraintsFileName(), parentDir));
+      rraTool().setTaskSetFileName(FileUtils.makePathRelative(rraTool().getTaskSetFileName(), parentDir));
+      rraTool().setRRAControlsFileName(FileUtils.makePathRelative(rraTool().getRRAControlsFileName(), parentDir));
+      rraTool().setOutputModelFileName(FileUtils.makePathRelative(rraTool().getOutputModelFileName(), parentDir));
 
-      cmcTool().setExternalLoadsFileName(FileUtils.makePathRelative(cmcTool().getExternalLoadsFileName(), parentDir));
-      cmcTool().getExternalLoads().setExternalLoadsModelKinematicsFileName(FileUtils.makePathRelative(cmcTool().getExternalLoads().getExternalLoadsModelKinematicsFileName(), parentDir));       
+      rraTool().setExternalLoadsFileName(FileUtils.makePathRelative(rraTool().getExternalLoadsFileName(), parentDir));
+      rraTool().getExternalLoads().setExternalLoadsModelKinematicsFileName(FileUtils.makePathRelative(rraTool().getExternalLoads().getExternalLoadsModelKinematicsFileName(), parentDir));       
    }
    
    public boolean loadSettings(String fileName) {
@@ -502,7 +473,7 @@ public class RRAToolModel extends AbstractToolModelWithExternalLoads {
       String fullFilename = FileUtils.addExtensionIfNeeded(fileName, ".xml");
       updateTool();
       AbsoluteToRelativePaths(fullFilename);
-      cmcTool().print(fullFilename);
+      rraTool().print(fullFilename);
       relativeToAbsolutePaths(fullFilename);
       return true;
    }

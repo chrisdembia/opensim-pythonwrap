@@ -135,12 +135,12 @@ public class OpenSimContext extends OpenSimObject {
     return new ArrayPathPoint(opensimModelJNI.OpenSimContext_getCurrentPath(swigCPtr, this, Muscle.getCPtr(act), act), false);
   }
 
-  public ArrayPathPoint getCurrentDisplayPath(Muscle act) {
-    return new ArrayPathPoint(opensimModelJNI.OpenSimContext_getCurrentDisplayPath(swigCPtr, this, Muscle.getCPtr(act), act), false);
+  public ArrayPathPoint getCurrentDisplayPath(GeometryPath path) {
+    return new ArrayPathPoint(opensimModelJNI.OpenSimContext_getCurrentDisplayPath(swigCPtr, this, GeometryPath.getCPtr(path), path), false);
   }
 
-  public void updateDisplayer(Muscle m) {
-    opensimModelJNI.OpenSimContext_updateDisplayer(swigCPtr, this, Muscle.getCPtr(m), m);
+  public void updateDisplayer(Force f) {
+    opensimModelJNI.OpenSimContext_updateDisplayer(swigCPtr, this, Force.getCPtr(f), f);
   }
 
   public void copyMuscle(Muscle from, Muscle to) {
@@ -237,6 +237,10 @@ public class OpenSimContext extends OpenSimObject {
 
   public int replaceMarkerSet(Model model, MarkerSet aMarkerSet) {
     return opensimModelJNI.OpenSimContext_replaceMarkerSet(swigCPtr, this, Model.getCPtr(model), model, MarkerSet.getCPtr(aMarkerSet), aMarkerSet);
+  }
+
+  public void getCenterOfMassInGround(double[] com) {
+    opensimModelJNI.OpenSimContext_getCenterOfMassInGround(swigCPtr, this, com);
   }
 
   public int step(Analysis analysis) {

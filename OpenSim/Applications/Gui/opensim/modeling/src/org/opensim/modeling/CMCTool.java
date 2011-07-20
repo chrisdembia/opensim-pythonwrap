@@ -96,14 +96,6 @@ public class CMCTool extends AbstractTool {
     opensimModelJNI.CMCTool_setRRAControlsFileName(swigCPtr, this, aFileName);
   }
 
-  public boolean getAdjustKinematicsToReduceResiduals() {
-    return opensimModelJNI.CMCTool_getAdjustKinematicsToReduceResiduals(swigCPtr, this);
-  }
-
-  public void setAdjustKinematicsToReduceResiduals(boolean aAdjust) {
-    opensimModelJNI.CMCTool_setAdjustKinematicsToReduceResiduals(swigCPtr, this, aAdjust);
-  }
-
   public double getLowpassCutoffFrequency() {
     return opensimModelJNI.CMCTool_getLowpassCutoffFrequency(swigCPtr, this);
   }

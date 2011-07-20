@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<OpenSimDocument Version="10904">
+<OpenSimDocument Version="20302">
 	<CMCTool name="subject01_walk1_RRA">
 		<defaults>
 			<ControlLinear name="default">
@@ -16,34 +16,53 @@
 				<kv>      20.00000000 </kv>
 			</ControlLinear>
 			<Thelen2003Muscle name="default">
+				<isDisabled> false </isDisabled>
+				<!--Minimum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<min_control>       0.00000000 </min_control>
+				<!--Maximum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<max_control>       1.00000000 </max_control>
 				<GeometryPath name="">
 					<PathPointSet name="">
 						<objects/>
 						<groups/>
 					</PathPointSet>
 					<VisibleObject name="">
-						<geometry_files> </geometry_files>
-						<VisibleProperties name="">
-							<display_preference> 4 </display_preference>
-							<show_normals> false </show_normals>
-							<show_axes> false </show_axes>
-							<material_name> DEFAULT </material_name>
-						</VisibleProperties>
+						<!--Set of geometry files and associated attributes, allow .vtp, .stl,
+						    .obj-->
+						<GeometrySet name="">
+							<objects/>
+							<groups/>
+						</GeometrySet>
+						<!--Three scale factors for display purposes: scaleX scaleY scaleZ-->
 						<scale_factors>       1.00000000       1.00000000       1.00000000 </scale_factors>
+						<!--transform relative to owner specified as 3 rotations (rad) followed by
+						    3 translations rX rY rZ tx ty tz-->
+						<transform>      -0.00000000       0.00000000      -0.00000000       0.00000000       0.00000000       0.00000000 </transform>
+						<!--Whether to show a coordinate frame-->
+						<show_axes> false </show_axes>
+						<!--Display Pref. 0:Hide 1:Wire 3:Flat 4:Shaded Can be overriden for
+						    individual geometries-->
+						<display_preference> 4 </display_preference>
 					</VisibleObject>
 					<PathWrapSet name="">
 						<objects/>
 						<groups/>
 					</PathWrapSet>
 				</GeometryPath>
-				<!--maximum isometric force of the muscle fibers-->
+				<optimal_force>       1.00000000 </optimal_force>
+				<!--Maximum isometric force that the fibers can generate-->
 				<max_isometric_force>     546.00000000 </max_isometric_force>
-				<!--optimal length of the muscle fibers-->
+				<!--Optimal length of the muscle fibers-->
 				<optimal_fiber_length>       0.05350000 </optimal_fiber_length>
-				<!--resting length of the tendon-->
+				<!--Resting length of the tendon-->
 				<tendon_slack_length>       0.07800000 </tendon_slack_length>
-				<!--angle between tendon and fibers at optimal fiber length-->
-				<pennation_angle>       0.00000000 </pennation_angle>
+				<!--Angle between tendon and fibers at optimal fiber length-->
+				<pennation_angle_at_optimal>       0.00000000 </pennation_angle_at_optimal>
+				<!--Maximum contraction velocity of the fibers, in optimal fiberlengths
+				    per second-->
+				<max_contraction_velocity>      10.00000000 </max_contraction_velocity>
 				<!--time constant for ramping up of muscle activation-->
 				<activation_time_constant>       0.01000000 </activation_time_constant>
 				<!--time constant for ramping down of muscle activation-->
@@ -70,33 +89,42 @@
 				<Flen>       1.80000000 </Flen>
 			</Thelen2003Muscle>
 			<Schutte1993Muscle name="default">
+				<isDisabled> false </isDisabled>
+				<!--Minimum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<min_control>       0.00000000 </min_control>
+				<!--Maximum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<max_control>       1.00000000 </max_control>
 				<GeometryPath name="">
 					<PathPointSet name="">
 						<objects/>
 						<groups/>
 					</PathPointSet>
 					<VisibleObject name="">
-						<geometry_files> </geometry_files>
-						<VisibleProperties name="">
-							<display_preference> 4 </display_preference>
-							<show_normals> false </show_normals>
-							<show_axes> false </show_axes>
-							<material_name> DEFAULT </material_name>
-						</VisibleProperties>
+						<!--Set of geometry files and associated attributes, allow .vtp, .stl,
+						    .obj-->
+						<GeometrySet name="">
+							<objects/>
+							<groups/>
+						</GeometrySet>
+						<!--Three scale factors for display purposes: scaleX scaleY scaleZ-->
 						<scale_factors>       1.00000000       1.00000000       1.00000000 </scale_factors>
+						<!--transform relative to owner specified as 3 rotations (rad) followed by
+						    3 translations rX rY rZ tx ty tz-->
+						<transform>      -0.00000000       0.00000000      -0.00000000       0.00000000       0.00000000       0.00000000 </transform>
+						<!--Whether to show a coordinate frame-->
+						<show_axes> false </show_axes>
+						<!--Display Pref. 0:Hide 1:Wire 3:Flat 4:Shaded Can be overriden for
+						    individual geometries-->
+						<display_preference> 4 </display_preference>
 					</VisibleObject>
 					<PathWrapSet name="">
 						<objects/>
 						<groups/>
 					</PathWrapSet>
 				</GeometryPath>
-				<!--Scale factor for normalizing time-->
-				<time_scale>       0.10000000 </time_scale>
-				<!--Parameter used in time constant of ramping up of muscle force-->
-				<activation1>       0.00000000 </activation1>
-				<!--Parameter used in time constant of ramping up and ramping down of
-				    muscle force-->
-				<activation2>       0.00000000 </activation2>
+				<optimal_force>       1.00000000 </optimal_force>
 				<!--Maximum isometric force that the fibers can generate-->
 				<max_isometric_force>       0.00000000 </max_isometric_force>
 				<!--Optimal length of the muscle fibers-->
@@ -104,10 +132,17 @@
 				<!--Resting length of the tendon-->
 				<tendon_slack_length>       0.00000000 </tendon_slack_length>
 				<!--Angle between tendon and fibers at optimal fiber length-->
-				<pennation_angle>       0.00000000 </pennation_angle>
+				<pennation_angle_at_optimal>       0.00000000 </pennation_angle_at_optimal>
 				<!--Maximum contraction velocity of the fibers, in optimal fiberlengths
 				    per second-->
 				<max_contraction_velocity>      10.00000000 </max_contraction_velocity>
+				<!--Scale factor for normalizing time-->
+				<time_scale>       0.10000000 </time_scale>
+				<!--Parameter used in time constant of ramping up of muscle force-->
+				<activation1>       0.00000000 </activation1>
+				<!--Parameter used in time constant of ramping up and ramping down of
+				    muscle force-->
+				<activation2>       0.00000000 </activation2>
 				<!--Damping factor related to maximum contraction velocity-->
 				<damping>       0.05000000 </damping>
 				<!--Function representing force-length behavior of tendon-->
@@ -131,13 +166,6 @@
 						<y>       0.00000000       0.00000000       0.00000000       0.00000000       0.03500000       0.12000000       0.26000000       0.55000000       1.17000000       2.00000000       2.00000000       2.00000000       2.00000000 </y>
 					</NaturalCubicSpline>
 				</passive_force_length_curve>
-				<!--Function representing force-velocity behavior of muscle fibers-->
-				<force_velocity_curve>
-					<NaturalCubicSpline name="">
-						<x>      -1.00000000      -0.95000000      -0.90000000      -0.85000000      -0.80000000      -0.75000000      -0.70000000      -0.65000000      -0.60000000      -0.55000000      -0.50000000      -0.45000000      -0.40000000      -0.35000000      -0.30000000      -0.25000000      -0.20000000      -0.15000000      -0.10000000      -0.05000000       0.00000000       0.05000000       0.10000000       0.15000000       0.20000000       0.25000000       0.30000000       0.35000000       0.40000000       0.45000000       0.50000000       0.55000000       0.60000000       0.65000000       0.70000000       0.75000000       0.80000000       0.85000000       0.90000000       0.95000000       1.00000000 </x>
-						<y>       0.00000000       0.01041700       0.02173900       0.03409100       0.04761900       0.06250000       0.07894700       0.09722200       0.11764700       0.14062500       0.16666700       0.19642900       0.23076900       0.27083300       0.31818200       0.37500000       0.44444400       0.53125000       0.64285700       0.79166700       1.00000000       1.48201400       1.60157100       1.65579100       1.68673900       1.70675100       1.72075300       1.73109900       1.73905500       1.74536500       1.75049000       1.75473600       1.75831200       1.76136400       1.76399900       1.76629800       1.76832100       1.77011500       1.77171700       1.77315500       1.77445500 </y>
-					</NaturalCubicSpline>
-				</force_velocity_curve>
 			</Schutte1993Muscle>
 		</defaults>
 		<!--Name of the .osim file used to construct a model.-->
@@ -178,24 +206,15 @@
 			<objects/>
 			<groups/>
 		</ControllerSet>
+		<!--XML file (.xml) containing the external loads applied to the model as
+		    a set of PrescribedForce(s).-->
+		<external_loads_file> subject01_walk1_grf.xml </external_loads_file>
 		<!--Motion (.mot) or storage (.sto) file containing the desired point
 		    trajectories.-->
 		<desired_points_file>  </desired_points_file>
 		<!--Motion (.mot) or storage (.sto) file containing the desired kinematic
 		    trajectories.-->
 		<desired_kinematics_file> subject01_walk1_ik.mot </desired_kinematics_file>
-		<!--Motion file (.mot) or storage file (.sto) containing the external
-		    loads applied to the model.-->
-		<external_loads_file> subject01_walk1_grf.mot </external_loads_file>
-		<!--Motion file (.mot) or storage file (.sto) containing the model
-		    kinematics corresponding to the external loads.-->
-		<external_loads_model_kinematics_file> subject01_walk1_ik.mot </external_loads_model_kinematics_file>
-		<!--Name of the body to which the first set of external loads should be
-		    applied (e.g., the name of the right foot).-->
-		<external_loads_body1> calcn_r </external_loads_body1>
-		<!--Name of the body to which the second set of external loads should be
-		    applied (e.g., the name of the left foot).-->
-		<external_loads_body2> calcn_l </external_loads_body2>
 		<!--File containing the tracking tasks. Which coordinates are tracked and
 		    with what weights are specified here.-->
 		<task_set_file> gait2354_RRA_Tasks.xml </task_set_file>
@@ -208,10 +227,6 @@
 		    negative value results in no filtering. The default value is -1.0, so
 		    no filtering.-->
 		<lowpass_cutoff_frequency>       6.00000000 </lowpass_cutoff_frequency>
-		<!--Low-pass cut-off frequency for filtering the model kinematics
-		    corresponding to the external loads. A negative value results in no
-		    filtering. The default value is -1.0, so no filtering.-->
-		<lowpass_cutoff_frequency_for_load_kinematics>       6.00000000 </lowpass_cutoff_frequency_for_load_kinematics>
 		<!--Time window over which the desired actuator forces are achieved.
 		    Muscles forces cannot change instantaneously, so a finite time window
 		    must be allowed. The recommended time window for RRA is about 0.001
@@ -221,10 +236,6 @@
 		    filter. Setting this flag to true can reduce oscillations in the
 		    computed muscle excitations.-->
 		<use_curvature_filter> false </use_curvature_filter>
-		<!--Flag (true or false) indicating whether or not to use reflexes.  This
-		    is a hook for users wanting to modify controls based on additonal
-		    information.-->
-		<use_reflexes> false </use_reflexes>
 		<!--Flag (true or false) indicating whether to use the fast CMC
 		    optimization target. The fast target requires the desired
 		    accelerations to be met. The optimizer fails if the acclerations
@@ -249,39 +260,6 @@
 		<!--Print level for the optimizer, 0 - 3. 0=no printing, 3=detailed
 		    printing, 2=in between-->
 		<optimizer_print_level> 0 </optimizer_print_level>
-		<!--Flag (true or false) indicating whether or not to compute average
-		    residuals. No actions are taken based on this flag other than printing
-		    the average residuals, which can be useful for seeing if the solution
-		    is good.  Average residuals should be be close to 0.0.  If not, there
-		    is likely problem in the experimental data, in the model, or both.-->
-		<compute_average_residuals> true </compute_average_residuals>
-		<!--Flag (true or false) indicating whether or not to make an adjustment
-		    in the center of mass of a body to reduced DC offsets in MX and MZ. If
-		    true, a new model is writen out that has altered anthropometry.-->
-		<adjust_com_to_reduce_residuals> true </adjust_com_to_reduce_residuals>
-		<!--Initial time used when computing average residuals in order to adjust
-		    the body's center of mass.  If both initial and final time are set to
-		    -1 (their default value) then the main initial and final time settings
-		    will be used.-->
-		<initial_time_for_com_adjustment>      -1.00000000 </initial_time_for_com_adjustment>
-		<!--Final time used when computing average residuals in order to adjust
-		    the body's center of mass.-->
-		<final_time_for_com_adjustment>      -1.00000000 </final_time_for_com_adjustment>
-		<!--Name of the body whose center of mass is adjusted. The heaviest
-		    segment in the model should normally be chosen. For a gait model, the
-		    torso segment is usually the best choice.-->
-		<adjusted_com_body> torso </adjusted_com_body>
-		<!--Name of the output model file (.osim) containing adjustments to
-		    anthropometry made to reduce average residuals. This file is written
-		    if the property adjust_com_to_reduce_residuals is set to true. If a
-		    name is not specified, the model is written out to a file called
-		    adjusted_model.osim.-->
-		<output_model_file> C:\Projects\OpenSimBranch\OpenSim\Examples\Gait2354_Simbody\subject01_simbody_adjusted.osim </output_model_file>
-		<!--Flag (true or false) indicating whether or not to adjust the
-		    kinematics in order to reduce residuals.  Set this flag to false, and
-		    set adjust_com_to_reduce_residuals on in order to only adjust the
-		    model's center of mass without adjusting kinematics-->
-		<adjust_kinematics_to_reduce_residuals> true </adjust_kinematics_to_reduce_residuals>
 		<!--True-false flag indicating whether or not to turn on verbose printing
 		    for cmc.-->
 		<use_verbose_printing> false </use_verbose_printing>

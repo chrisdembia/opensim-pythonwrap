@@ -92,7 +92,13 @@ public final class FileUtils {
     }
    
    public static String getExtension(String fileName) {
-      int index = fileName.lastIndexOf('.');
+      int lastPathSeparatorIndex = fileName.lastIndexOf(File.separatorChar);
+      String nameAndExtension;
+      if (lastPathSeparatorIndex!=-1) 
+         nameAndExtension = fileName.substring(lastPathSeparatorIndex+1);
+      else
+          nameAndExtension = fileName;
+      int index = nameAndExtension.lastIndexOf('.');
       return (index==-1) ? null : fileName.substring(index+1);
    }
 
@@ -331,6 +337,13 @@ public final class FileUtils {
             //int test=0;
             return file.getAbsolutePath();
         }
+        if (isWindows()){
+            String absPathBase = baseDir.getAbsolutePath();
+            String absFilename = file.getAbsolutePath();
+            String driveLetter = absPathBase.substring(0, absPathBase.indexOf(":")+1);
+            if (!absFilename.startsWith(driveLetter))
+                return absFilename;
+        }
         String relative = null;
         if (baseDir.isDirectory()){
             if (baseDir.equals(file))
@@ -442,5 +455,12 @@ public final class FileUtils {
        // get jnt file followed by muscle file of any into output array
         
        return outFilenames;
+    }
+    public static boolean isWindows(){
+ 
+	String os = System.getProperty("os.name").toLowerCase();
+	//windows
+	return (os.indexOf( "win" ) >= 0); 
+ 
     }
 }

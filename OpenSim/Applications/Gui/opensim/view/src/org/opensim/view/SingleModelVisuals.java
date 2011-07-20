@@ -34,37 +34,28 @@
 
 package org.opensim.view;
 
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
-import java.util.List;
 import org.opensim.modeling.Force;
 import org.opensim.modeling.Actuator;
 import org.opensim.modeling.Body;
 import org.opensim.modeling.ForceSet;
-import org.opensim.modeling.GeometrySet;
 import org.opensim.modeling.Marker;
 import org.opensim.modeling.Muscle;
 import org.opensim.modeling.Model;
-import org.opensim.modeling.AnalyticGeometry;
 import org.opensim.modeling.BodySet;
 import org.opensim.modeling.ConditionalPathPoint;
-import org.opensim.modeling.Geometry;
-import org.opensim.modeling.DisplayGeometry;
 import org.opensim.modeling.MarkerSet;
 import org.opensim.modeling.OpenSimContext;
 import org.opensim.modeling.OpenSimObject;
+import org.opensim.modeling.PathActuator;
 import org.opensim.modeling.PathPoint;
-import org.opensim.modeling.PolyhedralGeometry;
 import org.opensim.modeling.SimbodyEngine;
 import org.opensim.modeling.VisibleObject;
-import org.opensim.view.DisplayGeometryFactory;
-import org.opensim.view.pub.GeometryFileLocator;
 import org.opensim.view.pub.OpenSimDB;
 import org.opensim.view.pub.ViewDB;
-import vtk.FrameActor;
 import vtk.vtkActor;
 import vtk.vtkAssembly;
 import vtk.vtkAssemblyNode;
@@ -72,7 +63,6 @@ import vtk.vtkAssemblyPath;
 import vtk.vtkCylinderSource;
 import vtk.vtkLinearTransform;
 import vtk.vtkMatrix4x4;
-import vtk.vtkPolyData;
 import vtk.vtkPolyDataAlgorithm;
 import vtk.vtkPolyDataMapper;
 import vtk.vtkProp3D;
@@ -84,7 +74,6 @@ import vtk.vtkTransformPolyDataFilter;
 import vtk.vtkAppendPolyData;
 import vtk.vtkArrowSource;
 import vtk.vtkLineSource;
-import vtk.vtkOBJReader;
 
 /**
  *
@@ -108,14 +97,11 @@ public class SingleModelVisuals {
     private boolean visible;
 
     private double[] inactiveMuscleColor = new double[]{0.0, 0.0, 1.0};
+    private double[] forceAlongPathColor = new double[]{0.0, 1.0, 0.0};
     private double[] defaultMuscleColor = new double[]{0.8, 0.1, 0.1};
     private double[] defaultMusclePointColor = new double[]{1.0, 0.0, 0.0};
-    private double[] defaultMarkerColor = new double[]{1.0, 0.6, 0.8};
     private double[] defaultWrapObjectColor = new double[]{0.0, 1.0, 1.0};
     private boolean useCylinderMuscles=true;
-    //private double DEFAULT_MUSCLE_RADIUS = .005;
-    //private double DEFAULT_MUSCLE_POINT_RADIUS = .005;
-    //private double DEFAULT_MARKER_RADIUS = .01;
 
     // Maps between objects and vtkProp3D for going from Actor to Object and vice versa
     // Objects are mapped to vtkProp3D in general, but some are known to be assemblies
@@ -124,24 +110,25 @@ public class SingleModelVisuals {
     protected Hashtable<vtkProp3D, OpenSimObject> mapVtkObjects2Objects = new Hashtable<vtkProp3D, OpenSimObject>(50);
    
     private Hashtable<OpenSimObject, LineSegmentMuscleDisplayer> mapActuator2Displayer = new Hashtable<OpenSimObject, LineSegmentMuscleDisplayer>();
+    private Hashtable<OpenSimObject, LineSegmentForceDisplayer> mapForces2Displayer = new Hashtable<OpenSimObject, LineSegmentForceDisplayer>();
 
-    protected Hashtable<OpenSimObject, Integer> mapMarkers2Glyphs = new Hashtable<OpenSimObject, Integer>(50);
     protected Hashtable<OpenSimObject, vtkLineSource> mapMarkers2Lines = new Hashtable<OpenSimObject, vtkLineSource>(50);
-    protected Hashtable<OpenSimObject, Boolean> markerLinesVisible = new Hashtable<OpenSimObject, Boolean>(50);
-    protected vtkActor markerLineActor = new vtkActor();
-    protected vtkAppendPolyData markerLinePolyData = new vtkAppendPolyData();
-
+    //protected Hashtable<OpenSimObject, Boolean> markerLinesVisible = new Hashtable<OpenSimObject, Boolean>(50);
+    //protected vtkActor markerLineActor = new vtkActor();
+    //protected vtkAppendPolyData markerLinePolyData = new vtkAppendPolyData();
+    
     // Markers and muscle points are represented as Glyphs for performance
-    private OpenSimvtkGlyphCloud  markersRep=new OpenSimvtkGlyphCloud(false);
+    private MarkersDisplayer markersRep=new MarkersDisplayer();
     private OpenSimvtkGlyphCloud  musclePointsRep=new OpenSimvtkGlyphCloud(false);
     private OpenSimvtkOrientedGlyphCloud  muscleSegmentsRep = new OpenSimvtkOrientedGlyphCloud();
     private OpenSimvtkOrientedGlyphCloud  forcesRep = new OpenSimvtkOrientedGlyphCloud();
+    private OpenSimvtkGlyphCloud  otherPathPointsRep=new OpenSimvtkGlyphCloud(false);
+    private OpenSimvtkOrientedGlyphCloud  otherPathSegmentsRep = new OpenSimvtkOrientedGlyphCloud();
 
     private vtkProp3DCollection  userObjects = new vtkProp3DCollection();
     private vtkProp3DCollection  bodiesCollection = new vtkProp3DCollection();
+    private ModelComDisplayer comDisplayer;
     private boolean debug=false;
-    
-    private HashMap<String, List<vtkActor>> bodyToActors = new HashMap<String, List<vtkActor>>();
     /**
      * Creates a new instance of SingleModelVisuals
      */
@@ -149,20 +136,9 @@ public class SingleModelVisuals {
         debug = (ViewDB.getInstance().getDebugLevel() >= 1);
         initDefaultShapesAndColors();
         modelDisplayAssembly = createModelAssembly(aModel);
-        //modelDisplayAssembly.DebugOn();
-        //int rc = modelDisplayAssembly.GetReferenceCount();
         setVisible(true);
     }
-    /**
-     * Creates a new instance of SingleModelVisuals
-     */
-    public SingleModelVisuals() {
-        initDefaultShapesAndColors();
-        modelDisplayAssembly = new vtkAssembly();
-        //modelDisplayAssembly.DebugOn();
-        //int rc = modelDisplayAssembly.GetReferenceCount();
-        setVisible(true);
-    }
+ 
     /**
      * Find the vtkProp3D for the passed in object
      */
@@ -185,12 +161,9 @@ public class SingleModelVisuals {
      * Create one vtkAssembly representing the model and return it.
      */
     protected vtkAssembly createModelAssembly(Model model)
-    {
-        String modelFilePath = model.getFilePath();
-                
+    {                
         vtkAssembly modelAssembly = new vtkAssembly();
         // Keep track of ground body to avoid recomputation
-        defaultMarkerColor = ViewDB.getInstance().getDefaultMarkersColor();
         Body gnd = model.getGroundBody();
         BodySet bodies = model.getBodySet();
  
@@ -199,29 +172,8 @@ public class SingleModelVisuals {
             Body body = bodies.get(bodyNum);
 
             // Body actor
-            vtkAssembly bodyRep = new BodyDisplayer(modelAssembly, body, modelFilePath);
-
-            if(bodyRep!=null) {
-               // Fill the maps between objects and display to support picking, highlighting, etc..
-               // The reverse map takes an actor to an Object and is filled as actors are created.
-               mapObject2VtkObjects.put(body, bodyRep);
-               // Picker picks Actors only, put those in reverseMap instead of BodyDisplayer
-               vtkProp3DCollection props = bodyRep.GetParts();
-               props.InitTraversal();
-               ArrayList<vtkActor> actors = new ArrayList<vtkActor>();
-               int idx=0;
-               GeometrySet gSet = body.getDisplayer().getGeometrySet();
-               for(int act=0; act < props.GetNumberOfItems(); act++){
-                    vtkProp3D nextActor = props.GetNextProp3D();
-                    mapVtkObjects2Objects.put(nextActor, body);
-                    if (nextActor instanceof vtkActor)
-                        actors.add((vtkActor)nextActor);
-                    if (nextActor instanceof FrameActor) continue;
-                    mapObject2VtkObjects.put(gSet.get(idx), nextActor);
-                    idx++;
-               }
-               bodyToActors.put(body.getName(), actors);
-            }
+            vtkAssembly bodyRep = new BodyDisplayer(modelAssembly, body,
+                    mapObject2VtkObjects, mapVtkObjects2Objects);
 
             // Bodies have things attached to them as handled by the
             // dependents mechanism. For each one of these a new vtkActor is created and attached 
@@ -232,19 +184,18 @@ public class SingleModelVisuals {
                 
                 OpenSimObject owner = Dependent.getOwner();
                 if (Marker.safeDownCast(owner)!=null){
-                    int index = getMarkersRep().addLocation(owner);
-                    getMarkersRep().setVectorDataAtLocation(index,1,1,1);
-                    mapMarkers2Glyphs.put(owner, new Integer(index));
-                    vtkLineSource markerLine = new vtkLineSource();
+                    
+                    markersRep.addMarker(Marker.safeDownCast(owner));
+                    /*vtkLineSource markerLine = new vtkLineSource();
                     mapMarkers2Lines.put(owner, markerLine);
                     markerLinesVisible.put(owner, false);
-                    markerLinePolyData.AddInput(markerLine.GetOutput());
+                    markerLinePolyData.AddInput(markerLine.GetOutput());*/
                     continue;
                 } else if (PathPoint.safeDownCast(owner)!=null||
                            ConditionalPathPoint.safeDownCast(owner)!=null){
-                   // Muscle points are handled in addActuatorsGeometry
+                   // Muscle points are handled in addGeometryForForces
                 } else { // WrapObjects, and any other geometry attached to body
-                   vtkActor attachmentRep = DisplayGeometryFactory.createGeometryDisplayer(Dependent, modelFilePath);
+                   vtkActor attachmentRep = DisplayGeometryFactory.createGeometryDisplayer(Dependent, model.getFilePath());
                    if(attachmentRep!=null) {
                       mapObject2VtkObjects.put(Dependent.getOwner(), attachmentRep);
                       mapVtkObjects2Objects.put(attachmentRep, Dependent.getOwner());
@@ -257,14 +208,16 @@ public class SingleModelVisuals {
 
         // Add markers
         modelAssembly.AddPart(getMarkersRep().getVtkActor());
-
+        /*
         vtkPolyDataMapper markerLineMapper = new vtkPolyDataMapper();
         markerLineMapper.SetInput(markerLinePolyData.GetOutput());
         markerLineActor.SetMapper(markerLineMapper);
-        modelAssembly.AddPart(markerLineActor);
+        modelAssembly.AddPart(markerLineActor);*/
+        comDisplayer = new ModelComDisplayer();
+        modelAssembly.AddPart(comDisplayer.getVtkActor());
 
         // Now the muscles and other actuators
-        addActuatorsGeometry(model, modelAssembly);
+        addGeometryForForces(model, modelAssembly);
 
         // Add whole model assembly to object map
         mapObject2VtkObjects.put(model, modelAssembly);
@@ -275,6 +228,7 @@ public class SingleModelVisuals {
 
         return modelAssembly;
     }
+
 
     /**
      * updateModelDisplay with new transforms cached in animationCallback.
@@ -305,7 +259,7 @@ public class SingleModelVisuals {
                 if (Marker.safeDownCast(owner)!=null){
                    // Markers are handled in updateMarkersGeometry
                 } else if (PathPoint.safeDownCast(owner)!=null){
-                   // Muscle points are handled in updateActuatorsGeometry
+                   // Muscle points are handled in updateForceGeometry
                 } else {
                    // Must be a wrap object, so we set the wrap object's transform to the body transform (the wrap object
                    // has an additional xform that was set in createModelAssembly specifying the wrap object's xform in its parent body's space)
@@ -316,39 +270,17 @@ public class SingleModelVisuals {
         }
        
         updateMarkersGeometry(model.getMarkerSet());
-        updateActuatorsGeometry(model);
+        updateForceGeometry(model);
+        comDisplayer.updateCOMLocation(model);
         updateUserObjects();
    }
 
    private void updateMarkersGeometry(MarkerSet markers) {
       for (int i=0; i<markers.getSize(); i++)
-         updateMarkerGeometry(markers.get(i));
+         markersRep.updateMarkerGeometry(markers.get(i));
    }
 
-   public void updateMarkerGeometry(Marker marker) {
-      // Convert marker offset to global offset, and update the marker's glyph
-      // location and the line to its parent body.
-      double[] offset = new double[3];
-      double[] gOffset = new double[3];
-      double[] origin = {0.0, 0.0, 0.0};
-      double[] gOrigin = new double[3];
-      int index = mapMarkers2Glyphs.get(marker).intValue();
-      SimbodyEngine de = marker.getBody().getModel().getSimbodyEngine();
-      Model model =marker.getBody().getModel();
-      marker.getOffset(offset);
-      OpenSimContext context=OpenSimDB.getInstance().getContext(model);
-      context.transformPosition(marker.getBody(), offset, gOffset);
-      context.transformPosition(marker.getBody(), origin, gOrigin);
-      getMarkersRep().setLocation(index, gOffset);
-      vtkLineSource markerLine = mapMarkers2Lines.get(marker);
-      markerLine.SetPoint1(gOffset);
-      if (markerLinesVisible.get(marker) == false)
-         markerLine.SetPoint2(gOffset);
-      else
-         markerLine.SetPoint2(gOrigin);
-      getMarkersRep().setModified();
-   }
-
+/*
    public void setMarkerLineVisible(Marker marker, boolean state) {
       double[] origin = {0.0, 0.0, 0.0};
       Boolean oldState = markerLinesVisible.get(marker);
@@ -373,35 +305,41 @@ public class SingleModelVisuals {
          getMarkersRep().setModified();
       }
    }
-
+*/
    /**
     * Functions for dealing with actuator geometry
     */
-    private void addActuatorsGeometry(Model mdl, vtkAssembly modelAssembly) {
+    private void addGeometryForForces(Model mdl, vtkAssembly modelAssembly) {
         ForceSet forces = mdl.getForceSet();
         if (forces==null) return;
         for(int fNumber=0; fNumber < forces.getSize(); fNumber++){
            OpenSimObject f = forces.get(fNumber);
            Force force = Force.safeDownCast(f);
-           Actuator a = Actuator.safeDownCast(force);
-           if (a!= null) 
-               addActuatorGeometry(a, false);
+           PathActuator pa = PathActuator.safeDownCast(force);
+           if (pa!= null) 
+               addPathActuatorGeometry(pa, false);
+           else if (force.hasGeometryPath()){
+               addPathForceGeometry(force, false);
+           }
            else
-               addForceGeometry(force);
+               addNonPathForceGeometry(force);
         }
         modelAssembly.AddPart(getMuscleSegmentsRep().getVtkActor());
         getMuscleSegmentsRep().setModified();
         modelAssembly.AddPart(getMusclePointsRep().getVtkActor());
         getMusclePointsRep().setModified();
-        modelAssembly.AddPart(getForcesRep().getVtkActor());
-        getForcesRep().setModified();
+        //Ligaments ropes, other forces acting along a path
+        modelAssembly.AddPart(getForceAlongPathPointsRep().getVtkActor());
+        getForceAlongPathPointsRep().setModified();
+        modelAssembly.AddPart(getForceAlongPathSegmentsRep().getVtkActor());
+        getForceAlongPathSegmentsRep().setModified();
     }
 
-    public void addActuatorGeometry(Force act, boolean callSetModified) {
+    public void addPathActuatorGeometry(Force act, boolean callSetModified) {
        Muscle muscle = Muscle.safeDownCast(act);
        if(muscle == null) return;   // Could be just a force, in this case add and mark modified
        OpenSimContext context=OpenSimDB.getInstance().getContext(muscle.getModel());
-       if (context.isDisabled(act)) return; // Skip over disabled. 
+        if (context.isDisabled(act)) return;
        LineSegmentMuscleDisplayer disp = new LineSegmentMuscleDisplayer(muscle, getMusclePointsRep(), getMuscleSegmentsRep());
        mapActuator2Displayer.put(act, disp);
        disp.addGeometry();
@@ -412,11 +350,15 @@ public class SingleModelVisuals {
        muscle=null;
     }
 
-   private void updateActuatorsGeometry(ForceSet acts) {
+   private void updateForceGeometry(ForceSet acts) {
       Iterator<LineSegmentMuscleDisplayer> dispIter = mapActuator2Displayer.values().iterator();
       while(dispIter.hasNext()) dispIter.next().updateGeometry(true);
+      Iterator<LineSegmentForceDisplayer> fDispIter = mapForces2Displayer.values().iterator();
+      while(fDispIter.hasNext()) fDispIter.next().updateGeometry(true);
       getMuscleSegmentsRep().setModified();
       getMusclePointsRep().setModified();
+      getForceAlongPathSegmentsRep().setModified();
+      getForceAlongPathPointsRep().setModified();
    }
 
    public void updateActuatorGeometry(Force act, boolean callUpdateDisplayer) {
@@ -428,8 +370,8 @@ public class SingleModelVisuals {
       }
    }
 
-   public void updateActuatorsGeometry(Model mdl) {
-      updateActuatorsGeometry(mdl.getForceSet());
+   public void updateForceGeometry(Model mdl) {
+      updateForceGeometry(mdl.getForceSet());
    }
 
    public void removeActuatorGeometry(Actuator act) {
@@ -450,27 +392,23 @@ public class SingleModelVisuals {
    }
 
    public void addMarkerGeometry(Marker marker) {
-      int index = getMarkersRep().addLocation(marker);
-      getMarkersRep().setVectorDataAtLocation(index,1,1,1);
-      getMarkersRep().setSelected(index, false);
-      getMarkersRep().setModified();
-      mapMarkers2Glyphs.put(marker, new Integer(index));
+      getMarkersRep().addMarker(marker);
+      /*
       vtkLineSource markerLine = new vtkLineSource();
       mapMarkers2Lines.put(marker, markerLine);
       markerLinesVisible.put(marker, false);
-      markerLinePolyData.AddInput(markerLine.GetOutput());
-      updateMarkerGeometry(marker);
+      markerLinePolyData.AddInput(markerLine.GetOutput());*/
+      getMarkersRep().updateMarkerGeometry(marker);
    }
 
    public void removeMarkerGeometry(Marker marker) {
-      int glyphID = mapMarkers2Glyphs.get(marker);
-      getMarkersRep().remove(glyphID);
-      mapMarkers2Glyphs.remove(marker);
-
+      
+      getMarkersRep().removeMarkerGeometry(marker);
       // There appears to be a bug in removing inputs from
       // a vtkAppendPolyData object-- the output is never updated
       // to reflect the removal. So before removing it, set
       // the marker line to a point, so it is invisible.
+      /*
       vtkLineSource markerLine = mapMarkers2Lines.get(marker);
       double[] origin = {0.0, 0.0, 0.0};
       markerLine.SetPoint1(origin);
@@ -480,37 +418,13 @@ public class SingleModelVisuals {
       markerLinePolyData.Modified();
       mapMarkers2Lines.remove(marker);
 
-      markerLinesVisible.remove(marker);
+      markerLinesVisible.remove(marker); */
       getMarkersRep().setModified();
    }
 
    public void setMarkerVisibility(Marker marker, boolean visible) {
-      int index = (mapMarkers2Glyphs.get(marker)).intValue();
-      vtkLineSource markerLine = mapMarkers2Lines.get(marker);
-      if (visible) {
-         getMarkersRep().show(index);
-         // Set the endpoints of the marker line, because the only other
-         // place this is done is updateModelDisplay(), which is not called
-         // in this case.
-         double[] pos = new double[3];
-         double[] gPos = new double[3];
-         double[] origin = {0.0, 0.0, 0.0};
-         double[] gOrigin = new double[3];
-         Body body = marker.getBody();
-         marker.getOffset(pos);
-         OpenSimContext context=OpenSimDB.getInstance().getContext(body.getModel());
-         context.transformPosition(body, origin, gOrigin);
-         context.transformPosition(body, pos, gPos);
-         markerLine.SetPoint1(gOrigin);
-         markerLine.SetPoint2(gOrigin);
-         //markerLine.SetPoint2(gPos);
-      } else {
-         getMarkersRep().hide(index);
-         markerLine.SetPoint1(0.0, 0.0, 0.0);
-         markerLine.SetPoint2(0.0, 0.0, 0.0);
+      getMarkersRep().setMarkerVisibility(marker, visible);
       }
-      getMarkersRep().setModified();
-   }
 
      /**
       * Get the vtkTransform matrix between ground and a body frame,
@@ -705,21 +619,16 @@ public class SingleModelVisuals {
     */
     private void initDefaultShapesAndColors() {
 
-       // Markers
-       vtkSphereSource marker=new vtkSphereSource();
-       marker.SetRadius(ViewDB.getInstance().getMarkerDisplayRadius());
-       marker.SetCenter(0., 0., 0.);
-       //getMarkersRep().setColors(defaultMarkerColor, SelectedObject.defaultSelectedColor);
-       defaultMarkerColor = ViewDB.getInstance().getDefaultMarkersColor();
-       getMarkersRep().setColorRange(defaultMarkerColor, defaultMarkerColor);
-       getMarkersRep().setSelectedColor(SelectedObject.defaultSelectedColor);
-       vtkStripper strip1 = new vtkStripper();
-       strip1.SetInput(marker.GetOutput());
-       getMarkersRep().setShape(strip1.GetOutput());
-       getMarkersRep().scaleByVectorComponents();
-       markerLineActor.GetProperty().SetColor(SelectedObject.defaultSelectedColor);
+       // MarkerLine
+       //markerLineActor.GetProperty().SetColor(SelectedObject.defaultSelectedColor);
+       // Muscles
        createMusclePointRep(musclePointsRep);
        createMuscleSegmentRep(muscleSegmentsRep);
+       // Ropes, other forces acting along path
+       createMusclePointRep(otherPathPointsRep);
+       createMuscleSegmentRep(otherPathSegmentsRep);
+       otherPathPointsRep.setColorRange(forceAlongPathColor, forceAlongPathColor);
+       otherPathSegmentsRep.setColorRange(forceAlongPathColor, forceAlongPathColor);
        // Arbitrary forces
        vtkArrowSource aForceDisplay=new vtkArrowSource();
        aForceDisplay.SetShaftRadius(0.02);
@@ -728,7 +637,7 @@ public class SingleModelVisuals {
        vtkStripper strip3 = new vtkStripper();
        strip3.SetInput(aForceDisplay.GetOutput());
        getForcesRep().setShape(strip3.GetOutput());
-       
+
     }
 
     private void createMuscleSegmentRep(OpenSimvtkOrientedGlyphCloud aMuscleSegmentsRep) {
@@ -781,7 +690,7 @@ public class SingleModelVisuals {
            return null;
     }
 
-    public OpenSimvtkGlyphCloud getMarkersRep() {
+    public MarkersDisplayer getMarkersRep() {
         return markersRep;
     }
 
@@ -820,12 +729,34 @@ public class SingleModelVisuals {
         return userObjects;
     }
 
-    public List<vtkActor> getMeshesForBody(String bodyName) {
-        return bodyToActors.get(bodyName);
+    private void addNonPathForceGeometry(OpenSimObject fObject) {
+        
     }
 
-    private void addForceGeometry(OpenSimObject f) {
-        //if (f.getDisplayer()!=null)
+    public OpenSimvtkGlyphCloud getForceAlongPathPointsRep() {
+        return otherPathPointsRep;
+    }
+
+    public OpenSimvtkOrientedGlyphCloud getForceAlongPathSegmentsRep() {
+        return otherPathSegmentsRep;
+    }
+
+    private void addPathForceGeometry(Force forceAlongPath, boolean callSetModified) {
+        OpenSimContext context=OpenSimDB.getInstance().getContext(forceAlongPath.getModel());
+        if (context.isDisabled(forceAlongPath)) return;
+        LineSegmentForceDisplayer disp;
+        try {
+            disp = new LineSegmentForceDisplayer(forceAlongPath, getForceAlongPathPointsRep(), getForceAlongPathSegmentsRep());
+            mapForces2Displayer.put(forceAlongPath, disp);
+            disp.addGeometry();
+            if (callSetModified) {
+                getForceAlongPathSegmentsRep().setModified();
+                getForceAlongPathPointsRep().setModified();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+       //mapActuator2Displayer.put(act, disp);
     }
     
 }

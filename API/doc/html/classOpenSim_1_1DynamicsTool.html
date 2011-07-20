@@ -28,7 +28,7 @@
 </div>
 <div class="contents">
 <h1>OpenSim::DynamicsTool Class Reference</h1><!-- doxytag: class="OpenSim::DynamicsTool" --><!-- doxytag: inherits="OpenSim::Tool" -->
-<p>An abstract <a class="el" href="classOpenSim_1_1Tool.html" title="A Tool is an OpenSim abstraction that encasulates an analysis or series of modeling...">Tool</a> for defining tools for perfroming a dynamics analysis with a given model.  
+<p>An abstract <a class="el" href="classOpenSim_1_1Tool.html" title="A Tool is an OpenSim abstraction that encapsulates an analysis or series of modeling...">Tool</a> for defining tools for perfroming a dynamics analysis with a given model.  
 <a href="#_details">More...</a></p>
 
 <p><code>#include &lt;DynamicsTool.h&gt;</code></p>
@@ -71,10 +71,9 @@ Inheritance diagram for OpenSim::DynamicsTool:</div>
 <tr><td class="memItemLeft" align="right" valign="top">double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1DynamicsTool.html#ac46c8c2d3eba8b13fd442e278ed75e5d">getEndTime</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1DynamicsTool.html#a52c409536d68e399fd3fcdb1aa0f4159">setModel</a> (<a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;aModel)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1DynamicsTool.html#ab4a31b9c4f6c9c3ce3147525ea24e7f4">setExcludedForces</a> (const <a class="el" href="classOpenSim_1_1Array.html">Array</a>&lt; std::string &gt; &amp;aExcluded)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1DynamicsTool.html#a3f04ec3ae85fb1e70b33da965c660a9c">createExternalLoads</a> (const std::string &amp;aExternalLoadsFileName, <a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;aModel)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1DynamicsTool.html#a4ead7b4476cf465a21147dd3a68ef9db">initializeExternalLoads</a> (SimTK::State &amp;s, const double &amp;analysisStartTime, const double &amp;analysisFinalTime)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1DynamicsTool.html#a79fe9bd6b53f15a3582116652807e36c">createExternalLoads</a> (const std::string &amp;aExternalLoadsFileName, <a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;aModel, const <a class="el" href="classOpenSim_1_1Storage.html">Storage</a> *loadKinematics=NULL)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1DynamicsTool.html#a91111c19ce43ebe1d3d3b19a32090301">run</a> () SWIG_DECLARE_EXCEPTION=0</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The <a class="el" href="classOpenSim_1_1DynamicsTool.html#a91111c19ce43ebe1d3d3b19a32090301" title="The run() method of a Tool embodies what would be the main() routine for a standalone...">run()</a> method of a <a class="el" href="classOpenSim_1_1Tool.html" title="A Tool is an OpenSim abstraction that encasulates an analysis or series of modeling...">Tool</a> embodies what would be the main() routine for a standalone program.  <a href="#a91111c19ce43ebe1d3d3b19a32090301"></a><br/></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The <a class="el" href="classOpenSim_1_1DynamicsTool.html#a91111c19ce43ebe1d3d3b19a32090301" title="The run() method of a Tool embodies what would be the main() routine for a standalone...">run()</a> method of a <a class="el" href="classOpenSim_1_1Tool.html" title="A Tool is an OpenSim abstraction that encapsulates an analysis or series of modeling...">Tool</a> embodies what would be the main() routine for a standalone program.  <a href="#a91111c19ce43ebe1d3d3b19a32090301"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Model.html">Model</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1DynamicsTool.html#a95ad3ff2265dd5aafc44c6a9e409ae48">_model</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Pointer to the model being investigated.  <a href="#a95ad3ff2265dd5aafc44c6a9e409ae48"></a><br/></td></tr>
@@ -88,13 +87,13 @@ Inheritance diagram for OpenSim::DynamicsTool:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Idenitify the list of forces to be ignored for computing dynamics.  <a href="#adcaa9ad89010ceea1a0450f4805f3af6"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Array.html">Array</a>&lt; std::string &gt; &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1DynamicsTool.html#a6f21e3e51a6dd1ad5e61553c59d41fc8">_excludedForces</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyStr.html">OpenSim::PropertyStr</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1DynamicsTool.html#a20999b834e7eb3b3d6301a807e940c09">_externalLoadsFileNameProp</a></td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">External loads object that manages loading and applying external forces.  <a href="#a20999b834e7eb3b3d6301a807e940c09"></a><br/></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Name of the file containing the external loads applied to the model.  <a href="#a20999b834e7eb3b3d6301a807e940c09"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::string &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1DynamicsTool.html#a8b2f74c8de7b8d99767f34b4d8b0c1e6">_externalLoadsFileName</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1ExternalLoads.html">ExternalLoads</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1DynamicsTool.html#a8582f667f1d1175381c76fb74d788536">_externalLoads</a></td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Actual external forces being applied.  <a href="#a8582f667f1d1175381c76fb74d788536"></a><br/></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">External loads object that manages loading and applying external forces to the model, including transformations required by the <a class="el" href="classOpenSim_1_1Tool.html" title="A Tool is an OpenSim abstraction that encapsulates an analysis or series of modeling...">Tool</a>.  <a href="#a8582f667f1d1175381c76fb74d788536"></a><br/></td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
-<p>An abstract <a class="el" href="classOpenSim_1_1Tool.html" title="A Tool is an OpenSim abstraction that encasulates an analysis or series of modeling...">Tool</a> for defining tools for perfroming a dynamics analysis with a given model. </p>
+<p>An abstract <a class="el" href="classOpenSim_1_1Tool.html" title="A Tool is an OpenSim abstraction that encapsulates an analysis or series of modeling...">Tool</a> for defining tools for perfroming a dynamics analysis with a given model. </p>
 <p>For example, <a class="el" href="classOpenSim_1_1InverseDynamics.html" title="A class for performing and recording Inverse Dynamics forces/moments on a motion...">InverseDynamics</a> and ForwardDynamics Tools derive from <a class="el" href="classOpenSim_1_1DynamicsTool.html" title="An abstract Tool for defining tools for perfroming a dynamics analysis with a given...">DynamicsTool</a>, which provides convenient method for performing and dynamics analysis over or to produce a trajectory in time.</p>
 <dl class="author"><dt><b>Author:</b></dt><dd>Ajay Seth </dd></dl>
 <dl class="version"><dt><b>Version:</b></dt><dd>1.0 </dd></dl>
@@ -216,7 +215,7 @@ Inheritance diagram for OpenSim::DynamicsTool:</div>
 
 </div>
 </div>
-<a class="anchor" id="a3f04ec3ae85fb1e70b33da965c660a9c"></a><!-- doxytag: member="OpenSim::DynamicsTool::createExternalLoads" ref="a3f04ec3ae85fb1e70b33da965c660a9c" args="(const std::string &amp;aExternalLoadsFileName, Model &amp;aModel)" -->
+<a class="anchor" id="a79fe9bd6b53f15a3582116652807e36c"></a><!-- doxytag: member="OpenSim::DynamicsTool::createExternalLoads" ref="a79fe9bd6b53f15a3582116652807e36c" args="(const std::string &amp;aExternalLoadsFileName, Model &amp;aModel, const Storage *loadKinematics=NULL)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -230,7 +229,13 @@ Inheritance diagram for OpenSim::DynamicsTool:</div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>aModel</em></td><td>&nbsp;</td>
+          <td class="paramname"> <em>aModel</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classOpenSim_1_1Storage.html">Storage</a> *&nbsp;</td>
+          <td class="paramname"> <em>loadKinematics</em> = <code>NULL</code></td><td>&nbsp;</td>
         </tr>
         <tr>
           <td></td>
@@ -346,39 +351,6 @@ Inheritance diagram for OpenSim::DynamicsTool:</div>
 
 </div>
 </div>
-<a class="anchor" id="a4ead7b4476cf465a21147dd3a68ef9db"></a><!-- doxytag: member="OpenSim::DynamicsTool::initializeExternalLoads" ref="a4ead7b4476cf465a21147dd3a68ef9db" args="(SimTK::State &amp;s, const double &amp;analysisStartTime, const double &amp;analysisFinalTime)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DynamicsTool::initializeExternalLoads </td>
-          <td>(</td>
-          <td class="paramtype">SimTK::State &amp;&nbsp;</td>
-          <td class="paramname"> <em>s</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const double &amp;&nbsp;</td>
-          <td class="paramname"> <em>analysisStartTime</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const double &amp;&nbsp;</td>
-          <td class="paramname"> <em>analysisFinalTime</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
 <a class="anchor" id="a202ab48d3276b13fff806165713af6a5"></a><!-- doxytag: member="OpenSim::DynamicsTool::operator=" ref="a202ab48d3276b13fff806165713af6a5" args="(const DynamicsTool &amp;aDynamicsTool)" -->
 <div class="memitem">
 <div class="memproto">
@@ -419,8 +391,8 @@ Inheritance diagram for OpenSim::DynamicsTool:</div>
 </div>
 <div class="memdoc">
 
-<p>The <a class="el" href="classOpenSim_1_1DynamicsTool.html#a91111c19ce43ebe1d3d3b19a32090301" title="The run() method of a Tool embodies what would be the main() routine for a standalone...">run()</a> method of a <a class="el" href="classOpenSim_1_1Tool.html" title="A Tool is an OpenSim abstraction that encasulates an analysis or series of modeling...">Tool</a> embodies what would be the main() routine for a standalone program. </p>
-<p>Therefore, any OpenSim main program can become a <a class="el" href="classOpenSim_1_1Tool.html" title="A Tool is an OpenSim abstraction that encasulates an analysis or series of modeling...">Tool</a> executable from the GUI by making it a <a class="el" href="classOpenSim_1_1DynamicsTool.html#a91111c19ce43ebe1d3d3b19a32090301" title="The run() method of a Tool embodies what would be the main() routine for a standalone...">run()</a> method for a new <a class="el" href="classOpenSim_1_1Tool.html" title="A Tool is an OpenSim abstraction that encasulates an analysis or series of modeling...">Tool</a>.</p>
+<p>The <a class="el" href="classOpenSim_1_1DynamicsTool.html#a91111c19ce43ebe1d3d3b19a32090301" title="The run() method of a Tool embodies what would be the main() routine for a standalone...">run()</a> method of a <a class="el" href="classOpenSim_1_1Tool.html" title="A Tool is an OpenSim abstraction that encapsulates an analysis or series of modeling...">Tool</a> embodies what would be the main() routine for a standalone program. </p>
+<p>Therefore, any OpenSim main program can become a <a class="el" href="classOpenSim_1_1Tool.html" title="A Tool is an OpenSim abstraction that encapsulates an analysis or series of modeling...">Tool</a> executable from the GUI by making it a <a class="el" href="classOpenSim_1_1DynamicsTool.html#a91111c19ce43ebe1d3d3b19a32090301" title="The run() method of a Tool embodies what would be the main() routine for a standalone...">run()</a> method for a new <a class="el" href="classOpenSim_1_1Tool.html" title="A Tool is an OpenSim abstraction that encapsulates an analysis or series of modeling...">Tool</a>.</p>
 <p>It is expected that the <a class="el" href="classOpenSim_1_1DynamicsTool.html#a91111c19ce43ebe1d3d3b19a32090301" title="The run() method of a Tool embodies what would be the main() routine for a standalone...">run()</a> method be composed of a sequence of calls to underlying computational and reporting objects and should </p>
 
 <p>Implements <a class="el" href="classOpenSim_1_1Tool.html#a63d0020df066695c6be22a4ea4a321ee">OpenSim::Tool</a>.</p>
@@ -576,8 +548,7 @@ Inheritance diagram for OpenSim::DynamicsTool:</div>
 </div>
 <div class="memdoc">
 
-<p>Actual external forces being applied. </p>
-<p>e.g. GRF </p>
+<p>External loads object that manages loading and applying external forces to the model, including transformations required by the <a class="el" href="classOpenSim_1_1Tool.html" title="A Tool is an OpenSim abstraction that encapsulates an analysis or series of modeling...">Tool</a>. </p>
 
 </div>
 </div>
@@ -605,7 +576,6 @@ Inheritance diagram for OpenSim::DynamicsTool:</div>
 </div>
 <div class="memdoc">
 
-<p>External loads object that manages loading and applying external forces. </p>
 <p>Name of the file containing the external loads applied to the model. </p>
 
 </div>
@@ -686,7 +656,7 @@ Inheritance diagram for OpenSim::DynamicsTool:</div>
 <li>OpenSim/Tools/DynamicsTool.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sat Mar 12 12:28:37 2011 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Jun 5 10:14:20 2011 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

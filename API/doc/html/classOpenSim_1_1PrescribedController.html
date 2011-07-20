@@ -55,6 +55,9 @@ Inheritance diagram for OpenSim::PrescribedController:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Copy constructor.  <a href="#a4e91d9aacf3276986956cb242d44038e"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PrescribedController.html#abf0d266890bb31d5ecaec58170e579c1">~PrescribedController</a> ()</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Destructor.  <a href="#abf0d266890bb31d5ecaec58170e579c1"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classOpenSim_1_1Object.html">Object</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PrescribedController.html#a41d05c00c24d72895b985392e60dcefa">copy</a> () const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Copy this <a class="el" href="classOpenSim_1_1PrescribedController.html">PrescribedController</a> and return a pointer to the copy.  <a href="#a41d05c00c24d72895b985392e60dcefa"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PrescribedController.html#ab8a93669fa02977a8c31cd62530bd219">OPENSIM_DECLARE_DERIVED</a> (<a class="el" href="classOpenSim_1_1PrescribedController.html">PrescribedController</a>, <a class="el" href="classOpenSim_1_1Controller.html">Controller</a>)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PrescribedController.html">PrescribedController</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PrescribedController.html#a07a23c822aca549e19fad487aec1c73e">operator=</a> (const <a class="el" href="classOpenSim_1_1PrescribedController.html">PrescribedController</a> &amp;<a class="el" href="classOpenSim_1_1PrescribedController.html">PrescribedController</a>)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Assignment operator.  <a href="#a07a23c822aca549e19fad487aec1c73e"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PrescribedController.html#a67980f3b70e7c6e69af7d136c1dccdad">computeControls</a> (const SimTK::State &amp;s, SimTK::Vector &amp;controls) const </td></tr>
@@ -69,7 +72,8 @@ Inheritance diagram for OpenSim::PrescribedController:</div>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PrescribedController.html#a0fad4b9103618c80d8ab4444a6cae0ea">copyData</a> (const <a class="el" href="classOpenSim_1_1PrescribedController.html">PrescribedController</a> &amp;aController)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Copy the member variables of the specified controller.  <a href="#a0fad4b9103618c80d8ab4444a6cae0ea"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Protected Attributes</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Array.html">Array</a>&lt; <a class="el" href="classOpenSim_1_1Function.html">OpenSim::Function</a> * &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PrescribedController.html#ad832c99a25ac21223da9c7bce5f0651e">_prescribedControlFunctions</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyObj.html">PropertyObj</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PrescribedController.html#a70d16d3833b7a3ce2d880db8240f61e4">_prescribedControlFunctionsProp</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1FunctionSet.html">FunctionSet</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PrescribedController.html#a97bc558bf8e77a1362318a2d3a25d45c">_prescribedControlFunctions</a></td></tr>
 </table>
 <hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a797b1ff9843eaad0186e7033a66abfd1"></a><!-- doxytag: member="OpenSim::PrescribedController::PrescribedController" ref="a797b1ff9843eaad0186e7033a66abfd1" args="()" -->
@@ -240,6 +244,29 @@ Inheritance diagram for OpenSim::PrescribedController:</div>
 
 </div>
 </div>
+<a class="anchor" id="a41d05c00c24d72895b985392e60dcefa"></a><!-- doxytag: member="OpenSim::PrescribedController::copy" ref="a41d05c00c24d72895b985392e60dcefa" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classOpenSim_1_1Object.html">Object</a> * PrescribedController::copy </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Copy this <a class="el" href="classOpenSim_1_1PrescribedController.html">PrescribedController</a> and return a pointer to the copy. </p>
+<p>The copy constructor for this class is used. This method is called when a description of this controller is read in from an XML file.</p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>Pointer to a copy of this <a class="el" href="classOpenSim_1_1PrescribedController.html">PrescribedController</a>. </dd></dl>
+
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1Object.html#a2000b12522f6f79a8918991b819a4bb7">OpenSim::Object</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a0fad4b9103618c80d8ab4444a6cae0ea"></a><!-- doxytag: member="OpenSim::PrescribedController::copyData" ref="a0fad4b9103618c80d8ab4444a6cae0ea" args="(const PrescribedController &amp;aController)" -->
 <div class="memitem">
 <div class="memproto">
@@ -266,6 +293,33 @@ Inheritance diagram for OpenSim::PrescribedController:</div>
 </dl>
 
 <p>Reimplemented from <a class="el" href="classOpenSim_1_1Controller.html#aee8908216aeead4f52943d2cca387dbf">OpenSim::Controller</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ab8a93669fa02977a8c31cd62530bd219"></a><!-- doxytag: member="OpenSim::PrescribedController::OPENSIM_DECLARE_DERIVED" ref="ab8a93669fa02977a8c31cd62530bd219" args="(PrescribedController, Controller)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">OpenSim::PrescribedController::OPENSIM_DECLARE_DERIVED </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classOpenSim_1_1PrescribedController.html">PrescribedController</a>&nbsp;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classOpenSim_1_1Controller.html">Controller</a>&nbsp;</td>
+          <td class="paramname"></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
 
 </div>
 </div>
@@ -393,12 +447,25 @@ Inheritance diagram for OpenSim::PrescribedController:</div>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
-<a class="anchor" id="ad832c99a25ac21223da9c7bce5f0651e"></a><!-- doxytag: member="OpenSim::PrescribedController::_prescribedControlFunctions" ref="ad832c99a25ac21223da9c7bce5f0651e" args="" -->
+<a class="anchor" id="a97bc558bf8e77a1362318a2d3a25d45c"></a><!-- doxytag: member="OpenSim::PrescribedController::_prescribedControlFunctions" ref="a97bc558bf8e77a1362318a2d3a25d45c" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classOpenSim_1_1Array.html">Array</a>&lt;<a class="el" href="classOpenSim_1_1Function.html">OpenSim::Function</a> *&gt; <a class="el" href="classOpenSim_1_1PrescribedController.html#ad832c99a25ac21223da9c7bce5f0651e">OpenSim::PrescribedController::_prescribedControlFunctions</a><code> [protected]</code></td>
+          <td class="memname"><a class="el" href="classOpenSim_1_1FunctionSet.html">FunctionSet</a>&amp; <a class="el" href="classOpenSim_1_1PrescribedController.html#a97bc558bf8e77a1362318a2d3a25d45c">OpenSim::PrescribedController::_prescribedControlFunctions</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a70d16d3833b7a3ce2d880db8240f61e4"></a><!-- doxytag: member="OpenSim::PrescribedController::_prescribedControlFunctionsProp" ref="a70d16d3833b7a3ce2d880db8240f61e4" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classOpenSim_1_1PropertyObj.html">PropertyObj</a> <a class="el" href="classOpenSim_1_1PrescribedController.html#a70d16d3833b7a3ce2d880db8240f61e4">OpenSim::PrescribedController::_prescribedControlFunctionsProp</a><code> [protected]</code></td>
         </tr>
       </table>
 </div>
@@ -411,7 +478,7 @@ Inheritance diagram for OpenSim::PrescribedController:</div>
 <li>OpenSim/Simulation/Control/PrescribedController.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sat Mar 12 12:28:29 2011 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Jun 5 10:14:10 2011 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

@@ -108,7 +108,7 @@ public class PlotterSourceStorage implements PlotterSourceInterface {
    }
 
    public String getDisplayName() {
-      return displayName;
+      return displayName+"("+(storage.isInDegrees()?"Deg.":"Rad.")+")";
    }
 
    public Storage getStorage() {

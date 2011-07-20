@@ -51,7 +51,7 @@ public final class ObjectPropertiesEditor extends CallableSystemAction {
                 String ext = fullName.substring(fullName.lastIndexOf('.'));
                 //browseForFilenameToSave(String extensions, String description, boolean promptIfReplacing, String currentFilename)
                 String newFilename = FileUtils.getInstance().browseForFilenameToSave(ext, "Save to file name", true, fileName);
-                obj.copy().print(newFilename);
+                obj.print(newFilename);
             }
          } else {
             DialogDisplayer.getDefault().notify(

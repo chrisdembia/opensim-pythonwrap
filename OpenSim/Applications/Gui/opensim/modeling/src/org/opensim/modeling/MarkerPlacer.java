@@ -60,6 +60,14 @@ public class MarkerPlacer extends OpenSimObject {
     return opensimModelJNI.MarkerPlacer_processModel__SWIG_1(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), Model.getCPtr(aModel), aModel);
   }
 
+  public boolean getApply() {
+    return opensimModelJNI.MarkerPlacer_getApply(swigCPtr, this);
+  }
+
+  public void setApply(boolean aApply) {
+    opensimModelJNI.MarkerPlacer_setApply(swigCPtr, this, aApply);
+  }
+
   public String getStaticPoseFileName() {
     return opensimModelJNI.MarkerPlacer_getStaticPoseFileName(swigCPtr, this);
   }

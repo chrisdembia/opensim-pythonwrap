@@ -88,13 +88,9 @@ public class InverseDynamicsToolModel extends AbstractToolModelWithExternalLoads
          context = new OpenSimContext(workersModel.initSystem(), workersModel); // Has side effect of calling setup
         
          workersModel.setInputFileName("");
-         /*
+         
          if(getInputSource()==InputSource.Motion && getInputMotion()!=null)
-            context.setStatesFromMotion(InverseDynamicsTool(), getInputMotion(),false); // false == motion is in radians
-         else
-            context.loadStatesFromFile(InverseDynamicsTool());
-          **/
-
+            idTool.setCoordinateValues(getInputMotion());
          // We don't need to add model to the 3D view... just using it to dump analyses result files
          setModel(workersModel);
           //OpenSim23 workersModel.initSystem();
@@ -102,7 +98,7 @@ public class InverseDynamicsToolModel extends AbstractToolModelWithExternalLoads
          // Initialize progress bar, given we know the number of frames to process
          double ti = getInitialTime();
          double tf = getFinalTime();
-         progressHandle = ProgressHandleFactory.createHandle("Executing analyses...",
+         progressHandle = ProgressHandleFactory.createHandle("Executing Inverse Dynamics...",
                               new Cancellable() {
                                  public boolean cancel() {
                                     interrupt(false);
@@ -153,8 +149,18 @@ public class InverseDynamicsToolModel extends AbstractToolModelWithExternalLoads
 
          // Clean up motion displayer (this is necessary!)
          animationCallback.cleanupMotionDisplayer();
-         // Should add the motion used for input
-         Storage motion = null;
+         Storage motion=null;
+         if (getInputSource()==InputSource.Motion){
+            motion = getInputMotion();
+         }
+         else { // Assume Coordinates file
+            try {
+                motion = new Storage(InverseDynamicsTool().getCoordinatesFileName());
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+         }
+         if (motion!=null)
          updateMotion(motion); // replaces current motion
             
          getModel().removeAnalysis(animationCallback, false);
@@ -173,7 +179,7 @@ public class InverseDynamicsToolModel extends AbstractToolModelWithExternalLoads
               MotionsDB.getInstance().closeMotion(getOriginalModel(), motion, false, false);
           }
           motion = newMotion;
-          //OpenSim23 motion.crop(InverseDynamicsTool().getStartTime(), InverseDynamicsTool().getFinalTime());
+          motion.crop(InverseDynamicsTool().getStartTime(), InverseDynamicsTool().getEndTime());
           if(motion!=null) {
               MotionsDB.getInstance().addMotion(getOriginalModel(), motion);
               MotionsDB.getInstance().setCurrentTime(motion.getLastTime());
@@ -253,14 +259,16 @@ public class InverseDynamicsToolModel extends AbstractToolModelWithExternalLoads
             if(mdb.getCurrentMotion(i).model==getOriginalModel()) {
                inputMotion = mdb.getCurrentMotion(i).motion;
                inputSource = InputSource.Motion;
+               InverseDynamicsTool().setStartTime(inputMotion.getFirstTime());
+               InverseDynamicsTool().setEndTime(inputMotion.getLastTime());
+               setModified(AbstractToolModel.Operation.InputDataChanged);
                return;
             }
          // If not, then pick the first of this model's motions
          inputMotion = motions.get(0);
          inputSource = InputSource.Motion;
       }
-      
-          
+      else   
       inputSource = InputSource.Coordinates;
    }
 
@@ -393,7 +401,7 @@ public class InverseDynamicsToolModel extends AbstractToolModelWithExternalLoads
       else if(!FileUtils.effectivelyNull(getCoordinatesFileName())) inputSource = InputSource.Coordinates;
       else inputSource = InputSource.Unspecified;
       // update filtering options here
-       //if(inputSource == InputSource.Coordinates) setCoordinatesFileName(InverseDynamicsTool().getCoordinatesFileName());
+       if(inputSource == InputSource.Coordinates) setCoordinatesFileName(InverseDynamicsTool().getCoordinatesFileName());
       
    }
 
@@ -405,7 +413,7 @@ public class InverseDynamicsToolModel extends AbstractToolModelWithExternalLoads
          InverseDynamicsTool().setCoordinatesFileName("");
       } 
       if(inputSource != InputSource.States) {
-        //OpenSim23  InverseDynamicsTool().setStatesFileName("");
+        //InverseDynamicsTool().setCoordinatesFileName("");
       }
       setModified(AbstractToolModel.Operation.AllDataChanged);
       
@@ -508,5 +516,6 @@ public class InverseDynamicsToolModel extends AbstractToolModelWithExternalLoads
         idTool.createExternalLoads(extLoadsFile, getOriginalModel());
         return idTool.getExternalLoads();
     }
+
 }
 

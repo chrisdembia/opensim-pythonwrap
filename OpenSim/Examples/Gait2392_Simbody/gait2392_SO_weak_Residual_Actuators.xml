@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ActuatorSet name="gait2392_CMC">
-
+<OpenSimDocument Version="20302">
+	<ForceSet name="gait2392_CMC">
 	<defaults>
 		<ControlLinear name="default">
 			<is_model_control> true </is_model_control>
@@ -17,28 +17,52 @@
 		</ControlLinear>
 		<CoordinateActuator name="default">
 			<isDisabled> false </isDisabled>
+				<!--Minimum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<min_control> -infinity </min_control>
+				<!--Maximum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<max_control> infinity </max_control>
 			<coordinate>  </coordinate>
 			<optimal_force>    1000.00000000 </optimal_force>
 		</CoordinateActuator>
 		<PointActuator name="default">
 			<isDisabled> false </isDisabled>
+				<!--Minimum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<min_control> -infinity </min_control>
+				<!--Maximum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<max_control> infinity </max_control>
 			<body>  </body>
 			<point>       0.00000000       0.00000000       0.00000000 </point>
 			<point_is_global> false </point_is_global>
-			<direction>      -1.00000000      -0.00000000      -0.00000000 </direction>
+				<direction>       1.00000000       0.00000000       0.00000000 </direction>
 			<force_is_global> true </force_is_global>
 			<optimal_force>    1000.00000000 </optimal_force>
 		</PointActuator>
 		<TorqueActuator name="default">
 			<isDisabled> false </isDisabled>
+				<!--Minimum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<min_control> -infinity </min_control>
+				<!--Maximum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<max_control> infinity </max_control>
 			<bodyA>  </bodyA>
 			<bodyB>  </bodyB>
 			<torque_is_global> true </torque_is_global>
-			<axis>      -1.00000000      -0.00000000      -0.00000000 </axis>
+				<axis>       1.00000000       0.00000000       0.00000000 </axis>
 			<optimal_force>    1000.00000000 </optimal_force>
 		</TorqueActuator>
 		<Thelen2003Muscle name="default">
 			<isDisabled> false </isDisabled>
+				<!--Minimum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<min_control>       0.00000000 </min_control>
+				<!--Maximum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<max_control>       1.00000000 </max_control>
 			<GeometryPath name="">
 				<PathPointSet name="">
 					<objects/>
@@ -67,14 +91,18 @@
 					<groups/>
 				</PathWrapSet>
 			</GeometryPath>
-			<!--maximum isometric force of the muscle fibers-->
+				<optimal_force>       1.00000000 </optimal_force>
+				<!--Maximum isometric force that the fibers can generate-->
 			<max_isometric_force>     546.00000000 </max_isometric_force>
-			<!--optimal length of the muscle fibers-->
+				<!--Optimal length of the muscle fibers-->
 			<optimal_fiber_length>       0.05350000 </optimal_fiber_length>
-			<!--resting length of the tendon-->
+				<!--Resting length of the tendon-->
 			<tendon_slack_length>       0.07800000 </tendon_slack_length>
-			<!--angle between tendon and fibers at optimal fiber length-->
-			<pennation_angle>       0.00000000 </pennation_angle>
+				<!--Angle between tendon and fibers at optimal fiber length-->
+				<pennation_angle_at_optimal>       0.00000000 </pennation_angle_at_optimal>
+				<!--Maximum contraction velocity of the fibers, in optimal fiberlengths
+				    per second-->
+				<max_contraction_velocity>      10.00000000 </max_contraction_velocity>
 			<!--time constant for ramping up of muscle activation-->
 			<activation_time_constant>       0.01000000 </activation_time_constant>
 			<!--time constant for ramping down of muscle activation-->
@@ -102,6 +130,12 @@
 		</Thelen2003Muscle>
 		<Schutte1993Muscle name="default">
 			<isDisabled> false </isDisabled>
+				<!--Minimum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<min_control>       0.00000000 </min_control>
+				<!--Maximum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<max_control>       1.00000000 </max_control>
 			<GeometryPath name="">
 				<PathPointSet name="">
 					<objects/>
@@ -130,13 +164,7 @@
 					<groups/>
 				</PathWrapSet>
 			</GeometryPath>
-			<!--Scale factor for normalizing time-->
-			<time_scale>       0.10000000 </time_scale>
-			<!--Parameter used in time constant of ramping up of muscle force-->
-			<activation1>       0.00000000 </activation1>
-			<!--Parameter used in time constant of ramping up and ramping down of
-			    muscle force-->
-			<activation2>       0.00000000 </activation2>
+				<optimal_force>       1.00000000 </optimal_force>
 			<!--Maximum isometric force that the fibers can generate-->
 			<max_isometric_force>     546.00000000 </max_isometric_force>
 			<!--Optimal length of the muscle fibers-->
@@ -144,10 +172,17 @@
 			<!--Resting length of the tendon-->
 			<tendon_slack_length>       0.07800000 </tendon_slack_length>
 			<!--Angle between tendon and fibers at optimal fiber length-->
-			<pennation_angle>       0.00000000 </pennation_angle>
+				<pennation_angle_at_optimal>       0.00000000 </pennation_angle_at_optimal>
 			<!--Maximum contraction velocity of the fibers, in optimal fiberlengths
 			    per second-->
 			<max_contraction_velocity>      10.00000000 </max_contraction_velocity>
+				<!--Scale factor for normalizing time-->
+				<time_scale>       0.10000000 </time_scale>
+				<!--Parameter used in time constant of ramping up of muscle force-->
+				<activation1>       0.00000000 </activation1>
+				<!--Parameter used in time constant of ramping up and ramping down of
+				    muscle force-->
+				<activation2>       0.00000000 </activation2>
 			<!--Damping factor related to maximum contraction velocity-->
 			<damping>       0.05000000 </damping>
 			<!--Function representing force-length behavior of tendon-->
@@ -217,228 +252,96 @@
 			<limit>       0.00000000 </limit>
 		</CMC_Joint>
 	</defaults>
-
 	<objects>
-
-		<!-- Residuals -->
-<!--
-		<Force name="FX">
-			<optimal_force> 100.00000000 </optimal_force>
-			<body_A> ground </body_A>
-			<point_A> 0.000 0.000 0.000 </point_A>
-			<direction_A> -1.000 0.000 0.000 </direction_A>
-			<body_B> pelvis </body_B>
-			<point_B> -0.0724376 0.00000000 0.00000000 </point_B>
-		</Force>
-
-		<Force name="FY">
-			<optimal_force> 200.00000000 </optimal_force>
-			<body_A> ground </body_A>
-			<point_A> 0.000 0.000 0.000 </point_A>
-			<direction_A> 0.000 -1.000 0.000 </direction_A>
-			<body_B> pelvis </body_B>
-			<point_B> -0.0724376 0.00000000 0.00000000 </point_B>
-		</Force>
-
-		<Force name="FZ">
-			<optimal_force> 100.00000000 </optimal_force>
-			<body_A> ground </body_A>
-			<point_A> 0.000 0.000 0.000 </point_A>
-			<direction_A> 0.000 0.000 -1.000 </direction_A>
-			<body_B> pelvis </body_B>
-			<point_B> -0.0724376 0.00000000 0.00000000 </point_B>
-		</Force>
-
-		<Torque name="MX">
-			<optimal_force> 80.00000000 </optimal_force>
-			<body_A> ground </body_A>
-			<direction_A> -1.000 0.000 0.000 </direction_A>
-			<body_B> pelvis </body_B>
-		</Torque>
-
-		<Torque name="MY">
-			<optimal_force> 80.00000000 </optimal_force>
-			<body_A> ground </body_A>
-			<direction_A> 0.000 -1.000 0.000 </direction_A>
-			<body_B> pelvis </body_B>
-		</Torque>
-
-		<Torque name="MZ">
-			<optimal_force> 80.00000000 </optimal_force>
-			<body_A> ground </body_A>
-			<direction_A> 0.000 0.000 -1.000 </direction_A>
-			<body_B> pelvis </body_B>
-		</Torque>
-		
--->
-		<!-- Residuals -->
-		
-
 		<PointActuator name="FX">
-		  <optimal_force> 1 </optimal_force>
-		  <min_control> -1000</min_control>
-			<max_control> 1000 </max_control>
+				<isDisabled> false </isDisabled>
+				<!--Minimum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<min_control>   -1000.00000000 </min_control>
+				<!--Maximum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<max_control>    1000.00000000 </max_control>
 		  <body> pelvis </body>
-		  <point> -0.0724376 0.00000000 0.00000000 </point>
+				<point>      -0.07243760       0.00000000       0.00000000 </point>
 		  <point_is_global> false </point_is_global>
-		  <direction> 1.0 0.0 0.0 </direction>
+				<direction>      -1.00000000      -0.00000000      -0.00000000 </direction>
 		  <force_is_global> true </force_is_global>
+				<optimal_force>       1.00000000 </optimal_force>
 		</PointActuator>
-
-
 		<PointActuator name="FY">
-		  <optimal_force> 1 </optimal_force>
-		  <min_control> -1000</min_control>
-			<max_control> 1000 </max_control>
+				<isDisabled> false </isDisabled>
+				<!--Minimum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<min_control>   -1000.00000000 </min_control>
+				<!--Maximum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<max_control>    1000.00000000 </max_control>
 		  <body> pelvis </body>
-		  <point> -0.0724376 0.00000000 0.00000000 </point>
+				<point>      -0.07243760       0.00000000       0.00000000 </point>
 		  <point_is_global> false </point_is_global>
-		  <direction> 0 1 0 </direction>
+				<direction>      -0.00000000      -1.00000000      -0.00000000 </direction>
 		  <force_is_global> true </force_is_global>
+				<optimal_force>       1.00000000 </optimal_force>
 		</PointActuator>
-
-		
-		
 		<PointActuator name="FZ">
-		  <optimal_force> 1 </optimal_force>
-		  <min_control> -1000</min_control>
-			<max_control> 1000 </max_control>
+				<isDisabled> false </isDisabled>
+				<!--Minimum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<min_control>   -1000.00000000 </min_control>
+				<!--Maximum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<max_control>    1000.00000000 </max_control>
 		  <body> pelvis </body>
-		  <point> -0.0724376 0.00000000 0.00000000 </point>
+				<point>      -0.07243760       0.00000000       0.00000000 </point>
 		  <point_is_global> false </point_is_global>
-		  <direction> 0 0 1 </direction>
+				<direction>      -0.00000000      -0.00000000      -1.00000000 </direction>
 		  <force_is_global> true </force_is_global>
+				<optimal_force>       1.00000000 </optimal_force>
 		</PointActuator>
-
-
 		<TorqueActuator name="MX">
-		  <optimal_force> 1 </optimal_force>
-		  <min_control> -1000</min_control>
-			<max_control> 1000 </max_control>
+				<isDisabled> false </isDisabled>
+				<!--Minimum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<min_control>   -1000.00000000 </min_control>
+				<!--Maximum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<max_control>    1000.00000000 </max_control>
 		  <bodyA> pelvis </bodyA>
 		  <bodyB> ground </bodyB>
-		  <axis> 1.000 0.000 0.000 </axis>
 		  <torque_is_global> true </torque_is_global>
+				<axis>      -1.00000000      -0.00000000      -0.00000000 </axis>
+				<optimal_force>       1.00000000 </optimal_force>
 		</TorqueActuator>
-
-		
 		<TorqueActuator name="MY">
-		  <optimal_force> 1 </optimal_force>
-		  <min_control> -1000</min_control>
-			<max_control> 1000 </max_control>
+				<isDisabled> false </isDisabled>
+				<!--Minimum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<min_control>   -1000.00000000 </min_control>
+				<!--Maximum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<max_control>    1000.00000000 </max_control>
 		  <bodyA> pelvis </bodyA>
 		  <bodyB> ground </bodyB>
-		  <axis> 0.000 1.000 0.000 </axis>
 		  <torque_is_global> true </torque_is_global>
+				<axis>      -0.00000000      -1.00000000      -0.00000000 </axis>
+				<optimal_force>       1.00000000 </optimal_force>
 		</TorqueActuator>
-		 
-	
 		<TorqueActuator name="MZ">
-			<optimal_force> 1 </optimal_force>
-		  <min_control> -1000</min_control>
-			<max_control> 1000 </max_control>
+				<isDisabled> false </isDisabled>
+				<!--Minimum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<min_control>   -1000.00000000 </min_control>
+				<!--Maximum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<max_control>    1000.00000000 </max_control>
 			<bodyA> pelvis </bodyA>
 			<bodyB> ground </bodyB>
-			<axis> 0.000 0.000 1.000 </axis>
 			<torque_is_global> true </torque_is_global>
+				<axis>      -0.00000000      -0.00000000      -1.00000000 </axis>
+				<optimal_force>       1.00000000 </optimal_force>
 		</TorqueActuator>
-
-
-			<!-- Right Leg -->
-	<!--
-			<GeneralizedForce name="hip_flexion_r_reserve">
-				<coordinate> hip_flexion_r </coordinate>
-				<optimal_force> 1.0 </optimal_force>
-			</GeneralizedForce>
-
-			<GeneralizedForce name="hip_adduction_r_reserve">
-				<coordinate> hip_adduction_r </coordinate>
-				<optimal_force> 1.0 </optimal_force>
-			</GeneralizedForce>
-
-			<GeneralizedForce name="hip_rotation_r_reserve">
-				<coordinate> hip_rotation_r </coordinate>
-				<optimal_force> 1.0 </optimal_force>
-			</GeneralizedForce>
-
-			<GeneralizedForce name="knee_angle_r_reserve">
-				<coordinate> knee_angle_r </coordinate>
-				<optimal_force> 1.0 </optimal_force>
-			</GeneralizedForce>
-
-			<GeneralizedForce name="ankle_angle_r_reserve">
-				<coordinate> ankle_angle_r </coordinate>
-				<optimal_force> 1.0 </optimal_force>
-			</GeneralizedForce>
-
-			<GeneralizedForce name="subtalar_angle_r_reserve">
-				<coordinate> subtalar_angle_r </coordinate>
-				<optimal_force> 1.0 </optimal_force>
-			</GeneralizedForce>
-
-			<GeneralizedForce name="mtp_angle_r_reserve">
-				<coordinate> mtp_angle_r </coordinate>
-				<optimal_force> 100.0 </optimal_force>
-			</GeneralizedForce>
-
-	-->
-			<!-- Left Leg -->
-	<!--
-			<GeneralizedForce name="hip_flexion_l_reserve">
-				<coordinate> hip_flexion_l </coordinate>
-				<optimal_force> 1.0 </optimal_force>
-			</GeneralizedForce>
-
-			<GeneralizedForce name="hip_adduction_l_reserve">
-				<coordinate> hip_adduction_l </coordinate>
-				<optimal_force> 1.0 </optimal_force>
-			</GeneralizedForce>
-
-			<GeneralizedForce name="hip_rotation_l_reserve">
-				<coordinate> hip_rotation_l </coordinate>
-				<optimal_force> 1.0 </optimal_force>
-			</GeneralizedForce>
-
-			<GeneralizedForce name="knee_angle_l_reserve">
-				<coordinate> knee_angle_l </coordinate>
-				<optimal_force> 1.0 </optimal_force>
-			</GeneralizedForce>
-
-			<GeneralizedForce name="ankle_angle_l_reserve">
-				<coordinate> ankle_angle_l </coordinate>
-				<optimal_force> 1.0 </optimal_force>
-			</GeneralizedForce>
-
-			<GeneralizedForce name="subtalar_angle_l_reserve">
-				<coordinate> subtalar_angle_l </coordinate>
-				<optimal_force> 1.0 </optimal_force>
-			</GeneralizedForce>
-
-			<GeneralizedForce name="mtp_angle_l_reserve">
-				<coordinate> mtp_angle_l </coordinate>
-				<optimal_force> 100.0 </optimal_force>
-			</GeneralizedForce>
-			
-	-->
-			<!-- Back Joint -->
-			
-	<!--
-			<GeneralizedForce name="lumbar_extension_reserve">
-				<coordinate> lumbar_extension </coordinate>
-				<optimal_force> 1.0 </optimal_force>
-			</GeneralizedForce>
-
-			<GeneralizedForce name="lumbar_bending_reserve">
-				<coordinate> lumbar_bending </coordinate>
-				<optimal_force> 1.0 </optimal_force>
-			</GeneralizedForce>
-
-			<GeneralizedForce name="lumbar_rotation_reserve">
-				<coordinate> lumbar_rotation </coordinate>
-				<optimal_force> 1.0 </optimal_force>
-			</GeneralizedForce>
-	-->
 	</objects>
-
-</ActuatorSet>
+		<groups/>
+	</ForceSet>
+</OpenSimDocument>
 

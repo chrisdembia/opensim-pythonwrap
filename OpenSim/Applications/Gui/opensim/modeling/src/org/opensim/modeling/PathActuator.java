@@ -60,6 +60,10 @@ public class PathActuator extends Actuator {
     return new GeometryPath(opensimModelJNI.PathActuator_getGeometryPath(swigCPtr, this), false);
   }
 
+  public boolean hasGeometryPath() {
+    return opensimModelJNI.PathActuator_hasGeometryPath(swigCPtr, this);
+  }
+
   public void setOptimalForce(double aOptimalForce) {
     opensimModelJNI.PathActuator_setOptimalForce(swigCPtr, this, aOptimalForce);
   }

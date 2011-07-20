@@ -50,6 +50,7 @@ import javax.swing.filechooser.FileFilter;
 import org.jdesktop.layout.GroupLayout;
 import org.openide.DialogDescriptor;
 import org.openide.DialogDisplayer;
+import org.openide.NotifyDescriptor;
 import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.ExternalLoads;
 import org.opensim.modeling.Model;
@@ -365,17 +366,18 @@ public class ActuatorsAndExternalLoadsPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jEditExternalForceSetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEditExternalForceSetButtonActionPerformed
-        /*try {
-            // Need to make sure model is set in Tool since we need
-            toolModel.getTool().setModel(model);
+        EditExternalLoadsPanel epfsPanel=null;
+        try {
+            epfsPanel = new EditExternalLoadsPanel(model, toolModel.getExternalLoadsFileName());
         } catch (IOException ex) {
-            ex.printStackTrace();
+            NotifyDescriptor.Message dlg =
+                          new NotifyDescriptor.Message("Failed to construct ExternalLoads object from file "+
+                                toolModel.getExternalLoadsFileName()+
+                                ". Possible reasons: data file doesn't exist or has incorrect format.");
+                  DialogDisplayer.getDefault().notify(dlg);   
+            return;
         }
-        // Create External Loads first
-        //Model mdl =  toolModel.getExternalLoads().getModel();
-        toolModel.getExternalLoads().setModel(model);*/
-        EditExternalLoadsPanel epfsPanel = new EditExternalLoadsPanel(model, toolModel.getExternalLoadsFileName());
-        DialogDescriptor dlg = new DialogDescriptor(epfsPanel, "External ForceSet");
+        DialogDescriptor dlg = new DialogDescriptor(epfsPanel, "External Forces");
         JButton saveButton = new JButton("Save...");
         saveButton.addActionListener(new SaveButtonActionListener(epfsPanel.getExternalLoads()));
         dlg.setOptions(new Object[]{saveButton, new JButton("Cancel")});
@@ -385,9 +387,18 @@ public class ActuatorsAndExternalLoadsPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jEditExternalForceSetButtonActionPerformed
 
     private void createNewExternalForceSetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createNewExternalForceSetButtonActionPerformed
-// TODO add your handling code here:
-        EditExternalLoadsPanel epfsPanel= new EditExternalLoadsPanel(model, toolModel.getExternalLoadsFileName());
-        DialogDescriptor dlg = new DialogDescriptor(epfsPanel, "Prescibed ForceSet");
+        EditExternalLoadsPanel epfsPanel=null;
+        try {
+            epfsPanel = new EditExternalLoadsPanel(model, toolModel.getExternalLoadsFileName());
+        } catch (IOException ex) {
+            NotifyDescriptor.Message dlg =
+                          new NotifyDescriptor.Message("Failed to construct ExternalLoads object from file "+
+                                toolModel.getExternalLoadsFileName()+
+                                ". Possible reasons: data file doesn't exist or has incorrect format.");
+                  DialogDisplayer.getDefault().notify(dlg);   
+            return;
+        }
+         DialogDescriptor dlg = new DialogDescriptor(epfsPanel, "External Forces");
         JButton saveButton = new JButton("Save...");
         saveButton.addActionListener(new SaveButtonActionListener(epfsPanel.getExternalLoads()));
         dlg.setOptions(new Object[]{saveButton, new JButton("Cancel")});
@@ -479,7 +490,7 @@ public class ActuatorsAndExternalLoadsPanel extends javax.swing.JPanel {
             dLoads = loads;
         }
         public void actionPerformed(ActionEvent e) {
-            FileFilter ff = FileUtils.getFileFilter(".xml", "File to save External ForceSet");
+            FileFilter ff = FileUtils.getFileFilter(".xml", "File to save External Loads");
             String fileName = FileUtils.getInstance().browseForFilenameToSave(ff, true, "", null);
             String fullFilename = FileUtils.addExtensionIfNeeded(fileName, ".xml");
             dLoads.print(fullFilename);

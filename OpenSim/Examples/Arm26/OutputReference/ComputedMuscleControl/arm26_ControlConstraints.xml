@@ -1,60 +1,146 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ControlSet name="arm26">
+<OpenSimDocument Version="20302">
+	<ControlSet name="Control Set">
 	<defaults>
 		<ControlLinear name="default">
 			<is_model_control> true </is_model_control>
 			<extrapolate> true </extrapolate>
-			<default_min>       0.02000000000000000000 </default_min>
-			<default_max>       1.00000000000000000000 </default_max>
+				<default_min>       0.02000000 </default_min>
+				<default_max>       1.00000000 </default_max>
 			<filter_on> false </filter_on>
 			<use_steps> true </use_steps>
 			<x_nodes/>
 			<min_nodes/>
 			<max_nodes/>
-			<kp>     100.00000000000000000000 </kp>
-			<kv>      20.00000000000000000000 </kv>
-		</ControlLinear>		
+				<kp>     100.00000000 </kp>
+				<kv>      20.00000000 </kv>
+			</ControlLinear>
 	</defaults>
 	<objects>
-		<!-- Shoulder -->
 		<ControlLinear name="r_shoulder_elev_reserve.excitation">
-			<default_min> -100.0 </default_min>
-			<default_max>  100.0 </default_max>
+				<is_model_control> true </is_model_control>
+				<extrapolate> true </extrapolate>
+				<default_min>    -100.00000000 </default_min>
+				<default_max>     100.00000000 </default_max>
+				<filter_on> false </filter_on>
 			<use_steps> false </use_steps>
+				<x_nodes/>
+				<min_nodes/>
+				<max_nodes/>
+				<kp>     100.00000000 </kp>
+				<kv>      20.00000000 </kv>
 		</ControlLinear>
-		<!-- Elbow -->
 		<ControlLinear name="r_elbow_flex_reserve.excitation">
-			<default_min> -100.0 </default_min>
-			<default_max>  100.0 </default_max>
+				<is_model_control> true </is_model_control>
+				<extrapolate> true </extrapolate>
+				<default_min>    -100.00000000 </default_min>
+				<default_max>     100.00000000 </default_max>
+				<filter_on> false </filter_on>
 			<use_steps> false </use_steps>
+				<x_nodes/>
+				<min_nodes/>
+				<max_nodes/>
+				<kp>     100.00000000 </kp>
+				<kv>      20.00000000 </kv>
 		</ControlLinear>
-		<!-- Muscles -->
-		<ControlLinear name="TRIlong.excitation" />
-		<ControlLinear name="TRIlat.excitation" />
-		<ControlLinear name="TRImed.excitation" />
+			<ControlLinear name="TRIlong.excitation">
+				<is_model_control> true </is_model_control>
+				<extrapolate> true </extrapolate>
+				<default_min>       0.02000000 </default_min>
+				<default_max>       1.00000000 </default_max>
+				<filter_on> false </filter_on>
+				<use_steps> true </use_steps>
+				<x_nodes/>
+				<min_nodes/>
+				<max_nodes/>
+				<kp>     100.00000000 </kp>
+				<kv>      20.00000000 </kv>
+			</ControlLinear>
+			<ControlLinear name="TRIlat.excitation">
+				<is_model_control> true </is_model_control>
+				<extrapolate> true </extrapolate>
+				<default_min>       0.02000000 </default_min>
+				<default_max>       1.00000000 </default_max>
+				<filter_on> false </filter_on>
+				<use_steps> true </use_steps>
+				<x_nodes/>
+				<min_nodes/>
+				<max_nodes/>
+				<kp>     100.00000000 </kp>
+				<kv>      20.00000000 </kv>
+			</ControlLinear>
+			<ControlLinear name="TRImed.excitation">
+				<is_model_control> true </is_model_control>
+				<extrapolate> true </extrapolate>
+				<default_min>       0.02000000 </default_min>
+				<default_max>       1.00000000 </default_max>
+				<filter_on> false </filter_on>
+				<use_steps> true </use_steps>
+				<x_nodes/>
+				<min_nodes/>
+				<max_nodes/>
+				<kp>     100.00000000 </kp>
+				<kv>      20.00000000 </kv>
+			</ControlLinear>
 		<ControlLinear name="BIClong.excitation">
+				<is_model_control> true </is_model_control>
+				<extrapolate> true </extrapolate>
+				<default_min>       0.02000000 </default_min>
+				<default_max>       1.00000000 </default_max>
+				<filter_on> false </filter_on>
+				<use_steps> true </use_steps>
+				<x_nodes/>
 			<min_nodes>
-				<ControlLinearNode>
-				   <t>0.0</t>
-				   <value>0.02</value>
+					<ControlLinearNode name="">
+						<t>       0.00000000 </t>
+						<value>       0.02000000 </value>
 				</ControlLinearNode>
-				<ControlLinearNode>
-				   <t>1.0</t>
-				   <value>0.02</value>
+					<ControlLinearNode name="">
+						<t>       1.00000000 </t>
+						<value>       0.02000000 </value>
 				</ControlLinearNode>
 			 </min_nodes>
 			<max_nodes>
-				<ControlLinearNode>
-				   <t>0.0</t>
-				   <value>1.0</value>
+					<ControlLinearNode name="">
+						<t>       0.00000000 </t>
+						<value>       1.00000000 </value>
 				</ControlLinearNode>
-				<ControlLinearNode>
-				   <t>1.0</t>
-				   <value>1.0</value>
+					<ControlLinearNode name="">
+						<t>       1.00000000 </t>
+						<value>       1.00000000 </value>
 				</ControlLinearNode>
 			</max_nodes>
+				<kp>     100.00000000 </kp>
+				<kv>      20.00000000 </kv>
 		</ControlLinear>
-		<ControlLinear name="BICshort.excitation" />
-		<ControlLinear name="BRA.excitation" />
+			<ControlLinear name="BICshort.excitation">
+				<is_model_control> true </is_model_control>
+				<extrapolate> true </extrapolate>
+				<default_min>       0.02000000 </default_min>
+				<default_max>       1.00000000 </default_max>
+				<filter_on> false </filter_on>
+				<use_steps> true </use_steps>
+				<x_nodes/>
+				<min_nodes/>
+				<max_nodes/>
+				<kp>     100.00000000 </kp>
+				<kv>      20.00000000 </kv>
+			</ControlLinear>
+			<ControlLinear name="BRA.excitation">
+				<is_model_control> true </is_model_control>
+				<extrapolate> true </extrapolate>
+				<default_min>       0.02000000 </default_min>
+				<default_max>       1.00000000 </default_max>
+				<filter_on> false </filter_on>
+				<use_steps> true </use_steps>
+				<x_nodes/>
+				<min_nodes/>
+				<max_nodes/>
+				<kp>     100.00000000 </kp>
+				<kv>      20.00000000 </kv>
+			</ControlLinear>
 	</objects>
-</ControlSet>
+		<groups/>
+	</ControlSet>
+</OpenSimDocument>
+

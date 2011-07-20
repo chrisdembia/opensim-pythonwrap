@@ -393,7 +393,7 @@ final public class MarkerEditorTopComponent extends TopComponent implements Obse
          setPendingChanges(MarkerState.MODIFIED, currentMarker, true);
          // tell the ViewDB to redraw the model
          SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(currentModel);
-         vis.updateMarkerGeometry(currentMarker);
+         vis.getMarkersRep().updateMarkerGeometry(currentMarker);
          ViewDB.getInstance().repaintAll();
       }
    }//GEN-LAST:event_BodyComboBoxActionPerformed
@@ -435,7 +435,7 @@ final public class MarkerEditorTopComponent extends TopComponent implements Obse
          setPendingChanges(MarkerState.MODIFIED, currentMarker, true);
          // tell the ViewDB to redraw the model
          SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(currentModel);
-         vis.updateMarkerGeometry(currentMarker);
+         vis.getMarkersRep().updateMarkerGeometry(currentMarker);
          ViewDB.getInstance().repaintAll();
       }
    }
@@ -753,7 +753,7 @@ final public class MarkerEditorTopComponent extends TopComponent implements Obse
 
       // Copy the elements of the saved marker into the current marker.
       currentMarker.updateFromMarker(savedMarker);
-      vis.updateMarkerGeometry(currentMarker);
+      vis.getMarkersRep().updateMarkerGeometry(currentMarker);
 
       // If the name has changed, update the marker list in ViewDB and fire an event.
       if (sameName == false) {
@@ -796,9 +796,9 @@ final public class MarkerEditorTopComponent extends TopComponent implements Obse
             Marker savedMarker = savedMarkers.get(marker);
             MarkerSet markerset = currentModel.getMarkerSet();
             savedMarker.getOffset(offset);
-            Body b = savedMarker.getBody();
+            Body b = currentModel.getBodySet().get(savedMarker.getBodyName());
             String n = savedMarker.getName();
-            Marker restoredMarker = markerset.addMarker(savedMarker.getName(), offset, savedMarker.getBody());
+            Marker restoredMarker = markerset.addMarker(savedMarker.getName(), offset, b);
             addedObjects.add(restoredMarker);
             pendingChanges.remove(marker);
             //wedpendingChanges.put(restoredMarker, MarkerState.UNMODIFIED);
@@ -814,7 +814,7 @@ final public class MarkerEditorTopComponent extends TopComponent implements Obse
             }
             // Copy the elements of the saved marker into the [regular] marker.
             marker.copy(savedMarker);
-            vis.updateMarkerGeometry(marker);
+            vis.getMarkersRep().updateMarkerGeometry(marker);
          }
       }
 
@@ -1080,7 +1080,7 @@ final public class MarkerEditorTopComponent extends TopComponent implements Obse
       if (marker != null) {
          Model model = marker.getBody().getModel();
          SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(model);
-         vis.setMarkerLineVisible(marker, state);
+         //vis.setMarkerLineVisible(marker, state);
       }
    }
    
@@ -1112,7 +1112,7 @@ final public class MarkerEditorTopComponent extends TopComponent implements Obse
             }
             // Update the marker geometry.
             SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(currentModel);
-            vis.updateMarkerGeometry(m);
+            vis.getMarkersRep().updateMarkerGeometry(m);
          }
       }
       // If m is not null, then at least one selected object is a marker
@@ -1242,8 +1242,8 @@ final public class MarkerEditorTopComponent extends TopComponent implements Obse
             if (currentModel != null) {
                MarkerSet markers = currentModel.getMarkerSet();
                SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(currentModel);
-               for (int i=0; i<markers.getSize(); i++)
-                  vis.setMarkerLineVisible(markers.get(i), false);
+               //for (int i=0; i<markers.getSize(); i++)
+                  //vis.setMarkerLineVisible(markers.get(i), false);
             }
          } else if (arg instanceof DragObjectsEvent) {
             dragMarkers((DragObjectsEvent)arg);

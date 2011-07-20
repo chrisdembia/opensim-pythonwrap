@@ -273,11 +273,11 @@ Inheritance diagram for OpenSim::ForwardTool:</div>
 
 <p>Copy constructor. </p>
 <p>Copy constructors for all Tools only copy the non-XML variable members of the object; that is, the object's DOMnode and <a class="el" href="classOpenSim_1_1XMLDocument.html" title="A class for managing and for performing operations on an XML document.">XMLDocument</a> are not copied but set to NULL. The reason for this is that for the object and all its derived classes to establish the correct connection to the XML document nodes, the the object would need to reconstruct based on the XML document not the values of the object's member variables.</p>
-<p>There are three proper ways to generate an XML document for an <a class="el" href="classOpenSim_1_1Tool.html" title="A Tool is an OpenSim abstraction that encasulates an analysis or series of modeling...">Tool</a>:</p>
+<p>There are three proper ways to generate an XML document for an <a class="el" href="classOpenSim_1_1Tool.html" title="A Tool is an OpenSim abstraction that encapsulates an analysis or series of modeling...">Tool</a>:</p>
 <p>1) Construction based on XML file (</p>
 <dl class="see"><dt><b>See also:</b></dt><dd>Tool(const char *aFileName)). In this case, the XML document is created by parsing the XML file.</dd></dl>
-<p>2) Construction by Tool(const XMLDocument *aDocument). This constructor explictly requests construction based on an XML document. In this way the proper connection between an object's node and the corresponding node within the XML document is established. This constructor is a copy constructor of sorts because all essential <a class="el" href="classOpenSim_1_1Tool.html" title="A Tool is an OpenSim abstraction that encasulates an analysis or series of modeling...">Tool</a> member variables should be held within the XML document. The advantage of this style of construction is that nodes within the XML document, such as comments that may not have any associated <a class="el" href="classOpenSim_1_1Tool.html" title="A Tool is an OpenSim abstraction that encasulates an analysis or series of modeling...">Tool</a> member variable, are preserved.</p>
-<p>3) A call to generateXMLDocument(). This method generates an XML document for the <a class="el" href="classOpenSim_1_1Tool.html" title="A Tool is an OpenSim abstraction that encasulates an analysis or series of modeling...">Tool</a> from scratch. Only the essential document nodes are created (that is, nodes that correspond directly to member variables.).</p>
+<p>2) Construction by Tool(const XMLDocument *aDocument). This constructor explictly requests construction based on an XML document. In this way the proper connection between an object's node and the corresponding node within the XML document is established. This constructor is a copy constructor of sorts because all essential <a class="el" href="classOpenSim_1_1Tool.html" title="A Tool is an OpenSim abstraction that encapsulates an analysis or series of modeling...">Tool</a> member variables should be held within the XML document. The advantage of this style of construction is that nodes within the XML document, such as comments that may not have any associated <a class="el" href="classOpenSim_1_1Tool.html" title="A Tool is an OpenSim abstraction that encapsulates an analysis or series of modeling...">Tool</a> member variable, are preserved.</p>
+<p>3) A call to generateXMLDocument(). This method generates an XML document for the <a class="el" href="classOpenSim_1_1Tool.html" title="A Tool is an OpenSim abstraction that encapsulates an analysis or series of modeling...">Tool</a> from scratch. Only the essential document nodes are created (that is, nodes that correspond directly to member variables.).</p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>aTool</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Object.html" title="Class Oject is intended to be used as the base class for all OpenSim objects.">Object</a> to be copied. </td></tr>
@@ -1717,7 +1717,7 @@ generateXMLDocument() </dd></dl>
 <li>OpenSim/Tools/ForwardTool.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sat Mar 12 12:28:38 2011 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Jun 5 10:14:20 2011 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

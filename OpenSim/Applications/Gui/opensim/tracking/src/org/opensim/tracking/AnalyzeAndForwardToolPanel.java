@@ -54,6 +54,7 @@ import org.opensim.modeling.OpenSimObject;
 import org.opensim.modeling.Storage;
 import org.opensim.view.motions.MotionsDB;
 import org.opensim.swingui.FileTextFieldAndChooser;
+import org.opensim.utils.FileUtils;
 import org.opensim.view.FileTextFieldAndChooserWithEdit;
 import org.opensim.view.excitationEditor.ExcitationEditorJFrame;
 
@@ -114,13 +115,13 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
       analyzeInputPanel.setVisible(mode==Mode.Analyze);
       inverseInputPanel.setVisible(mode==Mode.InverseDynamics||mode==Mode.StaticOptimization);
       forwardInputPanel.setVisible(mode==Mode.ForwardDynamics);
-      cmcInputPanel.setVisible(mode==Mode.CMC);
+      cmcInputPanel.setVisible(mode==Mode.CMC||mode==Mode.RRA);
       staticOptimizationPanel.setVisible(mode==Mode.StaticOptimization);
       
       rraPanel.setVisible(mode==Mode.RRA);
       activeAnalysesPanel.setVisible(mode==Mode.Analyze);
 
-      plotMetricsPanel.setVisible(mode==Mode.CMC || mode==Mode.ForwardDynamics || mode==Mode.InverseDynamics);
+      plotMetricsPanel.setVisible(false);
 
       // disable for now
       jLabel7.setVisible(false);
@@ -147,35 +148,39 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
       } else if(mode==Mode.ForwardDynamics) {
          // Set file filters for forward tool inputs
          controlsFileName.setExtensionsAndDescription(".xml,.sto", "Controls input data for "+modeName);
-         controlsFileName.setTreatEmptyStringAsValid(false);
+         controlsFileName.setTreatEmptyStringAsValid(true);
          initialStatesFileName.setExtensionsAndDescription(".sto", "Initial states data for "+modeName);
-      } else if(mode==Mode.CMC) {
+         initialStatesFileName.setTreatEmptyStringAsValid(true);
+      } else if(mode==Mode.CMC||mode==Mode.RRA) {
          cmcDesiredKinematicsFileName.setExtensionsAndDescription(".mot,.sto", "Desired kinematics for "+modeName);
-         cmcTaskSetFileName.setExtensionsAndDescription(".xml", "CMC Task Set");
+         cmcTaskSetFileName.setExtensionsAndDescription(".xml", "Task Set");
          //cmcTaskSetFileName.setIncludeEditButton(true);
-         cmcConstraintsFileName.setExtensionsAndDescription(".xml", "CMC constraints");
+         cmcConstraintsFileName.setExtensionsAndDescription(".xml", "Constraints");
          cmcConstraintsFileName.setTreatEmptyStringAsValid(false);
          //cmcConstraintsFileName.setIncludeEditButton(true);
+         if (mode == Mode.RRA){
          rraOutputModelFileName.setExtensionsAndDescription(".osim", "Adjusted OpenSim model");
          rraOutputModelFileName.setSaveMode(true);
          rraOutputModelFileName.setAssociatedCheckBox(adjustModelCheckBox);
+             rraOutputModelFileName.setCheckIfFileExists(false);
+      }
       }
 
       // Actuators & External Loads tab
       actuatorsAndExternalLoadsPanel = new ActuatorsAndExternalLoadsPanel(toolModel, toolModel.getOriginalModel(), 
-              mode!=Mode.InverseDynamics && mode!=Mode.StaticOptimization);
-      jTabbedPane1.addTab((mode==Mode.InverseDynamics || mode==Mode.StaticOptimization) ? "External Loads" : "Actuators and External Loads", actuatorsAndExternalLoadsPanel);
+              mode!=Mode.InverseDynamics);
+      jTabbedPane1.addTab((mode==Mode.InverseDynamics) ? "External Loads" : "Actuators and External Loads", actuatorsAndExternalLoadsPanel);
 
       // Analysis Set tab
-      if(mode==Mode.Analyze) {
+      if(mode==Mode.Analyze || mode==Mode.ForwardDynamics) {
          analysisSetPanel = new AnalysisSetPanel(toolModel);
          jTabbedPane1.addTab("Analyses", analysisSetPanel);
       }
 
       // Integrator settings for forward dynamics
-      if(mode==Mode.ForwardDynamics || mode==Mode.CMC) {
+      if(mode==Mode.ForwardDynamics || mode==Mode.CMC || mode==Mode.RRA) {
          jTabbedPane1.addTab("Integrator Settings", advancedSettingsPanel);
-         if(mode==Mode.CMC) useSpecifiedDt.setVisible(false);
+         if(mode==Mode.CMC|| mode==Mode.RRA) useSpecifiedDt.setVisible(false);
       }
 
       // Re-layout panels after we've removed various parts...
@@ -512,6 +517,8 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
 
       cmcConstraintsCheckBox.setSelected(toolModel.getConstraintsEnabled());
       if(!cmcConstraintsCheckBox.isSelected()) cmcConstraintsFileName.setEnabled(false);
+
+      updateIntegratorSettings(toolModel);
     }
 
    //---------------------------------------------------------------------
@@ -1914,19 +1921,19 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
    //------------------------------------------------------------------------
 
    private void cmcConstraintsCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmcConstraintsCheckBoxActionPerformed
-      cmcToolModel().setConstraintsEnabled(cmcConstraintsCheckBox.isSelected());
+      ((TrackingToolModel)toolModel).setConstraintsEnabled(cmcConstraintsCheckBox.isSelected());
    }//GEN-LAST:event_cmcConstraintsCheckBoxActionPerformed
 
    private void cmcConstraintsFileNameStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_cmcConstraintsFileNameStateChanged
-      cmcToolModel().setConstraintsFileName(cmcConstraintsFileName.getFileName());
+      ((TrackingToolModel)toolModel).setConstraintsFileName(cmcConstraintsFileName.getFileName());
    }//GEN-LAST:event_cmcConstraintsFileNameStateChanged
 
    private void cmcTaskSetFileNameStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_cmcTaskSetFileNameStateChanged
-      cmcToolModel().setTaskSetFileName(cmcTaskSetFileName.getFileName());
+      ((TrackingToolModel)toolModel).setTaskSetFileName(cmcTaskSetFileName.getFileName());
    }//GEN-LAST:event_cmcTaskSetFileNameStateChanged
 
    private void cmcFilterKinematicsCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmcFilterKinematicsCheckBoxActionPerformed
-      cmcToolModel().setFilterKinematics(cmcFilterKinematicsCheckBox.isSelected());
+      ((TrackingToolModel)toolModel).setFilterKinematics(cmcFilterKinematicsCheckBox.isSelected());
    }//GEN-LAST:event_cmcFilterKinematicsCheckBoxActionPerformed
 
    private void cmcCutoffFrequencyFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cmcCutoffFrequencyFocusLost
@@ -1935,14 +1942,14 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
 
    private void cmcCutoffFrequencyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmcCutoffFrequencyActionPerformed
       try {
-         cmcToolModel().setLowpassCutoffFrequency(numFormat.parse(cmcCutoffFrequency.getText()).doubleValue());
+          ((TrackingToolModel)toolModel).setLowpassCutoffFrequency(numFormat.parse(cmcCutoffFrequency.getText()).doubleValue());
       } catch (ParseException ex) {
-         cmcCutoffFrequency.setText(numFormat.format(cmcToolModel().getLowpassCutoffFrequency()));
+         cmcCutoffFrequency.setText(numFormat.format( ((TrackingToolModel)toolModel).getLowpassCutoffFrequency()));
       }
    }//GEN-LAST:event_cmcCutoffFrequencyActionPerformed
 
    private void cmcDesiredKinematicsFileNameStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_cmcDesiredKinematicsFileNameStateChanged
-      cmcToolModel().setDesiredKinematicsFileName(cmcDesiredKinematicsFileName.getFileName());
+       ((TrackingToolModel)toolModel).setDesiredKinematicsFileName(cmcDesiredKinematicsFileName.getFileName());
    }//GEN-LAST:event_cmcDesiredKinematicsFileNameStateChanged
 
    //------------------------------------------------------------------------
@@ -1957,7 +1964,8 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
    }//GEN-LAST:event_rraAdjustedBodyComboBoxActionPerformed
 
    private void rraOutputModelFileNameStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_rraOutputModelFileNameStateChanged
-      rraToolModel().setOutputModelFileName(rraOutputModelFileName.getFileName());
+       String fullFilename = FileUtils.addExtensionIfNeeded(rraOutputModelFileName.getFileName(), ".osim");
+       rraToolModel().setOutputModelFileName(fullFilename);
    }//GEN-LAST:event_rraOutputModelFileNameStateChanged
     
    private void adjustModelCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adjustModelCheckBoxActionPerformed

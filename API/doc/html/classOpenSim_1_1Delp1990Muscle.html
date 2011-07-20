@@ -27,7 +27,7 @@
   </div>
 </div>
 <div class="contents">
-<h1>OpenSim::Delp1990Muscle Class Reference</h1><!-- doxytag: class="OpenSim::Delp1990Muscle" --><!-- doxytag: inherits="OpenSim::Muscle" -->
+<h1>OpenSim::Delp1990Muscle Class Reference</h1><!-- doxytag: class="OpenSim::Delp1990Muscle" --><!-- doxytag: inherits="OpenSim::ActivationFiberLengthMuscle" -->
 <p>A class implementing a SIMM muscle.  
 <a href="#_details">More...</a></p>
 
@@ -38,12 +38,14 @@ Inheritance diagram for OpenSim::Delp1990Muscle:</div>
  <div class="center">
   <img src="classOpenSim_1_1Delp1990Muscle.gif" usemap="#OpenSim::Delp1990Muscle_map" alt=""/>
   <map id="OpenSim::Delp1990Muscle_map" name="OpenSim::Delp1990Muscle_map">
-<area href="classOpenSim_1_1Muscle.html" alt="OpenSim::Muscle" shape="rect" coords="0,280,167,304"/>
-<area href="classOpenSim_1_1Actuator.html" alt="OpenSim::Actuator" shape="rect" coords="0,224,167,248"/>
-<area href="classOpenSim_1_1Actuator__.html" alt="OpenSim::Actuator_" shape="rect" coords="0,168,167,192"/>
-<area href="classOpenSim_1_1Force.html" alt="OpenSim::Force" shape="rect" coords="0,112,167,136"/>
-<area href="classOpenSim_1_1ModelComponent.html" alt="OpenSim::ModelComponent" shape="rect" coords="0,56,167,80"/>
-<area href="classOpenSim_1_1Object.html" alt="OpenSim::Object" shape="rect" coords="0,0,167,24"/>
+<area href="classOpenSim_1_1ActivationFiberLengthMuscle.html" alt="OpenSim::ActivationFiberLengthMuscle" shape="rect" coords="0,392,234,416"/>
+<area href="classOpenSim_1_1Muscle.html" alt="OpenSim::Muscle" shape="rect" coords="0,336,234,360"/>
+<area href="classOpenSim_1_1PathActuator.html" alt="OpenSim::PathActuator" shape="rect" coords="0,280,234,304"/>
+<area href="classOpenSim_1_1Actuator.html" alt="OpenSim::Actuator" shape="rect" coords="0,224,234,248"/>
+<area href="classOpenSim_1_1Actuator__.html" alt="OpenSim::Actuator_" shape="rect" coords="0,168,234,192"/>
+<area href="classOpenSim_1_1Force.html" alt="OpenSim::Force" shape="rect" coords="0,112,234,136"/>
+<area href="classOpenSim_1_1ModelComponent.html" alt="OpenSim::ModelComponent" shape="rect" coords="0,56,234,80"/>
+<area href="classOpenSim_1_1Object.html" alt="OpenSim::Object" shape="rect" coords="0,0,234,24"/>
 </map>
  </div>
 </div>
@@ -53,6 +55,8 @@ Inheritance diagram for OpenSim::Delp1990Muscle:</div>
 <tr><td colspan="2"><h2>Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#a00738099b158e44bc12afd087e1a0468">Delp1990Muscle</a> ()</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Default constructor.  <a href="#a00738099b158e44bc12afd087e1a0468"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#a195643afeda3855bde377c5ee716ba6e">Delp1990Muscle</a> (const std::string &amp;aName, double aMaxIsometricForce, double aOptimalFiberLength, double aTendonSlackLength, double aPennationAngle)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Constructor.  <a href="#a195643afeda3855bde377c5ee716ba6e"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#adb2ae56504d00528daef9f75aeebc1ea">Delp1990Muscle</a> (const <a class="el" href="classOpenSim_1_1Delp1990Muscle.html">Delp1990Muscle</a> &amp;aMuscle)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Copy constructor.  <a href="#adb2ae56504d00528daef9f75aeebc1ea"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#a84705c22f0dd89b81668e1771ecdfbc1">~Delp1990Muscle</a> ()</td></tr>
@@ -63,14 +67,6 @@ Inheritance diagram for OpenSim::Delp1990Muscle:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Assignment operator.  <a href="#af42ec681a00956366be601bde6211c83"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#a17682ef3c675335cc06901c6d35276fc">copyData</a> (const <a class="el" href="classOpenSim_1_1Delp1990Muscle.html">Delp1990Muscle</a> &amp;aMuscle)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Copy data members from one <a class="el" href="classOpenSim_1_1Delp1990Muscle.html" title="A class implementing a SIMM muscle.">Delp1990Muscle</a> to another.  <a href="#a17682ef3c675335cc06901c6d35276fc"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#ae0bd9b36b5b82d7ea3dae08fa3cd8b59">copyPropertyValues</a> (<a class="el" href="classOpenSim_1_1Actuator.html">Actuator</a> &amp;aActuator)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Copy the property values from another actuator, which may not be a <a class="el" href="classOpenSim_1_1Delp1990Muscle.html" title="A class implementing a SIMM muscle.">Delp1990Muscle</a>.  <a href="#ae0bd9b36b5b82d7ea3dae08fa3cd8b59"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#a19761b5167df713ae699ae2b27df2328">getMaxIsometricForce</a> () const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">getMaxIsometricForce needs to be overridden by derived classes to be usable  <a href="#a19761b5167df713ae699ae2b27df2328"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#af82d0883c42667600931e26333978e18">getOptimalFiberLength</a> () const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#a03781be25cdd5e676581dd226c1549a5">getTendonSlackLength</a> () const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#a88699e60cee99119565679b7970f2bab">getPennationAngleAtOptimalFiberLength</a> () const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#a629be070c87d296f7acc109b070478cf">getMaxContractionVelocity</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#af8ae93130833f22b227b44a0e5771f55">getTimeScale</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#a9bac1a66e9c05bf580e66484961cb693">getMass</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#a513fa35a20829d90bfe836d1000f984a">setTimeScale</a> (double aTimeScale)</td></tr>
@@ -79,20 +75,8 @@ Inheritance diagram for OpenSim::Delp1990Muscle:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the time constant of ramping up of muscle force.  <a href="#a51789b63b2821eb3aa47d446ac6ec4d6"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#a94950566baa9f9162e358b842bee8bc5">setActivation2</a> (double aActivation2)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the time constant of ramping up and ramping down of muscle force.  <a href="#a94950566baa9f9162e358b842bee8bc5"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#a71295f72903898886464c9335aef094f">setMaxIsometricForce</a> (double aMaxIsometricForce)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the maximum isometric force that the fibers can generate.  <a href="#a71295f72903898886464c9335aef094f"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#ada686be0ab15b80be5d5530b2c92e4fb">setOptimalFiberLength</a> (double aOptimalFiberLength)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the optimal length of the muscle fibers.  <a href="#ada686be0ab15b80be5d5530b2c92e4fb"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#a9bc6e57c38f2b2444cf51af4d967c78c">setTendonSlackLength</a> (double aTendonSlackLength)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the resting length of the tendon.  <a href="#a9bc6e57c38f2b2444cf51af4d967c78c"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#a86ba58907a7eb5a250b1f4072b09ee1a">setPennationAngle</a> (double aPennationAngle)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the angle between tendon and fibers at optimal fiber length.  <a href="#a86ba58907a7eb5a250b1f4072b09ee1a"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#a4ef1d25b9d6540e7e81b93c34e57ee86">setMaxContractionVelocity</a> (double aMaxContractionVelocity)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the maximum contraction velocity of the fibers, in optimal fiber lengths per second.  <a href="#a4ef1d25b9d6540e7e81b93c34e57ee86"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#ac44a5bbef50b4371a4a38419650202b4">setMass</a> (double aMass)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the mass of the muscle.  <a href="#ac44a5bbef50b4371a4a38419650202b4"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#a94c2ad1fb5c28a086b14057144fbe0ce">getPennationAngle</a> (const SimTK::State &amp;) const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the current pennation angle of the muscle fiber(s).  <a href="#a94c2ad1fb5c28a086b14057144fbe0ce"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#a62b60472fb6ff8c3f47d90e11b1bc9ce">getNormalizedFiberLength</a> (const SimTK::State &amp;) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the normalized length of the muscle fiber(s).  <a href="#a62b60472fb6ff8c3f47d90e11b1bc9ce"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#aaca8b339c21ec23af7788ff002b9213f">getPassiveFiberForce</a> (const SimTK::State &amp;) const </td></tr>
@@ -123,12 +107,6 @@ Inheritance diagram for OpenSim::Delp1990Muscle:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Compute the actuation for the muscle.  <a href="#a9108ad9ac697e6c1d83715ec6ba8ca78"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#aff8922dd6218e52bd154084480605c4f">computeIsometricForce</a> (SimTK::State &amp;s, double activation) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">computeIsometricForce: this function finds the force in a muscle, assuming static equilibrium.  <a href="#aff8922dd6218e52bd154084480605c4f"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#a3bcbd560a43e08271bde41f1967a07a0">computeIsokineticForceAssumingInfinitelyStiffTendon</a> (SimTK::State &amp;s, double aActivation)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Find the force produced by muscle under isokinetic conditions assuming an infinitely stiff tendon.  <a href="#a3bcbd560a43e08271bde41f1967a07a0"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#a49c5a975f7a6f3f778ff38360b27b0d8">postScale</a> (const SimTK::State &amp;s, const <a class="el" href="classOpenSim_1_1ScaleSet.html">ScaleSet</a> &amp;aScaleSet)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Perform computations that need to happen after the muscle is scaled.  <a href="#a49c5a975f7a6f3f778ff38360b27b0d8"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#a9737e0b9a1037b66685cb7a23cfa2083">scale</a> (const SimTK::State &amp;s, const <a class="el" href="classOpenSim_1_1ScaleSet.html">ScaleSet</a> &amp;aScaleSet)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Scale.html">Scale</a> the muscle.  <a href="#a9737e0b9a1037b66685cb7a23cfa2083"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classOpenSim_1_1Function.html">Function</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#ac51be8e6f189564de39ac2b6727966d1">getActiveForceLengthCurve</a> () const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the active force-length curve.  <a href="#ac51be8e6f189564de39ac2b6727966d1"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#a1cb6611e111fd67f4b3eb77c5ec1defe">setActiveForceLengthCurve</a> (<a class="el" href="classOpenSim_1_1Function.html">Function</a> *aActiveForceLengthCurve)</td></tr>
@@ -147,7 +125,7 @@ Inheritance diagram for OpenSim::Delp1990Muscle:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the force-velocity curve.  <a href="#a679c7b1f7f54f5ee5505340744dc6154"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#a96b57582615e29d91f66a70491fef52d">getStateVariableYIndex</a> (int index) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the YIndex of a state variable allocated by this <a class="el" href="classOpenSim_1_1ModelComponent.html" title="This is the base class for any component which can be added to a Model.">ModelComponent</a>.  <a href="#a96b57582615e29d91f66a70491fef52d"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#a1c039505cb1e84f3f02e84bdac0bdbb8">OPENSIM_DECLARE_DERIVED</a> (<a class="el" href="classOpenSim_1_1Delp1990Muscle.html">Delp1990Muscle</a>, <a class="el" href="classOpenSim_1_1Actuator.html">Actuator</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#a6f666608759b5552ec40869057db32c4">OPENSIM_DECLARE_DERIVED</a> (<a class="el" href="classOpenSim_1_1Delp1990Muscle.html">Delp1990Muscle</a>, <a class="el" href="classOpenSim_1_1ActivationFiberLengthMuscle.html">ActivationFiberLengthMuscle</a>)</td></tr>
 <tr><td colspan="2"><h2>Protected Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#afce1ac256305ba725c7ed9a08f0b5785">setup</a> (<a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;aModel)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Perform some set up functions that happen after the object has been deserialized or copied.  <a href="#afce1ac256305ba725c7ed9a08f0b5785"></a><br/></td></tr>
@@ -165,21 +143,6 @@ Inheritance diagram for OpenSim::Delp1990Muscle:</div>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyDbl.html">PropertyDbl</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#a3fdf840e3e582dd91617ec730388e627">_activation2Prop</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Parameter used in time constant of ramping up and ramping down of muscle force.  <a href="#a3fdf840e3e582dd91617ec730388e627"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">double &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#ab198d275cb64e5333e58d591aa034fca">_activation2</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyDbl.html">PropertyDbl</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#ab2c8cb8c680ce79d5ff9d91a9d9cc1f3">_maxIsometricForceProp</a></td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Maximum isometric force that the fibers can generate.  <a href="#ab2c8cb8c680ce79d5ff9d91a9d9cc1f3"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">double &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#ae9dad5f528c75539f700e458ba9a50a1">_maxIsometricForce</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyDbl.html">PropertyDbl</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#acb3ebe1c2b6e1010c529d6534e719b19">_optimalFiberLengthProp</a></td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Optimal length of the muscle fibers.  <a href="#acb3ebe1c2b6e1010c529d6534e719b19"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">double &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#ad51d7a3887ff874b018968b94e33e386">_optimalFiberLength</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyDbl.html">PropertyDbl</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#aacf3db69b2571da4d02f0e631f865239">_tendonSlackLengthProp</a></td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Resting length of the tendon.  <a href="#aacf3db69b2571da4d02f0e631f865239"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">double &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#a1d0ecbb350f3628055c7282853a66506">_tendonSlackLength</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyDbl.html">PropertyDbl</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#a8db774d1f0544eef4ea1105dbb9ea0dd">_pennationAngleProp</a></td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Angle between tendon and fibers at optimal fiber length.  <a href="#a8db774d1f0544eef4ea1105dbb9ea0dd"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">double &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#ab580f0dc83fe825957d3e942bd4d0c04">_pennationAngle</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyDbl.html">PropertyDbl</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#a907acfae62f6fc68781e4000a4689480">_maxContractionVelocityProp</a></td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Maximum contraction velocity of the fibers, in optimal fiberlengths per second.  <a href="#a907acfae62f6fc68781e4000a4689480"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">double &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#acabf5b963ccd63d669a45b8626d7f8e9">_maxContractionVelocity</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyDbl.html">PropertyDbl</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#aab01ee39e104eadaabb5419931e40283">_massProp</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Mass between the tendon and muscle fibers.  <a href="#aab01ee39e104eadaabb5419931e40283"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">double &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Delp1990Muscle.html#a06738176c4a5320cef47899420398c4c">_mass</a></td></tr>
@@ -214,6 +177,53 @@ Inheritance diagram for OpenSim::Delp1990Muscle:</div>
 <div class="memdoc">
 
 <p>Default constructor. </p>
+
+</div>
+</div>
+<a class="anchor" id="a195643afeda3855bde377c5ee716ba6e"></a><!-- doxytag: member="OpenSim::Delp1990Muscle::Delp1990Muscle" ref="a195643afeda3855bde377c5ee716ba6e" args="(const std::string &amp;aName, double aMaxIsometricForce, double aOptimalFiberLength, double aTendonSlackLength, double aPennationAngle)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Delp1990Muscle::Delp1990Muscle </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&nbsp;</td>
+          <td class="paramname"> <em>aName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&nbsp;</td>
+          <td class="paramname"> <em>aMaxIsometricForce</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&nbsp;</td>
+          <td class="paramname"> <em>aOptimalFiberLength</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&nbsp;</td>
+          <td class="paramname"> <em>aTendonSlackLength</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&nbsp;</td>
+          <td class="paramname"> <em>aPennationAngle</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Constructor. </p>
 
 </div>
 </div>
@@ -282,7 +292,7 @@ Inheritance diagram for OpenSim::Delp1990Muscle:</div>
 <p>Compute the actuation for the muscle. </p>
 <p>This function assumes that computeDerivatives has already been called. </p>
 
-<p>Implements <a class="el" href="classOpenSim_1_1Muscle.html#a6d15b507b09619f2b78f97a9281df980">OpenSim::Muscle</a>.</p>
+<p>Implements <a class="el" href="classOpenSim_1_1ActivationFiberLengthMuscle.html#af41fa577dc23c847cb234b0ab8800204">OpenSim::ActivationFiberLengthMuscle</a>.</p>
 
 </div>
 </div>
@@ -306,46 +316,6 @@ Inheritance diagram for OpenSim::Delp1990Muscle:</div>
 <p>This method computes a fiber length for the muscle that is consistent with the muscle's activation level. </p>
 
 <p>Reimplemented from <a class="el" href="classOpenSim_1_1Actuator__.html#a40bb70448e1682dcfb9e300e7039b0d3">OpenSim::Actuator_</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a3bcbd560a43e08271bde41f1967a07a0"></a><!-- doxytag: member="OpenSim::Delp1990Muscle::computeIsokineticForceAssumingInfinitelyStiffTendon" ref="a3bcbd560a43e08271bde41f1967a07a0" args="(SimTK::State &amp;s, double aActivation)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">double Delp1990Muscle::computeIsokineticForceAssumingInfinitelyStiffTendon </td>
-          <td>(</td>
-          <td class="paramtype">SimTK::State &amp;&nbsp;</td>
-          <td class="paramname"> <em>s</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&nbsp;</td>
-          <td class="paramname"> <em>aActivation</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td><code> [virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Find the force produced by muscle under isokinetic conditions assuming an infinitely stiff tendon. </p>
-<p>That is, all the shortening velocity of the actuator (the musculotendon unit) is assumed to be due to the shortening of the muscle fibers alone. This methods calls computeIsometricForce and so alters the internal member variables of this muscle.</p>
-<p>Note that the current implementation approximates the effect of the force-velocity curve. It does not account for the shortening velocity when it is solving for the equilibrium length of the muscle fibers. And, a generic representation of the force-velocity curve is used (as opposed to the implicit force-velocity curve assumed by this model.</p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>aActivation</em>&nbsp;</td><td>Activation of the muscle. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="return"><dt><b>Returns:</b></dt><dd>Isokinetic force generated by the actuator. </dd></dl>
-
-<p>Implements <a class="el" href="classOpenSim_1_1Muscle.html#a35709975780488a90d211f2f8374f630">OpenSim::Muscle</a>.</p>
 
 </div>
 </div>
@@ -384,7 +354,7 @@ Inheritance diagram for OpenSim::Delp1990Muscle:</div>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>The isometric force in the muscle. </dd></dl>
 
-<p>Implements <a class="el" href="classOpenSim_1_1Muscle.html#a3d9566f5125d376da9ff1528b228bc6a">OpenSim::Muscle</a>.</p>
+<p>Implements <a class="el" href="classOpenSim_1_1ActivationFiberLengthMuscle.html#a435a279859ca8c5491aaf0eb0abc5518">OpenSim::ActivationFiberLengthMuscle</a>.</p>
 
 </div>
 </div>
@@ -435,7 +405,7 @@ Inheritance diagram for OpenSim::Delp1990Muscle:</div>
 <p>The copy constructor for this class is used.</p>
 <dl class="return"><dt><b>Returns:</b></dt><dd>Pointer to a copy of this <a class="el" href="classOpenSim_1_1Delp1990Muscle.html" title="A class implementing a SIMM muscle.">Delp1990Muscle</a>. </dd></dl>
 
-<p>Implements <a class="el" href="classOpenSim_1_1Muscle.html#a2e19d5e0c7f323a7469d016d4fb0a569">OpenSim::Muscle</a>.</p>
+<p>Implements <a class="el" href="classOpenSim_1_1ActivationFiberLengthMuscle.html#ae46f8a34be3042f4c8be0c2b727425c7">OpenSim::ActivationFiberLengthMuscle</a>.</p>
 
 </div>
 </div>
@@ -463,33 +433,7 @@ Inheritance diagram for OpenSim::Delp1990Muscle:</div>
   </dd>
 </dl>
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Muscle.html#ae72e91b68461b4238fdc45f9210f192c">OpenSim::Muscle</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ae0bd9b36b5b82d7ea3dae08fa3cd8b59"></a><!-- doxytag: member="OpenSim::Delp1990Muscle::copyPropertyValues" ref="ae0bd9b36b5b82d7ea3dae08fa3cd8b59" args="(Actuator &amp;aActuator)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Delp1990Muscle::copyPropertyValues </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classOpenSim_1_1Actuator.html">Actuator</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>aActuator</em></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td><code> [virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Copy the property values from another actuator, which may not be a <a class="el" href="classOpenSim_1_1Delp1990Muscle.html" title="A class implementing a SIMM muscle.">Delp1990Muscle</a>. </p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>aActuator</em>&nbsp;</td><td><a class="el" href="classOpenSim_1_1Actuator.html" title="Derived class for an actuator (e.g., a torque motor, muscle, .">Actuator</a> to copy property values from. </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1ActivationFiberLengthMuscle.html#a4e1154d5b7b2fcc9b1788756712af732">OpenSim::ActivationFiberLengthMuscle</a>.</p>
 
 </div>
 </div>
@@ -511,7 +455,7 @@ Inheritance diagram for OpenSim::Delp1990Muscle:</div>
 
 <p>allocate and initialize the SimTK state for this acuator. </p>
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Muscle.html#a6c604065251c500579c39be862bcd1ba">OpenSim::Muscle</a>.</p>
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1ActivationFiberLengthMuscle.html#a3db6287ace8ded506b8ff24e07933d61">OpenSim::ActivationFiberLengthMuscle</a>.</p>
 
 </div>
 </div>
@@ -531,7 +475,7 @@ Inheritance diagram for OpenSim::Delp1990Muscle:</div>
 </div>
 <div class="memdoc">
 
-<p>Implements <a class="el" href="classOpenSim_1_1Muscle.html#aef9cf4caff38be4afd26c1f7aa1f6190">OpenSim::Muscle</a>.</p>
+<p>Implements <a class="el" href="classOpenSim_1_1ActivationFiberLengthMuscle.html#a337df626ef67a8e00cacfec8592467e7">OpenSim::ActivationFiberLengthMuscle</a>.</p>
 
 </div>
 </div>
@@ -607,7 +551,7 @@ Inheritance diagram for OpenSim::Delp1990Muscle:</div>
 </div>
 <div class="memdoc">
 
-<p>Implements <a class="el" href="classOpenSim_1_1Muscle.html#a7d6d9a8d69092636a880987da9bf94db">OpenSim::Muscle</a>.</p>
+<p>Implements <a class="el" href="classOpenSim_1_1ActivationFiberLengthMuscle.html#aa74853e2bc27c25600decff12dd99a1a">OpenSim::ActivationFiberLengthMuscle</a>.</p>
 
 </div>
 </div>
@@ -702,44 +646,6 @@ Inheritance diagram for OpenSim::Delp1990Muscle:</div>
 
 </div>
 </div>
-<a class="anchor" id="a629be070c87d296f7acc109b070478cf"></a><!-- doxytag: member="OpenSim::Delp1990Muscle::getMaxContractionVelocity" ref="a629be070c87d296f7acc109b070478cf" args="() const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual double OpenSim::Delp1990Muscle::getMaxContractionVelocity </td>
-          <td>(</td>
-          <td class="paramname"></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td> const<code> [inline, virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a19761b5167df713ae699ae2b27df2328"></a><!-- doxytag: member="OpenSim::Delp1990Muscle::getMaxIsometricForce" ref="a19761b5167df713ae699ae2b27df2328" args="() const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual double OpenSim::Delp1990Muscle::getMaxIsometricForce </td>
-          <td>(</td>
-          <td class="paramname"></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td> const<code> [inline, virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>getMaxIsometricForce needs to be overridden by derived classes to be usable </p>
-
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Muscle.html#a2404bc5d272dc491d2ed98cbeb22ef37">OpenSim::Muscle</a>.</p>
-
-</div>
-</div>
 <a class="anchor" id="a62b60472fb6ff8c3f47d90e11b1bc9ce"></a><!-- doxytag: member="OpenSim::Delp1990Muscle::getNormalizedFiberLength" ref="a62b60472fb6ff8c3f47d90e11b1bc9ce" args="(const SimTK::State &amp;) const " -->
 <div class="memitem">
 <div class="memproto">
@@ -765,26 +671,7 @@ Inheritance diagram for OpenSim::Delp1990Muscle:</div>
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="classOpenSim_1_1Muscle.html#a71c5956383a4b23a679d3952aa8acb8a">OpenSim::Muscle</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="af82d0883c42667600931e26333978e18"></a><!-- doxytag: member="OpenSim::Delp1990Muscle::getOptimalFiberLength" ref="af82d0883c42667600931e26333978e18" args="() const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual double OpenSim::Delp1990Muscle::getOptimalFiberLength </td>
-          <td>(</td>
-          <td class="paramname"></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td> const<code> [inline, virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Implements <a class="el" href="classOpenSim_1_1Muscle.html#a9b00f50ae342e4e6d7b558539279dca1">OpenSim::Muscle</a>.</p>
+<p>Implements <a class="el" href="classOpenSim_1_1ActivationFiberLengthMuscle.html#a4f38bff86d0f0d114746bc1936b1d03b">OpenSim::ActivationFiberLengthMuscle</a>.</p>
 
 </div>
 </div>
@@ -812,7 +699,7 @@ Inheritance diagram for OpenSim::Delp1990Muscle:</div>
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="classOpenSim_1_1Muscle.html#a45edec6508a3f69ad68158b8b5d8e755">OpenSim::Muscle</a>.</p>
+<p>Implements <a class="el" href="classOpenSim_1_1ActivationFiberLengthMuscle.html#a0b703b500dc9c80900e1a5d1719d4286">OpenSim::ActivationFiberLengthMuscle</a>.</p>
 
 </div>
 </div>
@@ -854,53 +741,6 @@ Inheritance diagram for OpenSim::Delp1990Muscle:</div>
 
 </div>
 </div>
-<a class="anchor" id="a94c2ad1fb5c28a086b14057144fbe0ce"></a><!-- doxytag: member="OpenSim::Delp1990Muscle::getPennationAngle" ref="a94c2ad1fb5c28a086b14057144fbe0ce" args="(const SimTK::State &amp;) const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">double Delp1990Muscle::getPennationAngle </td>
-          <td>(</td>
-          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
-          <td class="paramname"> <em>s</em></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td> const<code> [virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Get the current pennation angle of the muscle fiber(s). </p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>Pennation</em>&nbsp;</td><td>angle. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Implements <a class="el" href="classOpenSim_1_1Muscle.html#a6d1d562da85295de776e1b7421f93c3e">OpenSim::Muscle</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a88699e60cee99119565679b7970f2bab"></a><!-- doxytag: member="OpenSim::Delp1990Muscle::getPennationAngleAtOptimalFiberLength" ref="a88699e60cee99119565679b7970f2bab" args="() const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual double OpenSim::Delp1990Muscle::getPennationAngleAtOptimalFiberLength </td>
-          <td>(</td>
-          <td class="paramname"></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td> const<code> [inline, virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Implements <a class="el" href="classOpenSim_1_1Muscle.html#a8d75e3adf45c1f35d0501cd36f5efaec">OpenSim::Muscle</a>.</p>
-
-</div>
-</div>
 <a class="anchor" id="a96b57582615e29d91f66a70491fef52d"></a><!-- doxytag: member="OpenSim::Delp1990Muscle::getStateVariableYIndex" ref="a96b57582615e29d91f66a70491fef52d" args="(int index) const " -->
 <div class="memitem">
 <div class="memproto">
@@ -921,7 +761,7 @@ Inheritance diagram for OpenSim::Delp1990Muscle:</div>
 <p>The default implementation throws an exception, so subclasses that allocate state variables must override it.</p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>index</em>&nbsp;</td><td>the index of the state variable (0 to <a class="el" href="classOpenSim_1_1Muscle.html#ae8dcbe22e8f8d61f5a0e5d4834bfdea6" title="Get the number of state variables allocated by this force.">getNumStateVariables()</a>-1) </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>index</em>&nbsp;</td><td>the index of the state variable (0 to <a class="el" href="classOpenSim_1_1ActivationFiberLengthMuscle.html#a83e0db2377df9e0cd706a3675d397df4" title="Get the number of state variables allocated by this force.">getNumStateVariables()</a>-1) </td></tr>
   </table>
   </dd>
 </dl>
@@ -948,7 +788,7 @@ Inheritance diagram for OpenSim::Delp1990Muscle:</div>
 
 <p>Compute stress. </p>
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Actuator.html#a36539393f53251093edc687916d494f4">OpenSim::Actuator</a>.</p>
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1PathActuator.html#a68c4ddc393b68613d18d626396038e60">OpenSim::PathActuator</a>.</p>
 
 </div>
 </div>
@@ -968,7 +808,7 @@ Inheritance diagram for OpenSim::Delp1990Muscle:</div>
 </div>
 <div class="memdoc">
 
-<p>Implements <a class="el" href="classOpenSim_1_1Muscle.html#a0e56a24521b0205c3035825054152e73">OpenSim::Muscle</a>.</p>
+<p>Implements <a class="el" href="classOpenSim_1_1ActivationFiberLengthMuscle.html#a05b8dd8ff3ce8e992c69c922ad6b94c2">OpenSim::ActivationFiberLengthMuscle</a>.</p>
 
 </div>
 </div>
@@ -992,23 +832,6 @@ Inheritance diagram for OpenSim::Delp1990Muscle:</div>
 
 </div>
 </div>
-<a class="anchor" id="a03781be25cdd5e676581dd226c1549a5"></a><!-- doxytag: member="OpenSim::Delp1990Muscle::getTendonSlackLength" ref="a03781be25cdd5e676581dd226c1549a5" args="() const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual double OpenSim::Delp1990Muscle::getTendonSlackLength </td>
-          <td>(</td>
-          <td class="paramname"></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td> const<code> [inline, virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
 <a class="anchor" id="af8ae93130833f22b227b44a0e5771f55"></a><!-- doxytag: member="OpenSim::Delp1990Muscle::getTimeScale" ref="af8ae93130833f22b227b44a0e5771f55" args="() const " -->
 <div class="memitem">
 <div class="memproto">
@@ -1026,7 +849,7 @@ Inheritance diagram for OpenSim::Delp1990Muscle:</div>
 
 </div>
 </div>
-<a class="anchor" id="a1c039505cb1e84f3f02e84bdac0bdbb8"></a><!-- doxytag: member="OpenSim::Delp1990Muscle::OPENSIM_DECLARE_DERIVED" ref="a1c039505cb1e84f3f02e84bdac0bdbb8" args="(Delp1990Muscle, Actuator)" -->
+<a class="anchor" id="a6f666608759b5552ec40869057db32c4"></a><!-- doxytag: member="OpenSim::Delp1990Muscle::OPENSIM_DECLARE_DERIVED" ref="a6f666608759b5552ec40869057db32c4" args="(Delp1990Muscle, ActivationFiberLengthMuscle)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1039,7 +862,7 @@ Inheritance diagram for OpenSim::Delp1990Muscle:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classOpenSim_1_1Actuator.html">Actuator</a>&nbsp;</td>
+          <td class="paramtype"><a class="el" href="classOpenSim_1_1ActivationFiberLengthMuscle.html">ActivationFiberLengthMuscle</a>&nbsp;</td>
           <td class="paramname"></td><td>&nbsp;</td>
         </tr>
         <tr>
@@ -1050,8 +873,6 @@ Inheritance diagram for OpenSim::Delp1990Muscle:</div>
       </table>
 </div>
 <div class="memdoc">
-
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Muscle.html#ae2c534dd7d1c85aea69374edd3fa005d">OpenSim::Muscle</a>.</p>
 
 </div>
 </div>
@@ -1074,83 +895,7 @@ Inheritance diagram for OpenSim::Delp1990Muscle:</div>
 <p>Assignment operator. </p>
 <dl class="return"><dt><b>Returns:</b></dt><dd>Reference to this object. </dd></dl>
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Muscle.html#a980df8e9b51b3b151c6e09938981ae5d">OpenSim::Muscle</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a49c5a975f7a6f3f778ff38360b27b0d8"></a><!-- doxytag: member="OpenSim::Delp1990Muscle::postScale" ref="a49c5a975f7a6f3f778ff38360b27b0d8" args="(const SimTK::State &amp;s, const ScaleSet &amp;aScaleSet)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Delp1990Muscle::postScale </td>
-          <td>(</td>
-          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
-          <td class="paramname"> <em>s</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classOpenSim_1_1ScaleSet.html">ScaleSet</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>aScaleSet</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td><code> [virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Perform computations that need to happen after the muscle is scaled. </p>
-<p>For this object, that entails comparing the musculotendon length before and after scaling, and scaling some of the force-generating properties a proportional amount.</p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>aScaleSet</em>&nbsp;</td><td>XYZ scale factors for the bodies. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Muscle.html#a9df1ed68d67f801b76929bc7f42abbbc">OpenSim::Muscle</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a9737e0b9a1037b66685cb7a23cfa2083"></a><!-- doxytag: member="OpenSim::Delp1990Muscle::scale" ref="a9737e0b9a1037b66685cb7a23cfa2083" args="(const SimTK::State &amp;s, const ScaleSet &amp;aScaleSet)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Delp1990Muscle::scale </td>
-          <td>(</td>
-          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
-          <td class="paramname"> <em>s</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classOpenSim_1_1ScaleSet.html">ScaleSet</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>aScaleSet</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td><code> [virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p><a class="el" href="classOpenSim_1_1Scale.html">Scale</a> the muscle. </p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>aScaleSet</em>&nbsp;</td><td>XYZ scale factors for the bodies </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="return"><dt><b>Returns:</b></dt><dd>Whether or not the muscle was scaled successfully </dd></dl>
-
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Muscle.html#a206a5ac5e8c62fa981687cae5da20ed2">OpenSim::Muscle</a>.</p>
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1ActivationFiberLengthMuscle.html#a2dfcb6c05262764ac3bbf15538130e23">OpenSim::ActivationFiberLengthMuscle</a>.</p>
 
 </div>
 </div>
@@ -1179,7 +924,7 @@ Inheritance diagram for OpenSim::Delp1990Muscle:</div>
 </div>
 <div class="memdoc">
 
-<p>Implements <a class="el" href="classOpenSim_1_1Muscle.html#a9271d05aa0ed8d3978a8f2433374f872">OpenSim::Muscle</a>.</p>
+<p>Implements <a class="el" href="classOpenSim_1_1ActivationFiberLengthMuscle.html#ab0b07a83049959b2b6338c02431e9b37">OpenSim::ActivationFiberLengthMuscle</a>.</p>
 
 </div>
 </div>
@@ -1343,7 +1088,7 @@ Inheritance diagram for OpenSim::Delp1990Muscle:</div>
 </div>
 <div class="memdoc">
 
-<p>Implements <a class="el" href="classOpenSim_1_1Muscle.html#a12eed28d9dbd40df29ba0709a802f4d3">OpenSim::Muscle</a>.</p>
+<p>Implements <a class="el" href="classOpenSim_1_1ActivationFiberLengthMuscle.html#a9351528a5a9a988b675129156087da0a">OpenSim::ActivationFiberLengthMuscle</a>.</p>
 
 </div>
 </div>
@@ -1482,87 +1227,6 @@ Inheritance diagram for OpenSim::Delp1990Muscle:</div>
 
 </div>
 </div>
-<a class="anchor" id="a4ef1d25b9d6540e7e81b93c34e57ee86"></a><!-- doxytag: member="OpenSim::Delp1990Muscle::setMaxContractionVelocity" ref="a4ef1d25b9d6540e7e81b93c34e57ee86" args="(double aMaxContractionVelocity)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Delp1990Muscle::setMaxContractionVelocity </td>
-          <td>(</td>
-          <td class="paramtype">double&nbsp;</td>
-          <td class="paramname"> <em>aMaxContractionVelocity</em></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td><code> [virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the maximum contraction velocity of the fibers, in optimal fiber lengths per second. </p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>aMaxContractionVelocity</em>&nbsp;</td><td>The maximum contraction velocity of the fibers, in optimal fiber lengths per second. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="return"><dt><b>Returns:</b></dt><dd>Whether the maximum contraction velocity was successfully changed. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a71295f72903898886464c9335aef094f"></a><!-- doxytag: member="OpenSim::Delp1990Muscle::setMaxIsometricForce" ref="a71295f72903898886464c9335aef094f" args="(double aMaxIsometricForce)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Delp1990Muscle::setMaxIsometricForce </td>
-          <td>(</td>
-          <td class="paramtype">double&nbsp;</td>
-          <td class="paramname"> <em>aMaxIsometricForce</em></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td><code> [virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the maximum isometric force that the fibers can generate. </p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>aMaxIsometricForce</em>&nbsp;</td><td>The maximum isometric force that the fibers can generate. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="return"><dt><b>Returns:</b></dt><dd>Whether the maximum isometric force was successfully changed. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="ada686be0ab15b80be5d5530b2c92e4fb"></a><!-- doxytag: member="OpenSim::Delp1990Muscle::setOptimalFiberLength" ref="ada686be0ab15b80be5d5530b2c92e4fb" args="(double aOptimalFiberLength)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Delp1990Muscle::setOptimalFiberLength </td>
-          <td>(</td>
-          <td class="paramtype">double&nbsp;</td>
-          <td class="paramname"> <em>aOptimalFiberLength</em></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td><code> [virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the optimal length of the muscle fibers. </p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>aOptimalFiberLength</em>&nbsp;</td><td>The optimal length of the muscle fibers. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="return"><dt><b>Returns:</b></dt><dd>Whether the optimal length was successfully changed. </dd></dl>
-
-</div>
-</div>
 <a class="anchor" id="a6791c11bf4bf56d0a582f185930dd016"></a><!-- doxytag: member="OpenSim::Delp1990Muscle::setPassiveForce" ref="a6791c11bf4bf56d0a582f185930dd016" args="(const SimTK::State &amp;s, double aForce) const " -->
 <div class="memitem">
 <div class="memproto">
@@ -1614,33 +1278,6 @@ Inheritance diagram for OpenSim::Delp1990Muscle:</div>
   </dd>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>Whether passive force-length curve was successfully changed. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a86ba58907a7eb5a250b1f4072b09ee1a"></a><!-- doxytag: member="OpenSim::Delp1990Muscle::setPennationAngle" ref="a86ba58907a7eb5a250b1f4072b09ee1a" args="(double aPennationAngle)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Delp1990Muscle::setPennationAngle </td>
-          <td>(</td>
-          <td class="paramtype">double&nbsp;</td>
-          <td class="paramname"> <em>aPennationAngle</em></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td><code> [virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the angle between tendon and fibers at optimal fiber length. </p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>aPennationAngle</em>&nbsp;</td><td>The angle between tendon and fibers at optimal fiber length. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="return"><dt><b>Returns:</b></dt><dd>Whether the angle was successfully changed. </dd></dl>
 
 </div>
 </div>
@@ -1698,33 +1335,6 @@ Inheritance diagram for OpenSim::Delp1990Muscle:</div>
 
 </div>
 </div>
-<a class="anchor" id="a9bc6e57c38f2b2444cf51af4d967c78c"></a><!-- doxytag: member="OpenSim::Delp1990Muscle::setTendonSlackLength" ref="a9bc6e57c38f2b2444cf51af4d967c78c" args="(double aTendonSlackLength)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Delp1990Muscle::setTendonSlackLength </td>
-          <td>(</td>
-          <td class="paramtype">double&nbsp;</td>
-          <td class="paramname"> <em>aTendonSlackLength</em></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td><code> [virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the resting length of the tendon. </p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>aTendonSlackLength</em>&nbsp;</td><td>The resting length of the tendon. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="return"><dt><b>Returns:</b></dt><dd>Whether the resting length was successfully changed. </dd></dl>
-
-</div>
-</div>
 <a class="anchor" id="a513fa35a20829d90bfe836d1000f984a"></a><!-- doxytag: member="OpenSim::Delp1990Muscle::setTimeScale" ref="a513fa35a20829d90bfe836d1000f984a" args="(double aTimeScale)" -->
 <div class="memitem">
 <div class="memproto">
@@ -1776,7 +1386,7 @@ Inheritance diagram for OpenSim::Delp1990Muscle:</div>
   </dd>
 </dl>
 
-<p>Reimplemented from <a class="el" href="classOpenSim_1_1Muscle.html#a9b59cc7e366739e3393b07d8e71b77a5">OpenSim::Muscle</a>.</p>
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1ActivationFiberLengthMuscle.html#a18272a32bc06e498f6cd4d1b6455da41">OpenSim::ActivationFiberLengthMuscle</a>.</p>
 
 </div>
 </div>
@@ -1917,90 +1527,6 @@ Inheritance diagram for OpenSim::Delp1990Muscle:</div>
 
 </div>
 </div>
-<a class="anchor" id="acabf5b963ccd63d669a45b8626d7f8e9"></a><!-- doxytag: member="OpenSim::Delp1990Muscle::_maxContractionVelocity" ref="acabf5b963ccd63d669a45b8626d7f8e9" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">double&amp; <a class="el" href="classOpenSim_1_1Delp1990Muscle.html#acabf5b963ccd63d669a45b8626d7f8e9">OpenSim::Delp1990Muscle::_maxContractionVelocity</a><code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a907acfae62f6fc68781e4000a4689480"></a><!-- doxytag: member="OpenSim::Delp1990Muscle::_maxContractionVelocityProp" ref="a907acfae62f6fc68781e4000a4689480" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classOpenSim_1_1PropertyDbl.html">PropertyDbl</a> <a class="el" href="classOpenSim_1_1Delp1990Muscle.html#a907acfae62f6fc68781e4000a4689480">OpenSim::Delp1990Muscle::_maxContractionVelocityProp</a><code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Maximum contraction velocity of the fibers, in optimal fiberlengths per second. </p>
-
-</div>
-</div>
-<a class="anchor" id="ae9dad5f528c75539f700e458ba9a50a1"></a><!-- doxytag: member="OpenSim::Delp1990Muscle::_maxIsometricForce" ref="ae9dad5f528c75539f700e458ba9a50a1" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">double&amp; <a class="el" href="classOpenSim_1_1Delp1990Muscle.html#ae9dad5f528c75539f700e458ba9a50a1">OpenSim::Delp1990Muscle::_maxIsometricForce</a><code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="ab2c8cb8c680ce79d5ff9d91a9d9cc1f3"></a><!-- doxytag: member="OpenSim::Delp1990Muscle::_maxIsometricForceProp" ref="ab2c8cb8c680ce79d5ff9d91a9d9cc1f3" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classOpenSim_1_1PropertyDbl.html">PropertyDbl</a> <a class="el" href="classOpenSim_1_1Delp1990Muscle.html#ab2c8cb8c680ce79d5ff9d91a9d9cc1f3">OpenSim::Delp1990Muscle::_maxIsometricForceProp</a><code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Maximum isometric force that the fibers can generate. </p>
-
-</div>
-</div>
-<a class="anchor" id="ad51d7a3887ff874b018968b94e33e386"></a><!-- doxytag: member="OpenSim::Delp1990Muscle::_optimalFiberLength" ref="ad51d7a3887ff874b018968b94e33e386" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">double&amp; <a class="el" href="classOpenSim_1_1Delp1990Muscle.html#ad51d7a3887ff874b018968b94e33e386">OpenSim::Delp1990Muscle::_optimalFiberLength</a><code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="acb3ebe1c2b6e1010c529d6534e719b19"></a><!-- doxytag: member="OpenSim::Delp1990Muscle::_optimalFiberLengthProp" ref="acb3ebe1c2b6e1010c529d6534e719b19" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classOpenSim_1_1PropertyDbl.html">PropertyDbl</a> <a class="el" href="classOpenSim_1_1Delp1990Muscle.html#acb3ebe1c2b6e1010c529d6534e719b19">OpenSim::Delp1990Muscle::_optimalFiberLengthProp</a><code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Optimal length of the muscle fibers. </p>
-
-</div>
-</div>
 <a class="anchor" id="a0b1240eb6682976a214cb1841099beed"></a><!-- doxytag: member="OpenSim::Delp1990Muscle::_passiveForceLengthCurve" ref="a0b1240eb6682976a214cb1841099beed" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -2027,34 +1553,6 @@ Inheritance diagram for OpenSim::Delp1990Muscle:</div>
 
 </div>
 </div>
-<a class="anchor" id="ab580f0dc83fe825957d3e942bd4d0c04"></a><!-- doxytag: member="OpenSim::Delp1990Muscle::_pennationAngle" ref="ab580f0dc83fe825957d3e942bd4d0c04" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">double&amp; <a class="el" href="classOpenSim_1_1Delp1990Muscle.html#ab580f0dc83fe825957d3e942bd4d0c04">OpenSim::Delp1990Muscle::_pennationAngle</a><code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a8db774d1f0544eef4ea1105dbb9ea0dd"></a><!-- doxytag: member="OpenSim::Delp1990Muscle::_pennationAngleProp" ref="a8db774d1f0544eef4ea1105dbb9ea0dd" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classOpenSim_1_1PropertyDbl.html">PropertyDbl</a> <a class="el" href="classOpenSim_1_1Delp1990Muscle.html#a8db774d1f0544eef4ea1105dbb9ea0dd">OpenSim::Delp1990Muscle::_pennationAngleProp</a><code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Angle between tendon and fibers at optimal fiber length. </p>
-
-</div>
-</div>
 <a class="anchor" id="a69f4b903a38f909a6f35c254058396aa"></a><!-- doxytag: member="OpenSim::Delp1990Muscle::_tendonForceLengthCurve" ref="a69f4b903a38f909a6f35c254058396aa" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -2078,34 +1576,6 @@ Inheritance diagram for OpenSim::Delp1990Muscle:</div>
       </table>
 </div>
 <div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a1d0ecbb350f3628055c7282853a66506"></a><!-- doxytag: member="OpenSim::Delp1990Muscle::_tendonSlackLength" ref="a1d0ecbb350f3628055c7282853a66506" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">double&amp; <a class="el" href="classOpenSim_1_1Delp1990Muscle.html#a1d0ecbb350f3628055c7282853a66506">OpenSim::Delp1990Muscle::_tendonSlackLength</a><code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="aacf3db69b2571da4d02f0e631f865239"></a><!-- doxytag: member="OpenSim::Delp1990Muscle::_tendonSlackLengthProp" ref="aacf3db69b2571da4d02f0e631f865239" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classOpenSim_1_1PropertyDbl.html">PropertyDbl</a> <a class="el" href="classOpenSim_1_1Delp1990Muscle.html#aacf3db69b2571da4d02f0e631f865239">OpenSim::Delp1990Muscle::_tendonSlackLengthProp</a><code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Resting length of the tendon. </p>
 
 </div>
 </div>
@@ -2142,7 +1612,7 @@ Inheritance diagram for OpenSim::Delp1990Muscle:</div>
 <li>OpenSim/Actuators/Delp1990Muscle.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sat Mar 12 12:28:19 2011 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Jun 5 10:13:59 2011 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

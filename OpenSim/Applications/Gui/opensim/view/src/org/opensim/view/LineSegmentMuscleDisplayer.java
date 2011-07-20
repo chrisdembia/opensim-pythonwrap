@@ -25,12 +25,12 @@
  */
 package org.opensim.view;
 
+import java.io.IOException;
 import java.util.Hashtable;
 import java.util.Vector;
 import org.opensim.modeling.Muscle;
 import org.opensim.modeling.ArrayPathPoint;
 import org.opensim.modeling.Geometry;
-import org.opensim.modeling.DisplayGeometry;
 import org.opensim.modeling.LineGeometry;
 import org.opensim.modeling.PathPoint;
 import org.opensim.modeling.PathPointSet;
@@ -38,6 +38,8 @@ import org.opensim.modeling.PathWrapPoint;
 import org.opensim.modeling.OpenSimContext;
 import org.opensim.modeling.VisibleObject;
 import org.opensim.modeling.DisplayGeometry.DisplayPreference;
+import org.opensim.modeling.GeometryPath;
+import org.opensim.modeling.OpenSimObject;
 import org.opensim.view.pub.OpenSimDB;
 import vtk.vtkMatrix4x4;
 
@@ -53,16 +55,24 @@ public class LineSegmentMuscleDisplayer {
    Hashtable<PathPoint,Integer> mapPathPointToGlyphId = new Hashtable<PathPoint,Integer>(10);
    Vector<Integer> musclePointGlyphIds = new Vector<Integer>(10);
    Vector<Integer> muscleSegmentGlyphIds = new Vector<Integer>(10);
+   protected GeometryPath geomPath;
 
    final static double activationColorTau = 5;
    final static double activationColorFactor = 1/(1-Math.exp(-activationColorTau));
 
    public LineSegmentMuscleDisplayer(Muscle act, OpenSimvtkGlyphCloud musclePointsRep, OpenSimvtkOrientedGlyphCloud muscleSegmentsRep)
    {
+        OpenSimObject pathObject;
+        try {
+          pathObject = act.getPropertySet().get("GeometryPath").getValueObj();
+          this.geomPath = GeometryPath.safeDownCast(pathObject);
       this.act = act;
       this.musclePointsRep = musclePointsRep;
       this.muscleSegmentsRep = muscleSegmentsRep;
       openSimContext = OpenSimDB.getInstance().getContext(act.getModel());
+        } catch (IOException ex) {
+            ex.printStackTrace();
+   }
    }
 
    public void setRenderActivation(boolean enabled) {
@@ -184,7 +194,7 @@ public class LineSegmentMuscleDisplayer {
          double[] position1 = new double[3];
          double[] position2 = new double[3];
 
-         ArrayPathPoint path=context.getCurrentDisplayPath(act);
+         ArrayPathPoint path=context.getCurrentDisplayPath(geomPath);
 
          // Points are already in inertial frame
          for(int i=0; i<geomSize; i++) {

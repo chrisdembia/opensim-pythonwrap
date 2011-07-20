@@ -32,6 +32,7 @@
 package org.opensim.tracking;
 
 import java.awt.Component;
+import java.io.File;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -46,6 +47,7 @@ import org.openide.NotifyDescriptor;
 import org.opensim.modeling.ControlSet;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.OpenSimObject;
+import org.opensim.modeling.PropertyStr;
 import org.opensim.modeling.Storage;
 import org.opensim.view.motions.MotionsDB;
 import org.opensim.swingui.FileTextFieldAndChooser;
@@ -679,12 +681,31 @@ private void reuseSelectedQuantitiesCheckBoxActionPerformed(java.awt.event.Actio
     }//GEN-LAST:event_cutoffFrequency1ActionPerformed
 
     private void filterCoordinatesCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterCoordinatesCheckBox1ActionPerformed
-      toolModel.setFilterCoordinates(filterCoordinatesCheckBox1.isSelected());
-       cutoffFrequency1.setEnabled(filterCoordinatesCheckBox1.isSelected());
+      boolean selected=filterCoordinatesCheckBox1.isSelected();
+       toolModel.setFilterCoordinates(selected);
+       cutoffFrequency1.setEnabled(selected);
+       if (selected) 
+           cutoffFrequency1.setText("6"); 
+       else
+           cutoffFrequency1.setText("-1.");
     }//GEN-LAST:event_filterCoordinatesCheckBox1ActionPerformed
 
     private void coordinatesFileName1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_coordinatesFileName1StateChanged
+       String fileName = coordinatesFileName1.getFileName();
+       boolean invalidFile=(fileName==null || fileName.equals("") || fileName.equals(PropertyStr.getDefaultStr()));
+       if(!invalidFile) {
       toolModel.setCoordinatesFileName(coordinatesFileName1.getFileName());
+             File f = new File(coordinatesFileName1.getFileName());
+             if (f.exists()){
+                try {
+                    Storage st = new Storage(coordinatesFileName1.getFileName());
+                    toolModel.setInitialTime(st.getFirstTime());
+                    toolModel.setFinalTime(st.getLastTime());
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+             }
+      }
     }//GEN-LAST:event_coordinatesFileName1StateChanged
 
     private void statesFileName1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_statesFileName1StateChanged

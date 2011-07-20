@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<OpenSimDocument Version="20101">
+<OpenSimDocument Version="20302">
 	<Model name="3DGaitModelSimple">
 		<defaults>
 			<Thelen2003Muscle name="default">
 				<isDisabled> false </isDisabled>
+				<!--Minimum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<min_control>       0.00000000 </min_control>
+				<!--Maximum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<max_control>       1.00000000 </max_control>
 				<GeometryPath name="">
 					<PathPointSet name="">
 						<objects/>
@@ -32,14 +38,18 @@
 						<groups/>
 					</PathWrapSet>
 				</GeometryPath>
-				<!--maximum isometric force of the muscle fibers-->
+				<optimal_force>       1.00000000 </optimal_force>
+				<!--Maximum isometric force that the fibers can generate-->
 				<max_isometric_force>    1000.00000000 </max_isometric_force>
-				<!--optimal length of the muscle fibers-->
+				<!--Optimal length of the muscle fibers-->
 				<optimal_fiber_length>       0.10000000 </optimal_fiber_length>
-				<!--resting length of the tendon-->
+				<!--Resting length of the tendon-->
 				<tendon_slack_length>       0.20000000 </tendon_slack_length>
-				<!--angle between tendon and fibers at optimal fiber length-->
-				<pennation_angle>       0.00000000 </pennation_angle>
+				<!--Angle between tendon and fibers at optimal fiber length-->
+				<pennation_angle_at_optimal>       0.00000000 </pennation_angle_at_optimal>
+				<!--Maximum contraction velocity of the fibers, in optimal fiberlengths
+				    per second-->
+				<max_contraction_velocity>      10.00000000 </max_contraction_velocity>
 				<!--time constant for ramping up of muscle activation-->
 				<activation_time_constant>       0.01000000 </activation_time_constant>
 				<!--time constant for ramping down of muscle activation-->
@@ -67,6 +77,12 @@
 			</Thelen2003Muscle>
 			<Schutte1993Muscle name="default">
 				<isDisabled> false </isDisabled>
+				<!--Minimum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<min_control>       0.00000000 </min_control>
+				<!--Maximum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<max_control>       1.00000000 </max_control>
 				<GeometryPath name="">
 					<PathPointSet name="">
 						<objects/>
@@ -95,13 +111,7 @@
 						<groups/>
 					</PathWrapSet>
 				</GeometryPath>
-				<!--Scale factor for normalizing time-->
-				<time_scale>       0.10000000 </time_scale>
-				<!--Parameter used in time constant of ramping up of muscle force-->
-				<activation1>       7.66700000 </activation1>
-				<!--Parameter used in time constant of ramping up and ramping down of
-				    muscle force-->
-				<activation2>       1.45985400 </activation2>
+				<optimal_force>       1.00000000 </optimal_force>
 				<!--Maximum isometric force that the fibers can generate-->
 				<max_isometric_force>    1000.00000000 </max_isometric_force>
 				<!--Optimal length of the muscle fibers-->
@@ -109,10 +119,17 @@
 				<!--Resting length of the tendon-->
 				<tendon_slack_length>       0.20000000 </tendon_slack_length>
 				<!--Angle between tendon and fibers at optimal fiber length-->
-				<pennation_angle>       0.00000000 </pennation_angle>
+				<pennation_angle_at_optimal>       0.00000000 </pennation_angle_at_optimal>
 				<!--Maximum contraction velocity of the fibers, in optimal fiberlengths
 				    per second-->
 				<max_contraction_velocity>      10.00000000 </max_contraction_velocity>
+				<!--Scale factor for normalizing time-->
+				<time_scale>       0.10000000 </time_scale>
+				<!--Parameter used in time constant of ramping up of muscle force-->
+				<activation1>       7.66700000 </activation1>
+				<!--Parameter used in time constant of ramping up and ramping down of
+				    muscle force-->
+				<activation2>       1.45985400 </activation2>
 				<!--Damping factor related to maximum contraction velocity-->
 				<damping>       0.05000000 </damping>
 				<!--Function representing force-length behavior of tendon-->
@@ -139,6 +156,12 @@
 			</Schutte1993Muscle>
 			<Delp1990Muscle name="default">
 				<isDisabled> false </isDisabled>
+				<!--Minimum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<min_control>       0.00000000 </min_control>
+				<!--Maximum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<max_control>       1.00000000 </max_control>
 				<GeometryPath name="">
 					<PathPointSet name="">
 						<objects/>
@@ -167,13 +190,7 @@
 						<groups/>
 					</PathWrapSet>
 				</GeometryPath>
-				<!--Scale factor for normalizing time-->
-				<time_scale>       0.10000000 </time_scale>
-				<!--Parameter used in time constant of ramping up of muscle force-->
-				<activation1>       7.66700000 </activation1>
-				<!--Parameter used in time constant of ramping up and ramping down of
-				    muscle force-->
-				<activation2>       1.45985400 </activation2>
+				<optimal_force>       1.00000000 </optimal_force>
 				<!--Maximum isometric force that the fibers can generate-->
 				<max_isometric_force>    1000.00000000 </max_isometric_force>
 				<!--Optimal length of the muscle fibers-->
@@ -181,10 +198,17 @@
 				<!--Resting length of the tendon-->
 				<tendon_slack_length>       0.20000000 </tendon_slack_length>
 				<!--Angle between tendon and fibers at optimal fiber length-->
-				<pennation_angle>       0.00000000 </pennation_angle>
+				<pennation_angle_at_optimal>       0.00000000 </pennation_angle_at_optimal>
 				<!--Maximum contraction velocity of the fibers, in optimal fiberlengths
 				    per second-->
 				<max_contraction_velocity>      10.00000000 </max_contraction_velocity>
+				<!--Scale factor for normalizing time-->
+				<time_scale>       0.10000000 </time_scale>
+				<!--Parameter used in time constant of ramping up of muscle force-->
+				<activation1>       7.66700000 </activation1>
+				<!--Parameter used in time constant of ramping up and ramping down of
+				    muscle force-->
+				<activation2>       1.45985400 </activation2>
 				<!--Normalized mass of the muscle between the tendon and muscle fibers-->
 				<mass>       0.00287000 </mass>
 				<!--Function representing force-length behavior of tendon-->
@@ -223,6 +247,12 @@
 			<objects>
 				<Thelen2003Muscle name="glut_med1_r">
 					<isDisabled> false </isDisabled>
+					<!--Minimum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<min_control>       0.00000000 </min_control>
+					<!--Maximum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<max_control>       1.00000000 </max_control>
 					<GeometryPath name="">
 						<PathPointSet name="">
 							<objects>
@@ -296,14 +326,18 @@
 							<groups/>
 						</PathWrapSet>
 					</GeometryPath>
-					<!--maximum isometric force of the muscle fibers-->
+					<optimal_force>       1.00000000 </optimal_force>
+					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>    1119.00000000 </max_isometric_force>
-					<!--optimal length of the muscle fibers-->
+					<!--Optimal length of the muscle fibers-->
 					<optimal_fiber_length>       0.05350000 </optimal_fiber_length>
-					<!--resting length of the tendon-->
+					<!--Resting length of the tendon-->
 					<tendon_slack_length>       0.07800000 </tendon_slack_length>
-					<!--angle between tendon and fibers at optimal fiber length-->
-					<pennation_angle>       0.13962634 </pennation_angle>
+					<!--Angle between tendon and fibers at optimal fiber length-->
+					<pennation_angle_at_optimal>       0.13962634 </pennation_angle_at_optimal>
+					<!--Maximum contraction velocity of the fibers, in optimal fiberlengths
+					    per second-->
+					<max_contraction_velocity>      10.00000000 </max_contraction_velocity>
 					<!--time constant for ramping up of muscle activation-->
 					<activation_time_constant>       0.01000000 </activation_time_constant>
 					<!--time constant for ramping down of muscle activation-->
@@ -331,6 +365,12 @@
 				</Thelen2003Muscle>
 				<Thelen2003Muscle name="glut_med2_r">
 					<isDisabled> false </isDisabled>
+					<!--Minimum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<min_control>       0.00000000 </min_control>
+					<!--Maximum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<max_control>       1.00000000 </max_control>
 					<GeometryPath name="">
 						<PathPointSet name="">
 							<objects>
@@ -404,14 +444,18 @@
 							<groups/>
 						</PathWrapSet>
 					</GeometryPath>
-					<!--maximum isometric force of the muscle fibers-->
+					<optimal_force>       1.00000000 </optimal_force>
+					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>     873.00000000 </max_isometric_force>
-					<!--optimal length of the muscle fibers-->
+					<!--Optimal length of the muscle fibers-->
 					<optimal_fiber_length>       0.08450000 </optimal_fiber_length>
-					<!--resting length of the tendon-->
+					<!--Resting length of the tendon-->
 					<tendon_slack_length>       0.05300000 </tendon_slack_length>
-					<!--angle between tendon and fibers at optimal fiber length-->
-					<pennation_angle>       0.00000000 </pennation_angle>
+					<!--Angle between tendon and fibers at optimal fiber length-->
+					<pennation_angle_at_optimal>       0.00000000 </pennation_angle_at_optimal>
+					<!--Maximum contraction velocity of the fibers, in optimal fiberlengths
+					    per second-->
+					<max_contraction_velocity>      10.00000000 </max_contraction_velocity>
 					<!--time constant for ramping up of muscle activation-->
 					<activation_time_constant>       0.01000000 </activation_time_constant>
 					<!--time constant for ramping down of muscle activation-->
@@ -439,6 +483,12 @@
 				</Thelen2003Muscle>
 				<Thelen2003Muscle name="glut_med3_r">
 					<isDisabled> false </isDisabled>
+					<!--Minimum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<min_control>       0.00000000 </min_control>
+					<!--Maximum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<max_control>       1.00000000 </max_control>
 					<GeometryPath name="">
 						<PathPointSet name="">
 							<objects>
@@ -512,14 +562,18 @@
 							<groups/>
 						</PathWrapSet>
 					</GeometryPath>
-					<!--maximum isometric force of the muscle fibers-->
+					<optimal_force>       1.00000000 </optimal_force>
+					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>    1000.00000000 </max_isometric_force>
-					<!--optimal length of the muscle fibers-->
+					<!--Optimal length of the muscle fibers-->
 					<optimal_fiber_length>       0.06460000 </optimal_fiber_length>
-					<!--resting length of the tendon-->
+					<!--Resting length of the tendon-->
 					<tendon_slack_length>       0.05300000 </tendon_slack_length>
-					<!--angle between tendon and fibers at optimal fiber length-->
-					<pennation_angle>       0.33161256 </pennation_angle>
+					<!--Angle between tendon and fibers at optimal fiber length-->
+					<pennation_angle_at_optimal>       0.33161256 </pennation_angle_at_optimal>
+					<!--Maximum contraction velocity of the fibers, in optimal fiberlengths
+					    per second-->
+					<max_contraction_velocity>      10.00000000 </max_contraction_velocity>
 					<!--time constant for ramping up of muscle activation-->
 					<activation_time_constant>       0.01000000 </activation_time_constant>
 					<!--time constant for ramping down of muscle activation-->
@@ -547,6 +601,12 @@
 				</Thelen2003Muscle>
 				<Thelen2003Muscle name="bifemlh_r">
 					<isDisabled> false </isDisabled>
+					<!--Minimum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<min_control>       0.00000000 </min_control>
+					<!--Maximum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<max_control>       1.00000000 </max_control>
 					<GeometryPath name="">
 						<PathPointSet name="">
 							<objects>
@@ -642,14 +702,18 @@
 							<groups/>
 						</PathWrapSet>
 					</GeometryPath>
-					<!--maximum isometric force of the muscle fibers-->
+					<optimal_force>       1.00000000 </optimal_force>
+					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>    2700.00000000 </max_isometric_force>
-					<!--optimal length of the muscle fibers-->
+					<!--Optimal length of the muscle fibers-->
 					<optimal_fiber_length>       0.10900000 </optimal_fiber_length>
-					<!--resting length of the tendon-->
+					<!--Resting length of the tendon-->
 					<tendon_slack_length>       0.32600000 </tendon_slack_length>
-					<!--angle between tendon and fibers at optimal fiber length-->
-					<pennation_angle>       0.00000000 </pennation_angle>
+					<!--Angle between tendon and fibers at optimal fiber length-->
+					<pennation_angle_at_optimal>       0.00000000 </pennation_angle_at_optimal>
+					<!--Maximum contraction velocity of the fibers, in optimal fiberlengths
+					    per second-->
+					<max_contraction_velocity>      10.00000000 </max_contraction_velocity>
 					<!--time constant for ramping up of muscle activation-->
 					<activation_time_constant>       0.01000000 </activation_time_constant>
 					<!--time constant for ramping down of muscle activation-->
@@ -677,6 +741,12 @@
 				</Thelen2003Muscle>
 				<Thelen2003Muscle name="bifemsh_r">
 					<isDisabled> false </isDisabled>
+					<!--Minimum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<min_control>       0.00000000 </min_control>
+					<!--Maximum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<max_control>       1.00000000 </max_control>
 					<GeometryPath name="">
 						<PathPointSet name="">
 							<objects>
@@ -772,14 +842,18 @@
 							<groups/>
 						</PathWrapSet>
 					</GeometryPath>
-					<!--maximum isometric force of the muscle fibers-->
+					<optimal_force>       1.00000000 </optimal_force>
+					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>     804.00000000 </max_isometric_force>
-					<!--optimal length of the muscle fibers-->
+					<!--Optimal length of the muscle fibers-->
 					<optimal_fiber_length>       0.17300000 </optimal_fiber_length>
-					<!--resting length of the tendon-->
+					<!--Resting length of the tendon-->
 					<tendon_slack_length>       0.08900000 </tendon_slack_length>
-					<!--angle between tendon and fibers at optimal fiber length-->
-					<pennation_angle>       0.40142573 </pennation_angle>
+					<!--Angle between tendon and fibers at optimal fiber length-->
+					<pennation_angle_at_optimal>       0.40142573 </pennation_angle_at_optimal>
+					<!--Maximum contraction velocity of the fibers, in optimal fiberlengths
+					    per second-->
+					<max_contraction_velocity>      10.00000000 </max_contraction_velocity>
 					<!--time constant for ramping up of muscle activation-->
 					<activation_time_constant>       0.01000000 </activation_time_constant>
 					<!--time constant for ramping down of muscle activation-->
@@ -807,6 +881,12 @@
 				</Thelen2003Muscle>
 				<Thelen2003Muscle name="sar_r">
 					<isDisabled> false </isDisabled>
+					<!--Minimum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<min_control>       0.00000000 </min_control>
+					<!--Maximum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<max_control>       1.00000000 </max_control>
 					<GeometryPath name="">
 						<PathPointSet name="">
 							<objects>
@@ -946,14 +1026,18 @@
 							<groups/>
 						</PathWrapSet>
 					</GeometryPath>
-					<!--maximum isometric force of the muscle fibers-->
+					<optimal_force>       1.00000000 </optimal_force>
+					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>     156.00000000 </max_isometric_force>
-					<!--optimal length of the muscle fibers-->
+					<!--Optimal length of the muscle fibers-->
 					<optimal_fiber_length>       0.52000000 </optimal_fiber_length>
-					<!--resting length of the tendon-->
+					<!--Resting length of the tendon-->
 					<tendon_slack_length>       0.10000000 </tendon_slack_length>
-					<!--angle between tendon and fibers at optimal fiber length-->
-					<pennation_angle>       0.00000000 </pennation_angle>
+					<!--Angle between tendon and fibers at optimal fiber length-->
+					<pennation_angle_at_optimal>       0.00000000 </pennation_angle_at_optimal>
+					<!--Maximum contraction velocity of the fibers, in optimal fiberlengths
+					    per second-->
+					<max_contraction_velocity>      10.00000000 </max_contraction_velocity>
 					<!--time constant for ramping up of muscle activation-->
 					<activation_time_constant>       0.01000000 </activation_time_constant>
 					<!--time constant for ramping down of muscle activation-->
@@ -981,6 +1065,12 @@
 				</Thelen2003Muscle>
 				<Thelen2003Muscle name="add_mag2_r">
 					<isDisabled> false </isDisabled>
+					<!--Minimum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<min_control>       0.00000000 </min_control>
+					<!--Maximum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<max_control>       1.00000000 </max_control>
 					<GeometryPath name="">
 						<PathPointSet name="">
 							<objects>
@@ -1054,14 +1144,18 @@
 							<groups/>
 						</PathWrapSet>
 					</GeometryPath>
-					<!--maximum isometric force of the muscle fibers-->
+					<optimal_force>       1.00000000 </optimal_force>
+					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>    2343.00000000 </max_isometric_force>
-					<!--optimal length of the muscle fibers-->
+					<!--Optimal length of the muscle fibers-->
 					<optimal_fiber_length>       0.12100000 </optimal_fiber_length>
-					<!--resting length of the tendon-->
+					<!--Resting length of the tendon-->
 					<tendon_slack_length>       0.12000000 </tendon_slack_length>
-					<!--angle between tendon and fibers at optimal fiber length-->
-					<pennation_angle>       0.05235988 </pennation_angle>
+					<!--Angle between tendon and fibers at optimal fiber length-->
+					<pennation_angle_at_optimal>       0.05235988 </pennation_angle_at_optimal>
+					<!--Maximum contraction velocity of the fibers, in optimal fiberlengths
+					    per second-->
+					<max_contraction_velocity>      10.00000000 </max_contraction_velocity>
 					<!--time constant for ramping up of muscle activation-->
 					<activation_time_constant>       0.01000000 </activation_time_constant>
 					<!--time constant for ramping down of muscle activation-->
@@ -1089,6 +1183,12 @@
 				</Thelen2003Muscle>
 				<Thelen2003Muscle name="tfl_r">
 					<isDisabled> false </isDisabled>
+					<!--Minimum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<min_control>       0.00000000 </min_control>
+					<!--Maximum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<max_control>       1.00000000 </max_control>
 					<GeometryPath name="">
 						<PathPointSet name="">
 							<objects>
@@ -1206,14 +1306,18 @@
 							<groups/>
 						</PathWrapSet>
 					</GeometryPath>
-					<!--maximum isometric force of the muscle fibers-->
+					<optimal_force>       1.00000000 </optimal_force>
+					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>     233.00000000 </max_isometric_force>
-					<!--optimal length of the muscle fibers-->
+					<!--Optimal length of the muscle fibers-->
 					<optimal_fiber_length>       0.09500000 </optimal_fiber_length>
-					<!--resting length of the tendon-->
+					<!--Resting length of the tendon-->
 					<tendon_slack_length>       0.42500000 </tendon_slack_length>
-					<!--angle between tendon and fibers at optimal fiber length-->
-					<pennation_angle>       0.05235988 </pennation_angle>
+					<!--Angle between tendon and fibers at optimal fiber length-->
+					<pennation_angle_at_optimal>       0.05235988 </pennation_angle_at_optimal>
+					<!--Maximum contraction velocity of the fibers, in optimal fiberlengths
+					    per second-->
+					<max_contraction_velocity>      10.00000000 </max_contraction_velocity>
 					<!--time constant for ramping up of muscle activation-->
 					<activation_time_constant>       0.01000000 </activation_time_constant>
 					<!--time constant for ramping down of muscle activation-->
@@ -1241,6 +1345,12 @@
 				</Thelen2003Muscle>
 				<Thelen2003Muscle name="pect_r">
 					<isDisabled> false </isDisabled>
+					<!--Minimum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<min_control>       0.00000000 </min_control>
+					<!--Maximum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<max_control>       1.00000000 </max_control>
 					<GeometryPath name="">
 						<PathPointSet name="">
 							<objects>
@@ -1314,14 +1424,18 @@
 							<groups/>
 						</PathWrapSet>
 					</GeometryPath>
-					<!--maximum isometric force of the muscle fibers-->
+					<optimal_force>       1.00000000 </optimal_force>
+					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>     266.00000000 </max_isometric_force>
-					<!--optimal length of the muscle fibers-->
+					<!--Optimal length of the muscle fibers-->
 					<optimal_fiber_length>       0.10000000 </optimal_fiber_length>
-					<!--resting length of the tendon-->
+					<!--Resting length of the tendon-->
 					<tendon_slack_length>       0.03300000 </tendon_slack_length>
-					<!--angle between tendon and fibers at optimal fiber length-->
-					<pennation_angle>       0.00000000 </pennation_angle>
+					<!--Angle between tendon and fibers at optimal fiber length-->
+					<pennation_angle_at_optimal>       0.00000000 </pennation_angle_at_optimal>
+					<!--Maximum contraction velocity of the fibers, in optimal fiberlengths
+					    per second-->
+					<max_contraction_velocity>      10.00000000 </max_contraction_velocity>
 					<!--time constant for ramping up of muscle activation-->
 					<activation_time_constant>       0.01000000 </activation_time_constant>
 					<!--time constant for ramping down of muscle activation-->
@@ -1349,6 +1463,12 @@
 				</Thelen2003Muscle>
 				<Thelen2003Muscle name="grac_r">
 					<isDisabled> false </isDisabled>
+					<!--Minimum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<min_control>       0.00000000 </min_control>
+					<!--Maximum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<max_control>       1.00000000 </max_control>
 					<GeometryPath name="">
 						<PathPointSet name="">
 							<objects>
@@ -1468,14 +1588,18 @@
 							<groups/>
 						</PathWrapSet>
 					</GeometryPath>
-					<!--maximum isometric force of the muscle fibers-->
+					<optimal_force>       1.00000000 </optimal_force>
+					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>     162.00000000 </max_isometric_force>
-					<!--optimal length of the muscle fibers-->
+					<!--Optimal length of the muscle fibers-->
 					<optimal_fiber_length>       0.35200000 </optimal_fiber_length>
-					<!--resting length of the tendon-->
+					<!--Resting length of the tendon-->
 					<tendon_slack_length>       0.12600000 </tendon_slack_length>
-					<!--angle between tendon and fibers at optimal fiber length-->
-					<pennation_angle>       0.05235988 </pennation_angle>
+					<!--Angle between tendon and fibers at optimal fiber length-->
+					<pennation_angle_at_optimal>       0.05235988 </pennation_angle_at_optimal>
+					<!--Maximum contraction velocity of the fibers, in optimal fiberlengths
+					    per second-->
+					<max_contraction_velocity>      10.00000000 </max_contraction_velocity>
 					<!--time constant for ramping up of muscle activation-->
 					<activation_time_constant>       0.01000000 </activation_time_constant>
 					<!--time constant for ramping down of muscle activation-->
@@ -1503,6 +1627,12 @@
 				</Thelen2003Muscle>
 				<Thelen2003Muscle name="glut_max1_r">
 					<isDisabled> false </isDisabled>
+					<!--Minimum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<min_control>       0.00000000 </min_control>
+					<!--Maximum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<max_control>       1.00000000 </max_control>
 					<GeometryPath name="">
 						<PathPointSet name="">
 							<objects>
@@ -1620,14 +1750,18 @@
 							<groups/>
 						</PathWrapSet>
 					</GeometryPath>
-					<!--maximum isometric force of the muscle fibers-->
+					<optimal_force>       1.00000000 </optimal_force>
+					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>     573.00000000 </max_isometric_force>
-					<!--optimal length of the muscle fibers-->
+					<!--Optimal length of the muscle fibers-->
 					<optimal_fiber_length>       0.14200000 </optimal_fiber_length>
-					<!--resting length of the tendon-->
+					<!--Resting length of the tendon-->
 					<tendon_slack_length>       0.12500000 </tendon_slack_length>
-					<!--angle between tendon and fibers at optimal fiber length-->
-					<pennation_angle>       0.08726646 </pennation_angle>
+					<!--Angle between tendon and fibers at optimal fiber length-->
+					<pennation_angle_at_optimal>       0.08726646 </pennation_angle_at_optimal>
+					<!--Maximum contraction velocity of the fibers, in optimal fiberlengths
+					    per second-->
+					<max_contraction_velocity>      10.00000000 </max_contraction_velocity>
 					<!--time constant for ramping up of muscle activation-->
 					<activation_time_constant>       0.01000000 </activation_time_constant>
 					<!--time constant for ramping down of muscle activation-->
@@ -1655,6 +1789,12 @@
 				</Thelen2003Muscle>
 				<Thelen2003Muscle name="glut_max2_r">
 					<isDisabled> false </isDisabled>
+					<!--Minimum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<min_control>       0.00000000 </min_control>
+					<!--Maximum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<max_control>       1.00000000 </max_control>
 					<GeometryPath name="">
 						<PathPointSet name="">
 							<objects>
@@ -1772,14 +1912,18 @@
 							<groups/>
 						</PathWrapSet>
 					</GeometryPath>
-					<!--maximum isometric force of the muscle fibers-->
+					<optimal_force>       1.00000000 </optimal_force>
+					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>     819.00000000 </max_isometric_force>
-					<!--optimal length of the muscle fibers-->
+					<!--Optimal length of the muscle fibers-->
 					<optimal_fiber_length>       0.14700000 </optimal_fiber_length>
-					<!--resting length of the tendon-->
+					<!--Resting length of the tendon-->
 					<tendon_slack_length>       0.12700000 </tendon_slack_length>
-					<!--angle between tendon and fibers at optimal fiber length-->
-					<pennation_angle>       0.00000000 </pennation_angle>
+					<!--Angle between tendon and fibers at optimal fiber length-->
+					<pennation_angle_at_optimal>       0.00000000 </pennation_angle_at_optimal>
+					<!--Maximum contraction velocity of the fibers, in optimal fiberlengths
+					    per second-->
+					<max_contraction_velocity>      10.00000000 </max_contraction_velocity>
 					<!--time constant for ramping up of muscle activation-->
 					<activation_time_constant>       0.01000000 </activation_time_constant>
 					<!--time constant for ramping down of muscle activation-->
@@ -1807,6 +1951,12 @@
 				</Thelen2003Muscle>
 				<Thelen2003Muscle name="glut_max3_r">
 					<isDisabled> false </isDisabled>
+					<!--Minimum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<min_control>       0.00000000 </min_control>
+					<!--Maximum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<max_control>       1.00000000 </max_control>
 					<GeometryPath name="">
 						<PathPointSet name="">
 							<objects>
@@ -1924,14 +2074,18 @@
 							<groups/>
 						</PathWrapSet>
 					</GeometryPath>
-					<!--maximum isometric force of the muscle fibers-->
+					<optimal_force>       1.00000000 </optimal_force>
+					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>     552.00000000 </max_isometric_force>
-					<!--optimal length of the muscle fibers-->
+					<!--Optimal length of the muscle fibers-->
 					<optimal_fiber_length>       0.14400000 </optimal_fiber_length>
-					<!--resting length of the tendon-->
+					<!--Resting length of the tendon-->
 					<tendon_slack_length>       0.14500000 </tendon_slack_length>
-					<!--angle between tendon and fibers at optimal fiber length-->
-					<pennation_angle>       0.08726646 </pennation_angle>
+					<!--Angle between tendon and fibers at optimal fiber length-->
+					<pennation_angle_at_optimal>       0.08726646 </pennation_angle_at_optimal>
+					<!--Maximum contraction velocity of the fibers, in optimal fiberlengths
+					    per second-->
+					<max_contraction_velocity>      10.00000000 </max_contraction_velocity>
 					<!--time constant for ramping up of muscle activation-->
 					<activation_time_constant>       0.01000000 </activation_time_constant>
 					<!--time constant for ramping down of muscle activation-->
@@ -1959,6 +2113,12 @@
 				</Thelen2003Muscle>
 				<Thelen2003Muscle name="iliacus_r">
 					<isDisabled> false </isDisabled>
+					<!--Minimum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<min_control>       0.00000000 </min_control>
+					<!--Maximum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<max_control>       1.00000000 </max_control>
 					<GeometryPath name="">
 						<PathPointSet name="">
 							<objects>
@@ -2100,14 +2260,18 @@
 							<groups/>
 						</PathWrapSet>
 					</GeometryPath>
-					<!--maximum isometric force of the muscle fibers-->
+					<optimal_force>       1.00000000 </optimal_force>
+					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>    1073.00000000 </max_isometric_force>
-					<!--optimal length of the muscle fibers-->
+					<!--Optimal length of the muscle fibers-->
 					<optimal_fiber_length>       0.10000000 </optimal_fiber_length>
-					<!--resting length of the tendon-->
+					<!--Resting length of the tendon-->
 					<tendon_slack_length>       0.10000000 </tendon_slack_length>
-					<!--angle between tendon and fibers at optimal fiber length-->
-					<pennation_angle>       0.12217305 </pennation_angle>
+					<!--Angle between tendon and fibers at optimal fiber length-->
+					<pennation_angle_at_optimal>       0.12217305 </pennation_angle_at_optimal>
+					<!--Maximum contraction velocity of the fibers, in optimal fiberlengths
+					    per second-->
+					<max_contraction_velocity>      10.00000000 </max_contraction_velocity>
 					<!--time constant for ramping up of muscle activation-->
 					<activation_time_constant>       0.01000000 </activation_time_constant>
 					<!--time constant for ramping down of muscle activation-->
@@ -2135,6 +2299,12 @@
 				</Thelen2003Muscle>
 				<Thelen2003Muscle name="psoas_r">
 					<isDisabled> false </isDisabled>
+					<!--Minimum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<min_control>       0.00000000 </min_control>
+					<!--Maximum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<max_control>       1.00000000 </max_control>
 					<GeometryPath name="">
 						<PathPointSet name="">
 							<objects>
@@ -2276,14 +2446,18 @@
 							<groups/>
 						</PathWrapSet>
 					</GeometryPath>
-					<!--maximum isometric force of the muscle fibers-->
+					<optimal_force>       1.00000000 </optimal_force>
+					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>    1113.00000000 </max_isometric_force>
-					<!--optimal length of the muscle fibers-->
+					<!--Optimal length of the muscle fibers-->
 					<optimal_fiber_length>       0.10000000 </optimal_fiber_length>
-					<!--resting length of the tendon-->
+					<!--Resting length of the tendon-->
 					<tendon_slack_length>       0.16000000 </tendon_slack_length>
-					<!--angle between tendon and fibers at optimal fiber length-->
-					<pennation_angle>       0.13962634 </pennation_angle>
+					<!--Angle between tendon and fibers at optimal fiber length-->
+					<pennation_angle_at_optimal>       0.13962634 </pennation_angle_at_optimal>
+					<!--Maximum contraction velocity of the fibers, in optimal fiberlengths
+					    per second-->
+					<max_contraction_velocity>      10.00000000 </max_contraction_velocity>
 					<!--time constant for ramping up of muscle activation-->
 					<activation_time_constant>       0.01000000 </activation_time_constant>
 					<!--time constant for ramping down of muscle activation-->
@@ -2311,6 +2485,12 @@
 				</Thelen2003Muscle>
 				<Thelen2003Muscle name="quad_fem_r">
 					<isDisabled> false </isDisabled>
+					<!--Minimum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<min_control>       0.00000000 </min_control>
+					<!--Maximum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<max_control>       1.00000000 </max_control>
 					<GeometryPath name="">
 						<PathPointSet name="">
 							<objects>
@@ -2384,14 +2564,18 @@
 							<groups/>
 						</PathWrapSet>
 					</GeometryPath>
-					<!--maximum isometric force of the muscle fibers-->
+					<optimal_force>       1.00000000 </optimal_force>
+					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>     381.00000000 </max_isometric_force>
-					<!--optimal length of the muscle fibers-->
+					<!--Optimal length of the muscle fibers-->
 					<optimal_fiber_length>       0.05400000 </optimal_fiber_length>
-					<!--resting length of the tendon-->
+					<!--Resting length of the tendon-->
 					<tendon_slack_length>       0.02400000 </tendon_slack_length>
-					<!--angle between tendon and fibers at optimal fiber length-->
-					<pennation_angle>       0.00000000 </pennation_angle>
+					<!--Angle between tendon and fibers at optimal fiber length-->
+					<pennation_angle_at_optimal>       0.00000000 </pennation_angle_at_optimal>
+					<!--Maximum contraction velocity of the fibers, in optimal fiberlengths
+					    per second-->
+					<max_contraction_velocity>      10.00000000 </max_contraction_velocity>
 					<!--time constant for ramping up of muscle activation-->
 					<activation_time_constant>       0.01000000 </activation_time_constant>
 					<!--time constant for ramping down of muscle activation-->
@@ -2419,6 +2603,12 @@
 				</Thelen2003Muscle>
 				<Thelen2003Muscle name="gem_r">
 					<isDisabled> false </isDisabled>
+					<!--Minimum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<min_control>       0.00000000 </min_control>
+					<!--Maximum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<max_control>       1.00000000 </max_control>
 					<GeometryPath name="">
 						<PathPointSet name="">
 							<objects>
@@ -2492,14 +2682,18 @@
 							<groups/>
 						</PathWrapSet>
 					</GeometryPath>
-					<!--maximum isometric force of the muscle fibers-->
+					<optimal_force>       1.00000000 </optimal_force>
+					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>     164.00000000 </max_isometric_force>
-					<!--optimal length of the muscle fibers-->
+					<!--Optimal length of the muscle fibers-->
 					<optimal_fiber_length>       0.02400000 </optimal_fiber_length>
-					<!--resting length of the tendon-->
+					<!--Resting length of the tendon-->
 					<tendon_slack_length>       0.03900000 </tendon_slack_length>
-					<!--angle between tendon and fibers at optimal fiber length-->
-					<pennation_angle>       0.00000000 </pennation_angle>
+					<!--Angle between tendon and fibers at optimal fiber length-->
+					<pennation_angle_at_optimal>       0.00000000 </pennation_angle_at_optimal>
+					<!--Maximum contraction velocity of the fibers, in optimal fiberlengths
+					    per second-->
+					<max_contraction_velocity>      10.00000000 </max_contraction_velocity>
 					<!--time constant for ramping up of muscle activation-->
 					<activation_time_constant>       0.01000000 </activation_time_constant>
 					<!--time constant for ramping down of muscle activation-->
@@ -2527,6 +2721,12 @@
 				</Thelen2003Muscle>
 				<Thelen2003Muscle name="peri_r">
 					<isDisabled> false </isDisabled>
+					<!--Minimum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<min_control>       0.00000000 </min_control>
+					<!--Maximum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<max_control>       1.00000000 </max_control>
 					<GeometryPath name="">
 						<PathPointSet name="">
 							<objects>
@@ -2622,14 +2822,18 @@
 							<groups/>
 						</PathWrapSet>
 					</GeometryPath>
-					<!--maximum isometric force of the muscle fibers-->
+					<optimal_force>       1.00000000 </optimal_force>
+					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>     444.00000000 </max_isometric_force>
-					<!--optimal length of the muscle fibers-->
+					<!--Optimal length of the muscle fibers-->
 					<optimal_fiber_length>       0.02600000 </optimal_fiber_length>
-					<!--resting length of the tendon-->
+					<!--Resting length of the tendon-->
 					<tendon_slack_length>       0.11500000 </tendon_slack_length>
-					<!--angle between tendon and fibers at optimal fiber length-->
-					<pennation_angle>       0.17453293 </pennation_angle>
+					<!--Angle between tendon and fibers at optimal fiber length-->
+					<pennation_angle_at_optimal>       0.17453293 </pennation_angle_at_optimal>
+					<!--Maximum contraction velocity of the fibers, in optimal fiberlengths
+					    per second-->
+					<max_contraction_velocity>      10.00000000 </max_contraction_velocity>
 					<!--time constant for ramping up of muscle activation-->
 					<activation_time_constant>       0.01000000 </activation_time_constant>
 					<!--time constant for ramping down of muscle activation-->
@@ -2657,6 +2861,12 @@
 				</Thelen2003Muscle>
 				<Thelen2003Muscle name="rect_fem_r">
 					<isDisabled> false </isDisabled>
+					<!--Minimum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<min_control>       0.00000000 </min_control>
+					<!--Maximum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<max_control>       1.00000000 </max_control>
 					<GeometryPath name="">
 						<PathPointSet name="">
 							<objects>
@@ -2754,14 +2964,18 @@
 							<groups/>
 						</PathWrapSet>
 					</GeometryPath>
-					<!--maximum isometric force of the muscle fibers-->
+					<optimal_force>       1.00000000 </optimal_force>
+					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>    1169.00000000 </max_isometric_force>
-					<!--optimal length of the muscle fibers-->
+					<!--Optimal length of the muscle fibers-->
 					<optimal_fiber_length>       0.11400000 </optimal_fiber_length>
-					<!--resting length of the tendon-->
+					<!--Resting length of the tendon-->
 					<tendon_slack_length>       0.31000000 </tendon_slack_length>
-					<!--angle between tendon and fibers at optimal fiber length-->
-					<pennation_angle>       0.08726646 </pennation_angle>
+					<!--Angle between tendon and fibers at optimal fiber length-->
+					<pennation_angle_at_optimal>       0.08726646 </pennation_angle_at_optimal>
+					<!--Maximum contraction velocity of the fibers, in optimal fiberlengths
+					    per second-->
+					<max_contraction_velocity>      10.00000000 </max_contraction_velocity>
 					<!--time constant for ramping up of muscle activation-->
 					<activation_time_constant>       0.01000000 </activation_time_constant>
 					<!--time constant for ramping down of muscle activation-->
@@ -2789,6 +3003,12 @@
 				</Thelen2003Muscle>
 				<Thelen2003Muscle name="vas_int_r">
 					<isDisabled> false </isDisabled>
+					<!--Minimum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<min_control>       0.00000000 </min_control>
+					<!--Maximum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<max_control>       1.00000000 </max_control>
 					<GeometryPath name="">
 						<PathPointSet name="">
 							<objects>
@@ -2908,14 +3128,18 @@
 							<groups/>
 						</PathWrapSet>
 					</GeometryPath>
-					<!--maximum isometric force of the muscle fibers-->
+					<optimal_force>       1.00000000 </optimal_force>
+					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>    5000.00000000 </max_isometric_force>
-					<!--optimal length of the muscle fibers-->
+					<!--Optimal length of the muscle fibers-->
 					<optimal_fiber_length>       0.10700000 </optimal_fiber_length>
-					<!--resting length of the tendon-->
+					<!--Resting length of the tendon-->
 					<tendon_slack_length>       0.11600000 </tendon_slack_length>
-					<!--angle between tendon and fibers at optimal fiber length-->
-					<pennation_angle>       0.05235988 </pennation_angle>
+					<!--Angle between tendon and fibers at optimal fiber length-->
+					<pennation_angle_at_optimal>       0.05235988 </pennation_angle_at_optimal>
+					<!--Maximum contraction velocity of the fibers, in optimal fiberlengths
+					    per second-->
+					<max_contraction_velocity>      10.00000000 </max_contraction_velocity>
 					<!--time constant for ramping up of muscle activation-->
 					<activation_time_constant>       0.01000000 </activation_time_constant>
 					<!--time constant for ramping down of muscle activation-->
@@ -2943,6 +3167,12 @@
 				</Thelen2003Muscle>
 				<Thelen2003Muscle name="med_gas_r">
 					<isDisabled> false </isDisabled>
+					<!--Minimum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<min_control>       0.00000000 </min_control>
+					<!--Maximum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<max_control>       1.00000000 </max_control>
 					<GeometryPath name="">
 						<PathPointSet name="">
 							<objects>
@@ -3040,14 +3270,18 @@
 							<groups/>
 						</PathWrapSet>
 					</GeometryPath>
-					<!--maximum isometric force of the muscle fibers-->
+					<optimal_force>       1.00000000 </optimal_force>
+					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>    2500.00000000 </max_isometric_force>
-					<!--optimal length of the muscle fibers-->
+					<!--Optimal length of the muscle fibers-->
 					<optimal_fiber_length>       0.09000000 </optimal_fiber_length>
-					<!--resting length of the tendon-->
+					<!--Resting length of the tendon-->
 					<tendon_slack_length>       0.36000000 </tendon_slack_length>
-					<!--angle between tendon and fibers at optimal fiber length-->
-					<pennation_angle>       0.29670597 </pennation_angle>
+					<!--Angle between tendon and fibers at optimal fiber length-->
+					<pennation_angle_at_optimal>       0.29670597 </pennation_angle_at_optimal>
+					<!--Maximum contraction velocity of the fibers, in optimal fiberlengths
+					    per second-->
+					<max_contraction_velocity>      10.00000000 </max_contraction_velocity>
 					<!--time constant for ramping up of muscle activation-->
 					<activation_time_constant>       0.01000000 </activation_time_constant>
 					<!--time constant for ramping down of muscle activation-->
@@ -3075,6 +3309,12 @@
 				</Thelen2003Muscle>
 				<Thelen2003Muscle name="soleus_r">
 					<isDisabled> false </isDisabled>
+					<!--Minimum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<min_control>       0.00000000 </min_control>
+					<!--Maximum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<max_control>       1.00000000 </max_control>
 					<GeometryPath name="">
 						<PathPointSet name="">
 							<objects>
@@ -3148,14 +3388,18 @@
 							<groups/>
 						</PathWrapSet>
 					</GeometryPath>
-					<!--maximum isometric force of the muscle fibers-->
+					<optimal_force>       1.00000000 </optimal_force>
+					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>    4000.00000000 </max_isometric_force>
-					<!--optimal length of the muscle fibers-->
+					<!--Optimal length of the muscle fibers-->
 					<optimal_fiber_length>       0.08000000 </optimal_fiber_length>
-					<!--resting length of the tendon-->
+					<!--Resting length of the tendon-->
 					<tendon_slack_length>       0.22000000 </tendon_slack_length>
-					<!--angle between tendon and fibers at optimal fiber length-->
-					<pennation_angle>       0.43633231 </pennation_angle>
+					<!--Angle between tendon and fibers at optimal fiber length-->
+					<pennation_angle_at_optimal>       0.43633231 </pennation_angle_at_optimal>
+					<!--Maximum contraction velocity of the fibers, in optimal fiberlengths
+					    per second-->
+					<max_contraction_velocity>      10.00000000 </max_contraction_velocity>
 					<!--time constant for ramping up of muscle activation-->
 					<activation_time_constant>       0.01000000 </activation_time_constant>
 					<!--time constant for ramping down of muscle activation-->
@@ -3183,6 +3427,12 @@
 				</Thelen2003Muscle>
 				<Thelen2003Muscle name="tib_post_r">
 					<isDisabled> false </isDisabled>
+					<!--Minimum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<min_control>       0.00000000 </min_control>
+					<!--Maximum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<max_control>       1.00000000 </max_control>
 					<GeometryPath name="">
 						<PathPointSet name="">
 							<objects>
@@ -3300,14 +3550,18 @@
 							<groups/>
 						</PathWrapSet>
 					</GeometryPath>
-					<!--maximum isometric force of the muscle fibers-->
+					<optimal_force>       1.00000000 </optimal_force>
+					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>    3600.00000000 </max_isometric_force>
-					<!--optimal length of the muscle fibers-->
+					<!--Optimal length of the muscle fibers-->
 					<optimal_fiber_length>       0.03100000 </optimal_fiber_length>
-					<!--resting length of the tendon-->
+					<!--Resting length of the tendon-->
 					<tendon_slack_length>       0.31000000 </tendon_slack_length>
-					<!--angle between tendon and fibers at optimal fiber length-->
-					<pennation_angle>       0.20943951 </pennation_angle>
+					<!--Angle between tendon and fibers at optimal fiber length-->
+					<pennation_angle_at_optimal>       0.20943951 </pennation_angle_at_optimal>
+					<!--Maximum contraction velocity of the fibers, in optimal fiberlengths
+					    per second-->
+					<max_contraction_velocity>      10.00000000 </max_contraction_velocity>
 					<!--time constant for ramping up of muscle activation-->
 					<activation_time_constant>       0.01000000 </activation_time_constant>
 					<!--time constant for ramping down of muscle activation-->
@@ -3335,6 +3589,12 @@
 				</Thelen2003Muscle>
 				<Thelen2003Muscle name="tib_ant_r">
 					<isDisabled> false </isDisabled>
+					<!--Minimum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<min_control>       0.00000000 </min_control>
+					<!--Maximum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<max_control>       1.00000000 </max_control>
 					<GeometryPath name="">
 						<PathPointSet name="">
 							<objects>
@@ -3430,14 +3690,18 @@
 							<groups/>
 						</PathWrapSet>
 					</GeometryPath>
-					<!--maximum isometric force of the muscle fibers-->
+					<optimal_force>       1.00000000 </optimal_force>
+					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>    3000.00000000 </max_isometric_force>
-					<!--optimal length of the muscle fibers-->
+					<!--Optimal length of the muscle fibers-->
 					<optimal_fiber_length>       0.09800000 </optimal_fiber_length>
-					<!--resting length of the tendon-->
+					<!--Resting length of the tendon-->
 					<tendon_slack_length>       0.22300000 </tendon_slack_length>
-					<!--angle between tendon and fibers at optimal fiber length-->
-					<pennation_angle>       0.08726646 </pennation_angle>
+					<!--Angle between tendon and fibers at optimal fiber length-->
+					<pennation_angle_at_optimal>       0.08726646 </pennation_angle_at_optimal>
+					<!--Maximum contraction velocity of the fibers, in optimal fiberlengths
+					    per second-->
+					<max_contraction_velocity>      10.00000000 </max_contraction_velocity>
 					<!--time constant for ramping up of muscle activation-->
 					<activation_time_constant>       0.01000000 </activation_time_constant>
 					<!--time constant for ramping down of muscle activation-->
@@ -3465,6 +3729,12 @@
 				</Thelen2003Muscle>
 				<Thelen2003Muscle name="glut_med1_l">
 					<isDisabled> false </isDisabled>
+					<!--Minimum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<min_control>       0.00000000 </min_control>
+					<!--Maximum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<max_control>       1.00000000 </max_control>
 					<GeometryPath name="">
 						<PathPointSet name="">
 							<objects>
@@ -3538,14 +3808,18 @@
 							<groups/>
 						</PathWrapSet>
 					</GeometryPath>
-					<!--maximum isometric force of the muscle fibers-->
+					<optimal_force>       1.00000000 </optimal_force>
+					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>    1119.00000000 </max_isometric_force>
-					<!--optimal length of the muscle fibers-->
+					<!--Optimal length of the muscle fibers-->
 					<optimal_fiber_length>       0.05350000 </optimal_fiber_length>
-					<!--resting length of the tendon-->
+					<!--Resting length of the tendon-->
 					<tendon_slack_length>       0.07800000 </tendon_slack_length>
-					<!--angle between tendon and fibers at optimal fiber length-->
-					<pennation_angle>       0.13962634 </pennation_angle>
+					<!--Angle between tendon and fibers at optimal fiber length-->
+					<pennation_angle_at_optimal>       0.13962634 </pennation_angle_at_optimal>
+					<!--Maximum contraction velocity of the fibers, in optimal fiberlengths
+					    per second-->
+					<max_contraction_velocity>      10.00000000 </max_contraction_velocity>
 					<!--time constant for ramping up of muscle activation-->
 					<activation_time_constant>       0.01000000 </activation_time_constant>
 					<!--time constant for ramping down of muscle activation-->
@@ -3573,6 +3847,12 @@
 				</Thelen2003Muscle>
 				<Thelen2003Muscle name="glut_med2_l">
 					<isDisabled> false </isDisabled>
+					<!--Minimum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<min_control>       0.00000000 </min_control>
+					<!--Maximum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<max_control>       1.00000000 </max_control>
 					<GeometryPath name="">
 						<PathPointSet name="">
 							<objects>
@@ -3646,14 +3926,18 @@
 							<groups/>
 						</PathWrapSet>
 					</GeometryPath>
-					<!--maximum isometric force of the muscle fibers-->
+					<optimal_force>       1.00000000 </optimal_force>
+					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>     873.00000000 </max_isometric_force>
-					<!--optimal length of the muscle fibers-->
+					<!--Optimal length of the muscle fibers-->
 					<optimal_fiber_length>       0.08450000 </optimal_fiber_length>
-					<!--resting length of the tendon-->
+					<!--Resting length of the tendon-->
 					<tendon_slack_length>       0.05300000 </tendon_slack_length>
-					<!--angle between tendon and fibers at optimal fiber length-->
-					<pennation_angle>       0.00000000 </pennation_angle>
+					<!--Angle between tendon and fibers at optimal fiber length-->
+					<pennation_angle_at_optimal>       0.00000000 </pennation_angle_at_optimal>
+					<!--Maximum contraction velocity of the fibers, in optimal fiberlengths
+					    per second-->
+					<max_contraction_velocity>      10.00000000 </max_contraction_velocity>
 					<!--time constant for ramping up of muscle activation-->
 					<activation_time_constant>       0.01000000 </activation_time_constant>
 					<!--time constant for ramping down of muscle activation-->
@@ -3681,6 +3965,12 @@
 				</Thelen2003Muscle>
 				<Thelen2003Muscle name="glut_med3_l">
 					<isDisabled> false </isDisabled>
+					<!--Minimum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<min_control>       0.00000000 </min_control>
+					<!--Maximum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<max_control>       1.00000000 </max_control>
 					<GeometryPath name="">
 						<PathPointSet name="">
 							<objects>
@@ -3754,14 +4044,18 @@
 							<groups/>
 						</PathWrapSet>
 					</GeometryPath>
-					<!--maximum isometric force of the muscle fibers-->
+					<optimal_force>       1.00000000 </optimal_force>
+					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>    1000.00000000 </max_isometric_force>
-					<!--optimal length of the muscle fibers-->
+					<!--Optimal length of the muscle fibers-->
 					<optimal_fiber_length>       0.06460000 </optimal_fiber_length>
-					<!--resting length of the tendon-->
+					<!--Resting length of the tendon-->
 					<tendon_slack_length>       0.05300000 </tendon_slack_length>
-					<!--angle between tendon and fibers at optimal fiber length-->
-					<pennation_angle>       0.33161256 </pennation_angle>
+					<!--Angle between tendon and fibers at optimal fiber length-->
+					<pennation_angle_at_optimal>       0.33161256 </pennation_angle_at_optimal>
+					<!--Maximum contraction velocity of the fibers, in optimal fiberlengths
+					    per second-->
+					<max_contraction_velocity>      10.00000000 </max_contraction_velocity>
 					<!--time constant for ramping up of muscle activation-->
 					<activation_time_constant>       0.01000000 </activation_time_constant>
 					<!--time constant for ramping down of muscle activation-->
@@ -3789,6 +4083,12 @@
 				</Thelen2003Muscle>
 				<Thelen2003Muscle name="bifemlh_l">
 					<isDisabled> false </isDisabled>
+					<!--Minimum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<min_control>       0.00000000 </min_control>
+					<!--Maximum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<max_control>       1.00000000 </max_control>
 					<GeometryPath name="">
 						<PathPointSet name="">
 							<objects>
@@ -3884,14 +4184,18 @@
 							<groups/>
 						</PathWrapSet>
 					</GeometryPath>
-					<!--maximum isometric force of the muscle fibers-->
+					<optimal_force>       1.00000000 </optimal_force>
+					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>    2700.00000000 </max_isometric_force>
-					<!--optimal length of the muscle fibers-->
+					<!--Optimal length of the muscle fibers-->
 					<optimal_fiber_length>       0.10900000 </optimal_fiber_length>
-					<!--resting length of the tendon-->
+					<!--Resting length of the tendon-->
 					<tendon_slack_length>       0.32600000 </tendon_slack_length>
-					<!--angle between tendon and fibers at optimal fiber length-->
-					<pennation_angle>       0.00000000 </pennation_angle>
+					<!--Angle between tendon and fibers at optimal fiber length-->
+					<pennation_angle_at_optimal>       0.00000000 </pennation_angle_at_optimal>
+					<!--Maximum contraction velocity of the fibers, in optimal fiberlengths
+					    per second-->
+					<max_contraction_velocity>      10.00000000 </max_contraction_velocity>
 					<!--time constant for ramping up of muscle activation-->
 					<activation_time_constant>       0.01000000 </activation_time_constant>
 					<!--time constant for ramping down of muscle activation-->
@@ -3919,6 +4223,12 @@
 				</Thelen2003Muscle>
 				<Thelen2003Muscle name="bifemsh_l">
 					<isDisabled> false </isDisabled>
+					<!--Minimum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<min_control>       0.00000000 </min_control>
+					<!--Maximum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<max_control>       1.00000000 </max_control>
 					<GeometryPath name="">
 						<PathPointSet name="">
 							<objects>
@@ -4014,14 +4324,18 @@
 							<groups/>
 						</PathWrapSet>
 					</GeometryPath>
-					<!--maximum isometric force of the muscle fibers-->
+					<optimal_force>       1.00000000 </optimal_force>
+					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>     804.00000000 </max_isometric_force>
-					<!--optimal length of the muscle fibers-->
+					<!--Optimal length of the muscle fibers-->
 					<optimal_fiber_length>       0.17300000 </optimal_fiber_length>
-					<!--resting length of the tendon-->
+					<!--Resting length of the tendon-->
 					<tendon_slack_length>       0.08900000 </tendon_slack_length>
-					<!--angle between tendon and fibers at optimal fiber length-->
-					<pennation_angle>       0.40142573 </pennation_angle>
+					<!--Angle between tendon and fibers at optimal fiber length-->
+					<pennation_angle_at_optimal>       0.40142573 </pennation_angle_at_optimal>
+					<!--Maximum contraction velocity of the fibers, in optimal fiberlengths
+					    per second-->
+					<max_contraction_velocity>      10.00000000 </max_contraction_velocity>
 					<!--time constant for ramping up of muscle activation-->
 					<activation_time_constant>       0.01000000 </activation_time_constant>
 					<!--time constant for ramping down of muscle activation-->
@@ -4049,6 +4363,12 @@
 				</Thelen2003Muscle>
 				<Thelen2003Muscle name="sar_l">
 					<isDisabled> false </isDisabled>
+					<!--Minimum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<min_control>       0.00000000 </min_control>
+					<!--Maximum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<max_control>       1.00000000 </max_control>
 					<GeometryPath name="">
 						<PathPointSet name="">
 							<objects>
@@ -4188,14 +4508,18 @@
 							<groups/>
 						</PathWrapSet>
 					</GeometryPath>
-					<!--maximum isometric force of the muscle fibers-->
+					<optimal_force>       1.00000000 </optimal_force>
+					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>     156.00000000 </max_isometric_force>
-					<!--optimal length of the muscle fibers-->
+					<!--Optimal length of the muscle fibers-->
 					<optimal_fiber_length>       0.52000000 </optimal_fiber_length>
-					<!--resting length of the tendon-->
+					<!--Resting length of the tendon-->
 					<tendon_slack_length>       0.10000000 </tendon_slack_length>
-					<!--angle between tendon and fibers at optimal fiber length-->
-					<pennation_angle>       0.00000000 </pennation_angle>
+					<!--Angle between tendon and fibers at optimal fiber length-->
+					<pennation_angle_at_optimal>       0.00000000 </pennation_angle_at_optimal>
+					<!--Maximum contraction velocity of the fibers, in optimal fiberlengths
+					    per second-->
+					<max_contraction_velocity>      10.00000000 </max_contraction_velocity>
 					<!--time constant for ramping up of muscle activation-->
 					<activation_time_constant>       0.01000000 </activation_time_constant>
 					<!--time constant for ramping down of muscle activation-->
@@ -4223,6 +4547,12 @@
 				</Thelen2003Muscle>
 				<Thelen2003Muscle name="add_mag2_l">
 					<isDisabled> false </isDisabled>
+					<!--Minimum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<min_control>       0.00000000 </min_control>
+					<!--Maximum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<max_control>       1.00000000 </max_control>
 					<GeometryPath name="">
 						<PathPointSet name="">
 							<objects>
@@ -4296,14 +4626,18 @@
 							<groups/>
 						</PathWrapSet>
 					</GeometryPath>
-					<!--maximum isometric force of the muscle fibers-->
+					<optimal_force>       1.00000000 </optimal_force>
+					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>    2343.00000000 </max_isometric_force>
-					<!--optimal length of the muscle fibers-->
+					<!--Optimal length of the muscle fibers-->
 					<optimal_fiber_length>       0.12100000 </optimal_fiber_length>
-					<!--resting length of the tendon-->
+					<!--Resting length of the tendon-->
 					<tendon_slack_length>       0.12000000 </tendon_slack_length>
-					<!--angle between tendon and fibers at optimal fiber length-->
-					<pennation_angle>       0.05235988 </pennation_angle>
+					<!--Angle between tendon and fibers at optimal fiber length-->
+					<pennation_angle_at_optimal>       0.05235988 </pennation_angle_at_optimal>
+					<!--Maximum contraction velocity of the fibers, in optimal fiberlengths
+					    per second-->
+					<max_contraction_velocity>      10.00000000 </max_contraction_velocity>
 					<!--time constant for ramping up of muscle activation-->
 					<activation_time_constant>       0.01000000 </activation_time_constant>
 					<!--time constant for ramping down of muscle activation-->
@@ -4331,6 +4665,12 @@
 				</Thelen2003Muscle>
 				<Thelen2003Muscle name="tfl_l">
 					<isDisabled> false </isDisabled>
+					<!--Minimum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<min_control>       0.00000000 </min_control>
+					<!--Maximum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<max_control>       1.00000000 </max_control>
 					<GeometryPath name="">
 						<PathPointSet name="">
 							<objects>
@@ -4448,14 +4788,18 @@
 							<groups/>
 						</PathWrapSet>
 					</GeometryPath>
-					<!--maximum isometric force of the muscle fibers-->
+					<optimal_force>       1.00000000 </optimal_force>
+					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>     233.00000000 </max_isometric_force>
-					<!--optimal length of the muscle fibers-->
+					<!--Optimal length of the muscle fibers-->
 					<optimal_fiber_length>       0.09500000 </optimal_fiber_length>
-					<!--resting length of the tendon-->
+					<!--Resting length of the tendon-->
 					<tendon_slack_length>       0.42500000 </tendon_slack_length>
-					<!--angle between tendon and fibers at optimal fiber length-->
-					<pennation_angle>       0.05235988 </pennation_angle>
+					<!--Angle between tendon and fibers at optimal fiber length-->
+					<pennation_angle_at_optimal>       0.05235988 </pennation_angle_at_optimal>
+					<!--Maximum contraction velocity of the fibers, in optimal fiberlengths
+					    per second-->
+					<max_contraction_velocity>      10.00000000 </max_contraction_velocity>
 					<!--time constant for ramping up of muscle activation-->
 					<activation_time_constant>       0.01000000 </activation_time_constant>
 					<!--time constant for ramping down of muscle activation-->
@@ -4483,6 +4827,12 @@
 				</Thelen2003Muscle>
 				<Thelen2003Muscle name="pect_l">
 					<isDisabled> false </isDisabled>
+					<!--Minimum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<min_control>       0.00000000 </min_control>
+					<!--Maximum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<max_control>       1.00000000 </max_control>
 					<GeometryPath name="">
 						<PathPointSet name="">
 							<objects>
@@ -4556,14 +4906,18 @@
 							<groups/>
 						</PathWrapSet>
 					</GeometryPath>
-					<!--maximum isometric force of the muscle fibers-->
+					<optimal_force>       1.00000000 </optimal_force>
+					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>     266.00000000 </max_isometric_force>
-					<!--optimal length of the muscle fibers-->
+					<!--Optimal length of the muscle fibers-->
 					<optimal_fiber_length>       0.10000000 </optimal_fiber_length>
-					<!--resting length of the tendon-->
+					<!--Resting length of the tendon-->
 					<tendon_slack_length>       0.03300000 </tendon_slack_length>
-					<!--angle between tendon and fibers at optimal fiber length-->
-					<pennation_angle>       0.00000000 </pennation_angle>
+					<!--Angle between tendon and fibers at optimal fiber length-->
+					<pennation_angle_at_optimal>       0.00000000 </pennation_angle_at_optimal>
+					<!--Maximum contraction velocity of the fibers, in optimal fiberlengths
+					    per second-->
+					<max_contraction_velocity>      10.00000000 </max_contraction_velocity>
 					<!--time constant for ramping up of muscle activation-->
 					<activation_time_constant>       0.01000000 </activation_time_constant>
 					<!--time constant for ramping down of muscle activation-->
@@ -4591,6 +4945,12 @@
 				</Thelen2003Muscle>
 				<Thelen2003Muscle name="grac_l">
 					<isDisabled> false </isDisabled>
+					<!--Minimum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<min_control>       0.00000000 </min_control>
+					<!--Maximum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<max_control>       1.00000000 </max_control>
 					<GeometryPath name="">
 						<PathPointSet name="">
 							<objects>
@@ -4710,14 +5070,18 @@
 							<groups/>
 						</PathWrapSet>
 					</GeometryPath>
-					<!--maximum isometric force of the muscle fibers-->
+					<optimal_force>       1.00000000 </optimal_force>
+					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>     162.00000000 </max_isometric_force>
-					<!--optimal length of the muscle fibers-->
+					<!--Optimal length of the muscle fibers-->
 					<optimal_fiber_length>       0.35200000 </optimal_fiber_length>
-					<!--resting length of the tendon-->
+					<!--Resting length of the tendon-->
 					<tendon_slack_length>       0.12600000 </tendon_slack_length>
-					<!--angle between tendon and fibers at optimal fiber length-->
-					<pennation_angle>       0.05235988 </pennation_angle>
+					<!--Angle between tendon and fibers at optimal fiber length-->
+					<pennation_angle_at_optimal>       0.05235988 </pennation_angle_at_optimal>
+					<!--Maximum contraction velocity of the fibers, in optimal fiberlengths
+					    per second-->
+					<max_contraction_velocity>      10.00000000 </max_contraction_velocity>
 					<!--time constant for ramping up of muscle activation-->
 					<activation_time_constant>       0.01000000 </activation_time_constant>
 					<!--time constant for ramping down of muscle activation-->
@@ -4745,6 +5109,12 @@
 				</Thelen2003Muscle>
 				<Thelen2003Muscle name="glut_max1_l">
 					<isDisabled> false </isDisabled>
+					<!--Minimum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<min_control>       0.00000000 </min_control>
+					<!--Maximum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<max_control>       1.00000000 </max_control>
 					<GeometryPath name="">
 						<PathPointSet name="">
 							<objects>
@@ -4862,14 +5232,18 @@
 							<groups/>
 						</PathWrapSet>
 					</GeometryPath>
-					<!--maximum isometric force of the muscle fibers-->
+					<optimal_force>       1.00000000 </optimal_force>
+					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>     573.00000000 </max_isometric_force>
-					<!--optimal length of the muscle fibers-->
+					<!--Optimal length of the muscle fibers-->
 					<optimal_fiber_length>       0.14200000 </optimal_fiber_length>
-					<!--resting length of the tendon-->
+					<!--Resting length of the tendon-->
 					<tendon_slack_length>       0.12500000 </tendon_slack_length>
-					<!--angle between tendon and fibers at optimal fiber length-->
-					<pennation_angle>       0.08726646 </pennation_angle>
+					<!--Angle between tendon and fibers at optimal fiber length-->
+					<pennation_angle_at_optimal>       0.08726646 </pennation_angle_at_optimal>
+					<!--Maximum contraction velocity of the fibers, in optimal fiberlengths
+					    per second-->
+					<max_contraction_velocity>      10.00000000 </max_contraction_velocity>
 					<!--time constant for ramping up of muscle activation-->
 					<activation_time_constant>       0.01000000 </activation_time_constant>
 					<!--time constant for ramping down of muscle activation-->
@@ -4897,6 +5271,12 @@
 				</Thelen2003Muscle>
 				<Thelen2003Muscle name="glut_max2_l">
 					<isDisabled> false </isDisabled>
+					<!--Minimum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<min_control>       0.00000000 </min_control>
+					<!--Maximum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<max_control>       1.00000000 </max_control>
 					<GeometryPath name="">
 						<PathPointSet name="">
 							<objects>
@@ -5014,14 +5394,18 @@
 							<groups/>
 						</PathWrapSet>
 					</GeometryPath>
-					<!--maximum isometric force of the muscle fibers-->
+					<optimal_force>       1.00000000 </optimal_force>
+					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>     819.00000000 </max_isometric_force>
-					<!--optimal length of the muscle fibers-->
+					<!--Optimal length of the muscle fibers-->
 					<optimal_fiber_length>       0.14700000 </optimal_fiber_length>
-					<!--resting length of the tendon-->
+					<!--Resting length of the tendon-->
 					<tendon_slack_length>       0.12700000 </tendon_slack_length>
-					<!--angle between tendon and fibers at optimal fiber length-->
-					<pennation_angle>       0.00000000 </pennation_angle>
+					<!--Angle between tendon and fibers at optimal fiber length-->
+					<pennation_angle_at_optimal>       0.00000000 </pennation_angle_at_optimal>
+					<!--Maximum contraction velocity of the fibers, in optimal fiberlengths
+					    per second-->
+					<max_contraction_velocity>      10.00000000 </max_contraction_velocity>
 					<!--time constant for ramping up of muscle activation-->
 					<activation_time_constant>       0.01000000 </activation_time_constant>
 					<!--time constant for ramping down of muscle activation-->
@@ -5049,6 +5433,12 @@
 				</Thelen2003Muscle>
 				<Thelen2003Muscle name="glut_max3_l">
 					<isDisabled> false </isDisabled>
+					<!--Minimum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<min_control>       0.00000000 </min_control>
+					<!--Maximum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<max_control>       1.00000000 </max_control>
 					<GeometryPath name="">
 						<PathPointSet name="">
 							<objects>
@@ -5166,14 +5556,18 @@
 							<groups/>
 						</PathWrapSet>
 					</GeometryPath>
-					<!--maximum isometric force of the muscle fibers-->
+					<optimal_force>       1.00000000 </optimal_force>
+					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>     552.00000000 </max_isometric_force>
-					<!--optimal length of the muscle fibers-->
+					<!--Optimal length of the muscle fibers-->
 					<optimal_fiber_length>       0.14400000 </optimal_fiber_length>
-					<!--resting length of the tendon-->
+					<!--Resting length of the tendon-->
 					<tendon_slack_length>       0.14500000 </tendon_slack_length>
-					<!--angle between tendon and fibers at optimal fiber length-->
-					<pennation_angle>       0.08726646 </pennation_angle>
+					<!--Angle between tendon and fibers at optimal fiber length-->
+					<pennation_angle_at_optimal>       0.08726646 </pennation_angle_at_optimal>
+					<!--Maximum contraction velocity of the fibers, in optimal fiberlengths
+					    per second-->
+					<max_contraction_velocity>      10.00000000 </max_contraction_velocity>
 					<!--time constant for ramping up of muscle activation-->
 					<activation_time_constant>       0.01000000 </activation_time_constant>
 					<!--time constant for ramping down of muscle activation-->
@@ -5201,6 +5595,12 @@
 				</Thelen2003Muscle>
 				<Thelen2003Muscle name="iliacus_l">
 					<isDisabled> false </isDisabled>
+					<!--Minimum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<min_control>       0.00000000 </min_control>
+					<!--Maximum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<max_control>       1.00000000 </max_control>
 					<GeometryPath name="">
 						<PathPointSet name="">
 							<objects>
@@ -5342,14 +5742,18 @@
 							<groups/>
 						</PathWrapSet>
 					</GeometryPath>
-					<!--maximum isometric force of the muscle fibers-->
+					<optimal_force>       1.00000000 </optimal_force>
+					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>    1073.00000000 </max_isometric_force>
-					<!--optimal length of the muscle fibers-->
+					<!--Optimal length of the muscle fibers-->
 					<optimal_fiber_length>       0.10000000 </optimal_fiber_length>
-					<!--resting length of the tendon-->
+					<!--Resting length of the tendon-->
 					<tendon_slack_length>       0.10000000 </tendon_slack_length>
-					<!--angle between tendon and fibers at optimal fiber length-->
-					<pennation_angle>       0.12217305 </pennation_angle>
+					<!--Angle between tendon and fibers at optimal fiber length-->
+					<pennation_angle_at_optimal>       0.12217305 </pennation_angle_at_optimal>
+					<!--Maximum contraction velocity of the fibers, in optimal fiberlengths
+					    per second-->
+					<max_contraction_velocity>      10.00000000 </max_contraction_velocity>
 					<!--time constant for ramping up of muscle activation-->
 					<activation_time_constant>       0.01000000 </activation_time_constant>
 					<!--time constant for ramping down of muscle activation-->
@@ -5377,6 +5781,12 @@
 				</Thelen2003Muscle>
 				<Thelen2003Muscle name="psoas_l">
 					<isDisabled> false </isDisabled>
+					<!--Minimum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<min_control>       0.00000000 </min_control>
+					<!--Maximum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<max_control>       1.00000000 </max_control>
 					<GeometryPath name="">
 						<PathPointSet name="">
 							<objects>
@@ -5518,14 +5928,18 @@
 							<groups/>
 						</PathWrapSet>
 					</GeometryPath>
-					<!--maximum isometric force of the muscle fibers-->
+					<optimal_force>       1.00000000 </optimal_force>
+					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>    1113.00000000 </max_isometric_force>
-					<!--optimal length of the muscle fibers-->
+					<!--Optimal length of the muscle fibers-->
 					<optimal_fiber_length>       0.10000000 </optimal_fiber_length>
-					<!--resting length of the tendon-->
+					<!--Resting length of the tendon-->
 					<tendon_slack_length>       0.16000000 </tendon_slack_length>
-					<!--angle between tendon and fibers at optimal fiber length-->
-					<pennation_angle>       0.13962634 </pennation_angle>
+					<!--Angle between tendon and fibers at optimal fiber length-->
+					<pennation_angle_at_optimal>       0.13962634 </pennation_angle_at_optimal>
+					<!--Maximum contraction velocity of the fibers, in optimal fiberlengths
+					    per second-->
+					<max_contraction_velocity>      10.00000000 </max_contraction_velocity>
 					<!--time constant for ramping up of muscle activation-->
 					<activation_time_constant>       0.01000000 </activation_time_constant>
 					<!--time constant for ramping down of muscle activation-->
@@ -5553,6 +5967,12 @@
 				</Thelen2003Muscle>
 				<Thelen2003Muscle name="quad_fem_l">
 					<isDisabled> false </isDisabled>
+					<!--Minimum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<min_control>       0.00000000 </min_control>
+					<!--Maximum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<max_control>       1.00000000 </max_control>
 					<GeometryPath name="">
 						<PathPointSet name="">
 							<objects>
@@ -5626,14 +6046,18 @@
 							<groups/>
 						</PathWrapSet>
 					</GeometryPath>
-					<!--maximum isometric force of the muscle fibers-->
+					<optimal_force>       1.00000000 </optimal_force>
+					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>     381.00000000 </max_isometric_force>
-					<!--optimal length of the muscle fibers-->
+					<!--Optimal length of the muscle fibers-->
 					<optimal_fiber_length>       0.05400000 </optimal_fiber_length>
-					<!--resting length of the tendon-->
+					<!--Resting length of the tendon-->
 					<tendon_slack_length>       0.02400000 </tendon_slack_length>
-					<!--angle between tendon and fibers at optimal fiber length-->
-					<pennation_angle>       0.00000000 </pennation_angle>
+					<!--Angle between tendon and fibers at optimal fiber length-->
+					<pennation_angle_at_optimal>       0.00000000 </pennation_angle_at_optimal>
+					<!--Maximum contraction velocity of the fibers, in optimal fiberlengths
+					    per second-->
+					<max_contraction_velocity>      10.00000000 </max_contraction_velocity>
 					<!--time constant for ramping up of muscle activation-->
 					<activation_time_constant>       0.01000000 </activation_time_constant>
 					<!--time constant for ramping down of muscle activation-->
@@ -5661,6 +6085,12 @@
 				</Thelen2003Muscle>
 				<Thelen2003Muscle name="gem_l">
 					<isDisabled> false </isDisabled>
+					<!--Minimum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<min_control>       0.00000000 </min_control>
+					<!--Maximum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<max_control>       1.00000000 </max_control>
 					<GeometryPath name="">
 						<PathPointSet name="">
 							<objects>
@@ -5734,14 +6164,18 @@
 							<groups/>
 						</PathWrapSet>
 					</GeometryPath>
-					<!--maximum isometric force of the muscle fibers-->
+					<optimal_force>       1.00000000 </optimal_force>
+					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>     164.00000000 </max_isometric_force>
-					<!--optimal length of the muscle fibers-->
+					<!--Optimal length of the muscle fibers-->
 					<optimal_fiber_length>       0.02400000 </optimal_fiber_length>
-					<!--resting length of the tendon-->
+					<!--Resting length of the tendon-->
 					<tendon_slack_length>       0.03900000 </tendon_slack_length>
-					<!--angle between tendon and fibers at optimal fiber length-->
-					<pennation_angle>       0.00000000 </pennation_angle>
+					<!--Angle between tendon and fibers at optimal fiber length-->
+					<pennation_angle_at_optimal>       0.00000000 </pennation_angle_at_optimal>
+					<!--Maximum contraction velocity of the fibers, in optimal fiberlengths
+					    per second-->
+					<max_contraction_velocity>      10.00000000 </max_contraction_velocity>
 					<!--time constant for ramping up of muscle activation-->
 					<activation_time_constant>       0.01000000 </activation_time_constant>
 					<!--time constant for ramping down of muscle activation-->
@@ -5769,6 +6203,12 @@
 				</Thelen2003Muscle>
 				<Thelen2003Muscle name="peri_l">
 					<isDisabled> false </isDisabled>
+					<!--Minimum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<min_control>       0.00000000 </min_control>
+					<!--Maximum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<max_control>       1.00000000 </max_control>
 					<GeometryPath name="">
 						<PathPointSet name="">
 							<objects>
@@ -5864,14 +6304,18 @@
 							<groups/>
 						</PathWrapSet>
 					</GeometryPath>
-					<!--maximum isometric force of the muscle fibers-->
+					<optimal_force>       1.00000000 </optimal_force>
+					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>     444.00000000 </max_isometric_force>
-					<!--optimal length of the muscle fibers-->
+					<!--Optimal length of the muscle fibers-->
 					<optimal_fiber_length>       0.02600000 </optimal_fiber_length>
-					<!--resting length of the tendon-->
+					<!--Resting length of the tendon-->
 					<tendon_slack_length>       0.11500000 </tendon_slack_length>
-					<!--angle between tendon and fibers at optimal fiber length-->
-					<pennation_angle>       0.17453293 </pennation_angle>
+					<!--Angle between tendon and fibers at optimal fiber length-->
+					<pennation_angle_at_optimal>       0.17453293 </pennation_angle_at_optimal>
+					<!--Maximum contraction velocity of the fibers, in optimal fiberlengths
+					    per second-->
+					<max_contraction_velocity>      10.00000000 </max_contraction_velocity>
 					<!--time constant for ramping up of muscle activation-->
 					<activation_time_constant>       0.01000000 </activation_time_constant>
 					<!--time constant for ramping down of muscle activation-->
@@ -5899,6 +6343,12 @@
 				</Thelen2003Muscle>
 				<Thelen2003Muscle name="rect_fem_l">
 					<isDisabled> false </isDisabled>
+					<!--Minimum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<min_control>       0.00000000 </min_control>
+					<!--Maximum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<max_control>       1.00000000 </max_control>
 					<GeometryPath name="">
 						<PathPointSet name="">
 							<objects>
@@ -5996,14 +6446,18 @@
 							<groups/>
 						</PathWrapSet>
 					</GeometryPath>
-					<!--maximum isometric force of the muscle fibers-->
+					<optimal_force>       1.00000000 </optimal_force>
+					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>    1169.00000000 </max_isometric_force>
-					<!--optimal length of the muscle fibers-->
+					<!--Optimal length of the muscle fibers-->
 					<optimal_fiber_length>       0.11400000 </optimal_fiber_length>
-					<!--resting length of the tendon-->
+					<!--Resting length of the tendon-->
 					<tendon_slack_length>       0.31000000 </tendon_slack_length>
-					<!--angle between tendon and fibers at optimal fiber length-->
-					<pennation_angle>       0.08726646 </pennation_angle>
+					<!--Angle between tendon and fibers at optimal fiber length-->
+					<pennation_angle_at_optimal>       0.08726646 </pennation_angle_at_optimal>
+					<!--Maximum contraction velocity of the fibers, in optimal fiberlengths
+					    per second-->
+					<max_contraction_velocity>      10.00000000 </max_contraction_velocity>
 					<!--time constant for ramping up of muscle activation-->
 					<activation_time_constant>       0.01000000 </activation_time_constant>
 					<!--time constant for ramping down of muscle activation-->
@@ -6031,6 +6485,12 @@
 				</Thelen2003Muscle>
 				<Thelen2003Muscle name="vas_int_l">
 					<isDisabled> false </isDisabled>
+					<!--Minimum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<min_control>       0.00000000 </min_control>
+					<!--Maximum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<max_control>       1.00000000 </max_control>
 					<GeometryPath name="">
 						<PathPointSet name="">
 							<objects>
@@ -6150,14 +6610,18 @@
 							<groups/>
 						</PathWrapSet>
 					</GeometryPath>
-					<!--maximum isometric force of the muscle fibers-->
+					<optimal_force>       1.00000000 </optimal_force>
+					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>    5000.00000000 </max_isometric_force>
-					<!--optimal length of the muscle fibers-->
+					<!--Optimal length of the muscle fibers-->
 					<optimal_fiber_length>       0.10700000 </optimal_fiber_length>
-					<!--resting length of the tendon-->
+					<!--Resting length of the tendon-->
 					<tendon_slack_length>       0.11600000 </tendon_slack_length>
-					<!--angle between tendon and fibers at optimal fiber length-->
-					<pennation_angle>       0.05235988 </pennation_angle>
+					<!--Angle between tendon and fibers at optimal fiber length-->
+					<pennation_angle_at_optimal>       0.05235988 </pennation_angle_at_optimal>
+					<!--Maximum contraction velocity of the fibers, in optimal fiberlengths
+					    per second-->
+					<max_contraction_velocity>      10.00000000 </max_contraction_velocity>
 					<!--time constant for ramping up of muscle activation-->
 					<activation_time_constant>       0.01000000 </activation_time_constant>
 					<!--time constant for ramping down of muscle activation-->
@@ -6185,6 +6649,12 @@
 				</Thelen2003Muscle>
 				<Thelen2003Muscle name="med_gas_l">
 					<isDisabled> false </isDisabled>
+					<!--Minimum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<min_control>       0.00000000 </min_control>
+					<!--Maximum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<max_control>       1.00000000 </max_control>
 					<GeometryPath name="">
 						<PathPointSet name="">
 							<objects>
@@ -6282,14 +6752,18 @@
 							<groups/>
 						</PathWrapSet>
 					</GeometryPath>
-					<!--maximum isometric force of the muscle fibers-->
+					<optimal_force>       1.00000000 </optimal_force>
+					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>    2500.00000000 </max_isometric_force>
-					<!--optimal length of the muscle fibers-->
+					<!--Optimal length of the muscle fibers-->
 					<optimal_fiber_length>       0.09000000 </optimal_fiber_length>
-					<!--resting length of the tendon-->
+					<!--Resting length of the tendon-->
 					<tendon_slack_length>       0.36000000 </tendon_slack_length>
-					<!--angle between tendon and fibers at optimal fiber length-->
-					<pennation_angle>       0.29670597 </pennation_angle>
+					<!--Angle between tendon and fibers at optimal fiber length-->
+					<pennation_angle_at_optimal>       0.29670597 </pennation_angle_at_optimal>
+					<!--Maximum contraction velocity of the fibers, in optimal fiberlengths
+					    per second-->
+					<max_contraction_velocity>      10.00000000 </max_contraction_velocity>
 					<!--time constant for ramping up of muscle activation-->
 					<activation_time_constant>       0.01000000 </activation_time_constant>
 					<!--time constant for ramping down of muscle activation-->
@@ -6317,6 +6791,12 @@
 				</Thelen2003Muscle>
 				<Thelen2003Muscle name="soleus_l">
 					<isDisabled> false </isDisabled>
+					<!--Minimum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<min_control>       0.00000000 </min_control>
+					<!--Maximum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<max_control>       1.00000000 </max_control>
 					<GeometryPath name="">
 						<PathPointSet name="">
 							<objects>
@@ -6390,14 +6870,18 @@
 							<groups/>
 						</PathWrapSet>
 					</GeometryPath>
-					<!--maximum isometric force of the muscle fibers-->
+					<optimal_force>       1.00000000 </optimal_force>
+					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>    4000.00000000 </max_isometric_force>
-					<!--optimal length of the muscle fibers-->
+					<!--Optimal length of the muscle fibers-->
 					<optimal_fiber_length>       0.08000000 </optimal_fiber_length>
-					<!--resting length of the tendon-->
+					<!--Resting length of the tendon-->
 					<tendon_slack_length>       0.22000000 </tendon_slack_length>
-					<!--angle between tendon and fibers at optimal fiber length-->
-					<pennation_angle>       0.43633231 </pennation_angle>
+					<!--Angle between tendon and fibers at optimal fiber length-->
+					<pennation_angle_at_optimal>       0.43633231 </pennation_angle_at_optimal>
+					<!--Maximum contraction velocity of the fibers, in optimal fiberlengths
+					    per second-->
+					<max_contraction_velocity>      10.00000000 </max_contraction_velocity>
 					<!--time constant for ramping up of muscle activation-->
 					<activation_time_constant>       0.01000000 </activation_time_constant>
 					<!--time constant for ramping down of muscle activation-->
@@ -6425,6 +6909,12 @@
 				</Thelen2003Muscle>
 				<Thelen2003Muscle name="tib_post_l">
 					<isDisabled> false </isDisabled>
+					<!--Minimum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<min_control>       0.00000000 </min_control>
+					<!--Maximum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<max_control>       1.00000000 </max_control>
 					<GeometryPath name="">
 						<PathPointSet name="">
 							<objects>
@@ -6542,14 +7032,18 @@
 							<groups/>
 						</PathWrapSet>
 					</GeometryPath>
-					<!--maximum isometric force of the muscle fibers-->
+					<optimal_force>       1.00000000 </optimal_force>
+					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>    3600.00000000 </max_isometric_force>
-					<!--optimal length of the muscle fibers-->
+					<!--Optimal length of the muscle fibers-->
 					<optimal_fiber_length>       0.03100000 </optimal_fiber_length>
-					<!--resting length of the tendon-->
+					<!--Resting length of the tendon-->
 					<tendon_slack_length>       0.31000000 </tendon_slack_length>
-					<!--angle between tendon and fibers at optimal fiber length-->
-					<pennation_angle>       0.20943951 </pennation_angle>
+					<!--Angle between tendon and fibers at optimal fiber length-->
+					<pennation_angle_at_optimal>       0.20943951 </pennation_angle_at_optimal>
+					<!--Maximum contraction velocity of the fibers, in optimal fiberlengths
+					    per second-->
+					<max_contraction_velocity>      10.00000000 </max_contraction_velocity>
 					<!--time constant for ramping up of muscle activation-->
 					<activation_time_constant>       0.01000000 </activation_time_constant>
 					<!--time constant for ramping down of muscle activation-->
@@ -6577,6 +7071,12 @@
 				</Thelen2003Muscle>
 				<Thelen2003Muscle name="tib_ant_l">
 					<isDisabled> false </isDisabled>
+					<!--Minimum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<min_control>       0.00000000 </min_control>
+					<!--Maximum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<max_control>       1.00000000 </max_control>
 					<GeometryPath name="">
 						<PathPointSet name="">
 							<objects>
@@ -6672,14 +7172,18 @@
 							<groups/>
 						</PathWrapSet>
 					</GeometryPath>
-					<!--maximum isometric force of the muscle fibers-->
+					<optimal_force>       1.00000000 </optimal_force>
+					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>    3000.00000000 </max_isometric_force>
-					<!--optimal length of the muscle fibers-->
+					<!--Optimal length of the muscle fibers-->
 					<optimal_fiber_length>       0.09800000 </optimal_fiber_length>
-					<!--resting length of the tendon-->
+					<!--Resting length of the tendon-->
 					<tendon_slack_length>       0.22300000 </tendon_slack_length>
-					<!--angle between tendon and fibers at optimal fiber length-->
-					<pennation_angle>       0.08726646 </pennation_angle>
+					<!--Angle between tendon and fibers at optimal fiber length-->
+					<pennation_angle_at_optimal>       0.08726646 </pennation_angle_at_optimal>
+					<!--Maximum contraction velocity of the fibers, in optimal fiberlengths
+					    per second-->
+					<max_contraction_velocity>      10.00000000 </max_contraction_velocity>
 					<!--time constant for ramping up of muscle activation-->
 					<activation_time_constant>       0.01000000 </activation_time_constant>
 					<!--time constant for ramping down of muscle activation-->
@@ -6707,6 +7211,12 @@
 				</Thelen2003Muscle>
 				<Thelen2003Muscle name="ercspn_r">
 					<isDisabled> false </isDisabled>
+					<!--Minimum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<min_control>       0.00000000 </min_control>
+					<!--Maximum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<max_control>       1.00000000 </max_control>
 					<GeometryPath name="">
 						<PathPointSet name="">
 							<objects>
@@ -6780,14 +7290,18 @@
 							<groups/>
 						</PathWrapSet>
 					</GeometryPath>
-					<!--maximum isometric force of the muscle fibers-->
+					<optimal_force>       1.00000000 </optimal_force>
+					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>    2500.00000000 </max_isometric_force>
-					<!--optimal length of the muscle fibers-->
+					<!--Optimal length of the muscle fibers-->
 					<optimal_fiber_length>       0.12000000 </optimal_fiber_length>
-					<!--resting length of the tendon-->
+					<!--Resting length of the tendon-->
 					<tendon_slack_length>       0.03000000 </tendon_slack_length>
-					<!--angle between tendon and fibers at optimal fiber length-->
-					<pennation_angle>       0.00000000 </pennation_angle>
+					<!--Angle between tendon and fibers at optimal fiber length-->
+					<pennation_angle_at_optimal>       0.00000000 </pennation_angle_at_optimal>
+					<!--Maximum contraction velocity of the fibers, in optimal fiberlengths
+					    per second-->
+					<max_contraction_velocity>      10.00000000 </max_contraction_velocity>
 					<!--time constant for ramping up of muscle activation-->
 					<activation_time_constant>       0.01000000 </activation_time_constant>
 					<!--time constant for ramping down of muscle activation-->
@@ -6815,6 +7329,12 @@
 				</Thelen2003Muscle>
 				<Thelen2003Muscle name="ercspn_l">
 					<isDisabled> false </isDisabled>
+					<!--Minimum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<min_control>       0.00000000 </min_control>
+					<!--Maximum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<max_control>       1.00000000 </max_control>
 					<GeometryPath name="">
 						<PathPointSet name="">
 							<objects>
@@ -6888,14 +7408,18 @@
 							<groups/>
 						</PathWrapSet>
 					</GeometryPath>
-					<!--maximum isometric force of the muscle fibers-->
+					<optimal_force>       1.00000000 </optimal_force>
+					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>    2500.00000000 </max_isometric_force>
-					<!--optimal length of the muscle fibers-->
+					<!--Optimal length of the muscle fibers-->
 					<optimal_fiber_length>       0.12000000 </optimal_fiber_length>
-					<!--resting length of the tendon-->
+					<!--Resting length of the tendon-->
 					<tendon_slack_length>       0.03000000 </tendon_slack_length>
-					<!--angle between tendon and fibers at optimal fiber length-->
-					<pennation_angle>       0.00000000 </pennation_angle>
+					<!--Angle between tendon and fibers at optimal fiber length-->
+					<pennation_angle_at_optimal>       0.00000000 </pennation_angle_at_optimal>
+					<!--Maximum contraction velocity of the fibers, in optimal fiberlengths
+					    per second-->
+					<max_contraction_velocity>      10.00000000 </max_contraction_velocity>
 					<!--time constant for ramping up of muscle activation-->
 					<activation_time_constant>       0.01000000 </activation_time_constant>
 					<!--time constant for ramping down of muscle activation-->
@@ -6923,6 +7447,12 @@
 				</Thelen2003Muscle>
 				<Thelen2003Muscle name="intobl_r">
 					<isDisabled> false </isDisabled>
+					<!--Minimum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<min_control>       0.00000000 </min_control>
+					<!--Maximum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<max_control>       1.00000000 </max_control>
 					<GeometryPath name="">
 						<PathPointSet name="">
 							<objects>
@@ -6996,14 +7526,18 @@
 							<groups/>
 						</PathWrapSet>
 					</GeometryPath>
-					<!--maximum isometric force of the muscle fibers-->
+					<optimal_force>       1.00000000 </optimal_force>
+					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>     900.00000000 </max_isometric_force>
-					<!--optimal length of the muscle fibers-->
+					<!--Optimal length of the muscle fibers-->
 					<optimal_fiber_length>       0.10000000 </optimal_fiber_length>
-					<!--resting length of the tendon-->
+					<!--Resting length of the tendon-->
 					<tendon_slack_length>       0.10000000 </tendon_slack_length>
-					<!--angle between tendon and fibers at optimal fiber length-->
-					<pennation_angle>       0.00000000 </pennation_angle>
+					<!--Angle between tendon and fibers at optimal fiber length-->
+					<pennation_angle_at_optimal>       0.00000000 </pennation_angle_at_optimal>
+					<!--Maximum contraction velocity of the fibers, in optimal fiberlengths
+					    per second-->
+					<max_contraction_velocity>      10.00000000 </max_contraction_velocity>
 					<!--time constant for ramping up of muscle activation-->
 					<activation_time_constant>       0.01000000 </activation_time_constant>
 					<!--time constant for ramping down of muscle activation-->
@@ -7031,6 +7565,12 @@
 				</Thelen2003Muscle>
 				<Thelen2003Muscle name="intobl_l">
 					<isDisabled> false </isDisabled>
+					<!--Minimum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<min_control>       0.00000000 </min_control>
+					<!--Maximum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<max_control>       1.00000000 </max_control>
 					<GeometryPath name="">
 						<PathPointSet name="">
 							<objects>
@@ -7104,14 +7644,18 @@
 							<groups/>
 						</PathWrapSet>
 					</GeometryPath>
-					<!--maximum isometric force of the muscle fibers-->
+					<optimal_force>       1.00000000 </optimal_force>
+					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>     900.00000000 </max_isometric_force>
-					<!--optimal length of the muscle fibers-->
+					<!--Optimal length of the muscle fibers-->
 					<optimal_fiber_length>       0.10000000 </optimal_fiber_length>
-					<!--resting length of the tendon-->
+					<!--Resting length of the tendon-->
 					<tendon_slack_length>       0.10000000 </tendon_slack_length>
-					<!--angle between tendon and fibers at optimal fiber length-->
-					<pennation_angle>       0.00000000 </pennation_angle>
+					<!--Angle between tendon and fibers at optimal fiber length-->
+					<pennation_angle_at_optimal>       0.00000000 </pennation_angle_at_optimal>
+					<!--Maximum contraction velocity of the fibers, in optimal fiberlengths
+					    per second-->
+					<max_contraction_velocity>      10.00000000 </max_contraction_velocity>
 					<!--time constant for ramping up of muscle activation-->
 					<activation_time_constant>       0.01000000 </activation_time_constant>
 					<!--time constant for ramping down of muscle activation-->
@@ -7139,6 +7683,12 @@
 				</Thelen2003Muscle>
 				<Thelen2003Muscle name="extobl_r">
 					<isDisabled> false </isDisabled>
+					<!--Minimum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<min_control>       0.00000000 </min_control>
+					<!--Maximum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<max_control>       1.00000000 </max_control>
 					<GeometryPath name="">
 						<PathPointSet name="">
 							<objects>
@@ -7212,14 +7762,18 @@
 							<groups/>
 						</PathWrapSet>
 					</GeometryPath>
-					<!--maximum isometric force of the muscle fibers-->
+					<optimal_force>       1.00000000 </optimal_force>
+					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>     900.00000000 </max_isometric_force>
-					<!--optimal length of the muscle fibers-->
+					<!--Optimal length of the muscle fibers-->
 					<optimal_fiber_length>       0.12000000 </optimal_fiber_length>
-					<!--resting length of the tendon-->
+					<!--Resting length of the tendon-->
 					<tendon_slack_length>       0.14000000 </tendon_slack_length>
-					<!--angle between tendon and fibers at optimal fiber length-->
-					<pennation_angle>       0.00000000 </pennation_angle>
+					<!--Angle between tendon and fibers at optimal fiber length-->
+					<pennation_angle_at_optimal>       0.00000000 </pennation_angle_at_optimal>
+					<!--Maximum contraction velocity of the fibers, in optimal fiberlengths
+					    per second-->
+					<max_contraction_velocity>      10.00000000 </max_contraction_velocity>
 					<!--time constant for ramping up of muscle activation-->
 					<activation_time_constant>       0.01000000 </activation_time_constant>
 					<!--time constant for ramping down of muscle activation-->
@@ -7247,6 +7801,12 @@
 				</Thelen2003Muscle>
 				<Thelen2003Muscle name="extobl_l">
 					<isDisabled> false </isDisabled>
+					<!--Minimum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<min_control>       0.00000000 </min_control>
+					<!--Maximum allowed value for control signal. Used primarily when solving
+					    for control values-->
+					<max_control>       1.00000000 </max_control>
 					<GeometryPath name="">
 						<PathPointSet name="">
 							<objects>
@@ -7320,14 +7880,18 @@
 							<groups/>
 						</PathWrapSet>
 					</GeometryPath>
-					<!--maximum isometric force of the muscle fibers-->
+					<optimal_force>       1.00000000 </optimal_force>
+					<!--Maximum isometric force that the fibers can generate-->
 					<max_isometric_force>     900.00000000 </max_isometric_force>
-					<!--optimal length of the muscle fibers-->
+					<!--Optimal length of the muscle fibers-->
 					<optimal_fiber_length>       0.12000000 </optimal_fiber_length>
-					<!--resting length of the tendon-->
+					<!--Resting length of the tendon-->
 					<tendon_slack_length>       0.14000000 </tendon_slack_length>
-					<!--angle between tendon and fibers at optimal fiber length-->
-					<pennation_angle>       0.00000000 </pennation_angle>
+					<!--Angle between tendon and fibers at optimal fiber length-->
+					<pennation_angle_at_optimal>       0.00000000 </pennation_angle_at_optimal>
+					<!--Maximum contraction velocity of the fibers, in optimal fiberlengths
+					    per second-->
+					<max_contraction_velocity>      10.00000000 </max_contraction_velocity>
 					<!--time constant for ramping up of muscle activation-->
 					<activation_time_constant>       0.01000000 </activation_time_constant>
 					<!--time constant for ramping down of muscle activation-->
@@ -7440,7 +8004,6 @@
 					<members> extobl_l extobl_r intobl_l intobl_r </members>
 				</ObjectGroup>
 			</groups>
-			<datafile>  </datafile>
 		</ForceSet>
 		<length_units> meters </length_units>
 		<force_units> N </force_units>

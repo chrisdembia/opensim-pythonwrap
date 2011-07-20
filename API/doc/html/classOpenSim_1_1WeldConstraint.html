@@ -67,6 +67,8 @@ Inheritance diagram for OpenSim::WeldConstraint:</div>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1WeldConstraint.html#a5e0beb2679b43cccc4960a9c22333075">setBody1WeldLocation</a> (SimTK::Vec3 location, SimTK::Vec3 orientation=SimTK::Vec3(0))</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1WeldConstraint.html#af31541d5d0308010c59ea3cac5894abd">setBody2ByName</a> (std::string aBodyName)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1WeldConstraint.html#a04c1de649217e72257543903bec4c1e5">setBody2WeldLocation</a> (SimTK::Vec3 location, SimTK::Vec3 orientation=SimTK::Vec3(0))</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1WeldConstraint.html#a69afdf2f0a17a5b1e4f2e2d2b36f37ad">setContactPointForInducedAccelerations</a> (const SimTK::State &amp;s, SimTK::Vec3 point)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This method specifies the interface that a constraint must implement in order to be used by the Induced Accelerations <a class="el" href="classOpenSim_1_1Analysis.html" title="An abstract class for specifying the interface for an analysis plugin.">Analysis</a>.  <a href="#a69afdf2f0a17a5b1e4f2e2d2b36f37ad"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Protected Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1WeldConstraint.html#ab4d0d223ebed573aca15ce18dbfd8414">setup</a> (<a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;aModel)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Perform some set up functions that happen after the object has been deserialized or copied.  <a href="#ab4d0d223ebed573aca15ce18dbfd8414"></a><br/></td></tr>
@@ -459,6 +461,37 @@ Inheritance diagram for OpenSim::WeldConstraint:</div>
 
 </div>
 </div>
+<a class="anchor" id="a69afdf2f0a17a5b1e4f2e2d2b36f37ad"></a><!-- doxytag: member="OpenSim::WeldConstraint::setContactPointForInducedAccelerations" ref="a69afdf2f0a17a5b1e4f2e2d2b36f37ad" args="(const SimTK::State &amp;s, SimTK::Vec3 point)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void OpenSim::WeldConstraint::setContactPointForInducedAccelerations </td>
+          <td>(</td>
+          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
+          <td class="paramname"> <em>s</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SimTK::Vec3&nbsp;</td>
+          <td class="paramname"> <em>point</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td><code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>This method specifies the interface that a constraint must implement in order to be used by the Induced Accelerations <a class="el" href="classOpenSim_1_1Analysis.html" title="An abstract class for specifying the interface for an analysis plugin.">Analysis</a>. </p>
+
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1Constraint.html#a7a28cc4956dcf1432f98d7405b154015">OpenSim::Constraint</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="ab4d0d223ebed573aca15ce18dbfd8414"></a><!-- doxytag: member="OpenSim::WeldConstraint::setup" ref="ab4d0d223ebed573aca15ce18dbfd8414" args="(Model &amp;aModel)" -->
 <div class="memitem">
 <div class="memproto">
@@ -709,7 +742,7 @@ Inheritance diagram for OpenSim::WeldConstraint:</div>
 <li>OpenSim/Simulation/SimbodyEngine/WeldConstraint.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sat Mar 12 12:28:35 2011 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Jun 5 10:14:18 2011 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

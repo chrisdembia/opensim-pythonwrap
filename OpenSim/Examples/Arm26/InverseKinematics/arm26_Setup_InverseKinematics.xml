@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<OpenSimDocument Version="20202">
+<OpenSimDocument Version="20302">
     <InverseKinemtaticsTool name="arm26">
         <!--Name of the .osim file used to construct a model.-->
         <model_file>arm26.osim</model_file>

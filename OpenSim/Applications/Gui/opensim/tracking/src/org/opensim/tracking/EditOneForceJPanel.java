@@ -22,7 +22,7 @@ import org.opensim.modeling.Storage;
  * @author  ayman
  */
 public class EditOneForceJPanel extends javax.swing.JPanel {
-    ExternalForce externalForce;
+    ExternalForce externalForce=null;
     Storage forceStorage=null;
     //Model model;
     ExternalLoads loads;

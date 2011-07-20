@@ -41,7 +41,6 @@ Inheritance diagram for OpenSim::ForceSet:</div>
 <area href="classOpenSim_1_1ModelComponentSet.html" alt="OpenSim::ModelComponentSet&lt; Force &gt;" shape="rect" coords="0,112,243,136"/>
 <area href="classOpenSim_1_1Set.html" alt="OpenSim::Set&lt; Force &gt;" shape="rect" coords="0,56,243,80"/>
 <area href="classOpenSim_1_1Object.html" alt="OpenSim::Object" shape="rect" coords="0,0,243,24"/>
-<area href="classOpenSim_1_1ExternalLoads.html" alt="OpenSim::ExternalLoads" shape="rect" coords="0,224,243,248"/>
 </map>
  </div>
 </div>
@@ -92,14 +91,14 @@ Inheritance diagram for OpenSim::ForceSet:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Check that all actuators are valid.  <a href="#acc49bbe12198153131dc3df91ea06a0b"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Set.html">Set</a>&lt; <a class="el" href="classOpenSim_1_1Actuator.html">Actuator</a> &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ForceSet.html#a833f3d3e0051bfc3f7bb2b0c0a8d542f">_actuators</a></td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The subset of Forces that extend <a class="el" href="classOpenSim_1_1Actuator.html" title="Derived class for an actuator (e.g., a torque motor, muscle, .">Actuator</a>.  <a href="#a833f3d3e0051bfc3f7bb2b0c0a8d542f"></a><br/></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The subset of Forces that are Actuators.  <a href="#a833f3d3e0051bfc3f7bb2b0c0a8d542f"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Set.html">Set</a>&lt; <a class="el" href="classOpenSim_1_1Muscle.html">Muscle</a> &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ForceSet.html#a8781c5a3819bb4449693954bdd624711">_muscles</a></td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The subset of Forces that extend <a class="el" href="classOpenSim_1_1Muscle.html" title="A base class representing a muscle-tendon actuator.">Muscle</a>.  <a href="#a8781c5a3819bb4449693954bdd624711"></a><br/></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The subset of Forces that are Muscles.  <a href="#a8781c5a3819bb4449693954bdd624711"></a><br/></td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
 <p>A class for holding and managing a set of forces for a model. </p>
-<p>This class is based on <a class="el" href="classOpenSim_1_1ForceSet.html" title="A class for holding and managing a set of forces for a model.">ForceSet</a></p>
-<dl class="author"><dt><b>Authors:</b></dt><dd>Jack Middleton </dd></dl>
+<p>This class is based on <a class="el" href="classOpenSim_1_1ModelComponentSet.html" title="This is the base class for sets of ModelComponent subclasses.">ModelComponentSet</a></p>
+<dl class="author"><dt><b>Authors:</b></dt><dd>Ajay Seth, Jack Middleton </dd></dl>
 <dl class="version"><dt><b>Version:</b></dt><dd>1.0 </dd></dl>
 <hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="aba54d324c199a6127a1dbacde8b8e96d"></a><!-- doxytag: member="OpenSim::ForceSet::ForceSet" ref="aba54d324c199a6127a1dbacde8b8e96d" args="()" -->
@@ -388,8 +387,6 @@ Inheritance diagram for OpenSim::ForceSet:</div>
 
 <p>Reimplemented from <a class="el" href="classOpenSim_1_1ModelComponentSet.html#a354cfad9a1addcb0eedba6dabe78e7be">OpenSim::ModelComponentSet&lt; Force &gt;</a>.</p>
 
-<p>Reimplemented in <a class="el" href="classOpenSim_1_1ExternalLoads.html#a3cbfda6ffe85f82a9fa1d8b213c2a109">OpenSim::ExternalLoads</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="abaf3996cef516999b0b8a53b574718ed"></a><!-- doxytag: member="OpenSim::ForceSet::copyData" ref="abaf3996cef516999b0b8a53b574718ed" args="(const ForceSet &amp;aAbsForceSet)" -->
@@ -415,8 +412,6 @@ Inheritance diagram for OpenSim::ForceSet:</div>
   </table>
   </dd>
 </dl>
-
-<p>Reimplemented in <a class="el" href="classOpenSim_1_1ExternalLoads.html#ae2bbd66e258c0bd080ad7dada7567eb9">OpenSim::ExternalLoads</a>.</p>
 
 </div>
 </div>
@@ -536,8 +531,6 @@ Inheritance diagram for OpenSim::ForceSet:</div>
 
 <p>Reimplemented from <a class="el" href="classOpenSim_1_1Object.html#a1a5b4bda8ca9bdc1c96ef514a15e0eef">OpenSim::Object</a>.</p>
 
-<p>Reimplemented in <a class="el" href="classOpenSim_1_1ExternalLoads.html#adf8fabfac088be28ac6e8b8fa09764e4">OpenSim::ExternalLoads</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="ae596646b1879bc673797282d8fe2b04c"></a><!-- doxytag: member="OpenSim::ForceSet::remove" ref="ae596646b1879bc673797282d8fe2b04c" args="(int aIndex)" -->
@@ -628,8 +621,6 @@ Inheritance diagram for OpenSim::ForceSet:</div>
 
 <p>Reimplemented from <a class="el" href="classOpenSim_1_1ModelComponentSet.html#ab2aafdaf3a166163572bcc40c641b21b">OpenSim::ModelComponentSet&lt; Force &gt;</a>.</p>
 
-<p>Reimplemented in <a class="el" href="classOpenSim_1_1ExternalLoads.html#a40079acbd6c8986ffa512920666c8b51">OpenSim::ExternalLoads</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="afad53541f7bf47975ca1ce573c0167c6"></a><!-- doxytag: member="OpenSim::ForceSet::updActuators" ref="afad53541f7bf47975ca1ce573c0167c6" args="()" -->
@@ -678,7 +669,7 @@ Inheritance diagram for OpenSim::ForceSet:</div>
 </div>
 <div class="memdoc">
 
-<p>The subset of Forces that extend <a class="el" href="classOpenSim_1_1Actuator.html" title="Derived class for an actuator (e.g., a torque motor, muscle, .">Actuator</a>. </p>
+<p>The subset of Forces that are Actuators. </p>
 
 </div>
 </div>
@@ -693,7 +684,7 @@ Inheritance diagram for OpenSim::ForceSet:</div>
 </div>
 <div class="memdoc">
 
-<p>The subset of Forces that extend <a class="el" href="classOpenSim_1_1Muscle.html" title="A base class representing a muscle-tendon actuator.">Muscle</a>. </p>
+<p>The subset of Forces that are Muscles. </p>
 
 </div>
 </div>
@@ -702,7 +693,7 @@ Inheritance diagram for OpenSim::ForceSet:</div>
 <li>OpenSim/Simulation/Model/ForceSet.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sat Mar 12 12:28:31 2011 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Jun 5 10:14:13 2011 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

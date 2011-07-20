@@ -885,12 +885,12 @@ public class ScaleToolModel extends Observable implements Observer {
    // Marker placer enabled
    public void setMarkerPlacerEnabled(boolean enabled) {
       if(getMarkerPlacerEnabled() != enabled) {
-         //OpenSim23 scaleTool.getMarkerPlacer().setApply(enabled);
+         scaleTool.getMarkerPlacer().setApply(enabled);
          setModified(Operation.MarkerPlacerDataChanged);
       }
    }
    public boolean getMarkerPlacerEnabled() {
-      return true;  //OpenSim23
+      return  scaleTool.getMarkerPlacer().getApply();
    }
 
    public boolean getMoveModelMarkers() { return scaleTool.getMarkerPlacer().getMoveModelMarkers(); }
