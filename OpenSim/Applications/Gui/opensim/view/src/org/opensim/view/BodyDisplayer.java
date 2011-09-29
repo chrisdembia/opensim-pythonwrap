@@ -49,8 +49,10 @@ import vtk.vtkBMPReader;
 import vtk.vtkImageReader2;
 import vtk.vtkJPEGReader;
 import vtk.vtkPNGReader;
+import vtk.vtkPolyDataMapper;
 import vtk.vtkProp3D;
 import vtk.vtkProp3DCollection;
+import vtk.vtkSphereSource;
 import vtk.vtkTexture;
 import vtk.vtkTransform;
 
@@ -70,6 +72,10 @@ public class BodyDisplayer extends vtkAssembly
     private boolean showJointBFrame = false;
     protected Hashtable<Body, FrameActor> mapChildren2Frames = new Hashtable<Body, FrameActor>(2);
     protected Hashtable<OpenSimObject, vtkActor> mapGeometryToVtkObjects = new Hashtable<OpenSimObject, vtkActor>();
+    private boolean showCOM = false;
+    private vtkActor centerOfMassActor = new vtkActor();
+    private vtkSphereSource comSource = new vtkSphereSource();
+
     private double bFrameScale =1.2;
     private double bFrameRadius =0.005;
     private double pFrameScale = 1.6;
@@ -96,6 +102,14 @@ public class BodyDisplayer extends vtkAssembly
       jointBFrame.GetProperty().SetOpacity(0.5);
       bodyAxes.SetScale(2.);
       bodyAxes.setRadius(0.001);
+      
+      vtkPolyDataMapper comMapper = new vtkPolyDataMapper();
+
+      comSource.SetRadius(ViewDB.getInstance().getMarkerDisplayRadius()*2);
+      comMapper.SetInput(comSource.GetOutput());
+      centerOfMassActor.SetMapper(comMapper);
+      centerOfMassActor.GetProperty().SetColor(0.0, 1.0, 0.0); // Green COM for now
+
       //jointBFrame.GetProperty().SetLineStipplePattern(1);
       VisibleObject bodyDisplayer = body.getDisplayer();
 
@@ -126,6 +140,13 @@ public class BodyDisplayer extends vtkAssembly
       if (bodyDisplayer.getShowAxes()){
           AddPart(getBodyAxes());
       }
+      double[] dCom= new double[3];
+      body.getCenterOfMass(dCom);
+      comSource.SetCenter(dCom);
+      //comSource.SetEndPhi(90);
+      //comSource.SetEndTheta(90);
+      centerOfMassActor.GetProperty().SetLineStipplePattern(0xF0F0);
+      if (showCOM) AddPart(centerOfMassActor);
       updateMapsToSupportPicking(body, mapObject2VtkObjects, mapVtkObjects2Objects);
       modelAssembly.AddPart(this);
     }
@@ -400,9 +421,19 @@ public class BodyDisplayer extends vtkAssembly
              mapVtkObjects2Objects.put(nextActor, body);
              if (nextActor instanceof vtkActor)
                  actors.add((vtkActor)nextActor);
-             if (nextActor instanceof FrameActor) continue;
+             if (nextActor instanceof FrameActor || nextActor == centerOfMassActor) continue;
              mapObject2VtkObjects.put(gSet.get(idx), nextActor);
              idx++;
         }
+    }
+
+    public boolean isShowCOM() {
+        return showCOM;
+    }
+
+    public void setShowCOM(boolean showCOM) {
+        if (showCOM) AddPart(centerOfMassActor);
+        else RemovePart(centerOfMassActor);
+        this.showCOM = showCOM;
     }
 }

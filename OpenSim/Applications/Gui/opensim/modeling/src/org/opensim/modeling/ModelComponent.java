@@ -43,6 +43,10 @@ public class ModelComponent extends OpenSimObject {
     return new Model(opensimModelJNI.ModelComponent_updModel(swigCPtr, this), false);
   }
 
+  public void updateDisplayer(SWIGTYPE_p_SimTK__State s) {
+    opensimModelJNI.ModelComponent_updateDisplayer(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s));
+  }
+
   public int getModelingOption(SWIGTYPE_p_SimTK__State state) {
     return opensimModelJNI.ModelComponent_getModelingOption(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(state));
   }

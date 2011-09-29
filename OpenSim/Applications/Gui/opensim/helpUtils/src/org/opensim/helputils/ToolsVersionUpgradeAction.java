@@ -14,7 +14,7 @@ public final class ToolsVersionUpgradeAction extends CallableSystemAction {
     
     public void performAction() {
         ToolsVersionUpgradeJPanel upgradePanel = new ToolsVersionUpgradeJPanel();
-        DialogDescriptor dlg = new DialogDescriptor(upgradePanel, "Version Update File");
+        DialogDescriptor dlg = new DialogDescriptor(upgradePanel, "Convert File");
         //dlg.setValid(false);
         DialogDisplayer.getDefault().createDialog(dlg).setVisible(true);
         Object userInput = dlg.getValue();

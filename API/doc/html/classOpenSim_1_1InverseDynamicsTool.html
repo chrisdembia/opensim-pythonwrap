@@ -61,9 +61,13 @@ Inheritance diagram for OpenSim::InverseDynamicsTool:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Update this object based on its XML node.  <a href="#add655a0a40d53e138ea92d5fe4c2229f"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1InverseDynamicsTool.html">InverseDynamicsTool</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1InverseDynamicsTool.html#a631cbacdd06764d86e3afc08683c7642">operator=</a> (const <a class="el" href="classOpenSim_1_1InverseDynamicsTool.html">InverseDynamicsTool</a> &amp;aInverseDynamicsTool)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Assignment operator.  <a href="#a631cbacdd06764d86e3afc08683c7642"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1InverseDynamicsTool.html#a4907ab8630a97c96d39a6fc3128f7dac">setCoordinateValues</a> (const <a class="el" href="classOpenSim_1_1Storage.html">OpenSim::Storage</a> &amp;aStorage)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1InverseDynamicsTool.html#a5ab7350cef1ef92a92374f6695513e08">hasCoordinateValues</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::string&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1InverseDynamicsTool.html#aa9fdbd627c14513bcaef05316c4937f7">getOutputGenForceFileName</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">const std::string &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1InverseDynamicsTool.html#a5d3082bfaa7097909861a64f06ebbf86">getCoordinatesFileName</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1InverseDynamicsTool.html#a046192c19e69ede4cb5c437339503a0d">setCoordinatesFileName</a> (const std::string &amp;aCoordinateFile)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1InverseDynamicsTool.html#af68eff891a9019c696b3da8ca879112c">getLowpassCutoffFrequency</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1InverseDynamicsTool.html#adae6a5d8141d23da120ca9669fd2a3b3">setLowpassCutoffFrequency</a> (double aFrequency)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1InverseDynamicsTool.html#a4f03c005c7dff48403f5c0f6c23af673">run</a> () SWIG_DECLARE_EXCEPTION</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Run the inverse Dynamics tool.  <a href="#a4f03c005c7dff48403f5c0f6c23af673"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Static Public Member Functions</h2></td></tr>
@@ -215,6 +219,23 @@ Inheritance diagram for OpenSim::InverseDynamicsTool:</div>
 
 </div>
 </div>
+<a class="anchor" id="af68eff891a9019c696b3da8ca879112c"></a><!-- doxytag: member="OpenSim::InverseDynamicsTool::getLowpassCutoffFrequency" ref="af68eff891a9019c696b3da8ca879112c" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const double OpenSim::InverseDynamicsTool::getLowpassCutoffFrequency </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="aa9fdbd627c14513bcaef05316c4937f7"></a><!-- doxytag: member="OpenSim::InverseDynamicsTool::getOutputGenForceFileName" ref="aa9fdbd627c14513bcaef05316c4937f7" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -225,6 +246,23 @@ Inheritance diagram for OpenSim::InverseDynamicsTool:</div>
           <td class="paramname"></td>
           <td>&nbsp;)&nbsp;</td>
           <td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a5ab7350cef1ef92a92374f6695513e08"></a><!-- doxytag: member="OpenSim::InverseDynamicsTool::hasCoordinateValues" ref="a5ab7350cef1ef92a92374f6695513e08" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool InverseDynamicsTool::hasCoordinateValues </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
         </tr>
       </table>
 </div>
@@ -304,6 +342,42 @@ Inheritance diagram for OpenSim::InverseDynamicsTool:</div>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&nbsp;</td>
           <td class="paramname"> <em>aCoordinateFile</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a4907ab8630a97c96d39a6fc3128f7dac"></a><!-- doxytag: member="OpenSim::InverseDynamicsTool::setCoordinateValues" ref="a4907ab8630a97c96d39a6fc3128f7dac" args="(const OpenSim::Storage &amp;aStorage)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void InverseDynamicsTool::setCoordinateValues </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classOpenSim_1_1Storage.html">OpenSim::Storage</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>aStorage</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="adae6a5d8141d23da120ca9669fd2a3b3"></a><!-- doxytag: member="OpenSim::InverseDynamicsTool::setLowpassCutoffFrequency" ref="adae6a5d8141d23da120ca9669fd2a3b3" args="(double aFrequency)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenSim::InverseDynamicsTool::setLowpassCutoffFrequency </td>
+          <td>(</td>
+          <td class="paramtype">double&nbsp;</td>
+          <td class="paramname"> <em>aFrequency</em></td>
           <td>&nbsp;)&nbsp;</td>
           <td><code> [inline]</code></td>
         </tr>
@@ -423,7 +497,7 @@ Inheritance diagram for OpenSim::InverseDynamicsTool:</div>
 <li>OpenSim/Tools/InverseDynamicsTool.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Jun 5 10:14:21 2011 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Sep 25 00:20:06 2011 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

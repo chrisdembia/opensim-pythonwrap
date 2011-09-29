@@ -94,10 +94,10 @@ public class JavaMotionDisplayerCallback extends AnalysisWrapperWithTimer {
         storage = new Storage();
         getStorage().setName("Results");
         stateLabels = new ArrayStr();
-        getModelForDisplay().getStateNames(stateLabels);
+        getModelForDisplay().getStateNames(stateLabels, true);
         stateLabels.insert(0, "time");
         getStorage().setColumnLabels(stateLabels);
-        numStates = getModelForDisplay().getNumStates();
+        numStates = getModelForDisplay().getNumStates(true);
         statesBuffer = new double[numStates];
         ownsStorage=true;
     }
@@ -151,7 +151,8 @@ public class JavaMotionDisplayerCallback extends AnalysisWrapperWithTimer {
                double currentRealTime = getCurrentRealTime();
                if(minRenderTimeInterval<=0 || currentRealTime-lastRenderTime>minRenderTimeInterval) {
                   if(motionDisplayer!=null && getStorage().getSize()>0) 
-                      motionDisplayer.applyFrameToModel(getStorage().getSize()-1);            
+                      motionDisplayer.applyFrameToModel(getStorage().getSize()-1); 
+                  
                   ViewDB.getInstance().updateModelDisplay(getModelForDisplay());  // Faster? than the next few indented lines
                     //ViewDB.getInstance().updateModelDisplayNoRepaint(getModelForDisplay());
                     ////ViewDB.getInstance().renderAll(); // Render now (if want to do it later, use repaintAll()) -- may slow things down too much
@@ -198,11 +199,12 @@ public class JavaMotionDisplayerCallback extends AnalysisWrapperWithTimer {
           stopIKTime = getCurrentRealTime(); // Stop timing of ik computations
           startDisplayTime = getCurrentRealTime(); // Start timing of display update
           updateDisplaySynchronously();
+          
           stopDisplayTime = getCurrentRealTime();  // Stop timing of display update
           minSimTime = currentSimTime+(stopDisplayTime-startDisplayTime)+(stopIKTime-startIKTime);  // Set minimum simulation time for next display update 
           
           //System.out.println("minSimTime = "+currentSimTime+" + "+(stopDisplayTime-startDisplayTime)+" + "+(stopIKTime-startIKTime)+" = "+minSimTime);
-          System.out.println("Updating Display");
+          //System.out.println("Updating Display");
           startIKTime = getCurrentRealTime(); // Start timing of ik computations
           setUpdateDisplay(false);
       }

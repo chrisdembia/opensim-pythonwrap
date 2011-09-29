@@ -83,7 +83,7 @@
   <tr class="memlist"><td><a class="el" href="classOpenSim_1_1AnalyzeTool.html#a128558d39088e2f8613f487c0bc00791">copy</a>() const </td><td><a class="el" href="classOpenSim_1_1AnalyzeTool.html">OpenSim::AnalyzeTool</a></td><td><code> [virtual]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Object.html#a5cea4ef462c6ac342ea7cce1babd511a">OpenSim::AbstractTool::copy</a>(DOMElement *aNode) const </td><td><a class="el" href="classOpenSim_1_1Object.html">OpenSim::Object</a></td><td><code> [virtual]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Object.html#afc57cb0b533e39f3715a8918de113cfd">countObservers</a>() const </td><td><a class="el" href="classOpenSim_1_1Object.html">OpenSim::Object</a></td><td><code> [inline]</code></td></tr>
-  <tr class="memlist"><td><a class="el" href="classOpenSim_1_1AbstractTool.html#a66557d15ad3edf8914b901e7435f0059">createExternalLoads</a>(const std::string &amp;aExternalLoadsFileName, Model &amp;aModel)</td><td><a class="el" href="classOpenSim_1_1AbstractTool.html">OpenSim::AbstractTool</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="classOpenSim_1_1AbstractTool.html#a3ef61505866ba49acff02fbb754a0e9c">createExternalLoads</a>(const std::string &amp;aExternalLoadsFileName, Model &amp;aModel, const Storage *loadKinematics=NULL)</td><td><a class="el" href="classOpenSim_1_1AbstractTool.html">OpenSim::AbstractTool</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="classOpenSim_1_1AnalyzeTool.html#ab995f185927a6f8389e1b22f3dc3d98a">createStatesStorageFromCoordinatesAndSpeeds</a>(const Model &amp;aModel, const Storage &amp;aQStore, const Storage &amp;aUStore)</td><td><a class="el" href="classOpenSim_1_1AnalyzeTool.html">OpenSim::AnalyzeTool</a></td><td><code> [static]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Object.html#a4686d418622afa68c2cad31975b6efed">DEFAULT_NAME</a></td><td><a class="el" href="classOpenSim_1_1Object.html">OpenSim::Object</a></td><td><code> [static]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Object.html#aea6d52f298156e259af78d4caa69f3e8">deleteObserver</a>(Object &amp;aObserver)</td><td><a class="el" href="classOpenSim_1_1Object.html">OpenSim::Object</a></td><td><code> [inline]</code></td></tr>
@@ -129,7 +129,6 @@
   <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Object.html#acb92b80711c97c114475574addcc10f3">getType</a>() const </td><td><a class="el" href="classOpenSim_1_1Object.html">OpenSim::Object</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Object.html#adfb4a112406b736a6de6a63337a5f9aa">getXMLNode</a>() const </td><td><a class="el" href="classOpenSim_1_1Object.html">OpenSim::Object</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Object.html#aa67ce496ad71e17e4a2aeed7daed8183">hasChanged</a>()</td><td><a class="el" href="classOpenSim_1_1Object.html">OpenSim::Object</a></td><td><code> [inline, protected]</code></td></tr>
-  <tr class="memlist"><td><a class="el" href="classOpenSim_1_1AbstractTool.html#a389ae950839afde44dc5cd58be426594">initializeExternalLoads</a>(SimTK::State &amp;s, const double &amp;analysisStartTime, const double &amp;analysisFinalTime)</td><td><a class="el" href="classOpenSim_1_1AbstractTool.html">OpenSim::AbstractTool</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Object.html#a126f1d87df28a081c7b1c99bb477cb3b">isA</a>(const char *type) const </td><td><a class="el" href="classOpenSim_1_1Object.html">OpenSim::Object</a></td><td><code> [inline, virtual]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Object.html#a9debf9775f9e8c0b517654cb19669518">isKindOf</a>(const char *type)</td><td><a class="el" href="classOpenSim_1_1Object.html">OpenSim::Object</a></td><td><code> [inline, static]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Object.html#a727620b2290d0c69d9c0c105bda068e7">isValidDefaultType</a>(const Object *aObject) const </td><td><a class="el" href="classOpenSim_1_1Object.html">OpenSim::Object</a></td><td><code> [virtual]</code></td></tr>
@@ -210,7 +209,7 @@
   <tr class="memlist"><td><a class="el" href="classOpenSim_1_1AnalyzeTool.html#a26ebd3b97797c84dbbfd7dc46a4dbe05">~AnalyzeTool</a>()</td><td><a class="el" href="classOpenSim_1_1AnalyzeTool.html">OpenSim::AnalyzeTool</a></td><td><code> [virtual]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classOpenSim_1_1Object.html#ae8f5483f459e46687bd01e6f9977afd3">~Object</a>()</td><td><a class="el" href="classOpenSim_1_1Object.html">OpenSim::Object</a></td><td><code> [virtual]</code></td></tr>
 </table></div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Jun 5 10:14:19 2011 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Sep 25 00:20:04 2011 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

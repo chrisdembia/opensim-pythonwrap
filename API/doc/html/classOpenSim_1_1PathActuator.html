@@ -68,6 +68,8 @@ Inheritance diagram for OpenSim::PathActuator:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Assignment operator.  <a href="#ad37d0a3b8172124fbb8abefe99f39732"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1GeometryPath.html">GeometryPath</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PathActuator.html#a41b7ce4b243f739e067a056c2bb2bb33">updGeometryPath</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classOpenSim_1_1GeometryPath.html">GeometryPath</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PathActuator.html#a1c6ea9197c04d084753e8505bbc0a7ab">getGeometryPath</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PathActuator.html#ad579238b32107c9425d22ee8f79dbdc4">hasGeometryPath</a> () const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">return a flag indicating whether the <a class="el" href="classOpenSim_1_1Force.html" title="This abstract class represents a force applied to bodies or generalized coordinates...">Force</a> is applied along a Path if you override this method to return true for a specific subclass, it must also implement the <a class="el" href="classOpenSim_1_1PathActuator.html#a1c6ea9197c04d084753e8505bbc0a7ab">getGeometryPath()</a> mathod  <a href="#ad579238b32107c9425d22ee8f79dbdc4"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PathActuator.html#a3abe40ba75f9ccae1c045b6197b1c734">setOptimalForce</a> (double aOptimalForce)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> the optimal force of the force.  <a href="#a3abe40ba75f9ccae1c045b6197b1c734"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PathActuator.html#afb4dc596237cfff5838ec11a779bdd74">getOptimalForce</a> () const </td></tr>
@@ -557,7 +559,28 @@ Inheritance diagram for OpenSim::PathActuator:</div>
 
 <p>Reimplemented from <a class="el" href="classOpenSim_1_1Actuator.html#a36539393f53251093edc687916d494f4">OpenSim::Actuator</a>.</p>
 
-<p>Reimplemented in <a class="el" href="classOpenSim_1_1ContDerivMuscle.html#a4426fdef9ee9d426f063fc97522d60a6">OpenSim::ContDerivMuscle</a>, <a class="el" href="classOpenSim_1_1Delp1990Muscle.html#a94faa6aceb48ff7afbbe29f6bec2840e">OpenSim::Delp1990Muscle</a>, <a class="el" href="classOpenSim_1_1Schutte1993Muscle.html#a5fb244bb26dfc5a36f205355500ce4f4">OpenSim::Schutte1993Muscle</a>, and <a class="el" href="classOpenSim_1_1Thelen2003Muscle.html#a78fd46cce2ba38c25bf90d1f311e4ba5">OpenSim::Thelen2003Muscle</a>.</p>
+<p>Reimplemented in <a class="el" href="classOpenSim_1_1ContDerivMuscle.html#a4426fdef9ee9d426f063fc97522d60a6">OpenSim::ContDerivMuscle</a>, and <a class="el" href="classOpenSim_1_1ActivationFiberLengthMuscle.html#a2bf45486345444d04aa7bf9e130979da">OpenSim::ActivationFiberLengthMuscle</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ad579238b32107c9425d22ee8f79dbdc4"></a><!-- doxytag: member="OpenSim::PathActuator::hasGeometryPath" ref="ad579238b32107c9425d22ee8f79dbdc4" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool OpenSim::PathActuator::hasGeometryPath </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [inline, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>return a flag indicating whether the <a class="el" href="classOpenSim_1_1Force.html" title="This abstract class represents a force applied to bodies or generalized coordinates...">Force</a> is applied along a Path if you override this method to return true for a specific subclass, it must also implement the <a class="el" href="classOpenSim_1_1PathActuator.html#a1c6ea9197c04d084753e8505bbc0a7ab">getGeometryPath()</a> mathod </p>
+
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1Force.html#a61db10abf8d977ea1f496d187c7a514f">OpenSim::Force</a>.</p>
 
 </div>
 </div>
@@ -797,6 +820,8 @@ Inheritance diagram for OpenSim::PathActuator:</div>
 
 <p>Update the visible object used to represent the muscle. </p>
 
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1ModelComponent.html#a97f4792ee18082812172d173b42b3559">OpenSim::ModelComponent</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a137eda41e0e34b90b092b0ea7ca7a9dd"></a><!-- doxytag: member="OpenSim::PathActuator::updateFromXMLNode" ref="a137eda41e0e34b90b092b0ea7ca7a9dd" args="()" -->
@@ -902,7 +927,7 @@ Inheritance diagram for OpenSim::PathActuator:</div>
 <li>OpenSim/Simulation/Model/PathActuator.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Jun 5 10:14:15 2011 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Sep 25 00:20:00 2011 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

@@ -28,9 +28,6 @@
  */
 package org.opensim.view.pub;
 
-import java.awt.Dialog;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -46,10 +43,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.undo.AbstractUndoableEdit;
 import javax.swing.undo.CannotRedoException;
 import javax.swing.undo.CannotUndoException;
-import org.openide.DialogDescriptor;
-import org.openide.DialogDisplayer;
 import org.openide.awt.StatusDisplayer;
-//import org.openide.util.Exceptions;
 import org.openide.util.NbBundle;
 import org.opensim.modeling.Actuator;
 import org.opensim.modeling.DisplayGeometry;
@@ -64,6 +58,7 @@ import org.opensim.modeling.OpenSimObject;
 import org.opensim.modeling.PathPoint;
 import org.opensim.modeling.VisibleObject;
 import org.opensim.modeling.DisplayGeometry.DisplayPreference;
+import org.opensim.modeling.Force;
 import org.opensim.utils.Prefs;
 import org.opensim.utils.TheApp;
 import org.opensim.view.*;
@@ -575,23 +570,6 @@ public final class ViewDB extends Observable implements Observer {
    
    public static Model getCurrentModel() {
       return OpenSimDB.getInstance().getCurrentModel();
-   }
-   /**
-    * Show dialog to adjust display offset and modify display according to user options
-    */
-   public void adjustModelDisplayOffset(Model abstractModel) {
-      // Show dialog for model display ajdustment
-      final ModelDisplayOffsetJPanel p = new ModelDisplayOffsetJPanel(abstractModel);
-      DialogDescriptor desc = new DialogDescriptor(p, "Model Offset", false, new ActionListener() {
-
-         public void actionPerformed(ActionEvent e) {
-            if (e.getActionCommand().equalsIgnoreCase("Cancel"))
-               p.restore();
-         }
-      });
-      Dialog dlg = DialogDisplayer.getDefault().createDialog(desc);
-      dlg.setVisible(true);
-      
    }
    /**
     * Cycle through displayed windows and repaint them
@@ -1179,7 +1157,14 @@ public final class ViewDB extends Observable implements Observer {
          updateAnnotationAnchors(); // in case object had annotations
          return;
       }
-
+      Force f = Force.safeDownCast(openSimObject);
+      if (f != null) {
+         SingleModelVisuals vis = getModelVisuals(f.getModel());
+         vis.updateForceGeometry(f, visible); // call act.updateGeometry() if actuator is becoming visible
+         updateAnnotationAnchors(); // in case object had annotations
+         return;
+      }
+      
       if (openSimObject instanceof ObjectGroup){
           ObjectGroup grp = (ObjectGroup) openSimObject;
           ArrayObjPtr members = grp.getMembers();
@@ -1709,19 +1694,32 @@ public final class ViewDB extends Observable implements Observer {
               selectedObjects.remove(j);
               selectedDeleted = true;
            }
-           if (obj instanceof Muscle) {
-              Muscle m = Muscle.safeDownCast(obj);
-              boolean newState = OpenSimDB.getInstance().getContext(m.getModel()).isDisabled(m);
-              if (!newState){
-                  getModelVisuals(m.getModel()).addPathActuatorGeometry(m, true);
-                  toggleObjectsDisplay(m, true);
+           // Forces now
+           if (obj instanceof Force){
+               Force f = Force.safeDownCast(obj);
+               boolean newState = OpenSimDB.getInstance().getContext(f.getModel()).isDisabled(f);
+               if (f instanceof Muscle) {
+                   Muscle m = Muscle.safeDownCast(f);
+                   if (!newState){
+                       getModelVisuals(m.getModel()).addPathActuatorGeometry(m, true);
+                       toggleObjectsDisplay(m, true);
+                   } else{  // turning off
+                       removeObjectsBelongingToMuscleFromSelection((Muscle)obj);
+                       getModelVisuals(ev.getModel()).removeGeometry(obj);
+                   }
+                   repaint = true;
+               }
+               else {   // Other forces
+                    if (!newState){ // turn on
+                        f.getDisplayer().setDisplayPreference(DisplayPreference.GouraudShaded);
+                        getModelVisuals(ev.getModel()).updateForceGeometry(ev.getModel());
+                    }
+                    else {  // turning off
+                        getModelVisuals(ev.getModel()).removeGeometry(obj);
+                    }
+                    repaint = true;
               }
-              else{
-                  removeObjectsBelongingToMuscleFromSelection((Muscle)obj);
-                  getModelVisuals(ev.getModel()).removeActuatorGeometry((Actuator)obj);
-              }
-              repaint = true;
-           } 
+           }
         }
         if (repaint)
            repaintAll();        

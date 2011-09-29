@@ -56,6 +56,11 @@ Inheritance diagram for OpenSim::PointToPointSpring:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Copy this force and return a pointer to the copy.  <a href="#afb77fa43ec160f048156da7933fae692"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PointToPointSpring.html#af9dad09e09899caa25e5b9b91109539d">copyData</a> (const <a class="el" href="classOpenSim_1_1PointToPointSpring.html">PointToPointSpring</a> &amp;aPointToPointSpring)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Copy the member data of the specified force.  <a href="#af9dad09e09899caa25e5b9b91109539d"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classOpenSim_1_1VisibleObject.html">VisibleObject</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PointToPointSpring.html#af11daaf6bca0e2ae9ec5f86d3d322b9e">getDisplayer</a> () const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the visible object used to represent the spring.  <a href="#af11daaf6bca0e2ae9ec5f86d3d322b9e"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PointToPointSpring.html#a5811072f60b68c92e720d04fa2c58b80">updateDisplayer</a> (const SimTK::State &amp;s)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">In case the ModelCompoenent has a visual representation, override this method to update the representation, typically this's done by recomputing anchor points and positions based on transforms obtained from current state.  <a href="#a5811072f60b68c92e720d04fa2c58b80"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PointToPointSpring.html#addfdf1d49b2f2deba3f5c537dfb154f1">updateGeometry</a> (const SimTK::State &amp;s)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PointToPointSpring.html">PointToPointSpring</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PointToPointSpring.html#a8e01e9a99e0261b9dec80c0c4f63e716">operator=</a> (const <a class="el" href="classOpenSim_1_1PointToPointSpring.html">PointToPointSpring</a> &amp;aGenForce)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Assignment operator.  <a href="#a8e01e9a99e0261b9dec80c0c4f63e716"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PointToPointSpring.html#a059e5f767d7000dee4ba7dc82cc7ae65">setBody1Name</a> (std::string body1Name)</td></tr>
@@ -106,6 +111,8 @@ Inheritance diagram for OpenSim::PointToPointSpring:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Spring stiffness.  <a href="#ac3411e1f02d2bf148e976ac4f168f76e"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">double &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PointToPointSpring.html#ae752bb05ec23746f27e26d4afcb31298">_restLength</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Spring rest length.  <a href="#ae752bb05ec23746f27e26d4afcb31298"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1VisibleObject.html">VisibleObject</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1PointToPointSpring.html#af8319f2ae493a69e771a60efb25f3021">_displayer</a></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">how to display the Spring  <a href="#af8319f2ae493a69e771a60efb25f3021"></a><br/></td></tr>
 </table>
 <hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="ab7a384cb918278e01e396d4fdf578a1b"></a><!-- doxytag: member="OpenSim::PointToPointSpring::PointToPointSpring" ref="ab7a384cb918278e01e396d4fdf578a1b" args="()" -->
@@ -331,6 +338,27 @@ Inheritance diagram for OpenSim::PointToPointSpring:</div>
       </table>
 </div>
 <div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="af11daaf6bca0e2ae9ec5f86d3d322b9e"></a><!-- doxytag: member="OpenSim::PointToPointSpring::getDisplayer" ref="af11daaf6bca0e2ae9ec5f86d3d322b9e" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classOpenSim_1_1VisibleObject.html">VisibleObject</a> * PointToPointSpring::getDisplayer </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Get the visible object used to represent the spring. </p>
+
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1Object.html#ad198104a9d49d467c58488a6964d6730">OpenSim::Object</a>.</p>
 
 </div>
 </div>
@@ -658,6 +686,46 @@ Inheritance diagram for OpenSim::PointToPointSpring:</div>
 
 </div>
 </div>
+<a class="anchor" id="a5811072f60b68c92e720d04fa2c58b80"></a><!-- doxytag: member="OpenSim::PointToPointSpring::updateDisplayer" ref="a5811072f60b68c92e720d04fa2c58b80" args="(const SimTK::State &amp;s)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PointToPointSpring::updateDisplayer </td>
+          <td>(</td>
+          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
+          <td class="paramname"> <em>s</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>In case the ModelCompoenent has a visual representation, override this method to update the representation, typically this's done by recomputing anchor points and positions based on transforms obtained from current state. </p>
+
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1ModelComponent.html#a97f4792ee18082812172d173b42b3559">OpenSim::ModelComponent</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="addfdf1d49b2f2deba3f5c537dfb154f1"></a><!-- doxytag: member="OpenSim::PointToPointSpring::updateGeometry" ref="addfdf1d49b2f2deba3f5c537dfb154f1" args="(const SimTK::State &amp;s)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PointToPointSpring::updateGeometry </td>
+          <td>(</td>
+          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
+          <td class="paramname"> <em>s</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <hr/><h2>Member Data Documentation</h2>
 <a class="anchor" id="a1fbed5a3def1670746d238b87cad8fd7"></a><!-- doxytag: member="OpenSim::PointToPointSpring::_body1Name" ref="a1fbed5a3def1670746d238b87cad8fd7" args="" -->
 <div class="memitem">
@@ -684,6 +752,21 @@ Inheritance diagram for OpenSim::PointToPointSpring:</div>
       </table>
 </div>
 <div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="af8319f2ae493a69e771a60efb25f3021"></a><!-- doxytag: member="OpenSim::PointToPointSpring::_displayer" ref="af8319f2ae493a69e771a60efb25f3021" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classOpenSim_1_1VisibleObject.html">VisibleObject</a> <a class="el" href="classOpenSim_1_1PointToPointSpring.html#af8319f2ae493a69e771a60efb25f3021">OpenSim::PointToPointSpring::_displayer</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>how to display the Spring </p>
 
 </div>
 </div>
@@ -838,7 +921,7 @@ Inheritance diagram for OpenSim::PointToPointSpring:</div>
 <li>OpenSim/Simulation/Model/PointToPointSpring.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Jun 5 10:14:15 2011 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Sep 25 00:20:00 2011 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

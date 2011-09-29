@@ -38,9 +38,13 @@ import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.Observable;
 import java.util.Observer;
+import org.openide.DialogDisplayer;
+import org.openide.NotifyDescriptor;
 import org.opensim.modeling.InverseKinematicsTool;
 import org.opensim.modeling.MarkerSet;
 import org.opensim.modeling.Model;
+import org.opensim.view.ModelEvent;
+import org.opensim.view.pub.OpenSimDB;
 
 public class IKToolPanel extends BaseToolPanel implements Observer {
    private IKToolModel ikToolModel = null;
@@ -81,6 +85,21 @@ public class IKToolPanel extends BaseToolPanel implements Observer {
    }
 
    public void update(Observable observable, Object obj) {
+      if (observable instanceof OpenSimDB){
+           if (obj instanceof ModelEvent) {
+                if (OpenSimDB.getInstance().hasModel(ikToolModel.getOriginalModel()))
+                    return;
+                else {
+                    ikToolModel.deleteObserver(this);
+                    NotifyDescriptor.Message dlg =
+                          new NotifyDescriptor.Message("Model used by the tool is being closed.. Closing tool.");
+                    DialogDisplayer.getDefault().notify(dlg);
+                    this.close();
+                    return;
+                }        
+           }
+           return;
+       }
       if(observable == ikToolModel && obj == IKToolModel.Operation.ExecutionStateChanged) {
          // Just need to update the buttons
          updateDialogButtons();

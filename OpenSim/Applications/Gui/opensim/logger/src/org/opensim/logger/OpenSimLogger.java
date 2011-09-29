@@ -28,6 +28,8 @@
  */
 package org.opensim.logger;
 
+import javax.swing.SwingUtilities;
+
 /**
  *
  * @author Ayman. A wrapper to expose the logger window/topComponent
@@ -52,13 +54,17 @@ public final class OpenSimLogger {
    public OpenSimLogger() {      
    }
    
-   public static void logMessage(String message, int messageErrorLevel)
+   public static void logMessage(final String message, final int messageErrorLevel)
    {
-      if (loggerWindowInstance==null)
-         loggerWindowInstance=LoggerTopComponent.getDefault();
-      
-      if (messageErrorLevel>=errorLevel)
-         loggerWindowInstance.log(message);
+       SwingUtilities.invokeLater(new Runnable(){
+         public void run() {
+          if (loggerWindowInstance==null)
+             loggerWindowInstance=LoggerTopComponent.getDefault();
+
+          if (messageErrorLevel>=errorLevel)
+             loggerWindowInstance.log(message);
+           }
+       });
    }
 
    public static void setErrorLevel(int aErrorLevel) {

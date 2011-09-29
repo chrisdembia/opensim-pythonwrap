@@ -39,9 +39,9 @@ import org.opensim.view.functionEditor.FunctionEvent;
 import org.opensim.view.functionEditor.FunctionEventListener;
 import org.opensim.view.functionEditor.FunctionModifiedEvent;
 import org.opensim.view.functionEditor.FunctionReplacedEvent;
-import org.opensim.modeling.Actuator;
 import org.opensim.modeling.Function;
 import org.opensim.modeling.OpenSimObject;
+import org.opensim.view.pub.OpenSimDB;
 
 /**
  *
@@ -63,9 +63,9 @@ public class MusclePropertyFunctionEventListener implements FunctionEventListene
             Function oldFunction = fre.getFunction();
             Function newFunction = fre.getReplacementFunction();
             if (Function.getCPtr(oldFunction) != Function.getCPtr(newFunction)) {
-               //act.replacePropertyFunction(oldFunction, newFunction);
-                throw new UnsupportedOperationException("Not implemented");
-               //MuscleEditorTopComponent.findInstance().propertyFunctionChanged(event.getModel(), act);
+                OpenSimDB.getInstance().getContext(act.getModel()).replacePropertyFunction(act, oldFunction, newFunction);
+                //throw new UnsupportedOperationException("Not implemented");
+                MuscleEditorTopComponent.findInstance().propertyFunctionChanged(event.getModel(), act);
             }
          } else if (event instanceof FunctionModifiedEvent) {
             MuscleEditorTopComponent.findInstance().propertyFunctionChanged(event.getModel(), act);

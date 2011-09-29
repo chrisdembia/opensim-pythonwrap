@@ -121,8 +121,7 @@ Inheritance diagram for OpenSim::AbstractTool:</div>
 <tr><td class="memItemLeft" align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1AbstractTool.html#aa3736c3cb15af82eaa10f2b2c5cfb405">run</a> () SWIG_DECLARE_EXCEPTION=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1AbstractTool.html#add0272ed1563d18f6865922d46b76430">printResults</a> (const std::string &amp;aBaseName, const std::string &amp;aDir=&quot;&quot;, double aDT=-1.0, const std::string &amp;aExtension=&quot;.sto&quot;)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Print the results of the analysis.  <a href="#add0272ed1563d18f6865922d46b76430"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1AbstractTool.html#a66557d15ad3edf8914b901e7435f0059">createExternalLoads</a> (const std::string &amp;aExternalLoadsFileName, <a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;aModel)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1AbstractTool.html#a389ae950839afde44dc5cd58be426594">initializeExternalLoads</a> (SimTK::State &amp;s, const double &amp;analysisStartTime, const double &amp;analysisFinalTime)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1AbstractTool.html#a3ef61505866ba49acff02fbb754a0e9c">createExternalLoads</a> (const std::string &amp;aExternalLoadsFileName, <a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;aModel, const <a class="el" href="classOpenSim_1_1Storage.html">Storage</a> *loadKinematics=NULL)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1AbstractTool.html#a7bfd990e4042e6dddc9a0975453c6c2d">updateFromXMLNode</a> ()</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Override default implementation by object to intercept and fix the XML node underneath the tool to match current version.  <a href="#a7bfd990e4042e6dddc9a0975453c6c2d"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1AbstractTool.html#a18a4f566ab4cc64ec1be2c14a013cfdf">loadQStorage</a> (const std::string &amp;statesFileName, <a class="el" href="classOpenSim_1_1Storage.html">Storage</a> &amp;rQStore) const </td></tr>
@@ -356,7 +355,7 @@ generateXMLDocument() </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="a66557d15ad3edf8914b901e7435f0059"></a><!-- doxytag: member="OpenSim::AbstractTool::createExternalLoads" ref="a66557d15ad3edf8914b901e7435f0059" args="(const std::string &amp;aExternalLoadsFileName, Model &amp;aModel)" -->
+<a class="anchor" id="a3ef61505866ba49acff02fbb754a0e9c"></a><!-- doxytag: member="OpenSim::AbstractTool::createExternalLoads" ref="a3ef61505866ba49acff02fbb754a0e9c" args="(const std::string &amp;aExternalLoadsFileName, Model &amp;aModel, const Storage *loadKinematics=NULL)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -370,7 +369,13 @@ generateXMLDocument() </dd></dl>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="classOpenSim_1_1Model.html">Model</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>aModel</em></td><td>&nbsp;</td>
+          <td class="paramname"> <em>aModel</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classOpenSim_1_1Storage.html">Storage</a> *&nbsp;</td>
+          <td class="paramname"> <em>loadKinematics</em> = <code>NULL</code></td><td>&nbsp;</td>
         </tr>
         <tr>
           <td></td>
@@ -729,39 +734,6 @@ generateXMLDocument() </dd></dl>
           <td class="paramname"></td>
           <td>&nbsp;)&nbsp;</td>
           <td> const<code> [inline]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a389ae950839afde44dc5cd58be426594"></a><!-- doxytag: member="OpenSim::AbstractTool::initializeExternalLoads" ref="a389ae950839afde44dc5cd58be426594" args="(SimTK::State &amp;s, const double &amp;analysisStartTime, const double &amp;analysisFinalTime)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void AbstractTool::initializeExternalLoads </td>
-          <td>(</td>
-          <td class="paramtype">SimTK::State &amp;&nbsp;</td>
-          <td class="paramname"> <em>s</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const double &amp;&nbsp;</td>
-          <td class="paramname"> <em>analysisStartTime</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const double &amp;&nbsp;</td>
-          <td class="paramname"> <em>analysisFinalTime</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td></td>
         </tr>
       </table>
 </div>
@@ -1845,7 +1817,7 @@ generateXMLDocument() </dd></dl>
 <li>OpenSim/Simulation/Model/AbstractTool.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Jun 5 10:14:11 2011 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Sep 25 00:19:55 2011 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

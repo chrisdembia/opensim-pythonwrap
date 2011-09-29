@@ -56,7 +56,9 @@ import org.opensim.view.motions.MotionsDB;
 import org.opensim.swingui.FileTextFieldAndChooser;
 import org.opensim.utils.FileUtils;
 import org.opensim.view.FileTextFieldAndChooserWithEdit;
+import org.opensim.view.ModelEvent;
 import org.opensim.view.excitationEditor.ExcitationEditorJFrame;
+import org.opensim.view.pub.OpenSimDB;
 
 /**
  *
@@ -138,7 +140,7 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
          // Set file filters for analyze tool inputs
          statesFileName.setExtensionsAndDescription(".sto", "States data for "+modeName);
          coordinatesFileName.setExtensionsAndDescription(".mot,.sto", "Motion data for "+modeName);
-         analyzeControlsFileName.setExtensionsAndDescription(".xml", "Controls input data for "+modeName);
+         analyzeControlsFileName.setExtensionsAndDescription(".xml,.sto", "Controls input data for "+modeName);
          analyzeControlsFileName.setTreatEmptyStringAsValid(false);
          //speedsFileName.setExtensionsAndDescription(".mot,.sto", "Speeds data for "+modeName);
       } else if(mode==Mode.InverseDynamics || mode==Mode.StaticOptimization) {
@@ -241,6 +243,21 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
    private RRAToolModel rraToolModel() { return (RRAToolModel)toolModel; } 
    
    public void update(Observable observable, Object obj) {
+        if (observable instanceof OpenSimDB){
+           if (obj instanceof ModelEvent) {
+                if (OpenSimDB.getInstance().hasModel(toolModel.getOriginalModel()))
+                    return;
+                else {
+                    toolModel.deleteObserver(this);
+                    NotifyDescriptor.Message dlg =
+                          new NotifyDescriptor.Message("Model used by the tool is being closed.. Closing tool.");
+                    DialogDisplayer.getDefault().notify(dlg);
+                    this.close();
+                    return;
+                }        
+           }
+           return;
+       }
       if(observable == toolModel && obj == AbstractToolModel.Operation.ExecutionStateChanged)
 
       //if(observable == toolModel && (obj == AbstractToolModel.Operation.ExecutionStateChanged ||

@@ -7,12 +7,12 @@
  * This is part of the SimTK biosimulation toolkit originating from           *
  * Simbios, the NIH National Center for Physics-Based Simulation of           *
  * Biological Structures at Stanford, funded under the NIH Roadmap for        *
- * Medical Research, grant U54 GM072970. See https://simtk.org.               *
+ * Medical Research, grant U54 GM072970. See https://simtk.org/home/simbody.  *
  *                                                                            *
  * Portions copyright (c) 2005-11 Stanford University and the Authors.        *
  * Authors: Michael Sherman, Peter Eastman                                    *
  * Contributors: Jack Middleton, Christopher Bruns, Paul Mitiguy,             *
- *               Isaac Newton                                                 *
+ *               Charles Schwieters, Isaac Newton                             *
  *                                                                            *
  * Permission is hereby granted, free of charge, to any person obtaining a    *
  * copy of this software and associated documentation files (the "Software"), *
@@ -34,10 +34,14 @@
  * -------------------------------------------------------------------------- */
 
 /** @file
- * This is the header file that user code should include to pick up all
- * Simbody capabilities.
- */
+This header file includes all the Simbody header files that need to be 
+visible to a compiler processing a Simbody-using compilation unit.\ However,
+user programs should included only the top-level Simbody.h header (which 
+will include this one). **/
 
+// This should be kept self-contained for backwards compatibility since
+// in releases prior to Simbody 2.2 users were told to include "SimTKsimbody.h"
+// rather than the now-preferred "Simbody.h".
 
 #include "SimTKcommon.h"
 #include "SimTKmath.h"

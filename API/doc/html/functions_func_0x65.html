@@ -51,7 +51,6 @@
       <li><a href="functions_func_0x6e.html#index_n"><span>n</span></a></li>
       <li><a href="functions_func_0x6f.html#index_o"><span>o</span></a></li>
       <li><a href="functions_func_0x70.html#index_p"><span>p</span></a></li>
-      <li><a href="functions_func_0x71.html#index_q"><span>q</span></a></li>
       <li><a href="functions_func_0x72.html#index_r"><span>r</span></a></li>
       <li><a href="functions_func_0x73.html#index_s"><span>s</span></a></li>
       <li><a href="functions_func_0x74.html#index_t"><span>t</span></a></li>
@@ -59,7 +58,6 @@
       <li><a href="functions_func_0x76.html#index_v"><span>v</span></a></li>
       <li><a href="functions_func_0x77.html#index_w"><span>w</span></a></li>
       <li><a href="functions_func_0x78.html#index_x"><span>x</span></a></li>
-      <li><a href="functions_func_0x7a.html#index_z"><span>z</span></a></li>
       <li><a href="functions_func_0x7e.html#index_~"><span>~</span></a></li>
     </ul>
   </div>
@@ -76,17 +74,18 @@
 </li>
 <li>end()
 : <a class="el" href="classOpenSim_1_1BodyKinematics.html#a831886525df7e1a05cb520fa8912de79">OpenSim::BodyKinematics</a>
+, <a class="el" href="classOpenSim_1_1StatesReporter.html#ae7396f7cfbef3b17fd124aad6ba691f5">OpenSim::StatesReporter</a>
 , <a class="el" href="classOpenSim_1_1StaticOptimization.html#ad787c6d0a7ccb15977c7859aed483c65">OpenSim::StaticOptimization</a>
-, <a class="el" href="classOpenSim_1_1Analysis.html#aec904a247f8d4254ee31f0b17b3b0acc">OpenSim::Analysis</a>
 , <a class="el" href="classOpenSim_1_1ForceReporter.html#acc5e307a5f5ec0379d65d150c614f975">OpenSim::ForceReporter</a>
+, <a class="el" href="classOpenSim_1_1Analysis.html#aec904a247f8d4254ee31f0b17b3b0acc">OpenSim::Analysis</a>
 , <a class="el" href="classOpenSim_1_1AnalysisSet.html#a8ef7906618ab41e5b4f2b75d3216cf9c">OpenSim::AnalysisSet</a>
 , <a class="el" href="classOpenSim_1_1InverseDynamics.html#ad3cc0528d7c71fac0575d282fd5f0e84">OpenSim::InverseDynamics</a>
+, <a class="el" href="classOpenSim_1_1JointLoadOptimization.html#a1216224d06716041769d4418c4a64c31">OpenSim::JointLoadOptimization</a>
 , <a class="el" href="classOpenSim_1_1JointReaction.html#a61e4127426e686d33c1e9abc69b280c1">OpenSim::JointReaction</a>
 , <a class="el" href="classOpenSim_1_1Kinematics.html#ae8bb6aa8cae4e9e616df1b92586197fa">OpenSim::Kinematics</a>
-, <a class="el" href="classOpenSim_1_1MuscleAnalysis.html#a30cb27de5f5b0e27dedee10619971ef5">OpenSim::MuscleAnalysis</a>
 , <a class="el" href="classOpenSim_1_1Actuation.html#abcc09628939412a7410baf1a563054cf">OpenSim::Actuation</a>
+, <a class="el" href="classOpenSim_1_1MuscleAnalysis.html#a30cb27de5f5b0e27dedee10619971ef5">OpenSim::MuscleAnalysis</a>
 , <a class="el" href="classOpenSim_1_1PointKinematics.html#a94a2dfd18a5a927da8b6bdea66652e1c">OpenSim::PointKinematics</a>
-, <a class="el" href="classOpenSim_1_1StatesReporter.html#ae7396f7cfbef3b17fd124aad6ba691f5">OpenSim::StatesReporter</a>
 </li>
 <li>ensureCapacity()
 : <a class="el" href="classOpenSim_1_1Array.html#a2dfaacf117677d7a6bc024bbbd1e2cbe">OpenSim::Array&lt; T &gt;</a>
@@ -107,35 +106,33 @@
 : <a class="el" href="classOpenSim_1_1Model.html#accf2ad3eaca9249b912981a6f06218b5">OpenSim::Model</a>
 </li>
 <li>evaluate()
-: <a class="el" href="classOpenSim_1_1VectorFunctionForActuators.html#a24a3e7a2d6fdbb7a0d9628777779587d">OpenSim::VectorFunctionForActuators</a>
-, <a class="el" href="classOpenSim_1_1VectorFunctionUncoupledNxN.html#ad95d669c5b69048ecb0497d25fc07a01">OpenSim::VectorFunctionUncoupledNxN</a>
-, <a class="el" href="classOpenSim_1_1FunctionSet.html#ab529ab9c02642f7ec217cd6436f1f360">OpenSim::FunctionSet</a>
+: <a class="el" href="classOpenSim_1_1VectorFunctionUncoupledNxN.html#ad95d669c5b69048ecb0497d25fc07a01">OpenSim::VectorFunctionUncoupledNxN</a>
+, <a class="el" href="classOpenSim_1_1VectorFunctionForActuators.html#a24a3e7a2d6fdbb7a0d9628777779587d">OpenSim::VectorFunctionForActuators</a>
 , <a class="el" href="classOpenSim_1_1VectorFunctionUncoupledNxN.html#a82e1e5d4740122ec213f93980fe16a7a">OpenSim::VectorFunctionUncoupledNxN</a>
+, <a class="el" href="classOpenSim_1_1FunctionSet.html#ab529ab9c02642f7ec217cd6436f1f360">OpenSim::FunctionSet</a>
+, <a class="el" href="classOpenSim_1_1VectorFunctionForActuators.html#aa831446435e2a507cf047f7ededd0da8">OpenSim::VectorFunctionForActuators</a>
 </li>
 <li>evaluateForceLengthVelocityCurve()
 : <a class="el" href="classOpenSim_1_1Muscle.html#aca4a4a96ac456c8802bfa21d2fc04e74">OpenSim::Muscle</a>
 </li>
+<li>evaluateTotalFirstDerivative()
+: <a class="el" href="classOpenSim_1_1PiecewiseConstantFunction.html#a1a7b45593c5ea86d9eaa744dde971eff">OpenSim::PiecewiseConstantFunction</a>
+</li>
+<li>evaluateTotalSecondDerivative()
+: <a class="el" href="classOpenSim_1_1PiecewiseConstantFunction.html#acae4a66ec1379f9bbd6d39e333f24d8a">OpenSim::PiecewiseConstantFunction</a>
+</li>
 <li>Exception()
 : <a class="el" href="classOpenSim_1_1Exception.html#a01d5cbb54d9c6d5ff56ece34d95aed8a">OpenSim::Exception</a>
-</li>
-<li>ExponentialBarrier()
-: <a class="el" href="classOpenSim_1_1Springs.html#ae42c88f4e98982f68ec7b029990dea1d">OpenSim::Springs</a>
-</li>
-<li>ExponentialBarrierDV()
-: <a class="el" href="classOpenSim_1_1Springs.html#ad68ea87c8267114cc9e87546b5449b93">OpenSim::Springs</a>
-</li>
-<li>ExponentialBarrierDX()
-: <a class="el" href="classOpenSim_1_1Springs.html#a1d0945179aa8567974941ad04c4a3f9f">OpenSim::Springs</a>
 </li>
 <li>ExternalForce()
 : <a class="el" href="classOpenSim_1_1ExternalForce.html#a7c47a4d7a1e845790dedbd369095b3e9">OpenSim::ExternalForce</a>
 </li>
 <li>ExternalLoads()
-: <a class="el" href="classOpenSim_1_1ExternalLoads.html#ad23982c7d5dbf30d1a0c873085beb80a">OpenSim::ExternalLoads</a>
+: <a class="el" href="classOpenSim_1_1ExternalLoads.html#ac1849e9f4e60a5e65139946cadc19ece">OpenSim::ExternalLoads</a>
 </li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Jun 5 10:13:58 2011 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Sep 25 00:19:43 2011 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

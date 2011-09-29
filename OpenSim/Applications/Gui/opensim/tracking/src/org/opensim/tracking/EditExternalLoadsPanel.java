@@ -75,7 +75,7 @@ public class EditExternalLoadsPanel extends javax.swing.JPanel
             createNewFile = true;
         }
         if (externalLoadsFilename.equalsIgnoreCase("")|| externalLoadsFilename.equalsIgnoreCase("Unassigned") || createNewFile){
-            // Create a new empty ExternlLoads file and use it for now
+            // Create a new empty ExternalLoads file and use it for now
             String f = new File(model.getInputFileName()).getParentFile().getAbsolutePath();
             externalLoadsFilename = FileUtils.getNextAvailableName(f, "ExternalLoads.xml");
             ExternalLoads el = new ExternalLoads();
@@ -91,7 +91,7 @@ public class EditExternalLoadsPanel extends javax.swing.JPanel
         initComponents();
         filterModelKinematics.setSelected(dLoads.getLowpassCutoffFrequencyForLoadKinematics()>0);
         externalLoadsDataFileName.setExtensionsAndDescription(".sto,.mot", "Data file for external forces");
-        externalLoadsModelKinematicsFileName.setExtensionsAndDescription(".mot", "Kinematics for external loads if transforming froce application global to local");
+        externalLoadsModelKinematicsFileName.setExtensionsAndDescription(".sto,.mot", "Kinematics for external loads if transforming froce application");
         String externalLoadsKinFile = dLoads.getExternalLoadsModelKinematicsFileName(); // Optional
         externalLoadsModelKinematicsFileName.setFileName(externalLoadsKinFile);
         cutoffFrequency.setText(String.valueOf(dLoads.getLowpassCutoffFrequencyForLoadKinematics()));

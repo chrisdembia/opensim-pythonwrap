@@ -230,6 +230,9 @@ Inheritance diagram for OpenSim::Storage:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Resample using linear interpolation.  <a href="#a3e7347ae928c68129b416e2fb8ca9227"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#aa99274643fa3b69d64359f3dbafd526f">compareColumn</a> (<a class="el" href="classOpenSim_1_1Storage.html">Storage</a> &amp;aOtherStorage, const std::string &amp;aColumnName, double startTime, double endTime=-1.0)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Compare column named "aColumnName" in two storage objects If endTime is not specified the comparison goes to the end of the file.  <a href="#aa99274643fa3b69d64359f3dbafd526f"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#a464fe9f25271557960b3d72340d13a23">compareColumnRMS</a> (<a class="el" href="classOpenSim_1_1Storage.html">Storage</a> &amp;aOtherStorage, const std::string &amp;aColumnName, double startTime=SimTK::NaN, double endTime=SimTK::NaN)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Compare column named "aColumnName" in two storage objects If endTime is not specified the comparison goes to the end of the file.  <a href="#a464fe9f25271557960b3d72340d13a23"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#aa93a8f226806f9479a23a5d9534cbf67">compareWithStandard</a> (<a class="el" href="classOpenSim_1_1Storage.html">Storage</a> &amp;standard, <a class="el" href="classOpenSim_1_1Array.html">Array</a>&lt; std::string &gt; &amp;columnsUsed, <a class="el" href="classOpenSim_1_1Array.html">Array</a>&lt; double &gt; &amp;comparisons)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#a2d9a9e61784736668e2784475d01998a">makeStorageLabelsUnique</a> ()</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Force.html" title="This abstract class represents a force applied to bodies or generalized coordinates...">Force</a> column labels for a <a class="el" href="classOpenSim_1_1Storage.html">Storage</a> object to become unique.  <a href="#a2d9a9e61784736668e2784475d01998a"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Storage.html#abd01fa11849b97cf7e888c25acd1dffd">print</a> () const </td></tr>
@@ -893,6 +896,81 @@ Inheritance diagram for OpenSim::Storage:</div>
 <p>Compare column named "aColumnName" in two storage objects If endTime is not specified the comparison goes to the end of the file. </p>
 <dl class="return"><dt><b>Returns:</b></dt><dd>the difference or SimTK::Infinity if times do not match up.</dd></dl>
 <p>NOTE: This assumes same time sampling between both Storages. </p>
+
+</div>
+</div>
+<a class="anchor" id="a464fe9f25271557960b3d72340d13a23"></a><!-- doxytag: member="OpenSim::Storage::compareColumnRMS" ref="a464fe9f25271557960b3d72340d13a23" args="(Storage &amp;aOtherStorage, const std::string &amp;aColumnName, double startTime=SimTK::NaN, double endTime=SimTK::NaN)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double Storage::compareColumnRMS </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classOpenSim_1_1Storage.html">Storage</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>aOtherStorage</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&nbsp;</td>
+          <td class="paramname"> <em>aColumnName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&nbsp;</td>
+          <td class="paramname"> <em>startTime</em> = <code>SimTK::NaN</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&nbsp;</td>
+          <td class="paramname"> <em>endTime</em> = <code>SimTK::NaN</code></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Compare column named "aColumnName" in two storage objects If endTime is not specified the comparison goes to the end of the file. </p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>the root mean square, using a spline to calculate values where the times do not match up. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aa93a8f226806f9479a23a5d9534cbf67"></a><!-- doxytag: member="OpenSim::Storage::compareWithStandard" ref="aa93a8f226806f9479a23a5d9534cbf67" args="(Storage &amp;standard, Array&lt; std::string &gt; &amp;columnsUsed, Array&lt; double &gt; &amp;comparisons)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenSim::Storage::compareWithStandard </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classOpenSim_1_1Storage.html">Storage</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>standard</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classOpenSim_1_1Array.html">Array</a>&lt; std::string &gt; &amp;&nbsp;</td>
+          <td class="paramname"> <em>columnsUsed</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classOpenSim_1_1Array.html">Array</a>&lt; double &gt; &amp;&nbsp;</td>
+          <td class="paramname"> <em>comparisons</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
 
 </div>
 </div>
@@ -2639,7 +2717,7 @@ Inheritance diagram for OpenSim::Storage:</div>
 <div class="memdoc">
 
 <p><a class="el" href="classOpenSim_1_1Force.html" title="This abstract class represents a force applied to bodies or generalized coordinates...">Force</a> column labels for a <a class="el" href="classOpenSim_1_1Storage.html">Storage</a> object to become unique. </p>
-<p>This is done by appenging the string (n) as needed where n=1, 2, ...</p>
+<p>This is done by prepending the string (n_) as needed where n=1, 2, ...</p>
 <dl class="return"><dt><b>Returns:</b></dt><dd>true if labels were changed false otherwise. </dd></dl>
 
 </div>
@@ -3901,7 +3979,7 @@ Inheritance diagram for OpenSim::Storage:</div>
 <li>OpenSim/Common/Storage.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Jun 5 10:14:08 2011 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Sep 25 00:19:52 2011 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

@@ -39,12 +39,12 @@ public class Controller extends ModelComponent {
     return opensimModelJNI.Controller_getNumStateVariables(swigCPtr, this);
   }
 
-  public boolean getIsEnabled() {
-    return opensimModelJNI.Controller_getIsEnabled(swigCPtr, this);
+  public boolean isDisabled() {
+    return opensimModelJNI.Controller_isDisabled(swigCPtr, this);
   }
 
-  public void setIsEnabled(boolean aTrueFalse) {
-    opensimModelJNI.Controller_setIsEnabled(swigCPtr, this, aTrueFalse);
+  public void setDisabled(boolean aTrueFalse) {
+    opensimModelJNI.Controller_setDisabled(swigCPtr, this, aTrueFalse);
   }
 
   public void computeControls(SWIGTYPE_p_SimTK__State s, SWIGTYPE_p_SimTK__Vector controls) {

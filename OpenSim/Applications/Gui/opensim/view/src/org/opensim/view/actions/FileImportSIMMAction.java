@@ -82,7 +82,7 @@ public final class FileImportSIMMAction extends CallableSystemAction {
                //-ms markerset_out
                command+=" -ms \""+importPanel.getMarkersFileName()+"\"";
             }
-            OpenSimLogger.logMessage("Executing ["+command+"]", 0);
+            OpenSimLogger.logMessage("Executing ["+command+"]\n", 0);
             boolean success = ExecOpenSimProcess.execute(command, new String[]{""}, jntFileDir );
             // if file was not generated warn and point to message area
             testExists = new File(fullOsimFilename);

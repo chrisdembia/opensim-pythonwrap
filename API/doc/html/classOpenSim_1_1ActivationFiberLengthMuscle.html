@@ -78,26 +78,37 @@ Inheritance diagram for OpenSim::ActivationFiberLengthMuscle:</div>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActivationFiberLengthMuscle.html#ae834e306d61c85e17f2d4391d57b8573">setDefaultActivation</a> (double activation)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActivationFiberLengthMuscle.html#a399a39b7cfb68d09096077d1c4cd8f1a">getDefaultFiberLength</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActivationFiberLengthMuscle.html#a1fdec198c6005724789c88ef4e360b90">setDefaultFiberLength</a> (double length)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActivationFiberLengthMuscle.html#a274000d138830977ee79d9eae3e76ad0">getTendonLength</a> (const SimTK::State &amp;s) const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the length of the tendon.  <a href="#a274000d138830977ee79d9eae3e76ad0"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActivationFiberLengthMuscle.html#aa74853e2bc27c25600decff12dd99a1a">getFiberLength</a> (const SimTK::State &amp;s) const =0</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActivationFiberLengthMuscle.html#a9351528a5a9a988b675129156087da0a">setFiberLength</a> (SimTK::State &amp;s, double fiberLength) const =0</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActivationFiberLengthMuscle.html#a4f38bff86d0f0d114746bc1936b1d03b">getNormalizedFiberLength</a> (const SimTK::State &amp;s) const =0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActivationFiberLengthMuscle.html#ab489e9d114111828f49a19ea76f38c28">getFiberLength</a> (const SimTK::State &amp;s) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActivationFiberLengthMuscle.html#a4561688f95fa2785efe1ea5fc55b0f8b">setFiberLength</a> (SimTK::State &amp;s, double fiberLength) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActivationFiberLengthMuscle.html#a878a720c5fc6e1d1509f7ddc077c6ab8">getFiberLengthDeriv</a> (const SimTK::State &amp;s) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActivationFiberLengthMuscle.html#a5589c1c25b30b5cb4bee02e37c8a53e3">setFiberLengthDeriv</a> (const SimTK::State &amp;s, double fiberLengthDeriv) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActivationFiberLengthMuscle.html#a86f516e1950a1d8345c5965319865806">getNormalizedFiberLength</a> (const SimTK::State &amp;s) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">/** Get the normalized length of the muscle fiber(s).  <a href="#a86f516e1950a1d8345c5965319865806"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActivationFiberLengthMuscle.html#abfa0cefeaea92d93fb92b723e3df9a56">getFiberLengthAlongTendon</a> (const SimTK::State &amp;s) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the length of the muscle fiber(s) along the tendon.  <a href="#abfa0cefeaea92d93fb92b723e3df9a56"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActivationFiberLengthMuscle.html#a274000d138830977ee79d9eae3e76ad0">getTendonLength</a> (const SimTK::State &amp;s) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the length of the tendon.  <a href="#a274000d138830977ee79d9eae3e76ad0"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActivationFiberLengthMuscle.html#ab6d0a06aaa4b6f682ba0f7ff4d588922">getFiberForce</a> (const SimTK::State &amp;s) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Compute the force generated by the muscle fibers.  <a href="#ab6d0a06aaa4b6f682ba0f7ff4d588922"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActivationFiberLengthMuscle.html#aa073d3860086f17f542202ffbc87369d">getActiveFiberForce</a> (const SimTK::State &amp;s) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the active force generated by the muscle fibers.  <a href="#aa073d3860086f17f542202ffbc87369d"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActivationFiberLengthMuscle.html#a0b703b500dc9c80900e1a5d1719d4286">getPassiveFiberForce</a> (const SimTK::State &amp;s) const =0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActivationFiberLengthMuscle.html#aee3a8b1914349d5ef71e54fcdb147e53">getPassiveFiberForce</a> (const SimTK::State &amp;s) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the passive force generated by the muscle fibers.  <a href="#aee3a8b1914349d5ef71e54fcdb147e53"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActivationFiberLengthMuscle.html#a56474262179e2902236c7e405e8e33d2">getActiveFiberForceAlongTendon</a> (const SimTK::State &amp;s) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the active force generated by the muscle fibers along the direction of the tendon.  <a href="#a56474262179e2902236c7e405e8e33d2"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActivationFiberLengthMuscle.html#ade44cac87ed8fc29fd22dd44e3e4d587">getPassiveFiberForceAlongTendon</a> (const SimTK::State &amp;s) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the passive force generated by the muscle fibers along the direction of the tendon.  <a href="#ade44cac87ed8fc29fd22dd44e3e4d587"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActivationFiberLengthMuscle.html#a05b8dd8ff3ce8e992c69c922ad6b94c2">getTendonForce</a> (const SimTK::State &amp;s) const =0</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActivationFiberLengthMuscle.html#a337df626ef67a8e00cacfec8592467e7">getActivation</a> (const SimTK::State &amp;s) const =0</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActivationFiberLengthMuscle.html#ab0b07a83049959b2b6338c02431e9b37">setActivation</a> (SimTK::State &amp;s, double activation) const =0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActivationFiberLengthMuscle.html#a8b38b83eb4d9da4e6cb6c4115d10dc66">getPassiveForce</a> (const SimTK::State &amp;s) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActivationFiberLengthMuscle.html#aa9531f2338c24fb29cc19a3dca7c64ba">setPassiveForce</a> (const SimTK::State &amp;s, double aForce) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActivationFiberLengthMuscle.html#a9552b2b299706a84f7fcba088fe4693d">getTendonForce</a> (const SimTK::State &amp;s) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActivationFiberLengthMuscle.html#a07a8ac2134ecb331dbd67747076904a4">setTendonForce</a> (const SimTK::State &amp;s, double aForce) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActivationFiberLengthMuscle.html#a4d76653df7ded65aecc865fec0bb4366">getActivation</a> (const SimTK::State &amp;s) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActivationFiberLengthMuscle.html#a820b87ab3f748ffb127f40c31403ce46">setActivation</a> (SimTK::State &amp;s, double activation) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActivationFiberLengthMuscle.html#ae4dc0956c4e973c90ecc8d3444981821">getActivationDeriv</a> (const SimTK::State &amp;s) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActivationFiberLengthMuscle.html#a348a4f873d1be5372b5a47ac869f2af9">setActivationDeriv</a> (const SimTK::State &amp;s, double activationDeriv) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActivationFiberLengthMuscle.html#aa655f50427aea1ab77865571b36edba3">getExcitation</a> (const SimTK::State &amp;s) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActivationFiberLengthMuscle.html#a2bf45486345444d04aa7bf9e130979da">getStress</a> (const SimTK::State &amp;s) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the stress in this actuator.  <a href="#a2bf45486345444d04aa7bf9e130979da"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActivationFiberLengthMuscle.html#af41fa577dc23c847cb234b0ab8800204">computeActuation</a> (const SimTK::State &amp;s) const =0</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Compute all quantities necessary for applying the actuator force to the model.  <a href="#af41fa577dc23c847cb234b0ab8800204"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1ActivationFiberLengthMuscle.html#a435a279859ca8c5491aaf0eb0abc5518">computeIsometricForce</a> (SimTK::State &amp;s, double activation) const =0</td></tr>
@@ -461,17 +472,17 @@ Ajay Seth </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="a337df626ef67a8e00cacfec8592467e7"></a><!-- doxytag: member="OpenSim::ActivationFiberLengthMuscle::getActivation" ref="a337df626ef67a8e00cacfec8592467e7" args="(const SimTK::State &amp;s) const =0" -->
+<a class="anchor" id="a4d76653df7ded65aecc865fec0bb4366"></a><!-- doxytag: member="OpenSim::ActivationFiberLengthMuscle::getActivation" ref="a4d76653df7ded65aecc865fec0bb4366" args="(const SimTK::State &amp;s) const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">virtual double OpenSim::ActivationFiberLengthMuscle::getActivation </td>
+          <td class="memname">double ActivationFiberLengthMuscle::getActivation </td>
           <td>(</td>
           <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
           <td class="paramname"> <em>s</em></td>
           <td>&nbsp;)&nbsp;</td>
-          <td> const<code> [pure virtual]</code></td>
+          <td> const<code> [virtual]</code></td>
         </tr>
       </table>
 </div>
@@ -479,7 +490,27 @@ Ajay Seth </dd></dl>
 
 <p>Implements <a class="el" href="classOpenSim_1_1Muscle.html#aef9cf4caff38be4afd26c1f7aa1f6190">OpenSim::Muscle</a>.</p>
 
-<p>Implemented in <a class="el" href="classOpenSim_1_1ContDerivMuscle.html#af973efbf10dc1dcb35e6cffc96d4a651">OpenSim::ContDerivMuscle</a>, <a class="el" href="classOpenSim_1_1Delp1990Muscle.html#a3a857ccbd7c2421b4c4af06715b40c65">OpenSim::Delp1990Muscle</a>, <a class="el" href="classOpenSim_1_1Schutte1993Muscle.html#a7b72ec923cb2dc3ab0e60bf36eb5094e">OpenSim::Schutte1993Muscle</a>, and <a class="el" href="classOpenSim_1_1Thelen2003Muscle.html#ab4619420fe0157db1cc0999aecff198c">OpenSim::Thelen2003Muscle</a>.</p>
+<p>Reimplemented in <a class="el" href="classOpenSim_1_1ContDerivMuscle.html#af973efbf10dc1dcb35e6cffc96d4a651">OpenSim::ContDerivMuscle</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ae4dc0956c4e973c90ecc8d3444981821"></a><!-- doxytag: member="OpenSim::ActivationFiberLengthMuscle::getActivationDeriv" ref="ae4dc0956c4e973c90ecc8d3444981821" args="(const SimTK::State &amp;s) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double ActivationFiberLengthMuscle::getActivationDeriv </td>
+          <td>(</td>
+          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
+          <td class="paramname"> <em>s</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Reimplemented in <a class="el" href="classOpenSim_1_1ContDerivMuscle.html#abf1ef0e1b5b5a4e1ed10c8394222d767">OpenSim::ContDerivMuscle</a>.</p>
 
 </div>
 </div>
@@ -605,17 +636,17 @@ Ajay Seth </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="aa74853e2bc27c25600decff12dd99a1a"></a><!-- doxytag: member="OpenSim::ActivationFiberLengthMuscle::getFiberLength" ref="aa74853e2bc27c25600decff12dd99a1a" args="(const SimTK::State &amp;s) const =0" -->
+<a class="anchor" id="ab489e9d114111828f49a19ea76f38c28"></a><!-- doxytag: member="OpenSim::ActivationFiberLengthMuscle::getFiberLength" ref="ab489e9d114111828f49a19ea76f38c28" args="(const SimTK::State &amp;s) const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">virtual double OpenSim::ActivationFiberLengthMuscle::getFiberLength </td>
+          <td class="memname">double ActivationFiberLengthMuscle::getFiberLength </td>
           <td>(</td>
           <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
           <td class="paramname"> <em>s</em></td>
           <td>&nbsp;)&nbsp;</td>
-          <td> const<code> [pure virtual]</code></td>
+          <td> const<code> [virtual]</code></td>
         </tr>
       </table>
 </div>
@@ -623,7 +654,7 @@ Ajay Seth </dd></dl>
 
 <p>Implements <a class="el" href="classOpenSim_1_1Muscle.html#a7d6d9a8d69092636a880987da9bf94db">OpenSim::Muscle</a>.</p>
 
-<p>Implemented in <a class="el" href="classOpenSim_1_1ContDerivMuscle.html#aaff3adca3b3e53a94c6887353d0e9896">OpenSim::ContDerivMuscle</a>, <a class="el" href="classOpenSim_1_1Delp1990Muscle.html#af90c60f33aa738d246761b57b87e38d1">OpenSim::Delp1990Muscle</a>, <a class="el" href="classOpenSim_1_1Schutte1993Muscle.html#abed7c47d25cef1a9cd906697897847c7">OpenSim::Schutte1993Muscle</a>, and <a class="el" href="classOpenSim_1_1Thelen2003Muscle.html#afc07e845d6e13e053fc967f9a4696a2b">OpenSim::Thelen2003Muscle</a>.</p>
+<p>Reimplemented in <a class="el" href="classOpenSim_1_1ContDerivMuscle.html#aaff3adca3b3e53a94c6887353d0e9896">OpenSim::ContDerivMuscle</a>.</p>
 
 </div>
 </div>
@@ -651,25 +682,54 @@ Ajay Seth </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="a4f38bff86d0f0d114746bc1936b1d03b"></a><!-- doxytag: member="OpenSim::ActivationFiberLengthMuscle::getNormalizedFiberLength" ref="a4f38bff86d0f0d114746bc1936b1d03b" args="(const SimTK::State &amp;s) const =0" -->
+<a class="anchor" id="a878a720c5fc6e1d1509f7ddc077c6ab8"></a><!-- doxytag: member="OpenSim::ActivationFiberLengthMuscle::getFiberLengthDeriv" ref="a878a720c5fc6e1d1509f7ddc077c6ab8" args="(const SimTK::State &amp;s) const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">virtual double OpenSim::ActivationFiberLengthMuscle::getNormalizedFiberLength </td>
+          <td class="memname">double ActivationFiberLengthMuscle::getFiberLengthDeriv </td>
           <td>(</td>
           <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
           <td class="paramname"> <em>s</em></td>
           <td>&nbsp;)&nbsp;</td>
-          <td> const<code> [pure virtual]</code></td>
+          <td> const<code> [virtual]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
+<p>Reimplemented in <a class="el" href="classOpenSim_1_1ContDerivMuscle.html#a8df2d0face294dff790fc16760dc2377">OpenSim::ContDerivMuscle</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a86f516e1950a1d8345c5965319865806"></a><!-- doxytag: member="OpenSim::ActivationFiberLengthMuscle::getNormalizedFiberLength" ref="a86f516e1950a1d8345c5965319865806" args="(const SimTK::State &amp;s) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double ActivationFiberLengthMuscle::getNormalizedFiberLength </td>
+          <td>(</td>
+          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
+          <td class="paramname"> <em>s</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>/** Get the normalized length of the muscle fiber(s). </p>
+<p>This is the current fiber length(s) divided by the optimal fiber length.</p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>Current</em>&nbsp;</td><td>length of the muscle fiber(s). </td></tr>
+  </table>
+  </dd>
+</dl>
+
 <p>Implements <a class="el" href="classOpenSim_1_1Muscle.html#a71c5956383a4b23a679d3952aa8acb8a">OpenSim::Muscle</a>.</p>
 
-<p>Implemented in <a class="el" href="classOpenSim_1_1ContDerivMuscle.html#a26b9cc433421a14fefe141e0234fbcf8">OpenSim::ContDerivMuscle</a>, <a class="el" href="classOpenSim_1_1Delp1990Muscle.html#a62b60472fb6ff8c3f47d90e11b1bc9ce">OpenSim::Delp1990Muscle</a>, <a class="el" href="classOpenSim_1_1Schutte1993Muscle.html#abe6e6ab539e660fd382dd5e6ce9f0ab2">OpenSim::Schutte1993Muscle</a>, and <a class="el" href="classOpenSim_1_1Thelen2003Muscle.html#a1275f9dbdc58b5e48bedd279abc4bd7a">OpenSim::Thelen2003Muscle</a>.</p>
+<p>Reimplemented in <a class="el" href="classOpenSim_1_1ContDerivMuscle.html#a26b9cc433421a14fefe141e0234fbcf8">OpenSim::ContDerivMuscle</a>.</p>
 
 </div>
 </div>
@@ -695,25 +755,33 @@ Ajay Seth </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="a0b703b500dc9c80900e1a5d1719d4286"></a><!-- doxytag: member="OpenSim::ActivationFiberLengthMuscle::getPassiveFiberForce" ref="a0b703b500dc9c80900e1a5d1719d4286" args="(const SimTK::State &amp;s) const =0" -->
+<a class="anchor" id="aee3a8b1914349d5ef71e54fcdb147e53"></a><!-- doxytag: member="OpenSim::ActivationFiberLengthMuscle::getPassiveFiberForce" ref="aee3a8b1914349d5ef71e54fcdb147e53" args="(const SimTK::State &amp;s) const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">virtual double OpenSim::ActivationFiberLengthMuscle::getPassiveFiberForce </td>
+          <td class="memname">double ActivationFiberLengthMuscle::getPassiveFiberForce </td>
           <td>(</td>
           <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
           <td class="paramname"> <em>s</em></td>
           <td>&nbsp;)&nbsp;</td>
-          <td> const<code> [pure virtual]</code></td>
+          <td> const<code> [virtual]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
+<p>Get the passive force generated by the muscle fibers. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>Current</em>&nbsp;</td><td>passive force of the muscle fiber(s). </td></tr>
+  </table>
+  </dd>
+</dl>
+
 <p>Implements <a class="el" href="classOpenSim_1_1Muscle.html#a45edec6508a3f69ad68158b8b5d8e755">OpenSim::Muscle</a>.</p>
 
-<p>Implemented in <a class="el" href="classOpenSim_1_1ContDerivMuscle.html#aebc4fcdae7c3879535fb52ac75ee0a2d">OpenSim::ContDerivMuscle</a>, <a class="el" href="classOpenSim_1_1Delp1990Muscle.html#aaca8b339c21ec23af7788ff002b9213f">OpenSim::Delp1990Muscle</a>, <a class="el" href="classOpenSim_1_1Schutte1993Muscle.html#a3462112a96edcc5e00debb6383836e2b">OpenSim::Schutte1993Muscle</a>, and <a class="el" href="classOpenSim_1_1Thelen2003Muscle.html#aafa8aaff766bab1c7036eaf0df4a8b46">OpenSim::Thelen2003Muscle</a>.</p>
+<p>Reimplemented in <a class="el" href="classOpenSim_1_1ContDerivMuscle.html#aebc4fcdae7c3879535fb52ac75ee0a2d">OpenSim::ContDerivMuscle</a>.</p>
 
 </div>
 </div>
@@ -737,6 +805,26 @@ Ajay Seth </dd></dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>Current passive force of the muscle fibers along tendon. </dd></dl>
 
 <p>Reimplemented from <a class="el" href="classOpenSim_1_1Muscle.html#a55e567755fcd2bdb7498c00242c94fd1">OpenSim::Muscle</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a8b38b83eb4d9da4e6cb6c4115d10dc66"></a><!-- doxytag: member="OpenSim::ActivationFiberLengthMuscle::getPassiveForce" ref="a8b38b83eb4d9da4e6cb6c4115d10dc66" args="(const SimTK::State &amp;s) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double ActivationFiberLengthMuscle::getPassiveForce </td>
+          <td>(</td>
+          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
+          <td class="paramname"> <em>s</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Reimplemented in <a class="el" href="classOpenSim_1_1ContDerivMuscle.html#a984ffa8f12d833db62b9b9d0043da595">OpenSim::ContDerivMuscle</a>.</p>
 
 </div>
 </div>
@@ -849,17 +937,42 @@ Ajay Seth </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="a05b8dd8ff3ce8e992c69c922ad6b94c2"></a><!-- doxytag: member="OpenSim::ActivationFiberLengthMuscle::getTendonForce" ref="a05b8dd8ff3ce8e992c69c922ad6b94c2" args="(const SimTK::State &amp;s) const =0" -->
+<a class="anchor" id="a2bf45486345444d04aa7bf9e130979da"></a><!-- doxytag: member="OpenSim::ActivationFiberLengthMuscle::getStress" ref="a2bf45486345444d04aa7bf9e130979da" args="(const SimTK::State &amp;s) const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">virtual double OpenSim::ActivationFiberLengthMuscle::getTendonForce </td>
+          <td class="memname">double ActivationFiberLengthMuscle::getStress </td>
           <td>(</td>
           <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
           <td class="paramname"> <em>s</em></td>
           <td>&nbsp;)&nbsp;</td>
-          <td> const<code> [pure virtual]</code></td>
+          <td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Get the stress in this actuator. </p>
+<p>It is calculated as the force divided by the maximum isometric force (which is proportional to its area). </p>
+
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1PathActuator.html#a68c4ddc393b68613d18d626396038e60">OpenSim::PathActuator</a>.</p>
+
+<p>Reimplemented in <a class="el" href="classOpenSim_1_1ContDerivMuscle.html#a4426fdef9ee9d426f063fc97522d60a6">OpenSim::ContDerivMuscle</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a9552b2b299706a84f7fcba088fe4693d"></a><!-- doxytag: member="OpenSim::ActivationFiberLengthMuscle::getTendonForce" ref="a9552b2b299706a84f7fcba088fe4693d" args="(const SimTK::State &amp;s) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double ActivationFiberLengthMuscle::getTendonForce </td>
+          <td>(</td>
+          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
+          <td class="paramname"> <em>s</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [virtual]</code></td>
         </tr>
       </table>
 </div>
@@ -867,7 +980,7 @@ Ajay Seth </dd></dl>
 
 <p>Implements <a class="el" href="classOpenSim_1_1Muscle.html#a0e56a24521b0205c3035825054152e73">OpenSim::Muscle</a>.</p>
 
-<p>Implemented in <a class="el" href="classOpenSim_1_1ContDerivMuscle.html#a91205df1b10827ffac26ef51fa40147a">OpenSim::ContDerivMuscle</a>, <a class="el" href="classOpenSim_1_1Delp1990Muscle.html#ad011487eff6e3d11b411d8bf41e9af65">OpenSim::Delp1990Muscle</a>, <a class="el" href="classOpenSim_1_1Schutte1993Muscle.html#ab97dab2a9e40a4f16a36d62e00a633c8">OpenSim::Schutte1993Muscle</a>, and <a class="el" href="classOpenSim_1_1Thelen2003Muscle.html#acf05a8f13896f44c4ab19ee869143bc4">OpenSim::Thelen2003Muscle</a>.</p>
+<p>Reimplemented in <a class="el" href="classOpenSim_1_1ContDerivMuscle.html#a91205df1b10827ffac26ef51fa40147a">OpenSim::ContDerivMuscle</a>.</p>
 
 </div>
 </div>
@@ -1019,12 +1132,12 @@ Ajay Seth </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="ab0b07a83049959b2b6338c02431e9b37"></a><!-- doxytag: member="OpenSim::ActivationFiberLengthMuscle::setActivation" ref="ab0b07a83049959b2b6338c02431e9b37" args="(SimTK::State &amp;s, double activation) const =0" -->
+<a class="anchor" id="a820b87ab3f748ffb127f40c31403ce46"></a><!-- doxytag: member="OpenSim::ActivationFiberLengthMuscle::setActivation" ref="a820b87ab3f748ffb127f40c31403ce46" args="(SimTK::State &amp;s, double activation) const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void OpenSim::ActivationFiberLengthMuscle::setActivation </td>
+          <td class="memname">void ActivationFiberLengthMuscle::setActivation </td>
           <td>(</td>
           <td class="paramtype">SimTK::State &amp;&nbsp;</td>
           <td class="paramname"> <em>s</em>, </td>
@@ -1038,7 +1151,7 @@ Ajay Seth </dd></dl>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td><td> const<code> [pure virtual]</code></td>
+          <td></td><td></td><td> const<code> [virtual]</code></td>
         </tr>
       </table>
 </div>
@@ -1046,7 +1159,36 @@ Ajay Seth </dd></dl>
 
 <p>Implements <a class="el" href="classOpenSim_1_1Muscle.html#a9271d05aa0ed8d3978a8f2433374f872">OpenSim::Muscle</a>.</p>
 
-<p>Implemented in <a class="el" href="classOpenSim_1_1ContDerivMuscle.html#a514bbd4a1e0197f2747ca3d0a9bf2df5">OpenSim::ContDerivMuscle</a>, <a class="el" href="classOpenSim_1_1Delp1990Muscle.html#a3f6f207183b6fe04fcc44fb242b0d7bc">OpenSim::Delp1990Muscle</a>, <a class="el" href="classOpenSim_1_1Schutte1993Muscle.html#aa4370f12bd34b98bb206a4e3629dfe4b">OpenSim::Schutte1993Muscle</a>, and <a class="el" href="classOpenSim_1_1Thelen2003Muscle.html#a8a4f83db2c2e33ca5b042295e6f1dc2a">OpenSim::Thelen2003Muscle</a>.</p>
+<p>Reimplemented in <a class="el" href="classOpenSim_1_1ContDerivMuscle.html#a514bbd4a1e0197f2747ca3d0a9bf2df5">OpenSim::ContDerivMuscle</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a348a4f873d1be5372b5a47ac869f2af9"></a><!-- doxytag: member="OpenSim::ActivationFiberLengthMuscle::setActivationDeriv" ref="a348a4f873d1be5372b5a47ac869f2af9" args="(const SimTK::State &amp;s, double activationDeriv) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ActivationFiberLengthMuscle::setActivationDeriv </td>
+          <td>(</td>
+          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
+          <td class="paramname"> <em>s</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&nbsp;</td>
+          <td class="paramname"> <em>activationDeriv</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Reimplemented in <a class="el" href="classOpenSim_1_1ContDerivMuscle.html#a04347a9ea36a296d007a69365d862324">OpenSim::ContDerivMuscle</a>.</p>
 
 </div>
 </div>
@@ -1115,12 +1257,12 @@ Ajay Seth </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="a9351528a5a9a988b675129156087da0a"></a><!-- doxytag: member="OpenSim::ActivationFiberLengthMuscle::setFiberLength" ref="a9351528a5a9a988b675129156087da0a" args="(SimTK::State &amp;s, double fiberLength) const =0" -->
+<a class="anchor" id="a4561688f95fa2785efe1ea5fc55b0f8b"></a><!-- doxytag: member="OpenSim::ActivationFiberLengthMuscle::setFiberLength" ref="a4561688f95fa2785efe1ea5fc55b0f8b" args="(SimTK::State &amp;s, double fiberLength) const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void OpenSim::ActivationFiberLengthMuscle::setFiberLength </td>
+          <td class="memname">void ActivationFiberLengthMuscle::setFiberLength </td>
           <td>(</td>
           <td class="paramtype">SimTK::State &amp;&nbsp;</td>
           <td class="paramname"> <em>s</em>, </td>
@@ -1134,13 +1276,42 @@ Ajay Seth </dd></dl>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td><td> const<code> [pure virtual]</code></td>
+          <td></td><td></td><td> const<code> [virtual]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classOpenSim_1_1ContDerivMuscle.html#a8cf9c04beb1e4813cab3f6eaade70e8c">OpenSim::ContDerivMuscle</a>, <a class="el" href="classOpenSim_1_1Delp1990Muscle.html#a20ce225920c1c98fb8e24b8282efe22d">OpenSim::Delp1990Muscle</a>, <a class="el" href="classOpenSim_1_1Schutte1993Muscle.html#afce86d97887614be023cdf7715406861">OpenSim::Schutte1993Muscle</a>, and <a class="el" href="classOpenSim_1_1Thelen2003Muscle.html#a3ed22aee262e7a0413c5c494ad57df7e">OpenSim::Thelen2003Muscle</a>.</p>
+<p>Reimplemented in <a class="el" href="classOpenSim_1_1ContDerivMuscle.html#a8cf9c04beb1e4813cab3f6eaade70e8c">OpenSim::ContDerivMuscle</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a5589c1c25b30b5cb4bee02e37c8a53e3"></a><!-- doxytag: member="OpenSim::ActivationFiberLengthMuscle::setFiberLengthDeriv" ref="a5589c1c25b30b5cb4bee02e37c8a53e3" args="(const SimTK::State &amp;s, double fiberLengthDeriv) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ActivationFiberLengthMuscle::setFiberLengthDeriv </td>
+          <td>(</td>
+          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
+          <td class="paramname"> <em>s</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&nbsp;</td>
+          <td class="paramname"> <em>fiberLengthDeriv</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Reimplemented in <a class="el" href="classOpenSim_1_1ContDerivMuscle.html#a5883c4e3200f48b28e819425e6c761e3">OpenSim::ContDerivMuscle</a>.</p>
 
 </div>
 </div>
@@ -1179,6 +1350,35 @@ Ajay Seth </dd></dl>
       </table>
 </div>
 <div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="aa9531f2338c24fb29cc19a3dca7c64ba"></a><!-- doxytag: member="OpenSim::ActivationFiberLengthMuscle::setPassiveForce" ref="aa9531f2338c24fb29cc19a3dca7c64ba" args="(const SimTK::State &amp;s, double aForce) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ActivationFiberLengthMuscle::setPassiveForce </td>
+          <td>(</td>
+          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
+          <td class="paramname"> <em>s</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&nbsp;</td>
+          <td class="paramname"> <em>aForce</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Reimplemented in <a class="el" href="classOpenSim_1_1ContDerivMuscle.html#ad98353b2d8b0397aa0be51764208cf3c">OpenSim::ContDerivMuscle</a>.</p>
 
 </div>
 </div>
@@ -1221,6 +1421,35 @@ Ajay Seth </dd></dl>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a class="anchor" id="a07a8ac2134ecb331dbd67747076904a4"></a><!-- doxytag: member="OpenSim::ActivationFiberLengthMuscle::setTendonForce" ref="a07a8ac2134ecb331dbd67747076904a4" args="(const SimTK::State &amp;s, double aForce) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ActivationFiberLengthMuscle::setTendonForce </td>
+          <td>(</td>
+          <td class="paramtype">const SimTK::State &amp;&nbsp;</td>
+          <td class="paramname"> <em>s</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&nbsp;</td>
+          <td class="paramname"> <em>aForce</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Reimplemented in <a class="el" href="classOpenSim_1_1ContDerivMuscle.html#a9d5cb31ae366a796dd0097ba8206f534">OpenSim::ContDerivMuscle</a>.</p>
 
 </div>
 </div>
@@ -1364,7 +1593,7 @@ Ajay Seth </dd></dl>
 <li>OpenSim/Simulation/Model/ActivationFiberLengthMuscle.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Jun 5 10:14:11 2011 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Sep 25 00:19:56 2011 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

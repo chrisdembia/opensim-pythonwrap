@@ -88,6 +88,8 @@ public class TextOutputPanel extends javax.swing.JPanel implements LabOutputInte
         AnalysisSet as = model.getAnalysisSet();
         boolean found = false;
         if (as!=null && as.getSize()>0){
+            String anName = specs[0];
+            if (!as.contains(specs[0])) return;
             Analysis a= as.get(specs[0]);
             if (a != null && specs.length>=1){
                 ArrayStorage storages=a.getStorageList();

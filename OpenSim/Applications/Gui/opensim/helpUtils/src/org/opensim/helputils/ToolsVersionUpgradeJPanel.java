@@ -98,8 +98,8 @@ public class ToolsVersionUpgradeJPanel extends javax.swing.JPanel
             }
         });
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        jLabel3.setText("Updated file");
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Convert a model, storage, or setup file to the latest version"));
+        jLabel3.setText("New file");
 
         newVersionfileTextFieldAndChooser.setToolTipText("location of .jnt file");
         newVersionfileTextFieldAndChooser.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -117,7 +117,7 @@ public class ToolsVersionUpgradeJPanel extends javax.swing.JPanel
 
         jLabel4.setText("Old version file");
 
-        jMarkFileInDegreesCheckBox.setText("Mark file as in degrees");
+        jMarkFileInDegreesCheckBox.setText("Mark file as in degrees  (if storage)");
         jMarkFileInDegreesCheckBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         jMarkFileInDegreesCheckBox.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jMarkFileInDegreesCheckBox.addActionListener(new java.awt.event.ActionListener() {
@@ -142,8 +142,8 @@ public class ToolsVersionUpgradeJPanel extends javax.swing.JPanel
                             .add(jLabel4))
                         .add(11, 11, 11)
                         .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(oldVersionfileTextFieldAndChooser, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
-                            .add(newVersionfileTextFieldAndChooser, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE))))
+                            .add(oldVersionfileTextFieldAndChooser, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE)
+                            .add(newVersionfileTextFieldAndChooser, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -167,11 +167,11 @@ public class ToolsVersionUpgradeJPanel extends javax.swing.JPanel
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 110, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
         );
     }// </editor-fold>//GEN-END:initComponents
 

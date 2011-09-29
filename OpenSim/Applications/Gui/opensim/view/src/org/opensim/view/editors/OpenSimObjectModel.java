@@ -253,20 +253,23 @@ public class OpenSimObjectModel extends AbstractTreeTableModel {
          aggregate = true;
       } else if (property instanceof Property) {
          Property.PropertyType propType = ( (Property) property).getType();
-          if(propType==Property.PropertyType.Dbl || (propType==Property.PropertyType.DblArray && idx!=-1) 
-         ) propValueType = Property.PropertyType.Dbl; 
+          if(propType==Property.PropertyType.Dbl 
+                 || (propType==Property.PropertyType.DblArray && idx!=-1) 
+                 || (propType==Property.PropertyType.DblVec && idx!=-1))
+            propValueType = Property.PropertyType.Dbl; 
          else if(propType==Property.PropertyType.Int || (propType==Property.PropertyType.IntArray && idx!=-1)) propValueType = Property.PropertyType.Int; 
          else if(propType==Property.PropertyType.Str || (propType==Property.PropertyType.StrArray && idx!=-1)) propValueType = Property.PropertyType.Str; 
          else if(propType==Property.PropertyType.Bool || (propType==Property.PropertyType.BoolArray && idx!=-1)) propValueType = Property.PropertyType.Bool; 
 
          if(propType == Property.PropertyType.DblArray ||
+            propType == Property.PropertyType.DblVec ||
             propType == Property.PropertyType.IntArray ||
             propType == Property.PropertyType.StrArray ||
             propType == Property.PropertyType.BoolArray )
          {
             if(idx==-1) {
                aggregate = true;
-                 if (propType != Property.PropertyType.DblArray){
+                 if (propType != Property.PropertyType.DblArray && propType != Property.PropertyType.DblVec){
                    // Button to add array item
                    controlButton = new JButton(addIcon);
                    //controlButton.setRolloverIcon(addRolloverIcon); // doesn't work right now
@@ -277,7 +280,7 @@ public class OpenSimObjectModel extends AbstractTreeTableModel {
                }
 
             } else {
-               if (propType != Property.PropertyType.DblArray){
+               if (propType != Property.PropertyType.DblArray && propType != Property.PropertyType.DblVec){
                    // Button to delete array item
                    controlButton = new JButton(removeIcon);
                    //controlButton.setRolloverIcon(removeRolloverIcon); // doesn't work right now
@@ -368,6 +371,7 @@ public class OpenSimObjectModel extends AbstractTreeTableModel {
             else if(propValueType == Property.PropertyType.Str) return "String: " + getValue().toString();
             else if(propValueType == Property.PropertyType.Bool) return "Boolean: " + getValue().toString();
             else if(p.getType()==Property.PropertyType.DblArray) return "Array of doubles: " + getValue().toString();
+            else if(p.getType()==Property.PropertyType.DblVec) return "Vector of doubles: " + getValue().toString();
              else if(p.getType()==Property.PropertyType.IntArray) return "Array of integers: " + getValue().toString();
             else if(p.getType()==Property.PropertyType.StrArray) return "Array of strings: " + getValue().toString();
             else if(p.getType()==Property.PropertyType.BoolArray) return "Array of booleans: " + getValue().toString();
@@ -536,6 +540,7 @@ public class OpenSimObjectModel extends AbstractTreeTableModel {
             retArray = createChildren(childObj);
           }
           else if (propType == Property.PropertyType.DblArray ||
+                   propType == Property.PropertyType.DblVec ||
                    propType == Property.PropertyType.IntArray ||
                    propType == Property.PropertyType.StrArray ||
                    propType == Property.PropertyType.BoolArray) 

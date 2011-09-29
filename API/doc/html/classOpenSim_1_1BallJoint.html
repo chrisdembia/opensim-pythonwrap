@@ -49,8 +49,8 @@ Inheritance diagram for OpenSim::BallJoint:</div>
 <table border="0" cellpadding="0" cellspacing="0">
 <tr><td colspan="2"><h2>Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1BallJoint.html#a9232c0e79f2483842077877a57b47995">BallJoint</a> ()</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Default constructor.  <a href="#a9232c0e79f2483842077877a57b47995"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1BallJoint.html#aa4749e15fa8dd87cc0cf7117ad5a9485">BallJoint</a> (const std::string &amp;name, <a class="el" href="classOpenSim_1_1Body.html">OpenSim::Body</a> &amp;parent, SimTK::Vec3 locationInParent, SimTK::Vec3 orientationInParent, <a class="el" href="classOpenSim_1_1Body.html">OpenSim::Body</a> &amp;body, SimTK::Vec3 locationInBody, SimTK::Vec3 orientationInBody, bool useEulerAngles=true, bool reverse=false)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Flag to use Euler angles to parameterize rotation of the body.  <a href="#a9232c0e79f2483842077877a57b47995"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1BallJoint.html#a90c2c648d86f046af7bb02626b9bb9ef">BallJoint</a> (const std::string &amp;name, <a class="el" href="classOpenSim_1_1Body.html">OpenSim::Body</a> &amp;parent, SimTK::Vec3 locationInParent, SimTK::Vec3 orientationInParent, <a class="el" href="classOpenSim_1_1Body.html">OpenSim::Body</a> &amp;body, SimTK::Vec3 locationInBody, SimTK::Vec3 orientationInBody, bool reverse=false)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1BallJoint.html#a960a3a1659ff0656e157adc09b55b084">BallJoint</a> (const <a class="el" href="classOpenSim_1_1BallJoint.html">BallJoint</a> &amp;aJoint)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Copy constructor.  <a href="#a960a3a1659ff0656e157adc09b55b084"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1BallJoint.html#aafa377e7bbb502ab87bfaebd70fa1f5c">~BallJoint</a> ()</td></tr>
@@ -73,10 +73,6 @@ Inheritance diagram for OpenSim::BallJoint:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This is called after a SimTK System and State have been created for the <a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a>.  <a href="#a5e727bb8531304685f3b1162288e1c01"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1BallJoint.html#a26f080845ba3b294a5ded50c84afc734">setDefaultsFromState</a> (const SimTK::State &amp;state)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> all default values for this object to match those in a specified State.  <a href="#a26f080845ba3b294a5ded50c84afc734"></a><br/></td></tr>
-<tr><td colspan="2"><h2>Protected Attributes</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyBool.html">PropertyBool</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1BallJoint.html#af4c1570cc0a2d34250628b8f21caa3c8">_useEulerAnglesProp</a></td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Flag to use Euler angles to parameterize rotation of the body.  <a href="#af4c1570cc0a2d34250628b8f21caa3c8"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1BallJoint.html#ae87d059bc58c48a672e27450adf50a48">_useEulerAngles</a></td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
 <p>A class implementing an Ball joint. </p>
@@ -99,11 +95,12 @@ Inheritance diagram for OpenSim::BallJoint:</div>
 </div>
 <div class="memdoc">
 
+<p>Flag to use Euler angles to parameterize rotation of the body. </p>
 <p>Default constructor. </p>
 
 </div>
 </div>
-<a class="anchor" id="aa4749e15fa8dd87cc0cf7117ad5a9485"></a><!-- doxytag: member="OpenSim::BallJoint::BallJoint" ref="aa4749e15fa8dd87cc0cf7117ad5a9485" args="(const std::string &amp;name, OpenSim::Body &amp;parent, SimTK::Vec3 locationInParent, SimTK::Vec3 orientationInParent, OpenSim::Body &amp;body, SimTK::Vec3 locationInBody, SimTK::Vec3 orientationInBody, bool useEulerAngles=true, bool reverse=false)" -->
+<a class="anchor" id="a90c2c648d86f046af7bb02626b9bb9ef"></a><!-- doxytag: member="OpenSim::BallJoint::BallJoint" ref="a90c2c648d86f046af7bb02626b9bb9ef" args="(const std::string &amp;name, OpenSim::Body &amp;parent, SimTK::Vec3 locationInParent, SimTK::Vec3 orientationInParent, OpenSim::Body &amp;body, SimTK::Vec3 locationInBody, SimTK::Vec3 orientationInBody, bool reverse=false)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -148,12 +145,6 @@ Inheritance diagram for OpenSim::BallJoint:</div>
           <td></td>
           <td class="paramtype">SimTK::Vec3&nbsp;</td>
           <td class="paramname"> <em>orientationInBody</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&nbsp;</td>
-          <td class="paramname"> <em>useEulerAngles</em> = <code>true</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -454,41 +445,12 @@ Inheritance diagram for OpenSim::BallJoint:</div>
 
 </div>
 </div>
-<hr/><h2>Member Data Documentation</h2>
-<a class="anchor" id="ae87d059bc58c48a672e27450adf50a48"></a><!-- doxytag: member="OpenSim::BallJoint::_useEulerAngles" ref="ae87d059bc58c48a672e27450adf50a48" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool&amp; <a class="el" href="classOpenSim_1_1BallJoint.html#ae87d059bc58c48a672e27450adf50a48">OpenSim::BallJoint::_useEulerAngles</a><code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="af4c1570cc0a2d34250628b8f21caa3c8"></a><!-- doxytag: member="OpenSim::BallJoint::_useEulerAnglesProp" ref="af4c1570cc0a2d34250628b8f21caa3c8" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classOpenSim_1_1PropertyBool.html">PropertyBool</a> <a class="el" href="classOpenSim_1_1BallJoint.html#af4c1570cc0a2d34250628b8f21caa3c8">OpenSim::BallJoint::_useEulerAnglesProp</a><code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Flag to use Euler angles to parameterize rotation of the body. </p>
-
-</div>
-</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>OpenSim/Simulation/SimbodyEngine/BallJoint.h</li>
 <li>OpenSim/Simulation/SimbodyEngine/BallJoint.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Jun 5 10:14:16 2011 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Sep 25 00:20:01 2011 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

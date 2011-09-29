@@ -160,4 +160,8 @@ public class ArrayDouble {
     return opensimModelJNI.ArrayDouble_searchBinary__SWIG_3(swigCPtr, this, aValue);
   }
 
+  public void setValues(double[] dValues, int size) {
+    opensimModelJNI.ArrayDouble_setValues(swigCPtr, this, dValues, size);
+  }
+
 }

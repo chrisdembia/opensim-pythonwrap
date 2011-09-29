@@ -72,7 +72,7 @@ public class Installer extends ModuleInstall {
 
     public void restored() {
         super.restored();
-        System.setProperty ("netbeans.buildnumber", "2.3.1"); // Should get that from JNI but sometimes doesn't work'
+        System.setProperty ("netbeans.buildnumber", "2.4.0"); // Should get that from JNI but sometimes doesn't work'
         try {
              // Put your startup code here.
             UIManager.setLookAndFeel( UIManager.getSystemLookAndFeelClassName() );
@@ -190,5 +190,8 @@ public class Installer extends ModuleInstall {
          saved = Preferences.userNodeForPackage(TheApp.class).get("Joint Frame Scale", defaultJointFrameSize);
          Preferences.userNodeForPackage(TheApp.class).put("Joint Frame Scale", saved);
 
+         String displayContactGeometry = "On";
+         saved = Preferences.userNodeForPackage(TheApp.class).get("Display Contact Geometry", displayContactGeometry);
+         Preferences.userNodeForPackage(TheApp.class).put("Display Contact Geometry", saved);
     }
 }

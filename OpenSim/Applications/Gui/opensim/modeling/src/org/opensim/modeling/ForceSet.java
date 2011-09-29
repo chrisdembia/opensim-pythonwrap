@@ -100,12 +100,12 @@ public class ForceSet extends ModelComponentSetForces {
     return new SetActuators(opensimModelJNI.ForceSet_updActuators(swigCPtr, this), false);
   }
 
-  public SWIGTYPE_p_OpenSim__SetT_OpenSim__Muscle_t getMuscles() {
-    return new SWIGTYPE_p_OpenSim__SetT_OpenSim__Muscle_t(opensimModelJNI.ForceSet_getMuscles(swigCPtr, this), false);
+  public SetMuscles getMuscles() {
+    return new SetMuscles(opensimModelJNI.ForceSet_getMuscles(swigCPtr, this), false);
   }
 
-  public SWIGTYPE_p_OpenSim__SetT_OpenSim__Muscle_t updMuscles() {
-    return new SWIGTYPE_p_OpenSim__SetT_OpenSim__Muscle_t(opensimModelJNI.ForceSet_updMuscles(swigCPtr, this), false);
+  public SetMuscles updMuscles() {
+    return new SetMuscles(opensimModelJNI.ForceSet_updMuscles(swigCPtr, this), false);
   }
 
   public void getStateVariableNames(ArrayStr rNames) {

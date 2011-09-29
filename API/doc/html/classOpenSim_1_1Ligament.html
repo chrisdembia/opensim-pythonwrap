@@ -61,6 +61,8 @@ Inheritance diagram for OpenSim::Ligament:</div>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Ligament.html#a5bafddce4350256d59fb43828307b981">copyData</a> (const <a class="el" href="classOpenSim_1_1Ligament.html">Ligament</a> &amp;aLigament)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Copy data members from one ligament to another.  <a href="#a5bafddce4350256d59fb43828307b981"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1GeometryPath.html">GeometryPath</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Ligament.html#acf1128a7371981046035f6ca91426f26">getGeometryPath</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Ligament.html#a1aca80c56809bd6f684fc802895996e3">hasGeometryPath</a> () const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">return a flag indicating whether the <a class="el" href="classOpenSim_1_1Force.html" title="This abstract class represents a force applied to bodies or generalized coordinates...">Force</a> is applied along a Path if you override this method to return true for a specific subclass, it must also implement the <a class="el" href="classOpenSim_1_1Ligament.html#acf1128a7371981046035f6ca91426f26">getGeometryPath()</a> mathod  <a href="#a1aca80c56809bd6f684fc802895996e3"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Ligament.html#a11542ae1cabd3533cede5de805a1c9e3">getLength</a> (const SimTK::State &amp;s) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the length of the ligament.  <a href="#a11542ae1cabd3533cede5de805a1c9e3"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Ligament.html#a33bd7cde8a04f95df36f25a522e0be53">getRestingLength</a> () const </td></tr>
@@ -429,6 +431,27 @@ Inheritance diagram for OpenSim::Ligament:</div>
 
 </div>
 </div>
+<a class="anchor" id="a1aca80c56809bd6f684fc802895996e3"></a><!-- doxytag: member="OpenSim::Ligament::hasGeometryPath" ref="a1aca80c56809bd6f684fc802895996e3" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool OpenSim::Ligament::hasGeometryPath </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [inline, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>return a flag indicating whether the <a class="el" href="classOpenSim_1_1Force.html" title="This abstract class represents a force applied to bodies or generalized coordinates...">Force</a> is applied along a Path if you override this method to return true for a specific subclass, it must also implement the <a class="el" href="classOpenSim_1_1Ligament.html#acf1128a7371981046035f6ca91426f26">getGeometryPath()</a> mathod </p>
+
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1Force.html#a61db10abf8d977ea1f496d187c7a514f">OpenSim::Force</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a92fa7940f7feee808e16384c387803bf"></a><!-- doxytag: member="OpenSim::Ligament::initState" ref="a92fa7940f7feee808e16384c387803bf" args="(SimTK::State &amp;s) const " -->
 <div class="memitem">
 <div class="memproto">
@@ -743,6 +766,8 @@ Inheritance diagram for OpenSim::Ligament:</div>
 
 <p>Update the visible object used to represent the <a class="el" href="classOpenSim_1_1Ligament.html" title="A class implementing a ligament.">Ligament</a>. </p>
 
+<p>Reimplemented from <a class="el" href="classOpenSim_1_1ModelComponent.html#a97f4792ee18082812172d173b42b3559">OpenSim::ModelComponent</a>.</p>
+
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
@@ -861,7 +886,7 @@ Inheritance diagram for OpenSim::Ligament:</div>
 <li>OpenSim/Simulation/Model/Ligament.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Jun 5 10:14:13 2011 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Sep 25 00:19:58 2011 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

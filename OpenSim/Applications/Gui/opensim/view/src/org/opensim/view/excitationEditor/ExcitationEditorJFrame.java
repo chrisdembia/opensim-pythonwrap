@@ -81,6 +81,8 @@ public class ExcitationEditorJFrame extends javax.swing.JFrame {
         dPanel=new ExcitationEditorJPanel(this, null);
         getContentPane().add(dPanel, BorderLayout.CENTER);
         setIconImage(TheApp.getAppImage());
+        if (controls.getDocumentFileName().equalsIgnoreCase(""))
+            SaveButton.setEnabled(false);
         setTitle("Excitation Editor: Editing file "+new File(controls.getDocumentFileName()).getName());
         pack();
         dPanel.populate(controls, false);
@@ -348,7 +350,9 @@ public class ExcitationEditorJFrame extends javax.swing.JFrame {
         String fileName = FileUtils.getInstance().browseForFilenameToSave(
                 FileUtils.getFileFilter(".xml", "Save excitations to file"), true, "controls.xml", this);
          if(fileName!=null) {
-            dPanel.getControlSet().copy().print(fileName);  // We should also switch current set to use the saveAs file
+            dPanel.getControlSet().print(fileName);  // We should also switch current set to use the saveAs file
+            String temp=dPanel.getControlSet().getDocumentFileName();
+            int x=0;
          }
 // TODO add your handling code here:
     }//GEN-LAST:event_jSaveAsMenuItemActionPerformed
@@ -407,8 +411,12 @@ public class ExcitationEditorJFrame extends javax.swing.JFrame {
     private void jLoadMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLoadMenuItemActionPerformed
 // TODO add your handling code here:
         //Browse for existing xml file
-        if (dPanel.getControlSet()!=null)
+        if (dPanel.getControlSet()!=null){
+            Object answer = DialogDisplayer.getDefault().notify(
+                    new NotifyDescriptor.Confirmation("Loading a new file will erase the current content of the excitation editor. Do you want to proceed?",NotifyDescriptor.YES_NO_OPTION));
+            if (answer==NotifyDescriptor.NO_OPTION) return;
             dPanel.clear();
+        }
          String fileName = FileUtils.getInstance().browseForFilename(".xml", "Controls XML file", this);
          if(fileName!=null) {
          OpenSimObject objGeneric = OpenSimObject.makeObjectFromFile(fileName);

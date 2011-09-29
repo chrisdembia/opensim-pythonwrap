@@ -2,25 +2,17 @@ package org.opensim.view.nodes;
 
 import java.awt.Image;
 import java.net.URL;
+import java.util.List;
 import javax.swing.ImageIcon;
-import java.io.IOException;
 import java.util.ResourceBundle;
-import java.util.Stack;
 import javax.swing.Action;
-import org.openide.DialogDisplayer;
-import org.openide.NotifyDescriptor;
-import org.openide.actions.NewAction;
-import org.openide.actions.PropertiesAction;
-import org.openide.actions.ToolsAction;
 import org.openide.nodes.Children;
 import org.openide.nodes.Node;
-import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
-import org.openide.util.actions.SystemAction;
-import org.openide.util.datatransfer.NewType;
 import org.opensim.modeling.Body;
 import org.opensim.modeling.BodySet;
-import org.opensim.modeling.Model;
+import org.opensim.view.BodyToggleFrameAction;
+import org.opensim.view.nodes.OpenSimObjectNode.displayOption;
 
 /**
  * Node class to wrap Model's collection of SimmBodies
@@ -82,6 +74,23 @@ public class BodiesNode extends OpenSimObjectSetNode {
     public String getHtmlDisplayName() {
         
         return "Bodies";
+    }
+    
+    public Action[] getActions(boolean b) {
+        Action[] superActions = (Action[]) super.getActions(b);        
+        // Arrays are fixed size, onvert to a List
+        List<Action> actions = java.util.Arrays.asList(superActions);
+        // Create new Array of proper size
+        Action[] retActions = new Action[actions.size()+1];
+        actions.toArray(retActions);
+        try {
+            // append new command to the end of the list of actions
+            retActions[actions.size()] = (BodyToggleCOMAction) BodyToggleCOMAction.findObject(
+                     (Class)Class.forName("org.opensim.view.nodes.BodyToggleCOMAction"), true);
+        } catch (ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }
+        return retActions;
     }
     
 } // class BodiesNode

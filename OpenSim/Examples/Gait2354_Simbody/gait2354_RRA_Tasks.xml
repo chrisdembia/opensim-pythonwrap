@@ -7,7 +7,7 @@
 			<on> false </on>
 				<!--Weight with which a task is tracked relative to other tasks. To track
 				    a task more tightly, make the weight larger.-->
-				<weight>       1.00000000       1.00000000       1.00000000 </weight>
+				<weight> 100.00000000 </weight>
 				<!--Name of body frame with respect to which a tracking objective is
 				    specified. The special name 'center_of_mass' refers to the system
 				    center of mass. This property is not used for tracking joint angles.-->
@@ -53,7 +53,7 @@
 				<on> true </on>
 				<!--Weight with which a task is tracked relative to other tasks. To track
 				    a task more tightly, make the weight larger.-->
-				<weight>       1.00000000       1.00000000       1.00000000 </weight>
+				<weight> 100.00000000 </weight>
 				<!--Name of body frame with respect to which a tracking objective is
 				    specified. The special name 'center_of_mass' refers to the system
 				    center of mass. This property is not used for tracking joint angles.-->
@@ -97,7 +97,7 @@
 				<on> true </on>
 				<!--Weight with which a task is tracked relative to other tasks. To track
 				    a task more tightly, make the weight larger.-->
-				<weight>       1.00000000       1.00000000       1.00000000 </weight>
+				<weight> 100.00000000 </weight>
 				<!--Name of body frame with respect to which a tracking objective is
 				    specified. The special name 'center_of_mass' refers to the system
 				    center of mass. This property is not used for tracking joint angles.-->
@@ -141,7 +141,7 @@
 				<on> true </on>
 				<!--Weight with which a task is tracked relative to other tasks. To track
 				    a task more tightly, make the weight larger.-->
-				<weight>       1.00000000       1.00000000       1.00000000 </weight>
+				<weight> 100.00000000 </weight>
 				<!--Name of body frame with respect to which a tracking objective is
 				    specified. The special name 'center_of_mass' refers to the system
 				    center of mass. This property is not used for tracking joint angles.-->
@@ -185,7 +185,7 @@
 				<on> true </on>
 				<!--Weight with which a task is tracked relative to other tasks. To track
 				    a task more tightly, make the weight larger.-->
-				<weight>       1.00000000       1.00000000       1.00000000 </weight>
+				<weight> 100.00000000 </weight>
 				<!--Name of body frame with respect to which a tracking objective is
 				    specified. The special name 'center_of_mass' refers to the system
 				    center of mass. This property is not used for tracking joint angles.-->
@@ -229,7 +229,7 @@
 				<on> true </on>
 				<!--Weight with which a task is tracked relative to other tasks. To track
 				    a task more tightly, make the weight larger.-->
-				<weight>       1.00000000       1.00000000       1.00000000 </weight>
+				<weight> 100.00000000 </weight>
 				<!--Name of body frame with respect to which a tracking objective is
 				    specified. The special name 'center_of_mass' refers to the system
 				    center of mass. This property is not used for tracking joint angles.-->
@@ -273,7 +273,7 @@
 				<on> true </on>
 				<!--Weight with which a task is tracked relative to other tasks. To track
 				    a task more tightly, make the weight larger.-->
-				<weight>       1.00000000       1.00000000       1.00000000 </weight>
+				<weight> 100.00000000 </weight>
 				<!--Name of body frame with respect to which a tracking objective is
 				    specified. The special name 'center_of_mass' refers to the system
 				    center of mass. This property is not used for tracking joint angles.-->
@@ -317,7 +317,7 @@
 				<on> true </on>
 				<!--Weight with which a task is tracked relative to other tasks. To track
 				    a task more tightly, make the weight larger.-->
-				<weight>       1.00000000       1.00000000       1.00000000 </weight>
+				<weight> 100.00000000 </weight>
 				<!--Name of body frame with respect to which a tracking objective is
 				    specified. The special name 'center_of_mass' refers to the system
 				    center of mass. This property is not used for tracking joint angles.-->
@@ -361,7 +361,7 @@
 				<on> true </on>
 				<!--Weight with which a task is tracked relative to other tasks. To track
 				    a task more tightly, make the weight larger.-->
-				<weight>       1.00000000       1.00000000       1.00000000 </weight>
+				<weight> 100.00000000 </weight>
 				<!--Name of body frame with respect to which a tracking objective is
 				    specified. The special name 'center_of_mass' refers to the system
 				    center of mass. This property is not used for tracking joint angles.-->
@@ -405,7 +405,7 @@
 				<on> true </on>
 				<!--Weight with which a task is tracked relative to other tasks. To track
 				    a task more tightly, make the weight larger.-->
-				<weight>       1.00000000       1.00000000       1.00000000 </weight>
+				<weight> 100.00000000 </weight>
 				<!--Name of body frame with respect to which a tracking objective is
 				    specified. The special name 'center_of_mass' refers to the system
 				    center of mass. This property is not used for tracking joint angles.-->
@@ -449,7 +449,7 @@
 				<on> true </on>
 				<!--Weight with which a task is tracked relative to other tasks. To track
 				    a task more tightly, make the weight larger.-->
-				<weight>       1.00000000       1.00000000       1.00000000 </weight>
+				<weight> 100.00000000 </weight>
 				<!--Name of body frame with respect to which a tracking objective is
 				    specified. The special name 'center_of_mass' refers to the system
 				    center of mass. This property is not used for tracking joint angles.-->
@@ -493,7 +493,7 @@
 				<on> true </on>
 				<!--Weight with which a task is tracked relative to other tasks. To track
 				    a task more tightly, make the weight larger.-->
-				<weight>       1.00000000       1.00000000       1.00000000 </weight>
+				<weight> 100.00000000 </weight>
 				<!--Name of body frame with respect to which a tracking objective is
 				    specified. The special name 'center_of_mass' refers to the system
 				    center of mass. This property is not used for tracking joint angles.-->
@@ -537,7 +537,7 @@
 				<on> true </on>
 				<!--Weight with which a task is tracked relative to other tasks. To track
 				    a task more tightly, make the weight larger.-->
-				<weight>       1.00000000       1.00000000       1.00000000 </weight>
+				<weight> 100.00000000 </weight>
 				<!--Name of body frame with respect to which a tracking objective is
 				    specified. The special name 'center_of_mass' refers to the system
 				    center of mass. This property is not used for tracking joint angles.-->
@@ -581,7 +581,7 @@
 				<on> true </on>
 				<!--Weight with which a task is tracked relative to other tasks. To track
 				    a task more tightly, make the weight larger.-->
-				<weight>       1.00000000       1.00000000       1.00000000 </weight>
+				<weight> 100.00000000 </weight>
 				<!--Name of body frame with respect to which a tracking objective is
 				    specified. The special name 'center_of_mass' refers to the system
 				    center of mass. This property is not used for tracking joint angles.-->
@@ -625,7 +625,7 @@
 				<on> true </on>
 				<!--Weight with which a task is tracked relative to other tasks. To track
 				    a task more tightly, make the weight larger.-->
-				<weight>       1.00000000       1.00000000       1.00000000 </weight>
+				<weight> 100.00000000 </weight>
 				<!--Name of body frame with respect to which a tracking objective is
 				    specified. The special name 'center_of_mass' refers to the system
 				    center of mass. This property is not used for tracking joint angles.-->
@@ -669,7 +669,7 @@
 				<on> true </on>
 				<!--Weight with which a task is tracked relative to other tasks. To track
 				    a task more tightly, make the weight larger.-->
-				<weight>       1.00000000       1.00000000       1.00000000 </weight>
+				<weight> 100.00000000 </weight>
 				<!--Name of body frame with respect to which a tracking objective is
 				    specified. The special name 'center_of_mass' refers to the system
 				    center of mass. This property is not used for tracking joint angles.-->
@@ -713,7 +713,7 @@
 				<on> true </on>
 				<!--Weight with which a task is tracked relative to other tasks. To track
 				    a task more tightly, make the weight larger.-->
-				<weight>       1.00000000       1.00000000       1.00000000 </weight>
+				<weight> 100.00000000 </weight>
 				<!--Name of body frame with respect to which a tracking objective is
 				    specified. The special name 'center_of_mass' refers to the system
 				    center of mass. This property is not used for tracking joint angles.-->
@@ -757,7 +757,7 @@
 				<on> true </on>
 				<!--Weight with which a task is tracked relative to other tasks. To track
 				    a task more tightly, make the weight larger.-->
-				<weight>       1.00000000       1.00000000       1.00000000 </weight>
+				<weight> 100.00000000 </weight>
 				<!--Name of body frame with respect to which a tracking objective is
 				    specified. The special name 'center_of_mass' refers to the system
 				    center of mass. This property is not used for tracking joint angles.-->
@@ -801,7 +801,7 @@
 				<on> true </on>
 				<!--Weight with which a task is tracked relative to other tasks. To track
 				    a task more tightly, make the weight larger.-->
-				<weight>       1.00000000       1.00000000       1.00000000 </weight>
+				<weight> 100.00000000 </weight>
 				<!--Name of body frame with respect to which a tracking objective is
 				    specified. The special name 'center_of_mass' refers to the system
 				    center of mass. This property is not used for tracking joint angles.-->
@@ -845,7 +845,7 @@
 				<on> true </on>
 				<!--Weight with which a task is tracked relative to other tasks. To track
 				    a task more tightly, make the weight larger.-->
-				<weight>       1.00000000       1.00000000       1.00000000 </weight>
+				<weight> 100.00000000 </weight>
 				<!--Name of body frame with respect to which a tracking objective is
 				    specified. The special name 'center_of_mass' refers to the system
 				    center of mass. This property is not used for tracking joint angles.-->
@@ -889,7 +889,7 @@
 				<on> true </on>
 				<!--Weight with which a task is tracked relative to other tasks. To track
 				    a task more tightly, make the weight larger.-->
-				<weight>       1.00000000       1.00000000       1.00000000 </weight>
+				<weight> 100.00000000 </weight>
 				<!--Name of body frame with respect to which a tracking objective is
 				    specified. The special name 'center_of_mass' refers to the system
 				    center of mass. This property is not used for tracking joint angles.-->
@@ -933,7 +933,7 @@
 				<on> true </on>
 				<!--Weight with which a task is tracked relative to other tasks. To track
 				    a task more tightly, make the weight larger.-->
-				<weight>       1.00000000       1.00000000       1.00000000 </weight>
+				<weight> 100.00000000 </weight>
 				<!--Name of body frame with respect to which a tracking objective is
 				    specified. The special name 'center_of_mass' refers to the system
 				    center of mass. This property is not used for tracking joint angles.-->
@@ -977,7 +977,7 @@
 				<on> true </on>
 				<!--Weight with which a task is tracked relative to other tasks. To track
 				    a task more tightly, make the weight larger.-->
-				<weight>       1.00000000       1.00000000       1.00000000 </weight>
+				<weight> 100.00000000 </weight>
 				<!--Name of body frame with respect to which a tracking objective is
 				    specified. The special name 'center_of_mass' refers to the system
 				    center of mass. This property is not used for tracking joint angles.-->
@@ -1021,7 +1021,7 @@
 				<on> true </on>
 				<!--Weight with which a task is tracked relative to other tasks. To track
 				    a task more tightly, make the weight larger.-->
-				<weight>       1.00000000       1.00000000       1.00000000 </weight>
+				<weight> 100.00000000 </weight>
 				<!--Name of body frame with respect to which a tracking objective is
 				    specified. The special name 'center_of_mass' refers to the system
 				    center of mass. This property is not used for tracking joint angles.-->

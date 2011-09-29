@@ -64,10 +64,10 @@ Inheritance diagram for OpenSim::Controller:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Public model component interface to obtain the number of state variables introduced by the controller.  <a href="#a3b25804884367d71ded547913074c670"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Controller.html">Controller</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Controller.html#ac26632f9e4ea3ff48d79754cb4226c69">operator=</a> (const <a class="el" href="classOpenSim_1_1Controller.html">Controller</a> &amp;aController)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Assignment operator.  <a href="#ac26632f9e4ea3ff48d79754cb4226c69"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Controller.html#aff0733522594fcc519a44b1f73c67fc1">getIsEnabled</a> () const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get whether or not this controller is on.  <a href="#aff0733522594fcc519a44b1f73c67fc1"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Controller.html#a2cd188212ecef902f7cda28ed6b39160">setIsEnabled</a> (bool aTrueFalse)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Turn this controller on or off.  <a href="#a2cd188212ecef902f7cda28ed6b39160"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Controller.html#ab96bf22496e985b1c084465b6c850829">isDisabled</a> () const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get whether or not this controller is disabled.  <a href="#ab96bf22496e985b1c084465b6c850829"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Controller.html#aaf6bbaad6208bcb9246fcab41265f4a2">setDisabled</a> (bool aTrueFalse)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Disable this controller.  <a href="#aaf6bbaad6208bcb9246fcab41265f4a2"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Controller.html#a2df1b977388e8871c9fb9b1ca245d668">computeControls</a> (const SimTK::State &amp;s, SimTK::Vector &amp;controls) const =0</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Compute the control for actuator This method defines the behavior for any concrete controller and therefore must be implemented by concrete subclasses.  <a href="#a2df1b977388e8871c9fb9b1ca245d668"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Controller.html#abb02aa96f125989b7cb3d6c0b8e4b434">setActuators</a> (<a class="el" href="classOpenSim_1_1Set.html">Set</a>&lt; <a class="el" href="classOpenSim_1_1Actuator.html">Actuator</a> &gt; &amp;actuators)</td></tr>
@@ -96,8 +96,8 @@ Inheritance diagram for OpenSim::Controller:</div>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Controller.html#aec559ad1f64e7f0e5cc6479681ea5022">setDefaultsFromState</a> (const SimTK::State &amp;state)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a> component interface to initialize defualt values of the controller from/based on the given state.  <a href="#aec559ad1f64e7f0e5cc6479681ea5022"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Protected Attributes</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyBool.html">PropertyBool</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Controller.html#a5a27915312c708354999942713e115eb">_isControllerEnabledProp</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Controller.html#a45eb64ddf51614c9a8f2fc98faf0c932">_isControllerEnabled</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyBool.html">PropertyBool</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Controller.html#a2b9baee20e06a78cf44ea8bd04408ed8">_isDisabledProp</a></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Flag indicating whether the <a class="el" href="classOpenSim_1_1Controller.html">Controller</a> is disabled or not.  <a href="#a2b9baee20e06a78cf44ea8bd04408ed8"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Controller.html#a256f0fce9a0a37242bb8ef540395213a">_numControls</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">number of controls this controller computes  <a href="#a256f0fce9a0a37242bb8ef540395213a"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyStrArray.html">PropertyStrArray</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Controller.html#a20f5bfd232cdb65ad34a58b0cc59fccb">_actuatorNameListProp</a></td></tr>
@@ -410,26 +410,6 @@ Inheritance diagram for OpenSim::Controller:</div>
 
 </div>
 </div>
-<a class="anchor" id="aff0733522594fcc519a44b1f73c67fc1"></a><!-- doxytag: member="OpenSim::Controller::getIsEnabled" ref="aff0733522594fcc519a44b1f73c67fc1" args="() const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Controller::getIsEnabled </td>
-          <td>(</td>
-          <td class="paramname"></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Get whether or not this controller is on. </p>
-<dl class="return"><dt><b>Returns:</b></dt><dd>true if on, false if off. </dd></dl>
-
-</div>
-</div>
 <a class="anchor" id="a1181b53cceb732054991856b0f81ad30"></a><!-- doxytag: member="OpenSim::Controller::getLastTime" ref="a1181b53cceb732054991856b0f81ad30" args="() const " -->
 <div class="memitem">
 <div class="memproto">
@@ -491,6 +471,26 @@ Inheritance diagram for OpenSim::Controller:</div>
 <p>Reimplemented from <a class="el" href="classOpenSim_1_1ModelComponent.html#a96a4567ffb7c19a52855fb6d0fa2b9e1">OpenSim::ModelComponent</a>.</p>
 
 <p>Reimplemented in <a class="el" href="classOpenSim_1_1ConstantController.html#a060e976e318f72b81147198ab351df27">OpenSim::ConstantController</a>, <a class="el" href="classOpenSim_1_1ControlSetController.html#a8bdd38cd8d8e9bfbc81ca82241c4546a">OpenSim::ControlSetController</a>, and <a class="el" href="classOpenSim_1_1CorrectionController.html#a47e867c6621f2beb37a54a2eb22a9d67">OpenSim::CorrectionController</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ab96bf22496e985b1c084465b6c850829"></a><!-- doxytag: member="OpenSim::Controller::isDisabled" ref="ab96bf22496e985b1c084465b6c850829" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Controller::isDisabled </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Get whether or not this controller is disabled. </p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>true if on, false if off. </dd></dl>
 
 </div>
 </div>
@@ -570,26 +570,27 @@ Inheritance diagram for OpenSim::Controller:</div>
 
 </div>
 </div>
-<a class="anchor" id="a2cd188212ecef902f7cda28ed6b39160"></a><!-- doxytag: member="OpenSim::Controller::setIsEnabled" ref="a2cd188212ecef902f7cda28ed6b39160" args="(bool aTrueFalse)" -->
+<a class="anchor" id="aaf6bbaad6208bcb9246fcab41265f4a2"></a><!-- doxytag: member="OpenSim::Controller::setDisabled" ref="aaf6bbaad6208bcb9246fcab41265f4a2" args="(bool aTrueFalse)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Controller::setIsEnabled </td>
+          <td class="memname">void Controller::setDisabled </td>
           <td>(</td>
           <td class="paramtype">bool&nbsp;</td>
           <td class="paramname"> <em>aTrueFalse</em></td>
           <td>&nbsp;)&nbsp;</td>
-          <td></td>
+          <td><code> [virtual]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
-<p>Turn this controller on or off. </p>
+<p>Disable this controller. </p>
+<p>Turn this controller on or off.</p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>aTrueFalse</em>&nbsp;</td><td>Turns controller on if "true" and off if "false". </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>aTrueFalse</em>&nbsp;</td><td>Disable if true. </td></tr>
   </table>
   </dd>
 </dl>
@@ -700,29 +701,19 @@ Inheritance diagram for OpenSim::Controller:</div>
 
 </div>
 </div>
-<a class="anchor" id="a45eb64ddf51614c9a8f2fc98faf0c932"></a><!-- doxytag: member="OpenSim::Controller::_isControllerEnabled" ref="a45eb64ddf51614c9a8f2fc98faf0c932" args="" -->
+<a class="anchor" id="a2b9baee20e06a78cf44ea8bd04408ed8"></a><!-- doxytag: member="OpenSim::Controller::_isDisabledProp" ref="a2b9baee20e06a78cf44ea8bd04408ed8" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool <a class="el" href="classOpenSim_1_1Controller.html#a45eb64ddf51614c9a8f2fc98faf0c932">OpenSim::Controller::_isControllerEnabled</a><code> [protected]</code></td>
+          <td class="memname"><a class="el" href="classOpenSim_1_1PropertyBool.html">PropertyBool</a> <a class="el" href="classOpenSim_1_1Controller.html#a2b9baee20e06a78cf44ea8bd04408ed8">OpenSim::Controller::_isDisabledProp</a><code> [protected]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
-</div>
-</div>
-<a class="anchor" id="a5a27915312c708354999942713e115eb"></a><!-- doxytag: member="OpenSim::Controller::_isControllerEnabledProp" ref="a5a27915312c708354999942713e115eb" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classOpenSim_1_1PropertyBool.html">PropertyBool</a> <a class="el" href="classOpenSim_1_1Controller.html#a5a27915312c708354999942713e115eb">OpenSim::Controller::_isControllerEnabledProp</a><code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
+<p>Flag indicating whether the <a class="el" href="classOpenSim_1_1Controller.html">Controller</a> is disabled or not. </p>
+<p>Disabled means that the controller is not present in subsequent dynamics realizations. </p>
 
 </div>
 </div>
@@ -746,7 +737,7 @@ Inheritance diagram for OpenSim::Controller:</div>
 <li>OpenSim/Simulation/Control/Controller.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Jun 5 10:14:09 2011 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Sep 25 00:19:54 2011 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

@@ -363,6 +363,13 @@ public final class FileUtils {
                 if (b.length()>=1 && b.charAt(b.length() -1)=='/'){
                     b.setLength(b.length() -1);
                 }
+                // if windows and contain drive letter make sure there's no leading /'
+                if (isWindows()){
+                    if (b.indexOf(":")!= -1){
+                    String driveLetter = b.substring(0, b.indexOf(":")+1);
+                    if (b.charAt(0)=='/') b.deleteCharAt(0);
+                    }
+                }
                 relative = b.toString();
             }            
         }

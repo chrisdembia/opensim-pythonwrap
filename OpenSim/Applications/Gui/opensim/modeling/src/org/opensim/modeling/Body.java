@@ -77,11 +77,11 @@ public class Body extends ModelComponent {
   }
 
   public void getInertia(SWIGTYPE_p_SimTK__Mat33 rInertia) {
-    opensimModelJNI.Body_getInertia(swigCPtr, this, SWIGTYPE_p_SimTK__Mat33.getCPtr(rInertia));
+    opensimModelJNI.Body_getInertia__SWIG_0(swigCPtr, this, SWIGTYPE_p_SimTK__Mat33.getCPtr(rInertia));
   }
 
   public boolean setInertia(SWIGTYPE_p_SimTK__Inertia aInertia) {
-    return opensimModelJNI.Body_setInertia(swigCPtr, this, SWIGTYPE_p_SimTK__Inertia.getCPtr(aInertia));
+    return opensimModelJNI.Body_setInertia__SWIG_0(swigCPtr, this, SWIGTYPE_p_SimTK__Inertia.getCPtr(aInertia));
   }
 
   public boolean hasJoint() {
@@ -166,6 +166,18 @@ public class Body extends ModelComponent {
 
   public int getNumStateVariables() {
     return opensimModelJNI.Body_getNumStateVariables(swigCPtr, this);
+  }
+
+  public void getCenterOfMass(double[] dCom) {
+    opensimModelJNI.Body_getCenterOfMass(swigCPtr, this, dCom);
+  }
+
+  public void getInertia(ArrayDouble rInertia) {
+    opensimModelJNI.Body_getInertia__SWIG_1(swigCPtr, this, ArrayDouble.getCPtr(rInertia), rInertia);
+  }
+
+  public void setInertia(ArrayDouble aInertia) {
+    opensimModelJNI.Body_setInertia__SWIG_1(swigCPtr, this, ArrayDouble.getCPtr(aInertia), aInertia);
   }
 
 }

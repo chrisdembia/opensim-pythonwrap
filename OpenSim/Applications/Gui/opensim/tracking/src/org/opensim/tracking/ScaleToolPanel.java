@@ -47,9 +47,12 @@ import javax.swing.BorderFactory;
 import javax.swing.JCheckBox;
 import org.openide.DialogDescriptor;
 import org.openide.DialogDisplayer;
+import org.openide.NotifyDescriptor;
 import org.opensim.modeling.MarkerSet;
 import org.opensim.modeling.Model;
 import org.opensim.swingui.ComponentTitledBorder;
+import org.opensim.view.ModelEvent;
+import org.opensim.view.pub.OpenSimDB;
 
 public class ScaleToolPanel extends BaseToolPanel implements Observer {
   
@@ -136,6 +139,21 @@ public class ScaleToolPanel extends BaseToolPanel implements Observer {
    }
 
    public void update(Observable observable, Object obj) {
+      if (observable instanceof OpenSimDB){
+           if (obj instanceof ModelEvent) {
+                if (OpenSimDB.getInstance().hasModel(scaleToolModel.getUnscaledModel()))
+                    return;
+                else {
+                    scaleToolModel.deleteObserver(this);
+                    NotifyDescriptor.Message dlg =
+                          new NotifyDescriptor.Message("Model used by the tool is being closed.. Closing tool.");
+                    DialogDisplayer.getDefault().notify(dlg);
+                    this.close();
+                    return;
+                }        
+           }
+           return;
+      }
       if(observable == scaleToolModel && obj == ScaleToolModel.Operation.ExecutionStateChanged) {
          // Just need to update the buttons
          updateDialogButtons();

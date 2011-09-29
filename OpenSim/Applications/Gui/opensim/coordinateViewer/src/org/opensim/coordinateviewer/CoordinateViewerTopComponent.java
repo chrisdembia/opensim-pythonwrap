@@ -220,7 +220,8 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
     }// </editor-fold>//GEN-END:initComponents
 
    private void jPosesButtonMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPosesButtonMousePressed
-      jPosesPopupMenu.show(evt.getComponent(), evt.getX(), evt.getY());
+      if (hasModel)
+          jPosesPopupMenu.show(evt.getComponent(), evt.getX(), evt.getY());
    }//GEN-LAST:event_jPosesButtonMousePressed
 
    private void jPosesButtonMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPosesButtonMouseReleased
@@ -344,6 +345,16 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
          coords = null;    // Don't keep reference to old model's coordinates to avoid memory leak'
          mapCoordinates2Sliders.clear();
          updateAvailability();
+         updatePosesPopup();
+         return;
+      }
+      else if (aModel instanceof ModelForExperimentalData){
+          jModelNameLabel.setText("");
+         coords = null;    // Don't keep reference to old model's coordinates to avoid memory leak'
+         mapCoordinates2Sliders.clear();
+         hasModel = false;
+         updateAvailability();
+         updatePosesPopup();
          return;
       }
       openSimContext = OpenSimDB.getInstance().getContext(aModel);
@@ -460,6 +471,7 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
          jRestorePoseButton.setEnabled(modelHasFile && prefs.getNumPoses()>0);
          jDeletePoseButton.setEnabled(modelHasFile && prefs.getNumPoses()>0);
       }
+          
    }
    
    private void updateDisplayGroup() {
@@ -527,6 +539,7 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
 
    private void updatePosesPopup() {
          jPosesPopupMenu.removeAll();
+         if (!hasModel) return;
          // Add items to select poses with callback to apply them
          createDefaultPoseIfNeeded(prefs.getPoses());
          final Vector<ModelPose> poses =prefs.getPoses();

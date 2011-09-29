@@ -59,6 +59,8 @@ Inheritance diagram for OpenSim::MarkerPlacer:</div>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1MarkerPlacer.html">MarkerPlacer</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1MarkerPlacer.html#a14e2cadd2583d89f4695ebdc07b1eedf">operator=</a> (const <a class="el" href="classOpenSim_1_1MarkerPlacer.html">MarkerPlacer</a> &amp;aMarkerPlacementParams)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Assignment operator.  <a href="#a14e2cadd2583d89f4695ebdc07b1eedf"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1MarkerPlacer.html#ae034015e2d52d3143d5eca2a23217563">processModel</a> (SimTK::State &amp;s, <a class="el" href="classOpenSim_1_1Model.html">Model</a> *aModel, const std::string &amp;aPathToSubject=&quot;&quot;)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1MarkerPlacer.html#a43972634de79513bcc5b317c362f2e1c">getApply</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1MarkerPlacer.html#a46cbcbae8bc1c55c4397113457ab08c1">setApply</a> (bool aApply)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">const std::string &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1MarkerPlacer.html#aa1f1383dc78ffb1ffba91708facc029b">getStaticPoseFileName</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1MarkerPlacer.html#ae9e47d965f0c6b740696b7e915210bb7">setStaticPoseFileName</a> (const std::string &amp;aFileName)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classOpenSim_1_1Array.html">Array</a>&lt; double &gt; &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1MarkerPlacer.html#aef5563eff73a06c0bdfa12cd73652fc4">getTimeRange</a> () const </td></tr>
@@ -79,6 +81,8 @@ Inheritance diagram for OpenSim::MarkerPlacer:</div>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1MarkerPlacer.html#a339de9c392c24b6478c368368ccd380e">setMoveModelMarkers</a> (bool aMove)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Storage.html">Storage</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1MarkerPlacer.html#a4bc0d03a1e0e1b88e6686d6694fe814d">getOutputStorage</a> ()</td></tr>
 <tr><td colspan="2"><h2>Protected Attributes</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyBool.html">PropertyBool</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1MarkerPlacer.html#a30b3268553d0408bbb5acf085c85f213">_applyProp</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1MarkerPlacer.html#a8e006ba652f67b98d3d32b113ab40a3f">_apply</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyStr.html">PropertyStr</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1MarkerPlacer.html#a702068d940a7dd72421ff9648266bfe4">_markerFileNameProp</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::string &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1MarkerPlacer.html#afd6d621db46f52d61ec0a292b36c419d">_markerFileName</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyDblArray.html">PropertyDblArray</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1MarkerPlacer.html#a7331b27041c9c525b263ecda8cb137df">_timeRangeProp</a></td></tr>
@@ -215,6 +219,23 @@ Inheritance diagram for OpenSim::MarkerPlacer:</div>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a class="anchor" id="a43972634de79513bcc5b317c362f2e1c"></a><!-- doxytag: member="OpenSim::MarkerPlacer::getApply" ref="a43972634de79513bcc5b317c362f2e1c" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OpenSim::MarkerPlacer::getApply </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
 
 </div>
 </div>
@@ -444,6 +465,24 @@ Inheritance diagram for OpenSim::MarkerPlacer:</div>
 
 </div>
 </div>
+<a class="anchor" id="a46cbcbae8bc1c55c4397113457ab08c1"></a><!-- doxytag: member="OpenSim::MarkerPlacer::setApply" ref="a46cbcbae8bc1c55c4397113457ab08c1" args="(bool aApply)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenSim::MarkerPlacer::setApply </td>
+          <td>(</td>
+          <td class="paramtype">bool&nbsp;</td>
+          <td class="paramname"> <em>aApply</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="ab1c9d5c369ffca285c79950950547216"></a><!-- doxytag: member="OpenSim::MarkerPlacer::setCoordinateFileName" ref="ab1c9d5c369ffca285c79950950547216" args="(const std::string &amp;aCoordinateFileName)" -->
 <div class="memitem">
 <div class="memproto">
@@ -607,6 +646,32 @@ Inheritance diagram for OpenSim::MarkerPlacer:</div>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
+<a class="anchor" id="a8e006ba652f67b98d3d32b113ab40a3f"></a><!-- doxytag: member="OpenSim::MarkerPlacer::_apply" ref="a8e006ba652f67b98d3d32b113ab40a3f" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool&amp; <a class="el" href="classOpenSim_1_1MarkerPlacer.html#a8e006ba652f67b98d3d32b113ab40a3f">OpenSim::MarkerPlacer::_apply</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a30b3268553d0408bbb5acf085c85f213"></a><!-- doxytag: member="OpenSim::MarkerPlacer::_applyProp" ref="a30b3268553d0408bbb5acf085c85f213" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classOpenSim_1_1PropertyBool.html">PropertyBool</a> <a class="el" href="classOpenSim_1_1MarkerPlacer.html#a30b3268553d0408bbb5acf085c85f213">OpenSim::MarkerPlacer::_applyProp</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a56d1259e9bd26415225bcb0937c0dd73"></a><!-- doxytag: member="OpenSim::MarkerPlacer::_coordinateFileName" ref="a56d1259e9bd26415225bcb0937c0dd73" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -859,7 +924,7 @@ Inheritance diagram for OpenSim::MarkerPlacer:</div>
 <li>OpenSim/Tools/MarkerPlacer.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Jun 5 10:14:21 2011 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Sep 25 00:20:07 2011 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

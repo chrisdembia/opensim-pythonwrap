@@ -49,9 +49,9 @@ Inheritance diagram for OpenSim::FreeJoint:</div>
 <table border="0" cellpadding="0" cellspacing="0">
 <tr><td colspan="2"><h2>Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1FreeJoint.html#a77cc04f760dab51eb7143f6e6a0c9d34">FreeJoint</a> ()</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Default constructor.  <a href="#a77cc04f760dab51eb7143f6e6a0c9d34"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1FreeJoint.html#aa60abf212d5a2688ce824e301e58bef2">FreeJoint</a> (const std::string &amp;name, <a class="el" href="classOpenSim_1_1Body.html">Body</a> &amp;parent, SimTK::Vec3 locationInParent, SimTK::Vec3 orientationInParent, <a class="el" href="classOpenSim_1_1Body.html">Body</a> &amp;body, SimTK::Vec3 locationInBody, SimTK::Vec3 orientationInBody, bool useEulerAngles=true, bool reverse=false)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Convenience Constructor.  <a href="#aa60abf212d5a2688ce824e301e58bef2"></a><br/></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Flag to use Euler angles to parameterize rotation of the body.  <a href="#a77cc04f760dab51eb7143f6e6a0c9d34"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1FreeJoint.html#a39f5ff41ef4f89ca60c3ac2998e9702d">FreeJoint</a> (const std::string &amp;name, <a class="el" href="classOpenSim_1_1Body.html">Body</a> &amp;parent, SimTK::Vec3 locationInParent, SimTK::Vec3 orientationInParent, <a class="el" href="classOpenSim_1_1Body.html">Body</a> &amp;body, SimTK::Vec3 locationInBody, SimTK::Vec3 orientationInBody, bool reverse=false)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Convenience Constructor.  <a href="#a39f5ff41ef4f89ca60c3ac2998e9702d"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1FreeJoint.html#aa36eaef113b8e2d284e8a433312442b1">FreeJoint</a> (const <a class="el" href="classOpenSim_1_1FreeJoint.html">FreeJoint</a> &amp;aJoint)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Copy constructor.  <a href="#aa36eaef113b8e2d284e8a433312442b1"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1FreeJoint.html#aa5247d62fcbe3f58dcae99a5e2960a05">~FreeJoint</a> ()</td></tr>
@@ -75,10 +75,6 @@ Inheritance diagram for OpenSim::FreeJoint:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This is called after a SimTK System and State have been created for the <a class="el" href="classOpenSim_1_1Model.html" title="A concrete class that specifies the interface to a musculoskeletal model.">Model</a>.  <a href="#a781e02c6ad8daf63ffc4da968313656f"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1FreeJoint.html#a9919ece40776184bc18b0c71aa068fea">setDefaultsFromState</a> (const SimTK::State &amp;state)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classOpenSim_1_1Set.html" title="A class for holding a set of pointers to objects.">Set</a> all default values for this object to match those in a specified State.  <a href="#a9919ece40776184bc18b0c71aa068fea"></a><br/></td></tr>
-<tr><td colspan="2"><h2>Protected Attributes</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyBool.html">PropertyBool</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1FreeJoint.html#a0a98ceb97f435c2b50bdb81b2e748b90">_useEulerAnglesProp</a></td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Flag to use Euler angles to parameterize rotation of the body.  <a href="#a0a98ceb97f435c2b50bdb81b2e748b90"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1FreeJoint.html#a1e52ae98c30577662ac023fdeee40b44">_useEulerAngles</a></td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
 <p>A class implementing a Free joint. </p>
@@ -101,11 +97,12 @@ Inheritance diagram for OpenSim::FreeJoint:</div>
 </div>
 <div class="memdoc">
 
+<p>Flag to use Euler angles to parameterize rotation of the body. </p>
 <p>Default constructor. </p>
 
 </div>
 </div>
-<a class="anchor" id="aa60abf212d5a2688ce824e301e58bef2"></a><!-- doxytag: member="OpenSim::FreeJoint::FreeJoint" ref="aa60abf212d5a2688ce824e301e58bef2" args="(const std::string &amp;name, Body &amp;parent, SimTK::Vec3 locationInParent, SimTK::Vec3 orientationInParent, Body &amp;body, SimTK::Vec3 locationInBody, SimTK::Vec3 orientationInBody, bool useEulerAngles=true, bool reverse=false)" -->
+<a class="anchor" id="a39f5ff41ef4f89ca60c3ac2998e9702d"></a><!-- doxytag: member="OpenSim::FreeJoint::FreeJoint" ref="a39f5ff41ef4f89ca60c3ac2998e9702d" args="(const std::string &amp;name, Body &amp;parent, SimTK::Vec3 locationInParent, SimTK::Vec3 orientationInParent, Body &amp;body, SimTK::Vec3 locationInBody, SimTK::Vec3 orientationInBody, bool reverse=false)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -150,12 +147,6 @@ Inheritance diagram for OpenSim::FreeJoint:</div>
           <td></td>
           <td class="paramtype">SimTK::Vec3&nbsp;</td>
           <td class="paramname"> <em>orientationInBody</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&nbsp;</td>
-          <td class="paramname"> <em>useEulerAngles</em> = <code>true</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -485,41 +476,12 @@ Inheritance diagram for OpenSim::FreeJoint:</div>
 
 </div>
 </div>
-<hr/><h2>Member Data Documentation</h2>
-<a class="anchor" id="a1e52ae98c30577662ac023fdeee40b44"></a><!-- doxytag: member="OpenSim::FreeJoint::_useEulerAngles" ref="a1e52ae98c30577662ac023fdeee40b44" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool&amp; <a class="el" href="classOpenSim_1_1FreeJoint.html#a1e52ae98c30577662ac023fdeee40b44">OpenSim::FreeJoint::_useEulerAngles</a><code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a0a98ceb97f435c2b50bdb81b2e748b90"></a><!-- doxytag: member="OpenSim::FreeJoint::_useEulerAnglesProp" ref="a0a98ceb97f435c2b50bdb81b2e748b90" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classOpenSim_1_1PropertyBool.html">PropertyBool</a> <a class="el" href="classOpenSim_1_1FreeJoint.html#a0a98ceb97f435c2b50bdb81b2e748b90">OpenSim::FreeJoint::_useEulerAnglesProp</a><code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Flag to use Euler angles to parameterize rotation of the body. </p>
-
-</div>
-</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>OpenSim/Simulation/SimbodyEngine/FreeJoint.h</li>
 <li>OpenSim/Simulation/SimbodyEngine/FreeJoint.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Jun 5 10:14:17 2011 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Sep 25 00:20:02 2011 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

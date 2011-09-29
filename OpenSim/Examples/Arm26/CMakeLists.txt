@@ -1,4 +1,4 @@
-SET(ARM26_FILES arm26.jnt arm26.msl arm26.osim)
+SET(ARM26_FILES arm26.osim)
 #FILE(GLOB BONE_FILES *.vtp)
 
 #INSTALL_FILES(/Geometry FILES ${BONE_FILES})

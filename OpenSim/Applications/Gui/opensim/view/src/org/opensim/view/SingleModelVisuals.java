@@ -47,12 +47,12 @@ import org.opensim.modeling.Muscle;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.BodySet;
 import org.opensim.modeling.ConditionalPathPoint;
+import org.opensim.modeling.DisplayGeometry.DisplayPreference;
 import org.opensim.modeling.MarkerSet;
 import org.opensim.modeling.OpenSimContext;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.modeling.PathActuator;
 import org.opensim.modeling.PathPoint;
-import org.opensim.modeling.SimbodyEngine;
 import org.opensim.modeling.VisibleObject;
 import org.opensim.view.pub.OpenSimDB;
 import org.opensim.view.pub.ViewDB;
@@ -64,14 +64,12 @@ import vtk.vtkCylinderSource;
 import vtk.vtkLinearTransform;
 import vtk.vtkMatrix4x4;
 import vtk.vtkPolyDataAlgorithm;
-import vtk.vtkPolyDataMapper;
 import vtk.vtkProp3D;
 import vtk.vtkProp3DCollection;
 import vtk.vtkSphereSource;
 import vtk.vtkStripper;
 import vtk.vtkTransform;
 import vtk.vtkTransformPolyDataFilter;
-import vtk.vtkAppendPolyData;
 import vtk.vtkArrowSource;
 import vtk.vtkLineSource;
 
@@ -110,7 +108,8 @@ public class SingleModelVisuals {
     protected Hashtable<vtkProp3D, OpenSimObject> mapVtkObjects2Objects = new Hashtable<vtkProp3D, OpenSimObject>(50);
    
     private Hashtable<OpenSimObject, LineSegmentMuscleDisplayer> mapActuator2Displayer = new Hashtable<OpenSimObject, LineSegmentMuscleDisplayer>();
-    private Hashtable<OpenSimObject, LineSegmentForceDisplayer> mapForces2Displayer = new Hashtable<OpenSimObject, LineSegmentForceDisplayer>();
+    private Hashtable<OpenSimObject, LineSegmentForceDisplayer> mapPathForces2Displayer = new Hashtable<OpenSimObject, LineSegmentForceDisplayer>();
+    private Hashtable<Force, ObjectDisplayerInterface> mapNoPathForces2Displayer = new Hashtable<Force, ObjectDisplayerInterface>();
 
     protected Hashtable<OpenSimObject, vtkLineSource> mapMarkers2Lines = new Hashtable<OpenSimObject, vtkLineSource>(50);
     //protected Hashtable<OpenSimObject, Boolean> markerLinesVisible = new Hashtable<OpenSimObject, Boolean>(50);
@@ -129,6 +128,7 @@ public class SingleModelVisuals {
     private vtkProp3DCollection  bodiesCollection = new vtkProp3DCollection();
     private ModelComDisplayer comDisplayer;
     private boolean debug=false;
+    private boolean showCOM=false;
     /**
      * Creates a new instance of SingleModelVisuals
      */
@@ -213,8 +213,9 @@ public class SingleModelVisuals {
         markerLineMapper.SetInput(markerLinePolyData.GetOutput());
         markerLineActor.SetMapper(markerLineMapper);
         modelAssembly.AddPart(markerLineActor);*/
-        comDisplayer = new ModelComDisplayer();
-        modelAssembly.AddPart(comDisplayer.getVtkActor());
+        comDisplayer = new ModelComDisplayer(model);
+        if (isShowCOM())
+            modelAssembly.AddPart(comDisplayer.getVtkActor());
 
         // Now the muscles and other actuators
         addGeometryForForces(model, modelAssembly);
@@ -271,7 +272,7 @@ public class SingleModelVisuals {
        
         updateMarkersGeometry(model.getMarkerSet());
         updateForceGeometry(model);
-        comDisplayer.updateCOMLocation(model);
+        comDisplayer.updateCOMLocation();
         updateUserObjects();
    }
 
@@ -322,7 +323,7 @@ public class SingleModelVisuals {
                addPathForceGeometry(force, false);
            }
            else
-               addNonPathForceGeometry(force);
+               addNonPathForceGeometry(modelAssembly, force);
         }
         modelAssembly.AddPart(getMuscleSegmentsRep().getVtkActor());
         getMuscleSegmentsRep().setModified();
@@ -353,15 +354,25 @@ public class SingleModelVisuals {
    private void updateForceGeometry(ForceSet acts) {
       Iterator<LineSegmentMuscleDisplayer> dispIter = mapActuator2Displayer.values().iterator();
       while(dispIter.hasNext()) dispIter.next().updateGeometry(true);
-      Iterator<LineSegmentForceDisplayer> fDispIter = mapForces2Displayer.values().iterator();
+      Iterator<LineSegmentForceDisplayer> fDispIter = mapPathForces2Displayer.values().iterator();
       while(fDispIter.hasNext()) fDispIter.next().updateGeometry(true);
+      Enumeration<Force> fNoPathIter = mapNoPathForces2Displayer.keys();
+      while(fNoPathIter.hasMoreElements()){
+          Force f = fNoPathIter.nextElement();
+          OpenSimContext context=OpenSimDB.getInstance().getContext(f.getModel());
+          if (context.isDisabled(f)) continue;
+          if (f.getDisplayer()==null) continue;
+          context.updateDisplayer(f);
+          mapNoPathForces2Displayer.get(f).updateGeometry();
+      }
+     
       getMuscleSegmentsRep().setModified();
       getMusclePointsRep().setModified();
       getForceAlongPathSegmentsRep().setModified();
       getForceAlongPathPointsRep().setModified();
    }
 
-   public void updateActuatorGeometry(Force act, boolean callUpdateDisplayer) {
+   public void updateActuatorGeometry(Actuator act, boolean callUpdateDisplayer) {
       LineSegmentMuscleDisplayer disp = mapActuator2Displayer.get(act);
       if(disp != null) {
          disp.updateGeometry(callUpdateDisplayer);
@@ -637,7 +648,8 @@ public class SingleModelVisuals {
        vtkStripper strip3 = new vtkStripper();
        strip3.SetInput(aForceDisplay.GetOutput());
        getForcesRep().setShape(strip3.GetOutput());
-
+       // Update global preference for Contact and Wrap geometry
+       DisplayGeometryFactory.updateDisplayPreference();
     }
 
     private void createMuscleSegmentRep(OpenSimvtkOrientedGlyphCloud aMuscleSegmentsRep) {
@@ -729,8 +741,18 @@ public class SingleModelVisuals {
         return userObjects;
     }
 
-    private void addNonPathForceGeometry(OpenSimObject fObject) {
-        
+    private void addNonPathForceGeometry(vtkAssembly modelAssembly, OpenSimObject fObject) {
+        Force f = Force.safeDownCast(fObject);
+        OpenSimContext context=OpenSimDB.getInstance().getContext(f.getModel());
+        if (context.isDisabled(f)) return;
+        if (f.getDisplayer()==null) return;
+        TwoBodyForceDisplayer foceDisplayer = new TwoBodyForceDisplayer(f, modelAssembly);
+        vtkActor forceActor = foceDisplayer.getActor();
+        if (forceActor!=null){
+            mapNoPathForces2Displayer.put(f, foceDisplayer);
+            mapVtkObjects2Objects.put(forceActor,f);
+            mapObject2VtkObjects.put(f, forceActor);
+        }
     }
 
     public OpenSimvtkGlyphCloud getForceAlongPathPointsRep() {
@@ -747,7 +769,7 @@ public class SingleModelVisuals {
         LineSegmentForceDisplayer disp;
         try {
             disp = new LineSegmentForceDisplayer(forceAlongPath, getForceAlongPathPointsRep(), getForceAlongPathSegmentsRep());
-            mapForces2Displayer.put(forceAlongPath, disp);
+            mapPathForces2Displayer.put(forceAlongPath, disp);
             disp.addGeometry();
             if (callSetModified) {
                 getForceAlongPathSegmentsRep().setModified();
@@ -758,6 +780,64 @@ public class SingleModelVisuals {
         }
        //mapActuator2Displayer.put(act, disp);
     }
-    
+
+    public boolean isShowCOM() {
+        return showCOM;
+    }
+
+    public void setShowCOM(boolean showCOM) {
+        if (showCOM) modelDisplayAssembly.AddPart(comDisplayer.getVtkActor());
+        else modelDisplayAssembly.RemovePart(comDisplayer.getVtkActor());
+        this.showCOM = showCOM;
+    }
+
+    public void removeGeometry(OpenSimObject object) {
+        if (object instanceof Actuator)
+            removeActuatorGeometry((Actuator) object);
+        else if (object instanceof Force){
+            Force f = Force.safeDownCast(object);
+            if (f.hasGeometryPath()){
+               removePathForceGeometry(f);
+           }
+            else
+                removeNonPathForceGeometry(f);
+        }
+            
+    }
+
+    private void removePathForceGeometry(Force f) {
+        if (f.getDisplayer()!=null){
+            f.getDisplayer().setDisplayPreference(DisplayPreference.None);
+            mapPathForces2Displayer.get(f).updateGeometry(false);
+            getForceAlongPathSegmentsRep().setModified();
+            getForceAlongPathPointsRep().setModified();
+        }
+    }
+
+    private void removeNonPathForceGeometry(Force f) {
+        if (f.getDisplayer()!=null){
+            f.getDisplayer().setDisplayPreference(DisplayPreference.None);
+            mapNoPathForces2Displayer.get(f).updateGeometry();
+        }
+    }
+
+    public void updateForceGeometry(Force f, boolean visible) {
+        if (!visible){  // turning off
+            removeGeometry(f);
+        }
+        else{
+            if (mapPathForces2Displayer.get(f)!=null){
+                mapPathForces2Displayer.get(f).updateGeometry(true);
+                LineSegmentForceDisplayer disp = mapPathForces2Displayer.get(f);
+                if(disp != null) {
+                    getForceAlongPathSegmentsRep().setModified();
+                    getForceAlongPathPointsRep().setModified();
+                }
+            }
+            else if (mapNoPathForces2Displayer.get(f)!=null){
+                mapNoPathForces2Displayer.get(f).updateGeometry();
+            }
+        }
+    }
 }
 

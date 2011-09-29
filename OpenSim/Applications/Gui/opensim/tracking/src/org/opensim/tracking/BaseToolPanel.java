@@ -38,6 +38,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Observer;
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JMenuItem;
@@ -46,9 +47,11 @@ import javax.swing.JPopupMenu;
 import javax.swing.filechooser.FileFilter;
 import org.openide.DialogDescriptor;
 import org.openide.DialogDisplayer;
+import org.openide.NotifyDescriptor;
 import org.opensim.utils.FileUtils;
+import org.opensim.view.pub.OpenSimDB;
 
-public abstract class BaseToolPanel extends JPanel implements ActionListener {
+public abstract class BaseToolPanel extends JPanel implements ActionListener, Observer {
   
    private FileFilter settingsFilter = null;
 
@@ -92,6 +95,7 @@ public abstract class BaseToolPanel extends JPanel implements ActionListener {
       //applyButton.setToolTipText("Run tool.  Disabled while tool is running, and if settings are either invalid or unchanged since last run.");
       //okButton.setToolTipText("Close tool dialog while letting tool continue running and keeping results.");
       // TODO: tool tip for cancel button -- what's the easiest way to do this?
+      OpenSimDB.getInstance().addObserver(this);
    }
 
    public void setSettingsFileDescription(String description) {
@@ -152,11 +156,13 @@ public abstract class BaseToolPanel extends JPanel implements ActionListener {
          public void windowClosed(WindowEvent e) {
             super.windowClosed(e);
             panel.cleanup();
+            OpenSimDB.getInstance().deleteObserver(panel);
          }
 
          public void windowClosing(WindowEvent e) {
             super.windowClosing(e);
             panel.cleanup();
+            OpenSimDB.getInstance().deleteObserver(panel);
          }
       });
    }
@@ -165,7 +171,12 @@ public abstract class BaseToolPanel extends JPanel implements ActionListener {
    {
       // If tool is still running don't do any cleanup until the tool is done otherwise cleanup now
       // by freeing C++ allocated resources.
-      
+   }
 
+   public void close()
+   {
+       pressedCancel();
+       OpenSimDB.getInstance().deleteObserver(this);
+       ownerDialog.dispose();
    }
 }

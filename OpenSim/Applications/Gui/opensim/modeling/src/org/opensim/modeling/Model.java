@@ -122,6 +122,10 @@ public class Model extends ModelComponent {
     opensimModelJNI.Model_formQStorage(swigCPtr, this, Storage.getCPtr(originalStorage), originalStorage, Storage.getCPtr(qStorage), qStorage);
   }
 
+  public void updateAssemblyConditions(SWIGTYPE_p_SimTK__State s) {
+    opensimModelJNI.Model_updateAssemblyConditions(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s));
+  }
+
   public void assemble(SWIGTYPE_p_SimTK__State state, Coordinate coord, double weight) {
     opensimModelJNI.Model_assemble__SWIG_0(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(state), Coordinate.getCPtr(coord), coord, weight);
   }
@@ -282,12 +286,12 @@ public class Model extends ModelComponent {
     return new SetActuators(opensimModelJNI.Model_updActuators(swigCPtr, this), false);
   }
 
-  public SWIGTYPE_p_OpenSim__SetT_OpenSim__Muscle_t getMuscles() {
-    return new SWIGTYPE_p_OpenSim__SetT_OpenSim__Muscle_t(opensimModelJNI.Model_getMuscles(swigCPtr, this), false);
+  public SetMuscles getMuscles() {
+    return new SetMuscles(opensimModelJNI.Model_getMuscles(swigCPtr, this), false);
   }
 
-  public SWIGTYPE_p_OpenSim__SetT_OpenSim__Muscle_t updMuscles() {
-    return new SWIGTYPE_p_OpenSim__SetT_OpenSim__Muscle_t(opensimModelJNI.Model_updMuscles(swigCPtr, this), false);
+  public SetMuscles updMuscles() {
+    return new SetMuscles(opensimModelJNI.Model_updMuscles(swigCPtr, this), false);
   }
 
   public ForceSet getForceSet() {
@@ -338,12 +342,12 @@ public class Model extends ModelComponent {
     opensimModelJNI.Model_printControlStorage(swigCPtr, this, fileName);
   }
 
-  public SWIGTYPE_p_OpenSim__ControllerSet getControllerSet() {
-    return new SWIGTYPE_p_OpenSim__ControllerSet(opensimModelJNI.Model_getControllerSet(swigCPtr, this), false);
+  public ControllerSet getControllerSet() {
+    return new ControllerSet(opensimModelJNI.Model_getControllerSet(swigCPtr, this), false);
   }
 
-  public SWIGTYPE_p_OpenSim__ControllerSet updControllerSet() {
-    return new SWIGTYPE_p_OpenSim__ControllerSet(opensimModelJNI.Model_updControllerSet(swigCPtr, this), false);
+  public ControllerSet updControllerSet() {
+    return new ControllerSet(opensimModelJNI.Model_updControllerSet(swigCPtr, this), false);
   }
 
   public boolean getAllControllersEnabled() {
@@ -528,6 +532,10 @@ public class Model extends ModelComponent {
 
   public OpenSimObject getObjectByTypeAndName(String typeString, String nameString) throws java.io.IOException {
     return new OpenSimObject(opensimModelJNI.Model_getObjectByTypeAndName(swigCPtr, this, typeString, nameString), false);
+  }
+
+  public static void LoadOpenSimLibrary(String libraryName) {
+    opensimModelJNI.Model_LoadOpenSimLibrary(libraryName);
   }
 
 }

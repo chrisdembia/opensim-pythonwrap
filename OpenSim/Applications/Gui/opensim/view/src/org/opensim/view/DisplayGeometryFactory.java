@@ -9,11 +9,13 @@
 
 package org.opensim.view;
 
+import java.util.prefs.Preferences;
 import org.opensim.modeling.AnalyticGeometry;
 import org.opensim.modeling.DisplayGeometry;
 import org.opensim.modeling.Geometry;
 import org.opensim.modeling.PolyhedralGeometry;
 import org.opensim.modeling.VisibleObject;
+import org.opensim.utils.TheApp;
 import org.opensim.view.pub.GeometryFileLocator;
 import vtk.vtkActor;
 import vtk.vtkOBJReader;
@@ -27,7 +29,17 @@ import vtk.vtkTransformPolyDataFilter;
  * @author ayman
  */
 public class DisplayGeometryFactory {
-    
+
+    static boolean displayContactGeometry = false;
+
+    static void updateDisplayPreference() {
+        String saved = Preferences.userNodeForPackage(TheApp.class).get("Display Contact Geometry", "Off");
+        if (saved.equalsIgnoreCase("On"))
+            displayContactGeometry = true;
+        else
+            displayContactGeometry = false;
+
+    }
     public static vtkActor createGeometryDisplayer(VisibleObject visibleObject, String modelPath) {
         vtkActor attachmentRep = null;
         for(int gc=0; gc<visibleObject.countGeometry(); gc++){
@@ -37,7 +49,8 @@ public class DisplayGeometryFactory {
             if (ag != null){
                 vtkPolyData analyticPolyData = AnalyticGeometryDisplayer.getPolyData(ag);
                 attachmentRep= createActorForPolyData(analyticPolyData, visibleObject);
-                //attachmentRep.GetProperty().SetRepresentationToWireframe();
+                attachmentRep.GetProperty().SetRepresentationToWireframe();
+                //attachmentRep.GetProperty().SetOpacity(0.3);
             } else {  // Contact geometry
                 PolyhedralGeometry pg = PolyhedralGeometry.dynamic_cast(g);
                 if (pg !=null){
@@ -49,6 +62,9 @@ public class DisplayGeometryFactory {
                     polyReader.SetFileName(meshFile);
                     vtkPolyData meshPoly = polyReader.GetOutput();
                     attachmentRep= createActorForPolyData(meshPoly, visibleObject);
+                    // Always wireframe wrapping and contact geometry for now
+                    attachmentRep.GetProperty().SetRepresentationToWireframe();
+                    //attachmentRep.GetProperty().SetOpacity(0.3);
                 }
             }
         } //for
@@ -85,7 +101,8 @@ public class DisplayGeometryFactory {
 
         if (objectRep==null) return;
         // Show vs. Hide
-        if (objectDisplayer.getDisplayPreference() == DisplayGeometry.DisplayPreference.None){
+        if (objectDisplayer.getDisplayPreference() == DisplayGeometry.DisplayPreference.None ||
+                displayContactGeometry==false){
             objectRep.SetVisibility(0);
             return;
         }

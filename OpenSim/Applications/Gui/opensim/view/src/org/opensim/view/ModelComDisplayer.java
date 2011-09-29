@@ -11,6 +11,7 @@ package org.opensim.view;
 
 import org.opensim.modeling.Model;
 import org.opensim.modeling.OpenSimContext;
+import org.opensim.view.pub.GeometryFileLocator;
 import org.opensim.view.pub.OpenSimDB;
 import org.opensim.view.pub.ViewDB;
 import vtk.vtkActor;
@@ -22,32 +23,41 @@ import vtk.vtkSphereSource;
  *
  * @author Ayman
  */
-public class ModelComDisplayer {
+public class ModelComDisplayer{
     
     vtkActor centerOfMassActor = new vtkActor();
-    vtkSphereSource comSource = new vtkSphereSource();
-    
+    Model model;
     /** Creates a new instance of ModelComDisplayer */
-    public ModelComDisplayer() {
-       vtkPolyDataMapper comMapper = new vtkPolyDataMapper();
+    public ModelComDisplayer(Model model) {
+       this.model = model;
 
-       comSource.SetRadius(ViewDB.getInstance().getMarkerDisplayRadius()*2);
-       comMapper.SetInput(comSource.GetOutput());
-       centerOfMassActor.SetMapper(comMapper);
-       centerOfMassActor.GetProperty().SetColor(0.0, 1.0, 0.0); // Green COM for now
+        String comboneFile = GeometryFileLocator.getInstance().getFullname("", "com.vtp", false);
+        if (comboneFile==null)
+            comboneFile = GeometryFileLocator.getInstance().getFullname("", "sphere.vtp", false);
+        if (comboneFile==null) return;
+        GeometryFactory.populateActorFromFile(comboneFile, centerOfMassActor);
 
+       centerOfMassActor.GetProperty().SetColor(0.0, 1.0, 0.0); // Green COM for now, 3X marker size
+       centerOfMassActor.SetScale(ViewDB.getInstance().getMarkerDisplayRadius()*3);
     }
 
     vtkProp3D getVtkActor() {
         return centerOfMassActor;
     }
 
-    void updateCOMLocation(Model model) {
+    void updateCOMLocation() {
         OpenSimContext context=OpenSimDB.getInstance().getContext(model);
         double[] com = new double[3];
         context.getCenterOfMassInGround(com);
-        System.out.println("COM at "+com[0]+","+com[1]+","+com[2]);
-        comSource.SetCenter(com);
+        centerOfMassActor.SetPosition(com);
+    }
+
+    public void setModified() {
+        centerOfMassActor.Modified();
+    }
+
+    public void updateGeometry() {
+        updateCOMLocation();
     }
     
 }

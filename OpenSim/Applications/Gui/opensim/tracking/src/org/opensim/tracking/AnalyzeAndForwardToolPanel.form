@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.1" encoding="UTF-8" ?>
 
-<Form version="1.3" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+<Form version="1.3" maxVersion="1.3" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <NonVisualComponents>
     <Component class="javax.swing.JCheckBox" name="SelectCmcTargetCheckBox">
       <Properties>
@@ -288,7 +288,11 @@
     </Container>
   </NonVisualComponents>
   <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
     <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="2"/>
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
@@ -397,21 +401,18 @@
                                   </Group>
                                   <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="statesFileName" pref="337" max="32767" attributes="2"/>
+                                      <Component id="statesFileName" pref="328" max="32767" attributes="2"/>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Component id="filterCoordinatesCheckBox" linkSize="7" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="loadedMotionRadioButton" linkSize="7" pref="101" max="32767" attributes="1"/>
+                                              <Component id="loadedMotionRadioButton" linkSize="7" pref="119" max="32767" attributes="1"/>
                                               <Component id="fromFileMotionRadioButton" linkSize="7" min="-2" max="-2" attributes="1"/>
                                           </Group>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="motionsComboBox" pref="230" max="32767" attributes="2"/>
-                                              <Group type="102" attributes="0">
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="coordinatesFileName" pref="230" max="32767" attributes="2"/>
-                                              </Group>
-                                              <Component id="cutoffFrequency" alignment="0" pref="230" max="32767" attributes="0"/>
+                                              <Component id="motionsComboBox" pref="202" max="32767" attributes="2"/>
+                                              <Component id="coordinatesFileName" pref="202" max="32767" attributes="2"/>
+                                              <Component id="cutoffFrequency" alignment="0" pref="202" max="32767" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>
@@ -422,10 +423,9 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="analyzeControlsCheckBox" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="analyzeControlsFileName" pref="320" max="32767" attributes="2"/>
+                                  <Component id="analyzeControlsFileName" pref="313" max="32767" attributes="2"/>
                                   <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
                                   <Component id="editAnalyzeExcitationsButton" min="-2" pref="33" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -688,8 +688,8 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="outputPrecision" alignment="0" min="-2" pref="64" max="-2" attributes="1"/>
-                              <Component id="outputName" alignment="0" pref="368" max="32767" attributes="1"/>
-                              <Component id="outputDirectory" alignment="0" pref="368" max="32767" attributes="3"/>
+                              <Component id="outputName" alignment="0" pref="352" max="32767" attributes="1"/>
+                              <Component id="outputDirectory" alignment="0" pref="352" max="32767" attributes="3"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -807,7 +807,7 @@
                                   <Component id="finalTime" linkSize="5" min="-2" pref="64" max="-2" attributes="2"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="102" max="32767" attributes="0"/>
+                          <EmptySpace pref="47" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -929,7 +929,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="modelName" pref="385" max="32767" attributes="1"/>
+                          <Component id="modelName" pref="370" max="32767" attributes="1"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -981,7 +981,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="activeAnalyses" pref="290" max="32767" attributes="3"/>
+                          <Component id="activeAnalyses" pref="268" max="32767" attributes="3"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="editAnalysesButton" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -1049,8 +1049,8 @@
                                   </Group>
                                   <EmptySpace min="-2" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="initialStatesFileName" pref="320" max="32767" attributes="3"/>
-                                      <Component id="controlsFileName" alignment="0" pref="320" max="32767" attributes="3"/>
+                                      <Component id="initialStatesFileName" pref="304" max="32767" attributes="3"/>
+                                      <Component id="controlsFileName" alignment="0" pref="304" max="32767" attributes="3"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
                                   <Component id="editForwardExcitationsButton" min="-2" pref="33" max="-2" attributes="0"/>
@@ -1162,11 +1162,11 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="cmcFilterKinematicsCheckBox" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="cmcCutoffFrequency" pref="180" max="32767" attributes="0"/>
+                                  <Component id="cmcCutoffFrequency" pref="127" max="32767" attributes="0"/>
                               </Group>
-                              <Component id="cmcDesiredKinematicsFileName" alignment="1" pref="279" max="32767" attributes="2"/>
-                              <Component id="cmcTaskSetFileName" alignment="0" pref="279" max="32767" attributes="3"/>
-                              <Component id="cmcConstraintsFileName" alignment="0" pref="279" max="32767" attributes="3"/>
+                              <Component id="cmcDesiredKinematicsFileName" alignment="1" pref="247" max="32767" attributes="2"/>
+                              <Component id="cmcTaskSetFileName" alignment="0" pref="247" max="32767" attributes="3"/>
+                              <Component id="cmcConstraintsFileName" alignment="0" pref="247" max="32767" attributes="3"/>
                           </Group>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel22" min="-2" max="-2" attributes="0"/>
@@ -1316,7 +1316,7 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="rraOutputModelFileName" alignment="0" pref="316" max="32767" attributes="0"/>
+                              <Component id="rraOutputModelFileName" alignment="0" pref="291" max="32767" attributes="0"/>
                               <Component id="rraAdjustedBodyComboBox" alignment="0" min="-2" pref="154" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -1427,12 +1427,12 @@
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="motionsComboBox1" alignment="1" pref="225" max="32767" attributes="2"/>
-                                      <Component id="coordinatesFileName1" alignment="1" pref="225" max="32767" attributes="2"/>
-                                      <Component id="cutoffFrequency1" alignment="1" pref="225" max="32767" attributes="0"/>
+                                      <Component id="motionsComboBox1" alignment="1" pref="194" max="32767" attributes="2"/>
+                                      <Component id="coordinatesFileName1" alignment="1" pref="194" max="32767" attributes="2"/>
+                                      <Component id="cutoffFrequency1" alignment="1" pref="194" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
-                              <Component id="statesFileName1" pref="332" max="32767" attributes="2"/>
+                              <Component id="statesFileName1" pref="320" max="32767" attributes="2"/>
                           </Group>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Component id="HzJLabel" min="-2" max="-2" attributes="0"/>
@@ -1634,7 +1634,7 @@
                                   <Component id="staticOptActivationExponentTextField" min="-2" pref="42" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="213" max="32767" attributes="0"/>
+                          <EmptySpace pref="167" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>

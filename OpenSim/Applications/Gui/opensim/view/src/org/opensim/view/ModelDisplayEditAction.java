@@ -25,12 +25,17 @@
  */
 package org.opensim.view;
 
+import java.awt.Dialog;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import org.openide.DialogDescriptor;
+import org.openide.DialogDisplayer;
 import org.openide.nodes.Node;
 import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
+import org.opensim.modeling.Model;
 import org.opensim.view.nodes.ConcreteModelNode;
-import org.opensim.view.pub.ViewDB;
 
 public final class ModelDisplayEditAction extends CallableSystemAction {
     
@@ -38,9 +43,26 @@ public final class ModelDisplayEditAction extends CallableSystemAction {
         Node[] selected = ExplorerTopComponent.findInstance().getExplorerManager().getSelectedNodes();
         // Action shouldn't be available otherwise'
         ConcreteModelNode modelNode = (ConcreteModelNode) selected[0];
-        ViewDB.getInstance().adjustModelDisplayOffset(modelNode.getModel());
+        adjustModelDisplayOffset(modelNode.getModel());
     }
-    
+       /**
+    * Show dialog to adjust display offset and modify display according to user options
+    */
+   public void adjustModelDisplayOffset(Model abstractModel) {
+      // Show dialog for model display ajdustment
+      final ModelDisplayOffsetJPanel p = new ModelDisplayOffsetJPanel(abstractModel);
+      DialogDescriptor desc = new DialogDescriptor(p, "Model Offset", false, new ActionListener() {
+
+         public void actionPerformed(ActionEvent e) {
+            if (e.getActionCommand().equalsIgnoreCase("Cancel"))
+               p.restore();
+         }
+      });
+      Dialog dlg = DialogDisplayer.getDefault().createDialog(desc);
+      dlg.setVisible(true);
+      
+   }
+
     public String getName() {
         return NbBundle.getMessage(ModelDisplayEditAction.class, "CTL_ModelDisplayEditAction");
     }

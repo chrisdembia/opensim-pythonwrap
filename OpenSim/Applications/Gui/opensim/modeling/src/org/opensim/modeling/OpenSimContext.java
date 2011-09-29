@@ -60,7 +60,11 @@ public class OpenSimContext extends OpenSimObject {
   }
 
   public void getStates(double[] statesBuffer) {
-    opensimModelJNI.OpenSimContext_getStates(swigCPtr, this, statesBuffer);
+    opensimModelJNI.OpenSimContext_getStates__SWIG_0(swigCPtr, this, statesBuffer);
+  }
+
+  public void getStates(ArrayDouble rStates) {
+    opensimModelJNI.OpenSimContext_getStates__SWIG_1(swigCPtr, this, ArrayDouble.getCPtr(rStates), rStates);
   }
 
   public void transformPosition(Body body, double[] offset, double[] gOffset) {
@@ -145,6 +149,10 @@ public class OpenSimContext extends OpenSimObject {
 
   public void copyMuscle(Muscle from, Muscle to) {
     opensimModelJNI.OpenSimContext_copyMuscle(swigCPtr, this, Muscle.getCPtr(from), from, Muscle.getCPtr(to), to);
+  }
+
+  public void replacePropertyFunction(OpenSimObject obj, Function aOldFunction, Function aNewFunction) {
+    opensimModelJNI.OpenSimContext_replacePropertyFunction(swigCPtr, this, OpenSimObject.getCPtr(obj), obj, Function.getCPtr(aOldFunction), aOldFunction, Function.getCPtr(aNewFunction), aNewFunction);
   }
 
   public void setXFunction(MovingPathPoint mmp, Function newFunction) {

@@ -44,10 +44,11 @@ public final class InverseDynamicsToolAction extends CallableSystemAction {
 
       try {
          final InverseDynamicsToolPanel panel = new InverseDynamicsToolPanel(model);
+         OpenSimDB.getInstance().addObserver(panel);
          BaseToolPanel.openToolDialog(panel, "Inverse Dynamics Tool");
       } catch (IOException ex) {
          ErrorDialog.displayIOExceptionDialog("Inverse Dynamics Tool Error","Error while initializing inverse dynamics tool",ex);
-      }
+       }
    }
    
    public String getName() {

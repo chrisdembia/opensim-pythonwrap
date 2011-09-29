@@ -75,7 +75,7 @@ import org.opensim.modeling.ControlSet;
 import org.opensim.modeling.Function;
 import org.opensim.modeling.PiecewiseLinearFunction;
 import org.opensim.modeling.SetControlNodes;
-import org.opensim.modeling.StepFunction;
+import org.opensim.modeling.PiecewiseConstantFunction;
 import org.opensim.modeling.XYFunctionInterface;
 import org.opensim.utils.DialogUtils;
 import org.opensim.utils.FileUtils;
@@ -1132,7 +1132,7 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
         Function ctrlFunction=null;
         XYFunctionInterface xyFunction=null;
         if (!useLinear){ // Step function
-            ctrlFunction = new StepFunction();
+            ctrlFunction = new PiecewiseConstantFunction();
             xyFunction = new XYFunctionInterface(ctrlFunction, true);
             for (int i=0; i<cnodes.getSize(); i++) {
                ControlLinearNode clnode = cnodes.get(i);

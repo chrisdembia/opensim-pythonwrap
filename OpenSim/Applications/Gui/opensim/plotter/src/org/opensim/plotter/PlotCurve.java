@@ -79,7 +79,7 @@ public class PlotCurve {
       }
       // If motion and stringx  = motion name we really mean time
       if (domainSource instanceof PlotterSourceMotion &&
-              localX.equalsIgnoreCase(domainSource.getDisplayName())){    // We'really plotting against time'
+              domainSource.getDisplayName().startsWith(localX)){    // We'really plotting against time'
           localX="time";
       }
       if (stringy.contains(":")){   // Strip qualifiers if any

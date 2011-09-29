@@ -76,12 +76,14 @@ public class OneBodyNode extends OpenSimObjectNode{
         // Arrays are fixed size, onvert to a List
         List<Action> actions = java.util.Arrays.asList(superActions);
         // Create new Array of proper size
-        Action[] retActions = new Action[actions.size()+1];
+        Action[] retActions = new Action[actions.size()+2];
         actions.toArray(retActions);
         try {
             // append new command to the end of the list of actions
             retActions[actions.size()] = (BodyToggleFrameAction) BodyToggleFrameAction.findObject(
                      (Class)Class.forName("org.opensim.view.BodyToggleFrameAction"), true);
+            retActions[actions.size()+1] = (BodyToggleCOMAction) BodyToggleCOMAction.findObject(
+                     (Class)Class.forName("org.opensim.view.nodes.BodyToggleCOMAction"), true);
         } catch (ClassNotFoundException ex) {
             ex.printStackTrace();
         }

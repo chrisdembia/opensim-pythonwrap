@@ -48,6 +48,14 @@ Inheritance diagram for OpenSim::Tool:</div>
 
 <p><a href="classOpenSim_1_1Tool-members.html">List of all members.</a></p>
 <table border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="2"><h2>Public Types</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">enum &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Tool.html#a73512dbe0f455fcb38fae7f5d3aeb38d">VerboseLevel</a> { <a class="el" href="classOpenSim_1_1Tool.html#a73512dbe0f455fcb38fae7f5d3aeb38dac6774bece9666293ea66583750c72332">Quiet</a> = 0, 
+<a class="el" href="classOpenSim_1_1Tool.html#a73512dbe0f455fcb38fae7f5d3aeb38dadbd068721e0c5d01c4157ff6cf37721d">Progress</a> = 1, 
+<a class="el" href="classOpenSim_1_1Tool.html#a73512dbe0f455fcb38fae7f5d3aeb38da5152785efea3306acc6d26397e714ae3">DetailedProgress</a> = 2, 
+<a class="el" href="classOpenSim_1_1Tool.html#a73512dbe0f455fcb38fae7f5d3aeb38daed8c8540fb560d2daec2c12a4c4ff495">Debug</a> = 3
+ }</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><p>Perturbation types. </p>
+ <a href="classOpenSim_1_1Tool.html#a73512dbe0f455fcb38fae7f5d3aeb38d">More...</a><br/></td></tr>
 <tr><td colspan="2"><h2>Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Tool.html#a13bf49b3d3b456f09894a905036c453c">~Tool</a> ()</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Destructor.  <a href="#a13bf49b3d3b456f09894a905036c453c"></a><br/></td></tr>
@@ -67,6 +75,9 @@ Inheritance diagram for OpenSim::Tool:</div>
 <tr><td class="memItemLeft" align="right" valign="top">const std::string &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Tool.html#ac15d71fe4633377a0c9d058f923756a8">getResultsDir</a> () const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get/set Results Directory.  <a href="#ac15d71fe4633377a0c9d058f923756a8"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Tool.html#ae9e7d5ebe1af90dbcd144f493a4f6435">setResultsDir</a> (const std::string &amp;aString)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classOpenSim_1_1Tool.html#a73512dbe0f455fcb38fae7f5d3aeb38d">VerboseLevel</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Tool.html#a9fc8b06095f71502eb33e347d698f959">getVerboseLevel</a> () const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get/Set verbose level.  <a href="#a9fc8b06095f71502eb33e347d698f959"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Tool.html#a25e3bcdcc5dc5fa5d38292d026cc8b56">setVerboseLevel</a> (const <a class="el" href="classOpenSim_1_1Tool.html#a73512dbe0f455fcb38fae7f5d3aeb38d">VerboseLevel</a> aVerboseLevel)</td></tr>
 <tr><td colspan="2"><h2>Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyStr.html">PropertyStr</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Tool.html#a1215765ab78605b33b038da07e4ab185">_inputsDirProp</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Directory for reading inputs (model, settings, etc.  <a href="#a1215765ab78605b33b038da07e4ab185"></a><br/></td></tr>
@@ -74,12 +85,43 @@ Inheritance diagram for OpenSim::Tool:</div>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1PropertyStr.html">PropertyStr</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Tool.html#a959e2ac3667eb9492dbccf8a881bc664">_resultsDirProp</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Directory for writing results (new model, states, etc.  <a href="#a959e2ac3667eb9492dbccf8a881bc664"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::string &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Tool.html#ac47e48a6cd0ce0703ffc9e32d17d1207">_resultsDir</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOpenSim_1_1Tool.html#a73512dbe0f455fcb38fae7f5d3aeb38d">VerboseLevel</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOpenSim_1_1Tool.html#ad4e2ec5ca12b3f9c79b924b037bb5423">_verboseLevel</a></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">How much details to put out while running.  <a href="#ad4e2ec5ca12b3f9c79b924b037bb5423"></a><br/></td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
 <p>A <a class="el" href="classOpenSim_1_1Tool.html" title="A Tool is an OpenSim abstraction that encapsulates an analysis or series of modeling...">Tool</a> is an OpenSim abstraction that encapsulates an analysis or series of modeling and analysis steps. </p>
 <p>Its primary duty is to provide an interface for use by the GUI or as a standalone command line executable. It includes common methods for invoking the tool and performing routine I/O.</p>
 <dl class="author"><dt><b>Author:</b></dt><dd>Ajay Seth </dd></dl>
 <dl class="version"><dt><b>Version:</b></dt><dd>1.0 </dd></dl>
+<hr/><h2>Member Enumeration Documentation</h2>
+<a class="anchor" id="a73512dbe0f455fcb38fae7f5d3aeb38d"></a><!-- doxytag: member="OpenSim::Tool::VerboseLevel" ref="a73512dbe0f455fcb38fae7f5d3aeb38d" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="classOpenSim_1_1Tool.html#a73512dbe0f455fcb38fae7f5d3aeb38d">OpenSim::Tool::VerboseLevel</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Perturbation types. </p>
+<p>See setPerturbation(). </p>
+<dl><dt><b>Enumerator: </b></dt><dd><table border="0" cellspacing="2" cellpadding="0">
+<tr><td valign="top"><em><a class="anchor" id="a73512dbe0f455fcb38fae7f5d3aeb38dac6774bece9666293ea66583750c72332"></a><!-- doxytag: member="Quiet" ref="a73512dbe0f455fcb38fae7f5d3aeb38dac6774bece9666293ea66583750c72332" args="" -->Quiet</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="a73512dbe0f455fcb38fae7f5d3aeb38dadbd068721e0c5d01c4157ff6cf37721d"></a><!-- doxytag: member="Progress" ref="a73512dbe0f455fcb38fae7f5d3aeb38dadbd068721e0c5d01c4157ff6cf37721d" args="" -->Progress</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="a73512dbe0f455fcb38fae7f5d3aeb38da5152785efea3306acc6d26397e714ae3"></a><!-- doxytag: member="DetailedProgress" ref="a73512dbe0f455fcb38fae7f5d3aeb38da5152785efea3306acc6d26397e714ae3" args="" -->DetailedProgress</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="a73512dbe0f455fcb38fae7f5d3aeb38daed8c8540fb560d2daec2c12a4c4ff495"></a><!-- doxytag: member="Debug" ref="a73512dbe0f455fcb38fae7f5d3aeb38daed8c8540fb560d2daec2c12a4c4ff495" args="" -->Debug</em>&nbsp;</td><td>
+</td></tr>
+</table>
+</dd>
+</dl>
+
+</div>
+</div>
 <hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a13bf49b3d3b456f09894a905036c453c"></a><!-- doxytag: member="OpenSim::Tool::~Tool" ref="a13bf49b3d3b456f09894a905036c453c" args="()" -->
 <div class="memitem">
@@ -220,6 +262,25 @@ Inheritance diagram for OpenSim::Tool:</div>
 
 </div>
 </div>
+<a class="anchor" id="a9fc8b06095f71502eb33e347d698f959"></a><!-- doxytag: member="OpenSim::Tool::getVerboseLevel" ref="a9fc8b06095f71502eb33e347d698f959" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classOpenSim_1_1Tool.html#a73512dbe0f455fcb38fae7f5d3aeb38d">VerboseLevel</a> OpenSim::Tool::getVerboseLevel </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Get/Set verbose level. </p>
+
+</div>
+</div>
 <a class="anchor" id="a1d4c551261871808e74d7b6b7274f54e"></a><!-- doxytag: member="OpenSim::Tool::operator=" ref="a1d4c551261871808e74d7b6b7274f54e" args="(const Tool &amp;aTool)" -->
 <div class="memitem">
 <div class="memproto">
@@ -304,6 +365,24 @@ Inheritance diagram for OpenSim::Tool:</div>
 
 </div>
 </div>
+<a class="anchor" id="a25e3bcdcc5dc5fa5d38292d026cc8b56"></a><!-- doxytag: member="OpenSim::Tool::setVerboseLevel" ref="a25e3bcdcc5dc5fa5d38292d026cc8b56" args="(const VerboseLevel aVerboseLevel)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenSim::Tool::setVerboseLevel </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classOpenSim_1_1Tool.html#a73512dbe0f455fcb38fae7f5d3aeb38d">VerboseLevel</a>&nbsp;</td>
+          <td class="paramname"> <em>aVerboseLevel</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <hr/><h2>Member Data Documentation</h2>
 <a class="anchor" id="af130d8540106d431b17e85081ccb0015"></a><!-- doxytag: member="OpenSim::Tool::_inputsDir" ref="af130d8540106d431b17e85081ccb0015" args="" -->
 <div class="memitem">
@@ -363,11 +442,26 @@ Inheritance diagram for OpenSim::Tool:</div>
 
 </div>
 </div>
+<a class="anchor" id="ad4e2ec5ca12b3f9c79b924b037bb5423"></a><!-- doxytag: member="OpenSim::Tool::_verboseLevel" ref="ad4e2ec5ca12b3f9c79b924b037bb5423" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classOpenSim_1_1Tool.html#a73512dbe0f455fcb38fae7f5d3aeb38d">VerboseLevel</a> <a class="el" href="classOpenSim_1_1Tool.html#ad4e2ec5ca12b3f9c79b924b037bb5423">OpenSim::Tool::_verboseLevel</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>How much details to put out while running. </p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>OpenSim/Tools/Tool.h</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Jun 5 10:14:22 2011 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Sep 25 00:20:07 2011 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

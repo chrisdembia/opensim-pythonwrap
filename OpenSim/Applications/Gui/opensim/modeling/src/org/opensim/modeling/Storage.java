@@ -538,6 +538,22 @@ public class Storage extends StorageInterface {
     return opensimModelJNI.Storage_compareColumn__SWIG_1(swigCPtr, this, Storage.getCPtr(aOtherStorage), aOtherStorage, aColumnName, startTime);
   }
 
+  public double compareColumnRMS(Storage aOtherStorage, String aColumnName, double startTime, double endTime) {
+    return opensimModelJNI.Storage_compareColumnRMS__SWIG_0(swigCPtr, this, Storage.getCPtr(aOtherStorage), aOtherStorage, aColumnName, startTime, endTime);
+  }
+
+  public double compareColumnRMS(Storage aOtherStorage, String aColumnName, double startTime) {
+    return opensimModelJNI.Storage_compareColumnRMS__SWIG_1(swigCPtr, this, Storage.getCPtr(aOtherStorage), aOtherStorage, aColumnName, startTime);
+  }
+
+  public double compareColumnRMS(Storage aOtherStorage, String aColumnName) {
+    return opensimModelJNI.Storage_compareColumnRMS__SWIG_2(swigCPtr, this, Storage.getCPtr(aOtherStorage), aOtherStorage, aColumnName);
+  }
+
+  public void compareWithStandard(Storage standard, ArrayStr columnsUsed, ArrayDouble comparisons) {
+    opensimModelJNI.Storage_compareWithStandard(swigCPtr, this, Storage.getCPtr(standard), standard, ArrayStr.getCPtr(columnsUsed), columnsUsed, ArrayDouble.getCPtr(comparisons), comparisons);
+  }
+
   public boolean makeStorageLabelsUnique() {
     return opensimModelJNI.Storage_makeStorageLabelsUnique(swigCPtr, this);
   }

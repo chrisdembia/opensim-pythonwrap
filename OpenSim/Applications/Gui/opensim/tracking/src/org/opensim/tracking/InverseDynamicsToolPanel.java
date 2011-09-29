@@ -52,7 +52,9 @@ import org.opensim.modeling.Storage;
 import org.opensim.view.motions.MotionsDB;
 import org.opensim.swingui.FileTextFieldAndChooser;
 import org.opensim.tracking.InverseDynamicsToolModel.InputSource;
+import org.opensim.view.ModelEvent;
 import org.opensim.view.excitationEditor.ExcitationEditorJFrame;
+import org.opensim.view.pub.OpenSimDB;
 
 /**
  *
@@ -121,6 +123,21 @@ public class InverseDynamicsToolPanel extends BaseToolPanel implements Observer 
     }
    
    public void update(Observable observable, Object obj) {
+      if (observable instanceof OpenSimDB){
+           if (obj instanceof ModelEvent) {
+                if (OpenSimDB.getInstance().hasModel(toolModel.getOriginalModel()))
+                    return;
+                else {
+                    toolModel.deleteObserver(this);
+                    NotifyDescriptor.Message dlg =
+                          new NotifyDescriptor.Message("Model used by the tool is being closed.. Closing tool.");
+                    DialogDisplayer.getDefault().notify(dlg);
+                    this.close();
+                    return;
+                }        
+           }
+           return;
+       }
       if(observable == toolModel && obj == AbstractToolModel.Operation.ExecutionStateChanged)
 
       //if(observable == toolModel && (obj == AbstractToolModel.Operation.ExecutionStateChanged ||

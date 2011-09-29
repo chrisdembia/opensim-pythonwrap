@@ -400,7 +400,7 @@ Inheritance diagram for OpenSim::ControlLinear:</div>
   </table>
   </dd>
 </dl>
-<dl class="return"><dt><b>Returns:</b></dt><dd>Maximum allowed control value. If the value of the curve is not defined, SimTK::NaN is returned. If the control is set to extrapolate, getExtraplate, and the time is before the first node or after the last node, then an extrapolation is performed to determin the value of the control curve. Otherwise, the value of either the first control node or last control node is returned. </dd></dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>Maximum allowed control value. If the value of the curve is not defined, _defaultMax is returned. If the control is set to extrapolate, getExtraplate, and the time is before the first node or after the last node, then an extrapolation is performed to determin the value of the control curve. Otherwise, the value of either the first control node or last control node is returned. </dd></dl>
 
 <p>Implements <a class="el" href="classOpenSim_1_1Control.html#ac8c8302fde7f514b203ae8fee619de3c">OpenSim::Control</a>.</p>
 
@@ -429,7 +429,7 @@ Inheritance diagram for OpenSim::ControlLinear:</div>
   </table>
   </dd>
 </dl>
-<dl class="return"><dt><b>Returns:</b></dt><dd>Minimum allowed control value. If the value of the curve is not defined, SimTK::NaN is returned. If the control is set to extrapolate, getExtraplate, and the time is before the first node or after the last node, then an extrapolation is performed to determin the value of the control curve. Otherwise, the value of either the first control node or last control node is returned. </dd></dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>Minimum allowed control value. If the value of the curve is not defined, _defaultMin is returned. If the control is set to extrapolate, getExtraplate, and the time is before the first node or after the last node, then an extrapolation is performed to determin the value of the control curve. Otherwise, the value of either the first control node or last control node is returned. </dd></dl>
 
 <p>Implements <a class="el" href="classOpenSim_1_1Control.html#a96b46bdffa4155211e89a6a319cdb0e7">OpenSim::Control</a>.</p>
 
@@ -1629,7 +1629,7 @@ Inheritance diagram for OpenSim::ControlLinear:</div>
 <li>OpenSim/Simulation/Control/ControlLinear.cpp</li>
 </ul>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Jun 5 10:14:09 2011 for OpenSim by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Sep 25 00:19:54 2011 for OpenSim by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

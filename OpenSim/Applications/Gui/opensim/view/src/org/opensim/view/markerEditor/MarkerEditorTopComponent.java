@@ -813,7 +813,8 @@ final public class MarkerEditorTopComponent extends TopComponent implements Obse
               renamedObjects.add(marker);
             }
             // Copy the elements of the saved marker into the [regular] marker.
-            marker.copy(savedMarker);
+            marker.copyData(savedMarker);
+            marker.setup(currentModel);
             vis.getMarkersRep().updateMarkerGeometry(marker);
          }
       }

@@ -57,7 +57,12 @@ public class OneForceNode extends OpenSimObjectNode implements DisableableObject
         updateDisabledFlag(force);
         setShortDescription(bundle.getString("HINT_OtherForceNode"));
         setChildren(Children.LEAF);
-        //addDisplayOption(displayOption.Showable);
+        Force f= Force.safeDownCast(force);
+        if (f.getDisplayer()!=null){
+            addDisplayOption(displayOption.Showable);
+            if (!f.hasGeometryPath())
+                addDisplayOption(displayOption.Colorable);
+        }
         //addDisplayOption(displayOption.Isolatable);
     }
     public Image getIcon(int i) {

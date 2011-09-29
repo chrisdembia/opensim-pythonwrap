@@ -73,6 +73,8 @@ public class RRAToolModel extends TrackingToolModel {
          // another motion show up on it)
          MotionsDB.getInstance().clearCurrent();
 
+         if (getOriginalModel()==null)
+
          // CMC needs to remember the original actuator set, since it is replaced in updateModelActuatorsAndContactForces
          rraTool().setOriginalForceSet(getOriginalModel().getForceSet());
 
@@ -374,7 +376,7 @@ public class RRAToolModel extends TrackingToolModel {
             worker = new RRAToolWorker();
          } catch (IOException ex) {
             setExecuting(false);
-            ErrorDialog.displayIOExceptionDialog("CMC Tool Error", "Tool initialization failed.", ex);
+            ErrorDialog.displayIOExceptionDialog("RRA Tool Error", "Tool initialization failed.", ex);
             return;
          }
          worker.start();
