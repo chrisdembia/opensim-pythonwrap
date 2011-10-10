@@ -73,8 +73,6 @@ public class RRAToolModel extends TrackingToolModel {
          // another motion show up on it)
          MotionsDB.getInstance().clearCurrent();
 
-         if (getOriginalModel()==null)
-
          // CMC needs to remember the original actuator set, since it is replaced in updateModelActuatorsAndContactForces
          rraTool().setOriginalForceSet(getOriginalModel().getForceSet());
 

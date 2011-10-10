@@ -2,7 +2,7 @@
 <OpenSimDocument Version="20302">
 	<ForwardTool name="subject01_walk1">
 	<!--Name of the .osim file used to construct a model.-->
-	<model_file> gait2354_simbody.osim </model_file>
+		<model_file> gait2354_simbody_adjusted.osim </model_file>
 	<!--Replace the model's force set with sets specified in
 	    <force_set_files>? If false, the force set is appended to.-->
 	<replace_force_set> false </replace_force_set>
@@ -10,12 +10,12 @@
 	<force_set_files> gait2354_CMC_Actuators.xml </force_set_files>
 	<!--Directory used for writing results.-->
 	<results_directory> ResultsForward </results_directory>
-		<!--Output precision.  It is 20 by default.-->
+		<!--Output precision.  It is 8 by default.-->
 	<output_precision> 20 </output_precision>
 	<!--Initial time for the simulation.-->
-		<initial_time>       0.80000000 </initial_time>
+		<initial_time>       0.83000000000000007000 </initial_time>
 	<!--Final time for the simulation.-->
-		<final_time>       1.18000000 </final_time>
+		<final_time>       1.18 </final_time>
 		<!--Flag indicating whether or not to compute equilibrium values for
 		    states other than the coordinates or speeds.  For example, equilibrium
 		    muscle fiber lengths or muscle forces.-->
@@ -23,12 +23,12 @@
 	<!--Maximum number of integrator steps.-->
 	<maximum_number_of_integrator_steps> 30000 </maximum_number_of_integrator_steps>
 	<!--Maximum integration step size.-->
-		<maximum_integrator_step_size>       0.00010000 </maximum_integrator_step_size>
+		<maximum_integrator_step_size>       1.0000000000000000 </maximum_integrator_step_size>
 		<!--Minimum integration step size.-->
-		<minimum_integrator_step_size>       0.00000001 </minimum_integrator_step_size>
+		<minimum_integrator_step_size>       0.00001000000000000000 </minimum_integrator_step_size>
 	<!--Integrator error tolerance. When the error is greater, the integrator
 	    step size is decreased.-->
-		<integrator_error_tolerance>       0.00000500 </integrator_error_tolerance>
+		<integrator_error_tolerance>       0.00005000000000000000 </integrator_error_tolerance>
 	<!--Set of analyses to be run during the investigation.-->
 	<AnalysisSet name="Analyses">
 		<objects>
@@ -36,9 +36,9 @@
 				<!--Flag (true or false) specifying whether whether on. True by default.-->
 				<on> true </on>
 					<!--Start time.-->
-					<start_time> -infinity </start_time>
+					<start_time>       0.80000000000000004000 </start_time>
 					<!--End time.-->
-					<end_time> infinity </end_time>
+					<end_time>       1.17999999999999990000 </end_time>
 				<!--Specifies how often to store results during a simulation. More
 				    specifically, the interval (a positive integer) specifies how many
 				    successful integration steps should be taken before results are
@@ -55,9 +55,9 @@
 				<!--Flag (true or false) specifying whether whether on. True by default.-->
 				<on> true </on>
 					<!--Start time.-->
-					<start_time> -infinity </start_time>
+					<start_time>       0.80000000000000004000 </start_time>
 					<!--End time.-->
-					<end_time> infinity </end_time>
+					<end_time>       1.17999999999999990000 </end_time>
 				<!--Specifies how often to store results during a simulation. More
 				    specifically, the interval (a positive integer) specifies how many
 				    successful integration steps should be taken before results are
@@ -71,9 +71,9 @@
 				<!--Flag (true or false) specifying whether whether on. True by default.-->
 				<on> true </on>
 					<!--Start time.-->
-					<start_time> -infinity </start_time>
+					<start_time>       0.80000000000000004000 </start_time>
 					<!--End time.-->
-					<end_time> infinity </end_time>
+					<end_time>       1.17999999999999990000 </end_time>
 				<!--Specifies how often to store results during a simulation. More
 				    specifically, the interval (a positive integer) specifies how many
 				    successful integration steps should be taken before results are
@@ -96,9 +96,9 @@
 					<!--Flag (true or false) specifying whether whether on. True by default.-->
 				<on> false </on>
 					<!--Start time.-->
-					<start_time> -infinity </start_time>
+					<start_time>       0.80000000000000004000 </start_time>
 					<!--End time.-->
-					<end_time> infinity </end_time>
+					<end_time>       1.17999999999999990000 </end_time>
 					<!--Specifies how often to store results during a simulation. More
 					    specifically, the interval (a positive integer) specifies how many
 					    successful integration steps should be taken before results are
@@ -127,8 +127,8 @@
 					    indicates the controller will controll all the acuators in the model-->
 					<actuator_list> </actuator_list>
 					<!--Flag (true or false) indicating whether or not the controller is
-					    enabled (ON) should-->
-					<enable_controller> false </enable_controller>
+					    disabled.-->
+					<isDisabled> false </isDisabled>
 					<!--XML file containing the controls for the controlSet.-->
 	<controls_file> ResultsCMC/subject01_walk1_controls.xml </controls_file>
 				</ControlSetController>
@@ -137,18 +137,18 @@
 					    indicates the controller will controll all the acuators in the model-->
 					<actuator_list> </actuator_list>
 					<!--Flag (true or false) indicating whether or not the controller is
-					    enabled (ON) should-->
-					<enable_controller> false </enable_controller>
+					    disabled.-->
+					<isDisabled> false </isDisabled>
 					<!--Gain for position errors-->
-					<kp>      16.00000000 </kp>
+					<kp>      16.00000000000000000000 </kp>
 					<!--Gain for velocity errors-->
-					<kv>       8.00000000 </kv>
+					<kv>       8.00000000000000000000 </kv>
 				</CorrectionController>
 			</objects>
 			<groups/>
 		</ControllerSet>
-		<!--XML file (.xml) containing the external loads applied to the model as
-		    a set of PrescribedForce(s).-->
+		<!--XML file (.xml) containing the forces applied to the model as
+		    ExternalLoads.-->
 		<external_loads_file> subject01_walk1_grf.xml </external_loads_file>
 	<!--Storage file (.sto) containing the initial states for the forward
 	    simulation. This file often contains multiple rows of data, each row
@@ -172,7 +172,7 @@
 	    previous forward simulation with as little drift as possible.  If this
 	    flag is false, the integrator is left to determine its own time
 	    stepping.-->
-	<use_specified_dt> true </use_specified_dt>
+		<use_specified_dt> false </use_specified_dt>
 	</ForwardTool>
 </OpenSimDocument>
 

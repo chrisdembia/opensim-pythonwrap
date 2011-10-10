@@ -147,7 +147,7 @@ public class XYFunctionInterface extends OpenSimObject {
   public final static class FunctionType {
     public final static FunctionType typeConstant = new FunctionType("typeConstant");
     public final static FunctionType typeStepFunction = new FunctionType("typeStepFunction");
-    public final static FunctionType typePiecewiseStepFunction = new FunctionType("typePiecewiseStepFunction");
+    public final static FunctionType typePiecewiseConstantFunction = new FunctionType("typePiecewiseConstantFunction");
     public final static FunctionType typePiecewiseLinearFunction = new FunctionType("typePiecewiseLinearFunction");
     public final static FunctionType typeLinearFunction = new FunctionType("typeLinearFunction");
     public final static FunctionType typeNatCubicSpline = new FunctionType("typeNatCubicSpline");
@@ -188,7 +188,7 @@ public class XYFunctionInterface extends OpenSimObject {
       swigNext = this.swigValue+1;
     }
 
-    private static FunctionType[] swigValues = { typeConstant, typeStepFunction, typePiecewiseStepFunction, typePiecewiseLinearFunction, typeLinearFunction, typeNatCubicSpline, typeGCVSpline, typeUndefined };
+    private static FunctionType[] swigValues = { typeConstant, typeStepFunction, typePiecewiseConstantFunction, typePiecewiseLinearFunction, typeLinearFunction, typeNatCubicSpline, typeGCVSpline, typeUndefined };
     private static int swigNext = 0;
     private final int swigValue;
     private final String swigName;
