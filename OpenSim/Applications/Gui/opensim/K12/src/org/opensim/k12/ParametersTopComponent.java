@@ -29,6 +29,7 @@ import java.applet.*;
 import org.opensim.modeling.Property;
 import org.opensim.view.ObjectSetCurrentEvent;
 import org.opensim.view.ObjectsDeletedEvent;
+import org.opensim.view.pub.ViewDB;
 
 //import org.opensim.view.output.TextResultDisplayer;
         
@@ -59,6 +60,7 @@ final class ParametersTopComponent extends TopComponent
 
     private URL urlForAudio;
     private AudioClip clip;
+    private ArrayList<double[]> cameraAttributes;
     
     private ParametersTopComponent() {
         initComponents();
@@ -78,6 +80,7 @@ final class ParametersTopComponent extends TopComponent
     private void initComponents() {
         runButton = new javax.swing.JToggleButton();
         resultsPanel = new javax.swing.JPanel();
+        resetViewButton = new javax.swing.JButton();
         knobsPanel = new javax.swing.JPanel();
 
         org.openide.awt.Mnemonics.setLocalizedText(runButton, "Run >");
@@ -91,6 +94,12 @@ final class ParametersTopComponent extends TopComponent
         resultsPanel.setLayout(new javax.swing.BoxLayout(resultsPanel, javax.swing.BoxLayout.Y_AXIS));
 
         resultsPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Results"));
+        resetViewButton.setLabel("Reset View");
+        resetViewButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resetViewButtonActionPerformed(evt);
+            }
+        });
 
         setLayout(new java.awt.BorderLayout());
 
@@ -101,6 +110,12 @@ final class ParametersTopComponent extends TopComponent
         add(knobsPanel, java.awt.BorderLayout.CENTER);
 
     }// </editor-fold>//GEN-END:initComponents
+
+    private void resetViewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetViewButtonActionPerformed
+// TODO add your handling code here:
+        ViewDB.getCurrentModelWindow().applyCameraAttributes(cameraAttributes.get(0));
+        ViewDB.getCurrentModelWindow().getCanvas().Render();
+    }//GEN-LAST:event_resetViewButtonActionPerformed
 
     private void runButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runButtonActionPerformed
 // TODO add your handling code here:
@@ -130,6 +145,7 @@ final class ParametersTopComponent extends TopComponent
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel knobsPanel;
+    private javax.swing.JButton resetViewButton;
     private javax.swing.JPanel resultsPanel;
     private javax.swing.JToggleButton runButton;
     // End of variables declaration//GEN-END:variables
@@ -206,7 +222,7 @@ final class ParametersTopComponent extends TopComponent
                     CoordinateAdaptor ca = new CoordinateAdaptor(c);
                     knobsPanel.add(new SliderWithTextBox(ca,
                             (c.getMotionType()==Coordinate.MotionType.Rotational)?convertRadiansToDegrees:1.0,
-                            c.getName()));
+                            nextParam.getPropertyDisplayName()));
                 } else if (nextParam.getOpenSimType().equalsIgnoreCase("Model")){
                     //DynamicPropertyAdaptor objAdaptor;
                     try {
@@ -372,5 +388,15 @@ final class ParametersTopComponent extends TopComponent
     public void removeAnalysis(Model model) {
         model.removeAnalysis(resultDisplayer, false);
 }
+
+    void setDefaultView(ArrayList<double[]> aCameraAttributes) {
+        cameraAttributes = aCameraAttributes;
+    }
+
+    void createResetViewButton() {
+         knobsPanel.add(resetViewButton);
+         //knobsPanel.add(Box.createRigidArea(new Dimension(10,10)));
+         knobsPanel.validate();
+    }
     
 }

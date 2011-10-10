@@ -72,6 +72,7 @@ public class Lab implements Serializable {
     public final static String INPUTS="Parameters";
     public final static String OUTPUTS="Outputs";
     public final static String VERSION="Version";
+    public final static String DEFAULT_VIEW="ViewDB";
     
     private ToolExecutor toolExecutor;
     
@@ -111,7 +112,6 @@ public class Lab implements Serializable {
         if (ViewDB.getInstance().getCurrentModelWindow()==null)
             ViewDB.getInstance().addViewWindow();
         OpenSimDB.getInstance().rebuild((OpenSimDBDescriptor) getObject(DB));
-        
         String instructionsFileName =  (String)getObject(INSTRUCTIONS);
         if (instructionsFileName !=null){
             InstructionsTopComponent instructionsTC = InstructionsTopComponent.getDefault();
@@ -127,14 +127,19 @@ public class Lab implements Serializable {
             MotionsDB.getInstance().rebuild((MotionsDBDescriptor) getObject(MOTIONS));
             ViewDB.getInstance().renderAll();
         }
-        ParametersTopComponent parametersTC = ParametersTopComponent.getDefault();
+        ParametersTopComponent parametersTC = ParametersTopComponent.findInstance();
         parametersTC.open();
+        parametersTC.requestActive();
         if (getObject(LAB_NAME)!= null)
             parametersTC.setDisplayName((String)getObject(LAB_NAME));
         
         LabParametersNode params = (LabParametersNode)getObject(INPUTS);
         if (params !=null){
             parametersTC.setInputs(params);
+            if (getObject("ViewDB")!=null){
+                ViewDBDescriptor vdb = (ViewDBDescriptor) getObject("ViewDB");
+                parametersTC.setDefaultView(vdb.getCameraAttributes());
+            }
         }
         //displayStatusText("Loading tool ...");
         ToolSerializer tool = (ToolSerializer) getObject(TOOL);
@@ -153,6 +158,8 @@ public class Lab implements Serializable {
             parametersTC.seOutnputs(outs);
         }
         parametersTC.createRunButton();
+        parametersTC.createResetViewButton();
+        ViewDB.getInstance().renderAll();
     }
 
     private void displayStatusText(final String text) {

@@ -308,6 +308,7 @@ public class MotionsDB extends Observable // Observed by other entities in motio
                   case Open:
                   {
                      Node modelNode = ExplorerTopComponent.findInstance().getModelNode(evnt.getModel());
+                     if (modelNode==null) return;
                      Node newMotionNode = new OneMotionNode(evnt.getMotion());
                      if (evnt.getModel() instanceof ModelForExperimentalData)
                          modelNode.getChildren().add(new Node[]{newMotionNode});

@@ -28,6 +28,14 @@
         <Property name="axis" type="int" value="1"/>
       </Layout>
     </Container>
+    <Component class="javax.swing.JButton" name="resetViewButton">
+      <Properties>
+        <Property name="label" type="java.lang.String" value="Reset View"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="resetViewButtonActionPerformed"/>
+      </Events>
+    </Component>
   </NonVisualComponents>
   <Properties>
     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">

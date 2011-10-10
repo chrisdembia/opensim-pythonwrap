@@ -188,7 +188,7 @@ public class JavaMotionDisplayerCallback extends AnalysisWrapperWithTimer {
           // Need to make sure nextResult is not Freed by gc
           StateVector nextResult = new StateVector();
           super.getStates(statesBuffer);
-          System.out.println("Simulation time="+currentSimTime+" state[0]="+statesBuffer[0]);
+          //System.out.println("Simulation time="+currentSimTime+" state[0]="+statesBuffer[0]);
           nextResult.setStates(currentSimTime, numStates, statesBuffer);
           getStorage().append(nextResult);
       }

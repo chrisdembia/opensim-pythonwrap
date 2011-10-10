@@ -44,6 +44,7 @@ public class CoordinateAdaptor extends DblBoundedRangeModel {
     public void setDoubleValue(double value) {
         this.value = value;
         context.setValue(coord, value, true);
+        coord.setDefaultValue(value);
          // Use renderAll rather than repaintAll for greater responsiveness in 3d viewer
          Model mdl=OpenSimDB.getInstance().getCurrentModel();
          ViewDB.getInstance().updateModelDisplayNoRepaint(mdl);
