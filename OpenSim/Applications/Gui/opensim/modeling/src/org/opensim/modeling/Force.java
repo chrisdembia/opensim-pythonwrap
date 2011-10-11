@@ -60,10 +60,6 @@ public class Force extends ModelComponent {
     opensimModelJNI.Force_setDisabled(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s), disabled);
   }
 
-  public int getNumStateVariables() {
-    return opensimModelJNI.Force_getNumStateVariables(swigCPtr, this);
-  }
-
   public boolean hasGeometryPath() {
     return opensimModelJNI.Force_hasGeometryPath(swigCPtr, this);
   }

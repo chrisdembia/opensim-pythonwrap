@@ -1235,6 +1235,12 @@ public class opensimModelJNI {
   public final static native double MarkerData_getLastFrameTime(long jarg1, MarkerData jarg1_);
   public final static native double MarkerData_getDataRate(long jarg1, MarkerData jarg1_);
   public final static native double MarkerData_getCameraRate(long jarg1, MarkerData jarg1_);
+  public final static native long new_ModelComponent__SWIG_0();
+  public final static native long new_ModelComponent__SWIG_1(String jarg1, boolean jarg2) throws java.io.IOException;
+  public final static native long new_ModelComponent__SWIG_2(String jarg1) throws java.io.IOException;
+  public final static native long new_ModelComponent__SWIG_3(long jarg1);
+  public final static native long new_ModelComponent__SWIG_4(long jarg1);
+  public final static native long new_ModelComponent__SWIG_5(long jarg1, ModelComponent jarg1_);
   public final static native void delete_ModelComponent(long jarg1);
   public final static native long ModelComponent_getModel(long jarg1, ModelComponent jarg1_);
   public final static native long ModelComponent_updModel(long jarg1, ModelComponent jarg1_);
@@ -1352,7 +1358,6 @@ public class opensimModelJNI {
   public final static native long Force_getRecordValues(long jarg1, Force jarg1_, long jarg2);
   public final static native boolean Force_isDisabled(long jarg1, Force jarg1_, long jarg2);
   public final static native void Force_setDisabled(long jarg1, Force jarg1_, long jarg2, boolean jarg3);
-  public final static native int Force_getNumStateVariables(long jarg1, Force jarg1_);
   public final static native boolean Force_hasGeometryPath(long jarg1, Force jarg1_);
   public final static native boolean Force_isKindOf(String jarg1);
   public final static native boolean Force_isA(long jarg1, Force jarg1_, String jarg2);
@@ -1777,7 +1782,6 @@ public class opensimModelJNI {
   public final static native void Actuator__computeEquilibrium(long jarg1, Actuator_ jarg1_, long jarg2);
   public final static native void delete_Actuator(long jarg1);
   public final static native long Actuator_copy__SWIG_0(long jarg1, Actuator jarg1_);
-  public final static native void Actuator_updateFromXMLNode(long jarg1, Actuator jarg1_);
   public final static native double Actuator_getControl(long jarg1, Actuator jarg1_, long jarg2);
   public final static native int Actuator_numControls(long jarg1, Actuator jarg1_);
   public final static native void Actuator_setForce(long jarg1, Actuator jarg1_, long jarg2, double jarg3);
@@ -3583,7 +3587,6 @@ public class opensimModelJNI {
   public final static native void PathActuator_copy__SWIG_1(long jarg1, PathActuator jarg1_, long jarg2, OpenSimObject jarg2_);
   public final static native void delete_Muscle(long jarg1);
   public final static native long Muscle_copy__SWIG_0(long jarg1, Muscle jarg1_);
-  public final static native void Muscle_setName(long jarg1, Muscle jarg1_, String jarg2);
   public final static native void Muscle_copyData(long jarg1, Muscle jarg1_, long jarg2, Muscle jarg2_);
   public final static native void Muscle_updateFromXMLNode(long jarg1, Muscle jarg1_);
   public final static native double Muscle_getMaxIsometricForce(long jarg1, Muscle jarg1_);
@@ -3622,11 +3625,7 @@ public class opensimModelJNI {
   public final static native void Muscle_copy__SWIG_1(long jarg1, Muscle jarg1_, long jarg2, OpenSimObject jarg2_);
   public final static native void delete_ActivationFiberLengthMuscle(long jarg1);
   public final static native long ActivationFiberLengthMuscle_copy__SWIG_0(long jarg1, ActivationFiberLengthMuscle jarg1_);
-  public final static native void ActivationFiberLengthMuscle_setName(long jarg1, ActivationFiberLengthMuscle jarg1_, String jarg2);
-  public final static native void ActivationFiberLengthMuscle_copyData(long jarg1, ActivationFiberLengthMuscle jarg1_, long jarg2, ActivationFiberLengthMuscle jarg2_);
-  public final static native void ActivationFiberLengthMuscle_updateFromXMLNode(long jarg1, ActivationFiberLengthMuscle jarg1_);
   public final static native void ActivationFiberLengthMuscle_equilibrate(long jarg1, ActivationFiberLengthMuscle jarg1_, long jarg2);
-  public final static native int ActivationFiberLengthMuscle_getNumStateVariables(long jarg1, ActivationFiberLengthMuscle jarg1_);
   public final static native double ActivationFiberLengthMuscle_getDefaultActivation(long jarg1, ActivationFiberLengthMuscle jarg1_);
   public final static native void ActivationFiberLengthMuscle_setDefaultActivation(long jarg1, ActivationFiberLengthMuscle jarg1_, double jarg2);
   public final static native double ActivationFiberLengthMuscle_getDefaultFiberLength(long jarg1, ActivationFiberLengthMuscle jarg1_);
@@ -3653,11 +3652,13 @@ public class opensimModelJNI {
   public final static native void ActivationFiberLengthMuscle_setActivationDeriv(long jarg1, ActivationFiberLengthMuscle jarg1_, long jarg2, double jarg3);
   public final static native double ActivationFiberLengthMuscle_getExcitation(long jarg1, ActivationFiberLengthMuscle jarg1_, long jarg2);
   public final static native double ActivationFiberLengthMuscle_getStress(long jarg1, ActivationFiberLengthMuscle jarg1_, long jarg2);
+  public final static native void ActivationFiberLengthMuscle_computeEquilibrium(long jarg1, ActivationFiberLengthMuscle jarg1_, long jarg2);
   public final static native double ActivationFiberLengthMuscle_computeActuation(long jarg1, ActivationFiberLengthMuscle jarg1_, long jarg2);
   public final static native double ActivationFiberLengthMuscle_computeIsometricForce(long jarg1, ActivationFiberLengthMuscle jarg1_, long jarg2, double jarg3);
   public final static native double ActivationFiberLengthMuscle_computeIsokineticForceAssumingInfinitelyStiffTendon(long jarg1, ActivationFiberLengthMuscle jarg1_, long jarg2, double jarg3);
   public final static native long ActivationFiberLengthMuscle_getRecordLabels(long jarg1, ActivationFiberLengthMuscle jarg1_);
   public final static native long ActivationFiberLengthMuscle_getRecordValues(long jarg1, ActivationFiberLengthMuscle jarg1_, long jarg2);
+  public final static native int ActivationFiberLengthMuscle_getStateVariableYIndex(long jarg1, ActivationFiberLengthMuscle jarg1_, int jarg2);
   public final static native boolean ActivationFiberLengthMuscle_isKindOf(String jarg1);
   public final static native boolean ActivationFiberLengthMuscle_isA(long jarg1, ActivationFiberLengthMuscle jarg1_, String jarg2);
   public final static native long ActivationFiberLengthMuscle_safeDownCast(long jarg1, OpenSimObject jarg1_);
@@ -3825,7 +3826,6 @@ public class opensimModelJNI {
   public final static native boolean Thelen2003Muscle_setDamping(long jarg1, Thelen2003Muscle jarg1_, double jarg2);
   public final static native boolean Thelen2003Muscle_setAf(long jarg1, Thelen2003Muscle jarg1_, double jarg2);
   public final static native boolean Thelen2003Muscle_setFlen(long jarg1, Thelen2003Muscle jarg1_, double jarg2);
-  public final static native int Thelen2003Muscle_getStateVariableYIndex(long jarg1, Thelen2003Muscle jarg1_, int jarg2);
   public final static native boolean Thelen2003Muscle_isKindOf(String jarg1);
   public final static native boolean Thelen2003Muscle_isA(long jarg1, Thelen2003Muscle jarg1_, String jarg2);
   public final static native long Thelen2003Muscle_safeDownCast(long jarg1, OpenSimObject jarg1_);
@@ -3845,7 +3845,6 @@ public class opensimModelJNI {
   public final static native boolean Schutte1993Muscle_setPassiveForceLengthCurve(long jarg1, Schutte1993Muscle jarg1_, long jarg2, Function jarg2_);
   public final static native long Schutte1993Muscle_getTendonForceLengthCurve(long jarg1, Schutte1993Muscle jarg1_);
   public final static native boolean Schutte1993Muscle_setTendonForceLengthCurve(long jarg1, Schutte1993Muscle jarg1_, long jarg2, Function jarg2_);
-  public final static native int Schutte1993Muscle_getStateVariableYIndex(long jarg1, Schutte1993Muscle jarg1_, int jarg2);
   public final static native boolean Schutte1993Muscle_isKindOf(String jarg1);
   public final static native boolean Schutte1993Muscle_isA(long jarg1, Schutte1993Muscle jarg1_, String jarg2);
   public final static native long Schutte1993Muscle_safeDownCast(long jarg1, OpenSimObject jarg1_);

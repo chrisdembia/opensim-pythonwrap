@@ -40,10 +40,6 @@ public class Actuator extends Actuator_ {
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
-  public void updateFromXMLNode() {
-    opensimModelJNI.Actuator_updateFromXMLNode(swigCPtr, this);
-  }
-
   public double getControl(SWIGTYPE_p_SimTK__State s) {
     return opensimModelJNI.Actuator_getControl(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s));
   }

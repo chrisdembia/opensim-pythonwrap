@@ -132,10 +132,6 @@ public class Thelen2003Muscle extends ActivationFiberLengthMuscle {
     return opensimModelJNI.Thelen2003Muscle_setFlen(swigCPtr, this, aFlen);
   }
 
-  public int getStateVariableYIndex(int index) {
-    return opensimModelJNI.Thelen2003Muscle_getStateVariableYIndex(swigCPtr, this, index);
-  }
-
   public static boolean isKindOf(String type) {
     return opensimModelJNI.Thelen2003Muscle_isKindOf(type);
   }

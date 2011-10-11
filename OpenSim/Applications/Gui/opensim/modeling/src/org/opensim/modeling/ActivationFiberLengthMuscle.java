@@ -40,24 +40,8 @@ public class ActivationFiberLengthMuscle extends Muscle {
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
-  public void setName(String aName) {
-    opensimModelJNI.ActivationFiberLengthMuscle_setName(swigCPtr, this, aName);
-  }
-
-  public void copyData(ActivationFiberLengthMuscle aMuscle) {
-    opensimModelJNI.ActivationFiberLengthMuscle_copyData(swigCPtr, this, ActivationFiberLengthMuscle.getCPtr(aMuscle), aMuscle);
-  }
-
-  public void updateFromXMLNode() {
-    opensimModelJNI.ActivationFiberLengthMuscle_updateFromXMLNode(swigCPtr, this);
-  }
-
   public void equilibrate(SWIGTYPE_p_SimTK__State state) {
     opensimModelJNI.ActivationFiberLengthMuscle_equilibrate(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(state));
-  }
-
-  public int getNumStateVariables() {
-    return opensimModelJNI.ActivationFiberLengthMuscle_getNumStateVariables(swigCPtr, this);
   }
 
   public double getDefaultActivation() {
@@ -164,6 +148,10 @@ public class ActivationFiberLengthMuscle extends Muscle {
     return opensimModelJNI.ActivationFiberLengthMuscle_getStress(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s));
   }
 
+  public void computeEquilibrium(SWIGTYPE_p_SimTK__State s) {
+    opensimModelJNI.ActivationFiberLengthMuscle_computeEquilibrium(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s));
+  }
+
   public double computeActuation(SWIGTYPE_p_SimTK__State s) {
     return opensimModelJNI.ActivationFiberLengthMuscle_computeActuation(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(s));
   }
@@ -182,6 +170,10 @@ public class ActivationFiberLengthMuscle extends Muscle {
 
   public ArrayDouble getRecordValues(SWIGTYPE_p_SimTK__State state) {
     return new ArrayDouble(opensimModelJNI.ActivationFiberLengthMuscle_getRecordValues(swigCPtr, this, SWIGTYPE_p_SimTK__State.getCPtr(state)), true);
+  }
+
+  public int getStateVariableYIndex(int index) {
+    return opensimModelJNI.ActivationFiberLengthMuscle_getStateVariableYIndex(swigCPtr, this, index);
   }
 
   public static boolean isKindOf(String type) {

@@ -40,10 +40,6 @@ public class Muscle extends PathActuator {
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
-  public void setName(String aName) {
-    opensimModelJNI.Muscle_setName(swigCPtr, this, aName);
-  }
-
   public void copyData(Muscle aMuscle) {
     opensimModelJNI.Muscle_copyData(swigCPtr, this, Muscle.getCPtr(aMuscle), aMuscle);
   }
