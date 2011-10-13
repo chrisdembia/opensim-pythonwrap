@@ -1116,7 +1116,7 @@ public final class ViewDB extends Observable implements Observer {
       if (group != null) {
          ArrayObjPtr members = group.getMembers();
          for (int i = 0; i < members.getSize(); i++) {
-            toggleObjectDisplay(members.get(i), visible);
+            toggleObjectDisplay(members.getitem(i), visible);
          }
       } else {
          toggleObjectDisplay(openSimObject, visible);
@@ -1169,7 +1169,7 @@ public final class ViewDB extends Observable implements Observer {
           ObjectGroup grp = (ObjectGroup) openSimObject;
           ArrayObjPtr members = grp.getMembers();
           for(int i=0;i<members.getSize();i++)
-              toggleObjectDisplay(members.get(i), visible); // Recur
+              toggleObjectDisplay(members.getitem(i), visible); // Recur
           return;
       }
       // If the object is a vtkAssembly or vtkActor, sets its visibility that way too.
@@ -1192,7 +1192,7 @@ public final class ViewDB extends Observable implements Observer {
          boolean foundShown = false;
          ArrayObjPtr members = group.getMembers();
          for (int i = 0; i < members.getSize(); i++) {
-            VisibleObject vo = members.get(i).getDisplayer();
+            VisibleObject vo = members.getitem(i).getDisplayer();
             if (vo != null) {
                DisplayPreference dp = vo.getDisplayPreference();
                if (dp == DisplayPreference.None)

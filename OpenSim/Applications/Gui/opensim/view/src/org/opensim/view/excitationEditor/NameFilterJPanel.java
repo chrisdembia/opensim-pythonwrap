@@ -356,7 +356,7 @@ public class NameFilterJPanel extends javax.swing.JPanel
       // Form a vector of muscle names
       String tempPattern="";
       for(int i=0;i<members.getSize();i++){
-          tempPattern +=members.get(i).getName();
+          tempPattern +=members.getitem(i).getName();
           if (i<members.getSize()-1)
              tempPattern += "|"; 
       }

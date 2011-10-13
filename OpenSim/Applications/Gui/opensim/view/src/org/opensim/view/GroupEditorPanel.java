@@ -345,7 +345,7 @@ public class GroupEditorPanel extends javax.swing.JPanel
       ArrayObjPtr members =currentGroup.getMembers();
       currentSetMembers.removeAllElements();
       for(int i=0; i<members.getSize(); i++)
-         currentSetMembers.addElement(members.get(i).getName());
+         currentSetMembers.addElement(members.getitem(i).getName());
       jToList.setModel(currentSetMembers);
       jFormattedGroupNameTextField.setText(currentGroup.getName());
       //((TitledBorder)jScrollPane2.getBorder()).setTitle(currentGroup.getName()+" members");

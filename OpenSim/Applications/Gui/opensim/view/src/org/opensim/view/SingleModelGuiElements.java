@@ -210,7 +210,7 @@ public class SingleModelGuiElements {
            assert(group!=null);
            ArrayObjPtr objects = group.getMembers();
            for(int i=0; i<objects.getSize();i++){
-                ret.add(objects.get(i).getName());
+                ret.add(objects.getitem(i).getName());
            }
         }
         return ret;

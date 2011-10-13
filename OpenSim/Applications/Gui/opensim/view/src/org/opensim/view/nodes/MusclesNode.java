@@ -83,7 +83,7 @@ public class MusclesNode extends OpenSimObjectSetNode {
             ObjectGroup grp = as.getGroup(i);
             ArrayObjPtr apo = grp.getMembers();
             if (apo.getSize() > 0) {
-               Muscle muscle = Muscle.safeDownCast(apo.get(0));
+               Muscle muscle = Muscle.safeDownCast(apo.getitem(0));
                // If the first member of the group is an Muscle, then
                // consider this group to be an Muscle group.
                if (muscle != null && grp.getName().equals("all")) {
@@ -109,7 +109,7 @@ public class MusclesNode extends OpenSimObjectSetNode {
             ObjectGroup grp = as.getGroup(i);
             ArrayObjPtr apo = grp.getMembers();
             if (apo.getSize() > 0) {
-               Muscle muscle = Muscle.safeDownCast(apo.get(0));
+               Muscle muscle = Muscle.safeDownCast(apo.getitem(0));
                // If the first member of the group is an Muscle, then
                // consider this group to be an Muscle group.
                if (muscle != null)
@@ -149,7 +149,7 @@ public class MusclesNode extends OpenSimObjectSetNode {
          ObjectGroup grp = as.getGroup(i);
          ArrayObjPtr apo = grp.getMembers();
          if (apo.getSize()==0) continue;  // Gaurd against empty groups
-         Muscle muscle = Muscle.safeDownCast(apo.get(0)); 
+         Muscle muscle = Muscle.safeDownCast(apo.getitem(0)); 
          // If the first member of the group is an Muscle, then
          // consider this group to be an Muscle group.
          if (muscle != null)

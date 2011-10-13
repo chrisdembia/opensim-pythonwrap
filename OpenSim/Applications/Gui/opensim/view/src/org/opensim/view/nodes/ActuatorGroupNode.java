@@ -59,12 +59,12 @@ public class ActuatorGroupNode extends OpenSimObjectNode {
       ArrayObjPtr members = group.getMembers();
       for (int i = 0; i < members.getSize(); i++ ) {
          Node[] arrNodes = new Node[1];
-         Muscle msl = Muscle.safeDownCast(members.get(i));
+         Muscle msl = Muscle.safeDownCast(members.getitem(i));
          if (msl != null) {
             OneMuscleNode node = new OneMuscleNode(msl);
             arrNodes[0] = node;
          } else {
-            OneActuatorNode node = new OneActuatorNode(members.get(i));
+            OneActuatorNode node = new OneActuatorNode(members.getitem(i));
             arrNodes[0] = node;
          }
          children.add(arrNodes);

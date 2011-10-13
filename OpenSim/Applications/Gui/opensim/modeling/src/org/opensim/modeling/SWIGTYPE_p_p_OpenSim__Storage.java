@@ -8,18 +8,18 @@
 
 package org.opensim.modeling;
 
-public class SWIGTYPE_p_SimTK__DecorationSubsystem {
+public class SWIGTYPE_p_p_OpenSim__Storage {
   private long swigCPtr;
 
-  protected SWIGTYPE_p_SimTK__DecorationSubsystem(long cPtr, boolean futureUse) {
+  protected SWIGTYPE_p_p_OpenSim__Storage(long cPtr, boolean futureUse) {
     swigCPtr = cPtr;
   }
 
-  protected SWIGTYPE_p_SimTK__DecorationSubsystem() {
+  protected SWIGTYPE_p_p_OpenSim__Storage() {
     swigCPtr = 0;
   }
 
-  protected static long getCPtr(SWIGTYPE_p_SimTK__DecorationSubsystem obj) {
+  protected static long getCPtr(SWIGTYPE_p_p_OpenSim__Storage obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 }

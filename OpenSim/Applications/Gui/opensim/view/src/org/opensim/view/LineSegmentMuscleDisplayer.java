@@ -229,7 +229,7 @@ public class LineSegmentMuscleDisplayer {
             //
             // Draw non-wrap muscle points
             //
-            PathPoint pt1 = path.get(i);
+            PathPoint pt1 = path.getitem(i);
             if(PathWrapPoint.safeDownCast(pt1)==null) {
                Integer pointIdx = mapPathPointToGlyphId.get(pt1);
                if(pointIdx!=null) { // shouldn't be null!  but what should we do if it is??
@@ -243,7 +243,7 @@ public class LineSegmentMuscleDisplayer {
             }
             if(i==geomSize-1) {
                // Draw last point if it's non-wrap
-               PathPoint pt2 = path.get(i+1);
+               PathPoint pt2 = path.getitem(i+1);
                if(PathWrapPoint.safeDownCast(pt2)==null) {
                   Integer pointIdx = mapPathPointToGlyphId.get(pt2);
                   if(pointIdx!=null) { // shouldn't be null!  but what should we do if it is??

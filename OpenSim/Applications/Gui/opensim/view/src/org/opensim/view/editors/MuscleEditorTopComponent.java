@@ -1378,15 +1378,15 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
          javax.swing.JLabel bodyLabel = new javax.swing.JLabel();
          javax.swing.JLabel typeLabel = new javax.swing.JLabel();
          indexLabel.setText(intPropFormat.format(i+1) + ".");
-         xField.setText(positionFormat.format(asmp.get(i).getLocationCoord(0)));
-         yField.setText(positionFormat.format(asmp.get(i).getLocationCoord(1)));
-         zField.setText(positionFormat.format(asmp.get(i).getLocationCoord(2)));
-         bodyLabel.setText(asmp.get(i).getBodyName());
-         if (asmp.get(i).getWrapObject() != null)
-            typeLabel.setText("wrap" + " (" + asmp.get(i).getWrapObject().getName() + ")");
-         else if (ConditionalPathPoint.safeDownCast(asmp.get(i)) != null)
+         xField.setText(positionFormat.format(asmp.getitem(i).getLocationCoord(0)));
+         yField.setText(positionFormat.format(asmp.getitem(i).getLocationCoord(1)));
+         zField.setText(positionFormat.format(asmp.getitem(i).getLocationCoord(2)));
+         bodyLabel.setText(asmp.getitem(i).getBodyName());
+         if (asmp.getitem(i).getWrapObject() != null)
+            typeLabel.setText("wrap" + " (" + asmp.getitem(i).getWrapObject().getName() + ")");
+         else if (ConditionalPathPoint.safeDownCast(asmp.getitem(i)) != null)
             typeLabel.setText("via");
-         else if (MovingPathPoint.safeDownCast(asmp.get(i)) != null)
+         else if (MovingPathPoint.safeDownCast(asmp.getitem(i)) != null)
             typeLabel.setText("moving");
          else
             typeLabel.setText("fixed");
