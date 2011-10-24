@@ -1,4 +1,0 @@
-This model is the same as rdSimModelUTWalking6 except that the controls
-are now the muscle excitations and the muscle forces and activations have
-been added as constraints.
-
