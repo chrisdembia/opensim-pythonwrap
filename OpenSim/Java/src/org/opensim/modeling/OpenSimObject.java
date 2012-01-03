@@ -188,12 +188,8 @@ public class OpenSimObject {
     opensimModelJNI.OpenSimObject_updateDefaultObjectsFromXMLNode(swigCPtr, this);
   }
 
-  public void updateXMLNode(SWIGTYPE_p_SimTK__Xml__Element aParent, int aNodeIndex) {
-    opensimModelJNI.OpenSimObject_updateXMLNode__SWIG_0(swigCPtr, this, SWIGTYPE_p_SimTK__Xml__Element.getCPtr(aParent), aNodeIndex);
-  }
-
   public void updateXMLNode(SWIGTYPE_p_SimTK__Xml__Element aParent) {
-    opensimModelJNI.OpenSimObject_updateXMLNode__SWIG_1(swigCPtr, this, SWIGTYPE_p_SimTK__Xml__Element.getCPtr(aParent));
+    opensimModelJNI.OpenSimObject_updateXMLNode(swigCPtr, this, SWIGTYPE_p_SimTK__Xml__Element.getCPtr(aParent));
   }
 
   public void updateDefaultObjectsXMLNode(SWIGTYPE_p_SimTK__Xml__Element aParent) {

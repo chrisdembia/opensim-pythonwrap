@@ -254,8 +254,7 @@ public class opensimModelJNI {
   public final static native void OpenSimObject_updateFromXMLNode(long jarg1, OpenSimObject jarg1_, long jarg2, int jarg3);
   public final static native void OpenSimObject_updateFromXMLDocument(long jarg1, OpenSimObject jarg1_);
   public final static native void OpenSimObject_updateDefaultObjectsFromXMLNode(long jarg1, OpenSimObject jarg1_);
-  public final static native void OpenSimObject_updateXMLNode__SWIG_0(long jarg1, OpenSimObject jarg1_, long jarg2, int jarg3);
-  public final static native void OpenSimObject_updateXMLNode__SWIG_1(long jarg1, OpenSimObject jarg1_, long jarg2);
+  public final static native void OpenSimObject_updateXMLNode(long jarg1, OpenSimObject jarg1_, long jarg2);
   public final static native void OpenSimObject_updateDefaultObjectsXMLNode(long jarg1, OpenSimObject jarg1_, long jarg2);
   public final static native boolean OpenSimObject_getInlined(long jarg1, OpenSimObject jarg1_);
   public final static native void OpenSimObject_setInlined__SWIG_0(long jarg1, OpenSimObject jarg1_, boolean jarg2, String jarg3);
@@ -4643,10 +4642,7 @@ public class opensimModelJNI {
   public static void SwigDirector_AnalysisWrapper_updateDefaultObjectsFromXMLNode(AnalysisWrapper self) {
     self.updateDefaultObjectsFromXMLNode();
   }
-  public static void SwigDirector_AnalysisWrapper_updateXMLNode__SWIG_0(AnalysisWrapper self, long aParent, int aNodeIndex) {
-    self.updateXMLNode(new SWIGTYPE_p_SimTK__Xml__Element(aParent, false), aNodeIndex);
-  }
-  public static void SwigDirector_AnalysisWrapper_updateXMLNode__SWIG_1(AnalysisWrapper self, long aParent) {
+  public static void SwigDirector_AnalysisWrapper_updateXMLNode(AnalysisWrapper self, long aParent) {
     self.updateXMLNode(new SWIGTYPE_p_SimTK__Xml__Element(aParent, false));
   }
   public static void SwigDirector_AnalysisWrapper_updateDefaultObjectsXMLNode(AnalysisWrapper self, long aParent) {
