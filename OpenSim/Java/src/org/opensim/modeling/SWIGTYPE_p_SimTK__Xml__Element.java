@@ -8,18 +8,18 @@
 
 package org.opensim.modeling;
 
-public class SWIGTYPE_p_DOMElement {
+public class SWIGTYPE_p_SimTK__Xml__Element {
   private long swigCPtr;
 
-  protected SWIGTYPE_p_DOMElement(long cPtr, boolean futureUse) {
+  protected SWIGTYPE_p_SimTK__Xml__Element(long cPtr, boolean futureUse) {
     swigCPtr = cPtr;
   }
 
-  protected SWIGTYPE_p_DOMElement() {
+  protected SWIGTYPE_p_SimTK__Xml__Element() {
     swigCPtr = 0;
   }
 
-  protected static long getCPtr(SWIGTYPE_p_DOMElement obj) {
+  protected static long getCPtr(SWIGTYPE_p_SimTK__Xml__Element obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 }

@@ -8,18 +8,18 @@
 
 package org.opensim.modeling;
 
-public class SWIGTYPE_p_OpenSim__Event {
+public class SWIGTYPE_p_SimTK__SystemYIndex {
   private long swigCPtr;
 
-  protected SWIGTYPE_p_OpenSim__Event(long cPtr, boolean futureUse) {
+  protected SWIGTYPE_p_SimTK__SystemYIndex(long cPtr, boolean futureUse) {
     swigCPtr = cPtr;
   }
 
-  protected SWIGTYPE_p_OpenSim__Event() {
+  protected SWIGTYPE_p_SimTK__SystemYIndex() {
     swigCPtr = 0;
   }
 
-  protected static long getCPtr(SWIGTYPE_p_OpenSim__Event obj) {
+  protected static long getCPtr(SWIGTYPE_p_SimTK__SystemYIndex obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 }
