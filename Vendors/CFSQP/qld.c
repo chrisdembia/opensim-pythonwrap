@@ -406,7 +406,7 @@ N\002,i6,\002)\002)";
 N CONVERGENCE\002)";
 
     /* System generated locals */
-    integer c_dim1, c_offset, a_dim1, a_offset, i__1, i__2;
+    integer c_dim1, c_offset, a_dim1, a_offset, i__1;
 
     /* Builtin functions */
 /*    integer s_wsfe(), do_fio(), e_wsfe(); */
