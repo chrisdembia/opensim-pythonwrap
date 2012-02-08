@@ -172,10 +172,6 @@ public class OpenSimObject {
     opensimModelJNI.OpenSimObject_getRegisteredTypenames(ArrayStr.getCPtr(rTypeNames), rTypeNames);
   }
 
-  public boolean isValidDefaultType(OpenSimObject aObject) {
-    return opensimModelJNI.OpenSimObject_isValidDefaultType(swigCPtr, this, OpenSimObject.getCPtr(aObject), aObject);
-  }
-
   public void updateFromXMLNode(SWIGTYPE_p_SimTK__Xml__Element aNode, int versionNumber) {
     opensimModelJNI.OpenSimObject_updateFromXMLNode(swigCPtr, this, SWIGTYPE_p_SimTK__Xml__Element.getCPtr(aNode), versionNumber);
   }

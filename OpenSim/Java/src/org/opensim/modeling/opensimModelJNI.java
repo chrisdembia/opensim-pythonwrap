@@ -250,7 +250,6 @@ public class opensimModelJNI {
   public final static native long OpenSimObject_makeObjectFromFile(String jarg1);
   public final static native long OpenSimObject_newInstanceOfType(String jarg1);
   public final static native void OpenSimObject_getRegisteredTypenames(long jarg1, ArrayStr jarg1_);
-  public final static native boolean OpenSimObject_isValidDefaultType(long jarg1, OpenSimObject jarg1_, long jarg2, OpenSimObject jarg2_);
   public final static native void OpenSimObject_updateFromXMLNode(long jarg1, OpenSimObject jarg1_, long jarg2, int jarg3);
   public final static native void OpenSimObject_updateFromXMLDocument(long jarg1, OpenSimObject jarg1_);
   public final static native void OpenSimObject_updateDefaultObjectsFromXMLNode(long jarg1, OpenSimObject jarg1_);
@@ -3036,6 +3035,21 @@ public class opensimModelJNI {
   public final static native long Joint_safeDownCast(long jarg1, OpenSimObject jarg1_);
   public final static native void Joint_copy__SWIG_1(long jarg1, Joint jarg1_, long jarg2, OpenSimObject jarg2_);
   public final static native void Joint_updateName(long jarg1, Joint jarg1_, String jarg2);
+  public final static native long new_FreeJoint__SWIG_0();
+  public final static native long new_FreeJoint__SWIG_1(String jarg1, long jarg2, Body jarg2_, long jarg3, long jarg4, long jarg5, Body jarg5_, long jarg6, long jarg7, boolean jarg8);
+  public final static native long new_FreeJoint__SWIG_2(String jarg1, long jarg2, Body jarg2_, long jarg3, long jarg4, long jarg5, Body jarg5_, long jarg6, long jarg7);
+  public final static native long new_FreeJoint__SWIG_3(String jarg1, long jarg2, Body jarg2_, double[] jarg3, double[] jarg4, long jarg5, Body jarg5_, double[] jarg6, double[] jarg7, boolean jarg8);
+  public final static native long new_FreeJoint__SWIG_4(long jarg1, FreeJoint jarg1_);
+  public final static native void delete_FreeJoint(long jarg1);
+  public final static native long FreeJoint_copy__SWIG_0(long jarg1, FreeJoint jarg1_);
+  public final static native void FreeJoint_copyData(long jarg1, FreeJoint jarg1_, long jarg2, FreeJoint jarg2_);
+  public final static native void FreeJoint_setup(long jarg1, FreeJoint jarg1_, long jarg2, Model jarg2_);
+  public final static native int FreeJoint_numCoordinates(long jarg1, FreeJoint jarg1_);
+  public final static native void FreeJoint_scale(long jarg1, FreeJoint jarg1_, long jarg2, ScaleSet jarg2_);
+  public final static native boolean FreeJoint_isKindOf(String jarg1);
+  public final static native boolean FreeJoint_isA(long jarg1, FreeJoint jarg1_, String jarg2);
+  public final static native long FreeJoint_safeDownCast(long jarg1, OpenSimObject jarg1_);
+  public final static native void FreeJoint_copy__SWIG_1(long jarg1, FreeJoint jarg1_, long jarg2, OpenSimObject jarg2_);
   public final static native long new_CustomJoint__SWIG_0();
   public final static native long new_CustomJoint__SWIG_1(String jarg1, long jarg2, Body jarg2_, long jarg3, long jarg4, long jarg5, Body jarg5_, long jarg6, long jarg7, long jarg8, SpatialTransform jarg8_, boolean jarg9);
   public final static native long new_CustomJoint__SWIG_2(String jarg1, long jarg2, Body jarg2_, long jarg3, long jarg4, long jarg5, Body jarg5_, long jarg6, long jarg7, long jarg8, SpatialTransform jarg8_);
@@ -4453,6 +4467,11 @@ public class opensimModelJNI {
   public final static native void InterruptCallback_interrupt(long jarg1, InterruptCallback jarg1_);
   public final static native int InterruptCallback_step(long jarg1, InterruptCallback jarg1_, long jarg2, int jarg3);
   public final static native void delete_InterruptCallback(long jarg1);
+  public final static native long SimTKUtils_createSimTKVec3(double[] jarg1);
+  public final static native long SimTKUtils_retrieveFromSimTKVec3(long jarg1, double[] jarg2);
+  public final static native long SimTKUtils_createSimTKInertia(double[] jarg1);
+  public final static native long new_SimTKUtils();
+  public final static native void delete_SimTKUtils(long jarg1);
   public final static native void SimtkLogCallback_log(long jarg1, SimtkLogCallback jarg1_, String jarg2);
   public final static native void SimtkLogCallback_logSwigExplicitSimtkLogCallback(long jarg1, SimtkLogCallback jarg1_, String jarg2);
   public final static native void SimtkLogCallback_addToLogManager(long jarg1, SimtkLogCallback jarg1_);
@@ -4557,6 +4576,7 @@ public class opensimModelJNI {
   public final static native long ModelComponentSetCoordinates_SWIGUpcast(long jarg1);
   public final static native long CoordinateSet_SWIGUpcast(long jarg1);
   public final static native long Joint_SWIGUpcast(long jarg1);
+  public final static native long FreeJoint_SWIGUpcast(long jarg1);
   public final static native long CustomJoint_SWIGUpcast(long jarg1);
   public final static native long SetJoints_SWIGUpcast(long jarg1);
   public final static native long ModelComponentSetJoints_SWIGUpcast(long jarg1);
@@ -4628,9 +4648,6 @@ public class opensimModelJNI {
   }
   public static boolean SwigDirector_AnalysisWrapper_isEqualTo(AnalysisWrapper self, long aObject) {
     return self.isEqualTo(new OpenSimObject(aObject, false));
-  }
-  public static boolean SwigDirector_AnalysisWrapper_isValidDefaultType(AnalysisWrapper self, long aObject) {
-    return self.isValidDefaultType((aObject == 0) ? null : new OpenSimObject(aObject, false));
   }
   public static void SwigDirector_AnalysisWrapper_updateFromXMLNode(AnalysisWrapper self, long aNode, int versionNumber) {
     self.updateFromXMLNode(new SWIGTYPE_p_SimTK__Xml__Element(aNode, false), versionNumber);
