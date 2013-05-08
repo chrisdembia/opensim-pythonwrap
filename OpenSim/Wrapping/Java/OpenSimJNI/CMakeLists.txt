@@ -10,16 +10,16 @@ INCLUDE(${CMAKE_ROOT}/Modules/FindSWIG.cmake)
 IF(JAVA_INCLUDE_PATH)
 
 # Run command to generate OpenSimJNI_wrap.cxx
-SET(swig_generated_file_fullname ${OpenSim_SOURCE_DIR}/OpenSim/Wrapping/Java/OpenSimJNI/OpenSimJNI_wrap.cxx)
-SET(swig_interface_file_fullname ${OpenSim_SOURCE_DIR}/OpenSim/Wrapping/Java/swig/javaWrapOpenSim.i)
+SET(swig_generated_file_fullname_java ${OpenSim_SOURCE_DIR}/OpenSim/Wrapping/Java/OpenSimJNI/OpenSimJNI_wrap.cxx)
+SET(swig_interface_file_fullname_java ${OpenSim_SOURCE_DIR}/OpenSim/Wrapping/Java/swig/javaWrapOpenSim.i)
 SET(SimTK_INCLUDE_PATH ${SIMTK_INCLUDE_DIR})		
 
-ADD_CUSTOM_TARGET(JavaWrap ${SWIG_EXECUTABLE} -v -c++ -java -package org.opensim.modeling -I${OpenSim_SOURCE_DIR} -I${OpenSim_SOURCE_DIR}/OpenSim/Swig/ -I${Simbody_INCLUDE_DIR} -o ${swig_generated_file_fullname} -outdir ${OpenSim_SOURCE_DIR}/Gui/opensim/modeling/src/org/opensim/modeling ${swig_interface_file_fullname})
+ADD_CUSTOM_TARGET(JavaWrap ${SWIG_EXECUTABLE} -v -c++ -java -package org.opensim.modeling -I${OpenSim_SOURCE_DIR} -I${OpenSim_SOURCE_DIR}/OpenSim/Swig/ -I${Simbody_INCLUDE_DIR} -o ${swig_generated_file_fullname_java} -outdir ${OpenSim_SOURCE_DIR}/Gui/opensim/modeling/src/org/opensim/modeling ${swig_interface_file_fullname_java})
 SET_TARGET_PROPERTIES(JavaWrap PROPERTIES EXCLUDE_FROM_DEFAULT_BUILD on)
 
 
 FILE(GLOB SOURCE_FILES OpenSimContext.cpp)
-FILE(GLOB INCLUDE_FILES ${swig_generated_file_fullname} OpenSimContext.h)
+FILE(GLOB INCLUDE_FILES ${swig_generated_file_fullname_java} OpenSimContext.h)
 
 INCLUDE_DIRECTORIES(${OpenSim_SOURCE_DIR} 
 					${OpenSim_SOURCE_DIR}/Vendors 

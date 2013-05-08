@@ -928,6 +928,6 @@ namespace SimTK {
 
 %include <OpenSim/Utilities/simmFileWriterDLL/SimmFileWriter.h>
 
-%include <OpenSim/Java/OpenSimJNI/OpenSimContext.h>
+%include <OpenSim/Wrapping/Java/OpenSimJNI/OpenSimContext.h>
 
-%include <OpenSim/Java/OpenSimJNI/Hooks/SimtkLogCallback.h>
+%include <OpenSim/Wrapping/Java/OpenSimJNI/Hooks/SimtkLogCallback.h>
