@@ -33,11 +33,13 @@ SET(CMAKE_SWIG_FLAGS "")
 
 SET_SOURCE_FILES_PROPERTIES(${swig_interface_file_python}
     PROPERTIES CPLUSPLUS ON)
+# The below forces include of pound-included files in the *.i file.
 #SET_SOURCE_FILES_PROPERTIES(${swig_interface_file_python}
 #    PROPERTIES SWIG_FLAGS "-includeall")
 # Provide any additional source files here.
-SWIG_ADD_MODULE(opensim python ${swig_interface_file_python} testsrc.h)
-SWIG_LINK_LIBRARIES(opensim ${PYTHON_LIBRARIES})
+SWIG_ADD_MODULE(opensim python ${swig_interface_file_python})
+SWIG_LINK_LIBRARIES(opensim ${PYTHON_LIBRARIES}
+    osimCommon osimSimulation osimAnalyses osimTools)
 
 # Get the site-packages directory.
 EXECUTE_PROCESS(COMMAND python -c "from distutils.sysconfig import get_python_lib; print get_python_lib()"

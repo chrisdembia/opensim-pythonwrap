@@ -12,9 +12,14 @@ IF(JAVA_INCLUDE_PATH)
 # Run command to generate OpenSimJNI_wrap.cxx
 SET(swig_generated_file_fullname_java ${OpenSim_SOURCE_DIR}/OpenSim/Wrapping/Java/OpenSimJNI/OpenSimJNI_wrap.cxx)
 SET(swig_interface_file_fullname_java ${OpenSim_SOURCE_DIR}/OpenSim/Wrapping/Java/swig/javaWrapOpenSim.i)
+# [chrisdembia] The below used to be swig/SWIG, but has now been moved up so it
+# can be shared with python wrapping.
+# TODO have not tested if I've made sufficient changes to allow SWIG (java) to
+# still work, after moving the SimTKSWIG headers.
+SET(SimTKSWIG_INCLUDE_PATH ${OpenSim_SOURCE_DIR}/OpenSim/Wrapping/SimTKSWIG)
 SET(SimTK_INCLUDE_PATH ${SIMTK_INCLUDE_DIR})		
 
-ADD_CUSTOM_TARGET(JavaWrap ${SWIG_EXECUTABLE} -v -c++ -java -package org.opensim.modeling -I${OpenSim_SOURCE_DIR} -I${OpenSim_SOURCE_DIR}/OpenSim/Swig/ -I${Simbody_INCLUDE_DIR} -o ${swig_generated_file_fullname_java} -outdir ${OpenSim_SOURCE_DIR}/Gui/opensim/modeling/src/org/opensim/modeling ${swig_interface_file_fullname_java})
+ADD_CUSTOM_TARGET(JavaWrap ${SWIG_EXECUTABLE} -v -c++ -java -package org.opensim.modeling -I${OpenSim_SOURCE_DIR} -I${OpenSim_SOURCE_DIR}/OpenSim/Swig/ -I${Simbody_INCLUDE_DIR} -I${SimTKSWIG_INCLUDE_PATH} -o ${swig_generated_file_fullname_java} -outdir ${OpenSim_SOURCE_DIR}/Gui/opensim/modeling/src/org/opensim/modeling ${swig_interface_file_fullname_java})
 SET_TARGET_PROPERTIES(JavaWrap PROPERTIES EXCLUDE_FROM_DEFAULT_BUILD on)
 
 
@@ -23,6 +28,7 @@ FILE(GLOB INCLUDE_FILES ${swig_generated_file_fullname_java} OpenSimContext.h)
 
 INCLUDE_DIRECTORIES(${OpenSim_SOURCE_DIR} 
 					${OpenSim_SOURCE_DIR}/Vendors 
+                    ${SimTKSWIG_INCLUDE_PATH}
 					${JAVA_INCLUDE_PATH}
 					${JAVA_INCLUDE_PATH2}
 )

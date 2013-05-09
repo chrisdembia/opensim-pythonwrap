@@ -18,5 +18,20 @@ class TestValueTypes(unittest.TestCase):
         # changes...silly.
         assert opensim.GetVersion() == '3.0.0'
 
+    def test_ArrayDouble(self):
+        """Ensures proper construction and use of OpenSim::Array<double>.
 
+        """
+        # TODO using getitem() versus get()?
+        a = opensim.ArrayDouble(5, 2)
+        assert a.getitem(0) == 5
+        assert a.size() == 2
+        assert a.getCapacity() == 4
 
+    def test_PropertyGroup(self):
+        pg = opensim.PropertyGroup("hello")
+        assert pg.getName() == "hello"
+
+        pg2 = opensim.PropertyGroup()
+        pg2.setName("pg_name")
+        assert pg2.getName() == "pg_name"
