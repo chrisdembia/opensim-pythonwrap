@@ -35,3 +35,6 @@ class TestValueTypes(unittest.TestCase):
         pg2 = opensim.PropertyGroup()
         pg2.setName("pg_name")
         assert pg2.getName() == "pg_name"
+
+    def test_Geometry(self):
+        pass

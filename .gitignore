@@ -14,3 +14,8 @@
 
 # Python wrapping.
 *.pyc
+OpenSim/Wrapping/Python/tests/*.log
+
+# Vim temporary files.
+.*.swp
+.*.swo

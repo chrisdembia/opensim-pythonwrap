@@ -22,8 +22,12 @@ SET(swig_interface_file_python
 # Compile the library.
 # http://www.swig.org/Doc2.0/SWIGDocumentation.html#Introduction_build_system
 FIND_PACKAGE(PythonLibs REQUIRED)
+
+SET(SimTKSWIG_INCLUDE_PATH ${OpenSim_SOURCE_DIR}/OpenSim/Wrapping/SimTKSWIG)
+
 INCLUDE_DIRECTORIES(
     ${CMAKE_CURRENT_SOURCE_DIR}
+    ${SimTKSWIG_INCLUDE_PATH}
     ${PYTHON_INCLUDE_PATH}
     ${OpenSim_SOURCE_DIR}
     ${OpenSim_SOURCE_DIR}/Vendors
