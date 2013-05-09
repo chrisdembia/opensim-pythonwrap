@@ -3,7 +3,12 @@
 %feature("autodoc", "3");
 
 %{
-/*#include "example.h"*/
+#include <OpenSim/version.h>
+
+using namespace OpenSim;
+/*using namespace SimTK;*/
+
 %}
 
-/*%include "example.h"*/
+%include "std_string.i"
+%include <OpenSim/version.h>
