@@ -341,4 +341,5 @@ using namespace SimTK;
 8. Geometry should be virtual.
 9. Can extend and add a __iter__ method to allow for python iteration.
 10. Inertia.getMoments()[0] "Vec3 object does not support indexing"
+11. numpy/doc/swig/test has good examples of using SwIG!
 */

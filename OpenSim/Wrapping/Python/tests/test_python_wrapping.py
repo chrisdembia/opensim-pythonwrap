@@ -1,6 +1,10 @@
+"""We do not perform thorough error/exception checking.
+
+"""
+
 import unittest
 
-# This importing assumes that the opensim wrapping has been installed,
+# This import assumes that the opensim wrapping has been installed,
 # and we're importing opensim from its installed location in site-packages (or
 # dist-packages?)
 import opensim
@@ -54,12 +58,37 @@ class TestValueTypes(unittest.TestCase):
         v.set(1, 3)
         assert v[1] == 3
 
+class TestFunctions(unittest.TestCase):
+    """Ensures the proper construction of Function's."""
 
-    def test_Function(self):
-        """Creates a piecewise linear function, adds points to it, and
-        calculates its value.
+    def test_Constant(self):
+        f = opensim.Constant()
+        f.setName("fcn1")
+        assert f.getName() == "fcn1"
 
-        """
+        assert f.getClassName() == "Constant"
+
+        f.setValue(3.5)
+        assert f.getValue() == 3.5
+
+        g = opensim.Constant(2.5)
+        assert g.getValue() == 2.5
+
+    def test_SimmSpline(self):
+        f = opensim.SimmSpline()
+
+        g = opensim.SimmSpline(5, [0, 2, 4, 6, 8], [1, 2, 1, 2, 3])
+        assert g.calcValue(8) == 3
+
+        x = np.array([0, 2, 4, 6, 8])
+        y = np.array([1, 2, 1, 2, 4])
+        g2 = opensim.SimmSpline(5, x, y)
+        assert g2.calcValue(8) == 4
+
+        h = opensim.SimmSpline(5, [0, 2, 4, 6, 8], [1, 2, 1, 2, 3], "fcn")
+        assert h.getName() == "fcn"
+
+    def test_PiecewiseLinearFunction(self):
         f = opensim.PiecewiseLinearFunction()
         f.setName("fcn1")
         assert f.getName() == "fcn1"
