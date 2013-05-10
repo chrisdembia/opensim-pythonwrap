@@ -45,7 +45,6 @@ class TestValueTypes(unittest.TestCase):
         operator (e.g., a[0])
 
         """
-
         v = opensim.Vector()
         v.resize(2)
         v.set(0, 1.5)
