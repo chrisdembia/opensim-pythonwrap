@@ -8,6 +8,7 @@
 namespace SimTK {
 %template(Vec3) Vec<3>;
 }
+
 // Mat33
 %include <SWIG/Mat.h>
 namespace SimTK {
@@ -22,6 +23,15 @@ namespace SimTK {
 %template(Matrix) SimTK::Matrix_<double>;
 }
 
+// TODO find out how to make this more general? so we don't have to redo it for
+// all classes. maybe using a swig fragment or something.
+%extend SimTK::Vector_<double> {
+    double __getitem__(int i) {
+        return $self->get(i);
+    }
+}
+
+/* TODO remove
 %pythoncode %{
 def newVector(arraylike):
     v = Vector()
@@ -31,6 +41,9 @@ def newVector(arraylike):
         v.set(i, arraylike[i])
     return v
 %}
+*/
+
+// TODO allow lists to work as well...
 %typemap(in) const SimTK::Vector& {
     $1 = NULL;
     if (PyTuple_Check($input)) {

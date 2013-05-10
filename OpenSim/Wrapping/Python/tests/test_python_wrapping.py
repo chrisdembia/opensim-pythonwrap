@@ -41,12 +41,20 @@ class TestValueTypes(unittest.TestCase):
         pass
 
     def test_Vector(self):
-        """Creates a vector, sets its size, and some values."""
+        """Creates a vector, sets its size, sets some values, uses the indexing
+        operator (e.g., a[0])
+
+        """
 
         v = opensim.Vector()
-        v.resize(1)
+        v.resize(2)
         v.set(0, 1.5)
         assert v.get(0) == 1.5
+
+        assert v[0] == 1.5
+        v.set(1, 3)
+        assert v[1] == 3
+
 
     def test_Function(self):
         """Creates a piecewise linear function, adds points to it, and
@@ -70,3 +78,9 @@ class TestValueTypes(unittest.TestCase):
 
         # Using tuple typemap(in) for const SimTK::Vector&'s.
         assert f.calcValue((1.5, )) == 1.75
+
+        # Using list typemap(in) for const SimTK::Vector&'s.
+        # TODO
+
+        # Using numpy array typemap(in) for const SimTK::Vector&'s.
+        # TODO
