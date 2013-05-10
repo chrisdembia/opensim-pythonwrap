@@ -114,3 +114,9 @@ class TestFunctions(unittest.TestCase):
 
         # Using numpy array typemap(in) for const SimTK::Vector&'s.
         # TODO
+
+        # toString
+        # TODO
+
+        # printToXML
+        # TODO

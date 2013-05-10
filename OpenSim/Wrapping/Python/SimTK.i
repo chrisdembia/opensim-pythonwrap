@@ -27,7 +27,13 @@ namespace SimTK {
 // all classes. maybe using a swig fragment or something.
 %extend SimTK::Vector_<double> {
     double __getitem__(int i) {
-        return $self->get(i);
+        return $self->operator[](i);
+    }
+}
+
+%extend OpenSim::Object {
+    string __str__() {
+        return $self->toString();
     }
 }
 
