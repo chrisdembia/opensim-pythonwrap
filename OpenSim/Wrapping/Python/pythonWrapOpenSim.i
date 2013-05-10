@@ -339,4 +339,5 @@ using namespace SimTK;
 6. For Vec3, use np.array, etc.
 7. Object class does not exist? virtual?
 8. Geometry should be virtual.
+9. Can extend and add a __iter__ method to allow for python iteration.
 */

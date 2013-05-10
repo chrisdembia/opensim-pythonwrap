@@ -37,4 +37,32 @@ class TestValueTypes(unittest.TestCase):
         assert pg2.getName() == "pg_name"
 
     def test_Geometry(self):
+        # TODO
         pass
+
+    def test_Vector(self):
+        """Creates a vector, sets its size, and some values."""
+
+        v = opensim.Vector()
+        v.resize(1)
+        v.set(0, 1.5)
+        assert v.get(0) == 1.5
+
+    def test_Function(self):
+        """Creates a piecewise linear function, adds points to it, and
+        calculates its value.
+
+        """
+        f = opensim.PiecewiseLinearFunction()
+        f.setName("fcn1")
+        assert f.getName() == "fcn1"
+
+        f.addPoint(0, 1)
+        f.addPoint(1, 1.5)
+        f.addPoint(2, 2)
+        assert f.getSize() == 3
+
+        v = opensim.Vector()
+        v.resize(1)
+        v.set(0, 1.5)
+        assert f.calcValue(v) == 1.75
