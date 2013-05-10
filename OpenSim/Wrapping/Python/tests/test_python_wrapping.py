@@ -82,6 +82,8 @@ class TestFunctions(unittest.TestCase):
 
         x = np.array([0, 2, 4, 6, 8])
         y = np.array([1, 2, 1, 2, 4])
+        # TODO default arguments in the constructor not converted
+        # to keyword arguments
         g2 = opensim.SimmSpline(5, x, y)
         assert g2.calcValue(8) == 4
 
