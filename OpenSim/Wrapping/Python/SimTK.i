@@ -44,13 +44,15 @@ def newVector(arraylike):
             if (PyFloat_Check(o))
                 v->set(i, PyFloat_AsDouble(PyTuple_GetItem($input, i)));
             else {
-                PyErr_SetString(PyExc_TypeError, "list must contain floats");
+                // TODO improve error message.
+                PyErr_SetString(PyExc_TypeError, "tuple must contain floats");
                 return NULL;
             }
         }
         $1 = v;
     } else {
-        PyErr_SetString(PyExc_TypeError,"not a list");
+        // TODO improve error message.
+        PyErr_SetString(PyExc_TypeError,"not a tuple");
         return NULL;
     }
 }

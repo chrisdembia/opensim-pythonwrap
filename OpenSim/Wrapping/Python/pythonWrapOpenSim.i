@@ -340,4 +340,5 @@ using namespace SimTK;
 7. Object class does not exist? virtual?
 8. Geometry should be virtual.
 9. Can extend and add a __iter__ method to allow for python iteration.
+10. Inertia.getMoments()[0] "Vec3 object does not support indexing"
 */
