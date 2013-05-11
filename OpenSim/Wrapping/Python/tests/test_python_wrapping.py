@@ -60,6 +60,45 @@ class TestSuper(unittest.TestCase):
         fiddes.close()
 
 
+class TestSet(unittest.TestSet):
+    """We've added some methods to template<class T> class Set, particularly
+    magic/special/dunder methods, that should work for all sets.
+
+    """
+    def test___contains__(self):
+        """Ensures that "value in set" works."""
+        s = opensim.FunctionSet()
+        f1 = opensim.Constant(1.5)
+        f1.setName('fcn1')
+        f2 = opensim.PiecewiseLinearFunction()
+        f2.setName('fcn2')
+        f2.addPoint(1.5, 3.0)
+        f2.addPoint(2.0, 4.0)
+
+        s.insert(0, f1)
+        self.assertTrue(f1 in s)
+
+        s.insert(1, f2)
+        self.assertTrue(f2 in s)
+
+    def test___getitem__(self):
+        """One can access elements in the Set by either providing an int index,
+        or by providing a string name of one of the elements in the Set.
+
+        """
+        pass
+
+    def test_dict(self):
+        """Method that returns a dict of all entries in the Set."""
+        # TODO references or pointers or what?
+        # TODO may not work well if entries don't all have names.
+        pass
+
+    def test_list(self):
+        """Method that returns a list of all entries in the Set."""
+        pass
+
+
 class TestValueTypes(unittest.TestCase):
     """Ensures the proper conversion of std::string and std::string * to python
     str's.
@@ -92,7 +131,13 @@ class TestValueTypes(unittest.TestCase):
 
     def test_Geometry(self):
         # TODO
-        pass
+
+        # Renamed enum Geometry::None to Geometry::NoneType.
+        self.assertEquals(Geometry::NoType, 0)
+
+        # Renamed DisplayGoemetry::None to DisplayGeometry::NonePreference.
+        self.assertEquals(DisplayGeometry::NonePreference, 0)
+
 
     def test_Vector(self):
         """Creates a vector, sets its size, sets some values, uses the indexing
@@ -114,10 +159,28 @@ class TestValueTypes(unittest.TestCase):
 
         # out of range.
         with self.assertRaises(Exception):
-            v[4] = 6.2
+            v[8] = 6.2
 
         # Check length of vector with __len__().
         self.assertEquals(len(v), 2)
+
+        # -- Tests the constructor using numpy array input.
+        w = opensim.Vector(np.array([1, 2, 3]))
+        self.assertEquals(w[0], 1)
+        self.assertEquals(w[1], 2)
+        self.assertEquals(w[2], 3)
+
+        # In fact, other types of input should work as well. lists:
+        x = opensim.Vector([5, 3, 4])
+        self.assertEquals(x[0], 5)
+        self.assertEquals(x[1], 3)
+        self.assertEquals(x[2], 4)
+
+        # ... and tuples:
+        z = opensim.Vector((7, 4, 1))
+        self.assertEquals(z[0], 7)
+        self.assertEquals(z[1], 4)
+        self.assertEquals(z[2], 1)
 
 
 class TestFunctions(unittest.TestCase):

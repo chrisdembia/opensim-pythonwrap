@@ -14,7 +14,16 @@ namespace SimTK {
 namespace SimTK {
 %template(Mat33) Mat<3, 3>;
 }
+
 // Vector and Matrix
+// See http://docs.scipy.org/doc/numpy/reference/swig.interface-file.html
+// for the difference between IN_ARRAY1 and INPLACE_ARRAY1: the former allows
+// inputs of not just numpy arrays, but the former works more like a C++
+// reference input.
+// The bit of code inside the {}'s comes from the Vector_ constructor in
+// BigMatrix.h.
+%apply (int DIM1, double* IN_ARRAY1) {(int m, const double* cppInitialValues)};
+
 %include <SWIG/BigMatrix.h>
 namespace SimTK {
 %template(MatrixBaseDouble) SimTK::MatrixBase<double>;
