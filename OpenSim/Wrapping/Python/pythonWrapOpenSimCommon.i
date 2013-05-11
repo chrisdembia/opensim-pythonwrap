@@ -35,37 +35,29 @@
 %rename(NoneType) OpenSim::Geometry::None;
 %include <OpenSim/Common/Geometry.h>
 
+// None is a python keyword.
 %rename(NonePreference) OpenSim::DisplayGeometry::None;
 %include <OpenSim/Common/DisplayGeometry.h>
 
+/*
+   TODO neither of these work.
+%apply OpenSim::Array<std::string>& OUTPUT {OpenSim::Array< std::string > &rNames};
+%typemap(out) OpenSim::Array< std::string > &rNames {
+    // $1 is a python list.
+    $result = PyList_New();
+    for (int i = 0; i , $1.size(); i++) {
+        PyList_Append($result, $1[i]);
+    }
+}
+*/
+
 %include <OpenSim/Common/Set.h>
-%template(SetGeometry) OpenSim::Set<OpenSim::DisplayGeometry>;
-%include <OpenSim/Common/GeometrySet.h>
-%include <OpenSim/Common/VisibleObject.h>
-%include <OpenSim/Common/StateVector.h>
-%include <OpenSim/Common/StorageInterface.h>
-%include <OpenSim/Common/Storage.h>
-%include <OpenSim/Common/Units.h>
-%include <OpenSim/Common/IO.h>
-%include <OpenSim/Common/Function.h>
-// TODO does not avert warning intended to avert %template(FunctionDouble) SimTK::Function_<double>;
-
-%template(SetFunctions) OpenSim::Set<OpenSim::Function>;
-%include <OpenSim/Common/FunctionSet.h>
-
 // Extends all templated versions of Set to return both a list() and a dict().
 // TODO really need docstrings for these methods.
 // TODO how to write an iterator in python C api:
 // http://stackoverflow.com/questions/1815812/how-to-create-a-generator-iterator-with-the-python-c-api
 // http://eli.thegreenplace.net/2012/04/05/implementing-a-generatoryield-in-a-python-c-extension/
 //     T& __iter__():
-//    bool __contains__(T& value) {
-//        if $self->contains(value.getName())
-//            return true;
-//        else
-//            return false;
-// TODO use PyDict_Contains()
-//    }
 /* TODO don't know how to typecast to PyObject *
 %extend OpenSim::Set<OpenSim::Function> {
 
@@ -81,17 +73,52 @@
 
 };
 */
-%extend OpenSim::Set<OpenSim::Function> {
-    bool __contains__(OpenSim::Function& value) {
+
+%extend OpenSim::Set {
+    void __setitem__(int i, T& v) {
+        if (i >= $self->getSize()) {
+            PyErr_Format(PyExc_IndexError,
+                    "Index less than %i required. "
+                    "Index %i given.",
+                    $self->getSize(), i);
+        } else {
+            $self->operator[](i) = v;
+        }
+    }
+    T& __getitem__(int i) {
+        return $self->operator[](i);
+    }
+
+    int __len__() {
+        return $self->getSize();
+    }
+
+    bool __contains__(T& value) {
+        /* TODO this check seems to have no effect.
         if (value.getName() == "")
             PyErr_SetString(PyExc_ValueError,
                     "Object has empty name. Cannot check if Set contains it.");
+         */
         if ($self->contains(value.getName()))
             return true;
         else
             return false;
     }
+    // TODO getNames returns list of str's.
 };
+%template(SetGeometry) OpenSim::Set<OpenSim::DisplayGeometry>;
+%include <OpenSim/Common/GeometrySet.h>
+%include <OpenSim/Common/VisibleObject.h>
+%include <OpenSim/Common/StateVector.h>
+%include <OpenSim/Common/StorageInterface.h>
+%include <OpenSim/Common/Storage.h>
+%include <OpenSim/Common/Units.h>
+%include <OpenSim/Common/IO.h>
+
+%include <OpenSim/Common/Function.h>
+
+%template(SetFunctions) OpenSim::Set<OpenSim::Function>;
+%include <OpenSim/Common/FunctionSet.h>
 
 %include <OpenSim/Common/Constant.h>
 %include <OpenSim/Common/SimmSpline.h>

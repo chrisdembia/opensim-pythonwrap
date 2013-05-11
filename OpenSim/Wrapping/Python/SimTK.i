@@ -1,6 +1,9 @@
 // Copied directly from Java's .i file, and then edited.
 %include <SimTKcommon.h>
 
+// TODO does not avert warning intended to avert
+// %template(FunctionDouble) SimTK::Function_<double>;
+
 %include <SimTKcommon/Constants.h>
 %include <SWIG/Vec.h>
 %include <SimTKcommon/SmallMatrix.h>
@@ -38,7 +41,8 @@ namespace SimTK {
     void __setitem__(int i, double v) {
         if (i >= $self->size()) {
             PyErr_Format(PyExc_IndexError,
-                    "Index less than %i required. Index %i given.",
+                    "Index less than %i required. "
+                    "Index %i given. Use resize()",
                     $self->size(), i);
         } else {
             $self->operator[](i) = v;
@@ -133,5 +137,7 @@ namespace SimTK {
 }
 
 // State & Stage
+// Treating the type conversion for SimTK::Stage, to avoid the warning we get.
+%rename(__int__) SimTK::Stage::operator int;
 %include <SWIG/Stage.h>
 %include <SWIG/State.h>

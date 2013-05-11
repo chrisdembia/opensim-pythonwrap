@@ -60,33 +60,84 @@ class TestSuper(unittest.TestCase):
         fiddes.close()
 
 
-class TestSet(unittest.TestSet):
+class TestSet(unittest.TestCase):
     """We've added some methods to template<class T> class Set, particularly
     magic/special/dunder methods, that should work for all sets.
 
     """
+    def setUp(self):
+        # Functions.
+        self.s = opensim.FunctionSet()
+        self.f1 = opensim.Constant(1.5)
+        self.f1.setName('fcn1')
+        self.f2 = opensim.PiecewiseLinearFunction()
+        self.f2.setName('fcn2')
+        self.f2.addPoint(1.5, 3.0)
+        self.f2.addPoint(2.0, 4.0)
+    
+        # DisplayGeometry.
+        self.gs = opensim.GeometrySet()
+        self.g1 = opensim.DisplayGeometry()
+        self.g1.setName('gA')
+        self.g2 = opensim.DisplayGeometry()
+        self.g2.setName('gB')
+
     def test___contains__(self):
         """Ensures that "value in set" works."""
-        s = opensim.FunctionSet()
-        f1 = opensim.Constant(1.5)
-        f1.setName('fcn1')
-        f2 = opensim.PiecewiseLinearFunction()
-        f2.setName('fcn2')
-        f2.addPoint(1.5, 3.0)
-        f2.addPoint(2.0, 4.0)
 
-        s.insert(0, f1)
-        self.assertTrue(f1 in s)
+        def helper(the_set, item1, item2):
+            # Actually does the check for a given set and items to put in set.
+            self.assertFalse(item1 in the_set)
+            the_set.setSize(1)
+            the_set.insert(0, item1)
+            self.assertTrue(item1 in the_set)
 
-        s.insert(1, f2)
-        self.assertTrue(f2 in s)
+            self.assertFalse(item2 in the_set)
+            the_set.adoptAndAppend(item2)
+            self.assertTrue(item2 in the_set)
+
+        # Functions.
+        helper(self.s, self.f1, self.f2)
+    
+        # DisplayGeometry.
+        helper(self.gs, self.g1, self.g2)
+
+        # TODO what if the items in the set do not have a name?
+
+    def test___setitem__(self):
+        """One can insert elements in the Set, given that it has the adequate
+        size.
+
+        """
+        # TODO the syntax using setSize does not work.
+        #self.s.setSize(1)
+        #self.s[0] = self.f1
+        self.s.adoptAndAppend(self.f1)
+        # adoptAndAppend seems to be making a copy? or something like that.
+        self.assertIs(opensim.Constant.safeDownCast(self.s.get(0)), self.f1)
+        with self.assertRaises(Exception):
+            # Not big enough.
+            self.s[1] = self.f2
+
+        self.gs.setSize(2)
+        self.gs[0] = self.g1
+        self.gs[1] = self.g2
+        self.assertIs(self.gs.get(0), self.g1)
+        self.assertIs(self.gs.get(1), self.g2)
 
     def test___getitem__(self):
         """One can access elements in the Set by either providing an int index,
         or by providing a string name of one of the elements in the Set.
 
         """
-        pass
+        self.s.adoptAndAppend(self.f1)
+        self.assertEquals(self.s[0].getName(), self.f1.getName())
+
+    def test___len__(self):
+        """Ensures that the user can getSize() using built-in len()."""
+        self.assertEquals(len(self.s), 0)
+        self.s.adoptAndAppend(self.f1)
+        self.assertEquals(len(self.s), 1)
 
     def test_dict(self):
         """Method that returns a dict of all entries in the Set."""
@@ -97,6 +148,19 @@ class TestSet(unittest.TestSet):
     def test_list(self):
         """Method that returns a list of all entries in the Set."""
         pass
+
+    def test_getNames(self):
+        """Instead of passing a SimTK::Array<std::string> by reference as in
+        the C++ API, a list of str's is returned.
+        
+        """
+        # TODO haven't been able to get this to work yet.
+        self.s.adoptAndAppend(self.f1)
+        self.s.adoptAndAppend(self.f2)
+        names = self.s.getNames()
+        self.assertTrue(type(names) == list)
+        for i in range(len(self.s.getNames())):
+            self.assertEquals(names[i], self.s[i].getName())
 
 
 class TestValueTypes(unittest.TestCase):
@@ -133,10 +197,10 @@ class TestValueTypes(unittest.TestCase):
         # TODO
 
         # Renamed enum Geometry::None to Geometry::NoneType.
-        self.assertEquals(Geometry::NoType, 0)
+        self.assertEquals(opensim.Geometry.NoneType, 0)
 
         # Renamed DisplayGoemetry::None to DisplayGeometry::NonePreference.
-        self.assertEquals(DisplayGeometry::NonePreference, 0)
+        self.assertEquals(opensim.DisplayGeometry.NonePreference, 0)
 
 
     def test_Vector(self):

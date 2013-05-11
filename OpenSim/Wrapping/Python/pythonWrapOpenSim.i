@@ -5,6 +5,7 @@
 // TODO #pragma SWIG nowarn=314
 // warning 451: Setting a const char * variable may leak memory. 
 // TODO typemap this away.
+#pragma SWIG nowarn=451
 // warning 362: operator= ignored.
 // TODO #pragma SWIG nowarn=362
 
@@ -320,4 +321,6 @@ using namespace SimTK;
 20. can maybe remove NumPy_Backward_Compatibility
 21. make sets easy to iterate through.
 22. use __copy__ to take care of operator=.
+23. adoptAndAppend seems to be making a copy.
+24. safeDownCast() in documentation.
 */
