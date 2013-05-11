@@ -6,7 +6,7 @@
 // warning 451: Setting a const char * variable may leak memory. 
 // TODO typemap this away.
 // warning 362: operator= ignored.
-#pragma SWIG nowarn=362
+// TODO #pragma SWIG nowarn=362
 
 %feature("autodoc", "3");
 
@@ -258,8 +258,12 @@ using namespace SimTK;
 %rename(OpenSimObject) OpenSim::Object;
 %rename(OpenSimException) OpenSim::Exception;
 
+// TODO
+%ignore *::operator=;
+
 // To avert warning 314.
 // %rename(printToXML) OpenSim::Object::print(const std::string &);
+// TODO the autodoc is not working.
 %feature("autodoc", "This function is the same as print(), but has been renamed for the Python wrapping since `print` is a python keyword.") printToXML;
 %rename(printToXML) print;
 
@@ -418,6 +422,7 @@ namespace OpenSim {
 %include <OpenSim/Simulation/Model/HuntCrossleyForce.h>
 */
 
+/*
 %include <OpenSim/Simulation/Model/Actuator.h>
 %template(SetActuators) OpenSim::Set<OpenSim::Actuator>;
 %template(ArrayStorage) OpenSim::ArrayPtrs<OpenSim::Storage>;
@@ -587,7 +592,6 @@ namespace OpenSim {
 %include <OpenSim/Tools/AnalyzeTool.h>
 %include <OpenSim/Tools/InverseKinematicsTool.h>
 
-/*
 1. Array.getitem() instead of get(), is this the expected use case?
 2. Property::operator[]
 3. Property::operator=
@@ -605,4 +609,5 @@ namespace OpenSim {
 15. optional arguments.
 16. Convert all Set* to _Set* (like SetJoints to _SetJoints).
 17. Extend Set to have an iter() method!!! or dict() or something!!!
+18. Tests would be performed in the build directory, not in the source tree.
 */

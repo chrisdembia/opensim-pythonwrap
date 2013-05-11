@@ -26,13 +26,26 @@ namespace SimTK {
 // TODO find out how to make this more general? so we don't have to redo it for
 // all classes. maybe using a swig fragment or something.
 %extend SimTK::Vector_<double> {
+    void __setitem__(int i, double v) {
+        if (i >= $self->size()) {
+            PyErr_Format(PyExc_IndexError,
+                    "Index less than %i required. Index %i given.",
+                    $self->size(), i);
+        } else {
+            $self->operator[](i) = v;
+        }
+    }
     double __getitem__(int i) {
         return $self->operator[](i);
+    }
+
+    int __len__() {
+        return $self->size();
     }
 }
 
 %extend OpenSim::Object {
-    string __str__() {
+    std::string __str__() {
         return $self->toString();
     }
 }
@@ -49,29 +62,46 @@ def newVector(arraylike):
 %}
 */
 
+// Functions looking for a const SimTK::Vector& will alternatively accept
+// lists, tuples, etc.
 // TODO allow lists to work as well...
 %typemap(in) const SimTK::Vector& {
     $1 = NULL;
     if (PyTuple_Check($input)) {
         int size = PyTuple_Size($input);
 
-        // TODO [chrisdembia] this really shouldn't be a pointer.
-        SimTK::Vector * v = new SimTK::Vector();
-        v->resize(size);
+        SimTK::Vector v = SimTK::Vector();
+        v.resize(size);
         for (int i = 0; i < size; i++) {
             PyObject *o = PyTuple_GetItem($input, i);
             if (PyFloat_Check(o))
-                v->set(i, PyFloat_AsDouble(PyTuple_GetItem($input, i)));
+                v.set(i, PyFloat_AsDouble(PyTuple_GetItem($input, i)));
             else {
-                // TODO improve error message.
                 PyErr_SetString(PyExc_TypeError, "tuple must contain floats");
                 return NULL;
             }
         }
-        $1 = v;
+        $1 = &v;
+        /*
+    } else if (PyList_Check($input)) {
+        int size = PyList_Size($input);
+        SimTK::Vector v = SimTK::Vector();
+        v.resize(size);
+        for (int i = 0; i < size; i++) {
+            PyObject *o = PyList_GetItem($input, i);
+            if (PyFloat_Check(o))
+                v.set(i, PyFloat_AsDouble(PyList_GetItem($input, i)));
+            else {
+                PyErr_SetString(PyExc_TypeError, "list must contain floats");
+                return NULL;
+            }
+        }
+        $1 = &v;
+        */
     } else {
-        // TODO improve error message.
-        PyErr_SetString(PyExc_TypeError,"not a tuple");
+        // $1 = $input;
+        PyErr_SetString(PyExc_TypeError,
+                "Tuple required. Given some other type.");
         return NULL;
     }
 }
