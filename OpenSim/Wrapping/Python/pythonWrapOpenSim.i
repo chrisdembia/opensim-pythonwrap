@@ -296,7 +296,7 @@ using namespace SimTK;
 %include "pythonWrapOpenSimSimulation.i"
 %include "pythonWrapOpenSimAnalyses.i"
 %include "pythonWrapOpenSimActuators.i"
-%include "pythonWrapOpenSimToos.i"
+%include "pythonWrapOpenSimTools.i"
 /*
 
 1. Array.getitem() instead of get(), is this the expected use case?
