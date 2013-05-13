@@ -294,10 +294,10 @@ using namespace SimTK;
 
 %include "pythonWrapOpenSimCommon.i"
 %include "pythonWrapOpenSimSimulation.i"
-/*
 %include "pythonWrapOpenSimAnalyses.i"
 %include "pythonWrapOpenSimActuators.i"
 %include "pythonWrapOpenSimToos.i"
+/*
 
 1. Array.getitem() instead of get(), is this the expected use case?
 2. Property::operator[]
