@@ -78,6 +78,7 @@ def newVector(arraylike):
 // Functions looking for a const SimTK::Vector& will alternatively accept
 // lists, tuples, etc.
 // TODO allow lists to work as well...
+        /*
 %typemap(in) const SimTK::Vector& {
     $1 = NULL;
     if (PyTuple_Check($input)) {
@@ -95,7 +96,6 @@ def newVector(arraylike):
             }
         }
         $1 = &v;
-        /*
     } else if (PyList_Check($input)) {
         int size = PyList_Size($input);
         SimTK::Vector v = SimTK::Vector();
@@ -110,7 +110,6 @@ def newVector(arraylike):
             }
         }
         $1 = &v;
-        */
     } else {
         // $1 = $input;
         PyErr_SetString(PyExc_TypeError,
@@ -118,6 +117,7 @@ def newVector(arraylike):
         return NULL;
     }
 }
+        */
 
 %include <SWIG/SpatialAlgebra.h>
 namespace SimTK {

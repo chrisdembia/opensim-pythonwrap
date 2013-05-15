@@ -3,6 +3,39 @@
 %include <OpenSim/Common/osimCommonDLL.h>
 %include <OpenSim/Common/Exception.h>
 
+%typemap(in, numinputs=0) OpenSim::Array<double> &rTimes (OpenSim::Array<double> temp) {
+    $1 = &temp;
+}
+%typemap(argout) OpenSim::Array<double> &rTimes {
+    $result = PyList_New($1->getSize());
+    for (int i = 0; i < $1->getSize(); i++)
+    {
+        PyList_SetItem($result, i, PyFloat_FromDouble($1->get(i)));
+    }
+//    PyTuple_SetItem($result, 0, PyInt_FromLong((long)result));
+//    PyTuple_SetItem($result, 1, $1);
+//    $result = $1;
+}
+
+%typemap(in, numinputs=1) OpenSim::Array<double> &rData (OpenSim::Array<double> temp) {
+    $1 = &temp;
+}
+%typemap(argout) OpenSim::Array<double> &rData {
+    // WOWEE
+    $result = PyList_New($1->getSize());
+    for (int i = 0; i < $1->getSize(); i++)
+    {
+        PyList_SetItem($result, i, PyFloat_FromDouble($1->get(i)));
+    }
+//    PyTuple_SetItem($result, 0, PyInt_FromLong((long)result));
+//    PyTuple_SetItem($result, 1, $1);
+//    $result = $1;
+}
+//%apply(double ARGOUT_ARRAY1[ANY]) {(double *& rTimes)};
+//%numpy_typemaps(OpenSim::Array<double>, NPY_DOUBLE, double);
+//%apply(OpenSim::Array<double> ARGOUT_ARRAY1[ANY]) {(OpenSim::Array<double>& rTimes)};
+
+
 %include <OpenSim/Common/Array.h>
 /* Convert from C --> Python; taken from swig2.0 docs */
 // ArrayDouble.get(int) returns a double*; dont want that.
