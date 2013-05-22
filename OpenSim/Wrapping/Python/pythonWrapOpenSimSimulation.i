@@ -60,7 +60,6 @@ namespace OpenSim {
 %include <OpenSim/Simulation/Model/HuntCrossleyForce.h>
 */
 
-/*
 %include <OpenSim/Simulation/Model/Actuator.h>
 %template(SetActuators) OpenSim::Set<OpenSim::Actuator>;
 %template(ArrayStorage) OpenSim::ArrayPtrs<OpenSim::Storage>;
@@ -169,8 +168,7 @@ namespace OpenSim {
 %include <OpenSim/Simulation/Model/Muscle.h>
 %include <OpenSim/Simulation/Model/ActivationFiberLengthMuscle.h>
 %include <OpenSim/Simulation/Model/PointToPointSpring.h>
-%include <OpenSim/Simulation/Model/PathSpring.h>
+// TODO %include <OpenSim/Simulation/Model/PathSpring.h>
 %include <OpenSim/Simulation/Model/BushingForce.h>
 %include <OpenSim/Simulation/Model/FunctionBasedBushingForce.h>
 %include <OpenSim/Simulation/Model/ExpressionBasedBushingForce.h>
-*/

@@ -31,6 +31,17 @@
 //    PyTuple_SetItem($result, 1, $1);
 //    $result = $1;
 }
+%typemap(out) OpenSim::Array<double> {
+    // WOWEE
+    $result = PyList_New($1.getSize());
+    for (int i = 0; i < $1.getSize(); i++)
+    {
+        PyList_SetItem($result, i, PyFloat_FromDouble($1.get(i)));
+    }
+//    PyTuple_SetItem($result, 0, PyInt_FromLong((long)result));
+//    PyTuple_SetItem($result, 1, $1);
+//    $result = $1;
+}
 //%apply(double ARGOUT_ARRAY1[ANY]) {(double *& rTimes)};
 //%numpy_typemaps(OpenSim::Array<double>, NPY_DOUBLE, double);
 //%apply(OpenSim::Array<double> ARGOUT_ARRAY1[ANY]) {(OpenSim::Array<double>& rTimes)};
@@ -144,6 +155,16 @@
 %include <OpenSim/Common/VisibleObject.h>
 %include <OpenSim/Common/StateVector.h>
 %include <OpenSim/Common/StorageInterface.h>
+
+//%extend OpenSim::StorageInterface {
+%extend OpenSim::Storage {
+    OpenSim::Array<double> getDataColumn(const std::string &columnName) {
+        OpenSim::Array<double> a;
+        $self->getDataColumn(columnName, a);
+        return a;
+    }
+}
+
 %include <OpenSim/Common/Storage.h>
 %include <OpenSim/Common/Units.h>
 %include <OpenSim/Common/IO.h>
@@ -164,8 +185,8 @@
 %include <OpenSim/Common/Sine.h>
 %include <OpenSim/Common/SmoothSegmentedFunctionFactory.h>
 %include <OpenSim/Common/SmoothSegmentedFunction.h>
-
 %include <OpenSim/Common/XYFunctionInterface.h>
+
 %template(ArrayXYPoint) OpenSim::Array<XYPoint>;
 %template(ArrayBool) OpenSim::Array<bool>;
 %template(ArrayDouble) OpenSim::Array<double>;
