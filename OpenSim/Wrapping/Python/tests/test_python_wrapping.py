@@ -9,8 +9,6 @@ import unittest
 import numpy as np
 
 # This import assumes that the opensim wrapping has been installed,
-# and we're importing opensim from its installed location in site-packages (or
-# dist-packages?)
 import opensim
 
 class TestSuper(unittest.TestCase):
@@ -45,14 +43,14 @@ class TestSuper(unittest.TestCase):
 
         self.assertEquals(mystdout.getvalue(), 'managerA\n')
 
-    def test_printToXML(self):
+    def test_printToFile(self):
         a = opensim.Model()
         a.setName('model1')
 
-        a.printToXML('test_printToXML.xml')
+        a.printToFile('test_printToFile.xml')
 
-        fidout = open('test_printToXML.xml', 'r')
-        fiddes = open('test_printToXML_des.xml', 'r')
+        fidout = open('test_printToFile.xml', 'r')
+        fiddes = open('test_printToFile_des.xml', 'r')
 
         self.assertEquals(fidout.read(), fiddes.read())
 

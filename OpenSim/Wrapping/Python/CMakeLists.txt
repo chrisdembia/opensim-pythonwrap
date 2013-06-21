@@ -30,16 +30,18 @@ SET_SOURCE_FILES_PROPERTIES(${swig_interface_file_python}
 # Provide any additional source files here.
 SWIG_ADD_MODULE(opensim python ${swig_interface_file_python})
 SWIG_LINK_LIBRARIES(opensim ${PYTHON_LIBRARIES}
-    osimCommon osimSimulation osimAnalyses osimTools)
+    osimCommon osimSimulation osimAnalyses osimActuators osimTools)
 
+# Install the python files and C++ wrapper libraries on the machine.
+# -----------------------------------------------------------------------------
 # Get the site-packages directory.
 EXECUTE_PROCESS(COMMAND python -c "from distutils.sysconfig import get_python_lib; print get_python_lib()"
-    OUTPUT_VARIABLE PYTHON_SITE_PACKAGES
+    OUTPUT_VARIABLE PYTHON_LIB_DIR
     OUTPUT_STRIP_TRAILING_WHITESPACE)
 
-INSTALL(TARGETS _opensim DESTINATION ${PYTHON_SITE_PACKAGES})
+INSTALL(TARGETS _opensim DESTINATION ${PYTHON_LIB_DIR})
 INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/opensim.py
-    DESTINATION ${PYTHON_SITE_PACKAGES})
+    DESTINATION ${PYTHON_LIB_DIR})
 # This may be useful ( gives the name of target): ${SWIG_FILE_opensim_REAL_NAME}
 
 # Test the code.

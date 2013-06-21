@@ -269,8 +269,8 @@ using namespace SimTK;
 // To avert warning 314.
 // %rename(printToXML) OpenSim::Object::print(const std::string &);
 // TODO the autodoc is not working.
-%feature("autodoc", "This function is the same as print(), but has been renamed for the Python wrapping since `print` is a python keyword.") printToXML;
-%rename(printToXML) print;
+%feature("autodoc", "This function is the same as print(), but has been renamed for the Python wrapping since `print` is a python keyword.") printToFile;
+%rename(printToFile) print;
 
 %include <OpenSim/version.h>
 
@@ -293,11 +293,11 @@ using namespace SimTK;
 }
 
 %include "pythonWrapOpenSimCommon.i"
+/*
 %include "pythonWrapOpenSimSimulation.i"
 %include "pythonWrapOpenSimAnalyses.i"
 %include "pythonWrapOpenSimActuators.i"
 %include "pythonWrapOpenSimTools.i"
-/*
 
 1. Array.getitem() instead of get(), is this the expected use case?
 2. Property::operator[]

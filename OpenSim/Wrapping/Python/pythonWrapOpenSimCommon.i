@@ -75,11 +75,11 @@
 %include <OpenSim/Common/Object.h>
 %include <OpenSim/Common/ObjectGroup.h>
 
-// None is a python keyword.
+// 'None' is a python keyword.
 %rename(NoneType) OpenSim::Geometry::None;
 %include <OpenSim/Common/Geometry.h>
 
-// None is a python keyword.
+// 'None' is a python keyword.
 %rename(NonePreference) OpenSim::DisplayGeometry::None;
 %include <OpenSim/Common/DisplayGeometry.h>
 
