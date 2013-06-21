@@ -12,10 +12,32 @@ FIND_PACKAGE(PythonLibs REQUIRED)
 
 SET(SimTKSWIG_INCLUDE_PATH ${OpenSim_SOURCE_DIR}/OpenSim/Wrapping/SimTKSWIG)
 
+# TODO
+# Find python home dir on path
+SET(PYTHON_LIB ${PYTHON_LIBRARIES} CACHE FILEPATH 
+      "Location of Python library")
+
+# Get Python.h directory for first python on path.
+EXECUTE_PROCESS(COMMAND python -c "from distutils.sysconfig import get_python_inc; print get_python_inc()"
+    OUTPUT_VARIABLE FIND_PYTHON_INCLUDE_ON_PATH
+    OUTPUT_STRIP_TRAILING_WHITESPACE)
+
+SET(PYTHON_INCLUDE_ON_PATH ${FIND_PYTHON_INCLUDE_ON_PATH} CACHE PATH 
+      "Location of Python includes for first Python.exe on path")
+	  
+# Get numpy include directory for first python on path.
+EXECUTE_PROCESS(COMMAND python -c "from numpy import get_include; print get_include()"
+    OUTPUT_VARIABLE FIND_NUMPY_INCLUDE_ON_PATH
+    OUTPUT_STRIP_TRAILING_WHITESPACE)
+
+SET(NUMPY_INCLUDE_ON_PATH ${FIND_NUMPY_INCLUDE_ON_PATH} CACHE PATH 
+      "Location of Python includes for first Python.exe on path")
+
 INCLUDE_DIRECTORIES(
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${SimTKSWIG_INCLUDE_PATH}
-    ${PYTHON_INCLUDE_PATH}
+    ${PYTHON_INCLUDE_ON_PATH}
+	${NUMPY_INCLUDE_ON_PATH}
     ${OpenSim_SOURCE_DIR}
     ${OpenSim_SOURCE_DIR}/Vendors
     )
