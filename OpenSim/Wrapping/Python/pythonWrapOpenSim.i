@@ -1,4 +1,3 @@
-%module opensim
 
 /* From Java .i file: #pragma SWIG nowarn=822,451,503,516,325 */
 // warning 314: print is a python keyword, renaming to _print.
@@ -274,10 +273,6 @@ using namespace SimTK;
 
 %include <OpenSim/version.h>
 
-// For modularity, [chrisdembia] split off the SimTK content to a separate
-// .i file.
-%include "SimTK.i"
-
 // Exceptions.
 // TODO could create multiple exception types.
 // SWIG_exception comes from exception.i.
@@ -292,8 +287,8 @@ using namespace SimTK;
     }
 }
 
-%include "pythonWrapOpenSimCommon.i"
 /*
+%include "pythonWrapOpenSimCommon.i"
 %include "pythonWrapOpenSimSimulation.i"
 %include "pythonWrapOpenSimAnalyses.i"
 %include "pythonWrapOpenSimActuators.i"

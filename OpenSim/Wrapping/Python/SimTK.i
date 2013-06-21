@@ -1,3 +1,7 @@
+%module SimTK
+
+%include "pythonWrapOpenSim.i"
+
 // Copied directly from Java's .i file, and then edited.
 %include <SimTKcommon.h>
 
