@@ -1,5 +1,9 @@
-
 //osimActuators
+
+%module actuators
+
+%include "pythonWrapOpenSim.i"
+
 %include <OpenSim/Actuators/osimActuatorsDLL.h>
 %include <OpenSim/Actuators/CoordinateActuator.h>
 %include <OpenSim/Actuators/PointActuator.h>

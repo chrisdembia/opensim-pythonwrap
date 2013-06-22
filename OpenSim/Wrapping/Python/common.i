@@ -1,5 +1,9 @@
-
 // ----- osimCommon library
+
+%module common
+
+%include "pythonWrapOpenSim.i"
+
 %include <OpenSim/Common/osimCommonDLL.h>
 %include <OpenSim/Common/Exception.h>
 

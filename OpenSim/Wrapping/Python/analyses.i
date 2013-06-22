@@ -1,5 +1,9 @@
-
 //osimAnalyses
+
+%module common
+
+%include "pythonWrapOpenSim.i"
+
 %include <OpenSim/Analyses/osimAnalysesDLL.h>
 %include <OpenSim/Analyses/Kinematics.h>
 %include <OpenSim/Analyses/Actuation.h>

@@ -1,5 +1,9 @@
-
 //osimTools
+
+%module tools
+
+%include "pythonWrapOpenSim.i"
+
 %include <OpenSim/Tools/osimToolsDLL.h>
 %include <OpenSim/Tools/IKTask.h>
 %template(SetIKTasks) OpenSim::Set<OpenSim::IKTask>;

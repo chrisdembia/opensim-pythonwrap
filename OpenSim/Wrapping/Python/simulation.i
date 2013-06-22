@@ -1,5 +1,9 @@
-
 // osimSimulation
+
+%module simulation
+
+%include "pythonWrapOpenSim.i"
+
 %include <OpenSim/Simulation/osimSimulationDLL.h>
 %include <OpenSim/Simulation/Model/ModelComponent.h>
 %template(SetModelComponents) OpenSim::Set<OpenSim::ModelComponent>;

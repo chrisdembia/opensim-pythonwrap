@@ -1,3 +1,4 @@
+from SimTK import *
 from common import *
 # TODO
 # from simulation import *
