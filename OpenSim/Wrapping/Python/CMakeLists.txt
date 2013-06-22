@@ -66,38 +66,36 @@ INCLUDE_DIRECTORIES(
 # =============================================================================
 SET(CMAKE_SWIG_FLAGS "")
 
-SET(PYTHON_WRAP_MODULE_NAMES
-    SimTK
-    common
-    )
+# To aid with creating multiple modules.
+MACRO(OPENSIM_PYTHON_SWIG_ADD_MODULE modulename)
 
-# Building.
-# ---------
-FOREACH(modulename ${PYTHON_WRAP_MODULE_NAMES})
+    # Building.
+    # ---------
     SET_SOURCE_FILES_PROPERTIES(${modulename}.i PROPERTIES CPLUSPLUS ON)
-ENDFOREACH()
+    SWIG_ADD_MODULE(${modulename} python ${modulename}.i)
+    SET(LIBS_TO_LINK ${PYTHON_LIBRARIES})
+    FOREACH(it ${ARGN})
+        SET(LIBS_TO_LINK ${LIBS_TO_LINK} ${it})
+    ENDFOREACH()
+    SWIG_LINK_LIBRARIES(${modulename} ${LIBS_TO_LINK})
 
-SWIG_ADD_MODULE(opensim python SimTK.i common.i)
-SWIG_LINK_LIBRARIES(opensim
-    osimCommon osimSimulation osimAnalyses osimActuators osimTools)
+    # Installing.
+    # -----------
+    # Shared libary.
+    # TODO would prefer to use ${SWIG_FILE_${modulename}_REAL_NAME} below
+    INSTALL(TARGETS _${modulename}
+        DESTINATION ${PYTHON_WRAPPING_INSTALL_DIR}/opensim)
 
-# Installing.
-# -----------
-# Shared libary.
-# TODO would prefer to use ${SWIG_FILE_${modulename}_REAL_NAME} below
-INSTALL(TARGETS _opensim
-    DESTINATION ${PYTHON_WRAPPING_INSTALL_DIR}/opensim)
-
-# Python (.py) file.
-FOREACH(modulename ${PYTHON_WRAP_MODULE_NAMES})
+    # Python (.py) file.
     INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/${modulename}.py
         DESTINATION ${PYTHON_WRAPPING_INSTALL_DIR}/opensim)
-ENDFOREACH()
+
+ENDMACRO(OPENSIM_PYTHON_SWIG_ADD_MODULE)
 
 # Call the macro for each module.
 # -------------------------------
-#OPENSIM_PYTHON_SWIG_ADD_MODULE(SimTK)
-#OPENSIM_PYTHON_SWIG_ADD_MODULE(common)
+OPENSIM_PYTHON_SWIG_ADD_MODULE(SimTK)
+OPENSIM_PYTHON_SWIG_ADD_MODULE(common)
 #OPENSIM_PYTHON_SWIG_ADD_MODULE(simulation)
 #OPENSIM_PYTHON_SWIG_ADD_MODULE(analyses)
 #OPENSIM_PYTHON_SWIG_ADD_MODULE(actuators)
