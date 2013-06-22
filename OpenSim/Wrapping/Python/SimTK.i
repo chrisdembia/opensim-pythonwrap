@@ -1,5 +1,15 @@
 %module SimTK
 
+%{
+
+#define SWIG_FILE_WITH_INIT
+
+#include <SimTKsimbody.h>
+
+using namespace SimTK;
+
+%}
+
 %include "pythonWrapOpenSim.i"
 
 // Copied directly from Java's .i file, and then edited.
@@ -58,12 +68,6 @@ namespace SimTK {
 
     int __len__() {
         return $self->size();
-    }
-}
-
-%extend OpenSim::Object {
-    std::string __str__() {
-        return $self->toString();
     }
 }
 
